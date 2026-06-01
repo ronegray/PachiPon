@@ -1,0 +1,7 @@
+.venv/
+doc
+__pycache__/
+*.pyc
+*.xlsx
+uv.lock
+.vscode/

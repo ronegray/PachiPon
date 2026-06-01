@@ -1,0 +1,26 @@
+﻿repos:
+  # 1. 一般的なファイル修正（末尾の空白削除など）
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace  # 行末の無駄な空白を消す
+      - id: end-of-file-fixer    # ファイル末尾を改行で終わらせる
+      - id: check-yaml           # YAMLの構文チェック
+
+  # 2. Pythonのコード整形 (Ruff) ※爆速なのでおすすめ
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.9
+    hooks:
+      - id: ruff
+        args: [ --fix ]         # 自動修正可能なものは直す
+      - id: ruff-format         # コードの見た目を整える
+
+  # 3. 自作のテストスクリプトを実行する (pytest)
+#  - repo: local
+#    hooks:
+#      - id: local-pytest
+#        name: Run local pytest
+#        entry: uv run pytest
+#        language: system
+#        pass_filenames: false   # ファイル名を引き継がず全体で実行
+#        types: [python]

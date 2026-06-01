@@ -1,0 +1,12 @@
+version: '3'
+
+includes:
+  dev:   ../../.common-lib/dev.yml # 開発中に使用する
+  build: ../../.common-lib/build.yml # 基本的に全部流す　ウイルス誤判定などの場合にbuildのみ行う
+  github:   ../../.common-lib/github.yml # Issue起票、Issueに紐づくブランチ作成、プッシュなど
+
+tasks:
+  # プロジェクト側でよく使うタスクにエイリアス（別名）を貼る
+  chksrc:
+    cmds:
+      - task: dev:lint

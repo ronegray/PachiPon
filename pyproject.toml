@@ -1,0 +1,11 @@
+[project]
+name = "pachipon"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "pyinstaller>=6.20.0",
+    "pyxel>=2.9.5",
+    "ruff>=0.15.15",
+]
