@@ -58,8 +58,8 @@ class FontManager:
                 cls._fontdata[size_name] = tmpdata
             else:
                 match size_name:
-                    case "small":
-                        cls._fontdata[size_name].height = 4
+                    # case "small":
+                    #     cls._fontdata[size_name].height = 4
                     case "basic":
                         cls._fontdata[size_name].height = 9
                     case "large":

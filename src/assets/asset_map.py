@@ -15,10 +15,15 @@ class AssetID(IntEnum):
     IMAGE_SPLASH = auto()
     IMAGE_TITLE = auto()
     IMAGE_LOGO = auto()
-    IMAGE_MAP = auto()
+    SOUND_TITLE = auto()
+    IMAGE_NEWGAME = auto()
     DATA_LETTER = auto()
-    DATA_ITEM = auto()
+    DATA_OP_MESSAGE = auto()
+    SOUND_OPJINGLE = auto()
+    IMAGE_MAP = auto()
     DATA_MAP = auto()
+    SOUND_FIELD = auto()
+    DATA_ITEM = auto()
 
 
 class AssetMap:
@@ -55,8 +60,12 @@ class AssetMap:
         ] = f"{cls._asset_path}/image/pyxel_logo_76x32.png"
         cls._asset_map[AssetID.IMAGE_TITLE] = f"{cls._asset_path}/image/title.bmp"
         cls._asset_map[AssetID.IMAGE_LOGO] = f"{cls._asset_path}/image/pp_logo.bmp"
+        cls._asset_map[AssetID.IMAGE_NEWGAME] = f"{cls._asset_path}/image/opening.bmp"
         cls._asset_map[AssetID.IMAGE_MAP] = f"{cls._asset_path}/image/map.png"
-        cls._asset_map[AssetID.DATA_LETTER] = f"{cls._asset_path}/data/item_master.json"
+        cls._asset_map[AssetID.DATA_LETTER] = f"{cls._asset_path}/data/letter.json"
+        cls._asset_map[
+            AssetID.DATA_OP_MESSAGE
+        ] = f"{cls._asset_path}/data/op_message.json"
         cls._asset_map[AssetID.DATA_ITEM] = f"{cls._asset_path}/data/item_master.json"
         cls._asset_map[AssetID.DATA_MAP] = f"{cls._asset_path}/data/map_data.json"
 

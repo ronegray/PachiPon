@@ -36,13 +36,12 @@ class Party:
         self.move_speed: float = 2.0  # 移動速度（ピクセル/フレーム）
 
         # 現在地の設定
-        start_point = "p01"
+        start_point = "p17"
         tmp_point = di.ref.map.get_point(start_point)
         if tmp_point is None:
-            logger.critical(
-                f"指定されたイベントポイント({start_point})は定義されていません"
-            )
-            quit()
+            errmsg = f"指定されたイベントポイント({start_point})は定義されていません"
+            logger.critical(errmsg, exc_info=True)
+            raise KeyError(errmsg)
         self.current_point: EventPoint = tmp_point
 
         start_point = di.ref.map.get_point(self.current_point.id)

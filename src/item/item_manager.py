@@ -1,7 +1,7 @@
 import json
 from typing import Optional
 from .item_protocol import ItemID, ItemTag, ItemDef
-from ..assets.asset_map import AssetID, AssetMap
+from assets.asset_map import AssetID, AssetMap
 
 
 class ItemManager:

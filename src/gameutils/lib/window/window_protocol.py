@@ -8,7 +8,7 @@ from enum import Enum, auto
 from typing import Literal
 
 
-WINDOW_MODE = Literal["once", "wait", "page", "menu"]
+WINDOW_MODE = Literal["once", "wait", "page", "menu", "sub"]
 # FONT_SIZE_NAME = Literal["small", "basic", "large"]
 MENU_WINDOW_TYPE = Literal["main", "sub"]
 
@@ -19,6 +19,4 @@ class WindowAction(Enum):
     CONTINUE = auto()  # 現在状態の継続
     CLOSE = auto()  # 一つ戻る (pop)
     DISCARD = auto()  # 全て破棄して閉じる (初期化)
-    EXECUTE = (
-        auto()
-    )  # 選択処理を実行（新しいメニューを開く等。メニューのインスタンスを添えても良い）
+    EXECUTE = auto()  # 選択処理を実行

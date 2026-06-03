@@ -310,7 +310,8 @@ def _wrap_analog_input(
         threshold = _ANALOG_THRESHOLD_TRIGGER
     else:
         # レバー・トリガー以外の入力はエラーで弾く
-        quit()
+        errmsg = "入力値がレバーまたはトリガーではありません"
+        raise ValueError(errmsg)
 
     def check(mode: INPUT_MODE = "once") -> bool:
         nonlocal frame_count  # 外側の変数を書き換えるために必要
