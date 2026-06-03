@@ -1,0 +1,16 @@
+
+{
+    "MenuTitle": [
+        [{"id": "SYSLBL_NEWGAME", "action": "to_newgame"}],
+        [{"id": "SYSLBL_NGPLUS", "action": "to_ngplus"}],
+        [{"id": "SYSLBL_DATALOAD", "action": "to_dataload"}],
+        [{"id": "SYSLBL_CONFIG", "action": "to_config"}]
+    ],
+    "MenuConfig": [
+        [],
+        {"id": "SYSLBL_NEWGAME", "action": "to_newgame"},
+        {"id": "SYSLBL_NGPLUS", "action": "to_ngplus"},
+        {"id": "SYSLBL_DATALOAD", "action": "to_dataload"},
+        {"id": "SYSLBL_CONFIG", "action": "to_config"}
+    ]
+}

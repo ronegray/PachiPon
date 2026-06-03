@@ -1,0 +1,12 @@
+[
+    {
+        "node_id": "node_cross",
+        "flag_id": "FLAG_BOSS_DEFEATED",
+        "event_id": "event_cross_boss_cleared"
+    },
+    {
+        "node_id": "node_up",
+        "flag_id": "FLAG_ITEM_FOUND_01",
+        "event_id": "event_up_item_bonus"
+    }
+]

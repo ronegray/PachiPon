@@ -9,3 +9,8 @@ dependencies = [
     "pyxel>=2.9.5",
     "ruff>=0.15.15",
 ]
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401","F811"]
+[tool.pyright]
+#typeCheckingMode = "basic"
+reportUninitializedInstanceVariable = "warning"

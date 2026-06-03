@@ -1,0 +1,22 @@
+
+{
+    "MenuTitle": [
+        [{"id": "はじめる", "action": "to_newgame"}],
+        [{"id": "つづける", "action": "to_dataload"}],
+        [{"id": "せってい", "action": "to_config"}]
+    ],
+    "MenuDataload": [
+        [{"id": "データ１", "action": "load_data", "args": 0}],
+        [{"id": "データ２", "action": "load_data", "args": 1}],
+        [{"id": "データ３", "action": "load_data", "args": 2}],
+        [{"id": "データ４", "action": "load_data", "args": 3}]
+
+    ],
+    "MenuConfig": [
+        [{"id": "BGM音量", "action": "to_newgame"}],
+        [{"id": "SE音量", "action": "to_ngplus"}],
+        [{"id": "画面サイズ", "action": "to_newgame"}],
+        [{"id": "ダッシュ切替", "action": "to_newgame"}],
+        [{"id": "キー割当", "action": "to_newgame"}]
+    ]
+}
