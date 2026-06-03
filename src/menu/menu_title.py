@@ -2,7 +2,7 @@
 メニューモジュール：タイトル
 
 """
-from gameutils.lib import Menu, WindowAction
+from gameutils.lib import Menu, WindowAction, WindowInputHandler
 import service_locater as di
 
 # ロギング設定
@@ -17,6 +17,15 @@ class MenuTitle(Menu):
         menu_shape = [1, 3]
         super().__init__("large", *menu_pos, menu_shape, "MenuTitle")
 
+    def key_check(self) -> WindowAction:
+        """キー入力の確認と応答"""
+        inp = WindowInputHandler.get()
+        if self.move_cursor(inp):
+            pass
+        if inp.decide():
+            return WindowAction.EXECUTE
+        return WindowAction.CONTINUE
+
     def exec_menu(self) -> WindowAction:
         """選択メニュー項目の処理を実行"""
         pos_x, pos_y = self.cursor_position
@@ -24,10 +33,9 @@ class MenuTitle(Menu):
         logger.info(selected_item)
 
         if selected_item.menu_action is None:
-            logger.critical(
-                f"メニューアクション関数が定義されていません：{selected_item.item_label}"
-            )
-            quit()
+            errmsg = f"メニューアクション関数が定義されていません：{selected_item.item_label}"
+            logger.critical(errmsg, exc_info=True)
+            raise ValueError(errmsg)
 
         logger.info(
             f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}"
@@ -39,12 +47,12 @@ class MenuTitle(Menu):
     # タイトル画面からの遷移先は、キャンセルでタイトル画面に戻る為にスタック追加として処理
     def to_newgame(self):
         """ニューゲーム画面呼び出し"""
-        di.ref.scnmgr.push_stack("map")
+        di.ref.scnmgr.next_scene("newgame")
 
     def to_dataload(self):
         """データロード画面呼び出し"""
-        di.ref.scnmgr.push_stack("dataload")
+        di.ref.scnmgr.next_scene("dataload")
 
     def to_config(self):
         """コンフィグ画面呼び出し"""
-        di.ref.scnmgr.push_stack("config")
+        di.ref.scnmgr.next_scene("config")

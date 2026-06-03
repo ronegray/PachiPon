@@ -13,10 +13,27 @@
 
     ],
     "MenuConfig": [
-        [{"id": "BGM音量", "action": "to_newgame"}],
-        [{"id": "SE音量", "action": "to_ngplus"}],
-        [{"id": "画面サイズ", "action": "to_newgame"}],
-        [{"id": "ダッシュ切替", "action": "to_newgame"}],
-        [{"id": "キー割当", "action": "to_newgame"}]
+        [{"id": "BGM音量", "action": "set_vol_bgm"}],
+        [{"id": "SE音量", "action": "set_vol_se"}],
+        [{"id": "画面サイズ", "action": "set_dispsize"}],
+        [{"id": "キー割当", "action": "assign_key"}]
+    ],
+        "MenuField": [
+        [
+            {"id": "装備", "action": "equip_item"},
+            {"id": "アイテム", "action": "choose_item"}
+        ],
+        [
+            {"id": "魔法", "action": "cast_spell"},
+            {"id": "ステータス", "action": "show_status"}
+        ],
+        [
+            {"id": "地図", "action": "view_worldmap"},
+            {"id": "インフォ", "action": "show_information"}
+        ],
+        [
+            {"id": "図鑑", "action": "show_library"},
+            {"id": "システム", "action": "systemmenu"}
+        ]
     ]
 }

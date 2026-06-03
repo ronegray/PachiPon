@@ -5,7 +5,7 @@ from gameutils.base.input import input_system
 
 # from menu import MenuField
 # from event_manager import EventManager
-from gameutils.base.file.file_system import read_json, check_file
+from gameutils.base.file.file_system import read_json, check_file, read_string
 
 # import service_locater as di
 from service_locater import ref as di
@@ -42,6 +42,18 @@ class SceneMap(BaseScene):
         self.camera_y = 0
 
         self.event_flags = {node_id: True for node_id in self.game_map.points.keys()}
+
+        """暫定処理：BGMロード"""
+        path = check_file("assets/sound/field.txt")
+        if path is not None:
+            score_data = read_string(path)
+        else:
+            raise FileNotFoundError("ファイルがない！")
+        for i, mml in enumerate(score_data):
+            pyxel.sounds[i].mml(mml)
+            pyxel.musics[0].set([0], [1])
+            pyxel.stop()
+            pyxel.playm(0, loop=True)
 
     def update(self):
         # # メニューキー判定

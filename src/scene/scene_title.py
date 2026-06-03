@@ -37,6 +37,8 @@ class SceneTitle(BaseScene):
         path = check_file("assets/sound/title.txt")
         if path is not None:
             score_data = read_string(path)
+        else:
+            raise FileNotFoundError("ファイルがない！")
         for i, mml in enumerate(score_data):
             px.sounds[i].mml(mml)
         px.musics[0].set([0], [1], [2], [3])

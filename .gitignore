@@ -5,3 +5,6 @@ __pycache__/
 *.xlsx
 uv.lock
 .vscode/
+.ruff_cache/
+.github/
+*.yml

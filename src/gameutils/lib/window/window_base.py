@@ -367,7 +367,12 @@ class Window:
             )
         return
 
-    def set_message(self, message_text):
+    def set_message(self, message_text: str) -> None:
+        if self.window_mode == "menu":
+            return
+        self.text_list = [message_text]
+
+    def add_message(self, message_text: str) -> None:
         if self.window_mode == "menu":
             return
         self.text_list.append(message_text)
@@ -442,24 +447,39 @@ class Menu:
         self.cursor_position: list[int] = [0, 0]
         self.menu_shape: list = menu_shape  # 横軸数,縦軸数
         # self.menu_items: list = menu_items  # 横軸テキスト[a,b,c],,,※縦軸数分
-        if isinstance(menu_source, str):  # メニュー固定項目指定時
-            # if type(menu_source) is str:
-            tmp_menudata = self._MENU_ITEM_CASHE[menu_source]
-        else:  # 動的指定
-            tmp_menudata = menu_source  # 横軸テキスト[a,b,c],,,※縦軸数分
+        # if isinstance(menu_source, str):  # メニュー固定項目指定時
+        #     # if type(menu_source) is str:
+        #     tmp_menudata = self._MENU_ITEM_CASHE[menu_source]
+        # else:  # 動的指定
+        #     tmp_menudata = menu_source  # 横軸テキスト[a,b,c],,,※縦軸数分
 
-        self.menu_items: list[list[MenuItem]] = [
-            [
-                MenuItem(
-                    item_label=data["id"],
-                    # menu_action = getattr(self, data["action"]) if isinstance(data["action"], str) else data["action"],
-                    menu_action=getattr(self, data["action"], None),
-                    action_args=tuple(data.get("args", [])),
-                )
-                for data in row
-            ]
-            for row in tmp_menudata
-        ]
+        # try:
+        #     self.menu_items: list[list[MenuItem]] = [
+        #         [
+        #             MenuItem(
+        #                 item_label=data["id"],
+        #                 # menu_action = getattr(self, data["action"]) if isinstance(data["action"], str) else data["action"],
+        #                 menu_action=getattr(self, data["action"], None),
+        #                 action_args=tuple(data.get("args", [])),
+        #             )
+        #             for data in row
+        #         ]
+        #         for row in tmp_menudata
+        #     ]
+        # except TypeError:
+        #     self.menu_items: list[list[MenuItem]] = [
+        #         [
+        #             MenuItem(
+        #                 item_label=str(data),
+        #                 menu_action=None,
+        #                 action_args=tuple(""),
+        #             )
+        #             for data in row
+        #         ]
+        #         for row in tmp_menudata
+        #     ]
+        self.menu_items: list[list[MenuItem]] = []
+        self.build_menu_items(menu_source)
         # 共通基本パラメータ
         (
             width,
@@ -473,6 +493,39 @@ class Menu:
         self.windows["main"] = Window(
             font_size_name, adjusted_x, y, width, height, "menu"
         )
+        self.inputkey = WindowInputHandler.get()
+
+    def build_menu_items(self, menu_source: str | list[list[dict[str, str]]]):
+        if isinstance(menu_source, str):  # メニュー固定項目指定時
+            # if type(menu_source) is str:
+            tmp_menudata = self._MENU_ITEM_CASHE[menu_source]
+        else:  # 動的指定
+            tmp_menudata = menu_source  # 横軸テキスト[a,b,c],,,※縦軸数分
+        try:
+            self.menu_items = [
+                [
+                    MenuItem(
+                        item_label=data["id"],
+                        # menu_action = getattr(self, data["action"]) if isinstance(data["action"], str) else data["action"],
+                        menu_action=getattr(self, data["action"], None),
+                        action_args=tuple(data.get("args", [])),
+                    )
+                    for data in row
+                ]
+                for row in tmp_menudata
+            ]
+        except TypeError:
+            self.menu_items = [
+                [
+                    MenuItem(
+                        item_label=str(data),
+                        menu_action=None,
+                        action_args=tuple(""),
+                    )
+                    for data in row
+                ]
+                for row in tmp_menudata
+            ]
 
     def calculate_windowsize(self) -> list[int]:
         """メニューウインドウの幅／高さの算出と、描画アドレスのキャッシュ"""
@@ -504,8 +557,11 @@ class Menu:
             else:
                 # デフォルトフォントの場合の文字長は4ピクセル
                 max_column_textlen = max([item.item_label for item in column_data]) * 4
-            menuwidth += offset_cursor + max_column_textlen + offset_sepalete_col
-            current_x += menuwidth
+            # menuwidth += offset_cursor + max_column_textlen + offset_sepalete_col
+            # current_x += menuwidth
+            colwidth = offset_cursor + max_column_textlen + offset_sepalete_col
+            menuwidth += colwidth
+            current_x += colwidth
 
         # チップサイズで丸めて最終的な幅を算出
         menuwidth = (
@@ -544,28 +600,34 @@ class Menu:
         self.menu_shape = [len(self.menu_items), len(self.menu_items[0])]
         self.calculate_windowsize()
 
-    def update(self):
+    def update(self) -> WindowAction:
         """更新"""
+        self.individual_update()
         RC = self.key_check()
         return RC
 
-    def key_check(self):
+    def key_check(self) -> WindowAction:
         """キー入力の確認と応答"""
-        inp = WindowInputHandler.get()
-        if self.move_cursor(inp):
-            return WindowAction.CONTINUE
+        if self.move_cursor(self.inputkey):
+            # return WindowAction.CONTINUE
+            pass
         # if MenuInputHandler.is_pressed("decide"):
-        if inp.decide():
+        elif self.inputkey.decide():
             return WindowAction.EXECUTE
         # if MenuInputHandler.is_pressed("cancel"):
-        if inp.cancel():
+        elif self.inputkey.cancel():
             return WindowAction.CLOSE
-        if self.individual_key_check(inp):
-            pass
+        # elif self.individual_key_check(inp):
+        #     pass
+        return WindowAction.CONTINUE
 
-    def individual_key_check(self, inp: WindowInputWrapper):
-        """メニュー個別のキー判定用"""
-        pass
+    # def individual_key_check(self, inp: WindowInputWrapper) -> bool:
+    #     """メニュー個別のキー判定用"""
+    #     ...
+    # 個別キー判定など入れずに、key_checkのオーバーライドで実装する
+    def individual_update(self) -> Any:
+        """メニュー個別のupdateフレーム処理内容"""
+        ...
 
     def move_cursor(self, inp: WindowInputWrapper) -> bool:
         """キー入力に応じたカーソル移動とインデックス制御"""
@@ -598,6 +660,7 @@ class Menu:
         """描画"""
         for name, win in self.windows.items():
             win.draw()
+            win.draw_message()
             if name == "main":
                 self.draw_main()
 
