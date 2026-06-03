@@ -1,0 +1,62 @@
+{
+  "WEAPON": {
+    "DAGGER": {
+      "name": "ダガー",
+      "price": 100,
+      "atk": 2,
+      "description": "短い護身用の短剣"
+    },
+    "SHORTSWORD": {
+      "name": "ショートソード",
+      "price": 250,
+      "atk": 4,
+      "description": "使いやすい剣"
+    },
+    "LONGSWORD": {
+      "name": "ロングソード",
+      "price": 500,
+      "atk": 7,
+      "description": "標準的な長剣"
+    }
+  },
+  "GUARDER": {
+    "CLOTH": {
+      "name": "布の服",
+      "price": 50,
+      "dfn": 1,
+      "description": "ただの服"
+    },
+    "LEATHER": {
+      "name": "皮の鎧",
+      "price": 200,
+      "dfn": 3,
+      "description": "皮製の軽い鎧"
+    }
+  },
+  "ACCESSORY": {
+    "ATKRING": {
+      "name": "攻撃の指輪",
+      "price": 1000,
+      "atk": 1,
+      "description": "攻撃力が少し上がる指輪"
+    }
+  },
+  "CONSUME": {
+    "HEALPOT": {
+      "name": "回復薬",
+      "price": 50,
+      "effect_type": "HEAL_HP",
+      "effect_value": 50,
+      "is_percent": true,
+      "description": "HPを50%回復する"
+    },
+    "MAGICPOT": {
+      "name": "魔力薬",
+      "price": 100,
+      "effect_type": "HEAL_MP",
+      "effect_value": 50,
+      "is_percent": true,
+      "description": "MPを50%回復する"
+    }
+  }
+}

@@ -1,0 +1,156 @@
+[
+    {
+        "node_id": "node_cross",
+        "events": [
+            {"event_id": "event_cross_01", "probability": 0.1},
+            {"event_id": "event_cross_02", "probability": 0.2},
+            {"event_id": "event_cross_03", "probability": 0.2},
+            {"event_id": "event_cross_04", "probability": 0.2},
+            {"event_id": "event_cross_05", "probability": 0.2},
+            {"event_id": "event_cross_06", "probability": 0.1}
+        ]
+    },
+    {
+        "node_id": "node_up",
+        "events": [
+            {"event_id": "event_up_01", "probability": 0.1},
+            {"event_id": "event_up_02", "probability": 0.2},
+            {"event_id": "event_up_03", "probability": 0.2},
+            {"event_id": "event_up_04", "probability": 0.2},
+            {"event_id": "event_up_05", "probability": 0.2},
+            {"event_id": "event_up_06", "probability": 0.1}
+        ]
+    },
+    {
+        "node_id": "node_down",
+        "events": [
+            {"event_id": "event_down_01", "probability": 0.1},
+            {"event_id": "event_down_02", "probability": 0.2},
+            {"event_id": "event_down_03", "probability": 0.2},
+            {"event_id": "event_down_04", "probability": 0.2},
+            {"event_id": "event_down_05", "probability": 0.2},
+            {"event_id": "event_down_06", "probability": 0.1}
+        ]
+    },
+    {
+        "node_id": "node_left",
+        "events": [
+            {"event_id": "event_left_01", "probability": 0.1},
+            {"event_id": "event_left_02", "probability": 0.2},
+            {"event_id": "event_left_03", "probability": 0.2},
+            {"event_id": "event_left_04", "probability": 0.2},
+            {"event_id": "event_left_05", "probability": 0.2},
+            {"event_id": "event_left_06", "probability": 0.1}
+        ]
+    },
+    {
+        "node_id": "node_right",
+        "events": [
+            {"event_id": "event_right_01", "probability": 0.1},
+            {"event_id": "event_right_02", "probability": 0.2},
+            {"event_id": "event_right_03", "probability": 0.2},
+            {"event_id": "event_right_04", "probability": 0.2},
+            {"event_id": "event_right_05", "probability": 0.2},
+            {"event_id": "event_right_06", "probability": 0.1}
+        ]
+    },
+    {
+        "node_id": "node_u_top_left",
+        "events": [
+            {"event_id": "event_utl_01", "probability": 0.1},
+            {"event_id": "event_utl_02", "probability": 0.2},
+            {"event_id": "event_utl_03", "probability": 0.2},
+            {"event_id": "event_utl_04", "probability": 0.2},
+            {"event_id": "event_utl_05", "probability": 0.2},
+            {"event_id": "event_utl_06", "probability": 0.1}
+        ]
+    },
+    {
+        "node_id": "node_u_top_right",
+        "events": [
+            {"event_id": "event_utr_01", "probability": 0.1},
+            {"event_id": "event_utr_02", "probability": 0.2},
+            {"event_id": "event_utr_03", "probability": 0.2},
+            {"event_id": "event_utr_04", "probability": 0.2},
+            {"event_id": "event_utr_05", "probability": 0.2},
+            {"event_id": "event_utr_06", "probability": 0.1}
+        ]
+    },
+    {
+        "node_id": "node_u_bottom",
+        "events": [
+            {"event_id": "event_ub_01", "probability": 0.1},
+            {"event_id": "event_ub_02", "probability": 0.2},
+            {"event_id": "event_ub_03", "probability": 0.2},
+            {"event_id": "event_ub_04", "probability": 0.2},
+            {"event_id": "event_ub_05", "probability": 0.2},
+            {"event_id": "event_ub_06", "probability": 0.1}
+        ]
+    },
+    {
+        "node_id": "node_l_top",
+        "events": [
+            {"event_id": "event_lt_01", "probability": 0.1},
+            {"event_id": "event_lt_02", "probability": 0.2},
+            {"event_id": "event_lt_03", "probability": 0.2},
+            {"event_id": "event_lt_04", "probability": 0.2},
+            {"event_id": "event_lt_05", "probability": 0.2},
+            {"event_id": "event_lt_06", "probability": 0.1}
+        ]
+    },
+    {
+        "node_id": "node_l_corner",
+        "events": [
+            {"event_id": "event_lc_01", "probability": 0.1},
+            {"event_id": "event_lc_02", "probability": 0.2},
+            {"event_id": "event_lc_03", "probability": 0.2},
+            {"event_id": "event_lc_04", "probability": 0.2},
+            {"event_id": "event_lc_05", "probability": 0.2},
+            {"event_id": "event_lc_06", "probability": 0.1}
+        ]
+    },
+    {
+        "node_id": "node_l_left",
+        "events": [
+            {"event_id": "event_ll_01", "probability": 0.1},
+            {"event_id": "event_ll_02", "probability": 0.2},
+            {"event_id": "event_ll_03", "probability": 0.2},
+            {"event_id": "event_ll_04", "probability": 0.2},
+            {"event_id": "event_ll_05", "probability": 0.2},
+            {"event_id": "event_ll_06", "probability": 0.1}
+        ]
+    },
+    {
+        "node_id": "node_t_right",
+        "events": [
+            {"event_id": "event_tr_01", "probability": 0.1},
+            {"event_id": "event_tr_02", "probability": 0.2},
+            {"event_id": "event_tr_03", "probability": 0.2},
+            {"event_id": "event_tr_04", "probability": 0.2},
+            {"event_id": "event_tr_05", "probability": 0.2},
+            {"event_id": "event_tr_06", "probability": 0.1}
+        ]
+    },
+    {
+        "node_id": "node_t_top",
+        "events": [
+            {"event_id": "event_tt_01", "probability": 0.1},
+            {"event_id": "event_tt_02", "probability": 0.2},
+            {"event_id": "event_tt_03", "probability": 0.2},
+            {"event_id": "event_tt_04", "probability": 0.2},
+            {"event_id": "event_tt_05", "probability": 0.2},
+            {"event_id": "event_tt_06", "probability": 0.1}
+        ]
+    },
+    {
+        "node_id": "node_t_bottom",
+        "events": [
+            {"event_id": "event_tb_01", "probability": 0.1},
+            {"event_id": "event_tb_02", "probability": 0.2},
+            {"event_id": "event_tb_03", "probability": 0.2},
+            {"event_id": "event_tb_04", "probability": 0.2},
+            {"event_id": "event_tb_05", "probability": 0.2},
+            {"event_id": "event_tb_06", "probability": 0.1}
+        ]
+    }
+]

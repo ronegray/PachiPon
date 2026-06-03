@@ -1,0 +1,826 @@
+2026-06-02 10:18:41,202 [INFO] __main__: log setup finished successfully.
+2026-06-02 10:18:41,203 [INFO] __main__: launch the game application.
+2026-06-02 10:18:41,203 [INFO] game: Initialize : gameutils.base
+2026-06-02 10:35:01,947 [INFO] __main__: log setup finished successfully.
+2026-06-02 10:35:01,947 [INFO] __main__: launch the game application.
+2026-06-02 10:35:01,947 [INFO] game: Initialize : gameutils.base
+2026-06-02 10:35:01,987 [INFO] game: Initialize : AssetMap
+2026-06-02 10:35:01,989 [INFO] game: Initialize : SceneManager
+2026-06-02 10:35:02,005 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 10:35:02,005 [INFO] game: Initialize : Pyxel
+2026-06-02 12:44:36,984 [INFO] __main__: log setup finished successfully.
+2026-06-02 12:44:36,984 [INFO] __main__: launch the game application.
+2026-06-02 12:44:36,985 [INFO] game: Initialize : gameutils.base
+2026-06-02 12:44:37,029 [INFO] game: Initialize : AssetMap
+2026-06-02 12:44:37,031 [INFO] game: Initialize : SceneManager
+2026-06-02 12:44:37,070 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 12:44:37,070 [INFO] game: Initialize : FieldMap
+2026-06-02 12:44:37,070 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 12:44:37,070 [INFO] game: Initialize : Party
+2026-06-02 12:44:57,755 [INFO] __main__: log setup finished successfully.
+2026-06-02 12:44:57,755 [INFO] __main__: launch the game application.
+2026-06-02 12:44:57,755 [INFO] game: Initialize : gameutils.base
+2026-06-02 12:44:57,785 [INFO] game: Initialize : AssetMap
+2026-06-02 12:44:57,788 [INFO] game: Initialize : SceneManager
+2026-06-02 12:44:57,803 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 12:44:57,804 [INFO] game: Initialize : FieldMap
+2026-06-02 12:44:57,804 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 12:44:57,804 [INFO] game: Initialize : Party
+2026-06-02 12:45:07,192 [INFO] __main__: log setup finished successfully.
+2026-06-02 12:45:07,192 [INFO] __main__: launch the game application.
+2026-06-02 12:45:07,192 [INFO] game: Initialize : gameutils.base
+2026-06-02 12:45:07,222 [INFO] game: Initialize : AssetMap
+2026-06-02 12:45:07,224 [INFO] game: Initialize : SceneManager
+2026-06-02 12:45:07,240 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 12:45:07,240 [INFO] game: Initialize : FieldMap
+2026-06-02 12:45:07,240 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 12:45:07,240 [INFO] game: Initialize : Party
+2026-06-02 12:45:22,863 [INFO] __main__: log setup finished successfully.
+2026-06-02 12:45:22,863 [INFO] __main__: launch the game application.
+2026-06-02 12:45:22,863 [INFO] game: Initialize : gameutils.base
+2026-06-02 12:45:22,893 [INFO] game: Initialize : AssetMap
+2026-06-02 12:45:22,895 [INFO] game: Initialize : SceneManager
+2026-06-02 12:45:22,910 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 12:45:22,911 [INFO] game: Initialize : FieldMap
+2026-06-02 12:45:22,911 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 12:45:22,911 [INFO] game: Initialize : Party
+2026-06-02 12:45:50,468 [INFO] __main__: log setup finished successfully.
+2026-06-02 12:45:50,469 [INFO] __main__: launch the game application.
+2026-06-02 12:45:50,469 [INFO] game: Initialize : gameutils.base
+2026-06-02 12:45:50,498 [INFO] game: Initialize : AssetMap
+2026-06-02 12:45:50,500 [INFO] game: Initialize : SceneManager
+2026-06-02 12:45:50,516 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 12:45:50,516 [INFO] game: Initialize : FieldMap
+2026-06-02 12:45:50,516 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 12:45:50,517 [INFO] game: Initialize : Party
+2026-06-02 12:45:58,075 [INFO] __main__: log setup finished successfully.
+2026-06-02 12:45:58,076 [INFO] __main__: launch the game application.
+2026-06-02 12:45:58,076 [INFO] game: Initialize : gameutils.base
+2026-06-02 12:45:58,105 [INFO] game: Initialize : AssetMap
+2026-06-02 12:45:58,107 [INFO] game: Initialize : SceneManager
+2026-06-02 12:45:58,123 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 12:45:58,123 [INFO] game: Initialize : FieldMap
+2026-06-02 12:45:58,123 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 12:45:58,123 [INFO] game: Initialize : Party
+2026-06-02 12:46:28,255 [INFO] __main__: log setup finished successfully.
+2026-06-02 12:46:28,255 [INFO] __main__: launch the game application.
+2026-06-02 12:46:28,256 [INFO] game: Initialize : gameutils.base
+2026-06-02 12:46:28,286 [INFO] game: Initialize : AssetMap
+2026-06-02 12:46:28,288 [INFO] game: Initialize : SceneManager
+2026-06-02 12:46:28,304 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 12:46:28,304 [INFO] game: Initialize : FieldMap
+2026-06-02 12:46:28,304 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 12:46:28,304 [INFO] game: Initialize : Party
+2026-06-02 12:47:12,482 [INFO] __main__: log setup finished successfully.
+2026-06-02 12:47:12,483 [INFO] __main__: launch the game application.
+2026-06-02 12:47:12,483 [INFO] game: Initialize : gameutils.base
+2026-06-02 12:47:12,514 [INFO] game: Initialize : AssetMap
+2026-06-02 12:47:12,516 [INFO] game: Initialize : SceneManager
+2026-06-02 12:47:12,532 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 12:47:12,532 [INFO] game: Initialize : FieldMap
+2026-06-02 12:47:12,532 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 12:47:12,532 [INFO] game: Initialize : Party
+2026-06-02 12:48:28,364 [INFO] __main__: log setup finished successfully.
+2026-06-02 12:48:28,364 [INFO] __main__: launch the game application.
+2026-06-02 12:48:28,365 [INFO] game: Initialize : gameutils.base
+2026-06-02 12:48:28,394 [INFO] game: Initialize : AssetMap
+2026-06-02 12:48:28,396 [INFO] game: Initialize : SceneManager
+2026-06-02 12:48:28,411 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 12:48:28,411 [INFO] game: Initialize : FieldMap
+2026-06-02 12:48:28,411 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 12:48:28,412 [INFO] game: Initialize : Party
+2026-06-02 12:48:28,431 [INFO] service_locater: サービス登録:('PARTY', <class 'list'>)
+2026-06-02 12:48:46,748 [INFO] __main__: log setup finished successfully.
+2026-06-02 12:48:46,748 [INFO] __main__: launch the game application.
+2026-06-02 12:48:46,748 [INFO] game: Initialize : gameutils.base
+2026-06-02 12:48:46,780 [INFO] game: Initialize : AssetMap
+2026-06-02 12:48:46,783 [INFO] game: Initialize : SceneManager
+2026-06-02 12:48:46,799 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 12:48:46,799 [INFO] game: Initialize : FieldMap
+2026-06-02 12:48:46,799 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 12:48:46,799 [INFO] game: Initialize : Party
+2026-06-02 12:48:46,819 [INFO] service_locater: サービス登録:('PARTY', <class 'list'>)
+2026-06-02 12:48:46,843 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 12:50:22,570 [INFO] __main__: log setup finished successfully.
+2026-06-02 12:50:22,571 [INFO] __main__: launch the game application.
+2026-06-02 12:50:22,571 [INFO] game: Initialize : gameutils.base
+2026-06-02 12:50:22,600 [INFO] game: Initialize : AssetMap
+2026-06-02 12:50:22,602 [INFO] game: Initialize : SceneManager
+2026-06-02 12:50:22,617 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 12:50:22,618 [INFO] game: Initialize : FieldMap
+2026-06-02 12:50:22,618 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 12:50:22,618 [INFO] game: Initialize : Party
+2026-06-02 12:50:22,639 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 12:50:55,697 [INFO] __main__: log setup finished successfully.
+2026-06-02 12:50:55,697 [INFO] __main__: launch the game application.
+2026-06-02 12:50:55,698 [INFO] game: Initialize : gameutils.base
+2026-06-02 12:50:55,728 [INFO] game: Initialize : AssetMap
+2026-06-02 12:50:55,730 [INFO] game: Initialize : SceneManager
+2026-06-02 12:50:55,746 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 12:50:55,746 [INFO] game: Initialize : FieldMap
+2026-06-02 12:50:55,746 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 12:50:55,747 [INFO] game: Initialize : Party
+2026-06-02 12:50:55,767 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 12:50:55,767 [CRITICAL] entity.party: 指定されたイベントポイント(p01)は定義されていません
+2026-06-02 12:56:42,451 [INFO] __main__: log setup finished successfully.
+2026-06-02 12:56:42,451 [INFO] __main__: launch the game application.
+2026-06-02 12:56:42,451 [INFO] game: Initialize : gameutils.base
+2026-06-02 12:56:42,475 [INFO] game: Initialize : AssetMap
+2026-06-02 12:56:42,485 [INFO] game: Initialize : SceneManager
+2026-06-02 12:56:42,501 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 12:56:42,502 [INFO] game: Initialize : FieldMap
+2026-06-02 12:56:42,502 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 12:56:42,502 [INFO] game: Initialize : Party
+2026-06-02 12:56:42,513 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 12:56:42,513 [CRITICAL] entity.party: 指定されたイベントポイント(p01)は定義されていません
+2026-06-02 12:57:12,272 [INFO] __main__: log setup finished successfully.
+2026-06-02 12:57:12,273 [INFO] __main__: launch the game application.
+2026-06-02 12:57:12,274 [INFO] game: Initialize : gameutils.base
+2026-06-02 12:57:12,298 [INFO] game: Initialize : AssetMap
+2026-06-02 12:57:12,300 [INFO] game: Initialize : SceneManager
+2026-06-02 12:57:12,326 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 12:57:12,326 [INFO] game: Initialize : FieldMap
+2026-06-02 12:57:12,327 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 12:57:12,327 [INFO] game: Initialize : Party
+2026-06-02 12:57:12,343 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 12:58:10,722 [INFO] __main__: log setup finished successfully.
+2026-06-02 12:58:10,723 [INFO] __main__: launch the game application.
+2026-06-02 12:58:10,723 [INFO] game: Initialize : gameutils.base
+2026-06-02 12:58:10,747 [INFO] game: Initialize : AssetMap
+2026-06-02 12:58:10,750 [INFO] game: Initialize : SceneManager
+2026-06-02 12:58:10,775 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 12:58:10,775 [INFO] game: Initialize : FieldMap
+2026-06-02 12:58:10,775 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 13:01:19,364 [INFO] __main__: log setup finished successfully.
+2026-06-02 13:01:19,365 [INFO] __main__: launch the game application.
+2026-06-02 13:01:19,366 [INFO] game: Initialize : gameutils.base
+2026-06-02 13:01:19,390 [INFO] game: Initialize : AssetMap
+2026-06-02 13:01:19,402 [INFO] game: Initialize : SceneManager
+2026-06-02 13:01:19,427 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 13:01:19,427 [INFO] game: Initialize : FieldMap
+2026-06-02 13:01:19,427 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 13:01:48,652 [INFO] __main__: log setup finished successfully.
+2026-06-02 13:01:48,652 [INFO] __main__: launch the game application.
+2026-06-02 13:01:48,653 [INFO] game: Initialize : gameutils.base
+2026-06-02 13:01:48,677 [INFO] game: Initialize : AssetMap
+2026-06-02 13:01:48,680 [INFO] game: Initialize : SceneManager
+2026-06-02 13:01:48,706 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 13:01:48,706 [INFO] game: Initialize : FieldMap
+2026-06-02 13:01:48,706 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 13:03:10,543 [INFO] __main__: log setup finished successfully.
+2026-06-02 13:03:10,544 [INFO] __main__: launch the game application.
+2026-06-02 13:03:10,544 [INFO] game: Initialize : gameutils.base
+2026-06-02 13:03:10,568 [INFO] game: Initialize : AssetMap
+2026-06-02 13:03:10,581 [INFO] game: Initialize : SceneManager
+2026-06-02 13:03:10,606 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 13:03:10,606 [INFO] game: Initialize : FieldMap
+2026-06-02 13:03:10,606 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 13:04:49,428 [INFO] __main__: log setup finished successfully.
+2026-06-02 13:04:49,429 [INFO] __main__: launch the game application.
+2026-06-02 13:04:49,429 [INFO] game: Initialize : gameutils.base
+2026-06-02 13:04:49,453 [INFO] game: Initialize : AssetMap
+2026-06-02 13:04:49,465 [INFO] game: Initialize : SceneManager
+2026-06-02 13:04:49,490 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 13:04:49,490 [INFO] game: Initialize : FieldMap
+2026-06-02 13:04:49,490 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 13:05:01,255 [INFO] game: Initialize : Party
+2026-06-02 13:05:01,275 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 13:05:05,167 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 13:05:05,167 [INFO] game: Initialize : Pyxel
+2026-06-02 13:05:26,742 [INFO] __main__: log setup finished successfully.
+2026-06-02 13:05:26,742 [INFO] __main__: launch the game application.
+2026-06-02 13:05:26,742 [INFO] game: Initialize : gameutils.base
+2026-06-02 13:05:26,766 [INFO] game: Initialize : AssetMap
+2026-06-02 13:05:26,768 [INFO] game: Initialize : SceneManager
+2026-06-02 13:05:26,795 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 13:05:26,795 [INFO] game: Initialize : FieldMap
+2026-06-02 13:05:26,795 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 13:05:26,796 [INFO] game: Initialize : Party
+2026-06-02 13:05:26,808 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 13:05:26,808 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 13:05:26,808 [INFO] game: Initialize : Pyxel
+2026-06-02 13:05:27,380 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 13:44:51,502 [INFO] __main__: log setup finished successfully.
+2026-06-02 13:44:51,503 [INFO] __main__: launch the game application.
+2026-06-02 13:44:51,503 [INFO] game: Initialize - gameutils.base
+2026-06-02 13:44:51,527 [INFO] game: Initialize - AssetMap
+2026-06-02 13:44:51,529 [INFO] game: Initialize - SceneManager
+2026-06-02 14:08:50,896 [INFO] __main__: log setup finished successfully.
+2026-06-02 14:08:50,896 [INFO] __main__: launch the game application.
+2026-06-02 14:08:50,896 [INFO] game: Initialize - gameutils.base
+2026-06-02 14:08:50,922 [INFO] game: Initialize - AssetMap
+2026-06-02 14:08:50,925 [INFO] game: Initialize - SceneManager
+2026-06-02 14:09:37,727 [INFO] __main__: log setup finished successfully.
+2026-06-02 14:09:37,727 [INFO] __main__: launch the game application.
+2026-06-02 14:09:37,727 [INFO] game: Initialize - gameutils.base
+2026-06-02 14:09:37,751 [INFO] game: Initialize - AssetMap
+2026-06-02 14:09:37,753 [INFO] game: Initialize - SceneManager
+2026-06-02 14:09:54,805 [INFO] __main__: log setup finished successfully.
+2026-06-02 14:09:54,805 [INFO] __main__: launch the game application.
+2026-06-02 14:09:54,805 [INFO] game: Initialize - gameutils.base
+2026-06-02 14:09:54,829 [INFO] game: Initialize - AssetMap
+2026-06-02 14:09:54,831 [INFO] game: Initialize - SceneManager
+2026-06-02 14:09:54,867 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 14:09:54,867 [INFO] game: Initialize - FieldMap
+2026-06-02 14:09:54,867 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 14:09:54,868 [INFO] game: Initialize - Party
+2026-06-02 14:09:54,879 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 14:09:54,880 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 14:09:54,880 [INFO] game: Initialize - Pyxel
+2026-06-02 14:09:55,440 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 14:27:15,362 [INFO] __main__: log setup finished successfully.
+2026-06-02 14:27:15,362 [INFO] __main__: launch the game application.
+2026-06-02 14:27:15,362 [INFO] game: Initialize - gameutils.base
+2026-06-02 14:27:15,387 [INFO] game: Initialize - AssetMap
+2026-06-02 14:27:15,390 [INFO] game: Initialize - SceneManager
+2026-06-02 14:27:15,421 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 14:27:15,421 [INFO] game: Initialize - FieldMap
+2026-06-02 14:27:15,422 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 14:27:15,422 [INFO] game: Initialize - Party
+2026-06-02 14:27:15,434 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 14:27:15,434 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 14:27:15,434 [INFO] game: Initialize - Pyxel
+2026-06-02 14:27:15,958 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 14:27:54,625 [INFO] __main__: log setup finished successfully.
+2026-06-02 14:27:54,626 [INFO] __main__: launch the game application.
+2026-06-02 14:27:54,626 [INFO] game: Initialize - gameutils.base
+2026-06-02 14:27:54,651 [INFO] game: Initialize - AssetMap
+2026-06-02 14:27:54,653 [INFO] game: Initialize - SceneManager
+2026-06-02 14:27:54,682 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 14:27:54,682 [INFO] game: Initialize - FieldMap
+2026-06-02 14:27:54,682 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 14:27:54,683 [INFO] game: Initialize - Party
+2026-06-02 14:27:54,699 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 14:27:54,700 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 14:27:54,700 [INFO] game: Initialize - Pyxel
+2026-06-02 14:27:55,210 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 14:28:34,027 [INFO] __main__: log setup finished successfully.
+2026-06-02 14:28:34,028 [INFO] __main__: launch the game application.
+2026-06-02 14:28:34,028 [INFO] game: Initialize - gameutils.base
+2026-06-02 14:28:34,053 [INFO] game: Initialize - AssetMap
+2026-06-02 14:28:34,056 [INFO] game: Initialize - SceneManager
+2026-06-02 14:28:34,087 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 14:28:34,087 [INFO] game: Initialize - FieldMap
+2026-06-02 14:28:34,087 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 14:28:34,088 [INFO] game: Initialize - Party
+2026-06-02 14:28:34,105 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 14:28:34,105 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 14:28:34,105 [INFO] game: Initialize - Pyxel
+2026-06-02 14:28:34,635 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 14:37:31,259 [INFO] __main__: log setup finished successfully.
+2026-06-02 14:37:31,260 [INFO] __main__: launch the game application.
+2026-06-02 14:37:31,260 [INFO] game: Initialize - gameutils.base
+2026-06-02 14:37:31,284 [INFO] game: Initialize - AssetMap
+2026-06-02 14:37:31,287 [INFO] game: Initialize - SceneManager
+2026-06-02 14:37:31,304 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 14:37:31,304 [INFO] game: Initialize - FieldMap
+2026-06-02 14:37:31,304 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 14:37:31,305 [INFO] game: Initialize - Party
+2026-06-02 14:37:31,316 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 14:37:31,316 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 14:37:31,316 [INFO] game: Initialize - Pyxel
+2026-06-02 14:37:31,837 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 14:39:06,744 [INFO] __main__: log setup finished successfully.
+2026-06-02 14:39:06,744 [INFO] __main__: launch the game application.
+2026-06-02 14:39:06,744 [INFO] game: Initialize - gameutils.base
+2026-06-02 14:39:06,768 [INFO] game: Initialize - AssetMap
+2026-06-02 14:39:06,770 [INFO] game: Initialize - SceneManager
+2026-06-02 14:39:06,792 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 14:39:06,792 [INFO] game: Initialize - FieldMap
+2026-06-02 14:39:06,792 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 14:39:06,793 [INFO] game: Initialize - Party
+2026-06-02 14:39:06,804 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 14:39:06,804 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 14:39:06,804 [INFO] game: Initialize - Pyxel
+2026-06-02 14:39:07,321 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 14:39:59,728 [INFO] __main__: log setup finished successfully.
+2026-06-02 14:39:59,728 [INFO] __main__: launch the game application.
+2026-06-02 14:39:59,728 [INFO] game: Initialize - gameutils.base
+2026-06-02 14:39:59,753 [INFO] game: Initialize - AssetMap
+2026-06-02 14:39:59,755 [INFO] game: Initialize - SceneManager
+2026-06-02 14:39:59,796 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 14:39:59,796 [INFO] game: Initialize - FieldMap
+2026-06-02 14:39:59,797 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 14:39:59,797 [INFO] game: Initialize - Party
+2026-06-02 14:39:59,809 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 14:39:59,810 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 14:39:59,810 [INFO] game: Initialize - Pyxel
+2026-06-02 14:40:00,328 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 14:40:18,699 [INFO] __main__: log setup finished successfully.
+2026-06-02 14:40:18,699 [INFO] __main__: launch the game application.
+2026-06-02 14:40:18,699 [INFO] game: Initialize - gameutils.base
+2026-06-02 14:40:18,723 [INFO] game: Initialize - AssetMap
+2026-06-02 14:40:18,725 [INFO] game: Initialize - SceneManager
+2026-06-02 14:40:18,752 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 14:40:18,752 [INFO] game: Initialize - FieldMap
+2026-06-02 14:40:18,753 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 14:40:18,753 [INFO] game: Initialize - Party
+2026-06-02 14:40:18,765 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 14:40:18,765 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 14:40:18,765 [INFO] game: Initialize - Pyxel
+2026-06-02 14:40:19,279 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 14:40:40,521 [INFO] __main__: log setup finished successfully.
+2026-06-02 14:40:40,521 [INFO] __main__: launch the game application.
+2026-06-02 14:40:40,522 [INFO] game: Initialize - gameutils.base
+2026-06-02 14:40:40,546 [INFO] game: Initialize - AssetMap
+2026-06-02 14:40:40,549 [INFO] game: Initialize - SceneManager
+2026-06-02 14:40:40,578 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 14:40:40,579 [INFO] game: Initialize - FieldMap
+2026-06-02 14:40:40,579 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 14:40:40,579 [INFO] game: Initialize - Party
+2026-06-02 14:40:40,593 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 14:40:40,593 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 14:40:40,593 [INFO] game: Initialize - Pyxel
+2026-06-02 14:40:41,117 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 14:41:53,197 [INFO] __main__: log setup finished successfully.
+2026-06-02 14:41:53,198 [INFO] __main__: launch the game application.
+2026-06-02 14:41:53,198 [INFO] game: Initialize - gameutils.base
+2026-06-02 14:41:53,223 [INFO] game: Initialize - AssetMap
+2026-06-02 14:41:53,225 [INFO] game: Initialize - SceneManager
+2026-06-02 14:41:53,254 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 14:41:53,254 [INFO] game: Initialize - FieldMap
+2026-06-02 14:41:53,254 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 14:41:53,255 [INFO] game: Initialize - Party
+2026-06-02 14:41:53,267 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 14:41:53,267 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 14:41:53,267 [INFO] game: Initialize - Pyxel
+2026-06-02 14:41:53,792 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 14:43:19,934 [INFO] __main__: log setup finished successfully.
+2026-06-02 14:43:19,935 [INFO] __main__: launch the game application.
+2026-06-02 14:43:19,935 [INFO] game: Initialize - gameutils.base
+2026-06-02 14:43:19,959 [INFO] game: Initialize - AssetMap
+2026-06-02 14:43:19,961 [INFO] game: Initialize - SceneManager
+2026-06-02 14:43:19,987 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 14:43:19,988 [INFO] game: Initialize - FieldMap
+2026-06-02 14:43:19,988 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 14:43:19,988 [INFO] game: Initialize - Party
+2026-06-02 14:43:20,000 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 14:43:20,000 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 14:43:20,000 [INFO] game: Initialize - Pyxel
+2026-06-02 14:43:20,529 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 14:44:07,037 [INFO] __main__: log setup finished successfully.
+2026-06-02 14:44:07,037 [INFO] __main__: launch the game application.
+2026-06-02 14:44:07,037 [INFO] game: Initialize - gameutils.base
+2026-06-02 14:44:07,061 [INFO] game: Initialize - AssetMap
+2026-06-02 14:44:07,063 [INFO] game: Initialize - SceneManager
+2026-06-02 14:44:07,090 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 14:44:07,090 [INFO] game: Initialize - FieldMap
+2026-06-02 14:44:07,091 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 14:44:07,091 [INFO] game: Initialize - Party
+2026-06-02 14:44:07,103 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 14:44:07,103 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 14:44:07,103 [INFO] game: Initialize - Pyxel
+2026-06-02 14:44:07,618 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 14:44:35,205 [INFO] __main__: log setup finished successfully.
+2026-06-02 14:44:35,205 [INFO] __main__: launch the game application.
+2026-06-02 14:44:35,205 [INFO] game: Initialize - gameutils.base
+2026-06-02 14:44:35,229 [INFO] game: Initialize - AssetMap
+2026-06-02 14:44:35,232 [INFO] game: Initialize - SceneManager
+2026-06-02 14:44:35,259 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 14:44:35,259 [INFO] game: Initialize - FieldMap
+2026-06-02 14:44:35,259 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 14:44:35,260 [INFO] game: Initialize - Party
+2026-06-02 14:44:35,272 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 14:44:35,272 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 14:44:35,272 [INFO] game: Initialize - Pyxel
+2026-06-02 14:44:35,784 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 14:44:46,031 [INFO] __main__: log setup finished successfully.
+2026-06-02 14:44:46,031 [INFO] __main__: launch the game application.
+2026-06-02 14:44:46,031 [INFO] game: Initialize - gameutils.base
+2026-06-02 14:44:46,055 [INFO] game: Initialize - AssetMap
+2026-06-02 14:44:46,057 [INFO] game: Initialize - SceneManager
+2026-06-02 14:44:46,086 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 14:44:46,086 [INFO] game: Initialize - FieldMap
+2026-06-02 14:44:46,086 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 14:44:46,087 [INFO] game: Initialize - Party
+2026-06-02 14:44:46,099 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 14:44:46,099 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 14:44:46,099 [INFO] game: Initialize - Pyxel
+2026-06-02 14:44:46,605 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 14:45:19,306 [INFO] menu.menu_title: MenuItem(item_label='はじめる', menu_action=<bound method MenuTitle.to_newgame of <menu.menu_title.MenuTitle object at 0x000001DAA9851940>>, action_args=())
+2026-06-02 14:45:19,306 [INFO] menu.menu_title: 選択メニュー実行：はじめる
+2026-06-02 14:53:37,316 [INFO] __main__: log setup finished successfully.
+2026-06-02 14:53:37,316 [INFO] __main__: launch the game application.
+2026-06-02 14:53:37,316 [INFO] game: Initialize - gameutils.base
+2026-06-02 14:53:37,340 [INFO] game: Initialize - AssetMap
+2026-06-02 14:53:37,351 [INFO] game: Initialize - SceneManager
+2026-06-02 14:53:37,378 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 14:53:37,378 [INFO] game: Initialize - FieldMap
+2026-06-02 14:53:37,378 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 14:53:37,378 [INFO] game: Initialize - Party
+2026-06-02 14:53:37,390 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 14:53:37,390 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 14:53:37,390 [INFO] game: Initialize - Pyxel
+2026-06-02 14:53:37,941 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 14:55:13,905 [INFO] __main__: log setup finished successfully.
+2026-06-02 14:55:13,905 [INFO] __main__: launch the game application.
+2026-06-02 14:55:13,905 [INFO] game: Initialize - gameutils.base
+2026-06-02 14:55:13,930 [INFO] game: Initialize - AssetMap
+2026-06-02 14:55:13,932 [INFO] game: Initialize - SceneManager
+2026-06-02 14:55:13,963 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 14:55:13,963 [INFO] game: Initialize - FieldMap
+2026-06-02 14:55:13,963 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 14:55:13,964 [INFO] game: Initialize - Party
+2026-06-02 14:55:13,975 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 14:55:13,975 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 14:55:13,975 [INFO] game: Initialize - Pyxel
+2026-06-02 14:55:14,498 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 14:55:47,385 [INFO] __main__: log setup finished successfully.
+2026-06-02 14:55:47,385 [INFO] __main__: launch the game application.
+2026-06-02 14:55:47,385 [INFO] game: Initialize - gameutils.base
+2026-06-02 14:55:47,409 [INFO] game: Initialize - AssetMap
+2026-06-02 14:55:47,411 [INFO] game: Initialize - SceneManager
+2026-06-02 14:55:47,438 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 14:55:47,438 [INFO] game: Initialize - FieldMap
+2026-06-02 14:55:47,438 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 14:55:47,439 [INFO] game: Initialize - Party
+2026-06-02 14:55:47,450 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 14:55:47,451 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 14:55:47,451 [INFO] game: Initialize - Pyxel
+2026-06-02 14:55:47,993 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 15:24:01,237 [INFO] __main__: log setup finished successfully.
+2026-06-02 15:24:01,237 [INFO] __main__: launch the game application.
+2026-06-02 15:24:01,237 [INFO] game: Initialize - gameutils.base
+2026-06-02 15:24:01,261 [INFO] game: Initialize - AssetMap
+2026-06-02 15:24:01,272 [INFO] game: Initialize - SceneManager
+2026-06-02 15:24:01,305 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 15:24:01,305 [INFO] game: Initialize - FieldMap
+2026-06-02 15:24:01,306 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 15:24:01,306 [INFO] game: Initialize - Party
+2026-06-02 15:24:01,318 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 15:24:01,319 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 15:24:01,319 [INFO] game: Initialize - Pyxel
+2026-06-02 15:24:01,852 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 15:24:35,154 [INFO] __main__: log setup finished successfully.
+2026-06-02 15:24:35,155 [INFO] __main__: launch the game application.
+2026-06-02 15:24:35,155 [INFO] game: Initialize - gameutils.base
+2026-06-02 15:24:35,179 [INFO] game: Initialize - AssetMap
+2026-06-02 15:24:35,190 [INFO] game: Initialize - SceneManager
+2026-06-02 15:24:35,207 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 15:24:35,208 [INFO] game: Initialize - FieldMap
+2026-06-02 15:24:35,208 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 15:24:35,209 [INFO] game: Initialize - Party
+2026-06-02 15:24:35,220 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 15:24:35,220 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 15:24:35,221 [INFO] game: Initialize - Pyxel
+2026-06-02 15:24:35,764 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 15:30:35,245 [INFO] __main__: log setup finished successfully.
+2026-06-02 15:30:35,245 [INFO] __main__: launch the game application.
+2026-06-02 15:30:35,245 [INFO] game: Initialize - gameutils.base
+2026-06-02 15:30:35,272 [INFO] game: Initialize - AssetMap
+2026-06-02 15:30:35,274 [INFO] game: Initialize - SceneManager
+2026-06-02 15:30:35,292 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 15:30:35,292 [INFO] game: Initialize - FieldMap
+2026-06-02 15:30:35,292 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 15:30:35,293 [INFO] game: Initialize - Party
+2026-06-02 15:30:35,305 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 15:30:35,305 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 15:30:35,305 [INFO] game: Initialize - Pyxel
+2026-06-02 15:30:35,845 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 15:34:50,055 [INFO] __main__: log setup finished successfully.
+2026-06-02 15:34:50,055 [INFO] __main__: launch the game application.
+2026-06-02 15:34:50,055 [INFO] game: Initialize - gameutils.base
+2026-06-02 15:34:50,080 [INFO] game: Initialize - AssetMap
+2026-06-02 15:34:50,082 [INFO] game: Initialize - SceneManager
+2026-06-02 15:34:50,099 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 15:34:50,099 [INFO] game: Initialize - FieldMap
+2026-06-02 15:34:50,099 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 15:34:50,100 [INFO] game: Initialize - Party
+2026-06-02 15:34:50,111 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 15:34:50,111 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 15:34:50,111 [INFO] game: Initialize - Pyxel
+2026-06-02 15:34:50,636 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 15:37:00,951 [INFO] __main__: log setup finished successfully.
+2026-06-02 15:37:00,951 [INFO] __main__: launch the game application.
+2026-06-02 15:37:00,951 [INFO] game: Initialize - gameutils.base
+2026-06-02 15:37:00,976 [INFO] game: Initialize - AssetMap
+2026-06-02 15:37:00,978 [INFO] game: Initialize - SceneManager
+2026-06-02 15:37:00,996 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 15:37:00,996 [INFO] game: Initialize - FieldMap
+2026-06-02 15:37:00,996 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 15:37:00,997 [INFO] game: Initialize - Party
+2026-06-02 15:37:01,008 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 15:37:01,009 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 15:37:01,009 [INFO] game: Initialize - Pyxel
+2026-06-02 15:37:01,681 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 15:38:12,449 [INFO] menu.menu_title: MenuItem(item_label='はじめる', menu_action=<bound method MenuTitle.to_newgame of <menu.menu_title.MenuTitle object at 0x000001FBFFC31940>>, action_args=())
+2026-06-02 15:38:12,449 [INFO] menu.menu_title: 選択メニュー実行：はじめる
+2026-06-02 15:48:06,081 [INFO] __main__: log setup finished successfully.
+2026-06-02 15:48:06,081 [INFO] __main__: launch the game application.
+2026-06-02 15:48:06,081 [INFO] game: Initialize - gameutils.base
+2026-06-02 15:48:06,106 [INFO] game: Initialize - AssetMap
+2026-06-02 15:48:06,108 [INFO] game: Initialize - SceneManager
+2026-06-02 15:48:06,148 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 15:48:06,148 [INFO] game: Initialize - FieldMap
+2026-06-02 15:48:06,148 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 15:48:06,149 [INFO] game: Initialize - Party
+2026-06-02 15:48:06,161 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 15:48:06,161 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 15:48:06,161 [INFO] game: Initialize - Pyxel
+2026-06-02 15:48:06,717 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 15:48:23,032 [INFO] __main__: log setup finished successfully.
+2026-06-02 15:48:23,033 [INFO] __main__: launch the game application.
+2026-06-02 15:48:23,033 [INFO] game: Initialize - gameutils.base
+2026-06-02 15:48:23,057 [INFO] game: Initialize - AssetMap
+2026-06-02 15:48:23,059 [INFO] game: Initialize - SceneManager
+2026-06-02 15:48:23,087 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 15:48:23,087 [INFO] game: Initialize - FieldMap
+2026-06-02 15:48:23,087 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 15:48:23,088 [INFO] game: Initialize - Party
+2026-06-02 15:48:23,099 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 15:48:23,099 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 15:48:23,100 [INFO] game: Initialize - Pyxel
+2026-06-02 15:48:23,643 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 15:48:42,081 [INFO] __main__: log setup finished successfully.
+2026-06-02 15:48:42,081 [INFO] __main__: launch the game application.
+2026-06-02 15:48:42,082 [INFO] game: Initialize - gameutils.base
+2026-06-02 15:48:42,105 [INFO] game: Initialize - AssetMap
+2026-06-02 15:48:42,107 [INFO] game: Initialize - SceneManager
+2026-06-02 15:48:42,135 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 15:48:42,135 [INFO] game: Initialize - FieldMap
+2026-06-02 15:48:42,135 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 15:48:42,136 [INFO] game: Initialize - Party
+2026-06-02 15:48:42,147 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 15:48:42,147 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 15:48:42,147 [INFO] game: Initialize - Pyxel
+2026-06-02 15:48:42,702 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 17:49:07,209 [INFO] __main__: log setup finished successfully.
+2026-06-02 17:49:07,209 [INFO] __main__: launch the game application.
+2026-06-02 17:49:07,209 [INFO] game: Initialize - gameutils.base
+2026-06-02 17:49:07,233 [INFO] game: Initialize - AssetMap
+2026-06-02 17:49:07,235 [INFO] game: Initialize - SceneManager
+2026-06-02 17:49:07,254 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 17:49:07,254 [INFO] game: Initialize - FieldMap
+2026-06-02 17:49:07,255 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 17:49:07,255 [INFO] game: Initialize - Party
+2026-06-02 17:49:07,267 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 17:49:07,267 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 17:49:07,267 [INFO] game: Initialize - Pyxel
+2026-06-02 17:49:07,871 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 17:49:10,373 [INFO] menu.menu_title: MenuItem(item_label='はじめる', menu_action=<bound method MenuTitle.to_newgame of <menu.menu_title.MenuTitle object at 0x000001E49D641940>>, action_args=())
+2026-06-02 17:49:10,373 [INFO] menu.menu_title: 選択メニュー実行：はじめる
+2026-06-02 18:02:57,610 [INFO] __main__: log setup finished successfully.
+2026-06-02 18:02:57,610 [INFO] __main__: launch the game application.
+2026-06-02 18:02:57,610 [INFO] game: Initialize - gameutils.base
+2026-06-02 18:02:57,634 [INFO] game: Initialize - AssetMap
+2026-06-02 18:02:57,637 [INFO] game: Initialize - SceneManager
+2026-06-02 18:02:57,675 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 18:02:57,675 [INFO] game: Initialize - FieldMap
+2026-06-02 18:02:57,675 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 18:02:57,676 [INFO] game: Initialize - Party
+2026-06-02 18:02:57,688 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 18:02:57,688 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 18:02:57,688 [INFO] game: Initialize - Pyxel
+2026-06-02 18:02:58,253 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 18:02:59,555 [INFO] menu.menu_title: MenuItem(item_label='はじめる', menu_action=<bound method MenuTitle.to_newgame of <menu.menu_title.MenuTitle object at 0x0000021D35CA1940>>, action_args=())
+2026-06-02 18:02:59,555 [INFO] menu.menu_title: 選択メニュー実行：はじめる
+2026-06-02 18:45:33,844 [INFO] __main__: log setup finished successfully.
+2026-06-02 18:45:33,844 [INFO] __main__: launch the game application.
+2026-06-02 18:45:33,844 [INFO] game: Initialize - gameutils.base
+2026-06-02 18:45:33,869 [INFO] game: Initialize - AssetMap
+2026-06-02 18:45:33,871 [INFO] game: Initialize - SceneManager
+2026-06-02 18:45:33,922 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 18:45:33,922 [INFO] game: Initialize - FieldMap
+2026-06-02 18:45:33,923 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 18:45:33,923 [INFO] game: Initialize - Party
+2026-06-02 18:45:33,936 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 18:45:33,937 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 18:45:33,937 [INFO] game: Initialize - Pyxel
+2026-06-02 18:45:34,553 [INFO] service_locater: サービス登録:('SOUND_MANAGER', <class 'gameutils.lib.sound.sound_manager.SoundManager'>)
+2026-06-02 18:45:34,553 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 18:45:37,287 [INFO] menu.menu_title: MenuItem(item_label='はじめる', menu_action=<bound method MenuTitle.to_newgame of <menu.menu_title.MenuTitle object at 0x000001562E5E5D30>>, action_args=())
+2026-06-02 18:45:37,288 [INFO] menu.menu_title: 選択メニュー実行：はじめる
+2026-06-02 18:46:00,604 [INFO] __main__: log setup finished successfully.
+2026-06-02 18:46:00,605 [INFO] __main__: launch the game application.
+2026-06-02 18:46:00,605 [INFO] game: Initialize - gameutils.base
+2026-06-02 18:46:00,629 [INFO] game: Initialize - AssetMap
+2026-06-02 18:46:00,632 [INFO] game: Initialize - SceneManager
+2026-06-02 18:46:00,659 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 18:46:00,659 [INFO] game: Initialize - FieldMap
+2026-06-02 18:46:00,660 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 18:46:00,660 [INFO] game: Initialize - Party
+2026-06-02 18:46:00,676 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 18:46:00,677 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 18:46:00,677 [INFO] game: Initialize - Pyxel
+2026-06-02 18:46:18,774 [INFO] __main__: log setup finished successfully.
+2026-06-02 18:46:18,775 [INFO] __main__: launch the game application.
+2026-06-02 18:46:18,775 [INFO] game: Initialize - gameutils.base
+2026-06-02 18:46:18,799 [INFO] game: Initialize - AssetMap
+2026-06-02 18:46:18,802 [INFO] game: Initialize - SceneManager
+2026-06-02 18:46:18,829 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 18:46:18,829 [INFO] game: Initialize - FieldMap
+2026-06-02 18:46:18,829 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 18:46:18,830 [INFO] game: Initialize - Party
+2026-06-02 18:46:18,846 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 18:46:18,846 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 18:46:18,846 [INFO] game: Initialize - Pyxel
+2026-06-02 18:49:13,733 [INFO] __main__: log setup finished successfully.
+2026-06-02 18:49:13,733 [INFO] __main__: launch the game application.
+2026-06-02 18:49:13,734 [INFO] game: Initialize - gameutils.base
+2026-06-02 18:49:13,758 [INFO] game: Initialize - AssetMap
+2026-06-02 18:49:13,761 [INFO] game: Initialize - SceneManager
+2026-06-02 18:49:13,792 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 18:49:13,792 [INFO] game: Initialize - FieldMap
+2026-06-02 18:49:13,792 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 18:49:13,793 [INFO] game: Initialize - Party
+2026-06-02 18:49:13,809 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 18:49:13,809 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 18:49:13,809 [INFO] game: Initialize - Pyxel
+2026-06-02 18:49:22,340 [INFO] service_locater: サービス登録:('SOUND_MANAGER', <class 'gameutils.lib.sound.sound_manager.SoundManager'>)
+2026-06-02 18:50:21,771 [INFO] __main__: log setup finished successfully.
+2026-06-02 18:50:21,772 [INFO] __main__: launch the game application.
+2026-06-02 18:50:21,772 [INFO] game: Initialize - gameutils.base
+2026-06-02 18:50:21,799 [INFO] game: Initialize - AssetMap
+2026-06-02 18:50:21,802 [INFO] game: Initialize - SceneManager
+2026-06-02 18:50:21,829 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 18:50:21,829 [INFO] game: Initialize - FieldMap
+2026-06-02 18:50:21,829 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 18:50:21,830 [INFO] game: Initialize - Party
+2026-06-02 18:50:21,846 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 18:50:21,847 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 18:50:21,847 [INFO] game: Initialize - Pyxel
+2026-06-02 18:50:27,515 [INFO] service_locater: サービス登録:('SOUND_MANAGER', <class 'gameutils.lib.sound.sound_manager.SoundManager'>)
+2026-06-02 18:51:25,557 [INFO] __main__: log setup finished successfully.
+2026-06-02 18:51:25,558 [INFO] __main__: launch the game application.
+2026-06-02 18:51:25,558 [INFO] game: Initialize - gameutils.base
+2026-06-02 18:51:25,582 [INFO] game: Initialize - AssetMap
+2026-06-02 18:51:25,585 [INFO] game: Initialize - SceneManager
+2026-06-02 18:51:25,613 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 18:51:25,613 [INFO] game: Initialize - FieldMap
+2026-06-02 18:51:25,613 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 18:51:25,614 [INFO] game: Initialize - Party
+2026-06-02 18:51:25,630 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 18:51:25,630 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 18:51:25,631 [INFO] game: Initialize - Pyxel
+2026-06-02 18:51:26,202 [INFO] service_locater: サービス登録:('SOUND_MANAGER', <class 'gameutils.lib.sound.sound_manager.SoundManager'>)
+2026-06-02 19:00:18,521 [INFO] __main__: log setup finished successfully.
+2026-06-02 19:00:18,522 [INFO] __main__: launch the game application.
+2026-06-02 19:00:18,523 [INFO] game: Initialize - gameutils.base
+2026-06-02 19:00:18,548 [INFO] game: Initialize - AssetMap
+2026-06-02 19:00:18,551 [INFO] game: Initialize - SceneManager
+2026-06-02 19:00:18,590 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 19:00:18,591 [INFO] game: Initialize - FieldMap
+2026-06-02 19:00:18,591 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 19:00:18,592 [INFO] game: Initialize - Party
+2026-06-02 19:00:18,608 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 19:00:18,608 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 19:00:18,608 [INFO] game: Initialize - Pyxel
+2026-06-02 19:00:19,192 [INFO] service_locater: サービス登録:('SOUND_MANAGER', <class 'gameutils.lib.sound.sound_manager.SoundManager'>)
+2026-06-02 19:03:01,573 [INFO] __main__: log setup finished successfully.
+2026-06-02 19:03:01,574 [INFO] __main__: launch the game application.
+2026-06-02 19:03:01,574 [INFO] game: Initialize - gameutils.base
+2026-06-02 19:03:01,598 [INFO] game: Initialize - AssetMap
+2026-06-02 19:03:01,601 [INFO] game: Initialize - SceneManager
+2026-06-02 19:03:01,629 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 19:03:01,629 [INFO] game: Initialize - FieldMap
+2026-06-02 19:03:01,630 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 19:03:01,631 [INFO] game: Initialize - Party
+2026-06-02 19:03:01,646 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 19:03:01,646 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 19:03:01,647 [INFO] game: Initialize - Pyxel
+2026-06-02 19:03:02,234 [INFO] service_locater: サービス登録:('SOUND_MANAGER', <class 'gameutils.lib.sound.sound_manager.SoundManager'>)
+2026-06-02 19:13:58,654 [INFO] __main__: log setup finished successfully.
+2026-06-02 19:13:58,654 [INFO] __main__: launch the game application.
+2026-06-02 19:13:58,655 [INFO] game: Initialize - gameutils.base
+2026-06-02 19:13:58,679 [INFO] game: Initialize - AssetMap
+2026-06-02 19:13:58,682 [INFO] game: Initialize - SceneManager
+2026-06-02 19:13:58,710 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 19:13:58,710 [INFO] game: Initialize - FieldMap
+2026-06-02 19:13:58,711 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 19:13:58,712 [INFO] game: Initialize - Party
+2026-06-02 19:13:58,727 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 19:13:58,728 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 19:13:58,728 [INFO] game: Initialize - Pyxel
+2026-06-02 19:14:28,049 [INFO] __main__: log setup finished successfully.
+2026-06-02 19:14:28,050 [INFO] __main__: launch the game application.
+2026-06-02 19:14:28,050 [INFO] game: Initialize - gameutils.base
+2026-06-02 19:14:28,075 [INFO] game: Initialize - AssetMap
+2026-06-02 19:14:28,078 [INFO] game: Initialize - SceneManager
+2026-06-02 19:14:28,106 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 19:14:28,106 [INFO] game: Initialize - FieldMap
+2026-06-02 19:14:28,106 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 19:14:28,107 [INFO] game: Initialize - Party
+2026-06-02 19:14:28,123 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 19:14:28,123 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 19:14:28,123 [INFO] game: Initialize - Pyxel
+2026-06-02 19:14:28,720 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 19:15:53,446 [INFO] __main__: log setup finished successfully.
+2026-06-02 19:15:53,446 [INFO] __main__: launch the game application.
+2026-06-02 19:15:53,447 [INFO] game: Initialize - gameutils.base
+2026-06-02 19:15:53,473 [INFO] game: Initialize - AssetMap
+2026-06-02 19:15:53,475 [INFO] game: Initialize - SceneManager
+2026-06-02 19:15:53,508 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 19:15:53,508 [INFO] game: Initialize - FieldMap
+2026-06-02 19:15:53,508 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 19:15:53,509 [INFO] game: Initialize - Party
+2026-06-02 19:15:53,520 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 19:15:53,520 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 19:15:53,520 [INFO] game: Initialize - Pyxel
+2026-06-02 19:15:54,093 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 19:16:13,962 [INFO] menu.menu_title: MenuItem(item_label='はじめる', menu_action=<bound method MenuTitle.to_newgame of <menu.menu_title.MenuTitle object at 0x000001807C9E1940>>, action_args=())
+2026-06-02 19:16:13,962 [INFO] menu.menu_title: 選択メニュー実行：はじめる
+2026-06-02 19:19:16,720 [INFO] __main__: log setup finished successfully.
+2026-06-02 19:19:16,720 [INFO] __main__: launch the game application.
+2026-06-02 19:19:16,720 [INFO] game: Initialize - gameutils.base
+2026-06-02 19:19:16,744 [INFO] game: Initialize - AssetMap
+2026-06-02 19:19:16,746 [INFO] game: Initialize - SceneManager
+2026-06-02 19:19:16,763 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 19:19:16,763 [INFO] game: Initialize - FieldMap
+2026-06-02 19:19:16,763 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 19:19:16,764 [INFO] game: Initialize - Party
+2026-06-02 19:19:16,784 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 19:19:55,004 [INFO] __main__: log setup finished successfully.
+2026-06-02 19:19:55,004 [INFO] __main__: launch the game application.
+2026-06-02 19:19:55,004 [INFO] game: Initialize - gameutils.base
+2026-06-02 19:19:55,028 [INFO] game: Initialize - AssetMap
+2026-06-02 19:19:55,030 [INFO] game: Initialize - SceneManager
+2026-06-02 19:19:55,047 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 19:19:55,047 [INFO] game: Initialize - FieldMap
+2026-06-02 19:19:55,047 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 19:19:55,048 [INFO] game: Initialize - Party
+2026-06-02 19:19:55,069 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 19:19:55,069 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 19:19:55,069 [INFO] game: Initialize - Pyxel
+2026-06-02 19:19:55,649 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 19:20:03,634 [INFO] __main__: log setup finished successfully.
+2026-06-02 19:20:03,634 [INFO] __main__: launch the game application.
+2026-06-02 19:20:03,635 [INFO] game: Initialize - gameutils.base
+2026-06-02 19:20:03,658 [INFO] game: Initialize - AssetMap
+2026-06-02 19:20:03,661 [INFO] game: Initialize - SceneManager
+2026-06-02 19:20:03,679 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 19:20:03,679 [INFO] game: Initialize - FieldMap
+2026-06-02 19:20:03,679 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 19:20:03,680 [INFO] game: Initialize - Party
+2026-06-02 19:20:03,700 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 19:20:03,701 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 19:20:03,701 [INFO] game: Initialize - Pyxel
+2026-06-02 19:20:04,272 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 19:20:38,639 [INFO] menu.menu_title: MenuItem(item_label='はじめる', menu_action=<bound method MenuTitle.to_newgame of <menu.menu_title.MenuTitle object at 0x000002575B931940>>, action_args=())
+2026-06-02 19:20:38,640 [INFO] menu.menu_title: 選択メニュー実行：はじめる
+2026-06-02 19:20:45,845 [INFO] __main__: log setup finished successfully.
+2026-06-02 19:20:45,845 [INFO] __main__: launch the game application.
+2026-06-02 19:20:45,845 [INFO] game: Initialize - gameutils.base
+2026-06-02 19:20:45,869 [INFO] game: Initialize - AssetMap
+2026-06-02 19:20:45,871 [INFO] game: Initialize - SceneManager
+2026-06-02 19:20:45,888 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 19:20:45,888 [INFO] game: Initialize - FieldMap
+2026-06-02 19:20:45,888 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 19:20:45,889 [INFO] game: Initialize - Party
+2026-06-02 19:20:45,900 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 19:20:45,900 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 19:20:45,900 [INFO] game: Initialize - Pyxel
+2026-06-02 19:20:46,475 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 19:21:05,809 [INFO] __main__: log setup finished successfully.
+2026-06-02 19:21:05,809 [INFO] __main__: launch the game application.
+2026-06-02 19:21:05,809 [INFO] game: Initialize - gameutils.base
+2026-06-02 19:21:05,833 [INFO] game: Initialize - AssetMap
+2026-06-02 19:21:05,835 [INFO] game: Initialize - SceneManager
+2026-06-02 19:21:05,852 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-02 19:21:05,852 [INFO] game: Initialize - FieldMap
+2026-06-02 19:21:05,852 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-02 19:21:05,853 [INFO] game: Initialize - Party
+2026-06-02 19:21:05,864 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-02 19:21:05,864 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-02 19:21:05,865 [INFO] game: Initialize - Pyxel
+2026-06-02 19:21:06,423 [INFO] game: Start Pyxel frame procedure.
+2026-06-02 19:21:25,691 [INFO] menu.menu_title: MenuItem(item_label='はじめる', menu_action=<bound method MenuTitle.to_newgame of <menu.menu_title.MenuTitle object at 0x0000029AD8F31940>>, action_args=())
+2026-06-02 19:21:25,692 [INFO] menu.menu_title: 選択メニュー実行：はじめる
+2026-06-03 10:42:08,032 [INFO] __main__: log setup finished successfully.
+2026-06-03 10:42:08,033 [INFO] __main__: launch the game application.
+2026-06-03 10:42:08,033 [INFO] game: Initialize - gameutils.base
+2026-06-03 10:42:08,085 [INFO] game: Initialize - AssetMap
+2026-06-03 10:42:08,088 [INFO] game: Initialize - SceneManager
+2026-06-03 10:42:08,175 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-03 10:42:08,175 [INFO] game: Initialize - FieldMap
+2026-06-03 10:42:08,175 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-03 10:42:08,184 [INFO] game: Initialize - Party
+2026-06-03 10:42:08,222 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-03 10:42:08,222 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-03 10:42:08,222 [INFO] game: Initialize - Pyxel
+2026-06-03 10:42:09,265 [INFO] game: Start Pyxel frame procedure.
+2026-06-03 11:19:25,569 [INFO] __main__: log setup finished successfully.
+2026-06-03 11:19:25,569 [INFO] __main__: launch the game application.
+2026-06-03 11:19:25,569 [INFO] game: Initialize - gameutils.base
+2026-06-03 11:19:25,607 [INFO] game: Initialize - AssetMap
+2026-06-03 11:19:25,610 [INFO] game: Initialize - SceneManager
+2026-06-03 11:19:25,637 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-03 11:19:25,637 [INFO] game: Initialize - FieldMap
+2026-06-03 11:19:25,637 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-03 11:19:25,646 [INFO] game: Initialize - Party
+2026-06-03 11:19:25,664 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-03 11:19:25,664 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-03 11:19:25,664 [INFO] game: Initialize - Pyxel
+2026-06-03 11:19:26,392 [INFO] game: Start Pyxel frame procedure.
+2026-06-03 11:21:59,136 [INFO] __main__: log setup finished successfully.
+2026-06-03 11:21:59,137 [INFO] __main__: launch the game application.
+2026-06-03 11:21:59,137 [INFO] game: Initialize - gameutils.base
+2026-06-03 11:21:59,160 [INFO] game: Initialize - AssetMap
+2026-06-03 11:21:59,163 [INFO] game: Initialize - SceneManager
+2026-06-03 11:21:59,193 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-03 11:21:59,193 [INFO] game: Initialize - FieldMap
+2026-06-03 11:21:59,193 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-03 11:21:59,193 [INFO] game: Initialize - Party
+2026-06-03 11:21:59,205 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-03 11:21:59,205 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-03 11:21:59,205 [INFO] game: Initialize - Pyxel
+2026-06-03 11:21:59,831 [INFO] game: Start Pyxel frame procedure.
