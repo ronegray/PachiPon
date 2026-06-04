@@ -367,6 +367,7 @@
             "from": "p10",
             "to": "p30",
             "cost": 1,
+            "threat": 0,
             "direction": "left"
         },
         {
@@ -374,6 +375,7 @@
             "from": "p30",
             "to": "p10",
             "cost": 1,
+            "threat": 0,
             "direction": "right"
         },
         {
@@ -381,6 +383,7 @@
             "from": "p03",
             "to": "p45",
             "cost": 1,
+            "threat": 0,
             "direction": "up"
         },
         {
@@ -388,6 +391,7 @@
             "from": "p45",
             "to": "p03",
             "cost": 1,
+            "threat": 0,
             "direction": "down"
         },
         {
@@ -395,6 +399,7 @@
             "from": "p23",
             "to": "p38",
             "cost": 1,
+            "threat": 0,
             "direction": "left"
         },
         {
@@ -402,6 +407,7 @@
             "from": "p38",
             "to": "p23",
             "cost": 1,
+            "threat": 0,
             "direction": "right"
         },
         {
@@ -409,6 +415,7 @@
             "from": "p24",
             "to": "p43",
             "cost": 1,
+            "threat": 0,
             "direction": "down"
         },
         {
@@ -416,6 +423,7 @@
             "from": "p43",
             "to": "p24",
             "cost": 1,
+            "threat": 0,
             "direction": "up"
         },
         {
@@ -423,6 +431,7 @@
             "from": "p25",
             "to": "p34",
             "cost": 1,
+            "threat": 0,
             "direction": "up"
         },
         {
@@ -430,6 +439,7 @@
             "from": "p34",
             "to": "p25",
             "cost": 1,
+            "threat": 0,
             "direction": "down"
         },
         {
@@ -437,6 +447,7 @@
             "from": "p04",
             "to": "p15",
             "cost": 1,
+            "threat": 1,
             "direction": "right"
         },
         {
@@ -444,6 +455,7 @@
             "from": "p15",
             "to": "p04",
             "cost": 1,
+            "threat": 1,
             "direction": "left"
         },
         {
@@ -451,6 +463,7 @@
             "from": "p08",
             "to": "p17",
             "cost": 1,
+            "threat": 1,
             "direction": "right"
         },
         {
@@ -458,6 +471,7 @@
             "from": "p17",
             "to": "p08",
             "cost": 1,
+            "threat": 1,
             "direction": "left"
         },
         {
@@ -465,6 +479,7 @@
             "from": "p05",
             "to": "p40",
             "cost": 2,
+            "threat": 1,
             "direction": "down"
         },
         {
@@ -472,6 +487,7 @@
             "from": "p40",
             "to": "p05",
             "cost": 2,
+            "threat": 1,
             "direction": "up"
         },
         {
@@ -479,6 +495,7 @@
             "from": "p12",
             "to": "p30",
             "cost": 2,
+            "threat": 1,
             "direction": "down"
         },
         {
@@ -486,6 +503,7 @@
             "from": "p30",
             "to": "p12",
             "cost": 2,
+            "threat": 1,
             "direction": "up"
         },
         {
@@ -493,6 +511,7 @@
             "from": "p12",
             "to": "p32",
             "cost": 2,
+            "threat": 1,
             "direction": "right"
         },
         {
@@ -500,6 +519,7 @@
             "from": "p32",
             "to": "p12",
             "cost": 2,
+            "threat": 1,
             "direction": "left"
         },
         {
@@ -507,6 +527,7 @@
             "from": "p08",
             "to": "p31",
             "cost": 2,
+            "threat": 2,
             "direction": "down"
         },
         {
@@ -514,6 +535,7 @@
             "from": "p31",
             "to": "p08",
             "cost": 2,
+            "threat": 2,
             "direction": "up"
         },
         {
@@ -521,6 +543,7 @@
             "from": "p14",
             "to": "p36",
             "cost": 2,
+            "threat": 2,
             "direction": "down"
         },
         {
@@ -528,6 +551,7 @@
             "from": "p36",
             "to": "p14",
             "cost": 2,
+            "threat": 2,
             "direction": "up"
         },
         {
@@ -535,6 +559,7 @@
             "from": "p05",
             "to": "p19",
             "cost": 2,
+            "threat": 2,
             "direction": "up"
         },
         {
@@ -542,6 +567,7 @@
             "from": "p19",
             "to": "p05",
             "cost": 2,
+            "threat": 2,
             "direction": "down"
         },
         {
@@ -549,6 +575,7 @@
             "from": "p06",
             "to": "p42",
             "cost": 2,
+            "threat": 2,
             "direction": "up"
         },
         {
@@ -556,6 +583,7 @@
             "from": "p42",
             "to": "p06",
             "cost": 2,
+            "threat": 2,
             "direction": "down"
         },
         {
@@ -563,6 +591,7 @@
             "from": "p20",
             "to": "p40",
             "cost": 2,
+            "threat": 2,
             "direction": "up"
         },
         {
@@ -570,6 +599,7 @@
             "from": "p40",
             "to": "p20",
             "cost": 2,
+            "threat": 2,
             "direction": "down"
         },
         {
@@ -577,6 +607,7 @@
             "from": "p07",
             "to": "p24",
             "cost": 2,
+            "threat": 3,
             "direction": "right"
         },
         {
@@ -584,6 +615,7 @@
             "from": "p24",
             "to": "p07",
             "cost": 2,
+            "threat": 3,
             "direction": "left"
         },
         {
@@ -591,6 +623,7 @@
             "from": "p11",
             "to": "p16",
             "cost": 2,
+            "threat": 3,
             "direction": "right"
         },
         {
@@ -598,6 +631,7 @@
             "from": "p16",
             "to": "p11",
             "cost": 2,
+            "threat": 3,
             "direction": "left"
         },
         {
@@ -605,6 +639,7 @@
             "from": "p15",
             "to": "p45",
             "cost": 2,
+            "threat": 3,
             "direction": "down"
         },
         {
@@ -612,6 +647,7 @@
             "from": "p45",
             "to": "p15",
             "cost": 2,
+            "threat": 3,
             "direction": "up"
         },
         {
@@ -619,6 +655,7 @@
             "from": "p22",
             "to": "p33",
             "cost": 2,
+            "threat": 3,
             "direction": "right"
         },
         {
@@ -626,6 +663,7 @@
             "from": "p33",
             "to": "p22",
             "cost": 2,
+            "threat": 3,
             "direction": "left"
         },
         {
@@ -633,6 +671,7 @@
             "from": "p08",
             "to": "p32",
             "cost": 2,
+            "threat": 3,
             "direction": "left"
         },
         {
@@ -640,6 +679,7 @@
             "from": "p32",
             "to": "p08",
             "cost": 2,
+            "threat": 3,
             "direction": "right"
         },
         {
@@ -647,6 +687,7 @@
             "from": "p34",
             "to": "p35",
             "cost": 2,
+            "threat": 4,
             "direction": "up"
         },
         {
@@ -654,6 +695,7 @@
             "from": "p35",
             "to": "p34",
             "cost": 2,
+            "threat": 4,
             "direction": "down"
         },
         {
@@ -661,6 +703,7 @@
             "from": "p27",
             "to": "p29",
             "cost": 2,
+            "threat": 4,
             "direction": "right"
         },
         {
@@ -668,6 +711,7 @@
             "from": "p29",
             "to": "p27",
             "cost": 2,
+            "threat": 4,
             "direction": "left"
         },
         {
@@ -675,6 +719,7 @@
             "from": "p35",
             "to": "p43",
             "cost": 2,
+            "threat": 4,
             "direction": "up"
         },
         {
@@ -682,6 +727,7 @@
             "from": "p43",
             "to": "p35",
             "cost": 2,
+            "threat": 4,
             "direction": "down"
         },
         {
@@ -689,6 +735,7 @@
             "from": "p02",
             "to": "p14",
             "cost": 2,
+            "threat": 4,
             "direction": "right"
         },
         {
@@ -696,6 +743,7 @@
             "from": "p14",
             "to": "p02",
             "cost": 2,
+            "threat": 4,
             "direction": "left"
         },
         {
@@ -703,6 +751,7 @@
             "from": "p21",
             "to": "p33",
             "cost": 2,
+            "threat": 4,
             "direction": "left"
         },
         {
@@ -710,6 +759,7 @@
             "from": "p33",
             "to": "p21",
             "cost": 2,
+            "threat": 4,
             "direction": "right"
         },
         {
@@ -717,6 +767,7 @@
             "from": "p10",
             "to": "p14",
             "cost": 2,
+            "threat": 5,
             "direction": "down"
         },
         {
@@ -724,6 +775,7 @@
             "from": "p14",
             "to": "p10",
             "cost": 2,
+            "threat": 5,
             "direction": "up"
         },
         {
@@ -731,6 +783,7 @@
             "from": "p15",
             "to": "p40",
             "cost": 2,
+            "threat": 5,
             "direction": "right"
         },
         {
@@ -738,6 +791,7 @@
             "from": "p40",
             "to": "p15",
             "cost": 2,
+            "threat": 5,
             "direction": "left"
         },
         {
@@ -745,6 +799,7 @@
             "from": "p20",
             "to": "p45",
             "cost": 2,
+            "threat": 5,
             "direction": "left"
         },
         {
@@ -752,6 +807,7 @@
             "from": "p45",
             "to": "p20",
             "cost": 2,
+            "threat": 5,
             "direction": "right"
         },
         {
@@ -759,6 +815,7 @@
             "from": "p09",
             "to": "p23",
             "cost": 2,
+            "threat": 5,
             "direction": "down"
         },
         {
@@ -766,6 +823,7 @@
             "from": "p23",
             "to": "p09",
             "cost": 2,
+            "threat": 5,
             "direction": "up"
         },
         {
@@ -773,6 +831,7 @@
             "from": "p06",
             "to": "p17",
             "cost": 2,
+            "threat": 5,
             "direction": "down"
         },
         {
@@ -780,6 +839,7 @@
             "from": "p17",
             "to": "p06",
             "cost": 2,
+            "threat": 5,
             "direction": "up"
         },
         {
@@ -787,6 +847,7 @@
             "from": "p16",
             "to": "p41",
             "cost": 2,
+            "threat": 6,
             "direction": "right"
         },
         {
@@ -794,6 +855,7 @@
             "from": "p41",
             "to": "p16",
             "cost": 2,
+            "threat": 6,
             "direction": "left"
         },
         {
@@ -801,6 +863,7 @@
             "from": "p26",
             "to": "p27",
             "cost": 2,
+            "threat": 6,
             "direction": "down"
         },
         {
@@ -808,6 +871,7 @@
             "from": "p27",
             "to": "p26",
             "cost": 2,
+            "threat": 6,
             "direction": "up"
         },
         {
@@ -815,6 +879,7 @@
             "from": "p09",
             "to": "p18",
             "cost": 2,
+            "threat": 6,
             "direction": "right"
         },
         {
@@ -822,6 +887,7 @@
             "from": "p18",
             "to": "p09",
             "cost": 2,
+            "threat": 6,
             "direction": "left"
         },
         {
@@ -829,6 +895,7 @@
             "from": "p41",
             "to": "p44",
             "cost": 2,
+            "threat": 6,
             "direction": "up"
         },
         {
@@ -836,6 +903,7 @@
             "from": "p44",
             "to": "p41",
             "cost": 2,
+            "threat": 6,
             "direction": "down"
         },
         {
@@ -843,6 +911,7 @@
             "from": "p10",
             "to": "p31",
             "cost": 2,
+            "threat": 6,
             "direction": "right"
         },
         {
@@ -850,6 +919,7 @@
             "from": "p31",
             "to": "p10",
             "cost": 2,
+            "threat": 6,
             "direction": "left"
         },
         {
@@ -857,6 +927,7 @@
             "from": "p22",
             "to": "p36",
             "cost": 2,
+            "threat": 7,
             "direction": "left"
         },
         {
@@ -864,6 +935,7 @@
             "from": "p36",
             "to": "p22",
             "cost": 2,
+            "threat": 7,
             "direction": "right"
         },
         {
@@ -871,6 +943,7 @@
             "from": "p13",
             "to": "p39",
             "cost": 2,
+            "threat": 7,
             "direction": "down"
         },
         {
@@ -878,6 +951,7 @@
             "from": "p39",
             "to": "p13",
             "cost": 2,
+            "threat": 7,
             "direction": "up"
         },
         {
@@ -885,6 +959,7 @@
             "from": "p07",
             "to": "p44",
             "cost": 2,
+            "threat": 7,
             "direction": "down"
         },
         {
@@ -892,6 +967,7 @@
             "from": "p44",
             "to": "p07",
             "cost": 2,
+            "threat": 7,
             "direction": "up"
         },
         {
@@ -899,6 +975,7 @@
             "from": "p02",
             "to": "p25",
             "cost": 2,
+            "threat": 7,
             "direction": "left"
         },
         {
@@ -906,6 +983,7 @@
             "from": "p25",
             "to": "p02",
             "cost": 2,
+            "threat": 7,
             "direction": "right"
         },
         {
@@ -913,6 +991,7 @@
             "from": "p22",
             "to": "p31",
             "cost": 2,
+            "threat": 7,
             "direction": "up"
         },
         {
@@ -920,6 +999,7 @@
             "from": "p31",
             "to": "p22",
             "cost": 2,
+            "threat": 7,
             "direction": "down"
         },
         {
@@ -927,6 +1007,7 @@
             "from": "p27",
             "to": "p28",
             "cost": 2,
+            "threat": 8,
             "direction": "left"
         },
         {
@@ -934,6 +1015,7 @@
             "from": "p28",
             "to": "p27",
             "cost": 2,
+            "threat": 8,
             "direction": "right"
         },
         {
@@ -941,6 +1023,7 @@
             "from": "p35",
             "to": "p44",
             "cost": 3,
+            "threat": 8,
             "direction": "left"
         },
         {
@@ -948,6 +1031,7 @@
             "from": "p44",
             "to": "p35",
             "cost": 3,
+            "threat": 8,
             "direction": "right"
         },
         {
@@ -955,6 +1039,7 @@
             "from": "p07",
             "to": "p20",
             "cost": 3,
+            "threat": 8,
             "direction": "up"
         },
         {
@@ -962,6 +1047,7 @@
             "from": "p20",
             "to": "p07",
             "cost": 3,
+            "threat": 8,
             "direction": "down"
         },
         {
@@ -969,6 +1055,7 @@
             "from": "p34",
             "to": "p41",
             "cost": 3,
+            "threat": 8,
             "direction": "left"
         },
         {
@@ -976,6 +1063,7 @@
             "from": "p41",
             "to": "p34",
             "cost": 3,
+            "threat": 8,
             "direction": "right"
         },
         {
@@ -983,6 +1071,7 @@
             "from": "p01",
             "to": "p24",
             "cost": 3,
+            "threat": 8,
             "direction": "down"
         },
         {
@@ -990,6 +1079,7 @@
             "from": "p24",
             "to": "p01",
             "cost": 3,
+            "threat": 8,
             "direction": "up"
         },
         {
@@ -997,6 +1087,7 @@
             "from": "p23",
             "to": "p42",
             "cost": 3,
+            "threat": 9,
             "direction": "right"
         },
         {
@@ -1004,6 +1095,7 @@
             "from": "p42",
             "to": "p23",
             "cost": 3,
+            "threat": 9,
             "direction": "left"
         },
         {
@@ -1011,6 +1103,7 @@
             "from": "p17",
             "to": "p21",
             "cost": 3,
+            "threat": 9,
             "direction": "down"
         },
         {
@@ -1018,6 +1111,7 @@
             "from": "p21",
             "to": "p17",
             "cost": 3,
+            "threat": 9,
             "direction": "up"
         },
         {
@@ -1025,6 +1119,7 @@
             "from": "p01",
             "to": "p40",
             "cost": 3,
+            "threat": 9,
             "direction": "left"
         },
         {
@@ -1032,6 +1127,7 @@
             "from": "p40",
             "to": "p01",
             "cost": 3,
+            "threat": 9,
             "direction": "right"
         },
         {
@@ -1039,6 +1135,7 @@
             "from": "p25",
             "to": "p26",
             "cost": 3,
+            "threat": 9,
             "direction": "left"
         },
         {
@@ -1046,6 +1143,7 @@
             "from": "p26",
             "to": "p25",
             "cost": 3,
+            "threat": 9,
             "direction": "right"
         },
         {
@@ -1053,6 +1151,7 @@
             "from": "p26",
             "to": "p41",
             "cost": 3,
+            "threat": 9,
             "direction": "up"
         },
         {
@@ -1060,6 +1159,7 @@
             "from": "p41",
             "to": "p26",
             "cost": 3,
+            "threat": 9,
             "direction": "down"
         },
         {
@@ -1067,6 +1167,7 @@
             "from": "p18",
             "to": "p42",
             "cost": 3,
+            "threat": 10,
             "direction": "down"
         },
         {
@@ -1074,6 +1175,7 @@
             "from": "p42",
             "to": "p18",
             "cost": 3,
+            "threat": 10,
             "direction": "up"
         },
         {
@@ -1081,6 +1183,7 @@
             "from": "p06",
             "to": "p13",
             "cost": 4,
+            "threat": 10,
             "direction": "right"
         },
         {
@@ -1088,6 +1191,7 @@
             "from": "p13",
             "to": "p06",
             "cost": 4,
+            "threat": 10,
             "direction": "left"
         },
         {
@@ -1095,6 +1199,7 @@
             "from": "p36",
             "to": "p37",
             "cost": 4,
+            "threat": 10,
             "direction": "down"
         },
         {
@@ -1102,6 +1207,7 @@
             "from": "p37",
             "to": "p36",
             "cost": 4,
+            "threat": 10,
             "direction": "up"
         },
         {
@@ -1109,6 +1215,7 @@
             "from": "p12",
             "to": "p38",
             "cost": 4,
+            "threat": 10,
             "direction": "up"
         },
         {
@@ -1116,6 +1223,7 @@
             "from": "p38",
             "to": "p12",
             "cost": 4,
+            "threat": 10,
             "direction": "down"
         },
         {
@@ -1123,6 +1231,7 @@
             "from": "p38",
             "to": "p43",
             "cost": 4,
+            "threat": 10,
             "direction": "left"
         },
         {
@@ -1130,6 +1239,7 @@
             "from": "p43",
             "to": "p38",
             "cost": 4,
+            "threat": 10,
             "direction": "right"
         },
         {
@@ -1137,6 +1247,7 @@
             "from": "p03",
             "to": "p07",
             "cost": 4,
+            "threat": 11,
             "direction": "right"
         },
         {
@@ -1144,6 +1255,7 @@
             "from": "p07",
             "to": "p03",
             "cost": 4,
+            "threat": 11,
             "direction": "left"
         },
         {
@@ -1151,6 +1263,7 @@
             "from": "p01",
             "to": "p09",
             "cost": 4,
+            "threat": 11,
             "direction": "right"
         },
         {
@@ -1158,6 +1271,7 @@
             "from": "p09",
             "to": "p01",
             "cost": 4,
+            "threat": 11,
             "direction": "left"
         },
         {
@@ -1165,6 +1279,7 @@
             "from": "p17",
             "to": "p39",
             "cost": 4,
+            "threat": 11,
             "direction": "right"
         },
         {
@@ -1172,6 +1287,7 @@
             "from": "p39",
             "to": "p17",
             "cost": 4,
+            "threat": 11,
             "direction": "left"
         }
     ]

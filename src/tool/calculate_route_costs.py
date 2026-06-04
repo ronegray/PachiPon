@@ -3,7 +3,7 @@ import math
 
 
 def calculate_costs():
-    json_path = "assets/data/map_data.json"
+    json_path = "../assets/data/map_data.json"
     with open(json_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 

@@ -73,12 +73,14 @@ def generate_routes(data):
         # p1のdir1スロットが空いており、かつp2のdir2スロット（逆向き）も空いている場合のみ接続
         if not occupied_slots[p1_id][dir1] and not occupied_slots[p2_id][dir2]:
             # ルートを双方向で作成
+            threat = route_id_counter // 10
             routes.append(
                 {
                     "id": f"r{route_id_counter:03d}",
                     "from": p1_id,
                     "to": p2_id,
                     "cost": 1,
+                    "threat": threat,
                     "direction": dir1,
                 }
             )
@@ -90,6 +92,7 @@ def generate_routes(data):
                     "from": p2_id,
                     "to": p1_id,
                     "cost": 1,
+                    "threat": threat,
                     "direction": dir2,
                 }
             )
@@ -103,7 +106,7 @@ def generate_routes(data):
 
 
 def main():
-    path = "assets/data/map_data.json"
+    path = "../assets/data/map_data.json"
     if not os.path.exists(path):
         print(f"Error: {path} not found.")
         return

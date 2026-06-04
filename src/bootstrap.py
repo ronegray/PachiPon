@@ -5,18 +5,18 @@ import logging
 import service_locater as di
 from const import APP_FPS
 from gameutils.base import (
-    check_file,
-    read_json,
     initialize_input,
     load_config,
     FontManager,
 )
-from assets.asset_map import AssetMap, AssetID
+from assets.asset_map import AssetMap
 from scene import SceneManager
 from field_map import MapGraph
 from entity import Party
 from setup_log import setup_logging
 
+
+# ロギング設定
 logger = logging.getLogger(__name__)
 
 
@@ -45,16 +45,6 @@ def ipl():
     logger.info("Initialize - FieldMap")
     map = MapGraph()
     di.register(di.ServiceKey.MAPGRAPH, map)
-
-    # フィールドマップ構造データロード
-    logger.info("Dataload - FieldMapStructure")
-    map_path = check_file(AssetMap.get_assetpath(AssetID.DATA_MAP), "r")
-    if map_path:
-        di.ref.map.load_from_json(read_json(map_path))
-    else:
-        errmsg = "マップ構造データファイルが見つかりません"
-        logger.critical(errmsg, exc_info=True)
-        raise FileNotFoundError(errmsg)
 
     # サービスロケータ登録：パーティ
     logger.info("Initialize - Party")

@@ -1,6 +1,6 @@
 import json
 from typing import Optional
-from .item_protocol import ItemID, ItemTag, ItemDef
+from .item_protocol import ItemID, ItemType, ItemDef
 from assets.asset_map import AssetID, AssetMap
 
 
@@ -17,8 +17,10 @@ class ItemManager:
 
             cls._definitions = {}
             for tag_name, items in data.items():
-                tag = ItemTag[tag_name]
-                stackable = tag == ItemTag.CONSUME  # 現状のルール: 消耗品のみスタック可
+                tag = ItemType[tag_name]
+                stackable = (
+                    tag == ItemType.CONSUME
+                )  # 現状のルール: 消耗品のみスタック可
 
                 for item_name, details in items.items():
                     if hasattr(ItemID, item_name):
@@ -26,7 +28,7 @@ class ItemManager:
                         cls._definitions[def_id] = ItemDef(
                             def_id=def_id,
                             name=details.get("name", "Unknown"),
-                            tag=tag,
+                            item_type=tag,
                             stackable=stackable,
                             price=details.get("price", 0),
                             description=details.get("description", ""),
