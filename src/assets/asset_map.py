@@ -30,8 +30,6 @@ class AssetMap:
     """アセットIDとアセットファイルのマッピング"""
 
     _asset_map: dict[AssetID, str] = {}
-    # _app_path: str
-
     _asset_path: str = ""
 
     @classmethod

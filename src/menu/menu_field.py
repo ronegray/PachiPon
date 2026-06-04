@@ -2,7 +2,7 @@
 from gameutils.lib.window import Menu, Window
 from gameutils.base import FONT_SIZE_NAME
 import service_locater as di
-from entity.character import EquipmentSlot
+from entity.character import EquipSlot
 # from item.item_protocol import Owner
 # from item.item_manager import ItemManager
 # from .menu_item import MenuItemWindow
@@ -41,12 +41,12 @@ class MenuField(Menu):
 
         # 装備項目の構築
         slots = [
-            (EquipmentSlot.WEAPON, "武　器"),
-            (EquipmentSlot.GUARDER, "防　具"),
-            (EquipmentSlot.ACCESSORY_1, "装飾１"),
-            (EquipmentSlot.ACCESSORY_2, "装飾２"),
-            (EquipmentSlot.CONSUME_1, "消費１"),
-            (EquipmentSlot.CONSUME_2, "消費２"),
+            (EquipSlot.WEAPON, "武　器"),
+            (EquipSlot.GUARDER, "防　具"),
+            (EquipSlot.ACCESSORY_1, "装飾１"),
+            (EquipSlot.ACCESSORY_2, "装飾２"),
+            (EquipSlot.CONSUME_1, "消費１"),
+            (EquipSlot.CONSUME_2, "消費２"),
         ]
 
         for slot, label in slots:

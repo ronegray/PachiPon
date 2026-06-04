@@ -1,5 +1,5 @@
 from pathlib import Path
-from item import ItemManager, Owner, ItemPool, StackPool
+from item import ItemManager, ItemOwner, ItemPool, StackPool
 import service_locater as di
 from gameutils.base import AssetManager
 
@@ -16,16 +16,16 @@ def test_init():
     for item_def_id, item_def in ItemManager.get_all_definitions().items():
         for _ in range(2):
             if item_def.stackable:
-                di.ref.stkpool.add(item_def_id, Owner.BAG, 1)
+                di.ref.stkpool.add(item_def_id, ItemOwner.BAG, 1)
             else:
-                di.ref.itempool.create(item_def_id, Owner.BAG)
+                di.ref.itempool.create(item_def_id, ItemOwner.BAG)
 
-    bag_items = di.ref.itempool.get_by_owner(Owner.BAG)
+    bag_items = di.ref.itempool.get_by_owner(ItemOwner.BAG)
     print(f"ItemPool (Non-stackable) items in BAG: {len(bag_items)}")
 
     for item_def_id, item_def in ItemManager.get_all_definitions().items():
         if item_def.stackable:
-            count = di.ref.stkpool.count(item_def_id, Owner.BAG)
+            count = di.ref.stkpool.count(item_def_id, ItemOwner.BAG)
             print(f"Stackable Item {item_def.name} (ID:{item_def_id}) count: {count}")
 
 

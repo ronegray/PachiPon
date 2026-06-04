@@ -6,7 +6,7 @@ from typing import Optional
 
 
 # アイテム属性（スタック可否の分岐に使う）
-class ItemTag(IntEnum):
+class ItemType(IntEnum):
     WEAPON = auto()  # 武器：インスタンス管理
     GUARDER = auto()  # 防具：インスタンス管理
     ACCESSORY = auto()  # 装飾：インスタンス管理
@@ -49,7 +49,7 @@ class ItemID(IntEnum):
 class ItemDef:
     def_id: int  # 種類を表すID (ItemID の値)
     name: str
-    tag: ItemTag
+    item_type: ItemType
     stackable: bool
     price: int = 0
     description: str = ""
@@ -64,9 +64,12 @@ class ItemDef:
 
 
 # --- インスタンス管理（装備品など） ---
-class Owner(IntEnum):
+class ItemOwner(IntEnum):
     BAG = -1
     FREE = -9
+    HERO = 0
+    MEM1 = 1
+    MEM2 = 2
 
 
 # アイテムの状態をまとめたデータクラス

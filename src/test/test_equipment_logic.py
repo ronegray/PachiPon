@@ -1,7 +1,7 @@
 import pyxel
 from item.item_manager import ItemManager
 from item.item_pool import ItemPool
-from item.item_protocol import ItemID, Owner
+from item.item_protocol import ItemID, ItemOwner
 from character import Character, EquipmentSlot
 from character_param import CharacterParam
 from player_sprite import PlayerSprite
@@ -45,7 +45,7 @@ def test_equipment():
     print(f"Initial DFN: {di.ref.hero.get_defense_power()}")
 
     # アイテム生成 (ダガー: ATK+2)
-    dagger = di.ref.itempool.create(ItemID.DAGGER, owner_id=Owner.FREE.value)
+    dagger = di.ref.itempool.create(ItemID.DAGGER, owner_id=ItemOwner.FREE.value)
     print(
         f"Created: {ItemManager.get_def(dagger.def_id).name} (ID: {dagger.instance_id})"
     )
@@ -58,7 +58,7 @@ def test_equipment():
     print(f"Is Dagger equipped?: {dagger.state.equipped}")
 
     # 防具装備 (レザーアーマー: DFN+2)
-    leather = di.ref.itempool.create(ItemID.LEATHER, owner_id=Owner.FREE.value)
+    leather = di.ref.itempool.create(ItemID.LEATHER, owner_id=ItemOwner.FREE.value)
     di.ref.hero.equipments.equip_on(leather)
     print("Equipped Leather Armor")
     print(f"New DFN: {di.ref.hero.get_defense_power()} (Expected: 7)")
