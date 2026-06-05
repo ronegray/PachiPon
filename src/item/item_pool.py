@@ -1,6 +1,6 @@
-from .item_protocol import ItemInstance
+from .item_protocol import ItemID, ItemState, ItemInstance
 from collections import defaultdict, deque
-from typing import Optional
+# from typing import Optional
 
 
 class ItemPool:
@@ -10,13 +10,13 @@ class ItemPool:
         self._free: deque[int] = deque(range(capacity))
         self._items: dict[int, ItemInstance] = {}
 
-    def create(self, def_id: int, owner_id: int) -> ItemInstance:
+    def create(self, def_id: ItemID, state: ItemState) -> ItemInstance:
         """アイテムをプールに生成し、インスタンスを返す"""
         if not self._free:
             raise RuntimeError("ItemPool capacity exceeded")
 
         iid = self._free.popleft()
-        inst = ItemInstance(instance_id=iid, def_id=def_id, owner_id=owner_id)
+        inst = ItemInstance(instance_id=iid, def_id=def_id, state=state)
         self._items[iid] = inst
         return inst
 
@@ -25,18 +25,18 @@ class ItemPool:
         self._items.pop(iid, None)
         self._free.append(iid)
 
-    def get(self, iid: int) -> Optional[ItemInstance]:
+    def get(self, iid: int) -> ItemInstance | None:
         """IDからインスタンスを取得する"""
         return self._items.get(iid)
 
-    def transfer(self, iid: int, new_owner: int) -> None:
+    def transfer(self, iid: int, new_owner: ItemState) -> None:
         """所有者変更"""
         if iid in self._items:
-            self._items[iid].owner_id = new_owner
+            self._items[iid].state = new_owner
 
-    def get_by_owner(self, owner_id: int) -> list[ItemInstance]:
+    def get_by_owner(self, owner_id: ItemState) -> list[ItemInstance]:
         """指定した所有者が持つアイテムリストを取得する"""
-        return [inst for inst in self._items.values() if inst.owner_id == owner_id]
+        return [inst for inst in self._items.values() if inst.state == owner_id]
 
 
 # --- スタック管理（素材など） ---
@@ -45,12 +45,12 @@ class StackPool:
 
     def __init__(self):
         # {(def_id, owner_id): count}
-        self._stacks: dict[tuple[int, int], int] = defaultdict(int)
+        self._stacks: dict[tuple[ItemID, ItemState], int] = defaultdict(int)
 
-    def add(self, def_id: int, owner_id: int, count: int = 1) -> None:
+    def add(self, def_id: ItemID, owner_id: ItemState, count: int = 1) -> None:
         self._stacks[(def_id, owner_id)] += count
 
-    def remove(self, def_id: int, owner_id: int, count: int = 1) -> bool:
+    def remove(self, def_id: ItemID, owner_id: ItemState, count: int = 1) -> bool:
         key = (def_id, owner_id)
         if self._stacks[key] < count:
             return False  # 所持数不足
@@ -60,12 +60,12 @@ class StackPool:
         return True
 
     def transfer(
-        self, def_id: int, from_owner: int, to_owner: int, count: int = 1
+        self, def_id: ItemID, from_owner: ItemState, to_owner: ItemState, count: int = 1
     ) -> bool:
         if self.remove(def_id, from_owner, count):
             self.add(def_id, to_owner, count)
             return True
         return False
 
-    def count(self, def_id: int, owner_id: int) -> int:
+    def count(self, def_id: ItemID, owner_id: ItemState) -> int:
         return self._stacks.get((def_id, owner_id), 0)

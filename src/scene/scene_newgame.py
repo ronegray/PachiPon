@@ -52,7 +52,7 @@ class SceneNewGame(BaseScene):
 
         self.op_message: list = read_json(path)
         self.message_top: float = px.height
-        self.msg_end_line: int = 100
+        self.msg_end_line: int = -100
         self.op_msg_row_offset: float = self.font_opmsg.height * 1.25
 
     def update(self) -> None:

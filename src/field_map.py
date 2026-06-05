@@ -128,7 +128,7 @@ class MapGraph:
         return self.points.get(point_id)
 
     def get_connected_node(
-        self, current_node_id: str, direction: ROUTE_DIR
+        self, current_node_id: str, direction: ROUTE_DIR | str
     ) -> str | None:
         """現地点から移動可能なイベントポイントを取得"""
         point = self.get_point(current_node_id)
@@ -140,7 +140,7 @@ class MapGraph:
                 return route.to_id
         return None
 
-    def draw(self, offset_x: int = 0, offset_y: int = 0):
+    def draw(self, offset_x: float = 0, offset_y: float = 0):
         """マップデータ（画像・イベントポイント・ルート）の描画"""
         # マップ背景の描画 (ワールド座標 (0,0) を ox, oy に描画)
         px.blt(

@@ -4,7 +4,8 @@ from .scene_base import BaseScene
 # from field_map import MapGraph
 from gameutils.base import is_pressed
 
-# from menu import MenuField
+from menu import MenuField
+
 # from event_manager import EventManager
 from gameutils.base.file.file_system import check_file, read_string
 
@@ -57,13 +58,13 @@ class SceneMap(BaseScene):
             px.playm(0, loop=True)
 
     def update(self):
-        # # メニューキー判定
-        # if input_system.is_pressed("other1"):
-        #     if self.wndmgr.has_stack:
-        #         self.wndmgr.pop_stack()
-        #     else:
-        #         self.wndmgr.push_stack(MenuField, "basic", 0, 0)
-        #     return
+        # メニューキー判定
+        if is_pressed("other1"):
+            if self.wndmgr.has_stack:
+                self.wndmgr.pop_stack()
+            else:
+                self.wndmgr.push_stack(MenuField)
+            return
 
         # WindowManagerにスタックがある場合はメニュー操作を優先
         if self.wndmgr.has_stack:

@@ -1,39 +1,31 @@
 
 {
     "MenuTitle": [
-        [{"id": "はじめる", "action": "to_newgame"}],
-        [{"id": "つづける", "action": "to_dataload"}],
-        [{"id": "せってい", "action": "to_config"}]
+        [{"id": "ニューゲーム", "action": "to_newgame"}],
+        [{"id": "データロード", "action": "to_dataload"}],
+        [{"id": "セッティング", "action": "to_config"}]
     ],
     "MenuDataload": [
         [{"id": "データ１", "action": "load_data", "args": 0}],
         [{"id": "データ２", "action": "load_data", "args": 1}],
         [{"id": "データ３", "action": "load_data", "args": 2}],
         [{"id": "データ４", "action": "load_data", "args": 3}]
-
     ],
     "MenuConfig": [
-        [{"id": "BGM音量", "action": "set_vol_bgm"}],
-        [{"id": "SE音量", "action": "set_vol_se"}],
+        [{"id": "ＢＧＭ音量", "action": "set_vol_bgm"}],
+        [{"id": "効果音音量", "action": "set_vol_se"}],
         [{"id": "画面サイズ", "action": "set_dispsize"}],
-        [{"id": "キー割当", "action": "assign_key"}]
+        [{"id": "ボタン割当", "action": "assign_key"}]
     ],
-        "MenuField": [
-        [
-            {"id": "装備", "action": "equip_item"},
-            {"id": "アイテム", "action": "choose_item"}
-        ],
-        [
-            {"id": "魔法", "action": "cast_spell"},
-            {"id": "ステータス", "action": "show_status"}
-        ],
-        [
-            {"id": "地図", "action": "view_worldmap"},
-            {"id": "インフォ", "action": "show_information"}
-        ],
-        [
-            {"id": "図鑑", "action": "show_library"},
-            {"id": "システム", "action": "systemmenu"}
-        ]
+    "MenuField": [
+        [{"id": "ショップ", "action": "enter_shop"}],
+        [{"id": "ステータス", "action": "show_status"}],
+        [{"id": "アイテム", "action": "select_item_category"}],
+        [{"id": "スキル", "action": "use_skill"}]
+    ],
+    "MenuItemCategory": [
+        [{"id": "貴重品", "action": "show_keyitem"}],
+        [{"id": "消耗品", "action": "use_item"}],
+        [{"id": "装備品", "action": "equip_item"}]
     ]
 }
