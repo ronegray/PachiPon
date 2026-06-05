@@ -1,19 +1,17 @@
 """menu_title.py
 メニューモジュール：タイトル
-
 """
+import logging
 from gameutils.lib import Menu, WindowAction, WindowInputHandler
 import service_locater as di
 
 # ロギング設定
-import logging
-
 logger = logging.getLogger(__name__)
 
 
 class MenuTitle(Menu):
     def __init__(self):
-        menu_pos = (180, 4)
+        menu_pos = (157, 4)
         menu_shape = [1, 3]
         super().__init__("large", *menu_pos, menu_shape, "MenuTitle")
 

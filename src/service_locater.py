@@ -19,7 +19,7 @@ if TYPE_CHECKING:
     from gameutils.lib import SoundManager
 
     # from character import Character
-    from item import ItemPool, StackPool
+    from item import ItemManager, ItemPool, StackPool
 
 
 class ServiceKey(Enum):
@@ -28,13 +28,14 @@ class ServiceKey(Enum):
     SCENE_MANAGER = auto()
     MAPGRAPH = auto()
     SOUND_MANAGER = auto()
-    PARTY = auto()
-    HERO = auto()
+    ITEM_MANAGER = auto()
     # MEMBER1 = auto()
     # MEMBER2 = auto()
     # MEMBER3 = auto()
     ITEMPOOL = auto()
     STACKPOOL = auto()
+    PARTY = auto()
+    HERO = auto()
 
 
 # サービスコンテナ
@@ -78,11 +79,15 @@ class _Ref:
         return _service_container[ServiceKey.HERO]
 
     @property
-    def p_item(self) -> ItemPool:
+    def itemmgr(self) -> ItemManager:
+        return _service_container[ServiceKey.ITEM_MANAGER]
+
+    @property
+    def pl_item(self) -> ItemPool:
         return _service_container[ServiceKey.ITEMPOOL]
 
     @property
-    def p_stack(self) -> StackPool:
+    def pl_stack(self) -> StackPool:
         return _service_container[ServiceKey.STACKPOOL]
 
     # @property

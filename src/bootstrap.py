@@ -12,6 +12,7 @@ from gameutils.base import (
 from assets.asset_map import AssetMap
 from scene import SceneManager
 from field_map import MapGraph
+from item import ItemManager, ItemPool, StackPool, ItemState
 from entity import Party
 from setup_log import setup_logging
 
@@ -50,3 +51,24 @@ def ipl():
     logger.info("Initialize - Party")
     pt = Party()
     di.register(di.ServiceKey.PARTY, pt)
+
+    # アイテムデータ初期化
+    logger.info("Initialize - Item MasterData")
+    itemmgr = ItemManager()
+    di.register(di.ServiceKey.ITEM_MANAGER, itemmgr)
+    pl_item = ItemPool()
+    di.register(di.ServiceKey.ITEMPOOL, pl_item)
+    pl_stack = StackPool()
+    di.register(di.ServiceKey.STACKPOOL, pl_stack)
+
+    # プロトタイプ用初期アイテム (items.jsonの全アイテムを2つずつ作成)
+    for item_def_id, item_def in di.ref.itemmgr.get_all_definitions().items():
+        for _ in range(2):
+            if item_def.stackable:
+                di.ref.pl_stack.add(
+                    item_def_id, ItemState.BAG, 1
+                )  # スタック可能な場合は1つずつ追加
+            else:
+                di.ref.pl_item.create(
+                    item_def_id, ItemState.BAG
+                )  # スタック不可の場合はインスタンスを作成

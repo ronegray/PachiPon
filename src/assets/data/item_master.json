@@ -1,0 +1,454 @@
+{
+  "WEAPON": {
+    "DAGGER": {
+      "name": "ダガー",
+      "price": 0,
+      "hitdice": 1,
+      "description": "護身用の短剣"
+    },
+    "SHORTSWORD": {
+      "name": "ショートソード",
+      "price": 100,
+      "hitdice": 2,
+      "description": "使いやすい剣"
+    },
+    "LONGSWORD": {
+      "name": "ロングソード",
+      "price": 500,
+      "hitdice": 3,
+      "description": "一般的な剣"
+    },
+    "CLAYMORE": {
+      "name": "クレイモア",
+      "price": 1000,
+      "hitdice": 4,
+      "description": "両手持ちの大剣"
+    },
+    "MAGICBLADE": {
+      "name": "魔法の剣",
+      "price": 5000,
+      "hitdice": 5,
+      "description": "魔法で強化された剣"
+    },
+
+    "STUFF": {
+      "name": "スタッフ",
+      "price": 0,
+      "hitdice": 1,
+      "description": "護身用の杖"
+    },
+    "MACE": {
+      "name": "メイス",
+      "price": 100,
+      "hitdice": 2,
+      "description": "柄に飾り頭部を付けた武器"
+    },
+    "MORNINGSTAR": {
+      "name": "モーニングスター",
+      "price": 500,
+      "hitdice": 3,
+      "description": "柄にトゲ付き金属球を付けた武器"
+    },
+    "WARHAMMER": {
+      "name": "ウォーハンマー",
+      "price": 1000,
+      "hitdice": 4,
+      "description": "重い金属の頭部を持つ武器"
+    },
+    "MAGICMACE": {
+      "name": "魔法の槌",
+      "price": 5000,
+      "hitdice": 5,
+      "description": "魔法で強化された槌"
+    },
+
+    "JAVELIN": {
+      "name": "ジャベリン",
+      "price": 0,
+      "hitdice": 1,
+      "description": "細い投擲用の槍"
+    },
+    "SPEAR": {
+      "name": "スピア",
+      "price": 100,
+      "hitdice": 2,
+      "description": "柄の長い槍"
+    },
+    "PIKE": {
+      "name": "パイク",
+      "price": 500,
+      "hitdice": 3,
+      "description": "非常に柄の長い槍"
+    },
+    "LANCE": {
+      "name": "ランス",
+      "price": 1000,
+      "hitdice": 4,
+      "description": "突撃用の円錐状の槍"
+    },
+    "MAGICSPEAR": {
+      "name": "魔法の槍",
+      "price": 5000,
+      "hitdice": 5,
+      "description": "魔法で強化された槍"
+    },
+
+    "SACREDWEAPON": {
+      "name": "神聖な武器",
+      "price": 0,
+      "hitdice": 6,
+      "description": "神の力を宿す武器"
+    }
+  },
+  "GUARDER": {
+    "CLOTH": {
+      "name": "布の服",
+      "price": 0,
+      "defvalue": 1,
+      "magpenalty": 0,
+      "description": "一般的な生地の服"
+    },
+    "LEATHER": {
+      "name": "皮の胸当て",
+      "price": 250,
+      "defvalue": 2,
+      "magpenalty": 1,
+      "description": "皮製の軽い防具"
+    },
+    "CHAIN": {
+      "name": "鎖帷子",
+      "price": 700,
+      "defvalue": 4,
+      "magpenalty": 2,
+      "description": "細かい鎖を編んだ防具"
+    },
+    "ENCHANTROBE": {
+      "name": "魔術のローブ",
+      "price": 1980,
+      "defvalue": 5,
+      "magpenalty": 0,
+      "description": "魔術の刻印を施した長衣"
+    },
+    "HALFPLATE": {
+      "name": "板金鎧",
+      "price": 4800,
+      "defvalue": 7,
+      "magpenalty": 4,
+      "description": "鎖帷子の非可動部を板金で強化した鎧"
+    },
+    "FULLPLATE": {
+      "name": "甲冑",
+      "price": 12000,
+      "defvalue": 9,
+      "magpenalty": 8,
+      "description": "頭からつま先まで全身を覆う金属鎧"
+    },
+    "HOLYGUARD": {
+      "name": "神聖な防具",
+      "price": 0,
+      "defvalue": 10,
+      "magpenalty": 3,
+      "description": "神の力を宿す防具"
+    }
+  },
+  "ORNAMENT": {
+    "ATKRING": {
+      "name": "打撃のリング",
+      "price": 1000,
+      "effect_type": "attack_bonus",
+      "effect_value": 1,
+      "is_percent": false,
+      "description": "武器攻撃ダメージのダイス数が１つ増える"
+    },
+    "SPDRING": {
+      "name": "軽業のリング",
+      "price": 1000,
+      "effect_type": "speed_bonus",
+      "effect_value": 1,
+      "is_percent": false,
+      "description": "イニチアチブ判定値が１増え、命中ロールのダイス数が１つ増える"
+    },
+    "DEFRING": {
+      "name": "忍耐のリング",
+      "price": 1000,
+      "effect_type": "reduce_weapon",
+      "effect_value": 1,
+      "is_percent": false,
+      "description": "敵の武器攻撃のダメージダイスが１つ減る"
+    },
+    "REGRING": {
+      "name": "抵抗のリング",
+      "price": 1000,
+      "effect_type": "recuce_spell",
+      "effect_value": 1,
+      "is_percent": false,
+      "description": "敵の魔法効果ロールのダイスが１つ減る"
+    },
+    "HIATKRING": {
+      "name": "超打撃のリング",
+      "price": 30000,
+      "effect_type": "attack_bonus",
+      "effect_value": 3,
+      "is_percent": false,
+      "description": "武器攻撃ダメージのダイス数が３つ増える"
+    },
+    "HISPDRING": {
+      "name": "超軽業のリング",
+      "price": 30000,
+      "effect_type": "speed_bonus",
+      "effect_value": 3,
+      "is_percent": false,
+      "description": "イニチアチブ判定値が３増え、命中ロールのダイス数が３つ増える"
+    },
+    "HIDEFRING": {
+      "name": "超忍耐のリング",
+      "price": 30000,
+      "effect_type": "reduce_weapon",
+      "effect_value": 3,
+      "is_percent": false,
+      "description": "敵の武器攻撃のダメージダイスが３つ減る"
+    },
+    "HIREGRING": {
+      "name": "超抵抗のリング",
+      "price": 30000,
+      "effect_type": "recuce_spell",
+      "effect_value": 3,
+      "is_percent": false,
+      "description": "敵の魔法効果ロールのダイスが３つ減る"
+    },
+    "HPBELT": {
+      "name": "頑健のベルト",
+      "price": 2000,
+      "effect_type": "gain_maxhp",
+      "effect_value": 1.5,
+      "is_percent": false,
+      "description": "最大ＨＰが１．５倍になる"
+    },
+    "MPBELT": {
+      "name": "精神のベルト",
+      "price": 2000,
+      "effect_type": "gain_maxmp",
+      "effect_value": 1.5,
+      "is_percent": false,
+      "description": "最大ＭＰが１．５倍になる"
+    },
+    "HIHPBELT": {
+      "name": "超頑健のベルト",
+      "price": 50000,
+      "effect_type": "gain_maxhp",
+      "effect_value": 3,
+      "is_percent": false,
+      "description": "最大ＨＰが３倍になる"
+    },
+    "HIMPBELT": {
+      "name": "超精神のベルト",
+      "price": 50000,
+      "effect_type": "gain_maxmp",
+      "effect_value": 3,
+      "is_percent": false,
+      "description": "最大ＭＰが３倍になる"
+    },
+    "CHEATDICE": {
+      "name": "不正のダイス",
+      "price": 50000,
+      "effect_type": "dice_plus",
+      "effect_value": 1,
+      "is_percent": false,
+      "description": "自身の行動による全てのダイス数が１増える"
+    },
+    "GODDICE": {
+      "name": "神のダイス",
+      "price": 999999,
+      "effect_type": "dice_plus",
+      "effect_value": 2,
+      "is_percent": false,
+      "description": "自身の行動による全てのダイス数が２増える"
+    },
+    "POWAMULET": {
+      "name": "筋のアミュレット",
+      "price": 3000,
+      "effect_type": "bonus_str",
+      "effect_value": 3,
+      "is_percent": false,
+      "description": "筋力が３増え、ボーナスが再判定される"
+    },
+    "ARCAMULET": {
+      "name": "魔のアミュレット",
+      "price": 3000,
+      "effect_type": "bonus_arc",
+      "effect_value": 3,
+      "is_percent": false,
+      "description": "魔力が３増え、ボーナスが再判定される"
+    },
+    "CONAMULET": {
+      "name": "耐のアミュレット",
+      "price": 3000,
+      "effect_type": "bonus_con",
+      "effect_value": 3,
+      "is_percent": false,
+      "description": "耐久が３増え、ボーナスが再判定される"
+    },
+    "SPDAMULET": {
+      "name": "速のアミュレット",
+      "price": 3000,
+      "effect_type": "bonus_spd",
+      "effect_value": 3,
+      "is_percent": false,
+      "description": "速度が３増え、ボーナスが再判定される"
+    },
+    "LCKAMULET": {
+      "name": "運のアミュレット",
+      "price": 3000,
+      "effect_type": "bonus_lck",
+      "effect_value": 3,
+      "is_percent": false,
+      "description": "幸運が３増え、ボーナスが再判定される"
+    },
+    "HIPOWAMULET": {
+      "name": "超筋アミュレット",
+      "price": 3000,
+      "effect_type": "bonus_str",
+      "effect_value": 6,
+      "is_percent": false,
+      "description": "筋力が６増え、ボーナスが再判定される"
+    },
+    "HIARCAMULET": {
+      "name": "超魔アミュレット",
+      "price": 3000,
+      "effect_type": "bonus_arc",
+      "effect_value": 6,
+      "is_percent": false,
+      "description": "魔力が６増え、ボーナスが再判定される"
+    },
+    "HICONAMULET": {
+      "name": "超耐アミュレット",
+      "price": 3000,
+      "effect_type": "bonus_con",
+      "effect_value": 6,
+      "is_percent": false,
+      "description": "耐久が６増え、ボーナスが再判定される"
+    },
+    "HISPDAMULET": {
+      "name": "超速アミュレット",
+      "price": 3000,
+      "effect_type": "bonus_spd",
+      "effect_value": 6,
+      "is_percent": false,
+      "description": "速度が６増え、ボーナスが再判定される"
+    },
+    "HILCKAMULET": {
+      "name": "超運アミュレット",
+      "price": 3000,
+      "effect_type": "bonus_lck",
+      "effect_value": 6,
+      "is_percent": false,
+      "description": "幸運が６増え、ボーナスが再判定される"
+    }
+  },
+  "CONSUME": {
+    "HEALPOT": {
+      "name": "回復薬",
+      "price": 100,
+      "effect_type": "heal_hp",
+      "effect_value": 0,
+      "is_percent": false,
+      "description": "レベル数だけダイスを振った値の分だけＨＰが回復"
+    },
+    "HIHEALPOT": {
+      "name": "超回復薬",
+      "price": 10000,
+      "effect_type": "heal_hp",
+      "effect_value": 1,
+      "is_percent": false,
+      "description": "ＨＰが全回復"
+    },
+    "MAGICPOT": {
+      "name": "魔力薬",
+      "price": 1000,
+      "effect_type": "heal_mp",
+      "effect_value": 0,
+      "is_percent": false,
+      "description": "レベル数だけダイスを振った値の半分だけＭＰが回復"
+    },
+    "HIMAGICPOT": {
+      "name": "魔力薬",
+      "price": 99999,
+      "effect_type": "heal_mp",
+      "effect_value": 1,
+      "is_percent": false,
+      "description": "ＭＰが全回復"
+    },
+    "TORCH": {
+      "name": "たいまつ",
+      "price": 10,
+      "effect_type": "torchlight",
+      "effect_value": 0,
+      "is_percent": false,
+      "description": "ダンジョン探索が可能になる"
+    },
+    "KEY": {
+      "name": "万能鍵",
+      "price": 100,
+      "effect_type": "unlock_key",
+      "effect_value": 0,
+      "is_percent": false,
+      "description": "宝箱の鍵を開けられる"
+    },
+    "SMOKE": {
+      "name": "煙幕弾",
+      "price": 100,
+      "effect_type": "escape_battle",
+      "effect_value": 0,
+      "is_percent": false,
+      "description": "使用直後の戦闘発生を回避／現在の戦闘から即座に離脱"
+    },
+    "HORSESHOE": {
+      "name": "蹄鉄の護符",
+      "price": 10000,
+      "effect_type": "reduce_negative",
+      "effect_value": 1,
+      "is_percent": false,
+      "description": "次のランダムイベントからマイナス選択肢を１つ減らす"
+    },
+    "CLOVER": {
+      "name": "四つ葉の護符",
+      "price": 99999,
+      "effect_type": "reduce_negative",
+      "effect_value": 2,
+      "is_percent": false,
+      "description": "次のランダムイベントからマイナス選択肢を２つ減らす"
+    },
+    "DICE": {
+      "name": "追加ダイス",
+      "price": 10000,
+      "effect_type": "dice_plus",
+      "effect_value": 1,
+      "is_percent": false,
+      "description": "次に実行されるダイス処理でダイス数を１ふやす"
+    },
+    "HIDICE": {
+      "name": "超追加ダイス",
+      "price": 99999,
+      "effect_type": "dice_plus",
+      "effect_value": 2,
+      "is_percent": false,
+      "description": "次に実行されるダイス処理でダイス数を２ふやす"
+    },
+    "RATIONS": {
+      "name": "高栄養保存食",
+      "price": 100,
+      "effect_type": "food_plus",
+      "effect_value": 10,
+      "is_percent": false,
+      "description": "食糧を10増やす"
+    },
+    "HIRATIONS": {
+      "name": "超栄養保存食",
+      "price": 1000,
+      "effect_type": "food_plus",
+      "effect_value": 50,
+      "is_percent": false,
+      "description": "食糧を50増やす"
+    }
+  }
+}

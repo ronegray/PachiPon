@@ -4,7 +4,8 @@
 """
 from dataclasses import dataclass, field
 from enum import IntEnum, auto
-from item import ItemManager, ItemInstance, ItemDef, ItemType, ItemOwner
+from item import ItemInstance, ItemDef, ItemType, ItemState
+import service_locater as di
 
 
 class EquipSlot(IntEnum):
@@ -18,7 +19,7 @@ class EquipSlot(IntEnum):
 
 @dataclass
 class Equips:
-    _owner_character_id: int
+    _owner_character_id: ItemState
 
     def __post_init__(self):
         # ItemManagerをサービスロケータから取得
@@ -52,7 +53,7 @@ class Equips:
             return EquipSlot.WEAPON
         if item_tag == ItemType.GUARDER:
             return EquipSlot.GUARDER
-        if item_tag == ItemType.ACCESSORY:
+        if item_tag == ItemType.ORNAMENT:
             if self._equipped_items[EquipSlot.ACCESSORY_1] is None:
                 return EquipSlot.ACCESSORY_1
             else:
@@ -66,7 +67,8 @@ class Equips:
         return None
 
     def equip_on(self, item_instance: ItemInstance) -> ItemInstance | None:
-        item_def = ItemManager.get_def(item_instance.def_id)
+        # item_def = ItemManager.get_def(item_instance.def_id)
+        item_def = di.ref.itemmgr.get_def(item_instance.def_id)
         if not item_def:
             return None
 
@@ -81,16 +83,16 @@ class Equips:
 
         # 新しいアイテムを装備
         self._equipped_items[slot] = item_instance
-        item_instance.owner_id = self._owner_character_id
-        item_instance.state.equipped = True
+        item_instance.state = self._owner_character_id
+        # item_instance.state.equipped = True
         self._cached_itemdefs[slot] = item_def  # キャッシュを更新
         return unequipped_item
 
     def equip_off(self, slot: EquipSlot) -> ItemInstance | None:
         item_instance = self._equipped_items[slot]
         if item_instance is not None:
-            item_instance.owner_id = ItemOwner.BAG.value  # バッグに戻す
-            item_instance.state.equipped = False
+            item_instance.state = ItemState.BAG  # バッグに戻す
+            # item_instance.state.equipped = False
             self._equipped_items[slot] = None
             self._cached_itemdefs[slot] = None  # キャッシュをクリア
         return item_instance
@@ -102,6 +104,7 @@ class Equips:
 
         if self._cached_itemdefs[slot] is None:
             # キャッシュがなければItemManagerから取得してキャッシュする
-            item_def = ItemManager.get_def(item_instance.def_id)
+            # item_def = ItemManager.get_def(item_instance.def_id)
+            item_def = di.ref.itemmgr.get_def(item_instance.def_id)
             self._cached_itemdefs[slot] = item_def
         return self._cached_itemdefs[slot]
