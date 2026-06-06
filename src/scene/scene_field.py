@@ -13,7 +13,7 @@ import service_locater as di
 # from service_locater import ref as di
 
 
-class SceneMap(BaseScene):
+class SceneField(BaseScene):
     def __init__(self):
         super().__init__()
         # self.game_map = MapGraph()

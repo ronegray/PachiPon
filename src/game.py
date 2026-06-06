@@ -28,9 +28,9 @@ class GameApp:
         # di.ref.sndmgr.load_bgm(0)
 
         # 初期表示シーン定義
-        # di.ref.scnmgr.next_scene("splash")
+        di.ref.scnmgr.next_scene("splash")
         # 開発用に通常画面まで一気に遷移
-        # di.ref.scnmgr.next_scene("title")
+        di.ref.scnmgr.next_scene("title")
         di.ref.scnmgr.next_scene("map")
 
         # Pyxel実行開始

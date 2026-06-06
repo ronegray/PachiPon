@@ -12,5 +12,6 @@ from .window import (
     WindowManager,
     Window,
     Menu,
+    MenuItem,
     WindowInputHandler,
 )

@@ -481,6 +481,7 @@ class Menu:
         self.menu_items: list[list[MenuItem]] = []
         self.build_menu_items(menu_source)
         # 共通基本パラメータ
+        self.column_x_pos: list[int] = []
         (
             width,
             height,
@@ -493,6 +494,7 @@ class Menu:
         self.windows["main"] = Window(
             font_size_name, adjusted_x, y, width, height, "menu"
         )
+        self.cursor_x = self.cursor_y = 0
         self.inputkey = WindowInputHandler.get()
 
     def build_menu_items(self, menu_source: str | list[list[dict[str, str]]]):
@@ -540,23 +542,27 @@ class Menu:
         )  # 項目間余白
 
         # 文字列／カーソル表示用のpixelアドレスキャッシュ初期化
-        self.column_x_pos: list[int] = []
+        self.column_x_pos = []
         current_x = Window._chip_size  # 描画初期アドレスを枠のすぐ右に定義
 
-        column_items = [list(col) for col in zip(*self.menu_items)]
+        column_items: list[list[MenuItem]] = [
+            list(col) for col in zip(*self.menu_items)
+        ]
         # for column_text in column_items:
         for column_data in column_items:
             # 現在のカラムのX座標を記録
             self.column_x_pos.append(current_x)
 
             if self.font:
-                text_list = [item.item_label for item in column_data]
+                text_list = [items.item_label for items in column_data]
                 max_column_textlen = self.font.text_width(
                     max(text_list, key=self.font.text_width)
                 )
             else:
                 # デフォルトフォントの場合の文字長は4ピクセル
-                max_column_textlen = max([item.item_label for item in column_data]) * 4
+                max_column_textlen = (
+                    max([len(item.item_label) for item in column_data]) * 4
+                )
             # menuwidth += offset_cursor + max_column_textlen + offset_sepalete_col
             # current_x += menuwidth
             colwidth = offset_cursor + max_column_textlen + offset_sepalete_col
@@ -695,13 +701,13 @@ class Menu:
         #                        (1+(1+(self.cursor_position[1]*2)))*G_.CHIP_PIXEL - 5]
         # px.blt(*self.cursor_address, G_.IMGIDX["CHIP"], 32,248, G_.CHIP_PIXEL,G_.CHIP_PIXEL, colkey=0)
         pos_x, pos_y = self.cursor_position
-        cursor_x = self.windows["main"].x + self.column_x_pos[pos_x]
-        cursor_y = (
+        self.cursor_x = self.windows["main"].x + self.column_x_pos[pos_x]
+        self.cursor_y = (
             self.windows["main"].y + self.row_y_pos[pos_y] + self.cursor_row_offset
         )
         px.blt(
-            cursor_x,
-            cursor_y,
+            self.cursor_x,
+            self.cursor_y,
             self.windows["main"]._image_chips,
             *self.img_cursor,
             colkey=px.COLOR_BLACK,

@@ -4,14 +4,12 @@
 import logging
 import pyxel as px
 from gameutils.lib import Menu, Window, WindowAction
-
-# from gameutils.base import FONT_SIZE_NAME
 import service_locater as di
 
 # from entity.character import EquipSlot
 # from item.item_protocol import Owner
 # from item.item_manager import ItemManager
-from .menu_item import MenuItemWindow
+# from menu import MenuItemWindow#, MenuSelectItemCategory
 
 # from .menu_equip_slot import SelectEquipSlot # コメントアウト
 from item import ItemState
@@ -25,7 +23,7 @@ class MenuField(Menu):
     def __init__(self):
         menu_pos = (Window._chip_size // 2, Window._chip_size // 2)
         menu_shape = [1, 4]
-        super().__init__("basic", *menu_pos, menu_shape, "MenuField")
+        super().__init__("basic", *menu_pos, menu_shape, self.__class__.__name__)
         self.cursor_row_offset += 2  # k8x12Sの縦長分対応
 
     def exec_menu(self) -> WindowAction:
@@ -48,6 +46,8 @@ class MenuField(Menu):
 
     def enter_shop(self):
         print("enter shop")
+        now_point = di.ref.pt._current_point
+        print(now_point)
 
     def show_status(self):
         print("show status")
@@ -112,8 +112,15 @@ class MenuField(Menu):
 
     def select_item_category(self):
         """アイテム表示メニューを開く"""
-        print("select item category")
+        # print("select item category")
+        from menu import MenuSelectItemCategory
 
+        di.ref.scnmgr.stacks[-1].wndmgr.push_stack(
+            MenuSelectItemCategory,
+            self.cursor_x + Window._chip_size,
+            self.cursor_y + Window._chip_size,
+        )
+        return
         item_pool = di.ref.pl_item
         stack_pool = di.ref.pl_stack
 
@@ -182,6 +189,8 @@ class MenuField(Menu):
 
         # MenuItemWindowをスタックに追加
         # MenuItemWindow(font_size_name, x, y, width, height, items)
+        from menu import MenuItemWindow
+
         wndmgr.push_stack(MenuItemWindow, "basic", x, y, width, height, menu_items)
 
     # # def show_equip_menu(self):

@@ -1,3 +1,6 @@
+"""menu_field.py
+メニューモジュール：フィールド
+"""
 import pyxel as px
 from gameutils.lib.window.window_base import Menu, Window, MenuItem as BaseMenuItem
 from gameutils.lib.window.window_protocol import WindowAction, MENU_WINDOW_TYPE
@@ -13,6 +16,25 @@ class ItemMenuData(TypedDict):
     # 実際のCallableはMenuItemWindowのexec_menuで呼び出すため、ここに保持しない
     callable_action: Optional[Callable[..., Any]]
     action_args: tuple
+
+
+class MenuSelectItemCategory(Menu):
+    """アイテムカテゴリ選択メニュー"""
+
+    def __init__(self, menu_pos_x: int, menu_pos_y: int) -> None:
+        menu_pos = (menu_pos_x, menu_pos_y)
+        menu_shape = [1, 3]
+        super().__init__("basic", *menu_pos, menu_shape, self.__class__.__name__)
+        self.cursor_row_offset += 2  # k8x12Sの縦長分対応
+
+    def use_item(self):
+        ...
+
+    def show_keyitem(self):
+        ...
+
+    def show_equips(self):
+        ...
 
 
 class MenuItemWindow(Menu):
@@ -161,14 +183,14 @@ class MenuItemWindow(Menu):
         page_str = f"{self.page+1:02}/{self.max_page+1:02}"
         font_small = FontManager.get_fontdata("small").font
         px.rect(
-            self.windows["main"].x + self.windows["main"].width - 32,
+            self.windows["main"].x + self.windows["main"].width - 28,
             self.windows["main"].y,
             20,
             FontManager.get_fontdata("small").height,
             px.COLOR_NAVY,
         )
         px.text(
-            self.windows["main"].x + self.windows["main"].width - 32,
+            self.windows["main"].x + self.windows["main"].width - 28,
             self.windows["main"].y,
             page_str,
             px.COLOR_WHITE,

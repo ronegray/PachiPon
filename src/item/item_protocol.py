@@ -7,14 +7,15 @@ from enum import IntEnum  # , auto
 # from typing import Callable
 
 
+# fmt: off
 class ItemType(IntEnum):
     """アイテムの属性"""
 
-    WEAPON = 0x00_00  # 武器：インスタンス管理
-    GUARDER = 0x07_00  # 防具：インスタンス管理
-    ORNAMENT = 0x0B_00  # 装飾：インスタンス管理
-    CONSUME = 0x10_00  # 消耗品：スタック管理
-    KEY_ITEM = 0x0F_00  # 重要品：インスタンス管理
+    WEAPON   = 0x00_00 # 武器：インスタンス管理
+    GUARDER  = 0x07_00 # 防具：インスタンス管理
+    ORNAMENT = 0x0B_00 # 装飾：インスタンス管理
+    CONSUME  = 0x10_00 # 消耗品：スタック管理
+    KEY_ITEM = 0x0F_00 # 重要品：インスタンス管理
 
 
 class WeaponType(IntEnum):
@@ -51,86 +52,87 @@ class ItemID(IntEnum):
     """アイテム識別子"""
 
     # キーアイテム
-    CROWN = 0x0F_0_1  # ラスボス対策
-    MIRROR = 0x0F_0_2  # ラスボス対策
-    CEPTER = 0x0F_0_3  # ラスボス対策
-    GRAIL = 0x0F_0_4  # ラスボス対策
-    JADEEYE = 0x0F_0_5  # イベントA A+B = D
-    CROSS = 0x0F_0_6  # イベントB B+C = E
-    CRYSTALROD = 0x0F_0_7  # イベントC C+A = F
-    DRAGONFANG = 0x0F_0_8  # イベントD D+E 武器
-    TARISMAN = 0x0F_0_9  # イベントE
-    HOLYSHROUD = 0x0F_0_A  # イベントF E+F 防具
+    CROWN        = 0x0F_0_1  # ラスボス対策
+    MIRROR       = 0x0F_0_2  # ラスボス対策
+    CEPTER       = 0x0F_0_3  # ラスボス対策
+    GRAIL        = 0x0F_0_4  # ラスボス対策
+    JADEEYE      = 0x0F_0_5  # イベントA A+B = D
+    CROSS        = 0x0F_0_6  # イベントB B+C = E
+    CRYSTALROD   = 0x0F_0_7  # イベントC C+A = F
+    DRAGONFANG   = 0x0F_0_8  # イベントD D+E 武器
+    TARISMAN     = 0x0F_0_9  # イベントE
+    HOLYSHROUD   = 0x0F_0_A  # イベントF E+F 防具
     # 武器：斬
-    DAGGER = 0x00_1_1
-    SHORTSWORD = 0x00_1_2
-    LONGSWORD = 0x00_1_3
-    CLAYMORE = 0x00_1_4
-    MAGICBLADE = 0x00_1_5
+    DAGGER       = 0x00_1_1
+    SHORTSWORD   = 0x00_1_2
+    LONGSWORD    = 0x00_1_3
+    CLAYMORE     = 0x00_1_4
+    MAGICBLADE   = 0x00_1_5
     # 武器：打
-    STUFF = 0x00_2_1
-    MACE = 0x00_2_2
-    MORNINGSTAR = 0x00_2_3
-    WARHAMMER = 0x00_2_4
-    MAGICMACE = 0x00_2_5
+    MACE         = 0x00_2_1
+    FLAIL        = 0x00_2_2
+    MORNINGSTAR  = 0x00_2_3
+    WARHAMMER    = 0x00_2_4
+    MAGICMACE    = 0x00_2_5
     # 武器：突
-    JAVELIN = 0x00_4_1
-    SPEAR = 0x00_4_2
-    PIKE = 0x00_4_3
-    LANCE = 0x00_4_4
-    MAGICSPEAR = 0x00_4_5
+    JAVELIN      = 0x00_4_1
+    SPEAR        = 0x00_4_2
+    PIKE         = 0x00_4_3
+    LANCE        = 0x00_4_4
+    MAGICSPEAR   = 0x00_4_5
     # 最強武器
     SACREDWEAPON = 0x00_F_6
     # 防具 カテゴリ_魔法制約ペナ_アイテム識別子
-    CLOTH = 0x07_0_1  # 魔法制約0
-    LEATHER = 0x07_1_2  # 魔法制約-1
-    CHAIN = 0x07_1_3  # 魔法制約-2
-    ENCHANTROBE = 0x07_0_4  # 魔法制約0
-    HALFPLATE = 0x07_1_5  # 魔法制約-4
-    FULLPLATE = 0x07_1_6  # 魔法制約-8
+    CLOTH        = 0x07_0_1  # 魔法制約0
+    LEATHER      = 0x07_1_2  # 魔法制約-1
+    CHAIN        = 0x07_1_3  # 魔法制約-2
+    ENCHANTROBE  = 0x07_0_4  # 魔法制約0
+    HALFPLATE    = 0x07_1_5  # 魔法制約-4
+    FULLPLATE    = 0x07_1_6  # 魔法制約-8
     # 最強防具
-    HOLYGUARD = 0x07_1_7  # 魔法制約-3
+    HOLYGUARD    = 0x07_1_7  # 魔法制約-3
     # アクセサリ（効果の高い方が優先で重複はしない）
-    ATKRING = 0x0B_0_1  # アクセ　物理ダメージダイス＋１
-    SPDRING = 0x0B_0_2  # アクセ　イニシアチブボーナス＋１、命中ロールダイス＋１
-    DEFRING = 0x0B_0_3  # アクセ　相手のダメージダイスー１
-    REGRING = 0x0B_0_4  # アクセ　相手の効果ダイスー１
-    HIATKRING = 0x0B_1_1  # アクセ　物理ダメージダイス＋３
-    HISPDRING = 0x0B_1_2  # アクセ　イニシアチブボーナス＋３、命中ロールダイス＋３
-    HIDEFRING = 0x0B_1_3  # アクセ　相手のダメージダイスー３
-    HIREGRING = 0x0B_1_4  # アクセ　相手の効果ダイスー３
-    HPBELT = 0x0B_0_5  # アクセ　最大HP1.5倍
-    MPBELT = 0x0B_0_6  # アクセ　最大MP1.5倍
-    HIHPBELT = 0x0B_1_5  # アクセ　最大HP3倍
-    HIMPBELT = 0x0B_1_6  # アクセ　最大MP3倍
-    CHEATDICE = 0x0B_0_7  # アクセ　全ダイス目＋１
-    GODDICE = 0x0B_1_7  # アクセ　全ダイス目＋２
-    POWAMULET = 0x0B_0_8  # アクセ　筋力＋３
-    ARCAMULET = 0x0B_0_9  # アクセ　魔力＋３
-    CONAMULET = 0x0B_0_A  # アクセ　耐久＋３
-    SPDAMULET = 0x0B_0_B  # アクセ　速度＋３
-    LCKAMULET = 0x0B_0_C  # アクセ　幸運＋３
-    HIPOWAMULET = 0x0B_1_8  # アクセ　筋力＋６
-    HIARCAMULET = 0x0B_1_9  # アクセ　魔力＋６
-    HICONAMULET = 0x0B_1_A  # アクセ　耐久＋６
-    HISPDAMULET = 0x0B_1_B  # アクセ　速度＋６
-    HILCKAMULET = 0x0B_1_C  # アクセ　幸運＋６
+    ATKRING      = 0x0B_0_1  # アクセ　物理ダメージダイス＋１
+    SPDRING      = 0x0B_0_2  # アクセ　イニシアチブボーナス＋１、命中ロールダイス＋１
+    DEFRING      = 0x0B_0_3  # アクセ　相手のダメージダイスー１
+    REGRING      = 0x0B_0_4  # アクセ　相手の効果ダイスー１
+    HIATKRING    = 0x0B_1_1  # アクセ　物理ダメージダイス＋３
+    HISPDRING    = 0x0B_1_2  # アクセ　イニシアチブボーナス＋３、命中ロールダイス＋３
+    HIDEFRING    = 0x0B_1_3  # アクセ　相手のダメージダイスー３
+    HIREGRING    = 0x0B_1_4  # アクセ　相手の効果ダイスー３
+    HPBELT       = 0x0B_0_5  # アクセ　最大HP1.5倍
+    MPBELT       = 0x0B_0_6  # アクセ　最大MP1.5倍
+    HIHPBELT     = 0x0B_1_5  # アクセ　最大HP3倍
+    HIMPBELT     = 0x0B_1_6  # アクセ　最大MP3倍
+    CHEATDICE    = 0x0B_0_7  # アクセ　全ダイス目＋１
+    GODDICE      = 0x0B_1_7  # アクセ　全ダイス目＋２
+    POWAMULET    = 0x0B_0_8  # アクセ　筋力＋３
+    ARCAMULET    = 0x0B_0_9  # アクセ　魔力＋３
+    CONAMULET    = 0x0B_0_A  # アクセ　耐久＋３
+    SPDAMULET    = 0x0B_0_B  # アクセ　速度＋３
+    LCKAMULET    = 0x0B_0_C  # アクセ　幸運＋３
+    HIPOWAMULET  = 0x0B_1_8  # アクセ　筋力＋６
+    HIARCAMULET  = 0x0B_1_9  # アクセ　魔力＋６
+    HICONAMULET  = 0x0B_1_A  # アクセ　耐久＋６
+    HISPDAMULET  = 0x0B_1_B  # アクセ　速度＋６
+    HILCKAMULET  = 0x0B_1_C  # アクセ　幸運＋６
     # CIRCLET      = 0x0B_0_D # アクセ　MP消費減少25％ #検討中
     # HICIRCLET    = 0x0B_1_D # アクセ　MP消費減少50％ #検討中
     # 消耗品 # カテゴリ_高級品_効果ID
-    HEALPOT = 0x10_0_1  # 消耗品　HP回復(レベルd6)
-    HIHEALPOT = 0x10_1_1  # 消耗品　HP回復全快
-    MAGICPOT = 0x10_0_2  # 消耗品　MP回復(レベルd6/2※切り上げ)
-    HIMAGICPOT = 0x10_1_2  # 消耗品　MP回復全快
-    TORCH = 0x10_0_3  # 消耗品　イベント：ダンジョン時に１消費
-    KEY = 0x10_0_4  # 消耗品　イベント：宝箱時に１消費
-    SMOKE = 0x10_0_5  # 消耗品　使用直後の戦闘発生を回避／現在の戦闘から即座に離脱（敗北扱い）
-    HORSESHOE = 0x10_0_6  # 消耗品 次のランダムイベントからマイナス選択肢を１つ減らす
-    CLOVER = 0x10_1_6  # 消耗品 次のランダムイベントからマイナス選択肢を２つ減らす
-    DICE = 0x10_0_7  # 消耗品 次に実行されるダイス処理でダイス数を１ふやす
-    HIDICE = 0x10_1_7  # 消耗品 次に実行されるダイス処理でダイス数を２ふやす
-    RATIONS = 0x10_0_8  # 消耗品 食糧を10増やす
-    HIRATIONS = 0x10_1_8  # 消耗品 食糧を50増やす
+    HEALPOT      = 0x10_0_1  # 消耗品　HP回復(レベルd6)
+    HIHEALPOT    = 0x10_1_1  # 消耗品　HP回復全快
+    MAGICPOT     = 0x10_0_2  # 消耗品　MP回復(レベルd6/2※切り上げ)
+    HIMAGICPOT   = 0x10_1_2  # 消耗品　MP回復全快
+    TORCH        = 0x10_0_3  # 消耗品　イベント：ダンジョン時に１消費
+    KEY          = 0x10_0_4  # 消耗品　イベント：宝箱時に１消費
+    SMOKE        = 0x10_0_5  # 消耗品　使用直後の戦闘発生を回避／現在の戦闘から即座に離脱（敗北扱い）
+    HORSESHOE    = 0x10_0_6  # 消耗品 次のランダムイベントからマイナス選択肢を１つ減らす
+    CLOVER       = 0x10_1_6  # 消耗品 次のランダムイベントからマイナス選択肢を２つ減らす
+    DICE         = 0x10_0_7  # 消耗品 次に実行されるダイス処理でダイス数を１ふやす
+    HIDICE       = 0x10_1_7  # 消耗品 次に実行されるダイス処理でダイス数を２ふやす
+    RATIONS      = 0x10_0_8  # 消耗品 食糧を10増やす
+    HIRATIONS    = 0x10_1_8  # 消耗品 食糧を50増やす
+# fmt: on
 
 
 @dataclass(frozen=True)

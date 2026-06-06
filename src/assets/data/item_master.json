@@ -25,23 +25,23 @@
       "description": "両手持ちの大剣"
     },
     "MAGICBLADE": {
-      "name": "魔法の剣",
+      "name": "ミスティックエッジ",
       "price": 5000,
       "hitdice": 5,
       "description": "魔法で強化された剣"
     },
 
-    "STUFF": {
-      "name": "スタッフ",
-      "price": 0,
-      "hitdice": 1,
-      "description": "護身用の杖"
-    },
     "MACE": {
       "name": "メイス",
+      "price": 0,
+      "hitdice": 1,
+      "description": "柄に飾り頭部を付けた武器"
+    },
+    "FLAIL": {
+      "name": "フレイル",
       "price": 100,
       "hitdice": 2,
-      "description": "柄に飾り頭部を付けた武器"
+      "description": "柄に短い棒を鎖で括り付けた武器"
     },
     "MORNINGSTAR": {
       "name": "モーニングスター",
@@ -56,7 +56,7 @@
       "description": "重い金属の頭部を持つ武器"
     },
     "MAGICMACE": {
-      "name": "魔法の槌",
+      "name": "アストラルハンマー",
       "price": 5000,
       "hitdice": 5,
       "description": "魔法で強化された槌"
@@ -87,7 +87,7 @@
       "description": "突撃用の円錐状の槍"
     },
     "MAGICSPEAR": {
-      "name": "魔法の槍",
+      "name": "ルーンドスピア",
       "price": 5000,
       "hitdice": 5,
       "description": "魔法で強化された槍"
