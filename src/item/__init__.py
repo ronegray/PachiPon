@@ -7,6 +7,7 @@ from .item_protocol import (
     ItemID,
     ItemDef,
     ItemState,
+    # UniqueIdentifyItem,
     ItemInstance,
 )
 from .item_pool import ItemPool, StackPool

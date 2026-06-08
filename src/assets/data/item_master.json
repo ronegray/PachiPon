@@ -1,4 +1,56 @@
 {
+  "KEY_ITEM": {
+    "CROWN": {
+      "name": "宝冠",
+      "price": 0,
+      "description": "象徴の一。真理の智慧を示す。"
+    },
+    "MIRROR": {
+      "name": "神鏡",
+      "price": 0,
+      "description": "象徴の一。神秘の力を示す。"
+    },
+    "CEPTER": {
+      "name": "王笏",
+      "price": 0,
+      "description": "象徴の一。王の権能を示す。"
+    },
+    "GRAIL": {
+      "name": "聖杯",
+      "price": 0,
+      "description": "象徴の一。楽土の安寧を示す。"
+    },
+    "JADEEYE": {
+      "name": "翡翠の瞳",
+      "price": 0,
+      "description": "何かを見通すような深い眼差しが刻まれている"
+    },
+    "CROSS": {
+      "name": "十字架",
+      "price": 0,
+      "description": "古ぼけた小さな十字架には見た事もない文字が刻まれている"
+    },
+    "CRYSTALROD": {
+      "name": "水晶の杖",
+      "price": 0,
+      "description": "六角形の杖の先端には台座のような造形が刻まれている"
+    },
+    "DRAGONFANG": {
+      "name": "朽ちた竜の牙",
+      "price": 0,
+      "description": "太古に息絶えた竜の骸からは恐ろしい力を感じる"
+    },
+    "TARISMAN": {
+      "name": "伝承者の護符",
+      "price": 0,
+      "description": "古代より伝わる護符からは張り詰めた力を感じる"
+    },
+    "HOLYSHROUD": {
+      "name": "最期の亜麻布",
+      "price": 0,
+      "description": "古の聖人を覆ったという布からは静謐な力を感じる"
+    }
+  },
   "WEAPON": {
     "DAGGER": {
       "name": "ダガー",
@@ -25,23 +77,23 @@
       "description": "両手持ちの大剣"
     },
     "MAGICBLADE": {
-      "name": "魔法の剣",
+      "name": "ミスティックエッジ",
       "price": 5000,
       "hitdice": 5,
       "description": "魔法で強化された剣"
     },
 
-    "STUFF": {
-      "name": "スタッフ",
-      "price": 0,
-      "hitdice": 1,
-      "description": "護身用の杖"
-    },
     "MACE": {
       "name": "メイス",
+      "price": 0,
+      "hitdice": 1,
+      "description": "柄に飾り頭部を付けた武器"
+    },
+    "FLAIL": {
+      "name": "フレイル",
       "price": 100,
       "hitdice": 2,
-      "description": "柄に飾り頭部を付けた武器"
+      "description": "柄に短い棒を鎖で括り付けた武器"
     },
     "MORNINGSTAR": {
       "name": "モーニングスター",
@@ -56,7 +108,7 @@
       "description": "重い金属の頭部を持つ武器"
     },
     "MAGICMACE": {
-      "name": "魔法の槌",
+      "name": "アストラルハンマー",
       "price": 5000,
       "hitdice": 5,
       "description": "魔法で強化された槌"
@@ -87,7 +139,7 @@
       "description": "突撃用の円錐状の槍"
     },
     "MAGICSPEAR": {
-      "name": "魔法の槍",
+      "name": "ルーンドスピア",
       "price": 5000,
       "hitdice": 5,
       "description": "魔法で強化された槍"
@@ -371,7 +423,7 @@
       "description": "レベル数だけダイスを振った値の半分だけＭＰが回復"
     },
     "HIMAGICPOT": {
-      "name": "魔力薬",
+      "name": "超魔力薬",
       "price": 99999,
       "effect_type": "heal_mp",
       "effect_value": 1,

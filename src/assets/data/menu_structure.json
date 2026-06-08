@@ -23,9 +23,9 @@
         [{"id": "アイテム", "action": "select_item_category"}],
         [{"id": "スキル", "action": "use_skill"}]
     ],
-    "MenuItemCategory": [
-        [{"id": "貴重品", "action": "show_keyitem"}],
+    "MenuSelectItemCategory": [
         [{"id": "消耗品", "action": "use_item"}],
-        [{"id": "装備品", "action": "equip_item"}]
+        [{"id": "装備品", "action": "show_equips"}],
+        [{"id": "貴重品", "action": "show_keyitem"}]
     ]
 }

@@ -72,3 +72,5 @@ def ipl():
                 di.ref.pl_item.create(
                     item_def_id, ItemState.BAG
                 )  # スタック不可の場合はインスタンスを作成
+
+    pass

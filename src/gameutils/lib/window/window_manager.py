@@ -9,7 +9,7 @@
 """
 from __future__ import annotations
 from .window_protocol import WindowAction
-from .window_base import Window, Menu
+from .window_base import Window, Menu, RsltContinue, RsltDiscard, RsltPop, RsltPush
 
 
 class WindowManager:
@@ -33,6 +33,9 @@ class WindowManager:
         if len(self.stacks):
             action = self.stacks[-1].update()
             match action:
+                case WindowAction.CONTINUE:
+                    # そのまま続ける
+                    pass
                 case WindowAction.CLOSE:
                     # 現在の階層をクローズして前のスタックへ戻る
                     self.pop_stack()
@@ -42,7 +45,20 @@ class WindowManager:
                 case WindowAction.EXECUTE:
                     # 基本的にEXECUTEを返すのはMenuのみだが念の為
                     if isinstance(self.stacks[-1], Menu):
-                        self.stacks[-1].exec_menu()
+                        exec_result = self.stacks[-1].exec_menu()
+                        match exec_result:
+                            case RsltContinue():
+                                pass
+                            case RsltPop():
+                                self.pop_stack()
+                            case RsltDiscard():
+                                self.stacks.clear()
+                            case RsltPush():
+                                self.push_stack(
+                                    exec_result.class_name,
+                                    *exec_result.args_pos,
+                                    *exec_result.args_key,
+                                )
 
     def draw(self):
         """管理クラス配下のインスタンスをスタックの奥から順に描画"""

@@ -13,7 +13,7 @@ import service_locater as di
 # from service_locater import ref as di
 
 
-class SceneMap(BaseScene):
+class SceneField(BaseScene):
     def __init__(self):
         super().__init__()
         # self.game_map = MapGraph()
@@ -53,7 +53,7 @@ class SceneMap(BaseScene):
             raise FileNotFoundError("ファイルがない！")
         for i, mml in enumerate(score_data):
             px.sounds[i].mml(mml)
-            px.musics[0].set([0], [1])
+            px.musics[0].set([0], [1], [2], [3])
             px.stop()
             px.playm(0, loop=True)
 

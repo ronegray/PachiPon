@@ -2,7 +2,13 @@
 メニューモジュール：タイトル
 """
 import logging
-from gameutils.lib import Menu, WindowAction, WindowInputHandler
+from gameutils.lib import (
+    Menu,
+    WindowAction,
+    WindowInputHandler,
+    ExecResult,
+    RsltContinue,
+)
 import service_locater as di
 
 # ロギング設定
@@ -24,7 +30,7 @@ class MenuTitle(Menu):
             return WindowAction.EXECUTE
         return WindowAction.CONTINUE
 
-    def exec_menu(self) -> WindowAction:
+    def exec_menu(self) -> ExecResult:
         """選択メニュー項目の処理を実行"""
         pos_x, pos_y = self.cursor_position
         selected_item = self.menu_items[pos_y][pos_x]
@@ -40,7 +46,8 @@ class MenuTitle(Menu):
         )
         selected_item.menu_action(*selected_item.action_args)
 
-        return WindowAction.DISCARD
+        # return WindowAction.DISCARD
+        return RsltContinue()
 
     # タイトル画面からの遷移先は、キャンセルでタイトル画面に戻る為にスタック追加として処理
     def to_newgame(self):

@@ -121,7 +121,11 @@ class MenuNameEntry(Menu):
     def draw(self):
         super().draw()
         if self.warning_counter > 0:
-            msglen = self.warning_fontdata.font.text_width(self.warning_message)
+            msglen = (
+                0
+                if self.warning_fontdata.font is None
+                else self.warning_fontdata.font.text_width(self.warning_message)
+            )
             msg_pos_x = (px.width - msglen) / 2
             msg_pos_y = px.height - (self.warning_fontdata.height * 3)
             backoffset = 4
