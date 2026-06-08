@@ -1,4 +1,56 @@
 {
+  "KEY_ITEM": {
+    "CROWN": {
+      "name": "宝冠",
+      "price": 0,
+      "description": "象徴の一。真理の智慧を示す。"
+    },
+    "MIRROR": {
+      "name": "神鏡",
+      "price": 0,
+      "description": "象徴の一。神秘の力を示す。"
+    },
+    "CEPTER": {
+      "name": "王笏",
+      "price": 0,
+      "description": "象徴の一。王の権能を示す。"
+    },
+    "GRAIL": {
+      "name": "聖杯",
+      "price": 0,
+      "description": "象徴の一。楽土の安寧を示す。"
+    },
+    "JADEEYE": {
+      "name": "翡翠の瞳",
+      "price": 0,
+      "description": "何かを見通すような深い眼差しが刻まれている"
+    },
+    "CROSS": {
+      "name": "十字架",
+      "price": 0,
+      "description": "古ぼけた小さな十字架には見た事もない文字が刻まれている"
+    },
+    "CRYSTALROD": {
+      "name": "水晶の杖",
+      "price": 0,
+      "description": "六角形の杖の先端には台座のような造形が刻まれている"
+    },
+    "DRAGONFANG": {
+      "name": "朽ちた竜の牙",
+      "price": 0,
+      "description": "太古に息絶えた竜の骸からは恐ろしい力を感じる"
+    },
+    "TARISMAN": {
+      "name": "伝承者の護符",
+      "price": 0,
+      "description": "古代より伝わる護符からは張り詰めた力を感じる"
+    },
+    "HOLYSHROUD": {
+      "name": "最期の亜麻布",
+      "price": 0,
+      "description": "古の聖人を覆ったという布からは静謐な力を感じる"
+    }
+  },
   "WEAPON": {
     "DAGGER": {
       "name": "ダガー",
@@ -371,7 +423,7 @@
       "description": "レベル数だけダイスを振った値の半分だけＭＰが回復"
     },
     "HIMAGICPOT": {
-      "name": "魔力薬",
+      "name": "超魔力薬",
       "price": 99999,
       "effect_type": "heal_mp",
       "effect_value": 1,

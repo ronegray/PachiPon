@@ -1,42 +1,60 @@
-from .item_protocol import ItemID, ItemState, ItemInstance
+import logging
 from collections import defaultdict, deque
-# from typing import Optional
+import service_locater as di
+from .item_protocol import (
+    ItemID,
+    ItemState,
+    ItemInstance,
+    PoolEntry,
+)  # , UniqueIdentifyItem
+
+
+# ロギング設定
+logger = logging.getLogger(__name__)
 
 
 class ItemPool:
     """全アイテムインスタンスを一元管理するプール"""
 
+    a = {"id": int, "inst": ItemInstance, "item": ItemState}
+
     def __init__(self, capacity: int = 4096):
         self._free: deque[int] = deque(range(capacity))
-        self._items: dict[int, ItemInstance] = {}
+        self._items: dict[int, PoolEntry] = {}
 
-    def create(self, def_id: ItemID, state: ItemState) -> ItemInstance:
+    def create(self, def_id: ItemID, state: ItemState) -> tuple[int, PoolEntry]:
         """アイテムをプールに生成し、インスタンスを返す"""
         if not self._free:
             raise RuntimeError("ItemPool capacity exceeded")
 
         iid = self._free.popleft()
-        inst = ItemInstance(instance_id=iid, def_id=def_id, state=state)
-        self._items[iid] = inst
-        return inst
+        item_def = di.ref.itemmgr.get_def(def_id)
+        if item_def is None:
+            errmsg = f"アイテムIDが定義されていません：{def_id}"
+            logger.critical(errmsg, exc_info=True)
+            raise ValueError(errmsg)
+        pe = PoolEntry(ins=ItemInstance(param=item_def), stat=state)
+        self._items[iid] = pe
+
+        return iid, pe
 
     def destroy(self, iid: int) -> None:
         """アイテムを破棄し、IDを再利用可能にする"""
         self._items.pop(iid, None)
         self._free.append(iid)
 
-    def get(self, iid: int) -> ItemInstance | None:
+    def get(self, iid: int) -> PoolEntry | None:
         """IDからインスタンスを取得する"""
         return self._items.get(iid)
 
     def transfer(self, iid: int, new_owner: ItemState) -> None:
         """所有者変更"""
         if iid in self._items:
-            self._items[iid].state = new_owner
+            self._items[iid].stat = new_owner
 
-    def get_by_owner(self, owner_id: ItemState) -> list[ItemInstance]:
+    def get_by_state(self, owner_id: ItemState) -> dict[int, PoolEntry]:
         """指定した所有者が持つアイテムリストを取得する"""
-        return [inst for inst in self._items.values() if inst.state == owner_id]
+        return {uqid: pe for uqid, pe in self._items.items() if pe.stat == owner_id}
 
 
 # --- スタック管理（素材など） ---
@@ -47,8 +65,8 @@ class StackPool:
         # {(def_id, owner_id): count}
         self._stacks: dict[tuple[ItemID, ItemState], int] = defaultdict(int)
 
-    def add(self, def_id: ItemID, owner_id: ItemState, count: int = 1) -> None:
-        self._stacks[(def_id, owner_id)] += count
+    def add(self, def_id: ItemID, state: ItemState, count: int = 1) -> None:
+        self._stacks[(def_id, state)] += count
 
     def remove(self, def_id: ItemID, owner_id: ItemState, count: int = 1) -> bool:
         key = (def_id, owner_id)
@@ -69,3 +87,11 @@ class StackPool:
 
     def count(self, def_id: ItemID, owner_id: ItemState) -> int:
         return self._stacks.get((def_id, owner_id), 0)
+
+    def get_by_state(self, state: ItemState) -> dict[ItemID, int]:
+        """指定した所有者が持つアイテムリストを取得する"""
+        return {
+            keypair[0]: cnt
+            for keypair, cnt in self._stacks.items()
+            if keypair[1] == state
+        }

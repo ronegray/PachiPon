@@ -6,5 +6,10 @@ from .window_base import (
     Window,
     Menu,
     MenuItem,
+    ExecResult,
+    RsltPush,
+    RsltPop,
+    RsltDiscard,
+    RsltContinue,
     WindowInputHandler,
 )  # , MenuInputHandler

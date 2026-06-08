@@ -53,7 +53,7 @@ class SceneField(BaseScene):
             raise FileNotFoundError("ファイルがない！")
         for i, mml in enumerate(score_data):
             px.sounds[i].mml(mml)
-            px.musics[0].set([0], [1])
+            px.musics[0].set([0], [1], [2], [3])
             px.stop()
             px.playm(0, loop=True)
 

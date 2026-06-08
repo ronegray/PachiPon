@@ -367,10 +367,10 @@ class Window:
             )
         return
 
-    def set_message(self, message_text: str) -> None:
+    def set_message(self, message_text: list[str]) -> None:
         if self.window_mode == "menu":
             return
-        self.text_list = [message_text]
+        self.text_list = message_text
 
     def add_message(self, message_text: str) -> None:
         if self.window_mode == "menu":
@@ -409,8 +409,46 @@ class MenuItem:
 
     item_label: str  # 画面に表示する文字列
     menu_action: Callable[..., Any] | None = None  # 実行する関数オブジェクト
-    action_args: tuple = field(default_factory=tuple)  # 関数に渡す引数（あれば）
+    action_args: tuple[Any, ...] = field(
+        default_factory=tuple
+    )  # 関数に渡す引数（あれば）
     # is_disabled: bool = False                # (将来用) 選択不可フラグなどを足しても便利です
+
+
+class ExecResult:
+    """exec_menuの戻り値基底クラス"""
+
+    pass
+
+
+class RsltPush(ExecResult):
+    """exec_menu内でサブメニューをpushする時"""
+
+    def __init__(self, class_name: type[Window] | type[Menu], *args, **kwargs):
+        self.class_name = class_name
+        self.args_pos = args
+        self.args_key = kwargs
+
+
+@dataclass
+class RsltPop(ExecResult):
+    """exec_menu内で自メニューをpopする時"""
+
+    pass
+
+
+@dataclass
+class RsltDiscard(ExecResult):
+    """exec_menu後にメニュースタックをクリアする時"""
+
+    pass
+
+
+@dataclass
+class RsltContinue(ExecResult):
+    """そのまま続ける時"""
+
+    pass
 
 
 class Menu:
@@ -434,6 +472,8 @@ class Menu:
         # menu_items: list[list[str]],
         # menu_items: list[MenuItem]|str
         menu_source: str | list[list[dict[str, str]]],
+        w: int = 0,
+        h: int = 0,
     ):
         # self, image_chips: px.Image, x: int, y: int, font_name):
 
@@ -482,10 +522,11 @@ class Menu:
         self.build_menu_items(menu_source)
         # 共通基本パラメータ
         self.column_x_pos: list[int] = []
-        (
-            width,
-            height,
-        ) = self.calculate_windowsize()  # フォントサイズを元にウインドウサイズ算出
+        # フォントサイズを元にウインドウサイズ算出
+        calc_winsize = self.calculate_windowsize()
+        width = w if w > 0 else calc_winsize[0]
+        height = h if h > 0 else calc_winsize[1]
+
         adjusted_x = (
             x if x + width <= px.width else px.width - width
         )  # 右端からはみ出す場合を考慮
@@ -496,6 +537,14 @@ class Menu:
         )
         self.cursor_x = self.cursor_y = 0
         self.inputkey = WindowInputHandler.get()
+
+    @property
+    def x(self):
+        return self.windows["main"].x
+
+    @property
+    def y(self):
+        return self.windows["main"].y
 
     def build_menu_items(self, menu_source: str | list[list[dict[str, str]]]):
         if isinstance(menu_source, str):  # メニュー固定項目指定時
@@ -614,7 +663,7 @@ class Menu:
 
     def key_check(self) -> WindowAction:
         """キー入力の確認と応答"""
-        if self.move_cursor(self.inputkey):
+        if self.move_cursor():
             # return WindowAction.CONTINUE
             pass
         # if MenuInputHandler.is_pressed("decide"):
@@ -635,31 +684,31 @@ class Menu:
         """メニュー個別のupdateフレーム処理内容"""
         ...
 
-    def move_cursor(self, inp: WindowInputWrapper) -> bool:
+    def move_cursor(self) -> bool:
         """キー入力に応じたカーソル移動とインデックス制御"""
         # if WindowManager.is_pressed("up", "hold"):
         # if MenuInputHandler.is_pressed("up"):
-        if inp.up():
+        if self.inputkey.up():
             self.cursor_position[1] = (self.cursor_position[1] - 1) % self.menu_shape[1]
             return True
         # if WindowManager.is_pressed("left", "hold"):
         # if MenuInputHandler.is_pressed("left"):
-        if inp.left():
+        if self.inputkey.left():
             self.cursor_position[0] = (self.cursor_position[0] - 1) % self.menu_shape[0]
             return True
         # if WindowManager.is_pressed("down", "hold"):
         # if MenuInputHandler.is_pressed("down"):
-        if inp.down():
+        if self.inputkey.down():
             self.cursor_position[1] = (self.cursor_position[1] + 1) % self.menu_shape[1]
             return True
         # if WindowManager.is_pressed("right", "hold"):
         # if MenuInputHandler.is_pressed("right"):
-        if inp.right():
+        if self.inputkey.right():
             self.cursor_position[0] = (self.cursor_position[0] + 1) % self.menu_shape[0]
             return True
         return False
 
-    def exec_menu(self) -> Any:
+    def exec_menu(self) -> ExecResult:
         ...
 
     def draw(self):

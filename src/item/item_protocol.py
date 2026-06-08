@@ -52,10 +52,10 @@ class ItemID(IntEnum):
     """アイテム識別子"""
 
     # キーアイテム
-    CROWN        = 0x0F_0_1  # ラスボス対策
-    MIRROR       = 0x0F_0_2  # ラスボス対策
-    CEPTER       = 0x0F_0_3  # ラスボス対策
-    GRAIL        = 0x0F_0_4  # ラスボス対策
+    CROWN        = 0x0F_0_1  # ラスボス対策 # 魔法ロールを下げる
+    MIRROR       = 0x0F_0_2  # ラスボス対策 # 特殊攻撃を封じる
+    CEPTER       = 0x0F_0_3  # ラスボス対策 # 攻撃ロールを下げる
+    GRAIL        = 0x0F_0_4  # ラスボス対策 # HP自動回復を封じる
     JADEEYE      = 0x0F_0_5  # イベントA A+B = D
     CROSS        = 0x0F_0_6  # イベントB B+C = E
     CRYSTALROD   = 0x0F_0_7  # イベントC C+A = F
@@ -173,11 +173,23 @@ class ItemState(IntEnum):
 #     durability: int = 100
 
 
+# @dataclass
+# class UniqueIdentifyItem:
+#     """アイテム個体識別情報"""
+
+#     instance_id: int  # 固有ID
+#     def_id: ItemID  # 定義ID
+#     state: ItemState  # 所持者ID
+#     # state: ItemState = field(default_factory=ItemState)
+
+
 @dataclass
 class ItemInstance:
-    """アイテム個体識別情報"""
+    param: ItemDef
+    enchant: int = 1
 
-    instance_id: int  # 固有ID
-    def_id: ItemID  # 定義ID
-    state: ItemState  # 所持者ID
-    # state: ItemState = field(default_factory=ItemState)
+
+@dataclass
+class PoolEntry:
+    ins: ItemInstance
+    stat: ItemState

@@ -13,5 +13,10 @@ from .window import (
     Window,
     Menu,
     MenuItem,
+    ExecResult,
+    RsltPush,
+    RsltPop,
+    RsltDiscard,
+    RsltContinue,
     WindowInputHandler,
 )

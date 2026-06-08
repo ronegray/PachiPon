@@ -3,7 +3,12 @@
 """
 import logging
 import pyxel as px
-from gameutils.lib import Menu, Window, WindowAction
+from gameutils.lib import (
+    Menu,
+    Window,
+    ExecResult,
+    RsltPush,
+)  # , WindowAction, RsltContinue
 import service_locater as di
 
 # from entity.character import EquipSlot
@@ -26,7 +31,7 @@ class MenuField(Menu):
         super().__init__("basic", *menu_pos, menu_shape, self.__class__.__name__)
         self.cursor_row_offset += 2  # k8x12Sの縦長分対応
 
-    def exec_menu(self) -> WindowAction:
+    def exec_menu(self) -> ExecResult:
         """選択メニュー項目の処理を実行"""
         pos_x, pos_y = self.cursor_position
         selected_item = self.menu_items[pos_y][pos_x]
@@ -40,9 +45,11 @@ class MenuField(Menu):
         logger.info(
             f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}"
         )
-        selected_item.menu_action(*selected_item.action_args)
+        result = selected_item.menu_action(*selected_item.action_args)
 
-        return WindowAction.DISCARD
+        # return WindowAction.DISCARD
+        # return RsltContinue()
+        return result
 
     def enter_shop(self):
         print("enter shop")
@@ -115,12 +122,16 @@ class MenuField(Menu):
         # print("select item category")
         from menu import MenuSelectItemCategory
 
-        di.ref.scnmgr.stacks[-1].wndmgr.push_stack(
+        # di.ref.scnmgr.stacks[-1].wndmgr.push_stack(
+        #     MenuSelectItemCategory,
+        #     self.cursor_x + Window._chip_size,
+        #     self.cursor_y + Window._chip_size,
+        # )
+        return RsltPush(
             MenuSelectItemCategory,
-            self.cursor_x + Window._chip_size,
-            self.cursor_y + Window._chip_size,
+            self.cursor_x + Window._chip_size + 1,
+            self.cursor_y + Window._chip_size + 1,
         )
-        return
         item_pool = di.ref.pl_item
         stack_pool = di.ref.pl_stack
 
