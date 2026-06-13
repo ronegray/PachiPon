@@ -10,7 +10,9 @@ class ResourcePath(StrEnum):
     # FONT_BASIC  = "gameutils/base/text/k8x12S.bdf"
     # FONT_LARGE  = "gameutils/base/text/umplus_j10r.bdf"
     FONT_BASIC = "assets/font/k8x12S.bdf"
-    FONT_LARGE = "assets/font/umplus_j10r.bdf"
+    # FONT_LARGE = "assets/font/umplus_j10r.bdf"
+    # FONT_BASIC = "assets/font/umplus_j10r.bdf"
+    FONT_LARGE = "assets/font/umplus_j12r.bdf"
 
     # SCRIPT_PATH = "gameutils/lib/event/script/"
     SCRIPT_PATH = "assets/script"

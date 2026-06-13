@@ -12,6 +12,7 @@ from gameutils.lib import (
 import service_locater as di
 
 # from entity.character import EquipSlot
+from entity import EquipSlot
 # from item.item_protocol import Owner
 # from item.item_manager import ItemManager
 # from menu import MenuItemWindow#, MenuSelectItemCategory
@@ -27,7 +28,7 @@ logger = logging.getLogger(__name__)
 class MenuField(Menu):
     def __init__(self):
         menu_pos = (Window._chip_size // 2, Window._chip_size // 2)
-        menu_shape = [1, 4]
+        menu_shape = [1, 5]
         super().__init__("basic", *menu_pos, menu_shape, self.__class__.__name__)
         self.cursor_row_offset += 2  # k8x12Sの縦長分対応
 
@@ -58,9 +59,9 @@ class MenuField(Menu):
 
     def show_status(self):
         print("show status")
-        # hero = di.ref.hero
-        # param = hero.param
-        #
+        hero = di.ref.hero
+        param = hero.base_param
+
         # # ステータス項目の構築
         # status_lines = [
         #     f"{param.name}",
@@ -68,54 +69,75 @@ class MenuField(Menu):
         #     f"経験値： {param.exp:5}",
         #     f"Ｈ　Ｐ： {param.hp:3}／{param.max_hp:3}",
         #     f"Ｍ　Ｐ： {param.mp:3}／{param.max_mp:3}",
-        #     f"筋　力： {param.strength:3}",
-        #     f"魔　力： {param.magic:3}",
-        #     f"耐　久： {param.defense:3}",
-        #     f"速　度： {param.speed:3}",
-        #     f"幸　運： {param.luck:3}",
+        #     f"筋　力： {hero.strength:3}",
+        #     f"魔　力： {hero.arcane:3}",
+        #     f"耐　久： {hero.endurance:3}",
+        #     f"速　度： {hero.speed:3}",
+        #     f"幸　運： {hero.luck:3}",
         #     # "--- 装備 ---"
         # ]
 
-        # # 装備項目の構築
-        # slots = [
-        #     (EquipSlot.WEAPON, "武　器"),
-        #     (EquipSlot.GUARDER, "防　具"),
-        #     (EquipSlot.ACCESSORY_1, "装飾１"),
-        #     (EquipSlot.ACCESSORY_2, "装飾２"),
-        #     (EquipSlot.CONSUME_1, "消費１"),
-        #     (EquipSlot.CONSUME_2, "消費２"),
-        # ]
+        # 装備項目の構築
+        slots = [
+            (EquipSlot.WEAPON, "武　器"),
+            (EquipSlot.GUARDER, "防　具"),
+            (EquipSlot.ACCESSORY_1, "装飾１"),
+            (EquipSlot.ACCESSORY_2, "装飾２"),
+            (EquipSlot.CONSUME_1, "消費１"),
+            (EquipSlot.CONSUME_2, "消費２"),
+        ]
 
         # for slot, label in slots:
         #     item_def = hero.equipments.get_itemdef(slot)
         #     item_name = item_def.name if item_def else "なし"
         #     status_lines.append(f"{label}： {item_name}")
+        status_lines = f"{param.name}"
+        status_lines += f"\nレベル： {param.level:2}"
+        status_lines += f"\n経験値： {param.exp:5}"
+        status_lines += f"\nＨ　Ｐ： {param.hp:3}／{param.max_hp:3}"
+        status_lines += f"\nＭ　Ｐ： {param.mp:3}／{param.max_mp:3}"
+        status_lines += f"\n筋　力： {hero.strength:3}(+{hero.bonus_str})"
+        status_lines += f"\n魔　力： {hero.arcane:3}(+{hero.bonus_arc})"
+        status_lines += f"\n耐　久： {hero.endurance:3}(+{hero.bonus_end})"
+        status_lines += f"\n速　度： {hero.speed:3}(+{hero.bonus_spd})"
+        status_lines += f"\n幸　運： {hero.luck:3}(+{hero.bonus_lck})"
+        for slot, label in slots:
+            pooled_item = hero.equipments.get_slot(slot)
+            if pooled_item is None:
+                item_name = "なし"
+            else:
+                _, plent = pooled_item
+                item_name = plent.ins.param.name
+            status_lines += f"\n{label}： {item_name}"
 
-        # # ウィンドウのプッシュ
-        # # サイズはメニューの位置から画面右下端まで
-        # # main_win = self.windows["main"]
-        # win_width = 128
-        # win_height = 208
+        # ウィンドウのプッシュ
+        # サイズはメニューの位置から画面右下端まで
+        # main_win = self.windows["main"]
+        win_width = 128
+        win_height = 216
 
-        # # 現在のシーンのWindowManagerを取得
-        # wndmgr = di.ref.scnmgr.stacks[-1].wndmgr
+        # 現在のシーンのWindowManagerを取得
+        wndmgr = di.ref.scnmgr.stacks[-1].wndmgr
 
-        # # Windowをスタックに追加
-        # pos_x, pos_y = self.cursor_position
-        # cursor_x = self.windows["main"].x + self.column_x_pos[pos_x]
-        # cursor_y = (
-        #     self.windows["main"].y + self.row_y_pos[pos_y] + self.cursor_row_offset
-        # )
+        # Windowをスタックに追加
+        pos_x, pos_y = self.cursor_position
+        cursor_x = self.windows["main"].x + self.column_x_pos[pos_x]
+        cursor_y = (
+            self.windows["main"].y + self.row_y_pos[pos_y] + self.cursor_row_offset
+        )
         # wndmgr.push_stack(
         #     Window, "basic", cursor_x + 8, cursor_y + 8, win_width, win_height, "once"
         # )
 
         # # メッセージを追加（Windowインスタンスはスタックの最後にある）
         # new_win = wndmgr.stacks[-1]
-        # if isinstance(new_win, Window):
-        #     # for line in status_lines:
-        #     #     new_win.add_message(line)
-        #     new_win.text_list = status_lines
+        new_win = wndmgr.push_stack(
+            Window, "basic", cursor_x + 8, cursor_y + 8, win_width, win_height, "once"
+        )
+        if isinstance(new_win, Window):
+            # for line in status_lines:
+            #     new_win.add_message(line)
+            new_win.text_list = [status_lines]
 
     def select_item_category(self):
         """アイテム表示メニューを開く"""
@@ -204,16 +226,17 @@ class MenuField(Menu):
 
         wndmgr.push_stack(MenuItemWindow, "basic", x, y, width, height, menu_items)
 
-    # # def show_equip_menu(self):
-    # #     """装備選択メニューを開く"""
-    # #     hero: Character = di.ref.hero
-    # #
-    # #     main_win = self.windows["main"]
-    # #     x = main_win.x + main_win.width
-    # #     y = 0 # フィールドメニューのすぐ右、画面上端から
-    # #
-    # #     wndmgr = di.ref.scnmgr.stacks[-1].wndmgr
-    # #     wndmgr.push_stack(SelectEquipSlot, "basic", x, y, hero)
+    def equip_item(self):
+        """装備選択メニューを開く"""
+        print("equip_item")
+        # hero: Character = di.ref.hero
+
+        # main_win = self.windows["main"]
+        # x = main_win.x + main_win.width
+        # y = 0 # フィールドメニューのすぐ右、画面上端から
+
+        # wndmgr = di.ref.scnmgr.stacks[-1].wndmgr
+        # wndmgr.push_stack(SelectEquipSlot, "basic", x, y, hero)
 
     def use_skill(self):
         """スキル表示メニューを開く"""

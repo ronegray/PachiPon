@@ -50,6 +50,7 @@ class ConsumeGrade(IntEnum):
 
 class ItemID(IntEnum):
     """アイテム識別子"""
+    DUMMY        = 0xFF_F_F  # ダミーアイテムコード
 
     # キーアイテム
     CROWN        = 0x0F_0_1  # ラスボス対策 # 魔法ロールを下げる
@@ -95,11 +96,11 @@ class ItemID(IntEnum):
     ATKRING      = 0x0B_0_1  # アクセ　物理ダメージダイス＋１
     SPDRING      = 0x0B_0_2  # アクセ　イニシアチブボーナス＋１、命中ロールダイス＋１
     DEFRING      = 0x0B_0_3  # アクセ　相手のダメージダイスー１
-    REGRING      = 0x0B_0_4  # アクセ　相手の効果ダイスー１
+    REGRING      = 0x0B_0_4  # アクセ　相手の魔法発動／効果ダイスー１
     HIATKRING    = 0x0B_1_1  # アクセ　物理ダメージダイス＋３
     HISPDRING    = 0x0B_1_2  # アクセ　イニシアチブボーナス＋３、命中ロールダイス＋３
     HIDEFRING    = 0x0B_1_3  # アクセ　相手のダメージダイスー３
-    HIREGRING    = 0x0B_1_4  # アクセ　相手の効果ダイスー３
+    HIREGRING    = 0x0B_1_4  # アクセ　相手の魔法発動／効果ダイスー３
     HPBELT       = 0x0B_0_5  # アクセ　最大HP1.5倍
     MPBELT       = 0x0B_0_6  # アクセ　最大MP1.5倍
     HIHPBELT     = 0x0B_1_5  # アクセ　最大HP3倍
@@ -193,3 +194,7 @@ class ItemInstance:
 class PoolEntry:
     ins: ItemInstance
     stat: ItemState
+
+
+# 装備スロット用独自型
+type PooledItem = tuple[int, PoolEntry]

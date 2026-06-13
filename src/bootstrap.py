@@ -73,4 +73,14 @@ def ipl():
                     item_def_id, ItemState.BAG
                 )  # スタック不可の場合はインスタンスを作成
 
-    pass
+    from entity import EquipSlot
+    from item import ItemID
+
+    pooled_item = di.ref.pl_item.get_by_category(ItemID.DAGGER)
+    di.ref.hero.equipments.equip_on_pool(
+        EquipSlot.WEAPON, list(pooled_item.items())[-1]
+    )
+    pooled_item = di.ref.pl_item.get_by_category(ItemID.POWAMULET)
+    di.ref.hero.equipments.equip_on_pool(
+        EquipSlot.ACCESSORY_1, list(pooled_item.items())[-1]
+    )
