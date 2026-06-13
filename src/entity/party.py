@@ -3,7 +3,7 @@
 """
 from math import hypot
 import pyxel as px
-from entity import Character, CharacterParam, PlayerSprite, FieldSprite
+from entity import Character, EntityParam, PlayerSprite, FieldSprite
 from field_map import EventPoint
 import service_locater as di
 
@@ -28,11 +28,14 @@ class Party:
     _move_target_point_id: str = ""
     _world_x: float
     _world_y: float
+    _pt_foods: int
+    _pt_golds: int
+    _pt_eventflg: dict[str, bool]
 
     def __init__(self):
         """初期化"""
         # 初期PTメンバ（主人公）の登録
-        self.regist_dummy_hero()  # ここでやるべきではない？
+        self.regist_dummy_hero()  # そもそもやるべきではない？
         self.add_ptmember(di.ref.hero)
 
         # フィールド画面用スプライトの設定
@@ -52,19 +55,24 @@ class Party:
         self._world_x = self._current_point.x
         self._world_y = self._current_point.y
 
+        # パーティー単位のパラメータ
+        self._pt_foods = 10
+        self._pt_golds = 50
+        self._pt_eventflg = {}
+
         # ジェネレータ変数にダミーを定義
         self.move_generator = self._update_movement(self._current_point)
 
     def regist_dummy_hero(self):
         """ダミー主人公データの登録"""
         # キャラクターの初期化
-        hero_param = CharacterParam(
+        hero_param = EntityParam(
             name="勇者",
             hp=100,
             mp=20,
             strength=10,
-            magic=5,
-            defense=8,
+            arcane=5,
+            endurance=8,
             speed=12,
             luck=10,
         )
@@ -73,7 +81,7 @@ class Party:
         char_x = 20  # 初期X座標
         char_y = 20  # 初期Y座標
         hero_sprite = PlayerSprite(char_x, char_y, charimage)  # img=0 を明示的に指定
-        hero = Character(param=hero_param, sprite=hero_sprite, id=1)  # id=1を設定
+        hero = Character(id=0, base_param=hero_param, sprite=hero_sprite)  # id=1を設定
         di.register(di.ServiceKey.HERO, hero)
 
     def add_ptmember(self, new_member: Character) -> None:

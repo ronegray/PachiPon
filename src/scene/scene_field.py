@@ -2,12 +2,12 @@ import pyxel as px
 from .scene_base import BaseScene
 
 # from field_map import MapGraph
-from gameutils.base import is_pressed
+from gameutils.base import is_pressed, check_file, read_string
 
 from menu import MenuField
 
 # from event_manager import EventManager
-from gameutils.base.file.file_system import check_file, read_string
+# from gameutils.base.file.file_system import check_file, read_string
 
 import service_locater as di
 # from service_locater import ref as di

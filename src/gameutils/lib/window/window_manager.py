@@ -19,16 +19,18 @@ class WindowManager:
         """初期化"""
         self.stacks: list[Window | Menu] = []
 
-    def push_stack(self, class_name, *args, **kwargs):
+    def push_stack(self, class_name, *args, **kwargs) -> Window | Menu:
         """指定クラスのインスタンスをスタックに追加"""
         instance = class_name(*args, **kwargs)
         self.stacks.append(instance)
+        return instance
 
-    def pop_stack(self):
+    def pop_stack(self) -> int:
         """スタック末尾のインスタンスを削除"""
         self.stacks.pop()
+        return len(self.stacks)
 
-    def update(self):
+    def update(self) -> None:
         """管理クラス配下のインスタンス更新およびインスタンス応答の処理"""
         if len(self.stacks):
             action = self.stacks[-1].update()
@@ -60,7 +62,7 @@ class WindowManager:
                                     *exec_result.args_key,
                                 )
 
-    def draw(self):
+    def draw(self) -> None:
         """管理クラス配下のインスタンスをスタックの奥から順に描画"""
         if len(self.stacks):
             for window in self.stacks:

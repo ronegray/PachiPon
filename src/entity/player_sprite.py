@@ -1,5 +1,19 @@
+"""player_sprite.py
+キャラクタースプライト関連定義モジュール（移動時の縮小元および戦闘時）
+- スプライトのタイプ指定子（ドット絵の種類
+- スプライトのupdate/drawフレーム処理
+"""
+from enum import IntEnum
 import pyxel as px
 from entity import BaseSprite
+
+
+class PlayerSpriteType(IntEnum):
+    HERO = 0
+    KNIGHT = 1
+    WIZARD = 2
+    RANGER = 3
+    PRIEST = 4
 
 
 class PlayerSprite(BaseSprite):
@@ -32,6 +46,9 @@ class PlayerSprite(BaseSprite):
     # def move(self, dx, dy):
     #     self.x += dx * self.speed
     #     self.y += dy * self.speed
+
+    def set_sprite_image(self, image_type: PlayerSpriteType):
+        self.img = px.Image(32, 32)
 
     def set_direction(self, direction):
         if direction in self.sprite_uvs:

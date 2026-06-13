@@ -9,6 +9,8 @@ from .item_protocol import (
     ItemState,
     # UniqueIdentifyItem,
     ItemInstance,
+    PoolEntry,
+    PooledItem,
 )
 from .item_pool import ItemPool, StackPool
 from .item_manager import ItemManager
