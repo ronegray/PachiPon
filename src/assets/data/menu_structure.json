@@ -21,12 +21,18 @@
         [{"id": "商品売買", "action": "enter_shop"}],
         [{"id": "能力確認", "action": "show_status"}],
         [{"id": "装備変更", "action": "equip_item"}],
-        [{"id": "道具使用", "action": "select_item_category"}],
-        [{"id": "呪文使用", "action": "use_skill"}]
+        [{"id": "呪文詠唱", "action": "use_skill"}],
+        [{"id": "道具使用", "action": "select_item_category"}]
     ],
     "MenuSelectItemCategory": [
         [{"id": "消耗品", "action": "use_item"}],
         [{"id": "装備品", "action": "show_equips"}],
         [{"id": "貴重品", "action": "show_keyitem"}]
+    ],
+    "MenuBattle": [
+        [{"id": "武器攻撃", "action": "attack_weapon"}],
+        [{"id": "呪文詠唱", "action": "use_skill"}],
+        [{"id": "道具使用", "action": "select_item"}],
+        [{"id": "戦闘離脱", "action": "escape_battle"}]
     ]
 }

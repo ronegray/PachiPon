@@ -17,42 +17,9 @@ from dataclasses import dataclass, field
 from typing import Callable, Any
 import pyxel as px
 
-# from ..asset import AssetID, AssetManager
-# from ..file import check_file, read_json
-# from ..input import InputHandler
 from ...libconfig import ResourcePath
-from gameutils.base import check_file, read_json, FONT_SIZE_NAME, FontManager
-
-# from ...base import AssetID,AssetManager,check_file,read_json#, InputHandler
-# from ...base import FONT_SIZE_NAME, FontManager, shadowed_text
-# from .window_protocol import FONT_SIZE_NAME, WINDOW_MODE, MENU_WINDOW_TYPE, WindowAction
+from ...base import check_file, read_json, FONT_SIZE_NAME, FontManager
 from .window_protocol import WINDOW_MODE, MENU_WINDOW_TYPE, WindowAction
-# from .window_manager import WindowManager
-
-# class MenuInputHandler:
-#     """入力制御クラス"""
-#     # 操作名ごとにデフォルト実装を定義
-#     _input_handlers: dict[str, Callable[[], bool]] = {
-#         "up": lambda: px.btnp(px.KEY_UP, 12, 6) or px.btnp(px.GAMEPAD1_BUTTON_DPAD_UP, 12, 6),
-#         "down": lambda: px.btnp(px.KEY_DOWN, 12, 6) or px.btnp(px.GAMEPAD1_BUTTON_DPAD_DOWN, 12, 6),
-#         "left": lambda: px.btnp(px.KEY_LEFT, 12, 6) or px.btnp(px.GAMEPAD1_BUTTON_DPAD_LEFT, 12, 6),
-#         "right": lambda: px.btnp(px.KEY_RIGHT, 12, 6) or px.btnp(px.GAMEPAD1_BUTTON_DPAD_RIGHT, 12, 6),
-#         "decide": lambda: px.btnp(px.KEY_RETURN) or px.btnp(px.GAMEPAD1_BUTTON_A),
-#         "cancel": lambda: px.btnp(px.KEY_ESCAPE) or px.btnp(px.GAMEPAD1_BUTTON_B),
-#     }
-
-#     @classmethod
-#     def set_input_handler(cls, action: str, handler: Callable[[], bool]) -> None:
-#         """入力制御の更新（外部入力モジュール利用時のコンフィグ反映を想定）"""
-#         cls._input_handlers[action] = handler
-
-#     @classmethod
-#     def is_pressed(cls, action: str) -> bool:
-#         """キー入力判定関数"""
-#         handler = cls._input_handlers[action]
-#         return handler() if handler else False
-
-# MenuInputHandler = InputHandler()
 from ._wrapper_input import WindowInputWrapper, set_default_pyxel_input
 
 
@@ -83,74 +50,6 @@ class WindowInputHandler:
         return cls._wrapper
 
 
-# @dataclass
-# class FontData:
-#     """フォント名とフォントオブジェクトの対応付け"""
-#     name: FONT_SIZE_NAME  # サイズ名
-#     font: px.Font | None  # フォントオブジェクト
-#     height: int = 6  # フォントの高さ
-
-
-# class FontHandler:
-#     """フォント管理クラス"""
-#     _fontdata: dict[FONT_SIZE_NAME, FontData] = {}
-
-#     # def __init__(self):
-#     @classmethod
-#     def initialize(cls):
-#         """フォント情報を設定(BDFフォントの場合はフォントファイルのSIZEを取得)"""
-#         font_file_name: dict[FONT_SIZE_NAME, str] = {
-#             "small": "default",
-#             "basic": "umplus_j10r.bdf",
-#             "large": "unifont_jp-17.0.04.bdf",
-#         }
-#         for size_name, file_name in font_file_name.items():
-#             # self.fontdata[size_name].name = size_name
-#             # self.fontdata[size_name].font = px.Font(f"assets/font/{file_name}")
-#             if size_name == "small":
-#                 cls._fontdata[size_name] = FontData(size_name, None, 4)
-#                 continue
-
-#             if file_name.endswith(".bdf"):
-#                 #print(os.getcwd())
-#                 with open(f"assets/font/{file_name}", mode="r", encoding="utf-8") as f:
-#                     data = f.readline()
-#                     while data.find("SIZE") == -1:
-#                         data = f.readline()
-#                     # self.font_heights[size_name] = int(data.split(" ")[1])
-#                     # self.fontdata[size_name].height = int(data.split(" ")[1])
-#                 tmpdata = FontData(
-#                     size_name,
-#                     px.Font(f"assets/font/{file_name}"),
-#                     int(data.split(" ")[1]),
-#                 )
-#                 cls._fontdata[size_name] = tmpdata
-#             else:
-#                 match size_name:
-#                     case "small":
-#                         cls._fontdata[size_name].height = 4
-#                     case "basic":
-#                         cls._fontdata[size_name].height = 9
-#                     case "large":
-#                         cls._fontdata[size_name].height = 13
-
-#     @classmethod
-#     def get_fontdata(cls, size_name: FONT_SIZE_NAME) -> FontData:
-#         """フォント"""
-#         return cls._fontdata[size_name]
-
-# # フォント管理クラスは静的クラスとして初期化
-# FontHandler.initialize()
-
-# @classmethod
-# def get_imagechip(cls) -> px.Image:
-#     """画像チップ"""
-#     return cls.image_chips
-
-# # イメージチップは全共通の為モジュールレベルでロード
-# _image_chips: px.Image = px.Image(0,0)#px.Image.from_image("gameutils/window/chip_window.bmp")
-
-
 class Window:
     """汎用ウインドウクラス"""
 
@@ -174,9 +73,7 @@ class Window:
             exit()
 
         # 管理クラスへの参照
-        # self.chip = WindowManager.get_imagechip()
         self.fontdata = FontManager.get_fontdata(font_size_name)
-        # self.chip = _image_chips
         self.font = self.fontdata.font
         self.inp = WindowInputHandler.get()
         # 共通基本パラメータ
@@ -275,8 +172,6 @@ class Window:
                         colkey=0,
                     )
         # 塗りつぶし
-        # px.blt(self.x + (Xpos*G_.CHIP_PIXEL), self.y + (Ypos*G_.CHIP_PIXEL), G_.IMGIDX["CHIP"],
-        #         32, 240, G_.CHIP_PIXEL,G_.CHIP_PIXEL )
         self.window_image.rect(
             self._chip_size,
             self._chip_size,
@@ -298,9 +193,6 @@ class Window:
             return WindowAction.CONTINUE
 
         # 決定またはキャンセルキー処理
-        # if WindowManager.is_pressed("decide", "once") or WindowManager.is_pressed("cancel", "once"):
-        # if MenuInputHandler.is_pressed("decide") or MenuInputHandler.is_pressed("cancel"):
-        # inp = WindowInputHandler.get()
         if self.inp.decide() or self.inp.cancel():
             match self.window_mode:
                 # ページ送り以外では全終了
@@ -341,16 +233,6 @@ class Window:
                     colkey=0,
                     rotate=90,
                 )
-
-    # def drawText(self, x: int, y: int, text_list: list):
-    #     for i, text in enumerate(text_list):
-    #         px.text(x, y + (i * 16 + 2), text, px.COLOR_WHITE, font=self.font)
-    #     return
-
-    # def drawTextColor(self, x: int, y: int, text_list: list):
-    #     for i, data in enumerate(text_list):
-    #         px.text(x, y + (i * 16 + 2), data[0], data[1], font=self.font)
-    #     return
 
     def drawText(self, x: int, y: int, text_list: list):
         for i, data in enumerate(text_list):
@@ -469,16 +351,11 @@ class Menu:
         x: int,
         y: int,  # width: int, height: int,
         menu_shape: list[int],
-        # menu_items: list[list[str]],
-        # menu_items: list[MenuItem]|str
         menu_source: str | list[list[dict[str, str]]],
         w: int = 0,
         h: int = 0,
     ):
-        # self, image_chips: px.Image, x: int, y: int, font_name):
-
         # 管理クラスへの参照
-        # self.chip = get_imagechip()
         self.img_cursor = [16, 0, Window._chip_size, Window._chip_size]
         self.fontdata = FontManager.get_fontdata(font_size_name)
         self.font = self.fontdata.font
@@ -486,38 +363,6 @@ class Menu:
         # クラス個別パラメータ
         self.cursor_position: list[int] = [0, 0]
         self.menu_shape: list = menu_shape  # 横軸数,縦軸数
-        # self.menu_items: list = menu_items  # 横軸テキスト[a,b,c],,,※縦軸数分
-        # if isinstance(menu_source, str):  # メニュー固定項目指定時
-        #     # if type(menu_source) is str:
-        #     tmp_menudata = self._MENU_ITEM_CASHE[menu_source]
-        # else:  # 動的指定
-        #     tmp_menudata = menu_source  # 横軸テキスト[a,b,c],,,※縦軸数分
-
-        # try:
-        #     self.menu_items: list[list[MenuItem]] = [
-        #         [
-        #             MenuItem(
-        #                 item_label=data["id"],
-        #                 # menu_action = getattr(self, data["action"]) if isinstance(data["action"], str) else data["action"],
-        #                 menu_action=getattr(self, data["action"], None),
-        #                 action_args=tuple(data.get("args", [])),
-        #             )
-        #             for data in row
-        #         ]
-        #         for row in tmp_menudata
-        #     ]
-        # except TypeError:
-        #     self.menu_items: list[list[MenuItem]] = [
-        #         [
-        #             MenuItem(
-        #                 item_label=str(data),
-        #                 menu_action=None,
-        #                 action_args=tuple(""),
-        #             )
-        #             for data in row
-        #         ]
-        #         for row in tmp_menudata
-        #     ]
         self.menu_items: list[list[MenuItem]] = []
         self.build_menu_items(menu_source)
         # 共通基本パラメータ
@@ -546,9 +391,16 @@ class Menu:
     def y(self):
         return self.windows["main"].y
 
+    @property
+    def width(self):
+        return self.windows["main"].width
+
+    @property
+    def height(self):
+        return self.windows["main"].height
+
     def build_menu_items(self, menu_source: str | list[list[dict[str, str]]]):
         if isinstance(menu_source, str):  # メニュー固定項目指定時
-            # if type(menu_source) is str:
             tmp_menudata = self._MENU_ITEM_CASHE[menu_source]
         else:  # 動的指定
             tmp_menudata = menu_source  # 横軸テキスト[a,b,c],,,※縦軸数分
@@ -557,7 +409,6 @@ class Menu:
                 [
                     MenuItem(
                         item_label=data["id"],
-                        # menu_action = getattr(self, data["action"]) if isinstance(data["action"], str) else data["action"],
                         menu_action=getattr(self, data["action"], None),
                         action_args=tuple(data.get("args", [])),
                     )
@@ -597,7 +448,6 @@ class Menu:
         column_items: list[list[MenuItem]] = [
             list(col) for col in zip(*self.menu_items)
         ]
-        # for column_text in column_items:
         for column_data in column_items:
             # 現在のカラムのX座標を記録
             self.column_x_pos.append(current_x)
@@ -612,8 +462,6 @@ class Menu:
                 max_column_textlen = (
                     max([len(item.item_label) for item in column_data]) * 4
                 )
-            # menuwidth += offset_cursor + max_column_textlen + offset_sepalete_col
-            # current_x += menuwidth
             colwidth = offset_cursor + max_column_textlen + offset_sepalete_col
             menuwidth += colwidth
             current_x += colwidth
@@ -622,7 +470,6 @@ class Menu:
         menuwidth = (
             px.ceil((menuwidth + framesize) / Window._chip_size) * Window._chip_size
         )
-        # menuwidth = px.ceil((current_x - offset_sepalete_col + Window.chip_size) / Window.chip_size) * Window.chip_size
 
         # 高さ
         rows = self.menu_shape[1]
@@ -664,45 +511,33 @@ class Menu:
     def key_check(self) -> WindowAction:
         """キー入力の確認と応答"""
         if self.move_cursor():
-            # return WindowAction.CONTINUE
             pass
-        # if MenuInputHandler.is_pressed("decide"):
         elif self.inputkey.decide():
             return WindowAction.EXECUTE
-        # if MenuInputHandler.is_pressed("cancel"):
         elif self.inputkey.cancel():
             return WindowAction.CLOSE
-        # elif self.individual_key_check(inp):
-        #     pass
         return WindowAction.CONTINUE
 
     # def individual_key_check(self, inp: WindowInputWrapper) -> bool:
     #     """メニュー個別のキー判定用"""
     #     ...
     # 個別キー判定など入れずに、key_checkのオーバーライドで実装する
+
     def individual_update(self) -> Any:
         """メニュー個別のupdateフレーム処理内容"""
         ...
 
     def move_cursor(self) -> bool:
         """キー入力に応じたカーソル移動とインデックス制御"""
-        # if WindowManager.is_pressed("up", "hold"):
-        # if MenuInputHandler.is_pressed("up"):
         if self.inputkey.up():
             self.cursor_position[1] = (self.cursor_position[1] - 1) % self.menu_shape[1]
             return True
-        # if WindowManager.is_pressed("left", "hold"):
-        # if MenuInputHandler.is_pressed("left"):
         if self.inputkey.left():
             self.cursor_position[0] = (self.cursor_position[0] - 1) % self.menu_shape[0]
             return True
-        # if WindowManager.is_pressed("down", "hold"):
-        # if MenuInputHandler.is_pressed("down"):
         if self.inputkey.down():
             self.cursor_position[1] = (self.cursor_position[1] + 1) % self.menu_shape[1]
             return True
-        # if WindowManager.is_pressed("right", "hold"):
-        # if MenuInputHandler.is_pressed("right"):
         if self.inputkey.right():
             self.cursor_position[0] = (self.cursor_position[0] + 1) % self.menu_shape[0]
             return True
@@ -721,15 +556,7 @@ class Menu:
 
     def draw_main(self):
         """メニュー項目文字表示"""
-        # for row in range(self.menu_shape[1]):
-        #     for col in range(self.menu_shape[0]):
-        #         # for i,_str in enumerate(self.menu_items[row][col]):
-
-        #         #     px.text(self.windows["main"].x+(1+((1+1)*col+(self.menutext_length*2)*col)+(1+1+i*2))*G_.CHIP_PIXEL,
-        #         #             self.menu_window.y+(1 + row*2)*G_.CHIP_PIXEL,
-        #         #             _str, px.COLOR_WHITE, G_.JP_FONT)
         for row_idx, row in enumerate(self.menu_items):
-            # for col_idx, text in enumerate(row):
             for col_idx, item in enumerate(row):
                 text_x = (
                     self.windows["main"].x
@@ -742,13 +569,6 @@ class Menu:
 
     def draw_cursor(self):
         """メニューカーソル表示"""
-        # self.cursor_address = [self.menu_window.x +
-        #                        #メニュー枠+余白+(カーソル位置(項目n番目)ｘ項目長x2)*チップサイズ(8)
-        #                        (1+(((1)*(self.cursor_position[0]+1)+self.cursor_position[0]+(self.menutext_length*2)*self.cursor_position[0])))
-        #                        *G_.CHIP_PIXEL - 2,
-        #                        self.menu_window.y +
-        #                        (1+(1+(self.cursor_position[1]*2)))*G_.CHIP_PIXEL - 5]
-        # px.blt(*self.cursor_address, G_.IMGIDX["CHIP"], 32,248, G_.CHIP_PIXEL,G_.CHIP_PIXEL, colkey=0)
         pos_x, pos_y = self.cursor_position
         self.cursor_x = self.windows["main"].x + self.column_x_pos[pos_x]
         self.cursor_y = (

@@ -29,9 +29,9 @@ class ServiceKey(Enum):
     MAPGRAPH = auto()
     SOUND_MANAGER = auto()
     ITEM_MANAGER = auto()
-    # MEMBER1 = auto()
-    # MEMBER2 = auto()
-    # MEMBER3 = auto()
+    MEMBER1 = auto()
+    MEMBER2 = auto()
+    MEMBER3 = auto()
     ITEMPOOL = auto()
     STACKPOOL = auto()
     PARTY = auto()
@@ -77,6 +77,14 @@ class _Ref:
     @property
     def hero(self) -> Character:
         return _service_container[ServiceKey.HERO]
+
+    @property
+    def mem1(self) -> Character:
+        return _service_container[ServiceKey.MEMBER1]
+
+    @property
+    def mem2(self) -> Character:
+        return _service_container[ServiceKey.MEMBER2]
 
     @property
     def itemmgr(self) -> ItemManager:

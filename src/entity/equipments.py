@@ -65,7 +65,7 @@ class Equips:
             f"処理前個数：{di.ref.pl_stack.count(
             plent.ins.param.def_id, ItemState.BAG)}"
         )
-        logger.debug(f"処理前インスタンス：{di.ref.pl_item.get(idx)}")
+        # logger.debug(f"処理前インスタンス：{di.ref.pl_item.get(idx)}")
 
         if plent.stat == ItemState.BAG:
             di.ref.pl_stack.add(plent.ins.param.def_id, ItemState.BAG)
@@ -76,7 +76,7 @@ class Equips:
                 f"処理後個数：{di.ref.pl_stack.count(
                 plent.ins.param.def_id, ItemState.BAG)}"
             )
-            logger.debug(f"処理後インスタンス：{di.ref.pl_item.get(idx)}")
+            # logger.debug(f"処理後インスタンス：{di.ref.pl_item.get(idx)}")
 
     def _convert_instance(self, def_id: ItemID) -> PooledItem:
         """スタックアイテムのインスタンス化（装備スロット定義時）"""
@@ -85,9 +85,9 @@ class Equips:
             f"処理前個数：{di.ref.pl_stack.count(
             def_id, ItemState.BAG)}"
         )
-        logger.debug(
-            f"処理前インスタンス：{di.ref.pl_item.get_by_state(ItemState.BAG)}"
-        )
+        # logger.debug(
+        #     f"処理前インスタンス：{di.ref.pl_item.get_by_state(ItemState.BAG)}"
+        # )
 
         if di.ref.pl_stack.count(def_id, ItemState.BAG) > 0:
             pooled = di.ref.pl_item.create(def_id, ItemState.BAG)
@@ -97,12 +97,12 @@ class Equips:
 
         # デバッグログ
         logger.debug(
-            f"処理前個数：{di.ref.pl_stack.count(
+            f"処理後個数：{di.ref.pl_stack.count(
             def_id, ItemState.BAG)}"
         )
-        logger.debug(
-            f"処理前インスタンス：{di.ref.pl_item.get_by_state(ItemState.BAG)}"
-        )
+        # logger.debug(
+        #     f"処理前インスタンス：{di.ref.pl_item.get_by_state(ItemState.BAG)}"
+        # )
 
         return pooled
 
@@ -110,6 +110,7 @@ class Equips:
         # efx_list = [[plent.ins.param.effect_type, plent.ins.param.effect_value]
         #             for idx, plent in list(self._equipped_items.values())
         #             if isinstance(plent, ItemInstance)]
+        self._effect_cache.clear()
         targets = [
             pooled_item
             for pooled_item in self._equipped_items.values()

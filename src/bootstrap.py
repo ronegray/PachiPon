@@ -63,7 +63,7 @@ def ipl():
 
     # プロトタイプ用初期アイテム (items.jsonの全アイテムを2つずつ作成)
     for item_def_id, item_def in di.ref.itemmgr.get_all_definitions().items():
-        for _ in range(2):
+        for _ in range(5):
             if item_def.stackable:
                 di.ref.pl_stack.add(
                     item_def_id, ItemState.BAG, 1

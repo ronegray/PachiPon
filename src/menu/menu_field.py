@@ -2,7 +2,8 @@
 メニューモジュール：フィールド
 """
 import logging
-import pyxel as px
+
+# import pyxel as px
 from gameutils.lib import (
     Menu,
     Window,
@@ -12,13 +13,13 @@ from gameutils.lib import (
 import service_locater as di
 
 # from entity.character import EquipSlot
-from entity import EquipSlot
+# from entity import EquipSlot
 # from item.item_protocol import Owner
 # from item.item_manager import ItemManager
 # from menu import MenuItemWindow#, MenuSelectItemCategory
 
 # from .menu_equip_slot import SelectEquipSlot # コメントアウト
-from item import ItemState
+# from item import ItemState
 
 
 # ロギング設定
@@ -58,86 +59,102 @@ class MenuField(Menu):
         print(now_point)
 
     def show_status(self):
-        print("show status")
-        hero = di.ref.hero
-        param = hero.base_param
+        # # print("show status")
+        # # hero = di.ref.hero
+        # # param = hero.base_param
+        # mem_id = di.ref.pt.get_leader_id()
+        # member = di.ref.pt.get_member(mem_id)
+        # param = member.base_param
 
-        # # ステータス項目の構築
-        # status_lines = [
-        #     f"{param.name}",
-        #     f"レベル： {param.level:2}",
-        #     f"経験値： {param.exp:5}",
-        #     f"Ｈ　Ｐ： {param.hp:3}／{param.max_hp:3}",
-        #     f"Ｍ　Ｐ： {param.mp:3}／{param.max_mp:3}",
-        #     f"筋　力： {hero.strength:3}",
-        #     f"魔　力： {hero.arcane:3}",
-        #     f"耐　久： {hero.endurance:3}",
-        #     f"速　度： {hero.speed:3}",
-        #     f"幸　運： {hero.luck:3}",
-        #     # "--- 装備 ---"
+        # # # ステータス項目の構築
+        # # status_lines = [
+        # #     f"{param.name}",
+        # #     f"レベル： {param.level:2}",
+        # #     f"経験値： {param.exp:5}",
+        # #     f"Ｈ　Ｐ： {param.hp:3}／{param.max_hp:3}",
+        # #     f"Ｍ　Ｐ： {param.mp:3}／{param.max_mp:3}",
+        # #     f"筋　力： {hero.strength:3}",
+        # #     f"魔　力： {hero.arcane:3}",
+        # #     f"耐　久： {hero.endurance:3}",
+        # #     f"速　度： {hero.speed:3}",
+        # #     f"幸　運： {hero.luck:3}",
+        # #     # "--- 装備 ---"
+        # # ]
+
+        # # 装備項目の構築
+        # slots = [
+        #     (EquipSlot.WEAPON, "武　器"),
+        #     (EquipSlot.GUARDER, "防　具"),
+        #     (EquipSlot.ACCESSORY_1, "装飾１"),
+        #     (EquipSlot.ACCESSORY_2, "装飾２"),
+        #     (EquipSlot.CONSUME_1, "消費１"),
+        #     (EquipSlot.CONSUME_2, "消費２"),
         # ]
 
-        # 装備項目の構築
-        slots = [
-            (EquipSlot.WEAPON, "武　器"),
-            (EquipSlot.GUARDER, "防　具"),
-            (EquipSlot.ACCESSORY_1, "装飾１"),
-            (EquipSlot.ACCESSORY_2, "装飾２"),
-            (EquipSlot.CONSUME_1, "消費１"),
-            (EquipSlot.CONSUME_2, "消費２"),
-        ]
-
+        # # for slot, label in slots:
+        # #     item_def = hero.equipments.get_itemdef(slot)
+        # #     item_name = item_def.name if item_def else "なし"
+        # #     status_lines.append(f"{label}： {item_name}")
+        # status_lines = f"{param.name}"
+        # status_lines += f"\nレベル： {param.level:2}"
+        # status_lines += f"\n経験値： {param.exp:5}"
+        # status_lines += f"\nＨ　Ｐ： {param.hp:3}／{param.max_hp:3}"
+        # status_lines += f"\nＭ　Ｐ： {param.mp:3}／{param.max_mp:3}"
+        # status_lines += f"\n筋　力： {member.strength:3}(+{member.bonus_str})"
+        # status_lines += f"\n魔　力： {member.arcane:3}(+{member.bonus_arc})"
+        # status_lines += f"\n耐　久： {member.endurance:3}(+{member.bonus_end})"
+        # status_lines += f"\n速　度： {member.speed:3}(+{member.bonus_spd})"
+        # status_lines += f"\n幸　運： {member.luck:3}(+{member.bonus_lck})"
+        # equip_lines = ""
         # for slot, label in slots:
-        #     item_def = hero.equipments.get_itemdef(slot)
-        #     item_name = item_def.name if item_def else "なし"
-        #     status_lines.append(f"{label}： {item_name}")
-        status_lines = f"{param.name}"
-        status_lines += f"\nレベル： {param.level:2}"
-        status_lines += f"\n経験値： {param.exp:5}"
-        status_lines += f"\nＨ　Ｐ： {param.hp:3}／{param.max_hp:3}"
-        status_lines += f"\nＭ　Ｐ： {param.mp:3}／{param.max_mp:3}"
-        status_lines += f"\n筋　力： {hero.strength:3}(+{hero.bonus_str})"
-        status_lines += f"\n魔　力： {hero.arcane:3}(+{hero.bonus_arc})"
-        status_lines += f"\n耐　久： {hero.endurance:3}(+{hero.bonus_end})"
-        status_lines += f"\n速　度： {hero.speed:3}(+{hero.bonus_spd})"
-        status_lines += f"\n幸　運： {hero.luck:3}(+{hero.bonus_lck})"
-        for slot, label in slots:
-            pooled_item = hero.equipments.get_slot(slot)
-            if pooled_item is None:
-                item_name = "なし"
-            else:
-                _, plent = pooled_item
-                item_name = plent.ins.param.name
-            status_lines += f"\n{label}： {item_name}"
+        #     pooled_item = member.equipments.get_slot(slot)
+        #     if pooled_item is None:
+        #         item_name = "なし"
+        #     else:
+        #         _, plent = pooled_item
+        #         item_name = plent.ins.param.name
+        #     # status_lines += f"\n{label}： {item_name}"
+        #     equip_lines += f"{label}： {item_name}\n"
 
-        # ウィンドウのプッシュ
-        # サイズはメニューの位置から画面右下端まで
-        # main_win = self.windows["main"]
-        win_width = 128
-        win_height = 216
+        # # ウィンドウのプッシュ
+        # # サイズはメニューの位置から画面右下端まで
+        # param_w, param_h = 128, 136
+        # equip_w, equip_h = 128, 88
 
-        # 現在のシーンのWindowManagerを取得
-        wndmgr = di.ref.scnmgr.stacks[-1].wndmgr
+        # # 現在のシーンのWindowManagerを取得
+        # wndmgr = di.ref.scnmgr.stacks[-1].wndmgr
 
-        # Windowをスタックに追加
-        pos_x, pos_y = self.cursor_position
-        cursor_x = self.windows["main"].x + self.column_x_pos[pos_x]
-        cursor_y = (
-            self.windows["main"].y + self.row_y_pos[pos_y] + self.cursor_row_offset
-        )
-        # wndmgr.push_stack(
-        #     Window, "basic", cursor_x + 8, cursor_y + 8, win_width, win_height, "once"
+        # # Windowをスタックに追加
+        # # pos_x, pos_y = self.cursor_position
+        # # cursor_x = self.windows["main"].x + self.column_x_pos[pos_x]
+        # # cursor_y = (
+        # #     self.windows["main"].y + self.row_y_pos[pos_y] + self.cursor_row_offset
+        # # )
+        # # win_param = wndmgr.push_stack(
+        # #     Window, "basic", cursor_x + 8, cursor_y + 8, param_w, param_h, "once"
+        # # )
+        # pos_x = self.windows["main"].x + self.windows["main"].width
+        # pos_y = 0
+        # padding = 2
+        # win_param = wndmgr.push_stack(
+        #     Window, "basic", pos_x + padding, pos_y + padding, param_w, param_h, "once"
         # )
+        # win_equip = wndmgr.push_stack(
+        #     Window, "basic", win_param.x,
+        #     win_param.y + win_param.height + padding, equip_w, equip_h, "once"
+        # )
+        # if isinstance(win_param, Window):
+        #     win_param.text_list = [status_lines]
+        # if isinstance(win_equip, Window):
+        #     win_equip.text_list = [equip_lines]
+        from menu import MenuStatus
 
-        # # メッセージを追加（Windowインスタンスはスタックの最後にある）
-        # new_win = wndmgr.stacks[-1]
-        new_win = wndmgr.push_stack(
-            Window, "basic", cursor_x + 8, cursor_y + 8, win_width, win_height, "once"
-        )
-        if isinstance(new_win, Window):
-            # for line in status_lines:
-            #     new_win.add_message(line)
-            new_win.text_list = [status_lines]
+        # di.ref.scnmgr.stacks[-1].wndmgr.push_stack(
+        #     MenuSelectItemCategory,
+        #     self.cursor_x + Window._chip_size,
+        #     self.cursor_y + Window._chip_size,
+        # )
+        return RsltPush(MenuStatus)
 
     def select_item_category(self):
         """アイテム表示メニューを開く"""
@@ -154,89 +171,19 @@ class MenuField(Menu):
             self.cursor_x + Window._chip_size + 1,
             self.cursor_y + Window._chip_size + 1,
         )
-        item_pool = di.ref.pl_item
-        stack_pool = di.ref.pl_stack
-
-        menu_items = []
-
-        # StackPool (消耗品など) から取得
-        # _stacks: dict[tuple[int, int], int] = {(def_id, owner_id): count}
-        for (def_id, owner_id), count in stack_pool._stacks.items():
-            if owner_id == ItemState.BAG:
-                # item_def = ItemManager.get_def(def_id)
-                item_def = di.ref.itemmgr.get_def(def_id)
-                if item_def:
-                    menu_items.append(
-                        {
-                            "id": f"{item_def.name} x{count}",
-                            "action": "None",
-                            "description": item_def.description,
-                            "callable_action": None,
-                            "action_args": (),
-                        }
-                    )
-
-        # ItemPool (装備品など) から取得
-        bag_items = item_pool.get_by_owner(ItemState.BAG)
-        for inst in bag_items:
-            # item_def = ItemManager.get_def(inst.def_id)
-            item_def = di.ref.itemmgr.get_def(inst.def_id)
-            if item_def:
-                menu_items.append(
-                    {
-                        "id": item_def.name,
-                        "action": "None",
-                        "description": item_def.description,
-                        "callable_action": None,
-                        "action_args": (),
-                    }
-                )
-
-        if not menu_items:
-            menu_items.append(
-                {
-                    "id": "なし",
-                    "action": "None",
-                    "description": "アイテムを持っていません",
-                    "callable_action": None,
-                    "action_args": (),
-                }
-            )
-
-        # ウィンドウサイズと位置の設定
-        # menu_fieldの描画右端位置から画面右端まで
-        # 画面上端から下端まで
-        main_win = self.windows["main"]
-        x = main_win.x + main_win.width
-        y = 0
-        width = px.width - x
-        height = px.height
-
-        # 最小幅の確保
-        if width < 64:
-            width = 64
-            x = px.width - width
-
-        # 現在のシーンのWindowManagerを取得
-        wndmgr = di.ref.scnmgr.stacks[-1].wndmgr
-
-        # MenuItemWindowをスタックに追加
-        # MenuItemWindow(font_size_name, x, y, width, height, items)
-        from menu import MenuItemWindow
-
-        wndmgr.push_stack(MenuItemWindow, "basic", x, y, width, height, menu_items)
 
     def equip_item(self):
         """装備選択メニューを開く"""
         print("equip_item")
-        # hero: Character = di.ref.hero
+        # print("select item category")
+        from menu import MenuSelectEquipSlot
 
-        # main_win = self.windows["main"]
-        # x = main_win.x + main_win.width
-        # y = 0 # フィールドメニューのすぐ右、画面上端から
-
-        # wndmgr = di.ref.scnmgr.stacks[-1].wndmgr
-        # wndmgr.push_stack(SelectEquipSlot, "basic", x, y, hero)
+        # di.ref.scnmgr.stacks[-1].wndmgr.push_stack(
+        #     MenuSelectItemCategory,
+        #     self.cursor_x + Window._chip_size,
+        #     self.cursor_y + Window._chip_size,
+        # )
+        return RsltPush(MenuSelectEquipSlot)
 
     def use_skill(self):
         """スキル表示メニューを開く"""

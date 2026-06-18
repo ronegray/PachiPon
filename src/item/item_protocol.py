@@ -106,7 +106,7 @@ class ItemID(IntEnum):
     HIHPBELT     = 0x0B_1_5  # アクセ　最大HP3倍
     HIMPBELT     = 0x0B_1_6  # アクセ　最大MP3倍
     CHEATDICE    = 0x0B_0_7  # アクセ　全ダイス目＋１
-    GODDICE      = 0x0B_1_7  # アクセ　全ダイス目＋２
+    GODDICE      = 0x0B_1_7  # アクセ　全ダイス目＋３
     POWAMULET    = 0x0B_0_8  # アクセ　筋力＋３
     ARCAMULET    = 0x0B_0_9  # アクセ　魔力＋３
     CONAMULET    = 0x0B_0_A  # アクセ　耐久＋３

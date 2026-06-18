@@ -127,6 +127,19 @@ class MapGraph:
         """指定IDのイベントポイントオブジェクトを取得"""
         return self.points.get(point_id)
 
+    def get_route(
+        self, current_node_id: str, direction: ROUTE_DIR | str
+    ) -> Route | None:
+        """現地点から選択した方向へのルート情報を取得"""
+        point = self.get_point(current_node_id)
+        if not point:
+            return None
+
+        for route in point.get_reachable_routes():
+            if route.direction == direction:
+                return route
+        return None
+
     def get_connected_node(
         self, current_node_id: str, direction: ROUTE_DIR | str
     ) -> str | None:
@@ -170,4 +183,4 @@ class MapGraph:
         # 点（EventPoint）の描画
         for point in self.points.values():
             px.circ(point.x + offset_x, point.y + offset_y, 2, 7)
-            # pyxel.text(point.x + offset_x + 4, point.y + offset_y + 4, point.name, 7)
+            px.text(point.x + offset_x + 4, point.y + offset_y + 4, point.name, 7)
