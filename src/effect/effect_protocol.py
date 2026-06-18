@@ -48,26 +48,32 @@ class EffectID(IntEnum):
     DICE_HIT = auto()
     DICE_ENEMYDAMAGE = auto()
     DICE_ENEMYSPELL = auto()
-    DICE_ALL = auto()
-    BONUS_MAXHP = auto()
-    BONUS_MAXMP = auto()
+    ATTACK_BONUS = auto()
+    SPEED_BONUS = auto()
+    REDUCE_WEAPON = auto()
+    REDUCE_SPELL = auto()
+    DICE_BONUS = auto()
+    GAIN_MAXHP = auto()
+    GAIN_MAXMP = auto()
     BONUS_STR = auto()
     BONUS_ARC = auto()
     BONUS_END = auto()
     BONUS_SPD = auto()
     BONUS_LCK = auto()
-    HEALPOT = auto()  # 消耗品　HP回復(レベルd6)
+    HEAL_HP = auto()  # 消耗品　HP回復(レベルd6)
     HIHEALPOT = auto()  # 消耗品　HP回復全快
-    MAGICPOT = auto()  # 消耗品　MP回復(レベルd6/2※切り上げ)
+    HEAL_MP = auto()  # 消耗品　MP回復(レベルd6/2※切り上げ)
     HIMAGICPOT = auto()  # 消耗品　MP回復全快
-    TORCH = auto()  # 消耗品　イベント：ダンジョン時に１消費
-    KEY = auto()  # 消耗品　イベント：宝箱時に１消費
-    SMOKE = (
+    TORCHLIGHT = auto()  # 消耗品　イベント：ダンジョン時に１消費
+    UNLOCK_KEY = auto()  # 消耗品　イベント：宝箱時に１消費
+    ESCAPE_BATTLE = (
         auto()
     )  # 消耗品　使用直後の戦闘発生を回避／現在の戦闘から即座に離脱（敗北扱い）
-    HORSESHOE = auto()  # 消耗品 次のランダムイベントからマイナス選択肢を１つ減らす
+    REDUCE_NEGATIVE = (
+        auto()
+    )  # 消耗品 次のランダムイベントからマイナス選択肢を１つ減らす
     CLOVER = auto()  # 消耗品 次のランダムイベントからマイナス選択肢を２つ減らす
-    DICE = auto()  # 消耗品 次に実行されるダイス処理でダイス数を１ふやす
+    DICE_PLUS = auto()  # 消耗品 次に実行されるダイス処理でダイス数を１ふやす
     HIDICE = auto()  # 消耗品 次に実行されるダイス処理でダイス数を２ふやす
     RATIONS = auto()  # 消耗品 食糧を10増やす
     HIRATIONS = auto()  # 消耗品 食糧を50増やす

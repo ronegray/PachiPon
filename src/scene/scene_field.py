@@ -1,16 +1,8 @@
 import pyxel as px
-from .scene_base import BaseScene
-
-# from field_map import MapGraph
-from gameutils.base import is_pressed, check_file, read_string
-
-from menu import MenuField
-
-# from event_manager import EventManager
-# from gameutils.base.file.file_system import check_file, read_string
-
 import service_locater as di
-# from service_locater import ref as di
+from gameutils.base import is_pressed, check_file, read_string
+from menu import MenuField
+from .scene_base import BaseScene
 
 
 class SceneField(BaseScene):
@@ -27,6 +19,7 @@ class SceneField(BaseScene):
 
         self.current_node = "p17"  # 初期位置
         self.last_visited_node = "p17"
+        self.next_node = "p17"
         # self.event_manager = EventManager()
 
         # キャラクターは main.py で初期化され、サービスロケータに登録されている
@@ -58,13 +51,13 @@ class SceneField(BaseScene):
             px.playm(0, loop=True)
 
     def update(self):
-        # メニューキー判定
-        if is_pressed("other1"):
-            if self.wndmgr.has_stack:
-                self.wndmgr.pop_stack()
-            else:
-                self.wndmgr.push_stack(MenuField)
-            return
+        # # メニューキー判定
+        # if is_pressed("other1"):
+        #     if self.wndmgr.has_stack:
+        #         self.wndmgr.pop_stack()
+        #     else:
+        #         self.wndmgr.push_stack(MenuField)
+        #     return
 
         # WindowManagerにスタックがある場合はメニュー操作を優先
         if self.wndmgr.has_stack:
@@ -79,18 +72,56 @@ class SceneField(BaseScene):
         if di.ref.pt._pt_is_moving:
             # di.ref.pt.set_event_point_status(False)
             di.ref.pt.update()
+            # 移動中→移動完了への状態変化時に、前ポイントのイベント回復＆現在地修正
+            if di.ref.pt._pt_is_moving is False:
+                self.event_flags[self.current_node] = True
+                self.last_visited_node = self.current_node = self.next_node
+            return
+
+        # メニューキー判定
+        if is_pressed("other1"):
+            if self.wndmgr.has_stack:
+                self.wndmgr.pop_stack()
+            else:
+                self.wndmgr.push_stack(MenuField)
             return
 
         # 通常のフィールド操作
-        old_node = self.current_node
+        # old_node = self.current_node
 
         # ACTION_NAME 型に準拠させるための固定リスト
         actions = ["up", "down", "left", "right"]
+        # for d in actions:
+        #     if is_pressed(d):  # type: ignore
+        #         next_node_id = di.ref.map.get_connected_node(self.current_node, d)
+        #         if next_node_id:
+        #             self.current_node = next_node_id
+        #             # プレイヤーの向きを設定
+        #             direction_map = {
+        #                 "up": "back",
+        #                 "down": "front",
+        #                 "left": "left",
+        #                 "right": "right",
+        #             }
+        #             # self.field_chara.set_direction(direction_map[d])
+        #             di.ref.pt.set_sprite_direction(direction_map[d])
+
+        #             # 移動開始
+        #             # target_point = di.ref.map.get_point(next_node)
+        #             # if target_point:
+        #             #     # self.field_chara.move_to(target_point.x, target_point.y)
+        #             #     di.ref.pt.move_to(target_point.id)
+        #             di.ref.pt.move_to(next_node_id)
+        #             # break
+        #             return
         for d in actions:
             if is_pressed(d):  # type: ignore
-                next_node_id = di.ref.map.get_connected_node(self.current_node, d)
-                if next_node_id:
-                    self.current_node = next_node_id
+                # next_node_id = di.ref.map.get_connected_node(self.current_node, d)
+                to_route = di.ref.map.get_route(self.current_node, d)
+                # if next_node_id:
+                if to_route:
+                    # self.current_node = next_node_id
+                    self.next_node = to_route.to_id
                     # プレイヤーの向きを設定
                     direction_map = {
                         "up": "back",
@@ -98,21 +129,17 @@ class SceneField(BaseScene):
                         "left": "left",
                         "right": "right",
                     }
-                    # self.field_chara.set_direction(direction_map[d])
                     di.ref.pt.set_sprite_direction(direction_map[d])
 
                     # 移動開始
-                    # target_point = di.ref.map.get_point(next_node)
-                    # if target_point:
-                    #     # self.field_chara.move_to(target_point.x, target_point.y)
-                    #     di.ref.pt.move_to(target_point.id)
-                    di.ref.pt.move_to(next_node_id)
-                    # break
+                    # di.ref.pt.move_to(next_node_id)
+                    # di.ref.pt.move_to(self.next_node)
+                    di.ref.pt.move_route(to_route)
                     return
 
-        if old_node != self.current_node:
-            self.event_flags[self.current_node] = True
-            self.last_visited_node = old_node
+        # if old_node != self.current_node:
+        #     self.event_flags[self.current_node] = True
+        #     self.last_visited_node = old_node
 
         # イベント発生判定
         is_event_point = self.event_flags.get(self.current_node, False)

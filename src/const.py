@@ -7,3 +7,5 @@ APP_FPS = 30
 
 APP_TITLE = "PachiPon"
 APP_VERSION = "0.0.1"
+
+ENCOUNT_THRESHOLD = 8  # 2d6の期待値

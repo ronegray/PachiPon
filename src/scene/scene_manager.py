@@ -31,6 +31,10 @@ class SceneManager:
         """前のシーンに戻る"""
         self.stacks.pop()
 
+    def get_now_scene(self) -> BaseScene:
+        """現在のシーンを返す"""
+        return self.stacks[-1]
+
     def change_scene(self, scene_name: SCENE_NAME):
         """完全に別のシーンへ切り替える（前シーン戻り不可）"""
         self.stacks.clear()

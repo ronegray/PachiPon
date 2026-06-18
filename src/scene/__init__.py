@@ -10,6 +10,7 @@ from .scene_field import SceneField
 from .scene_splash import SceneSplash
 from .scene_title import SceneTitle
 from .scene_newgame import SceneNewGame
+from .scene_battle import SceneBattle
 # from .scene_dataload import SceneDataload
 # from .scene_config import SceneConfig
 # from .scene_field import SceneField
@@ -18,3 +19,4 @@ register("splash", SceneSplash)
 register("title", SceneTitle)
 register("newgame", SceneNewGame)
 register("map", SceneField)
+register("battle", SceneBattle)

@@ -303,18 +303,18 @@
     "CHEATDICE": {
       "name": "不正のダイス",
       "price": 50000,
-      "effect_type": "dice_plus",
+      "effect_type": "dice_bonus",
       "effect_value": 1,
       "is_percent": false,
-      "description": "自身の行動による全てのダイス数が１増える"
+      "description": "自身の行動によるダイスの出目が１増える"
     },
     "GODDICE": {
       "name": "神のダイス",
       "price": 999999,
-      "effect_type": "dice_plus",
-      "effect_value": 2,
+      "effect_type": "dice_bonus",
+      "effect_value": 3,
       "is_percent": false,
-      "description": "自身の行動による全てのダイス数が２増える"
+      "description": "自身の行動によるダイスの出目が３増える"
     },
     "POWAMULET": {
       "name": "筋のアミュレット",
@@ -335,7 +335,7 @@
     "CONAMULET": {
       "name": "耐のアミュレット",
       "price": 3000,
-      "effect_type": "bonus_con",
+      "effect_type": "bonus_end",
       "effect_value": 3,
       "is_percent": false,
       "description": "耐久が３増え、ボーナスが再判定される"
@@ -375,7 +375,7 @@
     "HICONAMULET": {
       "name": "超耐アミュレット",
       "price": 3000,
-      "effect_type": "bonus_con",
+      "effect_type": "bonus_end",
       "effect_value": 6,
       "is_percent": false,
       "description": "耐久が６増え、ボーナスが再判定される"

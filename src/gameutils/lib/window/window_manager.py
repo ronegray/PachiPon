@@ -30,6 +30,15 @@ class WindowManager:
         self.stacks.pop()
         return len(self.stacks)
 
+    def get_stack(self, from_last: int = 0) -> Window | Menu:
+        """末尾から数えて指定した順番のメニュースタックを取得"""
+        list_index = -(1 + from_last)
+        try:
+            result = self.stacks[list_index]
+        except IndexError:
+            result = self.stacks[-1]
+        return result
+
     def update(self) -> None:
         """管理クラス配下のインスタンス更新およびインスタンス応答の処理"""
         if len(self.stacks):

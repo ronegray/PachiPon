@@ -59,6 +59,7 @@ class MenuItemBase(Menu):
     """アイテム用メニュー基本クラス"""
 
     _list_rows: int = 10
+    pagelabel_size = 4 * 5  # 4ptフォント5文字
 
     def __init__(self):
         """データ取得と表示ウインドウの再定義"""
@@ -72,8 +73,10 @@ class MenuItemBase(Menu):
             y,
             [1, len(self.item_list[self.itemlist_index])],
             self.item_list[self.itemlist_index],
-            px.width - x - Window._chip_size,
+            # px.width - x - Window._chip_size,
+            96,
         )
+        self.cursor_row_offset += 2  # k8x12Sの縦長分対応
         self.windows["sub"] = Window(
             "basic",
             x,
@@ -153,6 +156,22 @@ class MenuItemBase(Menu):
         if result:
             self.change_target_item()
         return result
+
+    def draw_main(self) -> None:
+        """ページ表示の追加"""
+        super().draw_main()
+        x = self.x + self.width - (self.pagelabel_size + Window._chip_size)
+        y = self.y
+        px.rect(
+            x,
+            y,
+            self.pagelabel_size,
+            Window._chip_size,
+            self.windows["main"]._image_chips.pget(7, 7),
+        )
+        px.text(
+            x, y, f"{self.itemlist_index+1:02}/{len(self.item_list):02}", px.COLOR_WHITE
+        )
 
 
 # class MenuUseItem(Menu):
@@ -312,11 +331,11 @@ class MenuShowEquips(MenuItemBase):
         # tmplist = di.ref.pl_stack.get_by_state(ItemState.BAG)
         # filteredlist = self._get_filtered_list(tmplist)
         tmplist = di.ref.pl_item.get_by_state(ItemState.BAG)
-        filteredlist = [
-            {item_[0]: item_[1]}
-            for item_ in tmplist.items()
-            if item_[0] & 0xFF00 != ItemType.KEY_ITEM
-        ]
+        # filteredlist = [
+        #     {item_[0]: item_[1]}
+        #     for item_ in tmplist.items()
+        #     if item_[0] & 0xFF00 != ItemType.KEY_ITEM
+        # ]
         filteredlist = [
             [
                 {
@@ -377,7 +396,7 @@ class MenuShowEquips(MenuItemBase):
                     f"防御性能：{item_def.defvalue}　魔法阻害：{item_def.magpenalty}"
                 )
             case ItemType.ORNAMENT:
-                perf_txt = "特殊な効果をもつ装飾具"
+                perf_txt = "特殊な効果をもつ飾り"
             case _:
                 perf_txt = ""
         return [f"{perf_txt}", f"{item_def.description}"]
