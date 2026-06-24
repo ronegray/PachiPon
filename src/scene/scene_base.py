@@ -1,13 +1,20 @@
 """scene_base.py
 scene系基底クラスおよびシーンスタックマネージャ
 """
+
 from __future__ import annotations
 from abc import ABC, abstractmethod
+from typing import Literal
 from gameutils.lib.window import WindowManager
+
+
+SITUATION = Literal["field", "battle", "system"]
 
 
 class BaseScene(ABC):
     """シーン基底クラス"""
+
+    situation: SITUATION = "system"
 
     def __init__(self) -> None:
         """初期化：シーン別ウインドウマネージャ生成"""
@@ -15,8 +22,8 @@ class BaseScene(ABC):
 
     @abstractmethod
     def update(self) -> None:
-        pass
+        ...
 
     @abstractmethod
     def draw(self) -> None:
-        pass
+        ...

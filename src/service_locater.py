@@ -1,7 +1,9 @@
-"""service_locater.py
-サービスロケータモジュール
-- シーンマネージャやユーザキャラ等のゲーム中で広範に参照されるオブジェクトを管理
 """
+サービスロケータモジュール
+
+- ゲーム中で広範に参照されるオブジェクトを管理
+"""
+
 from __future__ import annotations
 from typing import Any, TYPE_CHECKING
 from enum import Enum, auto
@@ -13,29 +15,30 @@ logger = logging.getLogger(__name__)
 
 
 if TYPE_CHECKING:
+    from command import CommandManager
     from scene import SceneManager
     from field_map import MapGraph
     from entity import Party, Character
     from gameutils.lib import SoundManager
-
-    # from character import Character
     from item import ItemManager, ItemPool, StackPool
+    from skill import SkillManager
 
 
 class ServiceKey(Enum):
     """DIコンテナ用キー定義"""
 
+    COMMAND_MANAGER = auto()
     SCENE_MANAGER = auto()
     MAPGRAPH = auto()
     SOUND_MANAGER = auto()
     ITEM_MANAGER = auto()
-    MEMBER1 = auto()
-    MEMBER2 = auto()
-    MEMBER3 = auto()
     ITEMPOOL = auto()
     STACKPOOL = auto()
+    SKILL_MANAGER = auto()
     PARTY = auto()
     HERO = auto()
+    MEMBER1 = auto()
+    MEMBER2 = auto()
 
 
 # サービスコンテナ
@@ -58,6 +61,10 @@ def show() -> dict:
 
 # 型アクセサクラス
 class _Ref:
+    @property
+    def cmdmgr(self) -> CommandManager:
+        return _service_container[ServiceKey.COMMAND_MANAGER]
+
     @property
     def scnmgr(self) -> SceneManager:
         return _service_container[ServiceKey.SCENE_MANAGER]
@@ -98,9 +105,9 @@ class _Ref:
     def pl_stack(self) -> StackPool:
         return _service_container[ServiceKey.STACKPOOL]
 
-    # @property
-    # def cfgmgr(self) -> ConfigManager:
-    #     return _di_container[DIKey.CFGMGR]
+    @property
+    def sklmgr(self) -> SkillManager:
+        return _service_container[ServiceKey.SKILL_MANAGER]
 
 
 ref = _Ref()

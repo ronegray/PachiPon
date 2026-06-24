@@ -7,6 +7,7 @@
   - 画面サイズから画面中央となる描画位置を算出
 - drawサイクルなし
 """
+
 # import pyxel as px
 # from app import AppContext
 from .command_context import CommandContext

@@ -11,6 +11,7 @@ from menu import MenuBattle
 class SceneBattle(BaseScene):
     def __init__(self):
         super().__init__()
+        self.situation = "battle"
 
         """
         戦闘メニューの構築

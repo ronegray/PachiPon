@@ -2,6 +2,7 @@
 - アセットファイル群のベースパス定義
 - アセットファイルと紐づけるアセットIDの列挙
 """
+
 from enum import IntEnum, auto
 
 

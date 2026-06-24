@@ -8,5 +8,5 @@ from .input_system import (
     is_pressed,
     get_keymap,
     save_config,
-    load_config,
+    load_keyconfig,
 )

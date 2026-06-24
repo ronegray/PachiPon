@@ -1,8 +1,10 @@
-"""asset_map.py
-アセットファイルをIDと紐づけて管理する
+"""
+アセットファイル管理モジュール
+
 - 列挙されたアセットIDに対応するファイルの定義
 - アセットIDに対応したファイル名の外部提供
 """
+
 from enum import IntEnum, auto
 from pathlib import Path
 
@@ -24,6 +26,8 @@ class AssetID(IntEnum):
     DATA_MAP = auto()
     SOUND_FIELD = auto()
     DATA_ITEM = auto()
+    DATA_SKILL = auto()
+    DATA_EXPTABLE = auto()
 
 
 class AssetMap:
@@ -65,7 +69,9 @@ class AssetMap:
             AssetID.DATA_OP_MESSAGE
         ] = f"{cls._asset_path}/data/op_message.json"
         cls._asset_map[AssetID.DATA_ITEM] = f"{cls._asset_path}/data/item_master.json"
+        cls._asset_map[AssetID.DATA_SKILL] = f"{cls._asset_path}/data/skill_master.json"
         cls._asset_map[AssetID.DATA_MAP] = f"{cls._asset_path}/data/map_data.json"
+        cls._asset_map[AssetID.DATA_EXPTABLE] = f"{cls._asset_path}/data/exp_table.json"
 
     @classmethod
     def get_assetpath(cls, asset_id: AssetID) -> str:
@@ -73,5 +79,4 @@ class AssetMap:
         result = cls._asset_map.get(asset_id)
         if result is None:
             result = "No assetfile defined."
-        # return (cls._asset_path + result)
         return result

@@ -3,6 +3,7 @@
 - スプライトのタイプ指定子（ドット絵の種類
 - スプライトのupdate/drawフレーム処理
 """
+
 from enum import IntEnum
 import pyxel as px
 from entity import BaseSprite

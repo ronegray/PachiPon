@@ -18,21 +18,22 @@
         [{"id": "ボタン割当", "action": "assign_key"}]
     ],
     "MenuField": [
-        [{"id": "商品売買", "action": "enter_shop"}],
-        [{"id": "能力確認", "action": "show_status"}],
-        [{"id": "装備変更", "action": "equip_item"}],
-        [{"id": "呪文詠唱", "action": "use_skill"}],
-        [{"id": "道具使用", "action": "select_item_category"}]
+        [{"id": "店に行く", "action": "enter_shop"}],
+        [{"id": "力を見る", "action": "show_status"}],
+        [{"id": "装備する", "action": "equip_item"}],
+        [{"id": "詠唱する", "action": "use_skill"}],
+        [{"id": "アイテム", "action": "select_item_category"}],
+        [{"id": "システム", "action": "select_item_category"}]
     ],
     "MenuSelectItemCategory": [
-        [{"id": "消耗品", "action": "use_item"}],
-        [{"id": "装備品", "action": "show_equips"}],
-        [{"id": "貴重品", "action": "show_keyitem"}]
+        [{"id": "使用する", "action": "use_item"}],
+        [{"id": "チェック", "action": "show_equips"}],
+        [{"id": "重要な品", "action": "show_keyitem"}]
     ],
     "MenuBattle": [
-        [{"id": "武器攻撃", "action": "attack_weapon"}],
-        [{"id": "呪文詠唱", "action": "use_skill"}],
-        [{"id": "道具使用", "action": "select_item"}],
-        [{"id": "戦闘離脱", "action": "escape_battle"}]
+        [{"id": "攻撃する", "action": "attack_weapon"}],
+        [{"id": "詠唱する", "action": "use_skill"}],
+        [{"id": "使用する", "action": "select_item"}],
+        [{"id": "撤退する", "action": "escape_battle"}]
     ]
 }

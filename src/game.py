@@ -3,6 +3,7 @@ Pyxelアプリケーション本体モジュール
 - Pyxelの初期化
 - Pyxelのupdate/drawフレームの処理
 """
+
 import logging
 import pyxel as px
 from const import APP_WIDTH, APP_HEIGHT, APP_TITLE, APP_FPS
@@ -29,7 +30,8 @@ class GameApp:
 
         # 初期表示シーン定義
         di.ref.scnmgr.next_scene("splash")
-        # 開発用に通常画面まで一気に遷移
+
+        """開発用に通常画面まで一気に遷移"""
         di.ref.scnmgr.next_scene("title")
         di.ref.scnmgr.next_scene("map")
 
@@ -54,8 +56,13 @@ class GameApp:
     def update(self):
         """pyxel updateフレーム処理"""
         di.ref.scnmgr.update()
+        is_executing = not di.ref.cmdmgr.is_empty
+        di.ref.cmdmgr.update()
+        if is_executing and di.ref.cmdmgr.is_empty:
+            di.ref.scnmgr.get_now_scene().wndmgr.clear_stack()
 
     def draw(self):
         """pyxel drawフレーム処理"""
         px.cls(px.COLOR_BLACK)
         di.ref.scnmgr.draw()
+        di.ref.cmdmgr.draw()

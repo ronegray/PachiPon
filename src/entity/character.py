@@ -1,12 +1,15 @@
-"""chacacter.py
+"""
 キャラクター本体モジュール
 """
+
 from dataclasses import dataclass  # , field
+from gameutils.base import check_file, read_json
+from assets.asset_map import AssetMap, AssetID
 
 # import random
 # from equipments import
 from . import EntityParam, PlayerSprite, Equips  # , PlayerSpriteType, EquipSlot
-from effect import EffectID
+from skill import SkillID, Skills
 # from gameutils.base import check_file, read_json
 
 
@@ -20,54 +23,63 @@ class Character:
     base_param: EntityParam
     sprite: PlayerSprite  # スプライト
     id: int = 0
-    # equipments: Equips = field(init=False)  # Equipmentsクラスをコンポジション
 
-    # ### アクセ効果キャッシュ用
+    def __post_init__(self):
+        # #     self.equipments = Equips(_owner_character_id=self.id)  # Equipmentsを初期化
+        #     self.calc_param_bonus()
+        self.equipments: Equips = Equips(self.id)  # type:ignore # Equipmentsを初期化
+        self.skills: Skills = Skills(self.id)  # type:ignore
+        path = check_file(AssetMap.get_assetpath(AssetID.DATA_EXPTABLE))
+        if path:
+            data = read_json(path)
+        else:
+            data = [0, 1, 2]
+        self.exp_table: list = data
 
-    # # ダイス数ボーナス
-    # bonus_dice_damage: int = 0
-    # bonus_dice_hit: int = 0
-    # bonus_dice_effect: int = 0
-    # minus_dice_enemydamage: int = 0
-    # minus_dice_enemyspell: int = 0
-    # bonus_dice_all: int = 0
-    # # その他の効果
-    # bonus_initiative: int = 0
-    # bonus_maxhp: float = 0.0
-    # bonus_maxmp: float = 0.0
     # 装備効果を含めたパラメータ
+    @property
+    def max_hp(self) -> int:
+        return int(self.base_param.max_hp)
+
+    @property
+    def max_mp(self) -> int:
+        return int(self.base_param.max_mp)
+
+    @property
+    def next_exp(self) -> int:
+        return int(self.exp_table[self.base_param.level] - self.base_param.exp)
+
     @property
     def strength(self) -> int:
         return int(
             self.base_param.strength
-            + self.equipments.get_adjust_effect(EffectID.BONUS_STR)
+            + self.equipments.get_adjust_effect(SkillID.BONUS_STR)
         )
 
     @property
     def arcane(self) -> int:
         return int(
             self.base_param.arcane
-            + self.equipments.get_adjust_effect(EffectID.BONUS_ARC)
+            + self.equipments.get_adjust_effect(SkillID.BONUS_ARC)
         )
 
     @property
     def endurance(self) -> int:
         return int(
             self.base_param.endurance
-            + self.equipments.get_adjust_effect(EffectID.BONUS_END)
+            + self.equipments.get_adjust_effect(SkillID.BONUS_END)
         )
 
     @property
     def speed(self) -> int:
         return int(
-            self.base_param.speed
-            + self.equipments.get_adjust_effect(EffectID.BONUS_SPD)
+            self.base_param.speed + self.equipments.get_adjust_effect(SkillID.BONUS_SPD)
         )
 
     @property
     def luck(self) -> int:
         return int(
-            self.base_param.luck + self.equipments.get_adjust_effect(EffectID.BONUS_LCK)
+            self.base_param.luck + self.equipments.get_adjust_effect(SkillID.BONUS_LCK)
         )
 
     # 装備効果を含めたパラメータから算出する能力値ボーナス
@@ -90,11 +102,6 @@ class Character:
     @property
     def bonus_lck(self) -> int:
         return self.luck // 6
-
-    def __post_init__(self):
-        # #     self.equipments = Equips(_owner_character_id=self.id)  # Equipmentsを初期化
-        #     self.calc_param_bonus()
-        self.equipments = Equips(self.id)  # Equipmentsを初期化
 
     # def update(self):
     #     self.sprite.update()

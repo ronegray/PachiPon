@@ -4,6 +4,7 @@
 - シーン名と該当シーンクラスの対応を管理する辞書定義
 
 """
+
 from typing import Type
 from .scene_protocol import SCENE_NAME
 

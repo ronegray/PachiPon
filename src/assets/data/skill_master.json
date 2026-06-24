@@ -1,0 +1,33 @@
+{
+    "ACTIVE": {
+        "SACRED_ARROW": {
+            "name": "聖なる矢",
+            "target_type": "ENEMY",
+            "price": 100,
+            "description": "破魔の力で敵を撃つ魔法の矢",
+            "dc": 1,
+            "cost": 5,
+            "effect_func": "AttackSpellSingle",
+            "effect_value": 1
+        },
+        "HEALING_HAND": {
+            "name": "癒しの手",
+            "target_type": "ALLY",
+            "price": 100,
+            "description": "癒しの力で触れた者の体力を回復させる",
+            "dc": 1,
+            "cost": 5,
+            "effect_func": "RecoverSpellSingle",
+            "effect_value": 1
+        }
+
+    },
+    "PASSIVE": {
+        "ATTACK_BONUS": {
+            "name": "物理ダメージボーナス",
+            "description": "武器攻撃ダメージのダイス数が増える"
+
+        }
+
+    }
+}

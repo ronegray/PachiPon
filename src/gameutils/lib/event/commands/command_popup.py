@@ -7,6 +7,7 @@
 - drawサイクル用
   - 画面の消去と読み込み済画像の表示
 """
+
 # from app import AppContext
 from .command_context import CommandContext, WindowHandler
 from .evt_cmd_base import EventCommand, generator_type_command

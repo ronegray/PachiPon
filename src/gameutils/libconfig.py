@@ -1,6 +1,7 @@
 """libconfig.py
 gameutilsライブラリで使用するリソースファイルのパス定義
 """
+
 from enum import StrEnum
 
 

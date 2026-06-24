@@ -1,6 +1,7 @@
 """item_protocol.py
 アイテム関連のID定義モジュール
 """
+
 from dataclasses import dataclass  # , field
 from enum import IntEnum  # , auto
 # from typing import Optional
@@ -83,7 +84,8 @@ class ItemID(IntEnum):
     MAGICSPEAR   = 0x00_4_5
     # 最強武器
     SACREDWEAPON = 0x00_F_6
-    # 防具 カテゴリ_魔法制約ペナ_アイテム識別子
+    # 防具 カテゴリ_魔法制約ペナ有無_アイテム識別子
+    # ※魔法制約ペナ有無は論理情報で実際にはItemDef.magpenaltyを使用する
     CLOTH        = 0x07_0_1  # 魔法制約0
     LEATHER      = 0x07_1_2  # 魔法制約-1
     CHAIN        = 0x07_1_3  # 魔法制約-2
@@ -93,6 +95,7 @@ class ItemID(IntEnum):
     # 最強防具
     HOLYGUARD    = 0x07_1_7  # 魔法制約-3
     # アクセサリ（効果の高い方が優先で重複はしない）
+    # アイテムそのものの識別子であり、効果識別子とはItemDef.effect_idで紐付け
     ATKRING      = 0x0B_0_1  # アクセ　物理ダメージダイス＋１
     SPDRING      = 0x0B_0_2  # アクセ　イニシアチブボーナス＋１、命中ロールダイス＋１
     DEFRING      = 0x0B_0_3  # アクセ　相手のダメージダイスー１
@@ -151,7 +154,7 @@ class ItemDef:
     defvalue: int = 0
     magpenalty: int = 0
     # アクセ・消耗品用
-    effect_type: str = ""  # 効果関数名を記述
+    effect_id: str = ""  # EffectIDと連携
     effect_value: float = 0.0
     is_percent: bool = False
 

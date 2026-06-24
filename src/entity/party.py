@@ -1,17 +1,17 @@
 """party.py
 プレイヤーキャラクターのメンバーリストとメンバー全体情報の管理
 """
+
+import logging
 from math import hypot
 import pyxel as px
-from entity import Character, EntityParam, PlayerSprite, FieldSprite
-from field_map import EventPoint, Route
 from const import ENCOUNT_THRESHOLD
-from dice import diceroll
 import service_locater as di
+from field_map import EventPoint, Route
+from dice import diceroll
+from . import Character, EntityParam, PlayerSprite, FieldSprite
 
 # ロギング設定
-import logging
-
 logger = logging.getLogger(__name__)
 
 
@@ -75,13 +75,13 @@ class Party:
         # キャラクターの初期化
         hero_param = EntityParam(
             name="メンバー" + str(len(self._member_list)),
-            hp=px.rndi(1, 10),
-            mp=20,
             strength=px.rndi(1, 10),
             arcane=px.rndi(1, 10),
             endurance=px.rndi(1, 10),
             speed=px.rndi(1, 10),
             luck=px.rndi(1, 10),
+            max_hp=px.rndi(1, 10),
+            max_mp=20,
         )
         # PlayerSprite は pyxel.blt同様pyxel.Imageオブジェクトを受け取り可能
         charimage = px.Image.from_image("assets/image/character16.bmp")
@@ -103,7 +103,7 @@ class Party:
         """生存中PTメンバーの先頭キャラのリストインデックスを取得"""
         return self._top_index
 
-    def get_members(self) -> int:
+    def get_member_count(self) -> int:
         """PTメンバーの人数を取得（生死問わず）"""
         return len(self._member_list)
 
@@ -119,6 +119,10 @@ class Party:
         - 範囲外の値はメンバー数の剰余にて指定"""
         rounded_index = member_id % len(self._member_list)
         return self._member_list[rounded_index]
+
+    def get_allmember(self) -> list[Character]:
+        """パーティーメンバー全員を取得"""
+        return self._member_list
 
     def add_ptmember(self, new_member: Character) -> None:
         """パーティーメンバーの追加"""

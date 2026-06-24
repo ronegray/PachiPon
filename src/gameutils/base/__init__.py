@@ -1,6 +1,7 @@
 """gameutils.baseパッケージ
 gameutilsライブラリ内でも使用される共通基本機能
 """
+
 # from .asset import AssetID, AssetManager
 from .file import (
     check_file,
@@ -21,6 +22,6 @@ from .input import (
     is_pressed,
     get_keymap,
     save_config,
-    load_config,
+    load_keyconfig,
 )
 from .text import FONT_SIZE_NAME, FontManager, shadowed_text

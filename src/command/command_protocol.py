@@ -1,0 +1,47 @@
+"""
+Commandクラス群用プロトコルモジュール
+
+Commandクラスはゲーム内の意思決定に従った処理を実行する
+Commandクラス自身および利用側の処理で必要とする取り決めについて
+本モジュールでまとめる
+
+"""
+
+from __future__ import annotations
+from dataclasses import dataclass, field
+from enum import IntEnum, auto
+from gameutils.lib import Window
+
+
+class CommandPhase(IntEnum):
+    """Commandの大まかな実行状態。ConcreteCommand固有の詳細状態は個別実装する事"""
+
+    SYN = auto()
+    ACK = auto()
+    FIN = auto()
+
+
+class CommandType(IntEnum):
+    """コマンドの種類"""
+
+    SYSTEM = auto()
+    ATTACK = auto()
+    SPELL = auto()
+    ITEM = auto()
+    ESCAPE = auto()
+    ENEMY_ATTACK = auto()
+    ENEMY_SKILL = auto()
+
+
+@dataclass(slots=True)
+class DisplayInfo:
+    """Commandクラスのdrawメソッドが返す、描画内容の指示"""
+
+    target: Window  # メッセージ出力先
+    message: list[str] = field(default_factory=list)
+
+
+class CommandContext:
+    """コンテキストの型ベース用クラス"""
+
+    ...

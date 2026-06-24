@@ -3,6 +3,7 @@
 
 - イベント処理に対応する指定パラメータを管理
 """
+
 from enum import IntEnum, StrEnum, auto
 # from typing import Literal
 

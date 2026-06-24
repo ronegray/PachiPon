@@ -4,6 +4,7 @@
   - 背景イメージ
   - タイトルメニュー
 """
+
 import pyxel as px
 from const import APP_WIDTH, APP_HEIGHT, APP_VERSION
 from .scene_base import BaseScene
@@ -18,6 +19,7 @@ class SceneTitle(BaseScene):
     def __init__(self) -> None:
         """初期化"""
         super().__init__()
+        self.situation = "system"
         # 背景イメージ設定
         self.bgimage = px.Image.from_image(AssetMap.get_assetpath(AssetID.IMAGE_TITLE))
         self.bgpos = (

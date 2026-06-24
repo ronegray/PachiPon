@@ -3,6 +3,7 @@
 - 列挙されたアセットIDに対応するファイルの定義
 - アセットIDに対応したファイル名の外部提供
 """
+
 from .asset_map import AssetID, ASSETS_PATH
 
 
