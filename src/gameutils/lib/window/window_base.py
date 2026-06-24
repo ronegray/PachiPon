@@ -12,6 +12,7 @@
   - メニューウインドウサイズは項目に応じて自動設定
   - 基本的機能のみ提供。用途に応じて継承する
 """
+
 from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Callable, Any
@@ -300,7 +301,7 @@ class MenuItem:
 class ExecResult:
     """exec_menuの戻り値基底クラス"""
 
-    pass
+    ...
 
 
 class RsltPush(ExecResult):

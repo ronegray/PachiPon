@@ -1,14 +1,17 @@
-"""field_map.py
+"""
 ノンフィールドマップの定義
+
 - 背景マップの定義
 - マップ上のイベントポイントを定義
 - イベントポイント間のルートを定義
 """
+
 import logging
 from typing import Literal
 import pyxel as px
 from assets.asset_map import AssetID, AssetMap
 from gameutils.base import check_file, read_json
+
 
 # ルート方向指定子
 ROUTE_DIR = Literal["up", "down", "left", "right"]

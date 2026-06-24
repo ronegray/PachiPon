@@ -1,6 +1,10 @@
 """menu_equip.py
 メニューモジュール：装備変更
+- 変更する装備スロット（部位）を選択
+- 選択したスロットに合致するアイテムの一覧から、装備を変更
+- 変更処理は選択ユーザが保持するequipments.Equipsクラスの責務として実行
 """
+
 import logging
 import service_locater as di
 from gameutils.lib import Menu, Window, ExecResult, RsltPush, RsltPop
@@ -113,16 +117,18 @@ class MenuSelectEquipSlot(Menu):
         return RsltPush(MenuEquip, slot, self.member_index)
 
     def individual_update(self) -> None:
+        """クラス固有の更新処理"""
+
         def update_list():
             self.generate_item_list()
             self.build_menu_items(self.item_list)
             self.build_status()
 
         if self.inputkey.left():
-            self.member_index = (self.member_index - 1) % di.ref.pt.get_members()
+            self.member_index = (self.member_index - 1) % di.ref.pt.get_member_count()
             update_list()
         if self.inputkey.right():
-            self.member_index = (self.member_index + 1) % di.ref.pt.get_members()
+            self.member_index = (self.member_index + 1) % di.ref.pt.get_member_count()
             update_list()
 
 
@@ -267,8 +273,10 @@ class MenuEquip(Menu):
         """データ取得と表示ウインドウの再定義"""
         self.member = di.ref.pt.get_member(member_index)
         x, y = 160, Window._chip_size
+        w = 104
         self.item_list: list = []
         self.itemlist_index: int = 0
+        self.inventory_count: int = 0
         # self.filter_cursor: int = 0
         # self.filter_name: list[str] = ["", "COMSUME", "LEGEND"]
         # self.filter_types = ConsumeGrade
@@ -289,7 +297,7 @@ class MenuEquip(Menu):
             y,
             [1, len(self.item_list[self.itemlist_index])],
             self.item_list[self.itemlist_index],
-            96,
+            w,
         )
         self.cursor_row_offset += 2  # k8x12Sの縦長分対応
         self.windows["sub"] = Window(
@@ -320,9 +328,19 @@ class MenuEquip(Menu):
         else:
             iid = selected_item.action_args[1]
             plent = di.ref.pl_item.get(iid)
+            if plent is None:
+                errmsg = f"プールからのアイテム取得に失敗しました：ID={iid}"
+                logger.critical(errmsg, exc_info=True)
+                raise ValueError(errmsg)
             self.member.equipments.equip_on_pool(self.slot, (iid, plent))
+
         now_scene = di.ref.scnmgr.get_now_scene()
-        parent = now_scene.wndmgr.get_stack(1)
+        i = 1
+        while True:
+            parent = now_scene.wndmgr.get_stack(i)
+            if isinstance(parent, MenuSelectEquipSlot):
+                break
+            i += 1
         parent.generate_item_list()
         parent.build_menu_items(parent.item_list)
         parent.build_status()
@@ -398,7 +416,7 @@ class MenuEquip(Menu):
             tmp_item_list = [
                 [
                     {
-                        "id": f"{di.ref.itemmgr.get_def(key).name} x {val}",
+                        "id": f"{di.ref.itemmgr.get_def(key).name} x {val}",  # type:ignore
                         "action": "use_item",
                         "args": [key],
                     }
@@ -418,7 +436,9 @@ class MenuEquip(Menu):
 
     def change_target_item(self):
         """選択アイテムを示す内部情報の変更"""
-        self.target_item = self.item_list[self.itemlist_index][self.cursor_position[1]]
+        self.target_item = (  # type:ignore
+            self.item_list[self.itemlist_index][self.cursor_position[1]]
+        )
         self.set_description_string()
 
     def remap_itemlist(self):
@@ -430,16 +450,18 @@ class MenuEquip(Menu):
         # return self.target_item[0]["args"]
         item_def = di.ref.itemmgr.get_def(self.target_item[0]["args"][0])
         if item_def is None:
-            return ""
+            errmsg = f"アイテム定義情報の取得に失敗しました：ID={item_def}"
+            logger.critical(errmsg, exc_info=True)
+            raise ValueError(errmsg)
         match item_def.item_type:
             case ItemType.CONSUME:
                 return [f"{item_def.description}"]
             case ItemType.WEAPON:
                 expect_dmg = item_def.hitdice * 4
-                perf_txt = f"攻撃性能：{expect_dmg:>2}"
+                perf_txt = f"攻撃性能:{expect_dmg:>2}"
             case ItemType.GUARDER:
                 perf_txt = (
-                    f"防御性能：{item_def.defvalue}　魔法阻害：{item_def.magpenalty}"
+                    f"防御性能:{item_def.defvalue} 魔法阻害:{item_def.magpenalty}"
                 )
             case ItemType.ORNAMENT:
                 perf_txt = "特殊な効果をもつ飾り"
@@ -457,7 +479,7 @@ class MenuEquip(Menu):
         for desc_string in item_desc:
             for i in range(0, len(desc_string) + 1):
                 if (
-                    self.windows["sub"].fontdata.font.text_width(
+                    self.windows["sub"].fontdata.font.text_width(  # type:ignore
                         desc_string[start_row : i + 1]
                     )
                     > text_area_width
@@ -465,7 +487,7 @@ class MenuEquip(Menu):
                     message_list.append(desc_string[start_row:i])
                     start_row = i
             # 最後の残りを結合
-            message_list.append(desc_string[start_row:i])
+            message_list.append(desc_string[start_row:i])  # type:ignore
         self.windows["sub"].set_message(message_list)
 
     def individual_update(self):

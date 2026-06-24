@@ -3,6 +3,7 @@ Windowパッケージが必要とする入力関数をラップするインタ�
 - 入力関数を集約するクラス
 - 外部入力機能不使用時のデフォルト設定関数
 """
+
 from typing import Callable
 from dataclasses import dataclass, field
 import pyxel as px

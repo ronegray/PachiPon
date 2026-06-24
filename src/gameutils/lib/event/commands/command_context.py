@@ -3,6 +3,7 @@
 - イベントコマンドのプロトコル定義
 -
 """
+
 from dataclasses import dataclass
 from typing import Protocol
 

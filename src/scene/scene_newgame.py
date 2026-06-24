@@ -3,6 +3,7 @@
 - ニューゲームイベントの表示
 - 名前入力に遷移
 """
+
 import logging
 import pyxel as px
 import service_locater as di
@@ -27,6 +28,7 @@ class SceneNewGame(BaseScene):
     def __init__(self) -> None:
         """初期化"""
         super().__init__()
+        self.situation = "system"
         # 背景イメージ設定
         self.bgimage: px.Image = px.Image.from_image(
             AssetMap.get_assetpath(AssetID.IMAGE_NEWGAME)

@@ -1,6 +1,7 @@
 """menu_item.py
 メニューモジュール：アイテム（フィールド）
 """
+
 import logging
 import pyxel as px
 import service_locater as di
@@ -63,25 +64,25 @@ class MenuItemBase(Menu):
 
     def __init__(self):
         """データ取得と表示ウインドウの再定義"""
-        x, y = 80, Window._chip_size
+        menu_pos = (80, Window._chip_size)
+        w = 104
         self.item_list: list = []
         self.itemlist_index: int = 0
         self.generate_item_list()
         super().__init__(
             "basic",
-            x,
-            y,
+            *menu_pos,
             [1, len(self.item_list[self.itemlist_index])],
             self.item_list[self.itemlist_index],
             # px.width - x - Window._chip_size,
-            96,
+            w,
         )
         self.cursor_row_offset += 2  # k8x12Sの縦長分対応
         self.windows["sub"] = Window(
             "basic",
-            x,
-            y + self.windows["main"].height + 1,
-            self.windows["main"].width,
+            menu_pos[0],
+            menu_pos[1] + self.height + 1,
+            self.width,
             64,
             "sub",
         )
@@ -170,7 +171,10 @@ class MenuItemBase(Menu):
             self.windows["main"]._image_chips.pget(7, 7),
         )
         px.text(
-            x, y, f"{self.itemlist_index+1:02}/{len(self.item_list):02}", px.COLOR_WHITE
+            x,
+            y,
+            f"{self.itemlist_index + 1:02}/{len(self.item_list):02}",
+            px.COLOR_WHITE,
         )
 
 
@@ -390,10 +394,10 @@ class MenuShowEquips(MenuItemBase):
         match item_def.item_type:
             case ItemType.WEAPON:
                 expect_dmg = item_def.hitdice * 4
-                perf_txt = f"攻撃性能：{expect_dmg:>2}"
+                perf_txt = f"攻撃性能:{expect_dmg:>2}"
             case ItemType.GUARDER:
                 perf_txt = (
-                    f"防御性能：{item_def.defvalue}　魔法阻害：{item_def.magpenalty}"
+                    f"防御性能:{item_def.defvalue} 魔法阻害:{item_def.magpenalty}"
                 )
             case ItemType.ORNAMENT:
                 perf_txt = "特殊な効果をもつ飾り"

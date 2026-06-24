@@ -1,29 +1,21 @@
-"""input_system.py
-キー操作関連
+"""
+キー操作管理ライブラリ
 
 - キー操作の設定および設定対象キーの判定
 - 判定対象操作に対するキーの入力チェック
 - 設定の保存・呼び出し
 """
-import pyxel as px
 
-# from typing import Callable#, Literal
+import pyxel as px
 from ...libconfig import ResourcePath
+from ..file import check_file, write_json, read_json
 from .input_protocol import (
     INPUT_MODE,
     TARGET_DEVICE,
     ACTION_NAME,
     InputHandler,
-)  # , CONFIG_FILE
-from ..file import check_file, write_json, read_json
+)
 
-
-# # 型指定
-# INPUT_MODE = Literal["once", "keep", "hold"]
-# TARGET_DEVICE = Literal["pad", "kbd"]
-# ACTION_NAME = Literal["up", "down", "left", "right", "decide", "cancel",
-#                      "other1", "other2", "LS", "RS",]
-# type InputHandler = Callable[[INPUT_MODE], bool]
 
 # 入力関連定数
 _ANALOG_THRESHOLD_XY = 0x3FFF  # アナログレバー閾値
@@ -382,7 +374,7 @@ def save_config():
         write_json(path, key_config_data)
 
 
-def load_config():
+def load_keyconfig():
     """jsonファイルからキーコードのマッピングを呼び出し、判定関数を再生成"""
     path = check_file(ResourcePath.CONFIG_KEYS, "r")
     if path is None:

@@ -2,6 +2,7 @@
 コマンドテーブルの構築
 命令追加時はここに1行追加
 """
+
 # from app import AppContext
 from .command_context import CommandContext
 from ..event_protocol import EventControl

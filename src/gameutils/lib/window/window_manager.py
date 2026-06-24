@@ -7,6 +7,7 @@
   - スタックの全終了を最終スタックから依頼可能
   - ウインドウとメニューのキー操作を外部から上書き可能(自作inputモジュールを想定)
 """
+
 from __future__ import annotations
 from .window_protocol import WindowAction
 from .window_base import Window, Menu, RsltContinue, RsltDiscard, RsltPop, RsltPush
@@ -17,32 +18,36 @@ class WindowManager:
 
     def __init__(self):
         """初期化"""
-        self.stacks: list[Window | Menu] = []
+        self._stacks: list[Window | Menu] = []
 
     def push_stack(self, class_name, *args, **kwargs) -> Window | Menu:
         """指定クラスのインスタンスをスタックに追加"""
         instance = class_name(*args, **kwargs)
-        self.stacks.append(instance)
+        self._stacks.append(instance)
         return instance
 
     def pop_stack(self) -> int:
         """スタック末尾のインスタンスを削除"""
-        self.stacks.pop()
-        return len(self.stacks)
+        self._stacks.pop()
+        return len(self._stacks)
+
+    def clear_stack(self) -> None:
+        """メニュースタックをクリア"""
+        self._stacks.clear()
 
     def get_stack(self, from_last: int = 0) -> Window | Menu:
         """末尾から数えて指定した順番のメニュースタックを取得"""
         list_index = -(1 + from_last)
         try:
-            result = self.stacks[list_index]
+            result = self._stacks[list_index]
         except IndexError:
-            result = self.stacks[-1]
+            result = self._stacks[-1]
         return result
 
     def update(self) -> None:
         """管理クラス配下のインスタンス更新およびインスタンス応答の処理"""
-        if len(self.stacks):
-            action = self.stacks[-1].update()
+        if len(self._stacks):
+            action = self._stacks[-1].update()
             match action:
                 case WindowAction.CONTINUE:
                     # そのまま続ける
@@ -52,18 +57,18 @@ class WindowManager:
                     self.pop_stack()
                 case WindowAction.DISCARD:
                     # 全階層をクローズしてスタックを全消去
-                    self.stacks.clear()
+                    self.clear_stack()
                 case WindowAction.EXECUTE:
                     # 基本的にEXECUTEを返すのはMenuのみだが念の為
-                    if isinstance(self.stacks[-1], Menu):
-                        exec_result = self.stacks[-1].exec_menu()
+                    if isinstance(self._stacks[-1], Menu):
+                        exec_result = self._stacks[-1].exec_menu()
                         match exec_result:
                             case RsltContinue():
                                 pass
                             case RsltPop():
                                 self.pop_stack()
                             case RsltDiscard():
-                                self.stacks.clear()
+                                self.clear_stack()
                             case RsltPush():
                                 self.push_stack(
                                     exec_result.class_name,
@@ -73,8 +78,8 @@ class WindowManager:
 
     def draw(self) -> None:
         """管理クラス配下のインスタンスをスタックの奥から順に描画"""
-        if len(self.stacks):
-            for window in self.stacks:
+        if len(self._stacks):
+            for window in self._stacks:
                 window.draw()
                 if isinstance(window, Window):
                     window.draw_message()
@@ -82,4 +87,4 @@ class WindowManager:
     @property
     def has_stack(self) -> bool:
         """スタックの有無"""
-        return len(self.stacks) > 0
+        return len(self._stacks) > 0

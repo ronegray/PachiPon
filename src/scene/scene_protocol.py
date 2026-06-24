@@ -3,6 +3,7 @@
 
 - シーン遷移時の戻り値の指定パラメータを管理
 """
+
 # from enum import Enum, auto
 from typing import Literal
 

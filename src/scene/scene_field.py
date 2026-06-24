@@ -1,13 +1,28 @@
+"""
+シーンモジュール：フィールド
+
+- フィールド画面の表示
+- フィールド画面メニューの呼び出し
+  - 呼び出しメニューに応じたコマンドの生成
+"""
+
+import logging
 import pyxel as px
 import service_locater as di
 from gameutils.base import is_pressed, check_file, read_string
+from command import CommandContext
+from entity import EntityContext
 from menu import MenuField
 from .scene_base import BaseScene
+
+# ロギング設定
+logger = logging.getLogger(__name__)
 
 
 class SceneField(BaseScene):
     def __init__(self):
         super().__init__()
+        self.situation = "field"
         # self.game_map = MapGraph()
         # map_path = check_file("assets/data/map_data.json", "r")
         # if map_path:
@@ -58,6 +73,8 @@ class SceneField(BaseScene):
         #     else:
         #         self.wndmgr.push_stack(MenuField)
         #     return
+        if not di.ref.cmdmgr.is_empty:
+            return
 
         # WindowManagerにスタックがある場合はメニュー操作を優先
         if self.wndmgr.has_stack:
@@ -83,7 +100,7 @@ class SceneField(BaseScene):
             if self.wndmgr.has_stack:
                 self.wndmgr.pop_stack()
             else:
-                self.wndmgr.push_stack(MenuField)
+                self.wndmgr.push_stack(MenuField, self.build_context)
             return
 
         # 通常のフィールド操作
@@ -199,3 +216,13 @@ class SceneField(BaseScene):
 
         # WindowManagerの描画（メニュー等）
         self.wndmgr.draw()
+
+    def build_context(self, actor_id: int = 0, target: list = []) -> CommandContext:
+        """エンティティコマンド用コンテキスト生成"""
+        ctx = EntityContext(
+            situation="field",
+            actor=di.ref.pt.get_member(actor_id),
+            allies=target,
+            enemies=[],
+        )
+        return ctx

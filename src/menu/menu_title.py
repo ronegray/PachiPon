@@ -1,6 +1,7 @@
 """menu_title.py
 メニューモジュール：タイトル
 """
+
 import logging
 from gameutils.lib import (
     Menu,

@@ -2,6 +2,7 @@
 装備スロット管理モジュール
 - 装備スロットの定義
 """
+
 import logging
 from dataclasses import dataclass  # , field
 from enum import StrEnum  # IntEnum#, auto
@@ -13,7 +14,7 @@ from item import (
     ItemState,
     PooledItem,
 )  # , PoolEntry, ItemInstance, ItemDef
-from effect import EffectID
+from skill import SkillID
 import service_locater as di
 
 
@@ -50,7 +51,7 @@ class Equips:
             EquipSlot.CONSUME_1: None,
             EquipSlot.CONSUME_2: None,
         }
-        self._effect_cache: dict[EffectID, int | float] = {}
+        self._effect_cache: dict[SkillID, int | float] = {}
 
     def get_slot(self, slot: EquipSlot) -> PooledItem | None:
         """指定したスロットのアイテムを返す"""
@@ -62,8 +63,9 @@ class Equips:
 
         # デバッグログ
         logger.debug(
-            f"処理前個数：{di.ref.pl_stack.count(
-            plent.ins.param.def_id, ItemState.BAG)}"
+            f"処理前個数：{
+                di.ref.pl_stack.count(plent.ins.param.def_id, ItemState.BAG)
+            }"
         )
         # logger.debug(f"処理前インスタンス：{di.ref.pl_item.get(idx)}")
 
@@ -73,18 +75,16 @@ class Equips:
 
             # デバッグログ
             logger.debug(
-                f"処理後個数：{di.ref.pl_stack.count(
-                plent.ins.param.def_id, ItemState.BAG)}"
+                f"処理後個数：{
+                    di.ref.pl_stack.count(plent.ins.param.def_id, ItemState.BAG)
+                }"
             )
             # logger.debug(f"処理後インスタンス：{di.ref.pl_item.get(idx)}")
 
     def _convert_instance(self, def_id: ItemID) -> PooledItem:
         """スタックアイテムのインスタンス化（装備スロット定義時）"""
         # デバッグログ
-        logger.debug(
-            f"処理前個数：{di.ref.pl_stack.count(
-            def_id, ItemState.BAG)}"
-        )
+        logger.debug(f"処理前個数：{di.ref.pl_stack.count(def_id, ItemState.BAG)}")
         # logger.debug(
         #     f"処理前インスタンス：{di.ref.pl_item.get_by_state(ItemState.BAG)}"
         # )
@@ -96,10 +96,7 @@ class Equips:
             raise RuntimeError("インスタンス化指定アイテムが不足しています")
 
         # デバッグログ
-        logger.debug(
-            f"処理後個数：{di.ref.pl_stack.count(
-            def_id, ItemState.BAG)}"
-        )
+        logger.debug(f"処理後個数：{di.ref.pl_stack.count(def_id, ItemState.BAG)}")
         # logger.debug(
         #     f"処理前インスタンス：{di.ref.pl_item.get_by_state(ItemState.BAG)}"
         # )
@@ -117,16 +114,16 @@ class Equips:
             if pooled_item is not None
         ]
         efx_list = [
-            [plent.ins.param.effect_type, plent.ins.param.effect_value]
+            [plent.ins.param.effect_id, plent.ins.param.effect_value]
             for _, plent in targets
-            if plent.ins.param.effect_type is not None
+            if plent.ins.param.effect_id is not None
         ]
         for efx_id, efx_value in efx_list:
-            effect_id = getattr(EffectID, efx_id.upper())
+            effect_id = getattr(SkillID, efx_id.upper())
             if effect_id is not None:
                 self._effect_cache[effect_id] = efx_value
 
-    def get_adjust_effect(self, effect_id: EffectID):
+    def get_adjust_effect(self, effect_id: SkillID):
         """補正系エフェクトの取得"""
         # effect = self._effect_cache.get(effect_id, 0)
         # if isinstance(effect, Callable):

@@ -1,7 +1,10 @@
-"""logger.py
-ロギング設定モジュール
-debug.logに情報を出力　※非assetの為アセットIDマッピングは行わない
 """
+ロギング設定モジュール
+
+debug.logに情報を出力する為の設定ファイル
+※非assetの為アセットIDマッピングは行わない
+"""
+
 import logging
 import logging.handlers
 
@@ -13,7 +16,6 @@ def setup_logging(log_level: int):
         log_level = logging.CRITICAL
     # ルートロガー（全てのロガーの親）の設定を行う
     logging.basicConfig(
-        # level=logging.INFO,
         level=log_level,
         format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
         handlers=[

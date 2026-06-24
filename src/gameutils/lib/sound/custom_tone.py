@@ -6,6 +6,7 @@
   - Duty比50％のパルス波、サイン波、ノコギリ派の追加
 - 事前定義jsonファイルから拡張Tone用パラメータのセーブ・ロード
 """
+
 from pyxel import Tone, sin
 
 # from .file_system import check_file, read_json, write_json

@@ -1,19 +1,26 @@
-"""bootstrap.py
-IPL処理用モジュール
 """
+起動処理用モジュール
+
+- Pyxelに依存しないクラスの初期化
+- 各種管理系クラスのサービスロケータ登録
+
+"""
+
 import logging
 import service_locater as di
 from const import APP_FPS
 from gameutils.base import (
     initialize_input,
-    load_config,
+    load_keyconfig,
     FontManager,
 )
 from assets.asset_map import AssetMap
 from scene import SceneManager
 from field_map import MapGraph
-from item import ItemManager, ItemPool, StackPool, ItemState
+from item import ItemManager, ItemPool, StackPool
 from entity import Party
+from command import CommandManager
+from skill import SkillManager
 from setup_log import setup_logging
 
 
@@ -30,7 +37,7 @@ def ipl():
     # 外部ライブラリ初期化１（基礎クラス）
     logger.info("Initialize - gameutils.base")
     initialize_input(APP_FPS)
-    load_config()
+    load_keyconfig()
     FontManager.initialize()
 
     # アセットマップ初期化
@@ -52,16 +59,30 @@ def ipl():
     pt = Party()
     di.register(di.ServiceKey.PARTY, pt)
 
-    # アイテムデータ初期化
+    # サービスロケータ登録：コマンドマネージャ
+    logger.info("Initialize - Command")
+    cmdmgr = CommandManager()
+    di.register(di.ServiceKey.COMMAND_MANAGER, cmdmgr)
+
+    # サービスロケータ登録：アイテムマネージャ
     logger.info("Initialize - Item MasterData")
     itemmgr = ItemManager()
     di.register(di.ServiceKey.ITEM_MANAGER, itemmgr)
+    # アイテムデータ初期化
     pl_item = ItemPool()
     di.register(di.ServiceKey.ITEMPOOL, pl_item)
     pl_stack = StackPool()
     di.register(di.ServiceKey.STACKPOOL, pl_stack)
 
+    # サービスロケータ登録：スキルマネージャ
+    logger.info("Initialize - Skill MasterData")
+    sklmgr = SkillManager()
+    di.register(di.ServiceKey.SKILL_MANAGER, sklmgr)
+
+    """リリース時は削除する"""
     # プロトタイプ用初期アイテム (items.jsonの全アイテムを2つずつ作成)
+    from item import ItemState
+
     for item_def_id, item_def in di.ref.itemmgr.get_all_definitions().items():
         for _ in range(5):
             if item_def.stackable:
@@ -84,3 +105,8 @@ def ipl():
     di.ref.hero.equipments.equip_on_pool(
         EquipSlot.ACCESSORY_1, list(pooled_item.items())[-1]
     )
+
+    from skill import SkillID
+
+    di.ref.hero.skills.learn_skill(SkillID.SACRED_ARROW)
+    di.ref.mem2.skills.learn_skill(SkillID.HEALING_HAND)

@@ -1,6 +1,7 @@
 """base_sprite.py
 スプライトイメージの表示モジュール
 """
+
 import pyxel as px
 
 

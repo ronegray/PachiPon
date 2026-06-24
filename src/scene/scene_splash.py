@@ -2,6 +2,7 @@
 シーンクラス：スプラッシュ画面
 - スプラッシュ画面の表示
 """
+
 import pyxel as px
 import service_locater as di
 from .scene_base import BaseScene
@@ -15,6 +16,7 @@ class SceneSplash(BaseScene):
     def __init__(self) -> None:
         """初期化"""
         super().__init__()
+        self.situation = "system"
         # スプラッシュロゴの取得
         self.logo = px.Image.from_image(AssetMap.get_assetpath(AssetID.IMAGE_SPLASH))
 

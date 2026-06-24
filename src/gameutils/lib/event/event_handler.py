@@ -8,6 +8,7 @@ update サイクル:
 draw サイクル:
     - _current_draw を呼ぶだけ（状態変更なし）
 """
+
 from __future__ import annotations
 from typing import Callable, TYPE_CHECKING
 

@@ -1,6 +1,7 @@
 """const.py
 定数モジュール
 """
+
 APP_WIDTH = 256
 APP_HEIGHT = 256
 APP_FPS = 30

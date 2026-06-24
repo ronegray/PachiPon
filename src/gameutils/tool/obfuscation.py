@@ -7,6 +7,7 @@
 - 変換したファイルの読み出しと復元
 - jsonファイルの一括変換
 """
+
 from pathlib import Path
 from hashlib import sha256
 from gzip import compress, decompress

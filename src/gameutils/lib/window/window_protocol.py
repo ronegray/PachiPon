@@ -4,6 +4,7 @@
 - ウインドウ／メニューのスタック追加時の指定パラメータを管理
 - ウインドウ／メニュー操作後の戻り値の指定パラメータを管理
 """
+
 from enum import Enum, auto
 from typing import Literal
 

@@ -6,6 +6,7 @@
 -- json形式
 -- バイナリ形式
 """
+
 from pathlib import Path
 from typing import Any
 import json

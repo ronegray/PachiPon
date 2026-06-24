@@ -2,6 +2,7 @@
 メニューモジュール：名前入力
 
 """
+
 import pyxel as px
 from const import APP_FPS
 from gameutils.base import check_file, read_json, FontManager, shadowed_text
@@ -86,7 +87,7 @@ class MenuNameEntry(Menu):
                     return
                 else:
                     # di.ref.scnmgr.change_scene("map")
-                    di.ref.scnmgr.stacks[-1].wndmgr.pop_stack()
+                    di.ref.scnmgr._stacks[-1].wndmgr.pop_stack()
                     return
             case "片":
                 self.build_menu_items(self.name_chars[1])

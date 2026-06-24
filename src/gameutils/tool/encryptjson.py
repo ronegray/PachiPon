@@ -4,6 +4,7 @@
 - zip圧縮後のハッシュ値を先頭に付与したバイナリファイルに変換
 - 直接実行時は再帰的にjsonを探して一括実行
 """
+
 # import pyxel as px
 from gzip import compress
 from pathlib import Path
