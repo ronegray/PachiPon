@@ -27,11 +27,14 @@ class GameApp:
         # sndmgr = SoundManager()
         # di.register(di.ServiceKey.SOUND_MANAGER, sndmgr)
         # di.ref.sndmgr.load_bgm(0)
+        # 背景マップ画像ロード
+        di.ref.map.load_mapimage()
 
         # 初期表示シーン定義
         di.ref.scnmgr.next_scene("splash")
 
-        """開発用に通常画面まで一気に遷移"""
+        """開発用に通常画面まで一気に遷移
+        リリース時は削除"""
         di.ref.scnmgr.next_scene("title")
         di.ref.scnmgr.next_scene("map")
 
@@ -56,6 +59,7 @@ class GameApp:
     def update(self):
         """pyxel updateフレーム処理"""
         di.ref.scnmgr.update()
+        # コマンドupdate結果でスタッククリアされたら
         is_executing = not di.ref.cmdmgr.is_empty
         di.ref.cmdmgr.update()
         if is_executing and di.ref.cmdmgr.is_empty:

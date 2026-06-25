@@ -8,7 +8,7 @@
 import logging
 from dataclasses import dataclass
 import service_locater as di
-from item import ItemState
+# from item import ItemState
 
 # import command.entity_command
 from . import SkillID, SkillDef
@@ -22,8 +22,8 @@ logger = logging.getLogger(__name__)
 class Skills:
     """スキル管理クラス（Chacacterのコンポーネント）"""
 
-    def __init__(self, owner_id: ItemState):
-        self.owner: ItemState = owner_id
+    def __init__(self, owner_id: int):
+        self.owner: int = owner_id
         self._learned_skills: set[SkillID] = set()
 
     def learn_skill(self, skill_id: SkillID):

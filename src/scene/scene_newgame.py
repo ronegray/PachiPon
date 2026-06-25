@@ -28,7 +28,7 @@ class SceneNewGame(BaseScene):
     def __init__(self) -> None:
         """初期化"""
         super().__init__()
-        self.situation = "system"
+        BaseScene.situation = "system"
         # 背景イメージ設定
         self.bgimage: px.Image = px.Image.from_image(
             AssetMap.get_assetpath(AssetID.IMAGE_NEWGAME)
@@ -103,7 +103,7 @@ class SceneNewGame(BaseScene):
                 msg_y = i * self.op_msg_row_offset + self.message_top
                 if msg_y < 0:
                     continue
-                tw = self.font_opmsg.font.text_width(data)
+                tw = self.font_opmsg.font.text_width(data)  # type: ignore
                 msg_x = (px.width - tw) / 2
                 shadowed_text(
                     msg_x,

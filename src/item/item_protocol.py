@@ -25,7 +25,7 @@ class WeaponType(IntEnum):
     CHOP = 0x00_1_0  # 斬
     BASH = 0x00_2_0  # 打
     STUB = 0x00_4_0  # 突
-    FULL = 0x00_F_0  # 全
+    FULL = 0x00_7_0  # 全
 
 
 class GuarderType(IntEnum):

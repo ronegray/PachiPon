@@ -1,7 +1,8 @@
 import pyxel as px
-import service_locater as di
 from gameutils.base import is_pressed, check_file, read_string
-from .scene_base import BaseScene
+import service_locater as di
+from field_map import Route
+from . import BaseScene
 
 """
 from menu import MenuBattle
@@ -11,7 +12,9 @@ from menu import MenuBattle
 class SceneBattle(BaseScene):
     def __init__(self):
         super().__init__()
-        self.situation = "battle"
+        BaseScene.situation = "battle"
+
+        self.route: Route = di.ref.pt.get_now_route()
 
         """
         戦闘メニューの構築

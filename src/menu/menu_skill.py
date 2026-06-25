@@ -79,14 +79,14 @@ class MenuSelectSkill(Menu):
 
     def set_actor_name(self):
         member = di.ref.pt.get_member(self.member_index)
-        self.windows["sub2"].set_message([member.base_param.name])
+        self.windows["sub2"].set_message([member.param.name])
 
     def set_description_string(self):
         """詳細ウインドウに表示する文字列を設定"""
         item_desc = self.get_item_desc()
         text_area_width = self.windows["sub"].width - (Window._chip_size * 2)
         message_list = []
-        start_row = 0
+        i = start_row = 0
         # for i in range(0, len(item_desc) + 1):
         #     if (
         #         self.windows["sub"].fontdata.font.text_width(
@@ -99,7 +99,7 @@ class MenuSelectSkill(Menu):
         for desc_string in item_desc:
             for i in range(0, len(desc_string) + 1):
                 if (
-                    self.windows["sub"].fontdata.font.text_width(
+                    self.windows["sub"].fontdata.font.text_width(  # type: ignore
                         desc_string[start_row : i + 1]
                     )
                     > text_area_width
@@ -256,9 +256,9 @@ class MenuSelectSkillTarget(Menu):
         menu_items = [
             [
                 {
-                    "id": f"{member.base_param.name}",
+                    "id": f"{member.param.name}",
                     "action": "use_skill",
-                    "args": [member],
+                    "args": [[member]],
                 }
             ]
             for member in di.ref.pt.get_allmember()
