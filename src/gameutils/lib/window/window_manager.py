@@ -18,6 +18,7 @@ class WindowManager:
 
     def __init__(self):
         """初期化"""
+        # 非シングルトン利用が前提の為スタックはインスタンス変数として定義
         self._stacks: list[Window | Menu] = []
 
     def push_stack(self, class_name, *args, **kwargs) -> Window | Menu:

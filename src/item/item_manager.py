@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 class ItemManager:
-    _master_def: dict[ItemID, ItemDef] = {}
+    _master_def: dict[ItemID, ItemDef]
 
     def __init__(self) -> None:
         """JSONファイルを読み込んでアイテム定義を初期化する"""
@@ -27,7 +27,7 @@ class ItemManager:
             logger.critical(errmsg, exc_info=True)
             raise FileNotFoundError(errmsg)
 
-        self._master_def = {}
+        ItemManager._master_def = {}
         for type_name, item_data in json_data.items():
             item_type = ItemType[type_name]
             stackable = (
@@ -38,7 +38,7 @@ class ItemManager:
                 if hasattr(ItemID, item_name):
                     # def_id = ItemID[item_name].value
                     def_id = ItemID[item_name]
-                    self._master_def[def_id] = ItemDef(
+                    ItemManager._master_def[def_id] = ItemDef(
                         def_id=def_id,
                         name=details.get("name", "Unknown"),
                         item_type=item_type,

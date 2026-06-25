@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 class SkillManager:
-    _master_def: dict[SkillID, SkillDef] = {}
+    _master_def: dict[SkillID, SkillDef]
 
     def __init__(self) -> None:
         """JSONファイルを読み込んでアイテム定義を初期化する"""
@@ -28,7 +28,7 @@ class SkillManager:
             logger.critical(errmsg, exc_info=True)
             raise FileNotFoundError(errmsg)
 
-        self._master_def = {}
+        SkillManager._master_def = {}
         for type_name, efx_data in json_data.items():
             efx_type = SkillType[type_name]
 
