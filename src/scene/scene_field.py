@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 class SceneField(BaseScene):
     def __init__(self):
         super().__init__()
-        self.situation = "field"
+        BaseScene.situation = "field"
         # self.game_map = MapGraph()
         # map_path = check_file("assets/data/map_data.json", "r")
         # if map_path:
@@ -151,6 +151,7 @@ class SceneField(BaseScene):
                     # 移動開始
                     # di.ref.pt.move_to(next_node_id)
                     # di.ref.pt.move_to(self.next_node)
+                    di.ref.pt.set_now_route(to_route)
                     di.ref.pt.move_route(to_route)
                     return
 

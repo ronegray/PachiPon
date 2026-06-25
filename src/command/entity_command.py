@@ -4,9 +4,9 @@
 
 import pyxel as px
 from gameutils.lib import Window, WindowAction
-from command import CommandBase, CommandPhase, DisplayInfo
+from helper import diceroll
 from entity import EntityContext
-from dice import diceroll
+from . import CommandBase, CommandPhase, DisplayInfo
 
 
 class CommandBaseEntity(CommandBase):
@@ -36,19 +36,23 @@ class RecoverSpellSingle(CommandBaseEntity):
     """単体回復呪文"""
 
     def trigger(self) -> None:
+        """コマンド起動時一回性処理"""
         self.skill_def = self.args[0]
         self.message_window: Window = Window("basic", 0, 116, 240, 32, "once")
         self.display_info = DisplayInfo(self.message_window)
         # MP残量チェック
-        if self._ctx.actor.base_param.mp < self.skill_def.cost:
-            self.message_window.set_message(["ＭＰが足りません"])
-        else:
-            healvalue = diceroll(int(self.skill_def.effect_value))
-            self.message_window.set_message([f"ＨＰが{healvalue}回復しました"])
+        if self._ctx.actor.use_mp(self.skill_def.cost):
+            heal_val = diceroll(int(self.skill_def.effect_value))
+            real_val = self._ctx.allies[0].increase_hp(heal_val)
+            self.message_window.set_message([f"ＨＰが{real_val}回復しました"])
             px.play(3, 63)
+        else:
+            self.message_window.set_message(["ＭＰが足りません"])
+
         self.phase = CommandPhase.SYN
 
     def update(self) -> CommandPhase:
+        """コマンド応答待ち"""
         if self.phase == CommandPhase.ACK:
             if self.message_window.update() == WindowAction.DISCARD:
                 return CommandPhase.FIN
@@ -57,4 +61,5 @@ class RecoverSpellSingle(CommandBaseEntity):
         return self.phase
 
     def draw(self) -> DisplayInfo:
+        """コマンド描画情報送信"""
         return self.display_info

@@ -36,23 +36,23 @@ class SkillID(IntEnum):
     FIRE_BOLT        = 0x1_1_3_1 # 単体攻撃
     BURN_FLOOD       = 0x1_1_3_2 # 範囲攻撃
     INFERNO          = 0x1_1_3_3 # 範囲強攻撃
-    # 氷結(ice)1
+    # 氷結(ice)
     ICE_NEEDLE       = 0x1_1_4_1 # 単体攻撃
     FROST_CIRCLE     = 0x1_1_4_2 # 範囲攻撃
     BLIZZARD         = 0x1_1_4_3 # 範囲強攻撃
-    # 雷電(bolt)1
+    # 雷電(bolt)
     BOLT_SHOWER      = 0x1_1_5_1 # 範囲攻撃
     THUNDER_PILLER   = 0x1_1_5_2 # 単体強攻撃
     ELECTROMAGNETIC  = 0x1_1_5_3 # 範囲強攻撃
-    # 精神(mind)1
+    # 精神(mind)
     SLEEP_SONG       = 0x1_1_6_1 # 範囲催眠
     DISTURB_MIND     = 0x1_1_6_2 # 魔法発動ロールに３のペナルティ
     CHARM_ILLUSION   = 0x1_1_6_3 # 単体魅了
-    # 衝撃(shock)1
+    # 衝撃(shock)
     SHOCK_BULLET     = 0x1_1_7_1 # 単体攻撃
     SONIC_WAVE       = 0x1_1_7_2 # 範囲攻撃
     BLOW_AWAY        = 0x1_1_7_3 # 単体攻撃＋次のイニシアチブが０固定
-    # 霊光(light)1
+    # 霊光(light)
     HEALING_HAND     = 0x1_1_8_1 # 単体回復
     CURE_POISON      = 0x1_1_8_2 # 毒の解除
     ANGEL_STAIR      = 0x1_1_8_3 # 範囲回復

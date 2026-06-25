@@ -6966,3 +6966,1253 @@ NoneType: None
 2026-06-24 21:28:18,977 [INFO] game: Initialize - Pyxel
 2026-06-24 21:28:19,598 [INFO] game: Start Pyxel frame procedure.
 2026-06-24 21:28:19,598 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 10:22:29,717 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 10:22:29,717 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 10:22:29,717 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 10:22:29,717 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 10:22:29,743 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 10:22:29,743 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 10:22:29,743 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 10:22:29,743 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 10:22:29,744 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 10:22:29,744 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 10:22:29,744 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 10:22:29,744 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 10:22:29,745 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 10:22:29,745 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 10:22:29,745 [INFO] bootstrap: Initialize - Party
+2026-06-25 10:22:29,745 [INFO] bootstrap: Initialize - Party
+2026-06-25 10:22:29,746 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('HERO', <class 'entity.character.Character'>)
+2026-06-25 10:22:29,746 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('HERO', <class 'entity.character.Character'>)
+2026-06-25 10:22:29,746 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 10:22:29,746 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 10:22:29,747 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 10:22:29,747 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 10:22:29,747 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 10:22:29,747 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 10:22:29,747 [INFO] bootstrap: Initialize - Command
+2026-06-25 10:22:29,747 [INFO] bootstrap: Initialize - Command
+2026-06-25 10:22:29,747 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 10:22:29,747 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 10:22:29,747 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 10:22:29,747 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 10:22:29,748 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 10:22:29,748 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 10:22:29,749 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 10:22:29,749 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 10:22:29,749 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 10:22:29,749 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 10:22:29,749 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 10:22:29,749 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 10:22:29,750 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 10:22:29,750 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 10:22:29,750 [INFO] __main__: launch the game application.
+2026-06-25 10:22:29,750 [INFO] __main__: launch the game application.
+2026-06-25 10:22:29,751 [INFO] game: Initialize - Pyxel
+2026-06-25 10:22:29,751 [INFO] game: Initialize - Pyxel
+2026-06-25 10:22:30,631 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 10:22:30,631 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:00:26,100 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:00:26,100 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:00:26,100 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:00:26,100 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:00:26,128 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:00:26,128 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:00:26,130 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:00:26,130 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:00:26,130 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:00:26,130 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:00:26,130 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:00:26,130 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:00:26,131 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:00:26,131 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:00:26,131 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:00:26,131 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:00:26,132 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:00:26,132 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:00:26,132 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:00:26,132 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:00:26,133 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:00:26,133 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:00:26,133 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:00:26,133 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:00:26,133 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:00:26,133 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:00:26,134 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:00:26,134 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:00:26,134 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:00:26,134 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:00:26,135 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:00:26,135 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:00:26,135 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:00:26,135 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:00:26,135 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:00:26,135 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:00:26,135 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:00:26,135 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:00:26,136 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:00:26,136 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:00:26,137 [INFO] __main__: launch the game application.
+2026-06-25 11:00:26,137 [INFO] __main__: launch the game application.
+2026-06-25 11:00:26,137 [INFO] game: Initialize - Pyxel
+2026-06-25 11:00:26,137 [INFO] game: Initialize - Pyxel
+2026-06-25 11:00:26,900 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:00:26,900 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:00:29,136 [INFO] menu.menu_field: MenuItem(item_label='è© å”±ã™ã‚‹', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x000002195CF27B60>>, action_args=())
+2026-06-25 11:00:29,136 [INFO] menu.menu_field: MenuItem(item_label='‰r¥‚·‚é', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x000002195CF27B60>>, action_args=())
+2026-06-25 11:00:29,137 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šè© å”±ã™ã‚‹
+2026-06-25 11:00:29,137 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF‰r¥‚·‚é
+2026-06-25 11:00:30,201 [INFO] menu.menu_skill: MenuItem(item_label='ç™’ã—ã®æ‰‹ [5]', menu_action=<bound method MenuSelectSkill.select_target of <menu.menu_skill.MenuSelectSkill object at 0x000002195CF27E00>>, action_args=(<SkillID.HEALING_HAND: 4481>,))
+2026-06-25 11:00:30,201 [INFO] menu.menu_skill: MenuItem(item_label='–ü‚µ‚Ìè [5]', menu_action=<bound method MenuSelectSkill.select_target of <menu.menu_skill.MenuSelectSkill object at 0x000002195CF27E00>>, action_args=(<SkillID.HEALING_HAND: 4481>,))
+2026-06-25 11:00:30,202 [INFO] menu.menu_skill: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šç™’ã—ã®æ‰‹ [5]
+2026-06-25 11:00:30,202 [INFO] menu.menu_skill: ‘I‘ğƒƒjƒ…[ÀsF–ü‚µ‚Ìè [5]
+2026-06-25 11:00:31,101 [INFO] menu.menu_skill: MenuItem(item_label='ãƒ¡ãƒ³ãƒãƒ¼1', menu_action=<bound method MenuSelectSkillTarget.use_skill of <menu.menu_skill.MenuSelectSkillTarget object at 0x000002195CF27CB0>>, action_args=(<entity.character.Character object at 0x000002195CF68050>,))
+2026-06-25 11:00:31,101 [INFO] menu.menu_skill: MenuItem(item_label='ƒƒ“ƒo[1', menu_action=<bound method MenuSelectSkillTarget.use_skill of <menu.menu_skill.MenuSelectSkillTarget object at 0x000002195CF27CB0>>, action_args=(<entity.character.Character object at 0x000002195CF68050>,))
+2026-06-25 11:00:31,101 [INFO] menu.menu_skill: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šãƒ¡ãƒ³ãƒãƒ¼1
+2026-06-25 11:00:31,101 [INFO] menu.menu_skill: ‘I‘ğƒƒjƒ…[ÀsFƒƒ“ƒo[1
+2026-06-25 11:00:36,901 [INFO] menu.menu_field: MenuItem(item_label='åŠ›ã‚’è¦‹ã‚‹', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x000002195CF69D10>>, action_args=())
+2026-06-25 11:00:36,901 [INFO] menu.menu_field: MenuItem(item_label='—Í‚ğŒ©‚é', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x000002195CF69D10>>, action_args=())
+2026-06-25 11:00:36,902 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šåŠ›ã‚’è¦‹ã‚‹
+2026-06-25 11:00:36,902 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF—Í‚ğŒ©‚é
+2026-06-25 11:00:45,701 [INFO] menu.menu_field: MenuItem(item_label='è© å”±ã™ã‚‹', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x000002195CF69E50>>, action_args=())
+2026-06-25 11:00:45,701 [INFO] menu.menu_field: MenuItem(item_label='‰r¥‚·‚é', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x000002195CF69E50>>, action_args=())
+2026-06-25 11:00:45,701 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šè© å”±ã™ã‚‹
+2026-06-25 11:00:45,701 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF‰r¥‚·‚é
+2026-06-25 11:00:47,103 [INFO] menu.menu_skill: MenuItem(item_label='ç™’ã—ã®æ‰‹ [5]', menu_action=<bound method MenuSelectSkill.select_target of <menu.menu_skill.MenuSelectSkill object at 0x000002195CF69F90>>, action_args=(<SkillID.HEALING_HAND: 4481>,))
+2026-06-25 11:00:47,103 [INFO] menu.menu_skill: MenuItem(item_label='–ü‚µ‚Ìè [5]', menu_action=<bound method MenuSelectSkill.select_target of <menu.menu_skill.MenuSelectSkill object at 0x000002195CF69F90>>, action_args=(<SkillID.HEALING_HAND: 4481>,))
+2026-06-25 11:00:47,103 [INFO] menu.menu_skill: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šç™’ã—ã®æ‰‹ [5]
+2026-06-25 11:00:47,103 [INFO] menu.menu_skill: ‘I‘ğƒƒjƒ…[ÀsF–ü‚µ‚Ìè [5]
+2026-06-25 11:00:48,168 [INFO] menu.menu_skill: MenuItem(item_label='ãƒ¡ãƒ³ãƒãƒ¼0', menu_action=<bound method MenuSelectSkillTarget.use_skill of <menu.menu_skill.MenuSelectSkillTarget object at 0x000002195CF6A0D0>>, action_args=(<entity.character.Character object at 0x000002195CF25FD0>,))
+2026-06-25 11:00:48,168 [INFO] menu.menu_skill: MenuItem(item_label='ƒƒ“ƒo[0', menu_action=<bound method MenuSelectSkillTarget.use_skill of <menu.menu_skill.MenuSelectSkillTarget object at 0x000002195CF6A0D0>>, action_args=(<entity.character.Character object at 0x000002195CF25FD0>,))
+2026-06-25 11:00:48,169 [INFO] menu.menu_skill: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šãƒ¡ãƒ³ãƒãƒ¼0
+2026-06-25 11:00:48,169 [INFO] menu.menu_skill: ‘I‘ğƒƒjƒ…[ÀsFƒƒ“ƒo[0
+2026-06-25 11:00:52,136 [INFO] menu.menu_field: MenuItem(item_label='åŠ›ã‚’è¦‹ã‚‹', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x000002195CF129E0>>, action_args=())
+2026-06-25 11:00:52,136 [INFO] menu.menu_field: MenuItem(item_label='—Í‚ğŒ©‚é', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x000002195CF129E0>>, action_args=())
+2026-06-25 11:00:52,137 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šåŠ›ã‚’è¦‹ã‚‹
+2026-06-25 11:00:52,137 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF—Í‚ğŒ©‚é
+2026-06-25 11:00:56,103 [INFO] menu.menu_field: MenuItem(item_label='åŠ›ã‚’è¦‹ã‚‹', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x000002195CF12B10>>, action_args=())
+2026-06-25 11:00:56,103 [INFO] menu.menu_field: MenuItem(item_label='—Í‚ğŒ©‚é', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x000002195CF12B10>>, action_args=())
+2026-06-25 11:00:56,103 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šåŠ›ã‚’è¦‹ã‚‹
+2026-06-25 11:00:56,103 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF—Í‚ğŒ©‚é
+2026-06-25 11:02:30,042 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:02:30,042 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:02:30,043 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:02:30,043 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:02:30,069 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:02:30,069 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:02:30,070 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:02:30,070 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:02:30,070 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:02:30,070 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:02:30,070 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:02:30,070 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:02:30,071 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:02:30,071 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:02:30,071 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:02:30,071 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:02:30,072 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:02:30,072 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:02:30,072 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:02:30,072 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:02:30,073 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:02:30,073 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:02:30,073 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:02:30,073 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:02:30,073 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:02:30,073 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:02:30,073 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:02:30,073 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:02:30,073 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:02:30,073 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:02:30,074 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:02:30,074 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:02:30,074 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:02:30,074 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:02:30,075 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:02:30,075 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:02:30,075 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:02:30,075 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:02:30,075 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:02:30,075 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:02:30,076 [INFO] __main__: launch the game application.
+2026-06-25 11:02:30,076 [INFO] __main__: launch the game application.
+2026-06-25 11:02:30,076 [INFO] game: Initialize - Pyxel
+2026-06-25 11:02:30,076 [INFO] game: Initialize - Pyxel
+2026-06-25 11:02:30,747 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:02:30,747 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:02:32,415 [INFO] menu.menu_field: MenuItem(item_label='è© å”±ã™ã‚‹', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x000002413713FB60>>, action_args=())
+2026-06-25 11:02:32,415 [INFO] menu.menu_field: MenuItem(item_label='‰r¥‚·‚é', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x000002413713FB60>>, action_args=())
+2026-06-25 11:02:32,416 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šè© å”±ã™ã‚‹
+2026-06-25 11:02:32,416 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF‰r¥‚·‚é
+2026-06-25 11:02:33,748 [INFO] menu.menu_field: MenuItem(item_label='åŠ›ã‚’è¦‹ã‚‹', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x000002413713FB60>>, action_args=())
+2026-06-25 11:02:33,748 [INFO] menu.menu_field: MenuItem(item_label='—Í‚ğŒ©‚é', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x000002413713FB60>>, action_args=())
+2026-06-25 11:02:33,748 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šåŠ›ã‚’è¦‹ã‚‹
+2026-06-25 11:02:33,748 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF—Í‚ğŒ©‚é
+2026-06-25 11:02:38,215 [INFO] menu.menu_field: MenuItem(item_label='è© å”±ã™ã‚‹', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x0000024137185BD0>>, action_args=())
+2026-06-25 11:02:38,215 [INFO] menu.menu_field: MenuItem(item_label='‰r¥‚·‚é', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x0000024137185BD0>>, action_args=())
+2026-06-25 11:02:38,215 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šè© å”±ã™ã‚‹
+2026-06-25 11:02:38,215 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF‰r¥‚·‚é
+2026-06-25 11:02:39,615 [INFO] menu.menu_skill: MenuItem(item_label='ç™’ã—ã®æ‰‹ [5]', menu_action=<bound method MenuSelectSkill.select_target of <menu.menu_skill.MenuSelectSkill object at 0x0000024137185E50>>, action_args=(<SkillID.HEALING_HAND: 4481>,))
+2026-06-25 11:02:39,615 [INFO] menu.menu_skill: MenuItem(item_label='–ü‚µ‚Ìè [5]', menu_action=<bound method MenuSelectSkill.select_target of <menu.menu_skill.MenuSelectSkill object at 0x0000024137185E50>>, action_args=(<SkillID.HEALING_HAND: 4481>,))
+2026-06-25 11:02:39,615 [INFO] menu.menu_skill: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šç™’ã—ã®æ‰‹ [5]
+2026-06-25 11:02:39,615 [INFO] menu.menu_skill: ‘I‘ğƒƒjƒ…[ÀsF–ü‚µ‚Ìè [5]
+2026-06-25 11:02:41,215 [INFO] menu.menu_skill: MenuItem(item_label='ãƒ¡ãƒ³ãƒãƒ¼0', menu_action=<bound method MenuSelectSkillTarget.use_skill of <menu.menu_skill.MenuSelectSkillTarget object at 0x000002413713FE00>>, action_args=(<entity.character.Character object at 0x000002413713DFD0>,))
+2026-06-25 11:02:41,215 [INFO] menu.menu_skill: MenuItem(item_label='ƒƒ“ƒo[0', menu_action=<bound method MenuSelectSkillTarget.use_skill of <menu.menu_skill.MenuSelectSkillTarget object at 0x000002413713FE00>>, action_args=(<entity.character.Character object at 0x000002413713DFD0>,))
+2026-06-25 11:02:41,215 [INFO] menu.menu_skill: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šãƒ¡ãƒ³ãƒãƒ¼0
+2026-06-25 11:02:41,215 [INFO] menu.menu_skill: ‘I‘ğƒƒjƒ…[ÀsFƒƒ“ƒo[0
+2026-06-25 11:03:04,824 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:03:04,824 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:03:04,825 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:03:04,825 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:03:04,851 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:03:04,851 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:03:04,853 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:03:04,853 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:03:04,853 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:03:04,853 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:03:04,853 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:03:04,853 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:03:04,854 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:03:04,854 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:03:04,854 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:03:04,854 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:03:04,855 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:03:04,855 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:03:04,856 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:03:04,856 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:03:04,856 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:03:04,856 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:03:04,857 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:03:04,857 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:03:04,857 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:03:04,857 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:03:04,857 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:03:04,857 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:03:04,857 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:03:04,857 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:03:04,858 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:03:04,858 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:03:04,859 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:03:04,859 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:03:04,859 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:03:04,859 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:03:04,859 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:03:04,859 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:03:04,860 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:03:04,860 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:03:04,861 [INFO] __main__: launch the game application.
+2026-06-25 11:03:04,861 [INFO] __main__: launch the game application.
+2026-06-25 11:03:04,861 [INFO] game: Initialize - Pyxel
+2026-06-25 11:03:04,861 [INFO] game: Initialize - Pyxel
+2026-06-25 11:03:05,529 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:03:05,529 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:03:07,497 [INFO] menu.menu_field: MenuItem(item_label='è© å”±ã™ã‚‹', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x000001FDC4AB0EC0>>, action_args=())
+2026-06-25 11:03:07,497 [INFO] menu.menu_field: MenuItem(item_label='‰r¥‚·‚é', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x000001FDC4AB0EC0>>, action_args=())
+2026-06-25 11:03:07,497 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šè© å”±ã™ã‚‹
+2026-06-25 11:03:07,497 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF‰r¥‚·‚é
+2026-06-25 11:03:08,031 [INFO] menu.menu_skill: MenuItem(item_label='ç™’ã—ã®æ‰‹ [5]', menu_action=<bound method MenuSelectSkill.select_target of <menu.menu_skill.MenuSelectSkill object at 0x000001FDC4AB1160>>, action_args=(<SkillID.HEALING_HAND: 4481>,))
+2026-06-25 11:03:08,031 [INFO] menu.menu_skill: MenuItem(item_label='–ü‚µ‚Ìè [5]', menu_action=<bound method MenuSelectSkill.select_target of <menu.menu_skill.MenuSelectSkill object at 0x000001FDC4AB1160>>, action_args=(<SkillID.HEALING_HAND: 4481>,))
+2026-06-25 11:03:08,031 [INFO] menu.menu_skill: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šç™’ã—ã®æ‰‹ [5]
+2026-06-25 11:03:08,031 [INFO] menu.menu_skill: ‘I‘ğƒƒjƒ…[ÀsF–ü‚µ‚Ìè [5]
+2026-06-25 11:03:08,331 [INFO] menu.menu_skill: MenuItem(item_label='ãƒ¡ãƒ³ãƒãƒ¼0', menu_action=<bound method MenuSelectSkillTarget.use_skill of <menu.menu_skill.MenuSelectSkillTarget object at 0x000001FDC4AB1010>>, action_args=(<entity.character.Character object at 0x000001FDC4953380>,))
+2026-06-25 11:03:08,331 [INFO] menu.menu_skill: MenuItem(item_label='ƒƒ“ƒo[0', menu_action=<bound method MenuSelectSkillTarget.use_skill of <menu.menu_skill.MenuSelectSkillTarget object at 0x000001FDC4AB1010>>, action_args=(<entity.character.Character object at 0x000001FDC4953380>,))
+2026-06-25 11:03:08,331 [INFO] menu.menu_skill: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šãƒ¡ãƒ³ãƒãƒ¼0
+2026-06-25 11:03:08,331 [INFO] menu.menu_skill: ‘I‘ğƒƒjƒ…[ÀsFƒƒ“ƒo[0
+2026-06-25 11:03:14,936 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:03:14,936 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:03:14,937 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:03:14,937 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:03:14,964 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:03:14,964 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:03:14,965 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:03:14,965 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:03:14,965 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:03:14,965 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:03:14,966 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:03:14,966 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:03:14,966 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:03:14,966 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:03:14,967 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:03:14,967 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:03:14,968 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:03:14,968 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:03:14,968 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:03:14,968 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:03:14,969 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:03:14,969 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:03:14,969 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:03:14,969 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:03:14,969 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:03:14,969 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:03:14,970 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:03:14,970 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:03:14,970 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:03:14,970 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:03:14,971 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:03:14,971 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:03:14,971 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:03:14,971 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:03:14,971 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:03:14,971 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:03:14,971 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:03:14,971 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:03:14,972 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:03:14,972 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:03:14,973 [INFO] __main__: launch the game application.
+2026-06-25 11:03:14,973 [INFO] __main__: launch the game application.
+2026-06-25 11:03:14,973 [INFO] game: Initialize - Pyxel
+2026-06-25 11:03:14,973 [INFO] game: Initialize - Pyxel
+2026-06-25 11:03:15,642 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:03:15,642 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:03:16,710 [INFO] menu.menu_field: MenuItem(item_label='åŠ›ã‚’è¦‹ã‚‹', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x0000022FA7700EC0>>, action_args=())
+2026-06-25 11:03:16,710 [INFO] menu.menu_field: MenuItem(item_label='—Í‚ğŒ©‚é', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x0000022FA7700EC0>>, action_args=())
+2026-06-25 11:03:16,710 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šåŠ›ã‚’è¦‹ã‚‹
+2026-06-25 11:03:16,710 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF—Í‚ğŒ©‚é
+2026-06-25 11:03:24,701 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:03:24,701 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:03:24,702 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:03:24,702 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:03:24,727 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:03:24,727 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:03:24,729 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:03:24,729 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:03:24,729 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:03:24,729 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:03:24,729 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:03:24,729 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:03:24,730 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:03:24,730 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:03:24,730 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:03:24,730 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:03:24,731 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:03:24,731 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:03:24,732 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:03:24,732 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:03:24,732 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:03:24,732 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:03:24,733 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:03:24,733 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:03:24,733 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:03:24,733 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:03:24,733 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:03:24,733 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:03:24,733 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:03:24,733 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:03:24,734 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:03:24,734 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:03:24,734 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:03:24,734 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:03:24,735 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:03:24,735 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:03:24,735 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:03:24,735 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:03:24,735 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:03:24,735 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:03:24,736 [INFO] __main__: launch the game application.
+2026-06-25 11:03:24,736 [INFO] __main__: launch the game application.
+2026-06-25 11:03:24,737 [INFO] game: Initialize - Pyxel
+2026-06-25 11:03:24,737 [INFO] game: Initialize - Pyxel
+2026-06-25 11:03:25,413 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:03:25,413 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:03:26,780 [INFO] menu.menu_field: MenuItem(item_label='åŠ›ã‚’è¦‹ã‚‹', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x000001E81F510EC0>>, action_args=())
+2026-06-25 11:03:26,780 [INFO] menu.menu_field: MenuItem(item_label='—Í‚ğŒ©‚é', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x000001E81F510EC0>>, action_args=())
+2026-06-25 11:03:26,780 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šåŠ›ã‚’è¦‹ã‚‹
+2026-06-25 11:03:26,780 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF—Í‚ğŒ©‚é
+2026-06-25 11:03:29,914 [INFO] menu.menu_field: MenuItem(item_label='è© å”±ã™ã‚‹', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x000001E81F463390>>, action_args=())
+2026-06-25 11:03:29,914 [INFO] menu.menu_field: MenuItem(item_label='‰r¥‚·‚é', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x000001E81F463390>>, action_args=())
+2026-06-25 11:03:29,914 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šè© å”±ã™ã‚‹
+2026-06-25 11:03:29,914 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF‰r¥‚·‚é
+2026-06-25 11:03:31,447 [INFO] menu.menu_skill: MenuItem(item_label='ç™’ã—ã®æ‰‹ [5]', menu_action=<bound method MenuSelectSkill.select_target of <menu.menu_skill.MenuSelectSkill object at 0x000001E81F511160>>, action_args=(<SkillID.HEALING_HAND: 4481>,))
+2026-06-25 11:03:31,447 [INFO] menu.menu_skill: MenuItem(item_label='–ü‚µ‚Ìè [5]', menu_action=<bound method MenuSelectSkill.select_target of <menu.menu_skill.MenuSelectSkill object at 0x000001E81F511160>>, action_args=(<SkillID.HEALING_HAND: 4481>,))
+2026-06-25 11:03:31,447 [INFO] menu.menu_skill: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šç™’ã—ã®æ‰‹ [5]
+2026-06-25 11:03:31,447 [INFO] menu.menu_skill: ‘I‘ğƒƒjƒ…[ÀsF–ü‚µ‚Ìè [5]
+2026-06-25 11:03:34,280 [INFO] menu.menu_skill: MenuItem(item_label='ãƒ¡ãƒ³ãƒãƒ¼0', menu_action=<bound method MenuSelectSkillTarget.use_skill of <menu.menu_skill.MenuSelectSkillTarget object at 0x000001E81F511010>>, action_args=(<entity.character.Character object at 0x000001E81F3B3380>,))
+2026-06-25 11:03:34,280 [INFO] menu.menu_skill: MenuItem(item_label='ƒƒ“ƒo[0', menu_action=<bound method MenuSelectSkillTarget.use_skill of <menu.menu_skill.MenuSelectSkillTarget object at 0x000001E81F511010>>, action_args=(<entity.character.Character object at 0x000001E81F3B3380>,))
+2026-06-25 11:03:34,281 [INFO] menu.menu_skill: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šãƒ¡ãƒ³ãƒãƒ¼0
+2026-06-25 11:03:34,281 [INFO] menu.menu_skill: ‘I‘ğƒƒjƒ…[ÀsFƒƒ“ƒo[0
+2026-06-25 11:04:31,272 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:04:31,272 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:04:31,273 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:04:31,273 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:04:31,299 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:04:31,299 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:04:31,300 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:04:31,300 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:04:31,300 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:04:31,300 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:04:31,301 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:04:31,301 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:04:31,302 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:04:31,302 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:04:31,302 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:04:31,302 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:04:31,303 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:04:31,303 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:04:31,303 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:04:31,303 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:04:31,304 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:04:31,304 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:04:31,304 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:04:31,304 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:04:31,304 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:04:31,304 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:04:31,304 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:04:31,304 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:04:31,305 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:04:31,305 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:04:31,305 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:04:31,305 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:04:31,306 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:04:31,306 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:04:31,306 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:04:31,306 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:04:31,306 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:04:31,306 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:04:31,307 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:04:31,307 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:04:31,308 [INFO] __main__: launch the game application.
+2026-06-25 11:04:31,308 [INFO] __main__: launch the game application.
+2026-06-25 11:04:31,308 [INFO] game: Initialize - Pyxel
+2026-06-25 11:04:31,308 [INFO] game: Initialize - Pyxel
+2026-06-25 11:04:31,985 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:04:31,985 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:04:36,986 [INFO] menu.menu_field: MenuItem(item_label='è© å”±ã™ã‚‹', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x000002017A2E4EC0>>, action_args=())
+2026-06-25 11:04:36,986 [INFO] menu.menu_field: MenuItem(item_label='‰r¥‚·‚é', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x000002017A2E4EC0>>, action_args=())
+2026-06-25 11:04:36,987 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šè© å”±ã™ã‚‹
+2026-06-25 11:04:36,987 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF‰r¥‚·‚é
+2026-06-25 11:04:38,686 [INFO] menu.menu_skill: MenuItem(item_label='ç™’ã—ã®æ‰‹ [5]', menu_action=<bound method MenuSelectSkill.select_target of <menu.menu_skill.MenuSelectSkill object at 0x000002017A2E5160>>, action_args=(<SkillID.HEALING_HAND: 4481>,))
+2026-06-25 11:04:38,686 [INFO] menu.menu_skill: MenuItem(item_label='–ü‚µ‚Ìè [5]', menu_action=<bound method MenuSelectSkill.select_target of <menu.menu_skill.MenuSelectSkill object at 0x000002017A2E5160>>, action_args=(<SkillID.HEALING_HAND: 4481>,))
+2026-06-25 11:04:38,686 [INFO] menu.menu_skill: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šç™’ã—ã®æ‰‹ [5]
+2026-06-25 11:04:38,686 [INFO] menu.menu_skill: ‘I‘ğƒƒjƒ…[ÀsF–ü‚µ‚Ìè [5]
+2026-06-25 11:04:39,919 [INFO] menu.menu_skill: MenuItem(item_label='ãƒ¡ãƒ³ãƒãƒ¼1', menu_action=<bound method MenuSelectSkillTarget.use_skill of <menu.menu_skill.MenuSelectSkillTarget object at 0x000002017A2E5010>>, action_args=(<entity.character.Character object at 0x000002017A231A90>,))
+2026-06-25 11:04:39,919 [INFO] menu.menu_skill: MenuItem(item_label='ƒƒ“ƒo[1', menu_action=<bound method MenuSelectSkillTarget.use_skill of <menu.menu_skill.MenuSelectSkillTarget object at 0x000002017A2E5010>>, action_args=(<entity.character.Character object at 0x000002017A231A90>,))
+2026-06-25 11:04:39,919 [INFO] menu.menu_skill: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šãƒ¡ãƒ³ãƒãƒ¼1
+2026-06-25 11:04:39,919 [INFO] menu.menu_skill: ‘I‘ğƒƒjƒ…[ÀsFƒƒ“ƒo[1
+2026-06-25 11:04:55,989 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:04:55,989 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:04:55,990 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:04:55,990 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:04:56,016 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:04:56,016 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:04:56,017 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:04:56,017 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:04:56,017 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:04:56,017 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:04:56,018 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:04:56,018 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:04:56,019 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:04:56,019 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:04:56,019 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:04:56,019 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:04:56,020 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:04:56,020 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:04:56,021 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:04:56,021 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:04:56,021 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:04:56,021 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:04:56,022 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:04:56,022 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:04:56,022 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:04:56,022 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:04:56,022 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:04:56,022 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:04:56,022 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:04:56,022 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:04:56,023 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:04:56,023 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:04:56,024 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:04:56,024 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:04:56,024 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:04:56,024 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:04:56,024 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:04:56,024 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:04:56,024 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:04:56,024 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:04:56,025 [INFO] __main__: launch the game application.
+2026-06-25 11:04:56,025 [INFO] __main__: launch the game application.
+2026-06-25 11:04:56,026 [INFO] game: Initialize - Pyxel
+2026-06-25 11:04:56,026 [INFO] game: Initialize - Pyxel
+2026-06-25 11:04:56,697 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:04:56,697 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:04:57,631 [INFO] menu.menu_field: MenuItem(item_label='è© å”±ã™ã‚‹', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x0000017F85DB4EC0>>, action_args=())
+2026-06-25 11:04:57,631 [INFO] menu.menu_field: MenuItem(item_label='‰r¥‚·‚é', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x0000017F85DB4EC0>>, action_args=())
+2026-06-25 11:04:57,632 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šè© å”±ã™ã‚‹
+2026-06-25 11:04:57,632 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF‰r¥‚·‚é
+2026-06-25 11:04:58,100 [INFO] menu.menu_skill: MenuItem(item_label='ç™’ã—ã®æ‰‹ [5]', menu_action=<bound method MenuSelectSkill.select_target of <menu.menu_skill.MenuSelectSkill object at 0x0000017F85DB5160>>, action_args=(<SkillID.HEALING_HAND: 4481>,))
+2026-06-25 11:04:58,100 [INFO] menu.menu_skill: MenuItem(item_label='–ü‚µ‚Ìè [5]', menu_action=<bound method MenuSelectSkill.select_target of <menu.menu_skill.MenuSelectSkill object at 0x0000017F85DB5160>>, action_args=(<SkillID.HEALING_HAND: 4481>,))
+2026-06-25 11:04:58,100 [INFO] menu.menu_skill: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šç™’ã—ã®æ‰‹ [5]
+2026-06-25 11:04:58,100 [INFO] menu.menu_skill: ‘I‘ğƒƒjƒ…[ÀsF–ü‚µ‚Ìè [5]
+2026-06-25 11:04:58,400 [INFO] menu.menu_skill: MenuItem(item_label='ãƒ¡ãƒ³ãƒãƒ¼0', menu_action=<bound method MenuSelectSkillTarget.use_skill of <menu.menu_skill.MenuSelectSkillTarget object at 0x0000017F85DB5010>>, action_args=(<entity.character.Character object at 0x0000017F85C53380>,))
+2026-06-25 11:04:58,400 [INFO] menu.menu_skill: MenuItem(item_label='ƒƒ“ƒo[0', menu_action=<bound method MenuSelectSkillTarget.use_skill of <menu.menu_skill.MenuSelectSkillTarget object at 0x0000017F85DB5010>>, action_args=(<entity.character.Character object at 0x0000017F85C53380>,))
+2026-06-25 11:04:58,400 [INFO] menu.menu_skill: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šãƒ¡ãƒ³ãƒãƒ¼0
+2026-06-25 11:04:58,400 [INFO] menu.menu_skill: ‘I‘ğƒƒjƒ…[ÀsFƒƒ“ƒo[0
+2026-06-25 11:05:15,565 [INFO] menu.menu_field: MenuItem(item_label='åŠ›ã‚’è¦‹ã‚‹', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x0000017F85CFF610>>, action_args=())
+2026-06-25 11:05:15,565 [INFO] menu.menu_field: MenuItem(item_label='—Í‚ğŒ©‚é', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x0000017F85CFF610>>, action_args=())
+2026-06-25 11:05:15,565 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šåŠ›ã‚’è¦‹ã‚‹
+2026-06-25 11:05:15,565 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF—Í‚ğŒ©‚é
+2026-06-25 11:08:14,279 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:08:14,279 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:08:14,280 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:08:14,280 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:08:14,305 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:08:14,305 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:08:14,307 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:08:14,307 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:08:14,307 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:08:14,307 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:08:14,307 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:08:14,307 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:08:14,308 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:08:14,308 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:08:14,308 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:08:14,308 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:08:14,309 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:08:14,309 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:08:14,310 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:08:14,310 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:08:14,310 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:08:14,310 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:08:14,311 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:08:14,311 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:08:14,311 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:08:14,311 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:08:14,311 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:08:14,311 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:08:14,311 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:08:14,311 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:08:14,312 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:08:14,312 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:08:14,312 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:08:14,312 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:08:14,313 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:08:14,313 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:08:14,313 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:08:14,313 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:08:14,313 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:08:14,313 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:08:14,314 [INFO] __main__: launch the game application.
+2026-06-25 11:08:14,314 [INFO] __main__: launch the game application.
+2026-06-25 11:08:14,314 [INFO] game: Initialize - Pyxel
+2026-06-25 11:08:14,314 [INFO] game: Initialize - Pyxel
+2026-06-25 11:08:14,994 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:08:14,994 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:08:16,462 [INFO] menu.menu_field: MenuItem(item_label='è© å”±ã™ã‚‹', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x00000231E9430EC0>>, action_args=())
+2026-06-25 11:08:16,462 [INFO] menu.menu_field: MenuItem(item_label='‰r¥‚·‚é', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x00000231E9430EC0>>, action_args=())
+2026-06-25 11:08:16,463 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šè© å”±ã™ã‚‹
+2026-06-25 11:08:16,463 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF‰r¥‚·‚é
+2026-06-25 11:08:17,029 [INFO] menu.menu_skill: MenuItem(item_label='ç™’ã—ã®æ‰‹ [5]', menu_action=<bound method MenuSelectSkill.select_target of <menu.menu_skill.MenuSelectSkill object at 0x00000231E9431160>>, action_args=(<SkillID.HEALING_HAND: 4481>,))
+2026-06-25 11:08:17,029 [INFO] menu.menu_skill: MenuItem(item_label='–ü‚µ‚Ìè [5]', menu_action=<bound method MenuSelectSkill.select_target of <menu.menu_skill.MenuSelectSkill object at 0x00000231E9431160>>, action_args=(<SkillID.HEALING_HAND: 4481>,))
+2026-06-25 11:08:17,030 [INFO] menu.menu_skill: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šç™’ã—ã®æ‰‹ [5]
+2026-06-25 11:08:17,030 [INFO] menu.menu_skill: ‘I‘ğƒƒjƒ…[ÀsF–ü‚µ‚Ìè [5]
+2026-06-25 11:08:17,896 [INFO] menu.menu_skill: MenuItem(item_label='ãƒ¡ãƒ³ãƒãƒ¼1', menu_action=<bound method MenuSelectSkillTarget.use_skill of <menu.menu_skill.MenuSelectSkillTarget object at 0x00000231E9431010>>, action_args=(<entity.character.Character object at 0x00000231E9385950>,))
+2026-06-25 11:08:17,896 [INFO] menu.menu_skill: MenuItem(item_label='ƒƒ“ƒo[1', menu_action=<bound method MenuSelectSkillTarget.use_skill of <menu.menu_skill.MenuSelectSkillTarget object at 0x00000231E9431010>>, action_args=(<entity.character.Character object at 0x00000231E9385950>,))
+2026-06-25 11:08:17,896 [INFO] menu.menu_skill: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šãƒ¡ãƒ³ãƒãƒ¼1
+2026-06-25 11:08:17,896 [INFO] menu.menu_skill: ‘I‘ğƒƒjƒ…[ÀsFƒƒ“ƒo[1
+2026-06-25 11:08:50,968 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:08:50,968 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:08:50,969 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:08:50,969 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:08:50,996 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:08:50,996 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:08:50,997 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:08:50,997 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:08:50,997 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:08:50,997 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:08:50,998 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:08:50,998 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:08:50,999 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:08:50,999 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:08:50,999 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:08:50,999 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:08:51,000 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:08:51,000 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:08:51,001 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:08:51,001 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:08:51,001 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:08:51,001 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:08:51,002 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:08:51,002 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:08:51,002 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:08:51,002 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:08:51,002 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:08:51,002 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:08:51,002 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:08:51,002 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:08:51,003 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:08:51,003 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:08:51,004 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:08:51,004 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:08:51,004 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:08:51,004 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:08:51,004 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:08:51,004 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:08:51,005 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:08:51,005 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:08:51,006 [INFO] __main__: launch the game application.
+2026-06-25 11:08:51,006 [INFO] __main__: launch the game application.
+2026-06-25 11:08:51,006 [INFO] game: Initialize - Pyxel
+2026-06-25 11:08:51,006 [INFO] game: Initialize - Pyxel
+2026-06-25 11:08:51,681 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:08:51,681 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:08:52,783 [INFO] menu.menu_field: MenuItem(item_label='è© å”±ã™ã‚‹', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x000001845A864EC0>>, action_args=())
+2026-06-25 11:08:52,783 [INFO] menu.menu_field: MenuItem(item_label='‰r¥‚·‚é', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x000001845A864EC0>>, action_args=())
+2026-06-25 11:08:52,784 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šè© å”±ã™ã‚‹
+2026-06-25 11:08:52,784 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF‰r¥‚·‚é
+2026-06-25 11:08:53,184 [INFO] menu.menu_skill: MenuItem(item_label='ç™’ã—ã®æ‰‹ [5]', menu_action=<bound method MenuSelectSkill.select_target of <menu.menu_skill.MenuSelectSkill object at 0x000001845A865160>>, action_args=(<SkillID.HEALING_HAND: 4481>,))
+2026-06-25 11:08:53,184 [INFO] menu.menu_skill: MenuItem(item_label='–ü‚µ‚Ìè [5]', menu_action=<bound method MenuSelectSkill.select_target of <menu.menu_skill.MenuSelectSkill object at 0x000001845A865160>>, action_args=(<SkillID.HEALING_HAND: 4481>,))
+2026-06-25 11:08:53,184 [INFO] menu.menu_skill: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šç™’ã—ã®æ‰‹ [5]
+2026-06-25 11:08:53,184 [INFO] menu.menu_skill: ‘I‘ğƒƒjƒ…[ÀsF–ü‚µ‚Ìè [5]
+2026-06-25 11:08:54,017 [INFO] menu.menu_skill: MenuItem(item_label='ãƒ¡ãƒ³ãƒãƒ¼1', menu_action=<bound method MenuSelectSkillTarget.use_skill of <menu.menu_skill.MenuSelectSkillTarget object at 0x000001845A865010>>, action_args=([<entity.character.Character object at 0x000001845A7B1950>],))
+2026-06-25 11:08:54,017 [INFO] menu.menu_skill: MenuItem(item_label='ƒƒ“ƒo[1', menu_action=<bound method MenuSelectSkillTarget.use_skill of <menu.menu_skill.MenuSelectSkillTarget object at 0x000001845A865010>>, action_args=([<entity.character.Character object at 0x000001845A7B1950>],))
+2026-06-25 11:08:54,017 [INFO] menu.menu_skill: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šãƒ¡ãƒ³ãƒãƒ¼1
+2026-06-25 11:08:54,017 [INFO] menu.menu_skill: ‘I‘ğƒƒjƒ…[ÀsFƒƒ“ƒo[1
+2026-06-25 11:09:06,168 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:09:06,168 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:09:06,168 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:09:06,168 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:09:06,194 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:09:06,194 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:09:06,195 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:09:06,195 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:09:06,195 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:09:06,195 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:09:06,196 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:09:06,196 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:09:06,196 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:09:06,196 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:09:06,196 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:09:06,196 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:09:06,197 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:09:06,197 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:09:06,198 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:09:06,198 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:09:06,198 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:09:06,198 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:09:06,199 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:09:06,199 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:09:06,199 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:09:06,199 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:09:06,199 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:09:06,199 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:09:06,199 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:09:06,199 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:09:06,200 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:09:06,200 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:09:06,200 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:09:06,200 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:09:06,200 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:09:06,200 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:09:06,200 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:09:06,200 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:09:06,201 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:09:06,201 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:09:06,202 [INFO] __main__: launch the game application.
+2026-06-25 11:09:06,202 [INFO] __main__: launch the game application.
+2026-06-25 11:09:06,202 [INFO] game: Initialize - Pyxel
+2026-06-25 11:09:06,202 [INFO] game: Initialize - Pyxel
+2026-06-25 11:09:06,873 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:09:06,873 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:09:07,840 [INFO] menu.menu_field: MenuItem(item_label='è© å”±ã™ã‚‹', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x000001F64701BB60>>, action_args=())
+2026-06-25 11:09:07,840 [INFO] menu.menu_field: MenuItem(item_label='‰r¥‚·‚é', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x000001F64701BB60>>, action_args=())
+2026-06-25 11:09:07,840 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šè© å”±ã™ã‚‹
+2026-06-25 11:09:07,840 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF‰r¥‚·‚é
+2026-06-25 11:09:08,376 [INFO] menu.menu_skill: MenuItem(item_label='è©²å½“ãªã—', menu_action=None, action_args=('',))
+2026-06-25 11:09:08,376 [INFO] menu.menu_skill: MenuItem(item_label='ŠY“–‚È‚µ', menu_action=None, action_args=('',))
+2026-06-25 11:09:09,107 [INFO] menu.menu_skill: MenuItem(item_label='ç™’ã—ã®æ‰‹ [5]', menu_action=<bound method MenuSelectSkill.select_target of <menu.menu_skill.MenuSelectSkill object at 0x000001F64701BE00>>, action_args=(<SkillID.HEALING_HAND: 4481>,))
+2026-06-25 11:09:09,107 [INFO] menu.menu_skill: MenuItem(item_label='–ü‚µ‚Ìè [5]', menu_action=<bound method MenuSelectSkill.select_target of <menu.menu_skill.MenuSelectSkill object at 0x000001F64701BE00>>, action_args=(<SkillID.HEALING_HAND: 4481>,))
+2026-06-25 11:09:09,107 [INFO] menu.menu_skill: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šç™’ã—ã®æ‰‹ [5]
+2026-06-25 11:09:09,107 [INFO] menu.menu_skill: ‘I‘ğƒƒjƒ…[ÀsF–ü‚µ‚Ìè [5]
+2026-06-25 11:09:09,574 [INFO] menu.menu_skill: MenuItem(item_label='ãƒ¡ãƒ³ãƒãƒ¼0', menu_action=<bound method MenuSelectSkillTarget.use_skill of <menu.menu_skill.MenuSelectSkillTarget object at 0x000001F64701BCB0>>, action_args=([<entity.character.Character object at 0x000001F647019FD0>],))
+2026-06-25 11:09:09,574 [INFO] menu.menu_skill: MenuItem(item_label='ƒƒ“ƒo[0', menu_action=<bound method MenuSelectSkillTarget.use_skill of <menu.menu_skill.MenuSelectSkillTarget object at 0x000001F64701BCB0>>, action_args=([<entity.character.Character object at 0x000001F647019FD0>],))
+2026-06-25 11:09:09,574 [INFO] menu.menu_skill: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šãƒ¡ãƒ³ãƒãƒ¼0
+2026-06-25 11:09:09,574 [INFO] menu.menu_skill: ‘I‘ğƒƒjƒ…[ÀsFƒƒ“ƒo[0
+2026-06-25 11:09:14,908 [INFO] menu.menu_field: MenuItem(item_label='åŠ›ã‚’è¦‹ã‚‹', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x000001F647065D10>>, action_args=())
+2026-06-25 11:09:14,908 [INFO] menu.menu_field: MenuItem(item_label='—Í‚ğŒ©‚é', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x000001F647065D10>>, action_args=())
+2026-06-25 11:09:14,908 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šåŠ›ã‚’è¦‹ã‚‹
+2026-06-25 11:09:14,908 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF—Í‚ğŒ©‚é
+2026-06-25 11:09:19,607 [INFO] menu.menu_field: MenuItem(item_label='è© å”±ã™ã‚‹', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x000001F647065E50>>, action_args=())
+2026-06-25 11:09:19,607 [INFO] menu.menu_field: MenuItem(item_label='‰r¥‚·‚é', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x000001F647065E50>>, action_args=())
+2026-06-25 11:09:19,608 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šè© å”±ã™ã‚‹
+2026-06-25 11:09:19,608 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF‰r¥‚·‚é
+2026-06-25 11:09:20,573 [INFO] menu.menu_skill: MenuItem(item_label='ç™’ã—ã®æ‰‹ [5]', menu_action=<bound method MenuSelectSkill.select_target of <menu.menu_skill.MenuSelectSkill object at 0x000001F647065F90>>, action_args=(<SkillID.HEALING_HAND: 4481>,))
+2026-06-25 11:09:20,573 [INFO] menu.menu_skill: MenuItem(item_label='–ü‚µ‚Ìè [5]', menu_action=<bound method MenuSelectSkill.select_target of <menu.menu_skill.MenuSelectSkill object at 0x000001F647065F90>>, action_args=(<SkillID.HEALING_HAND: 4481>,))
+2026-06-25 11:09:20,574 [INFO] menu.menu_skill: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šç™’ã—ã®æ‰‹ [5]
+2026-06-25 11:09:20,574 [INFO] menu.menu_skill: ‘I‘ğƒƒjƒ…[ÀsF–ü‚µ‚Ìè [5]
+2026-06-25 11:09:21,107 [INFO] menu.menu_skill: MenuItem(item_label='ãƒ¡ãƒ³ãƒãƒ¼0', menu_action=<bound method MenuSelectSkillTarget.use_skill of <menu.menu_skill.MenuSelectSkillTarget object at 0x000001F6470660D0>>, action_args=([<entity.character.Character object at 0x000001F647019FD0>],))
+2026-06-25 11:09:21,107 [INFO] menu.menu_skill: MenuItem(item_label='ƒƒ“ƒo[0', menu_action=<bound method MenuSelectSkillTarget.use_skill of <menu.menu_skill.MenuSelectSkillTarget object at 0x000001F6470660D0>>, action_args=([<entity.character.Character object at 0x000001F647019FD0>],))
+2026-06-25 11:09:21,107 [INFO] menu.menu_skill: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šãƒ¡ãƒ³ãƒãƒ¼0
+2026-06-25 11:09:21,107 [INFO] menu.menu_skill: ‘I‘ğƒƒjƒ…[ÀsFƒƒ“ƒo[0
+2026-06-25 11:25:19,078 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:25:19,078 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:25:19,078 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:25:19,078 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:25:19,104 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:25:19,104 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:25:19,104 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:25:19,104 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:25:19,105 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:25:19,105 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:25:19,105 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:25:19,105 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:25:19,106 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:25:19,106 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:25:19,106 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:25:19,106 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:25:19,106 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:25:19,106 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:25:19,107 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:25:19,107 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:25:19,108 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:25:19,108 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:25:19,108 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:25:19,108 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:25:19,108 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:25:19,108 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:25:19,108 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:25:19,108 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:25:19,108 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:25:19,108 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:25:19,109 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:25:19,109 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:25:19,109 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:25:19,109 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:25:19,110 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:25:19,110 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:25:19,110 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:25:19,110 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:25:19,110 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:25:19,110 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:25:19,111 [INFO] __main__: launch the game application.
+2026-06-25 11:25:19,111 [INFO] __main__: launch the game application.
+2026-06-25 11:25:19,112 [INFO] game: Initialize - Pyxel
+2026-06-25 11:25:19,112 [INFO] game: Initialize - Pyxel
+2026-06-25 11:25:19,931 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:25:19,931 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:25:20,898 [INFO] menu.menu_field: MenuItem(item_label='åŠ›ã‚’è¦‹ã‚‹', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x000001BBA16E3B60>>, action_args=())
+2026-06-25 11:25:20,898 [INFO] menu.menu_field: MenuItem(item_label='—Í‚ğŒ©‚é', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x000001BBA16E3B60>>, action_args=())
+2026-06-25 11:25:20,898 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šåŠ›ã‚’è¦‹ã‚‹
+2026-06-25 11:25:20,898 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF—Í‚ğŒ©‚é
+2026-06-25 11:25:25,765 [INFO] menu.menu_field: MenuItem(item_label='åŠ›ã‚’è¦‹ã‚‹', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x000001BBA1729A90>>, action_args=())
+2026-06-25 11:25:25,765 [INFO] menu.menu_field: MenuItem(item_label='—Í‚ğŒ©‚é', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x000001BBA1729A90>>, action_args=())
+2026-06-25 11:25:25,765 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šåŠ›ã‚’è¦‹ã‚‹
+2026-06-25 11:25:25,765 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF—Í‚ğŒ©‚é
+2026-06-25 11:38:05,489 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:38:05,489 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:38:05,490 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:38:05,490 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:38:05,516 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:38:05,516 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:38:05,517 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:38:05,517 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:38:05,517 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:38:05,517 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:38:05,518 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:38:05,518 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:38:05,518 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:38:05,518 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:38:05,518 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:38:05,518 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:38:05,519 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:38:05,519 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:38:05,520 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:38:05,520 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:38:05,520 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:38:05,520 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:38:05,521 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:38:05,521 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:38:05,521 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:38:05,521 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:38:05,521 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:38:05,521 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:38:05,521 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:38:05,521 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:38:05,522 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:38:05,522 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:38:05,522 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:38:05,522 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:38:05,522 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:38:05,522 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:38:05,522 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:38:05,522 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:38:05,523 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:38:05,523 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:38:05,524 [INFO] __main__: launch the game application.
+2026-06-25 11:38:05,524 [INFO] __main__: launch the game application.
+2026-06-25 11:38:05,524 [INFO] game: Initialize - Pyxel
+2026-06-25 11:38:05,524 [INFO] game: Initialize - Pyxel
+2026-06-25 11:38:06,310 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:38:06,310 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:38:07,411 [INFO] menu.menu_field: MenuItem(item_label='åŠ›ã‚’è¦‹ã‚‹', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x000002242981FB60>>, action_args=())
+2026-06-25 11:38:07,411 [INFO] menu.menu_field: MenuItem(item_label='—Í‚ğŒ©‚é', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x000002242981FB60>>, action_args=())
+2026-06-25 11:38:07,411 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šåŠ›ã‚’è¦‹ã‚‹
+2026-06-25 11:38:07,411 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF—Í‚ğŒ©‚é
+2026-06-25 11:38:43,600 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:38:43,600 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:38:43,600 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:38:43,600 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:38:43,626 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:38:43,626 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:38:43,627 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:38:43,627 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:38:43,627 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:38:43,627 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:38:43,628 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:38:43,628 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:38:43,628 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:38:43,628 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:38:43,628 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:38:43,628 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:38:43,629 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:38:43,629 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:38:43,630 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:38:43,630 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:38:43,630 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:38:43,630 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:38:43,630 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:38:43,630 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:38:43,631 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:38:43,631 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:38:43,631 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:38:43,631 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:38:43,631 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:38:43,631 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:38:43,632 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:38:43,632 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:38:43,632 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:38:43,632 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:38:43,632 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:38:43,632 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:38:43,633 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:38:43,633 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:38:43,633 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:38:43,633 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:38:43,634 [INFO] __main__: launch the game application.
+2026-06-25 11:38:43,634 [INFO] __main__: launch the game application.
+2026-06-25 11:38:43,634 [INFO] game: Initialize - Pyxel
+2026-06-25 11:38:43,634 [INFO] game: Initialize - Pyxel
+2026-06-25 11:38:44,316 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:38:44,316 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:38:44,717 [INFO] menu.menu_field: MenuItem(item_label='åŠ›ã‚’è¦‹ã‚‹', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x00000216F0CCBB60>>, action_args=())
+2026-06-25 11:38:44,717 [INFO] menu.menu_field: MenuItem(item_label='—Í‚ğŒ©‚é', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x00000216F0CCBB60>>, action_args=())
+2026-06-25 11:38:44,717 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šåŠ›ã‚’è¦‹ã‚‹
+2026-06-25 11:38:44,717 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF—Í‚ğŒ©‚é
+2026-06-25 11:42:25,876 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:42:25,876 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:42:25,876 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:42:25,876 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:42:25,902 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:42:25,902 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:42:25,903 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:42:25,903 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:42:25,903 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:42:25,903 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:42:25,903 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:42:25,903 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:42:25,904 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:42:25,904 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:42:25,904 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:42:25,904 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:42:25,905 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:42:25,905 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:42:25,905 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:42:25,905 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:42:25,906 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:42:25,906 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:42:25,906 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:42:25,906 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:42:25,906 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:42:25,906 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:42:25,906 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:42:25,906 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:42:25,906 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:42:25,906 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:42:25,907 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:42:25,907 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:42:25,907 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:42:25,907 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:42:25,908 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:42:25,908 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:42:25,908 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:42:25,908 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:42:25,908 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:42:25,908 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:42:25,909 [INFO] __main__: launch the game application.
+2026-06-25 11:42:25,909 [INFO] __main__: launch the game application.
+2026-06-25 11:42:25,909 [INFO] game: Initialize - Pyxel
+2026-06-25 11:42:25,909 [INFO] game: Initialize - Pyxel
+2026-06-25 11:42:26,585 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:42:26,585 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:42:30,185 [INFO] menu.menu_field: MenuItem(item_label='åŠ›ã‚’è¦‹ã‚‹', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x00000183CE83BB60>>, action_args=())
+2026-06-25 11:42:30,185 [INFO] menu.menu_field: MenuItem(item_label='—Í‚ğŒ©‚é', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x00000183CE83BB60>>, action_args=())
+2026-06-25 11:42:30,186 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šåŠ›ã‚’è¦‹ã‚‹
+2026-06-25 11:42:30,186 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF—Í‚ğŒ©‚é
+2026-06-25 11:54:29,136 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:54:29,136 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:54:29,137 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:54:29,137 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:54:29,163 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:54:29,163 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:54:29,164 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:54:29,164 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:54:29,164 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:54:29,164 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:54:29,164 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:54:29,164 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:54:29,165 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:54:29,165 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:54:29,165 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:54:29,165 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:54:29,166 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:54:29,166 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:54:29,167 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:54:29,167 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:54:29,167 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:54:29,167 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:54:29,167 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:54:29,167 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:54:29,167 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:54:29,167 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:54:29,167 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:54:29,167 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:54:29,168 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:54:29,168 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:54:29,168 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:54:29,168 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:54:29,169 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:54:29,169 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:54:29,169 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:54:29,169 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:54:29,169 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:54:29,169 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:54:29,169 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:54:29,169 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:54:29,171 [INFO] __main__: launch the game application.
+2026-06-25 11:54:29,171 [INFO] __main__: launch the game application.
+2026-06-25 11:54:29,171 [INFO] game: Initialize - Pyxel
+2026-06-25 11:54:29,171 [INFO] game: Initialize - Pyxel
+2026-06-25 11:54:29,949 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:54:29,949 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:54:30,784 [INFO] menu.menu_field: MenuItem(item_label='åŠ›ã‚’è¦‹ã‚‹', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x00000214BE9AFB60>>, action_args=())
+2026-06-25 11:54:30,784 [INFO] menu.menu_field: MenuItem(item_label='—Í‚ğŒ©‚é', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x00000214BE9AFB60>>, action_args=())
+2026-06-25 11:54:30,784 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šåŠ›ã‚’è¦‹ã‚‹
+2026-06-25 11:54:30,784 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF—Í‚ğŒ©‚é
+2026-06-25 11:55:38,399 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:55:38,399 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:55:38,400 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:55:38,400 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:55:38,426 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:55:38,426 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:55:38,427 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:55:38,427 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:55:38,427 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:55:38,427 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:55:38,427 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:55:38,427 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:55:38,428 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:55:38,428 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:55:38,428 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:55:38,428 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:55:38,429 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:55:38,429 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:55:38,429 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:55:38,429 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:55:38,430 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:55:38,430 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:55:38,430 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:55:38,430 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:55:38,430 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:55:38,430 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:55:38,430 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:55:38,430 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:55:38,430 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:55:38,430 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:55:38,431 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:55:38,431 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:55:38,431 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:55:38,431 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:55:38,432 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:55:38,432 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:55:38,432 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:55:38,432 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:55:38,432 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:55:38,432 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:55:38,433 [INFO] __main__: launch the game application.
+2026-06-25 11:55:38,433 [INFO] __main__: launch the game application.
+2026-06-25 11:55:38,433 [INFO] game: Initialize - Pyxel
+2026-06-25 11:55:38,433 [INFO] game: Initialize - Pyxel
+2026-06-25 11:55:39,097 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:55:39,097 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:55:39,898 [INFO] menu.menu_field: MenuItem(item_label='åŠ›ã‚’è¦‹ã‚‹', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x000001C3BF27BB60>>, action_args=())
+2026-06-25 11:55:39,898 [INFO] menu.menu_field: MenuItem(item_label='—Í‚ğŒ©‚é', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x000001C3BF27BB60>>, action_args=())
+2026-06-25 11:55:39,898 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šåŠ›ã‚’è¦‹ã‚‹
+2026-06-25 11:55:39,898 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF—Í‚ğŒ©‚é
+2026-06-25 11:55:58,064 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:55:58,064 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:55:58,065 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:55:58,065 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:55:58,090 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:55:58,090 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:55:58,091 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:55:58,091 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:55:58,091 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:55:58,091 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:55:58,092 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:55:58,092 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:55:58,092 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:55:58,092 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:55:58,093 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:55:58,093 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:55:58,094 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:55:58,094 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:55:58,094 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:55:58,094 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:55:58,094 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:55:58,094 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:55:58,095 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:55:58,095 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:55:58,095 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:55:58,095 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:55:58,095 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:55:58,095 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:55:58,095 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:55:58,095 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:55:58,096 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:55:58,096 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:55:58,096 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:55:58,096 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:55:58,096 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:55:58,096 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:55:58,097 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:55:58,097 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:55:58,097 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:55:58,097 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:55:58,098 [INFO] __main__: launch the game application.
+2026-06-25 11:55:58,098 [INFO] __main__: launch the game application.
+2026-06-25 11:55:58,098 [INFO] game: Initialize - Pyxel
+2026-06-25 11:55:58,098 [INFO] game: Initialize - Pyxel
+2026-06-25 11:55:58,772 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:55:58,772 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:55:59,406 [INFO] menu.menu_field: MenuItem(item_label='åŠ›ã‚’è¦‹ã‚‹', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x00000260BC83BB60>>, action_args=())
+2026-06-25 11:55:59,406 [INFO] menu.menu_field: MenuItem(item_label='—Í‚ğŒ©‚é', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x00000260BC83BB60>>, action_args=())
+2026-06-25 11:55:59,406 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šåŠ›ã‚’è¦‹ã‚‹
+2026-06-25 11:55:59,406 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF—Í‚ğŒ©‚é
+2026-06-25 11:57:56,029 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:57:56,029 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 11:57:56,029 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:57:56,029 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 11:57:56,055 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:57:56,055 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 11:57:56,056 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:57:56,056 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 11:57:56,056 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:57:56,056 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 11:57:56,056 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:57:56,056 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 11:57:56,057 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:57:56,057 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 11:57:56,057 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:57:56,057 [INFO] bootstrap: Initialize - Party
+2026-06-25 11:57:56,058 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:57:56,058 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('HERO', <class 'entity.character.Character'>)
+2026-06-25 11:57:56,058 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:57:56,058 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 11:57:56,059 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:57:56,059 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 11:57:56,059 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:57:56,059 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 11:57:56,059 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:57:56,059 [INFO] bootstrap: Initialize - Command
+2026-06-25 11:57:56,059 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:57:56,059 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 11:57:56,059 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:57:56,059 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 11:57:56,060 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:57:56,060 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 11:57:56,060 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:57:56,060 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 11:57:56,061 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:57:56,061 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 11:57:56,061 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:57:56,061 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 11:57:56,061 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:57:56,061 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 11:57:56,062 [INFO] __main__: launch the game application.
+2026-06-25 11:57:56,062 [INFO] __main__: launch the game application.
+2026-06-25 11:57:56,062 [INFO] game: Initialize - Pyxel
+2026-06-25 11:57:56,062 [INFO] game: Initialize - Pyxel
+2026-06-25 11:57:56,736 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:57:56,736 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 11:57:57,338 [INFO] menu.menu_field: MenuItem(item_label='åŠ›ã‚’è¦‹ã‚‹', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x0000014D9699BB60>>, action_args=())
+2026-06-25 11:57:57,338 [INFO] menu.menu_field: MenuItem(item_label='—Í‚ğŒ©‚é', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x0000014D9699BB60>>, action_args=())
+2026-06-25 11:57:57,338 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šåŠ›ã‚’è¦‹ã‚‹
+2026-06-25 11:57:57,338 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF—Í‚ğŒ©‚é
+2026-06-25 16:15:35,966 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 16:15:35,966 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 16:15:35,966 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 16:15:35,966 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 16:15:36,008 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 16:15:36,008 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 16:15:36,009 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 16:15:36,009 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 16:15:36,010 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 16:15:36,010 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 16:15:36,010 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 16:15:36,010 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 16:15:36,019 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 16:15:36,019 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 16:15:36,019 [INFO] bootstrap: Initialize - Party
+2026-06-25 16:15:36,019 [INFO] bootstrap: Initialize - Party
+2026-06-25 16:15:36,025 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('HERO', <class 'entity.character.Character'>)
+2026-06-25 16:15:36,025 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('HERO', <class 'entity.character.Character'>)
+2026-06-25 16:15:36,026 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 16:15:36,026 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 16:15:36,026 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 16:15:36,026 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 16:15:36,026 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 16:15:36,026 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 16:15:36,026 [INFO] bootstrap: Initialize - Command
+2026-06-25 16:15:36,026 [INFO] bootstrap: Initialize - Command
+2026-06-25 16:15:36,027 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 16:15:36,027 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 16:15:36,027 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 16:15:36,027 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 16:15:36,033 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 16:15:36,033 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 16:15:36,034 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 16:15:36,034 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 16:15:36,034 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 16:15:36,034 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 16:15:36,034 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 16:15:36,034 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 16:15:36,040 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 16:15:36,040 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 16:15:36,041 [INFO] __main__: launch the game application.
+2026-06-25 16:15:36,041 [INFO] __main__: launch the game application.
+2026-06-25 16:15:36,041 [INFO] game: Initialize - Pyxel
+2026-06-25 16:15:36,041 [INFO] game: Initialize - Pyxel
+2026-06-25 16:15:36,988 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 16:15:36,988 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 16:15:46,558 [INFO] menu.menu_field: MenuItem(item_label='è© å”±ã™ã‚‹', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x000001A5736F5E50>>, action_args=())
+2026-06-25 16:15:46,558 [INFO] menu.menu_field: MenuItem(item_label='‰r¥‚·‚é', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x000001A5736F5E50>>, action_args=())
+2026-06-25 16:15:46,558 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šè© å”±ã™ã‚‹
+2026-06-25 16:15:46,558 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF‰r¥‚·‚é
+2026-06-25 16:15:46,857 [INFO] menu.menu_skill: MenuItem(item_label='è©²å½“ãªã—', menu_action=None, action_args=('',))
+2026-06-25 16:15:46,857 [INFO] menu.menu_skill: MenuItem(item_label='ŠY“–‚È‚µ', menu_action=None, action_args=('',))
+2026-06-25 16:15:47,723 [INFO] menu.menu_skill: MenuItem(item_label='ç™’ã—ã®æ‰‹ [5]', menu_action=<bound method MenuSelectSkill.select_target of <menu.menu_skill.MenuSelectSkill object at 0x000001A5737641A0>>, action_args=(<SkillID.HEALING_HAND: 4481>,))
+2026-06-25 16:15:47,723 [INFO] menu.menu_skill: MenuItem(item_label='–ü‚µ‚Ìè [5]', menu_action=<bound method MenuSelectSkill.select_target of <menu.menu_skill.MenuSelectSkill object at 0x000001A5737641A0>>, action_args=(<SkillID.HEALING_HAND: 4481>,))
+2026-06-25 16:15:47,723 [INFO] menu.menu_skill: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šç™’ã—ã®æ‰‹ [5]
+2026-06-25 16:15:47,723 [INFO] menu.menu_skill: ‘I‘ğƒƒjƒ…[ÀsF–ü‚µ‚Ìè [5]
+2026-06-25 16:15:48,123 [INFO] menu.menu_skill: MenuItem(item_label='ãƒ¡ãƒ³ãƒãƒ¼0', menu_action=<bound method MenuSelectSkillTarget.use_skill of <menu.menu_skill.MenuSelectSkillTarget object at 0x000001A573764050>>, action_args=([<entity.character.Character object at 0x000001A573696270>],))
+2026-06-25 16:15:48,123 [INFO] menu.menu_skill: MenuItem(item_label='ƒƒ“ƒo[0', menu_action=<bound method MenuSelectSkillTarget.use_skill of <menu.menu_skill.MenuSelectSkillTarget object at 0x000001A573764050>>, action_args=([<entity.character.Character object at 0x000001A573696270>],))
+2026-06-25 16:15:48,123 [INFO] menu.menu_skill: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šãƒ¡ãƒ³ãƒãƒ¼0
+2026-06-25 16:15:48,123 [INFO] menu.menu_skill: ‘I‘ğƒƒjƒ…[ÀsFƒƒ“ƒo[0
+2026-06-25 16:15:51,023 [INFO] menu.menu_field: MenuItem(item_label='åº—ã«è¡Œã', menu_action=<bound method MenuField.enter_shop of <menu.menu_field.MenuField object at 0x000001A5736F60D0>>, action_args=())
+2026-06-25 16:15:51,023 [INFO] menu.menu_field: MenuItem(item_label='“X‚És‚­', menu_action=<bound method MenuField.enter_shop of <menu.menu_field.MenuField object at 0x000001A5736F60D0>>, action_args=())
+2026-06-25 16:15:51,023 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šåº—ã«è¡Œã
+2026-06-25 16:15:51,023 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF“X‚És‚­
+2026-06-25 16:15:51,723 [INFO] menu.menu_field: MenuItem(item_label='åŠ›ã‚’è¦‹ã‚‹', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x000001A5736F60D0>>, action_args=())
+2026-06-25 16:15:51,723 [INFO] menu.menu_field: MenuItem(item_label='—Í‚ğŒ©‚é', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x000001A5736F60D0>>, action_args=())
+2026-06-25 16:15:51,723 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šåŠ›ã‚’è¦‹ã‚‹
+2026-06-25 16:15:51,723 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF—Í‚ğŒ©‚é
+2026-06-25 16:15:56,558 [INFO] menu.menu_field: MenuItem(item_label='è£…å‚™ã™ã‚‹', menu_action=<bound method MenuField.equip_item of <menu.menu_field.MenuField object at 0x000001A573682C40>>, action_args=())
+2026-06-25 16:15:56,558 [INFO] menu.menu_field: MenuItem(item_label='‘•”õ‚·‚é', menu_action=<bound method MenuField.equip_item of <menu.menu_field.MenuField object at 0x000001A573682C40>>, action_args=())
+2026-06-25 16:15:56,558 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šè£…å‚™ã™ã‚‹
+2026-06-25 16:15:56,558 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF‘•”õ‚·‚é
+2026-06-25 16:15:58,290 [INFO] menu.menu_field: MenuItem(item_label='ã‚¢ã‚¤ãƒ†ãƒ ', menu_action=<bound method MenuField.select_item_category of <menu.menu_field.MenuField object at 0x000001A573682C40>>, action_args=())
+2026-06-25 16:15:58,290 [INFO] menu.menu_field: MenuItem(item_label='ƒAƒCƒeƒ€', menu_action=<bound method MenuField.select_item_category of <menu.menu_field.MenuField object at 0x000001A573682C40>>, action_args=())
+2026-06-25 16:15:58,290 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šã‚¢ã‚¤ãƒ†ãƒ 
+2026-06-25 16:15:58,290 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsFƒAƒCƒeƒ€
+2026-06-25 16:15:59,591 [INFO] menu.menu_field: MenuItem(item_label='è© å”±ã™ã‚‹', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x000001A573682C40>>, action_args=())
+2026-06-25 16:15:59,591 [INFO] menu.menu_field: MenuItem(item_label='‰r¥‚·‚é', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x000001A573682C40>>, action_args=())
+2026-06-25 16:15:59,592 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šè© å”±ã™ã‚‹
+2026-06-25 16:15:59,592 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsF‰r¥‚·‚é
+2026-06-25 16:16:00,756 [INFO] menu.menu_field: MenuItem(item_label='ã‚·ã‚¹ãƒ†ãƒ ', menu_action=<bound method MenuField.select_item_category of <menu.menu_field.MenuField object at 0x000001A573682C40>>, action_args=())
+2026-06-25 16:16:00,756 [INFO] menu.menu_field: MenuItem(item_label='ƒVƒXƒeƒ€', menu_action=<bound method MenuField.select_item_category of <menu.menu_field.MenuField object at 0x000001A573682C40>>, action_args=())
+2026-06-25 16:16:00,756 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šã‚·ã‚¹ãƒ†ãƒ 
+2026-06-25 16:16:00,756 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsFƒVƒXƒeƒ€
+2026-06-25 16:16:03,356 [INFO] menu.menu_item: MenuItem(item_label='ä½¿ç”¨ã™ã‚‹', menu_action=<bound method MenuSelectItemCategory.use_item of <menu.menu_item.MenuSelectItemCategory object at 0x000001A5736F6210>>, action_args=())
+2026-06-25 16:16:03,356 [INFO] menu.menu_item: MenuItem(item_label='g—p‚·‚é', menu_action=<bound method MenuSelectItemCategory.use_item of <menu.menu_item.MenuSelectItemCategory object at 0x000001A5736F6210>>, action_args=())
+2026-06-25 16:16:03,356 [INFO] menu.menu_item: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šä½¿ç”¨ã™ã‚‹
+2026-06-25 16:16:03,356 [INFO] menu.menu_item: ‘I‘ğƒƒjƒ…[ÀsFg—p‚·‚é
+2026-06-25 16:16:04,491 [INFO] menu.menu_item: MenuItem(item_label='ãƒã‚§ãƒƒã‚¯', menu_action=<bound method MenuSelectItemCategory.show_equips of <menu.menu_item.MenuSelectItemCategory object at 0x000001A5736F6210>>, action_args=())
+2026-06-25 16:16:04,491 [INFO] menu.menu_item: MenuItem(item_label='ƒ`ƒFƒbƒN', menu_action=<bound method MenuSelectItemCategory.show_equips of <menu.menu_item.MenuSelectItemCategory object at 0x000001A5736F6210>>, action_args=())
+2026-06-25 16:16:04,491 [INFO] menu.menu_item: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šãƒã‚§ãƒƒã‚¯
+2026-06-25 16:16:04,491 [INFO] menu.menu_item: ‘I‘ğƒƒjƒ…[ÀsFƒ`ƒFƒbƒN
+2026-06-25 16:16:05,823 [INFO] menu.menu_item: MenuItem(item_label='é‡è¦ãªå“', menu_action=<bound method MenuSelectItemCategory.show_keyitem of <menu.menu_item.MenuSelectItemCategory object at 0x000001A5736F6210>>, action_args=())
+2026-06-25 16:16:05,823 [INFO] menu.menu_item: MenuItem(item_label='d—v‚È•i', menu_action=<bound method MenuSelectItemCategory.show_keyitem of <menu.menu_item.MenuSelectItemCategory object at 0x000001A5736F6210>>, action_args=())
+2026-06-25 16:16:05,823 [INFO] menu.menu_item: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šé‡è¦ãªå“
+2026-06-25 16:16:05,823 [INFO] menu.menu_item: ‘I‘ğƒƒjƒ…[ÀsFd—v‚È•i
+2026-06-25 16:16:09,157 [INFO] menu.menu_item: MenuItem(item_label='ãƒã‚§ãƒƒã‚¯', menu_action=<bound method MenuSelectItemCategory.show_equips of <menu.menu_item.MenuSelectItemCategory object at 0x000001A5736F6210>>, action_args=())
+2026-06-25 16:16:09,157 [INFO] menu.menu_item: MenuItem(item_label='ƒ`ƒFƒbƒN', menu_action=<bound method MenuSelectItemCategory.show_equips of <menu.menu_item.MenuSelectItemCategory object at 0x000001A5736F6210>>, action_args=())
+2026-06-25 16:16:09,158 [INFO] menu.menu_item: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šãƒã‚§ãƒƒã‚¯
+2026-06-25 16:16:09,158 [INFO] menu.menu_item: ‘I‘ğƒƒjƒ…[ÀsFƒ`ƒFƒbƒN
+2026-06-25 16:17:02,620 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 16:17:02,620 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 16:17:02,620 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 16:17:02,620 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 16:17:02,646 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 16:17:02,646 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 16:17:02,647 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 16:17:02,647 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 16:17:02,647 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 16:17:02,647 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 16:17:02,647 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 16:17:02,647 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 16:17:02,648 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 16:17:02,648 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 16:17:02,648 [INFO] bootstrap: Initialize - Party
+2026-06-25 16:17:02,648 [INFO] bootstrap: Initialize - Party
+2026-06-25 16:17:02,649 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('HERO', <class 'entity.character.Character'>)
+2026-06-25 16:17:02,649 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('HERO', <class 'entity.character.Character'>)
+2026-06-25 16:17:02,649 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 16:17:02,649 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 16:17:02,650 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 16:17:02,650 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 16:17:02,650 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 16:17:02,650 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 16:17:02,650 [INFO] bootstrap: Initialize - Command
+2026-06-25 16:17:02,650 [INFO] bootstrap: Initialize - Command
+2026-06-25 16:17:02,650 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 16:17:02,650 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 16:17:02,651 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 16:17:02,651 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 16:17:02,651 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 16:17:02,651 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 16:17:02,652 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 16:17:02,652 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 16:17:02,652 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 16:17:02,652 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 16:17:02,652 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 16:17:02,652 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 16:17:02,653 [INFO] service_locater: ã‚µãƒ¼ãƒ“ã‚¹ç™»éŒ²:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 16:17:02,653 [INFO] service_locater: ƒT[ƒrƒX“o˜^:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 16:17:02,653 [INFO] __main__: launch the game application.
+2026-06-25 16:17:02,653 [INFO] __main__: launch the game application.
+2026-06-25 16:17:02,653 [INFO] game: Initialize - Pyxel
+2026-06-25 16:17:02,653 [INFO] game: Initialize - Pyxel
+2026-06-25 16:17:03,328 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 16:17:03,328 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 16:17:04,662 [INFO] menu.menu_field: MenuItem(item_label='ã‚¢ã‚¤ãƒ†ãƒ ', menu_action=<bound method MenuField.select_item_category of <menu.menu_field.MenuField object at 0x00000213722FBE00>>, action_args=())
+2026-06-25 16:17:04,662 [INFO] menu.menu_field: MenuItem(item_label='ƒAƒCƒeƒ€', menu_action=<bound method MenuField.select_item_category of <menu.menu_field.MenuField object at 0x00000213722FBE00>>, action_args=())
+2026-06-25 16:17:04,662 [INFO] menu.menu_field: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šã‚¢ã‚¤ãƒ†ãƒ 
+2026-06-25 16:17:04,662 [INFO] menu.menu_field: ‘I‘ğƒƒjƒ…[ÀsFƒAƒCƒeƒ€
+2026-06-25 16:17:05,629 [INFO] menu.menu_item: MenuItem(item_label='ãƒã‚§ãƒƒã‚¯', menu_action=<bound method MenuSelectItemCategory.show_equips of <menu.menu_item.MenuSelectItemCategory object at 0x00000213723B81A0>>, action_args=())
+2026-06-25 16:17:05,629 [INFO] menu.menu_item: MenuItem(item_label='ƒ`ƒFƒbƒN', menu_action=<bound method MenuSelectItemCategory.show_equips of <menu.menu_item.MenuSelectItemCategory object at 0x00000213723B81A0>>, action_args=())
+2026-06-25 16:17:05,629 [INFO] menu.menu_item: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šãƒã‚§ãƒƒã‚¯
+2026-06-25 16:17:05,629 [INFO] menu.menu_item: ‘I‘ğƒƒjƒ…[ÀsFƒ`ƒFƒbƒN
+2026-06-25 16:17:14,895 [INFO] menu.menu_item: MenuItem(item_label='é‡è¦ãªå“', menu_action=<bound method MenuSelectItemCategory.show_keyitem of <menu.menu_item.MenuSelectItemCategory object at 0x00000213723B81A0>>, action_args=())
+2026-06-25 16:17:14,895 [INFO] menu.menu_item: MenuItem(item_label='d—v‚È•i', menu_action=<bound method MenuSelectItemCategory.show_keyitem of <menu.menu_item.MenuSelectItemCategory object at 0x00000213723B81A0>>, action_args=())
+2026-06-25 16:17:14,896 [INFO] menu.menu_item: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šé‡è¦ãªå“
+2026-06-25 16:17:14,896 [INFO] menu.menu_item: ‘I‘ğƒƒjƒ…[ÀsFd—v‚È•i
+2026-06-25 16:17:16,195 [INFO] menu.menu_item: MenuItem(item_label='ãƒã‚§ãƒƒã‚¯', menu_action=<bound method MenuSelectItemCategory.show_equips of <menu.menu_item.MenuSelectItemCategory object at 0x00000213723B81A0>>, action_args=())
+2026-06-25 16:17:16,195 [INFO] menu.menu_item: MenuItem(item_label='ƒ`ƒFƒbƒN', menu_action=<bound method MenuSelectItemCategory.show_equips of <menu.menu_item.MenuSelectItemCategory object at 0x00000213723B81A0>>, action_args=())
+2026-06-25 16:17:16,195 [INFO] menu.menu_item: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šãƒã‚§ãƒƒã‚¯
+2026-06-25 16:17:16,195 [INFO] menu.menu_item: ‘I‘ğƒƒjƒ…[ÀsFƒ`ƒFƒbƒN
+2026-06-25 16:17:17,662 [INFO] menu.menu_item: MenuItem(item_label='ä½¿ç”¨ã™ã‚‹', menu_action=<bound method MenuSelectItemCategory.use_item of <menu.menu_item.MenuSelectItemCategory object at 0x00000213723B81A0>>, action_args=())
+2026-06-25 16:17:17,662 [INFO] menu.menu_item: MenuItem(item_label='g—p‚·‚é', menu_action=<bound method MenuSelectItemCategory.use_item of <menu.menu_item.MenuSelectItemCategory object at 0x00000213723B81A0>>, action_args=())
+2026-06-25 16:17:17,662 [INFO] menu.menu_item: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šä½¿ç”¨ã™ã‚‹
+2026-06-25 16:17:17,662 [INFO] menu.menu_item: ‘I‘ğƒƒjƒ…[ÀsFg—p‚·‚é
+2026-06-25 16:17:19,463 [INFO] menu.menu_item: MenuItem(item_label='ãƒã‚§ãƒƒã‚¯', menu_action=<bound method MenuSelectItemCategory.show_equips of <menu.menu_item.MenuSelectItemCategory object at 0x00000213723B81A0>>, action_args=())
+2026-06-25 16:17:19,463 [INFO] menu.menu_item: MenuItem(item_label='ƒ`ƒFƒbƒN', menu_action=<bound method MenuSelectItemCategory.show_equips of <menu.menu_item.MenuSelectItemCategory object at 0x00000213723B81A0>>, action_args=())
+2026-06-25 16:17:19,464 [INFO] menu.menu_item: é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œï¼šãƒã‚§ãƒƒã‚¯
+2026-06-25 16:17:19,464 [INFO] menu.menu_item: ‘I‘ğƒƒjƒ…[ÀsFƒ`ƒFƒbƒN

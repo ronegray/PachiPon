@@ -39,7 +39,7 @@ class EquipSlot(StrEnum):
 class Equips:
     """装備品管理クラス（Chacacterのコンポーネント）"""
 
-    def __init__(self, owner_id: ItemState):
+    def __init__(self, owner_id: int):
         self.owner = owner_id
         # 現在装備しているアイテム
         # self._equipped_items: dict[EquipSlot, ItemInstance | ItemID | None] = {
@@ -199,7 +199,7 @@ class Equips:
         # 新しいアイテムを装備
         self._equipped_items[slot] = pooled_item
         _, plent = pooled_item
-        plent.stat = self.owner
+        plent.stat = ItemState(self.owner)
 
         # 補正効果キャッシュを更新
         self.set_adjust_effect()

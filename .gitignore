@@ -1,11 +1,12 @@
 .venv/
-doc
+doc/
 __pycache__/
-*.pyc
-*.xlsx
-uv.lock
 .vscode/
 .ruff_cache/
 .github/
+memory-bank/
+*.pyc
+*.xlsx
 *.yml
-src/debug.log
+*.log
+uv.lock

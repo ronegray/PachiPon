@@ -80,7 +80,7 @@ class MenuSelectEquipSlot(Menu):
     def build_status(self) -> None:
         """ステータス表示内容の構築（ステータスのみ）"""
         member = di.ref.pt.get_member(self.member_index)
-        param = member.base_param
+        param = member.param
 
         status_lines = f"{param.name}"
         status_lines += f"\nレベル： {param.level:2}"

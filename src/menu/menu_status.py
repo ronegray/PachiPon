@@ -4,6 +4,7 @@
 
 import logging
 import service_locater as di
+from helper import upper_int_format as u
 from gameutils.lib import (
     Menu,
     Window,
@@ -54,19 +55,33 @@ class MenuStatus(Menu):
     def build_status(self) -> None:
         """ステータス表示内容の構築（装備含む）"""
         member = di.ref.pt.get_member(self.member_index)
-        param = member.base_param
+        param = member.param
 
         # メインステータス
+        # status_lines = f"{param.name}"
+        # status_lines += f"\nレベル： {param.level:2}"
+        # status_lines += f"\n次まで： {member.next_exp:5}"
+        # status_lines += f"\nＨ　Ｐ： {param.hp:3}／{param.max_hp:3}"
+        # status_lines += f"\nＭ　Ｐ： {param.mp:3}／{param.max_mp:3}"
+        # status_lines += f"\n筋　力： {member.strength:3}(+{member.bonus_str})"
+        # status_lines += f"\n魔　力： {member.arcane:3}(+{member.bonus_arc})"
+        # status_lines += f"\n耐　久： {member.endurance:3}(+{member.bonus_end})"
+        # status_lines += f"\n速　度： {member.speed:3}(+{member.bonus_spd})"
+        # status_lines += f"\n幸　運： {member.luck:3}(+{member.bonus_lck})"
         status_lines = f"{param.name}"
-        status_lines += f"\nレベル： {param.level:2}"
-        status_lines += f"\n経験値： {param.exp:5}"
-        status_lines += f"\nＨ　Ｐ： {param.hp:3}／{param.max_hp:3}"
-        status_lines += f"\nＭ　Ｐ： {param.mp:3}／{param.max_mp:3}"
-        status_lines += f"\n筋　力： {member.strength:3}(+{member.bonus_str})"
-        status_lines += f"\n魔　力： {member.arcane:3}(+{member.bonus_arc})"
-        status_lines += f"\n耐　久： {member.endurance:3}(+{member.bonus_end})"
-        status_lines += f"\n速　度： {member.speed:3}(+{member.bonus_spd})"
-        status_lines += f"\n幸　運： {member.luck:3}(+{member.bonus_lck})"
+        status_lines += f"\nレベル： {u(param.level,1)}"
+        status_lines += f"\n次まで： {u(member.next_exp,1)}"
+        status_lines += f"\nＨ　Ｐ： {u(param.hp,3)}／{u(param.max_hp,3)}"
+        status_lines += f"\nＭ　Ｐ： {u(param.mp,3)}／{u(param.max_mp,3)}"
+        status_lines += (
+            f"\n筋　力： {u(member.strength,2)} （＋{u(member.bonus_str,1)}）"
+        )
+        status_lines += f"\n魔　力： {u(member.arcane,2)} （＋{u(member.bonus_arc,1)}）"
+        status_lines += (
+            f"\n耐　久： {u(member.endurance,2)} （＋{u(member.bonus_end,1)}）"
+        )
+        status_lines += f"\n速　度： {u(member.speed,2)} （＋{u(member.bonus_spd,1)}）"
+        status_lines += f"\n幸　運： {u(member.luck,2)} （＋{u(member.bonus_lck,1)}）"
         self.windows["sub"].text_list = [status_lines]
 
         # 装備項目の構築

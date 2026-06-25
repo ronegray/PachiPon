@@ -85,9 +85,6 @@ class MapGraph:
 
     _instance = None  # シングルトンインスタンスの器
     points: dict[str, EventPoint]
-    map_img: px.Image
-    map_img_width: int
-    map_img_height: int
 
     def __new__(cls) -> "MapGraph":
         """シングルトンインスタンス管理"""
@@ -98,10 +95,15 @@ class MapGraph:
     def __init__(self) -> None:
         """マップの初期化"""
         # マップ構造はマップ画像から生成する為両者をセットで管理
+        self.map_img: px.Image  # マップ画像はpyxelパレットロード後に読み込む
+        self.map_img_width: int = 0
+        self.map_img_height: int = 0
         # マップ構造データのロードと構築
         self.points = {}  # id -> EventPoint
         self.load_mapdata()
-        # マップ画像データのロード
+
+    def load_mapimage(self) -> None:
+        """マップ画像データの遅延ロード（pyxpalロード後に実行）"""
         self.map_img = px.Image.from_image(AssetMap.get_assetpath(AssetID.IMAGE_MAP))
         self.map_img_width = self.map_img.width
         self.map_img_height = self.map_img.height

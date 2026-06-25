@@ -8,7 +8,7 @@ import pyxel as px
 from const import ENCOUNT_THRESHOLD
 import service_locater as di
 from field_map import EventPoint, Route
-from dice import diceroll
+from helper import diceroll
 from . import Character, EntityParam, PlayerSprite, FieldSprite
 
 # ロギング設定
@@ -26,6 +26,7 @@ class Party:
     _field_sprite: FieldSprite
     _is_event_point: bool
     _pt_is_moving: bool
+    _pt_on_route: Route | None
     _move_speed: float
     _current_point: EventPoint
     _move_target_point_id: str = ""
@@ -46,6 +47,7 @@ class Party:
         # フィールド画面用スプライトの設定
         self._field_sprite = self.set_field_sprite()
         self._pt_is_moving = False  # 移動中フラグ
+        self._pt_on_route = None  # 現在ルートの設定
         self._pt_is_battle = False  # 戦闘中フラグ
         self._is_event_point = True
         self._move_speed = 2.0  # 移動速度（ピクセル/フレーム）
@@ -73,22 +75,36 @@ class Party:
     def regist_dummy_hero(self):
         """ダミー主人公データの登録"""
         # キャラクターの初期化
-        hero_param = EntityParam(
-            name="メンバー" + str(len(self._member_list)),
-            strength=px.rndi(1, 10),
-            arcane=px.rndi(1, 10),
-            endurance=px.rndi(1, 10),
-            speed=px.rndi(1, 10),
-            luck=px.rndi(1, 10),
-            max_hp=px.rndi(1, 10),
-            max_mp=20,
-        )
+        # hero_param = EntityParam(
+        #     name="メンバー" + str(len(self._member_list)),
+        #     strength=px.rndi(1, 10),
+        #     arcane=px.rndi(1, 10),
+        #     endurance=px.rndi(1, 10),
+        #     speed=px.rndi(1, 10),
+        #     luck=px.rndi(1, 10),
+        #     max_hp=px.rndi(1, 10),
+        #     max_mp=px.rndi(1, 10),
+        # )
         # PlayerSprite は pyxel.blt同様pyxel.Imageオブジェクトを受け取り可能
         charimage = px.Image.from_image("assets/image/character16.bmp")
         char_x = 20  # 初期X座標
         char_y = 20  # 初期Y座標
-        hero_sprite = PlayerSprite(char_x, char_y, charimage)  # img=0 を明示的に指定
-        hero = Character(id=0, base_param=hero_param, sprite=hero_sprite)  # id=1を設定
+        # hero_sprite = PlayerSprite(char_x, char_y, charimage)  # img=0 を明示的に指定
+        # hero = Character(id=0, param=hero_param, sprite=hero_sprite)  # id=1を設定
+        hero = Character(
+            id=len(self._member_list),
+            param=EntityParam(
+                name="メンバー" + str(len(self._member_list)),
+                strength=px.rndi(1, 10),
+                arcane=px.rndi(1, 10),
+                endurance=px.rndi(1, 10),
+                speed=px.rndi(1, 10),
+                luck=px.rndi(1, 10),
+                max_hp=px.rndi(5, 10),
+                max_mp=px.rndi(5, 10),
+            ),
+            sprite=PlayerSprite(char_x, char_y, charimage),
+        )
         if len(self._member_list) == 0:
             di.register(di.ServiceKey.HERO, hero)
             self.add_ptmember(di.ref.hero)
@@ -205,6 +221,7 @@ class Party:
             if distance <= self._move_speed:
                 self._current_point = target_point
                 self._pt_is_moving = False
+                self.set_now_route()
                 self._field_sprite._is_moving = False
                 return
             else:
@@ -220,6 +237,18 @@ class Party:
             self._world_y += direction_y * self._move_speed
 
             yield
+
+    def set_now_route(self, on_route: Route | None = None) -> None:
+        """現在の移動中ルートを設定"""
+        self._pt_on_route = on_route
+
+    def get_now_route(self) -> Route:
+        """現在の移動中ルートを取得※静止状態の場合はNoneを返す"""
+        if self._pt_on_route is None:
+            errmsg = "非移動中の呼び出しは想定されていません"
+            logger.critical(errmsg, exc_info=True)
+            raise RuntimeError(errmsg)
+        return self._pt_on_route
 
     def move_route(self, to_route: Route):
         """フィールド移動先の設定と移動ジェネレータ生成"""
@@ -249,7 +278,7 @@ class Party:
     def update(self):
         if self._pt_is_moving:
             try:
-                next(self.move_generator)
+                next(self.move_generator)  # type:ignore
             except StopIteration:
                 pass
         self._field_sprite.update()
