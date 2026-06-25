@@ -27,6 +27,7 @@ class AssetID(IntEnum):
     SOUND_FIELD = auto()
     DATA_ITEM = auto()
     DATA_SKILL = auto()
+    DATA_ENEMY = auto()
     DATA_EXPTABLE = auto()
 
 
@@ -70,6 +71,7 @@ class AssetMap:
         ] = f"{cls._asset_path}/data/op_message.json"
         cls._asset_map[AssetID.DATA_ITEM] = f"{cls._asset_path}/data/item_master.json"
         cls._asset_map[AssetID.DATA_SKILL] = f"{cls._asset_path}/data/skill_master.json"
+        cls._asset_map[AssetID.DATA_ENEMY] = f"{cls._asset_path}/data/enemy_master.json"
         cls._asset_map[AssetID.DATA_MAP] = f"{cls._asset_path}/data/map_data.json"
         cls._asset_map[AssetID.DATA_EXPTABLE] = f"{cls._asset_path}/data/exp_table.json"
 

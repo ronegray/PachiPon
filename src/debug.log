@@ -8216,3 +8216,877 @@ NoneType: None
 2026-06-25 16:17:19,463 [INFO] menu.menu_item: MenuItem(item_label='チェック', menu_action=<bound method MenuSelectItemCategory.show_equips of <menu.menu_item.MenuSelectItemCategory object at 0x00000213723B81A0>>, action_args=())
 2026-06-25 16:17:19,464 [INFO] menu.menu_item: 驕ｸ謚槭Γ繝九Η繝ｼ螳溯｡鯉ｼ壹メ繧ｧ繝�繧ｯ
 2026-06-25 16:17:19,464 [INFO] menu.menu_item: 選択メニュー実行：チェック
+2026-06-25 16:46:05,391 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 16:46:05,391 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 16:46:05,391 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 16:46:05,391 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 16:46:05,416 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 16:46:05,416 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 16:46:05,417 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 16:46:05,417 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 16:46:05,417 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 16:46:05,417 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 16:46:05,418 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 16:46:05,418 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 16:46:05,418 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 16:46:05,418 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 16:46:05,419 [INFO] bootstrap: Initialize - Party
+2026-06-25 16:46:05,419 [INFO] bootstrap: Initialize - Party
+2026-06-25 16:46:05,419 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('HERO', <class 'entity.character.Character'>)
+2026-06-25 16:46:05,419 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-25 16:46:05,420 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 16:46:05,420 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 16:46:05,420 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 16:46:05,420 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 16:46:05,420 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 16:46:05,420 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 16:46:05,420 [INFO] bootstrap: Initialize - Command
+2026-06-25 16:46:05,420 [INFO] bootstrap: Initialize - Command
+2026-06-25 16:46:05,421 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 16:46:05,421 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 16:46:05,421 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 16:46:05,421 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 16:46:05,421 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 16:46:05,421 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 16:46:05,422 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 16:46:05,422 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 16:46:05,422 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 16:46:05,422 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 16:46:05,422 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 16:46:05,422 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 16:46:05,422 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 16:46:05,422 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 16:46:05,423 [INFO] __main__: launch the game application.
+2026-06-25 16:46:05,423 [INFO] __main__: launch the game application.
+2026-06-25 16:46:05,423 [INFO] game: Initialize - Pyxel
+2026-06-25 16:46:05,423 [INFO] game: Initialize - Pyxel
+2026-06-25 16:46:06,206 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 16:46:06,206 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 16:46:48,626 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 16:46:48,626 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 16:46:48,626 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 16:46:48,626 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 16:46:48,652 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 16:46:48,652 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 16:46:48,653 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 16:46:48,653 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 16:46:48,653 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 16:46:48,653 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 16:46:48,654 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 16:46:48,654 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 16:46:48,655 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 16:46:48,655 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 16:46:48,655 [INFO] bootstrap: Initialize - Party
+2026-06-25 16:46:48,655 [INFO] bootstrap: Initialize - Party
+2026-06-25 16:46:48,656 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('HERO', <class 'entity.character.Character'>)
+2026-06-25 16:46:48,656 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-25 16:46:48,656 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 16:46:48,656 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 16:46:48,657 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 16:46:48,657 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 16:46:48,657 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 16:46:48,657 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 16:46:48,657 [INFO] bootstrap: Initialize - Command
+2026-06-25 16:46:48,657 [INFO] bootstrap: Initialize - Command
+2026-06-25 16:46:48,657 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 16:46:48,657 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 16:46:48,658 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 16:46:48,658 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 16:46:48,658 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 16:46:48,658 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 16:46:48,659 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 16:46:48,659 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 16:46:48,659 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 16:46:48,659 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 16:46:48,659 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 16:46:48,659 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 16:46:48,660 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 16:46:48,660 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 16:46:48,660 [INFO] __main__: launch the game application.
+2026-06-25 16:46:48,660 [INFO] __main__: launch the game application.
+2026-06-25 16:46:48,660 [INFO] game: Initialize - Pyxel
+2026-06-25 16:46:48,660 [INFO] game: Initialize - Pyxel
+2026-06-25 16:46:49,366 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 16:46:49,366 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 16:51:31,788 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 16:51:31,788 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 16:51:31,789 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 16:51:31,789 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 16:51:31,815 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 16:51:31,815 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 16:51:31,816 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 16:51:31,816 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 16:51:31,816 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 16:51:31,816 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 16:51:31,816 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 16:51:31,816 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 16:51:31,817 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 16:51:31,817 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 16:51:31,818 [INFO] bootstrap: Initialize - Party
+2026-06-25 16:51:31,818 [INFO] bootstrap: Initialize - Party
+2026-06-25 16:51:31,818 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('HERO', <class 'entity.character.Character'>)
+2026-06-25 16:51:31,818 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-25 16:51:31,819 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 16:51:31,819 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 16:51:31,820 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 16:51:31,820 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 16:51:31,820 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 16:51:31,820 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 16:51:31,820 [INFO] bootstrap: Initialize - Command
+2026-06-25 16:51:31,820 [INFO] bootstrap: Initialize - Command
+2026-06-25 16:51:31,820 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 16:51:31,820 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 16:51:31,820 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 16:51:31,820 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 16:51:31,821 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 16:51:31,821 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 16:51:31,821 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 16:51:31,821 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 16:51:31,822 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 16:51:31,822 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 16:51:31,822 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 16:51:31,822 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 16:51:31,822 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 16:51:31,822 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 16:51:31,823 [INFO] __main__: launch the game application.
+2026-06-25 16:51:31,823 [INFO] __main__: launch the game application.
+2026-06-25 16:51:31,823 [INFO] game: Initialize - Pyxel
+2026-06-25 16:51:31,823 [INFO] game: Initialize - Pyxel
+2026-06-25 16:51:32,517 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 16:51:32,517 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 17:01:08,817 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 17:01:08,817 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 17:01:08,817 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 17:01:08,817 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 17:01:08,844 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 17:01:08,844 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 17:01:08,845 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 17:01:08,845 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 17:01:08,845 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 17:01:08,845 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 17:01:08,845 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 17:01:08,845 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 17:01:08,846 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 17:01:08,846 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 17:01:08,846 [INFO] bootstrap: Initialize - Party
+2026-06-25 17:01:08,846 [INFO] bootstrap: Initialize - Party
+2026-06-25 17:01:08,847 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('HERO', <class 'entity.character.Character'>)
+2026-06-25 17:01:08,847 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-25 17:01:08,848 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 17:01:08,848 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 17:01:08,848 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 17:01:08,848 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 17:01:08,849 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 17:01:08,849 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 17:01:08,849 [INFO] bootstrap: Initialize - Command
+2026-06-25 17:01:08,849 [INFO] bootstrap: Initialize - Command
+2026-06-25 17:01:08,849 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 17:01:08,849 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 17:01:08,849 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 17:01:08,849 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 17:01:08,850 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 17:01:08,850 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 17:01:08,850 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 17:01:08,850 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 17:01:08,850 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 17:01:08,850 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 17:01:08,851 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 17:01:08,851 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 17:01:08,851 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 17:01:08,851 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 17:01:08,852 [INFO] __main__: launch the game application.
+2026-06-25 17:01:08,852 [INFO] __main__: launch the game application.
+2026-06-25 17:01:08,852 [INFO] game: Initialize - Pyxel
+2026-06-25 17:01:08,852 [INFO] game: Initialize - Pyxel
+2026-06-25 17:01:09,675 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 17:01:09,675 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 17:01:40,379 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 17:01:40,379 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 17:01:40,380 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 17:01:40,380 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 17:01:40,406 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 17:01:40,406 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 17:01:40,407 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 17:01:40,407 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 17:01:40,408 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 17:01:40,408 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 17:01:40,408 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 17:01:40,408 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 17:01:40,409 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 17:01:40,409 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 17:01:40,409 [INFO] bootstrap: Initialize - Party
+2026-06-25 17:01:40,409 [INFO] bootstrap: Initialize - Party
+2026-06-25 17:01:40,410 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('HERO', <class 'entity.character.Character'>)
+2026-06-25 17:01:40,410 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-25 17:01:40,411 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 17:01:40,411 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 17:01:40,411 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 17:01:40,411 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 17:01:40,412 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 17:01:40,412 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 17:01:40,412 [INFO] bootstrap: Initialize - Command
+2026-06-25 17:01:40,412 [INFO] bootstrap: Initialize - Command
+2026-06-25 17:01:40,412 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 17:01:40,412 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 17:01:40,412 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 17:01:40,412 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 17:01:40,413 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 17:01:40,413 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 17:01:40,413 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 17:01:40,413 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 17:01:40,414 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 17:01:40,414 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 17:01:40,414 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 17:01:40,414 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 17:01:40,414 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 17:01:40,414 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 17:01:40,416 [INFO] __main__: launch the game application.
+2026-06-25 17:01:40,416 [INFO] __main__: launch the game application.
+2026-06-25 17:01:40,416 [INFO] game: Initialize - Pyxel
+2026-06-25 17:01:40,416 [INFO] game: Initialize - Pyxel
+2026-06-25 17:01:41,102 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 17:01:41,102 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 17:04:06,566 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 17:04:06,566 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 17:04:06,567 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 17:04:06,567 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 17:04:06,594 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 17:04:06,594 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 17:04:06,595 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 17:04:06,595 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 17:04:06,595 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 17:04:06,595 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 17:04:06,595 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 17:04:06,595 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 17:04:06,596 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 17:04:06,596 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 17:04:06,597 [INFO] bootstrap: Initialize - Party
+2026-06-25 17:04:06,597 [INFO] bootstrap: Initialize - Party
+2026-06-25 17:04:06,598 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('HERO', <class 'entity.character.Character'>)
+2026-06-25 17:04:06,598 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-25 17:04:06,598 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 17:04:06,598 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 17:04:06,599 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 17:04:06,599 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 17:04:06,599 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 17:04:06,599 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 17:04:06,599 [INFO] bootstrap: Initialize - Command
+2026-06-25 17:04:06,599 [INFO] bootstrap: Initialize - Command
+2026-06-25 17:04:06,599 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 17:04:06,599 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 17:04:06,599 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 17:04:06,599 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 17:04:06,600 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 17:04:06,600 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 17:04:06,601 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 17:04:06,601 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 17:04:06,601 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 17:04:06,601 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 17:04:06,601 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 17:04:06,601 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 17:04:06,602 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 17:04:06,602 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 17:04:06,603 [INFO] __main__: launch the game application.
+2026-06-25 17:04:06,603 [INFO] __main__: launch the game application.
+2026-06-25 17:04:06,603 [INFO] game: Initialize - Pyxel
+2026-06-25 17:04:06,603 [INFO] game: Initialize - Pyxel
+2026-06-25 17:04:07,304 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 17:04:07,304 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 17:04:42,721 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 17:04:42,721 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 17:04:42,721 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 17:04:42,721 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 17:04:42,748 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 17:04:42,748 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 17:04:42,749 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 17:04:42,749 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 17:04:42,749 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 17:04:42,749 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 17:04:42,749 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 17:04:42,749 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 17:04:42,750 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 17:04:42,750 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 17:04:42,750 [INFO] bootstrap: Initialize - Party
+2026-06-25 17:04:42,750 [INFO] bootstrap: Initialize - Party
+2026-06-25 17:04:42,751 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('HERO', <class 'entity.character.Character'>)
+2026-06-25 17:04:42,751 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-25 17:04:42,752 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 17:04:42,752 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 17:04:42,752 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 17:04:42,752 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 17:04:42,752 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 17:04:42,752 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 17:04:42,753 [INFO] bootstrap: Initialize - Command
+2026-06-25 17:04:42,753 [INFO] bootstrap: Initialize - Command
+2026-06-25 17:04:42,753 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 17:04:42,753 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 17:04:42,753 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 17:04:42,753 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 17:04:42,754 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 17:04:42,754 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 17:04:42,754 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 17:04:42,754 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 17:04:42,754 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 17:04:42,754 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 17:04:42,754 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 17:04:42,754 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 17:04:42,755 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 17:04:42,755 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 17:04:42,756 [INFO] __main__: launch the game application.
+2026-06-25 17:04:42,756 [INFO] __main__: launch the game application.
+2026-06-25 17:04:42,756 [INFO] game: Initialize - Pyxel
+2026-06-25 17:04:42,756 [INFO] game: Initialize - Pyxel
+2026-06-25 17:04:43,455 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 17:04:43,455 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 17:04:54,375 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 17:04:54,375 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 17:04:54,376 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 17:04:54,376 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 17:04:54,402 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 17:04:54,402 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 17:04:54,404 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 17:04:54,404 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 17:04:54,404 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 17:04:54,404 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 17:04:54,404 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 17:04:54,404 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 17:04:54,405 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 17:04:54,405 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 17:04:54,405 [INFO] bootstrap: Initialize - Party
+2026-06-25 17:04:54,405 [INFO] bootstrap: Initialize - Party
+2026-06-25 17:04:54,406 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('HERO', <class 'entity.character.Character'>)
+2026-06-25 17:04:54,406 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-25 17:04:54,407 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 17:04:54,407 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 17:04:54,407 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 17:04:54,407 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 17:04:54,408 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 17:04:54,408 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 17:04:54,408 [INFO] bootstrap: Initialize - Command
+2026-06-25 17:04:54,408 [INFO] bootstrap: Initialize - Command
+2026-06-25 17:04:54,408 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 17:04:54,408 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 17:04:54,408 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 17:04:54,408 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 17:04:54,409 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 17:04:54,409 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 17:04:54,409 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 17:04:54,409 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 17:04:54,410 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 17:04:54,410 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 17:04:54,410 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 17:04:54,410 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 17:04:54,410 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 17:04:54,410 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 17:04:54,411 [INFO] __main__: launch the game application.
+2026-06-25 17:04:54,411 [INFO] __main__: launch the game application.
+2026-06-25 17:04:54,411 [INFO] game: Initialize - Pyxel
+2026-06-25 17:04:54,411 [INFO] game: Initialize - Pyxel
+2026-06-25 17:04:55,102 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 17:04:55,102 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 19:32:30,454 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 19:32:30,454 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 19:32:30,455 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 19:32:30,455 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 19:32:30,480 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 19:32:30,480 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 19:32:30,481 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 19:32:30,481 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 19:32:30,481 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 19:32:30,481 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 19:32:30,482 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 19:32:30,482 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 19:32:30,483 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 19:32:30,483 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 19:32:30,483 [INFO] bootstrap: Initialize - Party
+2026-06-25 19:32:30,483 [INFO] bootstrap: Initialize - Party
+2026-06-25 19:32:30,483 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('HERO', <class 'entity.character.Character'>)
+2026-06-25 19:32:30,483 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-25 19:32:30,484 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 19:32:30,484 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 19:32:30,484 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 19:32:30,484 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 19:32:30,485 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 19:32:30,485 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 19:32:30,485 [INFO] bootstrap: Initialize - Command
+2026-06-25 19:32:30,485 [INFO] bootstrap: Initialize - Command
+2026-06-25 19:32:30,485 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 19:32:30,485 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 19:32:30,485 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 19:32:30,485 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 19:32:30,486 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 19:32:30,486 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 19:32:30,486 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 19:32:30,486 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 19:32:30,486 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 19:32:30,486 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 19:32:30,486 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 19:32:30,486 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 19:32:30,487 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 19:32:30,487 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 19:32:30,487 [INFO] __main__: launch the game application.
+2026-06-25 19:32:30,487 [INFO] __main__: launch the game application.
+2026-06-25 19:32:30,488 [INFO] game: Initialize - Pyxel
+2026-06-25 19:32:30,488 [INFO] game: Initialize - Pyxel
+2026-06-25 19:32:31,310 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 19:32:31,310 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 19:35:21,450 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 19:35:21,450 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 19:35:21,450 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 19:35:21,450 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 19:35:21,478 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 19:35:21,478 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 19:35:21,480 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 19:35:21,480 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 19:35:21,480 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 19:35:21,480 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 19:35:21,480 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 19:35:21,480 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 19:35:21,481 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 19:35:21,481 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 19:35:21,481 [INFO] bootstrap: Initialize - Party
+2026-06-25 19:35:21,481 [INFO] bootstrap: Initialize - Party
+2026-06-25 19:35:21,482 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('HERO', <class 'entity.character.Character'>)
+2026-06-25 19:35:21,482 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-25 19:35:21,482 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 19:35:21,482 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 19:35:21,483 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 19:35:21,483 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 19:35:21,483 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 19:35:21,483 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 19:35:21,483 [INFO] bootstrap: Initialize - Command
+2026-06-25 19:35:21,483 [INFO] bootstrap: Initialize - Command
+2026-06-25 19:35:21,483 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 19:35:21,483 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 19:35:21,483 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 19:35:21,483 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 19:35:21,484 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 19:35:21,484 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 19:35:21,484 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 19:35:21,484 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 19:35:21,485 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 19:35:21,485 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 19:35:21,485 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 19:35:21,485 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 19:35:21,485 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 19:35:21,485 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 19:35:21,486 [INFO] __main__: launch the game application.
+2026-06-25 19:35:21,486 [INFO] __main__: launch the game application.
+2026-06-25 19:35:21,486 [INFO] game: Initialize - Pyxel
+2026-06-25 19:35:21,486 [INFO] game: Initialize - Pyxel
+2026-06-25 19:35:22,170 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 19:35:22,170 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 19:36:05,924 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 19:36:05,924 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 19:36:05,925 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 19:36:05,925 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 19:36:05,951 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 19:36:05,951 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 19:36:05,952 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 19:36:05,952 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 19:36:05,952 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 19:36:05,952 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 19:36:05,953 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 19:36:05,953 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 19:36:05,954 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 19:36:05,954 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 19:36:05,954 [INFO] bootstrap: Initialize - Party
+2026-06-25 19:36:05,954 [INFO] bootstrap: Initialize - Party
+2026-06-25 19:36:05,955 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('HERO', <class 'entity.character.Character'>)
+2026-06-25 19:36:05,955 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-25 19:36:05,955 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 19:36:05,955 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 19:36:05,956 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 19:36:05,956 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 19:36:05,956 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 19:36:05,956 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 19:36:05,956 [INFO] bootstrap: Initialize - Command
+2026-06-25 19:36:05,956 [INFO] bootstrap: Initialize - Command
+2026-06-25 19:36:05,956 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 19:36:05,956 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 19:36:05,957 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 19:36:05,957 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 19:36:05,958 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 19:36:05,958 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 19:36:05,958 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 19:36:05,958 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 19:36:05,958 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 19:36:05,958 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 19:36:05,958 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 19:36:05,958 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 19:36:05,959 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 19:36:05,959 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 19:36:05,960 [INFO] __main__: launch the game application.
+2026-06-25 19:36:05,960 [INFO] __main__: launch the game application.
+2026-06-25 19:36:05,960 [INFO] game: Initialize - Pyxel
+2026-06-25 19:36:05,960 [INFO] game: Initialize - Pyxel
+2026-06-25 19:36:06,638 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 19:36:06,638 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 19:36:40,039 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 19:36:40,039 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 19:36:40,040 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 19:36:40,040 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 19:36:40,066 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 19:36:40,066 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 19:36:40,067 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 19:36:40,067 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 19:36:40,067 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 19:36:40,067 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 19:36:40,068 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 19:36:40,068 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 19:36:40,068 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 19:36:40,068 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 19:36:40,069 [INFO] bootstrap: Initialize - Party
+2026-06-25 19:36:40,069 [INFO] bootstrap: Initialize - Party
+2026-06-25 19:36:40,070 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('HERO', <class 'entity.character.Character'>)
+2026-06-25 19:36:40,070 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-25 19:36:40,070 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 19:36:40,070 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 19:36:40,071 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 19:36:40,071 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 19:36:40,071 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 19:36:40,071 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 19:36:40,071 [INFO] bootstrap: Initialize - Command
+2026-06-25 19:36:40,071 [INFO] bootstrap: Initialize - Command
+2026-06-25 19:36:40,071 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 19:36:40,071 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 19:36:40,072 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 19:36:40,072 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 19:36:40,072 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 19:36:40,072 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 19:36:40,073 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 19:36:40,073 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 19:36:40,073 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 19:36:40,073 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 19:36:40,073 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 19:36:40,073 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 19:36:40,074 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 19:36:40,074 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 19:36:40,075 [INFO] __main__: launch the game application.
+2026-06-25 19:36:40,075 [INFO] __main__: launch the game application.
+2026-06-25 19:36:40,075 [INFO] game: Initialize - Pyxel
+2026-06-25 19:36:40,075 [INFO] game: Initialize - Pyxel
+2026-06-25 19:36:40,745 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 19:36:40,745 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 19:37:45,222 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 19:37:45,222 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 19:37:45,223 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 19:37:45,223 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 19:37:45,249 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 19:37:45,249 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 19:37:45,250 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 19:37:45,250 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 19:37:45,250 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 19:37:45,250 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 19:37:45,250 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 19:37:45,250 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 19:37:45,251 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 19:37:45,251 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 19:37:45,251 [INFO] bootstrap: Initialize - Party
+2026-06-25 19:37:45,251 [INFO] bootstrap: Initialize - Party
+2026-06-25 19:37:45,252 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('HERO', <class 'entity.character.Character'>)
+2026-06-25 19:37:45,252 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-25 19:37:45,253 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 19:37:45,253 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 19:37:45,253 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 19:37:45,253 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 19:37:45,254 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 19:37:45,254 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 19:37:45,254 [INFO] bootstrap: Initialize - Command
+2026-06-25 19:37:45,254 [INFO] bootstrap: Initialize - Command
+2026-06-25 19:37:45,254 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 19:37:45,254 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 19:37:45,254 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 19:37:45,254 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 19:37:45,255 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 19:37:45,255 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 19:37:45,256 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 19:37:45,256 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 19:37:45,256 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 19:37:45,256 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 19:37:45,256 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 19:37:45,256 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 19:37:45,256 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 19:37:45,256 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 19:37:45,257 [INFO] __main__: launch the game application.
+2026-06-25 19:37:45,257 [INFO] __main__: launch the game application.
+2026-06-25 19:37:45,258 [INFO] game: Initialize - Pyxel
+2026-06-25 19:37:45,258 [INFO] game: Initialize - Pyxel
+2026-06-25 19:37:45,946 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 19:37:45,946 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 19:38:52,940 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 19:38:52,940 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 19:38:52,941 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 19:38:52,941 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 19:38:52,967 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 19:38:52,967 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 19:38:52,968 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 19:38:52,968 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 19:38:52,968 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 19:38:52,968 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 19:38:52,968 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 19:38:52,968 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 19:38:52,969 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 19:38:52,969 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 19:38:52,970 [INFO] bootstrap: Initialize - Party
+2026-06-25 19:38:52,970 [INFO] bootstrap: Initialize - Party
+2026-06-25 19:38:52,971 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('HERO', <class 'entity.character.Character'>)
+2026-06-25 19:38:52,971 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-25 19:38:52,971 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 19:38:52,971 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 19:38:52,972 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 19:38:52,972 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 19:38:52,972 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 19:38:52,972 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 19:38:52,972 [INFO] bootstrap: Initialize - Command
+2026-06-25 19:38:52,972 [INFO] bootstrap: Initialize - Command
+2026-06-25 19:38:52,973 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 19:38:52,973 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 19:38:52,973 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 19:38:52,973 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 19:38:52,974 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 19:38:52,974 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 19:38:52,974 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 19:38:52,974 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 19:38:52,974 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 19:38:52,974 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 19:38:52,974 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 19:38:52,974 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 19:38:52,975 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 19:38:52,975 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 19:38:52,976 [INFO] __main__: launch the game application.
+2026-06-25 19:38:52,976 [INFO] __main__: launch the game application.
+2026-06-25 19:38:52,976 [INFO] game: Initialize - Pyxel
+2026-06-25 19:38:52,976 [INFO] game: Initialize - Pyxel
+2026-06-25 19:38:53,649 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 19:38:53,649 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 19:39:31,519 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 19:39:31,519 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 19:39:31,520 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 19:39:31,520 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 19:39:31,546 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 19:39:31,546 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 19:39:31,547 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 19:39:31,547 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 19:39:31,548 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 19:39:31,548 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 19:39:31,548 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 19:39:31,548 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 19:39:31,549 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 19:39:31,549 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 19:39:31,549 [INFO] bootstrap: Initialize - Party
+2026-06-25 19:39:31,549 [INFO] bootstrap: Initialize - Party
+2026-06-25 19:39:31,550 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('HERO', <class 'entity.character.Character'>)
+2026-06-25 19:39:31,550 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-25 19:39:31,551 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 19:39:31,551 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 19:39:31,551 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 19:39:31,551 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 19:39:31,552 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 19:39:31,552 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 19:39:31,552 [INFO] bootstrap: Initialize - Command
+2026-06-25 19:39:31,552 [INFO] bootstrap: Initialize - Command
+2026-06-25 19:39:31,552 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 19:39:31,552 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 19:39:31,552 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 19:39:31,552 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 19:39:31,553 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 19:39:31,553 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 19:39:31,553 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 19:39:31,553 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 19:39:31,554 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 19:39:31,554 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 19:39:31,554 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 19:39:31,554 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 19:39:31,554 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 19:39:31,554 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 19:39:31,555 [INFO] __main__: launch the game application.
+2026-06-25 19:39:31,555 [INFO] __main__: launch the game application.
+2026-06-25 19:39:31,555 [INFO] game: Initialize - Pyxel
+2026-06-25 19:39:31,555 [INFO] game: Initialize - Pyxel
+2026-06-25 19:39:32,238 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 19:39:32,238 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 19:40:58,879 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 19:40:58,879 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 19:40:58,880 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 19:40:58,880 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 19:40:58,905 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 19:40:58,905 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 19:40:58,907 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 19:40:58,907 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 19:40:58,907 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 19:40:58,907 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 19:40:58,907 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 19:40:58,907 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 19:40:58,908 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 19:40:58,908 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 19:40:58,908 [INFO] bootstrap: Initialize - Party
+2026-06-25 19:40:58,908 [INFO] bootstrap: Initialize - Party
+2026-06-25 19:40:58,909 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('HERO', <class 'entity.character.Character'>)
+2026-06-25 19:40:58,909 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-25 19:40:58,910 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 19:40:58,910 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 19:40:58,910 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 19:40:58,910 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 19:40:58,911 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 19:40:58,911 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 19:40:58,911 [INFO] bootstrap: Initialize - Command
+2026-06-25 19:40:58,911 [INFO] bootstrap: Initialize - Command
+2026-06-25 19:40:58,911 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 19:40:58,911 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 19:40:58,911 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 19:40:58,911 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 19:40:58,912 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 19:40:58,912 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 19:40:58,913 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 19:40:58,913 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 19:40:58,913 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 19:40:58,913 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 19:40:58,913 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 19:40:58,913 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 19:40:58,913 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 19:40:58,913 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 19:40:58,915 [INFO] __main__: launch the game application.
+2026-06-25 19:40:58,915 [INFO] __main__: launch the game application.
+2026-06-25 19:40:58,915 [INFO] game: Initialize - Pyxel
+2026-06-25 19:40:58,915 [INFO] game: Initialize - Pyxel
+2026-06-25 19:40:59,593 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 19:40:59,593 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 19:57:33,313 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 19:57:33,313 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 19:57:33,314 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 19:57:33,314 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 19:57:33,339 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 19:57:33,339 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 19:57:33,340 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 19:57:33,340 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 19:57:33,341 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 19:57:33,341 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 19:57:33,341 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 19:57:33,341 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 19:57:33,342 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 19:57:33,342 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 19:57:33,342 [INFO] bootstrap: Initialize - Party
+2026-06-25 19:57:33,342 [INFO] bootstrap: Initialize - Party
+2026-06-25 19:57:33,343 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('HERO', <class 'entity.character.Character'>)
+2026-06-25 19:57:33,343 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-25 19:57:33,343 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 19:57:33,343 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 19:57:33,344 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 19:57:33,344 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 19:57:33,344 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 19:57:33,344 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 19:57:33,344 [INFO] bootstrap: Initialize - Command
+2026-06-25 19:57:33,344 [INFO] bootstrap: Initialize - Command
+2026-06-25 19:57:33,344 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 19:57:33,344 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 19:57:33,344 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 19:57:33,344 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 19:57:33,345 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 19:57:33,345 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 19:57:33,345 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 19:57:33,345 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 19:57:33,345 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 19:57:33,345 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 19:57:33,345 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 19:57:33,345 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 19:57:33,346 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 19:57:33,346 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 19:57:33,347 [INFO] __main__: launch the game application.
+2026-06-25 19:57:33,347 [INFO] __main__: launch the game application.
+2026-06-25 19:57:33,347 [INFO] game: Initialize - Pyxel
+2026-06-25 19:57:33,347 [INFO] game: Initialize - Pyxel
+2026-06-25 19:57:34,154 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 19:57:34,154 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 20:01:38,653 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 20:01:38,653 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 20:01:38,653 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 20:01:38,653 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 20:01:38,680 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 20:01:38,680 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 20:01:38,681 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 20:01:38,681 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 20:01:38,682 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 20:01:38,682 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 20:01:38,682 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 20:01:38,682 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 20:01:38,683 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 20:01:38,683 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 20:01:38,683 [INFO] bootstrap: Initialize - Party
+2026-06-25 20:01:38,683 [INFO] bootstrap: Initialize - Party
+2026-06-25 20:01:38,684 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('HERO', <class 'entity.character.Character'>)
+2026-06-25 20:01:38,684 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-25 20:01:38,684 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 20:01:38,684 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 20:01:38,685 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 20:01:38,685 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 20:01:38,685 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 20:01:38,685 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 20:01:38,685 [INFO] bootstrap: Initialize - Command
+2026-06-25 20:01:38,685 [INFO] bootstrap: Initialize - Command
+2026-06-25 20:01:38,685 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 20:01:38,685 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 20:01:38,685 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 20:01:38,685 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 20:01:38,686 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 20:01:38,686 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 20:01:38,686 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 20:01:38,686 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 20:01:38,687 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 20:01:38,687 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 20:01:38,687 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 20:01:38,687 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 20:01:38,687 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 20:01:38,687 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 20:01:38,688 [INFO] __main__: launch the game application.
+2026-06-25 20:01:38,688 [INFO] __main__: launch the game application.
+2026-06-25 20:01:38,688 [INFO] game: Initialize - Pyxel
+2026-06-25 20:01:38,688 [INFO] game: Initialize - Pyxel
+2026-06-25 20:01:39,367 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 20:01:39,367 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 21:33:10,156 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 21:33:10,156 [INFO] bootstrap: log setup finished successfully.
+2026-06-25 21:33:10,156 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 21:33:10,156 [INFO] bootstrap: Initialize - gameutils.base
+2026-06-25 21:33:10,182 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 21:33:10,182 [INFO] bootstrap: Initialize - AssetMap
+2026-06-25 21:33:10,183 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 21:33:10,183 [INFO] bootstrap: Initialize - SceneManager
+2026-06-25 21:33:10,183 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 21:33:10,183 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-06-25 21:33:10,183 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 21:33:10,183 [INFO] bootstrap: Initialize - FieldMap
+2026-06-25 21:33:10,184 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 21:33:10,184 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-06-25 21:33:10,184 [INFO] bootstrap: Initialize - Party
+2026-06-25 21:33:10,184 [INFO] bootstrap: Initialize - Party
+2026-06-25 21:33:10,192 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('HERO', <class 'entity.character.Character'>)
+2026-06-25 21:33:10,192 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-06-25 21:33:10,193 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 21:33:10,193 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-06-25 21:33:10,193 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 21:33:10,193 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-06-25 21:33:10,193 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 21:33:10,193 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-06-25 21:33:10,194 [INFO] bootstrap: Initialize - Command
+2026-06-25 21:33:10,194 [INFO] bootstrap: Initialize - Command
+2026-06-25 21:33:10,194 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 21:33:10,194 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-06-25 21:33:10,194 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 21:33:10,194 [INFO] bootstrap: Initialize - Item MasterData
+2026-06-25 21:33:10,195 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 21:33:10,195 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-06-25 21:33:10,195 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 21:33:10,195 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-06-25 21:33:10,195 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 21:33:10,195 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-06-25 21:33:10,195 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 21:33:10,195 [INFO] bootstrap: Initialize - Skill MasterData
+2026-06-25 21:33:10,196 [INFO] service_locater: 繧ｵ繝ｼ繝薙せ逋ｻ骭ｲ:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 21:33:10,196 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-06-25 21:33:10,197 [INFO] __main__: launch the game application.
+2026-06-25 21:33:10,197 [INFO] __main__: launch the game application.
+2026-06-25 21:33:10,197 [INFO] game: Initialize - Pyxel
+2026-06-25 21:33:10,197 [INFO] game: Initialize - Pyxel
+2026-06-25 21:33:11,124 [INFO] game: Start Pyxel frame procedure.
+2026-06-25 21:33:11,124 [INFO] game: Start Pyxel frame procedure.

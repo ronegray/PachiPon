@@ -1,7 +1,9 @@
 import pyxel as px
-from gameutils.base import is_pressed, check_file, read_string
+from gameutils.base import is_pressed, check_file, read_string, FontManager
 import service_locater as di
+from helper import diceroll
 from field_map import Route
+from entity import EnemyManager, Enemy, EnemyParam, BaseSprite
 from . import BaseScene
 
 """
@@ -13,8 +15,55 @@ class SceneBattle(BaseScene):
     def __init__(self):
         super().__init__()
         BaseScene.situation = "battle"
+        self.fontdata = FontManager.get_fontdata("basic")
+        # 移動中ルート情報取得
+        route: Route = di.ref.pt.get_now_route()
+        # エネミー情報取得
+        threat = route.threat
+        enemy_manager = EnemyManager()
+        candidate_list = enemy_manager.get_threat_enemies(threat)
 
-        self.route: Route = di.ref.pt.get_now_route()
+        # エネミー生成
+        enemy_index = px.rndi(0, len(candidate_list) - 1)
+        enemy_base_param = candidate_list[enemy_index]
+        enemy_image = px.Image.from_image(f"assets/image/{enemy_base_param.name}.bmp")
+
+        enemy_count = diceroll(1)
+        self.enemy_list: list[Enemy] = []
+        name_suffix = ["Ａ", "Ｂ", "Ｃ", "Ｄ", "Ｅ", "Ｆ", "Ｇ"]
+        for i in range(enemy_count):
+            enemy_param = EnemyParam(
+                name=enemy_base_param.name + name_suffix[i],
+                strength=enemy_base_param.strength,
+                arcane=enemy_base_param.arcane,
+                endurance=enemy_base_param.endurance,
+                speed=enemy_base_param.speed,
+                luck=enemy_base_param.luck,
+                exp=enemy_base_param.exp,
+                threat=enemy_base_param.threat,
+                gold=enemy_base_param.gold,
+                hitdice=enemy_base_param.hitdice,
+                defvalue=enemy_base_param.defvalue,
+                magpenalty=enemy_base_param.magpenalty,
+                guardtype=enemy_base_param.guardtype,
+                weaktype=enemy_base_param.weaktype,
+            )
+            enemy_sprite = BaseSprite(
+                8 + i * 36,
+                100,
+                enemy_image,
+                0,
+                0,
+                enemy_image.width,
+                enemy_image.height,
+                px.COLOR_GREEN,
+            )
+            enemy = Enemy(enemy_param, enemy_sprite, i)
+            enemy.param.max_hp = diceroll(enemy_param.threat + enemy_param.level)
+            enemy.param.max_mp = diceroll(enemy_param.threat + enemy_param.level)
+            enemy.param.hp = enemy.param.max_hp
+            enemy.param.mp = enemy.param.max_mp
+            self.enemy_list.append(enemy)
 
         """
         戦闘メニューの構築
@@ -166,7 +215,17 @@ class SceneBattle(BaseScene):
         # )
 
     def draw(self):
-        pass
+        px.cls(3)
+        for enemy in self.enemy_list:
+            enemy.sprite.draw()
+            px.text(
+                enemy.sprite.x,
+                enemy.sprite.y + 36,
+                enemy.param.name,
+                px.COLOR_WHITE,
+                self.fontdata.font,
+            )
+
         # # プレイヤーキャラのワールド座標を取得
         # # # px_ = self.field_chara.sprite.x
         # # # py_ = self.field_chara.sprite.y

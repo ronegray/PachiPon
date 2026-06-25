@@ -1,13 +1,13 @@
 """
 エネミーモジュール
 """
-from . import BaseSprite, EntityParam
+from . import BaseSprite, EnemyParam
 from skill import Skills
 
 
 class Enemy:
-    def __init__(self, param: EntityParam, sprite: BaseSprite, id: int = 0):
-        self.param: EntityParam = param
+    def __init__(self, param: EnemyParam, sprite: BaseSprite, id: int = 0):
+        self.param: EnemyParam = param
         self.sprite: BaseSprite = sprite
         self.id: int = id
         self.skills: Skills = Skills(self.id)

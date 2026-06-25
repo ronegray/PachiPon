@@ -39,8 +39,10 @@ def _render(display_info: DisplayInfo) -> None:
 class CommandManager:
     """push/popのコマンドスタックを持つ、唯一の共通Invoker。"""
 
+    _stack: list[CommandBase]
+
     def __init__(self) -> None:
-        self._stack: list[CommandBase] = []
+        CommandManager._stack = []
 
     @property
     def is_empty(self) -> bool:

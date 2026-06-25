@@ -13,11 +13,11 @@ from . import SCENE_NAME, get_scene, BaseScene
 class SceneManager:
     """Sceneインスタンス管理クラス"""
 
-    _instance: SceneManager | None = None
+    _stacks: list[BaseScene]
 
     def __init__(self):
         """初期化"""
-        self._stacks: list[BaseScene] = []
+        SceneManager._stacks = []
 
     def next_scene(self, scene_name: SCENE_NAME):
         """次のシーンへ進む"""
