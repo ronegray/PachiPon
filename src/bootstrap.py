@@ -18,7 +18,7 @@ from assets.asset_map import AssetMap
 from scene import SceneManager
 from field_map import MapGraph
 from item import ItemManager, ItemPool, StackPool
-from entity import Party
+from entity import Party, EnemyManager
 from command import CommandManager
 from skill import SkillManager
 from setup_log import setup_logging
@@ -59,6 +59,11 @@ def ipl():
     pt = Party()
     di.register(di.ServiceKey.PARTY, pt)
 
+    # サービスロケータ登録：エネミーマネージャ
+    logger.info("Initialize - Enemy")
+    enmmgr = EnemyManager()
+    di.register(di.ServiceKey.ENEMY_MANAGER, enmmgr)
+
     # サービスロケータ登録：コマンドマネージャ
     logger.info("Initialize - Command")
     cmdmgr = CommandManager()
@@ -97,14 +102,21 @@ def ipl():
     from entity import EquipSlot
     from item import ItemID
 
-    pooled_item = di.ref.pl_item.get_by_category(ItemID.DAGGER)
-    di.ref.hero.equipments.equip_on_pool(
-        EquipSlot.WEAPON, list(pooled_item.items())[-1]
-    )
-    pooled_item = di.ref.pl_item.get_by_category(ItemID.POWAMULET)
-    di.ref.hero.equipments.equip_on_pool(
-        EquipSlot.ACCESSORY_1, list(pooled_item.items())[-1]
-    )
+    for member in di.ref.pt.get_allmember():
+        pooled_item = di.ref.pl_item.get_by_category(ItemID.SACREDWEAPON)
+        member.equipments.equip_on_pool(EquipSlot.WEAPON, list(pooled_item.items())[-1])
+        pooled_item = di.ref.pl_item.get_by_category(ItemID.HOLYGUARD)
+        member.equipments.equip_on_pool(
+            EquipSlot.GUARDER, list(pooled_item.items())[-1]
+        )
+        pooled_item = di.ref.pl_item.get_by_category(ItemID.HISPDAMULET)
+        member.equipments.equip_on_pool(
+            EquipSlot.ACCESSORY_1, list(pooled_item.items())[-1]
+        )
+        pooled_item = di.ref.pl_item.get_by_category(ItemID.HILCKAMULET)
+        member.equipments.equip_on_pool(
+            EquipSlot.ACCESSORY_2, list(pooled_item.items())[-1]
+        )
 
     from skill import SkillID
 

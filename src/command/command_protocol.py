@@ -7,7 +7,7 @@ Commandクラス自身および利用側の処理で必要とする取り決め�
 
 """
 
-from __future__ import annotations
+# from __future__ import annotations
 from dataclasses import dataclass, field
 from enum import IntEnum, auto
 from gameutils.lib import Window
@@ -17,7 +17,9 @@ class CommandPhase(IntEnum):
     """Commandの大まかな実行状態。ConcreteCommand固有の詳細状態は個別実装する事"""
 
     SYN = auto()
+    SYNACK = auto()
     ACK = auto()
+    FINACK = auto()
     FIN = auto()
 
 
@@ -39,6 +41,7 @@ class DisplayInfo:
 
     target: Window  # メッセージ出力先
     message: list[str] = field(default_factory=list)
+    is_change: bool = False  # 内容が変更されたかどうか
 
 
 class CommandContext:

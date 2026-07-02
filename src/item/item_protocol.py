@@ -11,21 +11,26 @@ from enum import IntEnum  # , auto
 # fmt: off
 class ItemType(IntEnum):
     """アイテムの属性"""
-
-    WEAPON   = 0x00_00 # 武器：インスタンス管理
-    GUARDER  = 0x07_00 # 防具：インスタンス管理
-    ORNAMENT = 0x0B_00 # 装飾：インスタンス管理
-    CONSUME  = 0x10_00 # 消耗品：スタック管理
-    KEY_ITEM = 0x0F_00 # 重要品：インスタンス管理
+    # WEAPON   = 0x00_00 # 武器：インスタンス管理
+    # GUARDER  = 0x07_00 # 防具：インスタンス管理
+    # ORNAMENT = 0x0B_00 # 装飾：インスタンス管理
+    # CONSUME  = 0x10_00 # 消耗品：スタック管理
+    # KEY_ITEM = 0x0F_00 # 重要品：インスタンス管理
+    WEAPON   = 0x00 # 武器：インスタンス管理
+    GUARDER  = 0x07 # 防具：インスタンス管理
+    ORNAMENT = 0x0B # 装飾：インスタンス管理
+    CONSUME  = 0x10 # 消耗品：スタック管理
+    KEY_ITEM = 0x0F # 重要品：インスタンス管理
 
 
 class WeaponType(IntEnum):
     """武器種別"""
 
-    CHOP = 0x00_1_0  # 斬
-    BASH = 0x00_2_0  # 打
-    STUB = 0x00_4_0  # 突
-    FULL = 0x00_7_0  # 全
+    NONE = 0x00_0 # 無
+    CHOP = 0x00_1 # 斬
+    BASH = 0x00_2 # 打
+    STUB = 0x00_4 # 突
+    FULL = 0x00_7 # 全
 
 
 class GuarderType(IntEnum):
@@ -83,7 +88,7 @@ class ItemID(IntEnum):
     LANCE        = 0x00_4_4
     MAGICSPEAR   = 0x00_4_5
     # 最強武器
-    SACREDWEAPON = 0x00_F_6
+    SACREDWEAPON = 0x00_7_6
     # 防具 カテゴリ_魔法制約ペナ有無_アイテム識別子
     # ※魔法制約ペナ有無は論理情報で実際にはItemDef.magpenaltyを使用する
     CLOTH        = 0x07_0_1  # 魔法制約0

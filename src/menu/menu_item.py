@@ -390,7 +390,7 @@ class MenuShowEquips(MenuItemBase):
         # return self.target_item[0]["args"]
         item_def = di.ref.itemmgr.get_def(self.target_item[0]["args"][0])
         if item_def is None:
-            return ""
+            return [""]
         match item_def.item_type:
             case ItemType.WEAPON:
                 expect_dmg = item_def.hitdice * 4

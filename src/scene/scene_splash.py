@@ -16,7 +16,7 @@ class SceneSplash(BaseScene):
     def __init__(self) -> None:
         """初期化"""
         super().__init__()
-        BaseScene.situation = "system"
+        self.situation = "system"
         # スプラッシュロゴの取得
         self.logo = px.Image.from_image(AssetMap.get_assetpath(AssetID.IMAGE_SPLASH))
 

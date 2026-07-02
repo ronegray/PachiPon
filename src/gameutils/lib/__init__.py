@@ -2,7 +2,7 @@
 ゲーム開発で使用頻度の高い機能をまとめたパッケージ
 """
 
-from .event import EventControl, EventManager
+# from .event import EventControl, EventManager
 from .sound import (
     SoundManager,
 )  # init, play_bgm, play_se, stop, load_bgm, fadeout, fadein

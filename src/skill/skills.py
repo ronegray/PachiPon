@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class Skills:
-    """スキル管理クラス（Chacacterのコンポーネント）"""
+    """スキル管理クラス（Chacacter/Enemyのコンポーネント）"""
 
     def __init__(self, owner_id: int):
         self.owner: int = owner_id

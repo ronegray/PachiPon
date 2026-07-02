@@ -22,6 +22,7 @@ class GameApp:
         logger.info("Initialize - Pyxel")
         self.initialize_pyxel()
 
+        # di.ref.hero.sprite.img = px.Image.from_image("assets/image/character16.bmp")
         # 外部ライブラリ初期化２（機能クラス）
         # from gameutils.lib import SoundManager
         # sndmgr = SoundManager()

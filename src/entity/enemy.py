@@ -1,75 +1,80 @@
 """
 エネミーモジュール
 """
-from . import BaseSprite, EnemyParam
-from skill import Skills
+from . import EntityBase, BaseSprite, EntityParam, EnemyParam, GuardType
+
+# from skill import Skills
+from item import WeaponType
+from skill import SkillType
 
 
-class Enemy:
-    def __init__(self, param: EnemyParam, sprite: BaseSprite, id: int = 0):
-        self.param: EnemyParam = param
-        self.sprite: BaseSprite = sprite
-        self.id: int = id
-        self.skills: Skills = Skills(self.id)
-
-    # 装備効果を含めたパラメータ
-    @property
-    def max_hp(self) -> int:
-        return int(self.param.max_hp)
+class Enemy(EntityBase):
+    def __init__(
+        self, param: EntityParam, eparam: EnemyParam, sprite: BaseSprite, id: int = 0
+    ):
+        self.eparam = eparam  # エネミー専用パラメタ
+        super().__init__(param, sprite, id)
 
     @property
-    def max_mp(self) -> int:
-        return int(self.param.max_mp)
-
-    # 装備効果を含めたパラメータから算出する能力値ボーナス
-    @property
-    def bonus_str(self) -> int:
-        return self.param.strength // 6
+    def hitdice(self) -> int:
+        """敵用パラメタ：ダメージ用ダイス"""
+        return self.eparam.hitdice
 
     @property
-    def bonus_arc(self) -> int:
-        return self.param.arcane // 6
+    def defvalue(self) -> int:
+        """敵用パラメタ：防御性能"""
+        return self.eparam.defvalue
 
     @property
-    def bonus_end(self) -> int:
-        return self.param.endurance // 6
+    def magpenalty(self) -> int:
+        """敵用パラメタ：魔法阻害"""
+        return self.eparam.magpenalty
 
     @property
-    def bonus_spd(self) -> int:
-        return self.param.speed // 6
+    def guard_type(self) -> int:
+        """敵用パラメタ：防御タイプ"""
+        return self.eparam.guardtype
 
     @property
-    def bonus_lck(self) -> int:
-        return self.param.luck // 6
+    def weak_type(self) -> int:
+        """敵用パラメタ：魔法弱点"""
+        return self.eparam.weaktype
 
-    def increase_hp(self, val: int) -> int:
-        """HP加算"""
-        real_val = min(val, self.max_hp - self.param.hp)
-        self.param.hp += real_val
-        return real_val
+    def calc_guard_rate(self, attack_type: int = -1) -> float:
+        """近接ダメージ相性率率計算"""
+        try:
+            real_attack_type = WeaponType(attack_type)
+        except TypeError:
+            return 1.0
+        weak, same, hard = 0.5, 1.0, 2.0  # 相性倍率
+        match real_attack_type:
+            case WeaponType.NONE:
+                return 1.0
+            case WeaponType.CHOP:
+                rate_cbs = [same, weak, hard]  # CHOP, BASH, STUB
+            case WeaponType.BASH:
+                rate_cbs = [hard, same, weak]  # CHOP, BASH, STUB
+            case WeaponType.STUB:
+                rate_cbs = [weak, hard, same]  # CHOP, BASH, STUB
+            case WeaponType.FULL:
+                rate_cbs = [hard, hard, hard]  # CHOP, BASH, STUB
+        if self.guard_type == GuardType.FULL:
+            rate = max([rate / 2 for rate in rate_cbs])
+        else:
+            rate = rate_cbs[self.guard_type]
+        return rate
 
-    def decrease_hp(self, val: int) -> None:
-        """HP減算"""
-        real_val = min(val, self.param.hp)
-        self.param.hp -= real_val
-
-    def increase_mp(self, val: int) -> int:
-        """MP加算"""
-        real_val = max(val, self.max_mp - self.param.mp)
-        self.param.mp += real_val
-        return real_val
-
-    def decrease_mp(self, val: int) -> None:
-        """MP減算"""
-        real_val = min(val, self.param.mp)
-        self.param.mp -= real_val
-
-    def use_mp(self, cost: int) -> bool:
-        """MP減算"""
-        if self.param.mp < cost:
-            return False
-        self.param.mp -= cost
-        return True
-
-    def is_alive(self) -> bool:
-        return self.param.hp > 0
+    def calc_weak_rate(self, skill_id: int = -1) -> float:
+        """呪文ダメージ相性率率計算"""
+        try:
+            real_skill_id = SkillType(skill_id)
+        except TypeError:
+            return 1.0
+        # spell 0x1_1_x_0 のxの値が1~8ある
+        spell_type = (real_skill_id >> 4) - 1
+        # 0b0000_0000 右端から順にspell種別の弱点bitがon
+        is_weak = (self.weak_type >> spell_type) & 0b1
+        if is_weak:
+            return 2.0
+        else:
+            return 1.0

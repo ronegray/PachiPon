@@ -8,7 +8,7 @@
   - ウインドウとメニューのキー操作を外部から上書き可能(自作inputモジュールを想定)
 """
 
-from __future__ import annotations
+# from __future__ import annotations
 from .window_protocol import WindowAction
 from .window_base import Window, Menu, RsltContinue, RsltDiscard, RsltPop, RsltPush
 
@@ -89,3 +89,8 @@ class WindowManager:
     def has_stack(self) -> bool:
         """スタックの有無"""
         return len(self._stacks) > 0
+
+    @property
+    def stack_count(self) -> int:
+        """スタックに積まれたメニュー数"""
+        return len(self._stacks)

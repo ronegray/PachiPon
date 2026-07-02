@@ -56,14 +56,14 @@ class MenuNameEntry(Menu):
 
     def individual_update(self) -> None:
         # 名前文字列を更新
-        self.windows["sub"].set_message(self.name_string)
+        self.windows["sub"].set_message([self.name_string])
         # 注意メッセージ表示カウンタ更新
         if self.warning_counter > 0:
             self.warning_counter -= 1
 
     def key_check(self) -> WindowAction:
         """キー入力の確認と応答"""
-        if self.move_cursor(self.inputkey):
+        if self.move_cursor():
             pass
         elif self.inputkey.decide():
             self.add_letter()

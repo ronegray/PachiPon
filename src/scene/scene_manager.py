@@ -6,7 +6,7 @@
   - 最終スタックの更新と描画
 """
 
-from __future__ import annotations
+# from __future__ import annotations
 from . import SCENE_NAME, get_scene, BaseScene
 
 

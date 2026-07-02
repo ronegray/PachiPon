@@ -19,7 +19,7 @@ class SceneTitle(BaseScene):
     def __init__(self) -> None:
         """初期化"""
         super().__init__()
-        BaseScene.situation = "system"
+        self.situation = "system"
         # 背景イメージ設定
         self.bgimage = px.Image.from_image(AssetMap.get_assetpath(AssetID.IMAGE_TITLE))
         self.bgpos = (

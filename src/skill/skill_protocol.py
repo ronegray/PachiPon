@@ -23,7 +23,7 @@ class SkillID(IntEnum):
     """効果識別子"""
     DUMMY            = 0xF_F_FF # ダミー効果コード
 
-    ### spell 0x1_1_0_0
+    ### spell 0x1_1_x_0
     # 破魔(sacred)
     SACRED_ARROW     = 0x1_1_1_1 # 単体攻撃
     SANCTUARY        = 0x1_1_1_2 # 範囲攻撃

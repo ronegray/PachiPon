@@ -31,7 +31,7 @@ logger = logging.getLogger(__name__)
 class MenuField(Menu):
     def __init__(self, ctx_builder: Callable):
         menu_pos = (Window._chip_size // 2, Window._chip_size // 2)
-        menu_shape = [1, 6]
+        menu_shape = [2, 3]
         super().__init__("basic", *menu_pos, menu_shape, self.__class__.__name__)
         self.cursor_row_offset += 2  # k8x12Sの縦長分対応
         self.build_context = ctx_builder  # コマンド生成メニューでのコンテキスト構築用

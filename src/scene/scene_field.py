@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 class SceneField(BaseScene):
     def __init__(self):
         super().__init__()
-        BaseScene.situation = "field"
+        self.situation = "field"
         # self.game_map = MapGraph()
         # map_path = check_file("assets/data/map_data.json", "r")
         # if map_path:
@@ -32,9 +32,14 @@ class SceneField(BaseScene):
         # self.map_image_width = self.map_image.width
         # self.map_image_height = self.map_image.height
 
-        self.current_node = "p17"  # 初期位置
-        self.last_visited_node = "p17"
-        self.next_node = "p17"
+        # self.current_node = "p17"  # 初期位置
+        # self.last_visited_node = "p17"
+        # self.next_node = "p17"
+        # 初期位置
+        self.current_node = (
+            self.last_visited_node
+        ) = self.next_node = di.ref.pt.get_current_point().id
+
         # self.event_manager = EventManager()
 
         # キャラクターは main.py で初期化され、サービスロケータに登録されている
@@ -151,7 +156,7 @@ class SceneField(BaseScene):
                     # 移動開始
                     # di.ref.pt.move_to(next_node_id)
                     # di.ref.pt.move_to(self.next_node)
-                    di.ref.pt.set_now_route(to_route)
+                    di.ref.pt.set_current_route(to_route)
                     di.ref.pt.move_route(to_route)
                     return
 
@@ -224,6 +229,6 @@ class SceneField(BaseScene):
             situation="field",
             actor=di.ref.pt.get_member(actor_id),
             allies=target,
-            enemies=[],
+            targets=[],
         )
         return ctx
