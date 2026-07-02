@@ -5926,3 +5926,297 @@ EntityContext(situation='battle', actor=<entity.character.Character object at 0x
 2026-07-02 16:40:44,822 [INFO] menu.menu_battle:
 ctx for command list
 EntityContext(situation='battle', actor=<entity.character.Character object at 0x000001DEBC738410>, allies=[<entity.character.Character object at 0x000001DEBC6CE510>, <entity.character.Character object at 0x000001DEBC5F3D90>, <entity.character.Character object at 0x000001DEBC738410>], targets=[<entity.enemy.Enemy object at 0x000001DEBC6CB150>, <entity.enemy.Enemy object at 0x000001DEBC6CB450>, <entity.enemy.Enemy object at 0x000001DEBC6D1E50>, <entity.enemy.Enemy object at 0x000001DEBC6D27B0>], target_index=3)
+2026-07-02 19:03:07,399 [INFO] bootstrap: log setup finished successfully.
+2026-07-02 19:03:07,399 [INFO] bootstrap: Initialize - gameutils.base
+2026-07-02 19:03:07,439 [INFO] bootstrap: Initialize - AssetMap
+2026-07-02 19:03:07,440 [INFO] bootstrap: Initialize - SceneManager
+2026-07-02 19:03:07,441 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-07-02 19:03:07,441 [INFO] bootstrap: Initialize - FieldMap
+2026-07-02 19:03:07,450 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-07-02 19:03:07,450 [INFO] bootstrap: Initialize - Party
+2026-07-02 19:03:07,463 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-07-02 19:03:07,464 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-07-02 19:03:07,465 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-07-02 19:03:07,465 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-07-02 19:03:07,465 [INFO] bootstrap: Initialize - Enemy
+2026-07-02 19:03:07,473 [INFO] service_locater: サービス登録:('ENEMY_MANAGER', <class 'entity.enemy_manager.EnemyManager'>)
+2026-07-02 19:03:07,473 [INFO] bootstrap: Initialize - Command
+2026-07-02 19:03:07,474 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-07-02 19:03:07,474 [INFO] bootstrap: Initialize - Item MasterData
+2026-07-02 19:03:07,480 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-07-02 19:03:07,481 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-07-02 19:03:07,481 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-07-02 19:03:07,481 [INFO] bootstrap: Initialize - Skill MasterData
+2026-07-02 19:03:07,488 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-07-02 19:03:07,489 [INFO] __main__: launch the game application.
+2026-07-02 19:03:07,489 [INFO] game: Initialize - Pyxel
+2026-07-02 19:03:08,358 [INFO] game: Start Pyxel frame procedure.
+2026-07-02 19:03:14,494 [INFO] menu.menu_field: MenuItem(item_label='店に行く', menu_action=<bound method MenuField.enter_shop of <menu.menu_field.MenuField object at 0x0000020886CF86E0>>, action_args=())
+2026-07-02 19:03:14,494 [INFO] menu.menu_field: 選択メニュー実行：店に行く
+2026-07-02 19:03:15,626 [INFO] menu.menu_field: MenuItem(item_label='装備する', menu_action=<bound method MenuField.equip_item of <menu.menu_field.MenuField object at 0x0000020886CF86E0>>, action_args=())
+2026-07-02 19:03:15,626 [INFO] menu.menu_field: 選択メニュー実行：装備する
+2026-07-02 19:03:19,427 [INFO] menu.menu_field: MenuItem(item_label='力を見る', menu_action=<bound method MenuField.show_status of <menu.menu_field.MenuField object at 0x0000020886CF86E0>>, action_args=())
+2026-07-02 19:03:19,428 [INFO] menu.menu_field: 選択メニュー実行：店に行く
+2026-07-02 19:03:22,593 [INFO] menu.menu_field: MenuItem(item_label='装備する', menu_action=<bound method MenuField.equip_item of <menu.menu_field.MenuField object at 0x0000020886C5D950>>, action_args=())
+2026-07-02 19:03:22,593 [INFO] menu.menu_field: 選択メニュー実行：装備する
+2026-07-02 19:03:24,559 [INFO] menu.menu_field: MenuItem(item_label='技を使う', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x0000020886C5D950>>, action_args=())
+2026-07-02 19:03:24,560 [INFO] menu.menu_field: 選択メニュー実行：装備する
+2026-07-02 19:03:28,493 [INFO] menu.menu_field: MenuItem(item_label='アイテム', menu_action=<bound method MenuField.select_item_category of <menu.menu_field.MenuField object at 0x0000020886C5D950>>, action_args=())
+2026-07-02 19:03:28,493 [INFO] menu.menu_field: 選択メニュー実行：アイテム
+2026-07-02 19:03:29,194 [INFO] menu.menu_item: MenuItem(item_label='使用する', menu_action=<bound method MenuSelectItemCategory.use_item of <menu.menu_item.MenuSelectItemCategory object at 0x0000020886CF8830>>, action_args=())
+2026-07-02 19:03:29,195 [INFO] menu.menu_item: 選択メニュー実行：使用する
+2026-07-02 19:03:32,793 [INFO] menu.menu_item: MenuItem(item_label='装備確認', menu_action=<bound method MenuSelectItemCategory.show_equips of <menu.menu_item.MenuSelectItemCategory object at 0x0000020886CF8830>>, action_args=())
+2026-07-02 19:03:32,793 [INFO] menu.menu_item: 選択メニュー実行：装備確認
+2026-07-02 19:03:36,127 [INFO] menu.menu_item: MenuItem(item_label='重要な品', menu_action=<bound method MenuSelectItemCategory.show_keyitem of <menu.menu_item.MenuSelectItemCategory object at 0x0000020886CF8830>>, action_args=())
+2026-07-02 19:03:36,128 [INFO] menu.menu_item: 選択メニュー実行：重要な品
+2026-07-02 19:04:04,420 [INFO] bootstrap: log setup finished successfully.
+2026-07-02 19:04:04,421 [INFO] bootstrap: Initialize - gameutils.base
+2026-07-02 19:04:04,447 [INFO] bootstrap: Initialize - AssetMap
+2026-07-02 19:04:04,448 [INFO] bootstrap: Initialize - SceneManager
+2026-07-02 19:04:04,448 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-07-02 19:04:04,448 [INFO] bootstrap: Initialize - FieldMap
+2026-07-02 19:04:04,449 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-07-02 19:04:04,449 [INFO] bootstrap: Initialize - Party
+2026-07-02 19:04:04,451 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-07-02 19:04:04,452 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-07-02 19:04:04,453 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-07-02 19:04:04,453 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-07-02 19:04:04,454 [INFO] bootstrap: Initialize - Enemy
+2026-07-02 19:04:04,455 [INFO] service_locater: サービス登録:('ENEMY_MANAGER', <class 'entity.enemy_manager.EnemyManager'>)
+2026-07-02 19:04:04,455 [INFO] bootstrap: Initialize - Command
+2026-07-02 19:04:04,455 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-07-02 19:04:04,455 [INFO] bootstrap: Initialize - Item MasterData
+2026-07-02 19:04:04,456 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-07-02 19:04:04,456 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-07-02 19:04:04,456 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-07-02 19:04:04,457 [INFO] bootstrap: Initialize - Skill MasterData
+2026-07-02 19:04:04,457 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-07-02 19:04:04,458 [INFO] __main__: launch the game application.
+2026-07-02 19:04:04,458 [INFO] game: Initialize - Pyxel
+2026-07-02 19:04:05,049 [INFO] game: Start Pyxel frame procedure.
+2026-07-02 19:04:06,684 [INFO] menu.menu_field: MenuItem(item_label='アイテム', menu_action=<bound method MenuField.select_item_category of <menu.menu_field.MenuField object at 0x0000019DE7A256A0>>, action_args=())
+2026-07-02 19:04:06,685 [INFO] menu.menu_field: 選択メニュー実行：アイテム
+2026-07-02 19:04:07,418 [INFO] menu.menu_item: MenuItem(item_label='重要な品', menu_action=<bound method MenuSelectItemCategory.show_keyitem of <menu.menu_item.MenuSelectItemCategory object at 0x0000019DE7A25940>>, action_args=())
+2026-07-02 19:04:07,418 [INFO] menu.menu_item: 選択メニュー実行：重要な品
+2026-07-02 19:04:57,000 [INFO] bootstrap: log setup finished successfully.
+2026-07-02 19:04:57,001 [INFO] bootstrap: Initialize - gameutils.base
+2026-07-02 19:04:57,027 [INFO] bootstrap: Initialize - AssetMap
+2026-07-02 19:04:57,028 [INFO] bootstrap: Initialize - SceneManager
+2026-07-02 19:04:57,028 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-07-02 19:04:57,028 [INFO] bootstrap: Initialize - FieldMap
+2026-07-02 19:04:57,029 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-07-02 19:04:57,030 [INFO] bootstrap: Initialize - Party
+2026-07-02 19:04:57,031 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-07-02 19:04:57,033 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-07-02 19:04:57,034 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-07-02 19:04:57,034 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-07-02 19:04:57,034 [INFO] bootstrap: Initialize - Enemy
+2026-07-02 19:04:57,036 [INFO] service_locater: サービス登録:('ENEMY_MANAGER', <class 'entity.enemy_manager.EnemyManager'>)
+2026-07-02 19:04:57,036 [INFO] bootstrap: Initialize - Command
+2026-07-02 19:04:57,036 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-07-02 19:04:57,036 [INFO] bootstrap: Initialize - Item MasterData
+2026-07-02 19:04:57,037 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-07-02 19:04:57,037 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-07-02 19:04:57,037 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-07-02 19:04:57,037 [INFO] bootstrap: Initialize - Skill MasterData
+2026-07-02 19:04:57,038 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-07-02 19:04:57,039 [INFO] __main__: launch the game application.
+2026-07-02 19:04:57,039 [INFO] game: Initialize - Pyxel
+2026-07-02 19:04:57,626 [INFO] game: Start Pyxel frame procedure.
+2026-07-02 19:04:59,261 [INFO] menu.menu_field: MenuItem(item_label='店に行く', menu_action=<bound method MenuField.enter_shop of <menu.menu_field.MenuField object at 0x000002DB3A8A16A0>>, action_args=())
+2026-07-02 19:04:59,261 [INFO] menu.menu_field: 選択メニュー実行：店に行く
+2026-07-02 19:04:59,961 [INFO] menu.menu_field: MenuItem(item_label='アイテム', menu_action=<bound method MenuField.select_item_category of <menu.menu_field.MenuField object at 0x000002DB3A8A16A0>>, action_args=())
+2026-07-02 19:04:59,961 [INFO] menu.menu_field: 選択メニュー実行：アイテム
+2026-07-02 19:05:00,528 [INFO] menu.menu_item: MenuItem(item_label='重要な品', menu_action=<bound method MenuSelectItemCategory.show_keyitem of <menu.menu_item.MenuSelectItemCategory object at 0x000002DB3A8A1940>>, action_args=())
+2026-07-02 19:05:00,529 [INFO] menu.menu_item: 選択メニュー実行：重要な品
+2026-07-02 19:05:12,831 [INFO] bootstrap: log setup finished successfully.
+2026-07-02 19:05:12,832 [INFO] bootstrap: Initialize - gameutils.base
+2026-07-02 19:05:12,858 [INFO] bootstrap: Initialize - AssetMap
+2026-07-02 19:05:12,859 [INFO] bootstrap: Initialize - SceneManager
+2026-07-02 19:05:12,860 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-07-02 19:05:12,860 [INFO] bootstrap: Initialize - FieldMap
+2026-07-02 19:05:12,861 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-07-02 19:05:12,861 [INFO] bootstrap: Initialize - Party
+2026-07-02 19:05:12,863 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-07-02 19:05:12,864 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-07-02 19:05:12,865 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-07-02 19:05:12,866 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-07-02 19:05:12,866 [INFO] bootstrap: Initialize - Enemy
+2026-07-02 19:05:12,867 [INFO] service_locater: サービス登録:('ENEMY_MANAGER', <class 'entity.enemy_manager.EnemyManager'>)
+2026-07-02 19:05:12,867 [INFO] bootstrap: Initialize - Command
+2026-07-02 19:05:12,867 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-07-02 19:05:12,867 [INFO] bootstrap: Initialize - Item MasterData
+2026-07-02 19:05:12,868 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-07-02 19:05:12,869 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-07-02 19:05:12,869 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-07-02 19:05:12,869 [INFO] bootstrap: Initialize - Skill MasterData
+2026-07-02 19:05:12,869 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-07-02 19:05:12,871 [INFO] __main__: launch the game application.
+2026-07-02 19:05:12,871 [INFO] game: Initialize - Pyxel
+2026-07-02 19:05:13,456 [INFO] game: Start Pyxel frame procedure.
+2026-07-02 19:05:15,889 [INFO] menu.menu_field: MenuItem(item_label='アイテム', menu_action=<bound method MenuField.select_item_category of <menu.menu_field.MenuField object at 0x000001C26EC856A0>>, action_args=())
+2026-07-02 19:05:15,890 [INFO] menu.menu_field: 選択メニュー実行：アイテム
+2026-07-02 19:05:16,355 [INFO] menu.menu_item: MenuItem(item_label='重要な品', menu_action=<bound method MenuSelectItemCategory.show_keyitem of <menu.menu_item.MenuSelectItemCategory object at 0x000001C26EC85940>>, action_args=())
+2026-07-02 19:05:16,355 [INFO] menu.menu_item: 選択メニュー実行：重要な品
+2026-07-02 19:05:57,971 [INFO] bootstrap: log setup finished successfully.
+2026-07-02 19:05:57,972 [INFO] bootstrap: Initialize - gameutils.base
+2026-07-02 19:05:57,998 [INFO] bootstrap: Initialize - AssetMap
+2026-07-02 19:05:57,999 [INFO] bootstrap: Initialize - SceneManager
+2026-07-02 19:05:58,000 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-07-02 19:05:58,000 [INFO] bootstrap: Initialize - FieldMap
+2026-07-02 19:05:58,001 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-07-02 19:05:58,001 [INFO] bootstrap: Initialize - Party
+2026-07-02 19:05:58,003 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-07-02 19:05:58,004 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-07-02 19:05:58,005 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-07-02 19:05:58,005 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-07-02 19:05:58,006 [INFO] bootstrap: Initialize - Enemy
+2026-07-02 19:05:58,007 [INFO] service_locater: サービス登録:('ENEMY_MANAGER', <class 'entity.enemy_manager.EnemyManager'>)
+2026-07-02 19:05:58,007 [INFO] bootstrap: Initialize - Command
+2026-07-02 19:05:58,007 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-07-02 19:05:58,007 [INFO] bootstrap: Initialize - Item MasterData
+2026-07-02 19:05:58,008 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-07-02 19:05:58,009 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-07-02 19:05:58,009 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-07-02 19:05:58,009 [INFO] bootstrap: Initialize - Skill MasterData
+2026-07-02 19:05:58,010 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-07-02 19:05:58,011 [INFO] __main__: launch the game application.
+2026-07-02 19:05:58,011 [INFO] game: Initialize - Pyxel
+2026-07-02 19:05:58,612 [INFO] game: Start Pyxel frame procedure.
+2026-07-02 19:06:01,246 [INFO] menu.menu_field: MenuItem(item_label='アイテム', menu_action=<bound method MenuField.select_item_category of <menu.menu_field.MenuField object at 0x000001FC743B16A0>>, action_args=())
+2026-07-02 19:06:01,247 [INFO] menu.menu_field: 選択メニュー実行：アイテム
+2026-07-02 19:06:01,580 [INFO] menu.menu_item: MenuItem(item_label='重要な品', menu_action=<bound method MenuSelectItemCategory.show_keyitem of <menu.menu_item.MenuSelectItemCategory object at 0x000001FC743B1940>>, action_args=())
+2026-07-02 19:06:01,581 [INFO] menu.menu_item: 選択メニュー実行：重要な品
+2026-07-02 19:11:55,728 [INFO] bootstrap: log setup finished successfully.
+2026-07-02 19:11:55,729 [INFO] bootstrap: Initialize - gameutils.base
+2026-07-02 19:11:55,755 [INFO] bootstrap: Initialize - AssetMap
+2026-07-02 19:11:55,756 [INFO] bootstrap: Initialize - SceneManager
+2026-07-02 19:11:55,756 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-07-02 19:11:55,756 [INFO] bootstrap: Initialize - FieldMap
+2026-07-02 19:11:55,757 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-07-02 19:11:55,757 [INFO] bootstrap: Initialize - Party
+2026-07-02 19:11:55,758 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-07-02 19:11:55,759 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-07-02 19:11:55,761 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-07-02 19:11:55,761 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-07-02 19:11:55,761 [INFO] bootstrap: Initialize - Enemy
+2026-07-02 19:11:55,762 [INFO] service_locater: サービス登録:('ENEMY_MANAGER', <class 'entity.enemy_manager.EnemyManager'>)
+2026-07-02 19:11:55,762 [INFO] bootstrap: Initialize - Command
+2026-07-02 19:11:55,762 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-07-02 19:11:55,763 [INFO] bootstrap: Initialize - Item MasterData
+2026-07-02 19:11:55,764 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-07-02 19:11:55,764 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-07-02 19:11:55,764 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-07-02 19:11:55,764 [INFO] bootstrap: Initialize - Skill MasterData
+2026-07-02 19:11:55,765 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-07-02 19:11:55,766 [INFO] __main__: launch the game application.
+2026-07-02 19:11:55,766 [INFO] game: Initialize - Pyxel
+2026-07-02 19:11:56,359 [INFO] game: Start Pyxel frame procedure.
+2026-07-02 19:11:58,993 [INFO] menu.menu_field: MenuItem(item_label='アイテム', menu_action=<bound method MenuField.select_item_category of <menu.menu_field.MenuField object at 0x00000285A1C001A0>>, action_args=())
+2026-07-02 19:11:58,994 [INFO] menu.menu_field: 選択メニュー実行：アイテム
+2026-07-02 19:11:59,527 [INFO] menu.menu_item: MenuItem(item_label='重要な品', menu_action=<bound method MenuSelectItemCategory.show_keyitem of <menu.menu_item.MenuSelectItemCategory object at 0x00000285A1C00440>>, action_args=())
+2026-07-02 19:11:59,528 [INFO] menu.menu_item: 選択メニュー実行：重要な品
+2026-07-02 19:13:01,283 [INFO] bootstrap: log setup finished successfully.
+2026-07-02 19:13:01,283 [INFO] bootstrap: Initialize - gameutils.base
+2026-07-02 19:13:01,309 [INFO] bootstrap: Initialize - AssetMap
+2026-07-02 19:13:01,310 [INFO] bootstrap: Initialize - SceneManager
+2026-07-02 19:13:01,310 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-07-02 19:13:01,311 [INFO] bootstrap: Initialize - FieldMap
+2026-07-02 19:13:01,311 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-07-02 19:13:01,312 [INFO] bootstrap: Initialize - Party
+2026-07-02 19:13:01,313 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-07-02 19:13:01,314 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-07-02 19:13:01,315 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-07-02 19:13:01,316 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-07-02 19:13:01,316 [INFO] bootstrap: Initialize - Enemy
+2026-07-02 19:13:01,317 [INFO] service_locater: サービス登録:('ENEMY_MANAGER', <class 'entity.enemy_manager.EnemyManager'>)
+2026-07-02 19:13:01,317 [INFO] bootstrap: Initialize - Command
+2026-07-02 19:13:01,317 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-07-02 19:13:01,317 [INFO] bootstrap: Initialize - Item MasterData
+2026-07-02 19:13:01,318 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-07-02 19:13:01,318 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-07-02 19:13:01,319 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-07-02 19:13:01,319 [INFO] bootstrap: Initialize - Skill MasterData
+2026-07-02 19:13:01,319 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-07-02 19:13:01,320 [INFO] __main__: launch the game application.
+2026-07-02 19:13:01,320 [INFO] game: Initialize - Pyxel
+2026-07-02 19:13:01,909 [INFO] game: Start Pyxel frame procedure.
+2026-07-02 19:13:02,543 [INFO] menu.menu_field: MenuItem(item_label='アイテム', menu_action=<bound method MenuField.select_item_category of <menu.menu_field.MenuField object at 0x00000200FCB501A0>>, action_args=())
+2026-07-02 19:13:02,543 [INFO] menu.menu_field: 選択メニュー実行：アイテム
+2026-07-02 19:13:03,176 [INFO] menu.menu_item: MenuItem(item_label='重要な品', menu_action=<bound method MenuSelectItemCategory.show_keyitem of <menu.menu_item.MenuSelectItemCategory object at 0x00000200FCB50440>>, action_args=())
+2026-07-02 19:13:03,176 [INFO] menu.menu_item: 選択メニュー実行：重要な品
+2026-07-02 19:13:12,909 [INFO] menu.menu_field: MenuItem(item_label='アイテム', menu_action=<bound method MenuField.select_item_category of <menu.menu_field.MenuField object at 0x00000200FCB501A0>>, action_args=())
+2026-07-02 19:13:12,910 [INFO] menu.menu_field: 選択メニュー実行：アイテム
+2026-07-02 19:13:13,478 [INFO] menu.menu_item: MenuItem(item_label='使用する', menu_action=<bound method MenuSelectItemCategory.use_item of <menu.menu_item.MenuSelectItemCategory object at 0x00000200FCA89E50>>, action_args=())
+2026-07-02 19:13:13,478 [INFO] menu.menu_item: 選択メニュー実行：使用する
+2026-07-02 19:13:14,609 [INFO] menu.menu_item: MenuItem(item_label='装備確認', menu_action=<bound method MenuSelectItemCategory.show_equips of <menu.menu_item.MenuSelectItemCategory object at 0x00000200FCA89E50>>, action_args=())
+2026-07-02 19:13:14,609 [INFO] menu.menu_item: 選択メニュー実行：装備確認
+2026-07-02 19:13:15,944 [INFO] menu.menu_item: MenuItem(item_label='重要な品', menu_action=<bound method MenuSelectItemCategory.show_keyitem of <menu.menu_item.MenuSelectItemCategory object at 0x00000200FCA89E50>>, action_args=())
+2026-07-02 19:13:15,944 [INFO] menu.menu_item: 選択メニュー実行：重要な品
+2026-07-02 19:13:18,044 [INFO] menu.menu_item: MenuItem(item_label='装備確認', menu_action=<bound method MenuSelectItemCategory.show_equips of <menu.menu_item.MenuSelectItemCategory object at 0x00000200FCA89E50>>, action_args=())
+2026-07-02 19:13:18,044 [INFO] menu.menu_item: 選択メニュー実行：装備確認
+2026-07-02 19:14:14,532 [INFO] bootstrap: log setup finished successfully.
+2026-07-02 19:14:14,533 [INFO] bootstrap: Initialize - gameutils.base
+2026-07-02 19:14:14,559 [INFO] bootstrap: Initialize - AssetMap
+2026-07-02 19:14:14,560 [INFO] bootstrap: Initialize - SceneManager
+2026-07-02 19:14:14,560 [INFO] service_locater: サービス登録:('SCENE_MANAGER', <class 'scene.scene_manager.SceneManager'>)
+2026-07-02 19:14:14,560 [INFO] bootstrap: Initialize - FieldMap
+2026-07-02 19:14:14,561 [INFO] service_locater: サービス登録:('MAPGRAPH', <class 'field_map.MapGraph'>)
+2026-07-02 19:14:14,561 [INFO] bootstrap: Initialize - Party
+2026-07-02 19:14:14,563 [INFO] service_locater: サービス登録:('HERO', <class 'entity.character.Character'>)
+2026-07-02 19:14:14,564 [INFO] service_locater: サービス登録:('MEMBER1', <class 'entity.character.Character'>)
+2026-07-02 19:14:14,565 [INFO] service_locater: サービス登録:('MEMBER2', <class 'entity.character.Character'>)
+2026-07-02 19:14:14,565 [INFO] service_locater: サービス登録:('PARTY', <class 'entity.party.Party'>)
+2026-07-02 19:14:14,566 [INFO] bootstrap: Initialize - Enemy
+2026-07-02 19:14:14,567 [INFO] service_locater: サービス登録:('ENEMY_MANAGER', <class 'entity.enemy_manager.EnemyManager'>)
+2026-07-02 19:14:14,567 [INFO] bootstrap: Initialize - Command
+2026-07-02 19:14:14,567 [INFO] service_locater: サービス登録:('COMMAND_MANAGER', <class 'command.command_manager.CommandManager'>)
+2026-07-02 19:14:14,567 [INFO] bootstrap: Initialize - Item MasterData
+2026-07-02 19:14:14,568 [INFO] service_locater: サービス登録:('ITEM_MANAGER', <class 'item.item_manager.ItemManager'>)
+2026-07-02 19:14:14,568 [INFO] service_locater: サービス登録:('ITEMPOOL', <class 'item.item_pool.ItemPool'>)
+2026-07-02 19:14:14,568 [INFO] service_locater: サービス登録:('STACKPOOL', <class 'item.item_pool.StackPool'>)
+2026-07-02 19:14:14,568 [INFO] bootstrap: Initialize - Skill MasterData
+2026-07-02 19:14:14,569 [INFO] service_locater: サービス登録:('SKILL_MANAGER', <class 'skill.skill_manager.SkillManager'>)
+2026-07-02 19:14:14,569 [INFO] __main__: launch the game application.
+2026-07-02 19:14:14,570 [INFO] game: Initialize - Pyxel
+2026-07-02 19:14:15,163 [INFO] game: Start Pyxel frame procedure.
+2026-07-02 19:14:16,098 [INFO] menu.menu_field: MenuItem(item_label='アイテム', menu_action=<bound method MenuField.select_item_category of <menu.menu_field.MenuField object at 0x00000212B8B001A0>>, action_args=())
+2026-07-02 19:14:16,098 [INFO] menu.menu_field: 選択メニュー実行：アイテム
+2026-07-02 19:14:16,397 [INFO] menu.menu_item: MenuItem(item_label='使用する', menu_action=<bound method MenuSelectItemCategory.use_item of <menu.menu_item.MenuSelectItemCategory object at 0x00000212B8B00440>>, action_args=())
+2026-07-02 19:14:16,398 [INFO] menu.menu_item: 選択メニュー実行：使用する
+2026-07-02 19:14:18,763 [INFO] menu.menu_item: MenuItem(item_label='装備確認', menu_action=<bound method MenuSelectItemCategory.show_equips of <menu.menu_item.MenuSelectItemCategory object at 0x00000212B8B00440>>, action_args=())
+2026-07-02 19:14:18,764 [INFO] menu.menu_item: 選択メニュー実行：装備確認
+2026-07-02 19:14:20,998 [INFO] menu.menu_item: MenuItem(item_label='重要な品', menu_action=<bound method MenuSelectItemCategory.show_keyitem of <menu.menu_item.MenuSelectItemCategory object at 0x00000212B8B00440>>, action_args=())
+2026-07-02 19:14:20,998 [INFO] menu.menu_item: 選択メニュー実行：重要な品
+2026-07-02 19:14:26,730 [INFO] menu.menu_field: MenuItem(item_label='技を使う', menu_action=<bound method MenuField.use_skill of <menu.menu_field.MenuField object at 0x00000212B8B001A0>>, action_args=())
+2026-07-02 19:14:26,730 [INFO] menu.menu_field: 選択メニュー実行：装備する
+2026-07-02 19:14:41,998 [INFO] menu.menu_battle: MenuItem(item_label='攻撃する', menu_action=<bound method MenuBattle.select_target of <menu.menu_battle.MenuBattle object at 0x00000212B8B00AD0>>, action_args=())
+2026-07-02 19:14:41,998 [INFO] menu.menu_battle: 選択メニュー実行：攻撃する
+2026-07-02 19:14:42,964 [INFO] menu.menu_battle:
+ctx for command list
+EntityContext(situation='battle', actor=<entity.character.Character object at 0x00000212B89FE270>, allies=[<entity.character.Character object at 0x00000212B89FE270>, <entity.character.Character object at 0x00000212B8A38050>, <entity.character.Character object at 0x00000212B8A38690>], targets=[<entity.enemy.Enemy object at 0x00000212B8B00830>, <entity.enemy.Enemy object at 0x00000212B8A39F90>, <entity.enemy.Enemy object at 0x00000212B8A3A350>, <entity.enemy.Enemy object at 0x00000212B89D7A80>], target_index=0)
+2026-07-02 19:14:43,532 [INFO] menu.menu_battle: MenuItem(item_label='攻撃する', menu_action=<bound method MenuBattle.select_target of <menu.menu_battle.MenuBattle object at 0x00000212B8A3A710>>, action_args=())
+2026-07-02 19:14:43,532 [INFO] menu.menu_battle: 選択メニュー実行：攻撃する
+2026-07-02 19:14:44,265 [INFO] menu.menu_battle:
+ctx for command list
+EntityContext(situation='battle', actor=<entity.character.Character object at 0x00000212B8A38050>, allies=[<entity.character.Character object at 0x00000212B89FE270>, <entity.character.Character object at 0x00000212B8A38050>, <entity.character.Character object at 0x00000212B8A38690>], targets=[<entity.enemy.Enemy object at 0x00000212B8B00830>, <entity.enemy.Enemy object at 0x00000212B8A39F90>, <entity.enemy.Enemy object at 0x00000212B8A3A350>, <entity.enemy.Enemy object at 0x00000212B89D7A80>], target_index=2)
+2026-07-02 19:14:44,798 [INFO] menu.menu_battle: MenuItem(item_label='攻撃する', menu_action=<bound method MenuBattle.select_target of <menu.menu_battle.MenuBattle object at 0x00000212B8A3AC10>>, action_args=())
+2026-07-02 19:14:44,798 [INFO] menu.menu_battle: 選択メニュー実行：攻撃する
+2026-07-02 19:14:45,764 [INFO] menu.menu_battle:
+ctx for command list
+EntityContext(situation='battle', actor=<entity.character.Character object at 0x00000212B8A38690>, allies=[<entity.character.Character object at 0x00000212B89FE270>, <entity.character.Character object at 0x00000212B8A38050>, <entity.character.Character object at 0x00000212B8A38690>], targets=[<entity.enemy.Enemy object at 0x00000212B8B00830>, <entity.enemy.Enemy object at 0x00000212B8A39F90>, <entity.enemy.Enemy object at 0x00000212B8A3A350>, <entity.enemy.Enemy object at 0x00000212B89D7A80>], target_index=3)
+2026-07-02 19:15:01,398 [INFO] menu.menu_battle: MenuItem(item_label='攻撃する', menu_action=<bound method MenuBattle.select_target of <menu.menu_battle.MenuBattle object at 0x00000212B89D7E10>>, action_args=())
+2026-07-02 19:15:01,398 [INFO] menu.menu_battle: 選択メニュー実行：攻撃する
+2026-07-02 19:15:01,663 [INFO] menu.menu_battle:
+ctx for command list
+EntityContext(situation='battle', actor=<entity.character.Character object at 0x00000212B89FE270>, allies=[<entity.character.Character object at 0x00000212B89FE270>, <entity.character.Character object at 0x00000212B8A38050>, <entity.character.Character object at 0x00000212B8A38690>], targets=[<entity.enemy.Enemy object at 0x00000212B8B00830>, <entity.enemy.Enemy object at 0x00000212B8A39F90>, <entity.enemy.Enemy object at 0x00000212B8A3A350>, <entity.enemy.Enemy object at 0x00000212B89D7A80>], target_index=1)
+2026-07-02 19:15:01,932 [INFO] menu.menu_battle: MenuItem(item_label='攻撃する', menu_action=<bound method MenuBattle.select_target of <menu.menu_battle.MenuBattle object at 0x00000212C4DE02B0>>, action_args=())
+2026-07-02 19:15:01,932 [INFO] menu.menu_battle: 選択メニュー実行：攻撃する
+2026-07-02 19:15:02,130 [INFO] menu.menu_battle:
+ctx for command list
+EntityContext(situation='battle', actor=<entity.character.Character object at 0x00000212B8A38050>, allies=[<entity.character.Character object at 0x00000212B89FE270>, <entity.character.Character object at 0x00000212B8A38050>, <entity.character.Character object at 0x00000212B8A38690>], targets=[<entity.enemy.Enemy object at 0x00000212B8B00830>, <entity.enemy.Enemy object at 0x00000212B8A39F90>, <entity.enemy.Enemy object at 0x00000212B8A3A350>, <entity.enemy.Enemy object at 0x00000212B89D7A80>], target_index=1)
+2026-07-02 19:15:02,330 [INFO] menu.menu_battle: MenuItem(item_label='攻撃する', menu_action=<bound method MenuBattle.select_target of <menu.menu_battle.MenuBattle object at 0x00000212B8A3D910>>, action_args=())
+2026-07-02 19:15:02,331 [INFO] menu.menu_battle: 選択メニュー実行：攻撃する
+2026-07-02 19:15:02,563 [INFO] menu.menu_battle:
+ctx for command list
+EntityContext(situation='battle', actor=<entity.character.Character object at 0x00000212B8A38690>, allies=[<entity.character.Character object at 0x00000212B89FE270>, <entity.character.Character object at 0x00000212B8A38050>, <entity.character.Character object at 0x00000212B8A38690>], targets=[<entity.enemy.Enemy object at 0x00000212B8B00830>, <entity.enemy.Enemy object at 0x00000212B8A39F90>, <entity.enemy.Enemy object at 0x00000212B8A3A350>, <entity.enemy.Enemy object at 0x00000212B89D7A80>], target_index=1)
