@@ -122,26 +122,26 @@ class Attack(CommandBaseEntity):
     """
 
     def trigger(self) -> None:
-        actor = self._ctx.actor
+        # アクターが生存していない場合は終了
         if not self.check_actor_state():
             return
-        if self._ctx.targets[self._ctx.target_index].is_alive:
-            target = self._ctx.targets[self._ctx.target_index]
-        else:
-            is_alive = False
-            for i, candidate in enumerate(self._ctx.targets):
-                if candidate.is_alive:
-                    target = self._ctx.targets[i]
-                    is_alive = True
-                    break
-            if not is_alive:
-                # logger.info(f"\nアクター{self._ctx.actor.param.name}のターゲットは全滅")
-                self.phase = CommandPhase.FINACK
-                return
+        # 生存しているターゲットだけをリストアップ
+        living_targets = [t for t in self._ctx.targets if t.is_alive]
+        # ターゲットが全て生存していない場合は終了
+        if not living_targets:
+            self.phase = CommandPhase.FINACK
+            return
+
+        actor = self._ctx.actor
+        # 現在のターゲットが生存していればそれを使う、そうでなければリストの先頭を使う
+        current = self._ctx.targets[self._ctx.target_index]
+        target = current if current.is_alive else living_targets[0]
+
         # 命中ロール
         offence = actor.hitroll_offence()
         defence = target.hitroll_defence()
         judge = offence - defence
+        # triggerメッセージ
         self.message_queue.append(
             f"{actor.param.name}は　{target.param.name}　に　襲い掛かる！"
         )
@@ -234,8 +234,8 @@ class DefenceMode(CommandBaseEntity):
             return
         # 実際の防御効果
         actor.defend()
-        self.message_queue.append(f"{actor.param.name}は、　防御の体勢をとった")
-        self.message_queue.append(" ")
+        # triggerメッセージ
+        self.message_queue.append(f"{actor.param.name}は、　防御の体勢をとっている")
         # self.message_queue.append(f"{actor.param.name}の受けるダメージが減少する")
         self.se_no = 50
 
