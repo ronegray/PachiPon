@@ -60,11 +60,11 @@ class GameApp:
     def update(self):
         """pyxel updateフレーム処理"""
         di.ref.scnmgr.update()
-        # コマンドupdate結果でスタッククリアされたら
-        is_executing = not di.ref.cmdmgr.is_empty
+        # # コマンドupdate結果でスタッククリアされたら
+        # is_executing = not di.ref.cmdmgr.is_empty
         di.ref.cmdmgr.update()
-        if is_executing and di.ref.cmdmgr.is_empty:
-            di.ref.scnmgr.get_now_scene().wndmgr.clear_stack()
+        # if is_executing and di.ref.cmdmgr.is_empty:
+        #     di.ref.scnmgr.get_now_scene().wndmgr.clear_stack()
 
     def draw(self):
         """pyxel drawフレーム処理"""

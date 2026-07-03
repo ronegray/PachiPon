@@ -24,11 +24,13 @@ logger = logging.getLogger(__name__)
 
 
 class SceneBattle(BaseScene):
-    _name_suffix: list = ["Ａ", "Ｂ", "Ｃ", "Ｄ", "Ｅ", "Ｆ"]
+    """バトルシーン"""
+
     _disp_addr_center: int = 128  # エネミースプライト配置のセンター位置
     _sprite_under: int = 160
     _status_width: int = 80
     _status_height: int = 48
+    _enemy_name_suffix: list = ["Ａ", "Ｂ", "Ｃ", "Ｄ", "Ｅ", "Ｆ"]
     _enemy_commands: dict[ActionPattern, type[e_cmd.CommandBaseEntity]] = {
         ActionPattern.ATTACK: e_cmd.Attack,
         ActionPattern.ESCAPE: e_cmd.EnemyEscape,
@@ -72,7 +74,7 @@ class SceneBattle(BaseScene):
         for i in range(enemy_count):
             # ベースパラメータ
             base_param = EntityParam(
-                name=enemy_data["name"] + SceneBattle._name_suffix[i],
+                name=enemy_data["name"] + SceneBattle._enemy_name_suffix[i],
                 strength=enemy_data["strength"],
                 arcane=enemy_data["arcane"],
                 endurance=enemy_data["endurance"],
@@ -243,20 +245,23 @@ class SceneBattle(BaseScene):
                     di.ref.hero, 0, di.ref.pt.get_allmember(), self.enemy_list
                 )
                 di.ref.cmdmgr.push_command(
-                    e_cmd.GrantReward(
-                        ctx,
-                        self.message_window,
-                        di.ref.pt,
-                        di.ref.scnmgr.previous_scene,
-                    )
+                    e_cmd.GrantReward(ctx, self.message_window, di.ref.pt)
                 )
-            else:
-                return None
+                # 【コールバック登録ルール】
+                # set_on_empty()は「次にスタックが空になった時」に一度だけ発火する。
+                # GrantRewardをpushする直前に登録することで
+                # 「報酬コマンド完了→シーン遷移」の順序を保証する。
+                # 通常ターン終了時（コマンドスタック空→次ターン入力）では
+                # 戦闘終了フラグが立っていない為この分岐に入らず、
+                # set_on_empty()も呼ばれない。
+                di.ref.cmdmgr.set_on_empty(di.ref.scnmgr.previous_scene)
+            return None
 
         # 生存エネミーが0匹になったら戦闘終了して前のシーンに戻る
         if len([1 for enemy in self.enemy_list if enemy.is_alive]) == 0:
             # 戦闘終了フラグON
             self.is_battle_over = True
+            return None
 
         # パーティメンバーの死亡を考慮し先頭キャラ再チェック
         di.ref.pt.update_top_index()

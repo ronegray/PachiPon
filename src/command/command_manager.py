@@ -19,7 +19,7 @@ CommandManager: CommandProtocolのみを相手にするスタック型Invoker。
 """
 
 # from __future__ import annotations
-
+from typing import Callable
 from . import CommandBase, DisplayInfo, CommandPhase
 
 
@@ -48,9 +48,11 @@ class CommandManager:
     """push/popのコマンドスタックを持つ、唯一の共通Invoker。"""
 
     _stacks: list[CommandBase]
+    _on_empty: Callable | None
 
     def __init__(self) -> None:
         CommandManager._stacks = []
+        CommandManager._on_empty = None
 
     @property
     def stack_count(self) -> int:
@@ -64,6 +66,10 @@ class CommandManager:
         """
         return len(self._stacks) == 0
 
+    def set_on_empty(self, callback: Callable | None) -> None:
+        """スタックが空になった時に実行する関数を登録"""
+        self._on_empty = callback
+
     def push_command(self, command: CommandBase) -> None:
         """新しいCommandをスタックの最上段に積む。
         どの具象Commandかは一切問わない。型としてCommandProtocolを
@@ -75,11 +81,17 @@ class CommandManager:
         """スタック最上段のみを1フレーム分進行させる。"""
         if self.is_empty:
             return
-        state = self._stacks[-1].update()
-        # if state is CommandPhase.SYNACK:
-        #     print(f"{self._stacks[-1]._ctx.actor.param.name} to {self._stacks[-1]._ctx.targets[self._stacks[-1]._ctx.target_index].param.name}")
-        if state is CommandPhase.FIN:
+        # state = self._stacks[-1].update()
+        # # if state is CommandPhase.SYNACK:
+        # #     print(f"{self._stacks[-1]._ctx.actor.param.name} to {self._stacks[-1]._ctx.targets[self._stacks[-1]._ctx.target_index].param.name}")
+        # if state is CommandPhase.FIN:
+        #     self._stacks.pop()
+
+        if self._stacks[-1].update() == CommandPhase.FIN:
             self._stacks.pop()
+            if self._on_empty and self.is_empty:
+                self._on_empty()
+                self._on_empty = None
 
     def draw(self) -> None:
         """スタック最上段のみ描画"""

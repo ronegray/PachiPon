@@ -6,7 +6,9 @@
 """
 
 import pyxel as px
-from const import UPPER_INT_TABLE
+
+
+UPPER_INT_TABLE = str.maketrans("0123456789", "０１２３４５６７８９")
 
 
 # def diceroll(dice_num: int) -> int:
