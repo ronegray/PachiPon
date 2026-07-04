@@ -28,19 +28,25 @@ class SceneBattleSplash(BaseScene):
 
         dummy = Window("basic", 0, 0, 1, 1, "menu")
         di.ref.cmdmgr.push_command(BattleStartEffect(dummy))
+        self.is_skip_splash: bool = False
+        self.is_next_scene: bool = False
         """このシーンではbgmは無し SEのみ"""
         px.play(3, 63)
 
     def update(self) -> None:
         """更新ループ"""
-        # 決定／キャンセルキーでスキップ
-        if is_pressed("decide") or is_pressed("cancel"):
-            di.ref.cmdmgr._stacks.pop()
+        if self.is_next_scene:
             self.to_battle()
             return
 
+        # 決定／キャンセルキーでスキップ
+        if is_pressed("decide") or is_pressed("cancel"):
+            di.ref.cmdmgr._stacks.pop()
+            self.is_skip_splash = True
+            self.is_next_scene = True
+
         if di.ref.cmdmgr.is_empty:
-            self.to_battle()
+            self.is_next_scene = True
 
     def to_battle(self):
         di.ref.scnmgr.step_next_scene("battle")
@@ -48,4 +54,7 @@ class SceneBattleSplash(BaseScene):
 
     def draw(self) -> None:
         """描画ループ"""
+        if self.is_skip_splash:
+            px.cls(0)
+            px.dither(1)
         px.blt(0, 0, self.bgimage, 0, 0, self.bgimage.width, self.bgimage.height)
