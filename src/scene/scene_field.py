@@ -58,6 +58,20 @@ class SceneField(BaseScene):
 
         self.event_flags = {node_id: True for node_id in di.ref.map.points.keys()}
 
+        # """暫定処理：BGMロード"""
+        # path = check_file("assets/sound/field.txt")
+        # if path is not None:
+        #     score_data = read_string(path)
+        # else:
+        #     raise FileNotFoundError("ファイルがない！")
+        # for i, mml in enumerate(score_data):
+        #     px.sounds[i].mml(mml)
+        #     px.musics[0].set([0], [1], [2], [3])
+        #     px.stop()
+        #     px.playm(0, loop=True)
+        self.load_bgm()
+
+    def load_bgm(self) -> None:
         """暫定処理：BGMロード"""
         path = check_file("assets/sound/field.txt")
         if path is not None:

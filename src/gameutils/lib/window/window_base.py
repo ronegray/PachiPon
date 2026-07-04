@@ -21,7 +21,7 @@ import pyxel as px
 
 from ...libconfig import ResourcePath
 from ...base import check_file, read_json, FONT_SIZE_NAME, FontManager
-from .window_protocol import WINDOW_MODE, MENU_WINDOW_TYPE, WindowAction
+from . import WINDOW_MODE, MENU_WINDOW_TYPE, WindowAction
 from ._wrapper_input import WindowInputWrapper, set_default_pyxel_input
 
 
@@ -45,6 +45,11 @@ class WindowInputHandler:
             LS=wrapper_dict.get("LS", lambda: False),
             RS=wrapper_dict.get("RS", lambda: False),
         )
+
+    @classmethod
+    def load_default_input(cls) -> None:
+        """個別要求により設定変更した場合の復旧用"""
+        cls._wrapper = set_default_pyxel_input()
 
     @classmethod
     def get(cls) -> WindowInputWrapper:
@@ -187,11 +192,11 @@ class Window:
         if (self.height - Window._chip_size) > (self.fontdata.height * row_max):
             self._max_msg_rows = row_max
 
-    def update(self):
+    def update(self) -> WindowAction:
         self.frame_counter += 1
         # menuモードのウインドウは基本的にupdateを実行しないが念の為
         if self.window_mode == "menu":
-            return
+            return WindowAction.CONTINUE
         # waitモード時は待機フレーム数が過ぎると全終了
         if self.window_mode == "wait" and self.frame_counter <= self.wait_frame:
             return WindowAction.DISCARD
@@ -213,6 +218,8 @@ class Window:
                         return WindowAction.CONTINUE
                     else:
                         return WindowAction.DISCARD
+
+        return WindowAction.CONTINUE
 
     def draw(self):
         # ウインドウ描画
@@ -606,6 +613,14 @@ class RsltContinue(ExecResult):
     """そのまま続ける時"""
 
     pass
+
+
+class RsltReplace(RsltPush):
+    """exec_menu内で自身をPOP後次のメニューをpushする時
+    マネージャ側でpop後pushの値を使って処理
+    """
+
+    ...
 
 
 # class MenuYesNo(Menu):

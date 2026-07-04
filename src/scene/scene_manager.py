@@ -27,6 +27,7 @@ class SceneManager:
     def previous_scene(self):
         """前のシーンに戻る"""
         self._stacks.pop()
+        self._stacks[-1].load_bgm()
 
     def get_now_scene(self) -> BaseScene:
         """現在のシーンを返す"""

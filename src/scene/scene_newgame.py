@@ -57,6 +57,8 @@ class SceneNewGame(BaseScene):
         self.msg_end_line: int = -100
         self.op_msg_row_offset: float = self.font_opmsg.height * 1.25
 
+        """このシーンでは遷移元（タイトル）のBGMを引き継ぐ為load_bgmは無し"""
+
     def update(self) -> None:
         """更新ループ"""
         # メニュー更新

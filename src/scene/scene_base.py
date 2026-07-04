@@ -20,6 +20,10 @@ class BaseScene(ABC):
         """初期化：シーン別ウインドウマネージャ生成"""
         self.wndmgr = WindowManager()
 
+    def load_bgm(self) -> None:
+        """シーン切替時のBGMロード"""
+        pass
+
     @abstractmethod
     def update(self) -> None:
         ...

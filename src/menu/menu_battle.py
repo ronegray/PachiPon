@@ -14,6 +14,7 @@ from gameutils.lib import (
     RsltContinue,
     RsltPush,
     RsltDiscard,
+    RsltReplace,
 )  # , WindowAction, RsltContinue
 # import service_locater as di
 
@@ -36,8 +37,8 @@ import command.entity_command as e_cmd
 logger = logging.getLogger(__name__)
 
 
-class SubReturnFlag:
-    state: bool = False
+# class SubReturnFlag:
+#     state: bool = False
 
 
 class MenuBattle(Menu):
@@ -62,7 +63,8 @@ class MenuBattle(Menu):
         )
         # logger.info(f"\nMenuBattle init \nsrc  {ctx_source}\nlocal{self.context}")
         self.actor_list: list[Character] = actor_list[0:]
-        self.context.actor = self.ctx_source.actor = self.actor_list.pop()
+        # self.context.actor = self.ctx_source.actor = self.actor_list.pop()
+        self.context.actor = self.actor_list.pop()
         # logger.info(f"\nactors \nself{self.actor_list}\narg{actor_list}\nctx{self.context.actor}")
         self.context.actor.defend(False)  # コマンド入力前に一旦防御体勢解除
         self.battle_commands: dict = battle_commands
@@ -81,8 +83,8 @@ class MenuBattle(Menu):
         name_size = (80, 32)
         self.windows["sub2"] = Window("basic", *name_pos, *name_size, "once")
         self.windows["sub2"].set_message([self.context.actor.param.name])
-        # サブメニューからの戻り済フラグ
-        self.is_submenu_return: SubReturnFlag = SubReturnFlag()
+        # # サブメニューからの戻り済フラグ
+        # self.is_submenu_return: SubReturnFlag = SubReturnFlag()
 
     # def individual_update(self) -> ExecResult:
     #     if self.is_submenu_return.state:
@@ -93,20 +95,23 @@ class MenuBattle(Menu):
         """選択メニュー項目の処理を実行"""
         pos_x, pos_y = self.cursor_position
         selected_item = self.menu_items[pos_y][pos_x]
-        logger.info(selected_item)
+        # logger.debug(selected_item)
 
         if selected_item.menu_action is None:
             errmsg = f"メニューアクション関数が定義されていません：{selected_item.item_label}"
             logger.critical(errmsg, exc_info=True)
             raise ValueError(errmsg)
 
-        logger.info(
-            f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}"
-        )
+        # logger.debug(
+        #     f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}"
+        # )
         result = selected_item.menu_action(*selected_item.action_args)
 
         # return WindowAction.DISCARD
         # return RsltContinue()
+        logger.debug(
+            f".exec_menu {id(self)}/{self.context.actor}\nin {self.actor_list}"
+        )
         return result
 
     def select_target(self):
@@ -114,17 +119,18 @@ class MenuBattle(Menu):
 
         # self.battle_commands[self.context.actor.id] = e_cmd.DefenceMode(self.context, self.message_window)
         # return self.return_exec()
-        # サブメニュー進入前に戻りフラグをOFF
-        self.is_submenu_return.state = False
-        # ここで引き継ぐコンテキストはソース側（可変事項は呼び出し先で設定）
+        # # サブメニュー進入前に戻りフラグをOFF
+        # self.is_submenu_return.state = False
+        # サブメニューへの引継時、コンテキストは引き回し中に書き換えるとキャンセル動作がおかしくなる
         return RsltPush(
             MenuSelectTarget,
+            self.context.actor,  # 追加
             self.ctx_source,
             self.actor_list,
             self.battle_commands,
             self.message_window,
             self.windows["sub"],
-            self.is_submenu_return,
+            # self.is_submenu_return,
         )
 
     def select_item(self):
@@ -181,17 +187,19 @@ class MenuSelectTarget(Menu):
 
     def __init__(
         self,
+        real_actor: Character,
         ctx_source: EntityContext,
         actor_list: list[Character],  # 逆順生存メンバーリスト
         battle_commands: dict,
         message_window: Window,
         ref_window: Window,
-        submenu_return: SubReturnFlag,
+        # submenu_return: SubReturnFlag,
     ):
         self.ctx_source: EntityContext = ctx_source  # 再帰先へのコンテキスト引継用
         self.context: EntityContext = EntityContext(
             ctx_source.situation,
-            ctx_source.actor,
+            # ctx_source.actor,
+            real_actor,
             ctx_source.allies,
             ctx_source.targets,
         )
@@ -199,7 +207,7 @@ class MenuSelectTarget(Menu):
         self.actor_list: list[Character] = actor_list
         self.battle_commands: dict = battle_commands
         self.message_window: Window = message_window
-        self.is_submenu_return: SubReturnFlag = submenu_return
+        # self.is_submenu_return: SubReturnFlag = submenu_return
 
         self.item_list: list = []
         self.generate_item_list()
@@ -248,6 +256,11 @@ class MenuSelectTarget(Menu):
 
         self.menu_shape = [menu_cols, len(self.item_list)]
 
+    # def individual_update(self) -> None:
+    #     """キャンセル時に自分のIDのコマンドがあれば削除する"""
+    #     if self.inputkey.cancel():
+    #         self.battle_commands.pop(self.context.actor.id)
+
     def exec_menu(self) -> ExecResult:
         """選択メニュー項目の処理を実行"""
         pos_x, pos_y = self.cursor_position
@@ -275,25 +288,28 @@ class MenuSelectTarget(Menu):
         for i, target in enumerate(self.context.targets):
             if target.id == id:
                 self.context.target_index = i
-                print(f"{i}={target.param.name}")
+                logger.debug(f"{i}={target.param.name}")
         cmd = getattr(e_cmd, command)
         # logger.info(f"\nselect command\n{cmd}")
         # cmd(self.context, self.message_window)
         self.battle_commands[self.context.actor.id] = cmd(
             self.context, self.message_window
         )
-        logger.info(f"\nctx for command list\n{self.context}")
+        # logger.info(f"\nctx for command list\n{self.context}")
         # # サブメニュー終了フラグを立てて前のメニューに戻る
         # self.is_submenu_return.state = True
         # return RsltPop()
 
-        # 自分自身をpopしてから次メンバーのバトルメニューをpush（無理やり）
-        import service_locater as di
+        # # 自分自身をpopしてから次メンバーのバトルメニューをpush（無理やり）
+        # import service_locater as di
+        #
+        # di.ref.scnmgr.get_now_scene().wndmgr.pop_stack()
 
-        di.ref.scnmgr.get_now_scene().wndmgr.pop_stack()
+        logger.debug(f"{self.battle_commands}")
+        # 自身をpopして次のメニューをpushする戻り値を採用
         if not self.actor_list:
             return RsltDiscard()
-        return RsltPush(
+        return RsltReplace(
             MenuBattle,
             self.ctx_source,
             self.actor_list,

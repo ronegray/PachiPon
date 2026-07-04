@@ -27,8 +27,7 @@ class WindowInputWrapper:
 
 def set_default_pyxel_input() -> WindowInputWrapper:
     """外部入力機能を使わない場合のデフォルト定義（オプション）"""
-    _hold_frames = 12
-    _repeat_frames = 6
+    _hold_frames, _repeat_frames = 12, 6
     return WindowInputWrapper(
         up=lambda: (
             px.btnp(px.KEY_UP, _hold_frames, _repeat_frames)

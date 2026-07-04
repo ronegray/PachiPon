@@ -19,5 +19,6 @@ from .window import (
     RsltPop,
     RsltDiscard,
     RsltContinue,
+    RsltReplace,
     WindowInputHandler,
 )

@@ -28,6 +28,8 @@ class SceneSplash(BaseScene):
         self.alpha = 0.0  # ディザ状態（0透明⇔1不透明）
         self.multi = 4  # フレーム毎のalphaの増減値
 
+        """このシーンではbgmは無し"""
+
     def update(self) -> None:
         """更新ループ"""
         # 決定／キャンセルキーでスキップ

@@ -35,6 +35,20 @@ class SceneTitle(BaseScene):
         # メニュー生成
         self.wndmgr.push_stack(MenuTitle)
 
+        # """暫定処理：BGMロード"""
+        # path = check_file("assets/sound/title.txt")
+        # if path is not None:
+        #     score_data = read_string(path)
+        # else:
+        #     raise FileNotFoundError("ファイルがない！")
+        # for i, mml in enumerate(score_data):
+        #     px.sounds[i].mml(mml)
+        # px.musics[0].set([0], [1], [2], [3])
+        # px.playm(0, loop=True)
+        self.load_bgm()
+
+    def load_bgm(self) -> None:
+        """シーン切替時のBGMロード"""
         """暫定処理：BGMロード"""
         path = check_file("assets/sound/title.txt")
         if path is not None:

@@ -8,7 +8,7 @@
 import logging
 import pyxel as px
 from gameutils.base import check_file, read_string
-from gameutils.lib import Window
+from gameutils.lib import Window, WindowInputHandler
 from const import ENEMY_ID_BASE
 import service_locater as di
 from helper import diceroll
@@ -132,6 +132,28 @@ class SceneBattle(BaseScene):
             )
             status_x += SceneBattle._status_width + status_offset
 
+        # """暫定処理：BGMロード"""
+        # path = check_file("assets/sound/battle.txt")
+        # if path is not None:
+        #     score_data = read_string(path)
+        # else:
+        #     raise FileNotFoundError("ファイルがない！")
+        # for i, mml in enumerate(score_data):
+        #     px.sounds[i].mml(mml)
+        # px.musics[0].set([0], [1], [2], [3])
+        # px.stop()
+        # px.playm(0, loop=True)
+        self.load_bgm()
+
+        # バトルシーンでは決定キーの入力を連打状態に更新する
+        # バトルシーンから抜ける際に復旧関数で元に戻す
+        _hold_frames, _repeat_frames = 4, 2
+        WindowInputHandler._wrapper.decide = lambda: px.btnp(
+            px.KEY_Z, _hold_frames, _repeat_frames
+        ) or px.btnp(px.GAMEPAD1_BUTTON_A, _hold_frames, _repeat_frames)
+
+    def load_bgm(self) -> None:
+        """シーン切替時のBGMロード"""
         """暫定処理：BGMロード"""
         path = check_file("assets/sound/battle.txt")
         if path is not None:
@@ -240,6 +262,8 @@ class SceneBattle(BaseScene):
             # 戦闘終了処理
             # self.grant_rewards()
             if di.ref.cmdmgr.is_empty:
+                # 入力制御の復旧
+                WindowInputHandler.load_default_input()
                 # 報酬の画面表示
                 ctx = self.build_context(
                     di.ref.hero, 0, di.ref.pt.get_allmember(), self.enemy_list
