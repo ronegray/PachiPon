@@ -16,6 +16,8 @@ from field_map import Route
 from entity import Enemy, EntityParam, EnemyParam, BaseSprite, ActionPattern, Character
 from . import BaseScene
 import command.entity_command as e_cmd
+
+# from command.system_command import BattleStartEffect
 from entity import EntityBase, EntityContext
 from menu import MenuBattle
 
@@ -131,6 +133,8 @@ class SceneBattle(BaseScene):
                 )
             )
             status_x += SceneBattle._status_width + status_offset
+
+        # di.ref.cmdmgr.push_command(BattleStartEffect(self.message_window))
 
         # """暫定処理：BGMロード"""
         # path = check_file("assets/sound/battle.txt")

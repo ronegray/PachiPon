@@ -38,6 +38,11 @@ class SceneManager:
         self._stacks.clear()
         self.next_scene(scene_name)
 
+    def step_next_scene(self, scene_name: SCENE_NAME):
+        """次のシーンへ進む際に自シーンを破棄（スプラッシュ演出を挟む場合に）"""
+        self._stacks.pop()
+        self.next_scene(scene_name)
+
     def update(self):
         """管理クラス配下のインスタンス更新およびインスタンス応答の処理"""
         if len(self._stacks):

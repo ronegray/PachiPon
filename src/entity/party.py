@@ -220,7 +220,8 @@ class Party:
             if encount_interval <= current_count:
                 if self.encount_check(encounts):
                     encounts += 1
-                    di.ref.scnmgr.next_scene("battle")
+                    # di.ref.scnmgr.next_scene("battle")
+                    di.ref.scnmgr.next_scene("battlesplash")
                 current_count = 0
                 yield
             else:

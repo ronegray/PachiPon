@@ -43,6 +43,10 @@ def _render(display_info: DisplayInfo) -> None:
         display_info.is_change = False
     display_info.target.draw_message()
 
+    if display_info.graphic_command:
+        for cmd in display_info.graphic_command:
+            cmd()
+
 
 class CommandManager:
     """push/popのコマンドスタックを持つ、唯一の共通Invoker。"""
