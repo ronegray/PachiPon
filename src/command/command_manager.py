@@ -85,12 +85,6 @@ class CommandManager:
         """スタック最上段のみを1フレーム分進行させる。"""
         if self.is_empty:
             return
-        # state = self._stacks[-1].update()
-        # # if state is CommandPhase.SYNACK:
-        # #     print(f"{self._stacks[-1]._ctx.actor.param.name} to {self._stacks[-1]._ctx.targets[self._stacks[-1]._ctx.target_index].param.name}")
-        # if state is CommandPhase.FIN:
-        #     self._stacks.pop()
-
         if self._stacks[-1].update() == CommandPhase.FIN:
             self._stacks.pop()
             if self._on_empty and self.is_empty:
@@ -101,11 +95,5 @@ class CommandManager:
         """スタック最上段のみ描画"""
         if self.is_empty:
             return
-        command = self._stacks[-1]
-        # if command.phase == CommandPhase.ACK:
-        #     display_info = command.draw()
-        # # if display_info is not None:
-        # #     _render(display_info)
-        #     _render(display_info)
-        display_info = command.draw()
+        display_info = self._stacks[-1].draw()
         _render(display_info)

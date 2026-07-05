@@ -10,6 +10,7 @@ import pyxel as px
 from gameutils.lib import (
     Menu,
     Window,
+    MENU_ITEM_LIST,
     ExecResult,
     RsltContinue,
     RsltPush,
@@ -30,8 +31,12 @@ from gameutils.lib import (
 # from command import CommandType, CommandContext
 
 # from entity import Party
+
 from entity import Character, EntityContext
+from skill import TargetType
 import command.entity_command as e_cmd
+# from command import Attack, DefenceMode, UseItem, UseSkillz
+
 
 # ロギング設定
 logger = logging.getLogger(__name__)
@@ -62,7 +67,8 @@ class MenuBattle(Menu):
             ctx_source.targets,
         )
         # logger.info(f"\nMenuBattle init \nsrc  {ctx_source}\nlocal{self.context}")
-        self.actor_list: list[Character] = actor_list[0:]
+        # self.actor_list: list[Character] = actor_list[0:]
+        self.actor_list: list[Character] = actor_list.copy()
         # self.context.actor = self.ctx_source.actor = self.actor_list.pop()
         self.context.actor = self.actor_list.pop()
         # logger.info(f"\nactors \nself{self.actor_list}\narg{actor_list}\nctx{self.context.actor}")
@@ -78,18 +84,24 @@ class MenuBattle(Menu):
             self.height,
             "once",
         )
-        # 名前ウインドウ定義
-        name_pos = (self.x, self.y - 32)
+        # 名前ウインドウ定義（表示順制御の為self.windowsに乗せない）
+        name_pos = (self.x, self.y - 17)
         name_size = (80, 32)
-        self.windows["sub2"] = Window("basic", *name_pos, *name_size, "once")
-        self.windows["sub2"].set_message([self.context.actor.param.name])
-        # # サブメニューからの戻り済フラグ
-        # self.is_submenu_return: SubReturnFlag = SubReturnFlag()
+        # self.windows["sub2"] = Window("basic", *name_pos, *name_size, "once")
+        # self.windows["sub2"].set_message([self.context.actor.param.name])
+        self.namewindow = Window("basic", *name_pos, *name_size, "once")
+        # self.namewindow.set_message([self.context.actor.param.name])
 
-    # def individual_update(self) -> ExecResult:
-    #     if self.is_submenu_return.state:
-    #         return RsltPush(MenuBattle, self.ctx_source, self.actor_list, self.battle_commands, self.message_window)
-    #     return RsltContinue()
+    def draw(self):
+        """名前ウインドウの下部を隠す為順序制御"""
+        self.namewindow.draw()
+        self.namewindow.drawText(
+            self.namewindow.x + 6,
+            self.namewindow.y + 4,
+            [[self.context.actor.param.name]],
+            px.COLOR_WHITE,
+        )
+        super().draw()
 
     def exec_menu(self) -> ExecResult:
         """選択メニュー項目の処理を実行"""
@@ -123,14 +135,15 @@ class MenuBattle(Menu):
         # self.is_submenu_return.state = False
         # サブメニューへの引継時、コンテキストは引き回し中に書き換えるとキャンセル動作がおかしくなる
         return RsltPush(
-            MenuSelectTarget,
+            MenuSelectBattleTarget,
             self.context.actor,  # 追加
             self.ctx_source,
             self.actor_list,
             self.battle_commands,
             self.message_window,
             self.windows["sub"],
-            # self.is_submenu_return,
+            "Attack",
+            TargetType.ENEMY,
         )
 
     def select_item(self):
@@ -155,15 +168,19 @@ class MenuBattle(Menu):
         # print(f"{di.ref.hero.skills._learned_skills}")
         from menu import MenuSelectSkill
 
-        return RsltPush(MenuSelectSkill, self.context)
+        return RsltPush(
+            MenuSelectSkill,
+            self.context.actor,  # 追加
+            self.ctx_source,
+            self.actor_list,
+            self.battle_commands,
+            self.message_window,
+            self.windows["sub"],
+            # self.is_submenu_return,
+        )
 
     def defence_mode(self):
         """ユーザ行動コマンド：防御体勢"""
-        # ally_list = [] # 防御にターゲット不要
-        # target_list = [] # 防御にターゲット不要
-        # ctx = self.context(self.actor, ally_list, target_list)
-        # self.context.allies = []
-        # self.context.targets = []
         self.battle_commands[self.context.actor.id] = e_cmd.DefenceMode(
             self.context, self.message_window
         )
@@ -182,8 +199,8 @@ class MenuBattle(Menu):
         )
 
 
-class MenuSelectTarget(Menu):
-    """バトルサブメニュー：ターゲット選択"""
+class MenuSelectBattleTarget(Menu):
+    """行動サブメニュー：戦闘ターゲット選択"""
 
     def __init__(
         self,
@@ -192,8 +209,12 @@ class MenuSelectTarget(Menu):
         actor_list: list[Character],  # 逆順生存メンバーリスト
         battle_commands: dict,
         message_window: Window,
+        # サイズや位置を確認する為の参照用　実処理で使わない
         ref_window: Window,
         # submenu_return: SubReturnFlag,
+        command_name: str,
+        target_type: TargetType,
+        *args,
     ):
         self.ctx_source: EntityContext = ctx_source  # 再帰先へのコンテキスト引継用
         self.context: EntityContext = EntityContext(
@@ -207,9 +228,9 @@ class MenuSelectTarget(Menu):
         self.actor_list: list[Character] = actor_list
         self.battle_commands: dict = battle_commands
         self.message_window: Window = message_window
-        # self.is_submenu_return: SubReturnFlag = submenu_return
-
-        self.item_list: list = []
+        self.command_name: str = command_name
+        self.target_type: TargetType = target_type
+        self.item_list: MENU_ITEM_LIST = []
         self.generate_item_list()
         menu_pos = (ref_window.x, ref_window.y)
         menu_size = (ref_window.width, ref_window.height)
@@ -220,10 +241,22 @@ class MenuSelectTarget(Menu):
         self.cursor_row_offset += 2  # k8x12Sの縦長分対応
 
     def generate_item_list(self):
-        """アイテムリストの生成"""
+        """メニュー項目リストの生成：ターゲット"""
+        # 対象リストの振り分け
+        match self.target_type:
+            case TargetType.ENEMY | TargetType.ENEMIES:
+                target_list = self.context.targets
+            case TargetType.ALLY | TargetType.ALLIES:
+                target_list = self.context.allies
+            case TargetType.SELF:  # 要リスト化
+                target_list = [self.context.actor]
+            case TargetType.ALL:
+                target_list = self.context.targets + self.context.allies
+            case _:
+                target_list = self.context.targets
 
         menu_cols = 2
-        enemy_count = len(self.context.targets)
+        enemy_count = len(target_list)
         if enemy_count <= 0:
             errmsg = "ターゲット対象リストが空の状態です"
             logger.critical(errmsg, exc_info=True)
@@ -232,12 +265,13 @@ class MenuSelectTarget(Menu):
             tmp_item_list = [
                 [
                     {
-                        "id": f"{target.param.name}",
+                        "id": f"{target.param.name.ljust(9, "　")}",
                         "action": "set_target",
-                        "args": [target.id, "Attack"],
+                        # "args": [target.id, "Attack"],
+                        "args": [target.id, self.command_name],
                     }
                 ]
-                for idx, target in enumerate(self.context.targets)
+                for target in target_list
                 if target.is_alive
             ]
 

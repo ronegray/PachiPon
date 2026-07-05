@@ -6,6 +6,7 @@ from .window_base import (
     Menu,
     MenuItem,
     ExecResult,
+    MENU_ITEM_LIST,
     RsltPush,
     RsltPop,
     RsltDiscard,

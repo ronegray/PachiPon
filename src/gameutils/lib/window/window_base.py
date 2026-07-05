@@ -63,6 +63,7 @@ class Window:
     _chip_size: int = 8
     _image_chips: px.Image
     _max_msg_rows: int = 3
+    _indicator_address: tuple = (16, 8, 8, 4)
 
     def __init__(
         self,
@@ -92,10 +93,11 @@ class Window:
         self.height = height
         # クラス個別パラメータ
         self.window_mode = window_mode
-        self.wait_frame = px.ceil(wait_sec * 30)
+        self.wait_frame = px.ceil(wait_sec * 30)  # fps = 30
         self.frame_counter = 0
         self.text_list: list[str] = []
         self.window_image = px.Image(self.width, self.height)
+        self.is_indicator: bool = False
 
         self.chip_cnt_w = self.width // self._chip_size
         self.chip_cnt_h = self.height // self._chip_size
@@ -202,7 +204,12 @@ class Window:
             return WindowAction.DISCARD
         # waitモード時は待機フレーム数の半分を過ぎるまでキー入力を受け付けない
         if self.window_mode == "wait" and self.frame_counter <= self.wait_frame // 2:
+            self.is_indicator = True  # インジケータ点灯フラグON
             return WindowAction.CONTINUE
+
+        # ボタンを押したら終わりのタイプはすぐインジケータ点灯
+        if self.window_mode in ("once", "page"):
+            self.is_indicator = True
 
         # 決定またはキャンセルキー処理
         if self.inp.decide() or self.inp.cancel():
@@ -237,31 +244,33 @@ class Window:
         if self.frame_counter >= self.wait_frame // 2:
             if px.frame_count // 8 % 2 == 0:
                 px.blt(
-                    self.x + self.width // 2 - 4,
-                    self.y + self.height - 5,
+                    self.x + self.width // 2 - (self._indicator_address[2] // 2),
+                    self.y + self.height - self._indicator_address[3] - 1,
                     self._image_chips,
-                    35,
-                    248,
-                    5,
-                    8,
-                    colkey=0,
-                    rotate=90,
+                    # 35,
+                    # 248,
+                    # 5,
+                    # 8,
+                    *Window._indicator_address,
+                    # colkey=0,
+                    # rotate=90,
                 )
 
-    def drawText(self, x: int, y: int, text_list: list):
+    def drawText(self, x: int, y: int, text_list: list, col: int = px.COLOR_WHITE):
         for i, data in enumerate(text_list):
-            try:
-                textcolor = data[1]
-                # text = data[0]
-            except IndexError:
-                textcolor = px.COLOR_WHITE
-                # text = data
+            # try:
+            #     textcolor = data[1]
+            #     # text = data[0]
+            # except IndexError:
+            #     textcolor = px.COLOR_WHITE
+            #     # text = data
             px.text(
                 x,
                 y + (i * int(self.fontdata.height * 1.5)),
                 data[0],
                 # text,
-                col=textcolor,
+                # col=textcolor,
+                col=col,
                 font=self.font,
             )
         return
@@ -314,6 +323,9 @@ class MenuItem:
     # is_disabled: bool = False                # (将来用) 選択不可フラグなどを足しても便利です
 
 
+type MENU_ITEM_LIST = list[list[dict[str, Any]]]
+
+
 class ExecResult:
     """exec_menuの戻り値基底クラス
     具象実装も本ファイルにて後述
@@ -332,7 +344,8 @@ class Menu:
         path is not None
     ), f"固定メニュー項目データの読み込みに失敗しました：file={file}"
     menu_item_data = read_json(path)
-    _MENU_ITEM_CASHE: dict[str, list[list[dict[str, str]]]] = dict(menu_item_data)
+    # _MENU_ITEM_CASHE: dict[str, list[list[dict[str, str|list]]]] = dict(menu_item_data)
+    _MENU_ITEM_CASHE: dict[str, MENU_ITEM_LIST] = dict(menu_item_data)
 
     def __init__(
         self,
@@ -340,7 +353,8 @@ class Menu:
         x: int,
         y: int,  # width: int, height: int,
         menu_shape: list[int],
-        menu_source: str | list[list[dict[str, str]]],
+        # menu_source: str | list[list[dict[str, str|list]]],
+        menu_source: str | MENU_ITEM_LIST,
         w: int = 0,
         h: int = 0,
     ):
@@ -388,7 +402,8 @@ class Menu:
     def height(self):
         return self.windows["main"].height
 
-    def build_menu_items(self, menu_source: str | list):  # list[list[dict[str, str]]]):
+    # def build_menu_items(self, menu_source: str | list[list[dict[str, str|list]]]):
+    def build_menu_items(self, menu_source: str | MENU_ITEM_LIST):
         if isinstance(menu_source, str):  # メニュー固定項目指定時
             tmp_menudata = self._MENU_ITEM_CASHE[menu_source]
         else:  # 動的指定
@@ -563,9 +578,10 @@ class Menu:
                     text_y = self.windows["main"].y + self.row_y_pos[row_idx]
                     px.text(text_x, text_y, item.item_label, px.COLOR_WHITE, self.font)
             self.draw_cursor()
-        except IndexError:
+        except IndexError as e:
             print(
-                f"\nmenu={self.menu_items}\nitem={item}\n{self.column_x_pos}-{col_idx}"
+                # f"\nmenu={self.menu_items}\nitem={item}\n{self.column_x_pos}-{col_idx}"
+                f"{self.menu_items}\n{e}"
             )
             px.quit()
 
@@ -598,7 +614,7 @@ class RsltPush(ExecResult):
 class RsltPop(ExecResult):
     """exec_menu内で自メニューをpopする時"""
 
-    pass
+    on_pop: list[Callable[[], None]]
 
 
 @dataclass

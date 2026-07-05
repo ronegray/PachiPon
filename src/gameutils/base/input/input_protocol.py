@@ -1,3 +1,6 @@
+"""
+入力ライブラリ用インタフェース定義
+"""
 from typing import Literal, Callable
 
 
@@ -16,6 +19,8 @@ ACTION_NAME = Literal[
     "LS",
     "RS",
 ]
+
+
 type InputHandler = Callable[[INPUT_MODE], bool]
 
 

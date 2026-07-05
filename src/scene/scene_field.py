@@ -10,7 +10,9 @@ import logging
 import pyxel as px
 import service_locater as di
 from gameutils.base import is_pressed, check_file, read_string
-from command import CommandContext
+from gameutils.lib import Window
+
+# from command import CommandContext
 from entity import EntityContext
 from menu import MenuField
 from .scene_base import BaseScene
@@ -23,6 +25,11 @@ class SceneField(BaseScene):
     def __init__(self):
         super().__init__()
         self.situation = "field"
+        # フィールドメッセージウインドウの生成
+        message_pos = (4, px.height // 2 - 24)
+        message_size = (px.width - 8, 48)
+        self.message_window = Window("basic", *message_pos, *message_size, "once", 0)
+        self.message_window.update_row_max(2)
         # self.game_map = MapGraph()
         # map_path = check_file("assets/data/map_data.json", "r")
         # if map_path:
@@ -119,7 +126,10 @@ class SceneField(BaseScene):
             if self.wndmgr.has_stack:
                 self.wndmgr.pop_stack()
             else:
-                self.wndmgr.push_stack(MenuField, self.build_context)
+                ctx = self.build_context()
+                # member_list = di.ref.pt.get_active_member()
+                # member_list.reverse()
+                self.wndmgr.push_stack(MenuField, ctx, self.message_window)
             return
 
         # 通常のフィールド操作
@@ -237,12 +247,24 @@ class SceneField(BaseScene):
         # WindowManagerの描画（メニュー等）
         self.wndmgr.draw()
 
-    def build_context(self, actor_id: int = 0, target: list = []) -> CommandContext:
+    # def build_context(self, actor_id: int = 0, target: list = []) -> CommandContext:
+    #     """エンティティコマンド用コンテキスト生成"""
+    #     ctx = EntityContext(
+    #         situation=self.situation,
+    #         actor=di.ref.pt.get_member(actor_id),
+    #         allies=di.ref.pt.get_allmember(),
+    #         targets=[],
+    #         target_index=0,
+    #     )
+    #     return ctx
+
+    def build_context(self) -> EntityContext:
         """エンティティコマンド用コンテキスト生成"""
         ctx = EntityContext(
-            situation="field",
-            actor=di.ref.pt.get_member(actor_id),
-            allies=target,
+            situation=self.situation,
+            actor=di.ref.pt.get_member(0),
+            allies=list(di.ref.pt.get_allmember()),
             targets=[],
+            target_index=0,
         )
         return ctx

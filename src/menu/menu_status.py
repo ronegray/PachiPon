@@ -106,13 +106,16 @@ class MenuStatus(Menu):
 
         # スキル項目の構築
         skill_lines = ""
-        for id in member.skills.get_learned_skills():
-            skill = di.ref.sklmgr.get_def(id)
-            if skill is None:
-                skill_name = "なし"
-            else:
-                skill_name = skill.name
-            skill_lines += f"　{skill_name}\n"
+        # for id in member.skills.get_learned_skill_id():
+        #     skill = di.ref.sklmgr.get_def(id)
+        #     if skill is None:
+        #         skill_name = "なし"
+        #     else:
+        #         skill_name = skill.name
+        #     skill_lines += f"　{skill_name}\n"
+        for skill_def in member.skills.get_learned_skill_def("system"):
+            skill_lines += f"　{skill_def.name}\n"
+
         self.windows["sub3"].text_list = [skill_lines]
 
     def update(self) -> WindowAction:

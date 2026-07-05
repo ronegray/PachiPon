@@ -13,3 +13,5 @@ class EntityContext(CommandContext):
     allies: list[EntityBase] = field(default_factory=list)
     targets: list[EntityBase] = field(default_factory=list)
     target_index: int = 0
+    #     target_id: int = 0
+    # pending_command: type[CommandBase] | None = None

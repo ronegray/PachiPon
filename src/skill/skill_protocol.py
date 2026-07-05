@@ -94,13 +94,15 @@ class SkillID(IntEnum):
     BREATH           = 0x1_F_0_1 # 炎ブレス
     POWERATTACK      = 0x1_F_0_2 # 強攻撃
 
+
 class TargetType(IntEnum):
+    NONE    = 0b0000
     ALLY    = 0b0010
     ALLIES  = 0b0011
     ENEMY   = 0b0100
     ENEMIES = 0b0101
-    ALL     = 0b0110
-    NONE    = 0b0000
+    ALL     = 0b0110 # ALLIESには自分も含む
+    SELF    = 0b1000
 # fmt: on
 
 
