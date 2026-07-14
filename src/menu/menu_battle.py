@@ -3,7 +3,7 @@
 """
 
 import logging
-# from typing import Callable
+from typing import cast  # Callable
 # from dataclasses import dataclass
 
 import pyxel as px
@@ -32,8 +32,8 @@ from gameutils.lib import (
 
 # from entity import Party
 
-from entity import EntityContext, EntityBase
-from skill import TargetType
+from entity import EntityContext, EntityBase, Character, EquipSlot
+from skill import TargetType  # , SkillID
 
 import command.entity_command as e_cmd
 # from command import Attack, DefenceMode, UseItem, UseSkill
@@ -167,18 +167,36 @@ class MenuBattle(Menu):
 
     def select_item(self):
         """アイテム表示メニューを開く"""
-        # print("select item category")
-        from menu import MenuSelectItemCategory
+        # # print("select item category")
+        # from menu import MenuSelectItemCategory
 
-        # di.ref.scnmgr.stacks[-1].wndmgr.push_stack(
+        # # di.ref.scnmgr.stacks[-1].wndmgr.push_stack(
+        # #     MenuSelectItemCategory,
+        # #     self.cursor_x + Window._chip_size,
+        # #     self.cursor_y + Window._chip_size,
+        # # )
+        # return RsltPush(
         #     MenuSelectItemCategory,
-        #     self.cursor_x + Window._chip_size,
-        #     self.cursor_y + Window._chip_size,
+        #     self.cursor_x + Window._chip_size + 1,
+        #     self.cursor_y + Window._chip_size + 1,
         # )
         return RsltPush(
-            MenuSelectItemCategory,
-            self.cursor_x + Window._chip_size + 1,
-            self.cursor_y + Window._chip_size + 1,
+            MenuSelectItem,
+            # self.context.actor,  # 追加
+            # self.ctx_source,
+            # self.actor_list,
+            self.context,
+            # self.battle_commands,
+            # self.message_window,
+            # self.windows["sub"],
+            {
+                "x": self.windows["sub"].x,
+                "y": self.windows["sub"].y,
+                "w": self.windows["sub"].width,
+                "h": self.windows["sub"].height,
+            },
+            # self.is_submenu_return,
+            self.command_package,
         )
 
     def select_skill(self):
@@ -394,3 +412,220 @@ class MenuSelectBattleTarget(Menu):
         #     self.message_window,
         # )
         return RsltDiscard()
+
+
+class MenuSelectItem(Menu):
+    """行動サブメニュー：戦闘時使用アイテム選択　※バトル専用"""
+
+    # _list_rows: int = 10
+    # _pagelabel_size = 4 * 5  # 4ptフォント5文字
+    _menu_col_criteria = {"field": 1, "battle": 2}
+
+    def __init__(
+        self,
+        ctx: EntityContext,
+        ref_window: dict[str, int],
+        command_package: e_cmd.CommandPackage,
+    ):
+        self.context = ctx
+        self.command_package = command_package
+
+        self.item_count: int = 0
+        self.item_list: list[list[dict[str, str | list]]] = []
+
+        self.consume_list = []
+        actor: Character = cast(Character, self.context.actor)
+        plent_cons1 = actor.equipments.get_slot(EquipSlot.CONSUME_1)
+        plent_cons2 = actor.equipments.get_slot(EquipSlot.CONSUME_2)
+        if plent_cons1 is not None:
+            self.consume_list.append(
+                (EquipSlot.CONSUME_1, plent_cons1[0], plent_cons1[1])
+            )
+        if plent_cons2 is not None:
+            self.consume_list.append(
+                (EquipSlot.CONSUME_2, plent_cons2[0], plent_cons2[1])
+            )
+
+        self.generate_item_list()
+
+        menu_pos = (ref_window["x"], ref_window["y"])
+        menu_size = (ref_window["w"], ref_window["h"])
+        super().__init__(
+            "basic", *menu_pos, self.menu_shape, self.item_list, *menu_size
+        )
+        self.cursor_row_offset += 2  # k8x12Sの縦長分対応
+
+        # 詳細情報ウインドウ
+        info_height = 24
+        self.windows["sub"] = Window(
+            "basic",
+            0,
+            menu_pos[1] - info_height,
+            px.width,
+            info_height,
+            "sub",
+        )
+
+        self.change_target_item()
+
+        # # フィールド時は利用者名前ウインドウ
+        # if self.context.situation == "field":
+        #     # self.set_actor_name()
+        #     namewindow_height = Window._chip_size + 16
+        #     self.windows["sub2"] = Window(
+        #         "basic",
+        #         menu_pos[0],
+        #         menu_pos[1] - namewindow_height,
+        #         self.width,
+        #         namewindow_height,
+        #         "sub",
+        #     )
+        #     self.windows["sub2"].set_message([self.context.actor.param.name])
+
+    def generate_item_list(self):
+        """メニュー項目リストの生成：スキル"""
+        # コンテキストシチュエーションに応じてメニューカラム数変更
+        menu_cols = 1
+
+        # actor: Character = cast(Character, self.context.actor)
+        # plent_cons1 = actor.equipments.get_slot(EquipSlot.CONSUME_1)
+        # plent_cons2 = actor.equipments.get_slot(EquipSlot.CONSUME_2)
+
+        # tmplist = [consume for consume in (plent_cons1, plent_cons2)
+        #            if consume is not None]
+
+        self.item_count = len(self.consume_list)
+        if self.item_count <= 0:
+            self.item_list = [[{"id": "該当なし", "action": "None", "args": [""]}]]
+        else:
+            tmp_item_list = [
+                [
+                    {
+                        "id": f"{pool_entry.ins.param.name}",
+                        "action": "select_target",
+                        "args": [slot, iid, pool_entry],
+                    }
+                ]
+                for slot, iid, pool_entry in self.consume_list
+            ]
+            if len(tmp_item_list) <= 0:
+                self.item_list = [
+                    [
+                        {
+                            "id": "該当なし",
+                            "action": "None",
+                            "args": [
+                                "",
+                            ],
+                        }
+                    ]
+                ]
+            else:
+                # if menu_cols > 1:
+                #     self.item_list_multicol(menu_cols, tmp_item_list)
+                # else:
+                self.item_list = tmp_item_list.copy()
+
+        self.menu_shape = [menu_cols, len(self.item_list)]
+
+    def change_target_item(self):
+        """選択アイテムを示す内部情報の変更"""
+        self.target_item = self.item_list[self.cursor_position[1]]
+        self.set_description_string()
+
+    def set_description_string(self):
+        """詳細ウインドウに表示する文字列を設定"""
+        item_desc = self.get_item_desc()
+        text_area_width = self.windows["sub"].width - (Window._chip_size * 2)
+        message_list = []
+        i = start_row = 0
+
+        for desc_string in item_desc:
+            for i in range(0, len(desc_string) + 1):
+                if (
+                    self.windows["sub"].fontdata.font.text_width(  # type: ignore
+                        desc_string[start_row : i + 1]
+                    )
+                    > text_area_width
+                ):
+                    message_list.append(desc_string[start_row:i])
+                    start_row = i
+            # 最後の残りを結合
+            message_list.append(desc_string[start_row:i])
+        self.windows["sub"].set_message(message_list)
+
+    def move_cursor(self) -> bool:
+        """カーソル移動時に詳細ウインドウの内容を書き換える"""
+        result = super().move_cursor()
+        if result:
+            self.change_target_item()
+        return result
+
+    def get_item_desc(self) -> list[str]:
+        """アイテム詳細情報取得"""
+        if len(self.target_item[0]["args"]) < 2:
+            desc = "装備なし"
+        else:
+            desc = self.target_item[0]["args"][2].ins.param.description  # type: ignore
+        return [desc]
+
+    def exec_menu(self) -> ExecResult:
+        """選択メニュー項目の処理を実行"""
+        pos_x, pos_y = self.cursor_position
+        selected_item = self.menu_items[pos_y][pos_x]
+        logger.info(selected_item)
+
+        if selected_item.menu_action is None:
+            errmsg = f"メニューアクション関数が定義されていません：{selected_item.item_label}"
+            logger.critical(errmsg, exc_info=True)
+            raise ValueError(errmsg)
+
+        # logger.info(
+        #     f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}"
+        # )
+        result = selected_item.menu_action(*selected_item.action_args)
+
+        return result
+
+    def select_target(self, *args) -> ExecResult:
+        """味方メンバーターゲット選択メニューを呼び出し"""
+
+        eq_slot, item_iid, plent = self.target_item[0]["args"]
+        func_name = plent.ins.param.effect_id  # type: ignore
+
+        from menu import MenuSelectBattleTarget
+
+        # コマンドパッケージに選択内容登録
+        self.command_package.selected_action = getattr(e_cmd, func_name)
+        self.command_package.target_type = TargetType.ALLY  # type: ignore
+        self.command_package.selected_args = {
+            "slot": eq_slot,
+            "itemid": item_iid,
+            "iteminfo": plent,
+        }
+
+        # return RsltPush(
+        #     MenuSelectBattleTarget,
+        #     self.context.actor,  # 追加
+        #     self.ctx_source,
+        #     self.actor_list,
+        #     self.battle_commands,
+        #     self.message_window,
+        #     self.windows["sub"],
+        #     # self.is_submenu_return,
+        #     skill_id,
+        # )
+
+        return RsltPush(
+            MenuSelectBattleTarget,
+            self.context,
+            {
+                "x": self.windows["main"].x,
+                "y": self.windows["main"].y,
+                "w": self.windows["main"].width,
+                "h": self.windows["main"].height,
+            },
+            self.command_package.target_type,
+        )
+
+        return RsltContinue()
