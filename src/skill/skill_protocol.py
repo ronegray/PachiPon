@@ -23,7 +23,7 @@ class SkillID(IntEnum):
     """効果識別子"""
     DUMMY            = 0xF_F_FF # ダミー効果コード
 
-    ### spell 0x1_1_0_0
+    ### spell 0x1_1_x_0
     # 破魔(sacred)
     SACRED_ARROW     = 0x1_1_1_1 # 単体攻撃
     SANCTUARY        = 0x1_1_1_2 # 範囲攻撃
@@ -94,13 +94,15 @@ class SkillID(IntEnum):
     BREATH           = 0x1_F_0_1 # 炎ブレス
     POWERATTACK      = 0x1_F_0_2 # 強攻撃
 
+
 class TargetType(IntEnum):
+    NONE    = 0b0000
     ALLY    = 0b0010
     ALLIES  = 0b0011
     ENEMY   = 0b0100
     ENEMIES = 0b0101
-    ALL     = 0b0110
-    NONE    = 0b0000
+    ALL     = 0b0110 # ALLIESには自分も含む
+    SELF    = 0b1000
 # fmt: on
 
 

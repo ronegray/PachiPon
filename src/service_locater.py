@@ -18,7 +18,7 @@ if TYPE_CHECKING:
     from command import CommandManager
     from scene import SceneManager
     from field_map import MapGraph
-    from entity import Party, Character
+    from entity import Party, Character, EnemyManager
     from gameutils.lib import SoundManager
     from item import ItemManager, ItemPool, StackPool
     from skill import SkillManager
@@ -39,6 +39,7 @@ class ServiceKey(Enum):
     HERO = auto()
     MEMBER1 = auto()
     MEMBER2 = auto()
+    ENEMY_MANAGER = auto()
 
 
 # サービスコンテナ
@@ -92,6 +93,10 @@ class _Ref:
     @property
     def mem2(self) -> Character:
         return _service_container[ServiceKey.MEMBER2]
+
+    @property
+    def enmmgr(self) -> EnemyManager:
+        return _service_container[ServiceKey.ENEMY_MANAGER]
 
     @property
     def itemmgr(self) -> ItemManager:

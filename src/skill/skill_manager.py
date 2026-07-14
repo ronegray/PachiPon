@@ -54,9 +54,14 @@ class SkillManager:
                         f"Warning: EffectID.{efx_name} is not defined in EffectID enum."
                     )
 
-    def get_def(self, def_id: SkillID) -> SkillDef | None:
+    # def get_def(self, def_id: SkillID) -> SkillDef | None:
+    #     """指定されたIDのスキル定義を取得する"""
+    #     return self._master_def.get(def_id)
+
+    @classmethod
+    def get_def(cls, def_id: SkillID) -> SkillDef | None:
         """指定されたIDのスキル定義を取得する"""
-        return self._master_def.get(def_id)
+        return cls._master_def.get(def_id)
 
     # def get_all_definitions(self) -> dict[SkillID, SkillDef]:
     #     """すべてのアイテム定義を取得する"""

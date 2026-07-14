@@ -25,7 +25,7 @@ class MenuTitle(Menu):
     def key_check(self) -> WindowAction:
         """キー入力の確認と応答"""
         inp = WindowInputHandler.get()
-        if self.move_cursor(inp):
+        if self.move_cursor():
             pass
         if inp.decide():
             return WindowAction.EXECUTE

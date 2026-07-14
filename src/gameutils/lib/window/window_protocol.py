@@ -21,3 +21,4 @@ class WindowAction(Enum):
     CLOSE = auto()  # 一つ戻る (pop)
     DISCARD = auto()  # 全て破棄して閉じる (初期化)
     EXECUTE = auto()  # 選択処理を実行
+    NOTHING = auto()  # メニュースタックが存在しない状態

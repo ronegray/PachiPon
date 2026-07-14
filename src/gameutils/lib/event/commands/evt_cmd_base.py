@@ -2,7 +2,7 @@
 イベント制御コマンド定義の基底データクラス
 """
 
-from __future__ import annotations
+# from __future__ import annotations
 from dataclasses import dataclass
 from typing import Callable, Generator
 

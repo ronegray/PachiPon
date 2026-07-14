@@ -18,22 +18,19 @@
         [{"id": "ボタン割当", "action": "assign_key"}]
     ],
     "MenuField": [
-        [{"id": "店に行く", "action": "enter_shop"}],
-        [{"id": "力を見る", "action": "show_status"}],
-        [{"id": "装備する", "action": "equip_item"}],
-        [{"id": "詠唱する", "action": "use_skill"}],
-        [{"id": "アイテム", "action": "select_item_category"}],
-        [{"id": "システム", "action": "select_item_category"}]
+        [{"id": "店に行く", "action": "enter_shop"},{"id": "力を見る", "action": "show_status"}],
+        [{"id": "装備する", "action": "equip_item"},{"id": "技を使う", "action": "use_skill"}],
+        [{"id": "アイテム", "action": "select_item_category"},{"id": "システム", "action": "select_item_category"}]
     ],
     "MenuSelectItemCategory": [
         [{"id": "使用する", "action": "use_item"}],
-        [{"id": "チェック", "action": "show_equips"}],
+        [{"id": "装備確認", "action": "show_equips"}],
         [{"id": "重要な品", "action": "show_keyitem"}]
     ],
     "MenuBattle": [
-        [{"id": "攻撃する", "action": "attack_weapon"}],
-        [{"id": "詠唱する", "action": "use_skill"}],
-        [{"id": "使用する", "action": "select_item"}],
-        [{"id": "撤退する", "action": "escape_battle"}]
+        [{"id": "攻撃する", "action": "select_target"}],
+        [{"id": "技を使う", "action": "select_skill"}],
+        [{"id": "アイテム", "action": "select_item"}],
+        [{"id": "防御体勢", "action": "defence_mode"}]
     ]
 }

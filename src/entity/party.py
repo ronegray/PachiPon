@@ -53,7 +53,7 @@ class Party:
         self._move_speed = 2.0  # 移動速度（ピクセル/フレーム）
 
         # 現在地の設定
-        start_point = "p17"
+        start_point = "p01"
         tmp_point = di.ref.map.get_point(start_point)
         if tmp_point is None:
             errmsg = f"指定されたイベントポイント({start_point})は定義されていません"
@@ -94,14 +94,14 @@ class Party:
         hero = Character(
             id=len(self._member_list),
             param=EntityParam(
-                name="メンバー" + str(len(self._member_list)),
-                strength=px.rndi(1, 10),
-                arcane=px.rndi(1, 10),
-                endurance=px.rndi(1, 10),
-                speed=px.rndi(1, 10),
-                luck=px.rndi(1, 10),
-                max_hp=px.rndi(5, 10),
-                max_mp=px.rndi(5, 10),
+                name="ほげほげふーばー" + str(len(self._member_list)),
+                strength=px.rndi(1, 10) * 10,
+                arcane=px.rndi(1, 10) * 10,
+                endurance=px.rndi(1, 10) * 10,
+                speed=px.rndi(1, 10) * 10,
+                luck=px.rndi(1, 10) * 10,
+                max_hp=px.rndi(5, 10) * 10,
+                max_mp=px.rndi(5, 10) * 10,
             ),
             sprite=PlayerSprite(char_x, char_y, charimage),
         )
@@ -123,6 +123,10 @@ class Party:
         """PTメンバーの人数を取得（生死問わず）"""
         return len(self._member_list)
 
+    def get_active_member_count(self) -> int:
+        """PTメンバーの生存人数を取得"""
+        return len([mem for mem in self._member_list if mem.is_alive])
+
     def update_top_index(self) -> None:
         """生存中PTメンバーの先頭キャラのリストインデックスを更新"""
         for i, member in enumerate(self._member_list):
@@ -135,6 +139,10 @@ class Party:
         - 範囲外の値はメンバー数の剰余にて指定"""
         rounded_index = member_id % len(self._member_list)
         return self._member_list[rounded_index]
+
+    def get_active_member(self) -> list[Character]:
+        """生存中メンバーのリストを取得"""
+        return [member for member in self._member_list if member.is_alive]
 
     def get_allmember(self) -> list[Character]:
         """パーティーメンバー全員を取得"""
@@ -212,7 +220,8 @@ class Party:
             if encount_interval <= current_count:
                 if self.encount_check(encounts):
                     encounts += 1
-                    di.ref.scnmgr.next_scene("battle")
+                    # di.ref.scnmgr.next_scene("battle")
+                    di.ref.scnmgr.next_scene("battlesplash")
                 current_count = 0
                 yield
             else:
@@ -221,7 +230,7 @@ class Party:
             if distance <= self._move_speed:
                 self._current_point = target_point
                 self._pt_is_moving = False
-                self.set_now_route()
+                self.set_current_route()
                 self._field_sprite._is_moving = False
                 return
             else:
@@ -238,11 +247,16 @@ class Party:
 
             yield
 
-    def set_now_route(self, on_route: Route | None = None) -> None:
+    def get_current_point(self) -> EventPoint:
+        """現在のパーティー所在地イベントポイントを取得
+        移動中は移動前のイベントポイントを指す"""
+        return self._current_point
+
+    def set_current_route(self, on_route: Route | None = None) -> None:
         """現在の移動中ルートを設定"""
         self._pt_on_route = on_route
 
-    def get_now_route(self) -> Route:
+    def get_current_route(self) -> Route:
         """現在の移動中ルートを取得※静止状態の場合はNoneを返す"""
         if self._pt_on_route is None:
             errmsg = "非移動中の呼び出しは想定されていません"
@@ -260,7 +274,7 @@ class Party:
 
     def encount_check(self, encounts: int) -> bool:
         """モンスター遭遇チェック(遭遇する毎に頻度低下)"""
-        roll = diceroll(2)
+        roll = diceroll(3)
         if roll + encounts <= ENCOUNT_THRESHOLD:
             return True
         return False
@@ -274,6 +288,11 @@ class Party:
     def get_pt_world_address(self) -> tuple[float, float]:
         """パーティのワールド座標を取得"""
         return self._world_x, self._world_y
+
+    def earn_gold(self, gold: int) -> int:
+        """獲得ゴールドをPTに加算し総額を取得"""
+        self._pt_golds += gold
+        return self._pt_golds
 
     def update(self):
         if self._pt_is_moving:

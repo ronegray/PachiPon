@@ -333,6 +333,7 @@ class MenuEquip(Menu):
                 logger.critical(errmsg, exc_info=True)
                 raise ValueError(errmsg)
             self.member.equipments.equip_on_pool(self.slot, (iid, plent))
+            self.member.update_bonus()
 
         now_scene = di.ref.scnmgr.get_now_scene()
         i = 1

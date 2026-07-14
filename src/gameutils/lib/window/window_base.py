@@ -13,14 +13,15 @@
   - 基本的機能のみ提供。用途に応じて継承する
 """
 
-from __future__ import annotations
+# from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Callable, Any
+from itertools import zip_longest
 import pyxel as px
 
 from ...libconfig import ResourcePath
 from ...base import check_file, read_json, FONT_SIZE_NAME, FontManager
-from .window_protocol import WINDOW_MODE, MENU_WINDOW_TYPE, WindowAction
+from . import WINDOW_MODE, MENU_WINDOW_TYPE, WindowAction
 from ._wrapper_input import WindowInputWrapper, set_default_pyxel_input
 
 
@@ -46,6 +47,11 @@ class WindowInputHandler:
         )
 
     @classmethod
+    def load_default_input(cls) -> None:
+        """個別要求により設定変更した場合の復旧用"""
+        cls._wrapper = set_default_pyxel_input()
+
+    @classmethod
     def get(cls) -> WindowInputWrapper:
         """入力ハンドラの取得"""
         return cls._wrapper
@@ -57,6 +63,7 @@ class Window:
     _chip_size: int = 8
     _image_chips: px.Image
     _max_msg_rows: int = 3
+    _indicator_address: tuple = (16, 8, 8, 4)
 
     def __init__(
         self,
@@ -86,10 +93,11 @@ class Window:
         self.height = height
         # クラス個別パラメータ
         self.window_mode = window_mode
-        self.wait_frame = px.ceil(wait_sec * 30)
+        self.wait_frame = px.ceil(wait_sec * 30)  # fps = 30
         self.frame_counter = 0
-        self.text_list = []
+        self.text_list: list[str] = []
         self.window_image = px.Image(self.width, self.height)
+        self.is_indicator: bool = False
 
         self.chip_cnt_w = self.width // self._chip_size
         self.chip_cnt_h = self.height // self._chip_size
@@ -181,17 +189,27 @@ class Window:
             self._image_chips.pget(7, 7),
         )
 
-    def update(self):
+    def update_row_max(self, row_max: int) -> None:
+        """add_message時の最大行カウント値を更新"""
+        if (self.height - Window._chip_size) > (self.fontdata.height * row_max):
+            self._max_msg_rows = row_max
+
+    def update(self) -> WindowAction:
         self.frame_counter += 1
         # menuモードのウインドウは基本的にupdateを実行しないが念の為
         if self.window_mode == "menu":
-            return
+            return WindowAction.CONTINUE
         # waitモード時は待機フレーム数が過ぎると全終了
         if self.window_mode == "wait" and self.frame_counter <= self.wait_frame:
             return WindowAction.DISCARD
         # waitモード時は待機フレーム数の半分を過ぎるまでキー入力を受け付けない
         if self.window_mode == "wait" and self.frame_counter <= self.wait_frame // 2:
+            self.is_indicator = True  # インジケータ点灯フラグON
             return WindowAction.CONTINUE
+
+        # ボタンを押したら終わりのタイプはすぐインジケータ点灯
+        if self.window_mode in ("once", "page"):
+            self.is_indicator = True
 
         # 決定またはキャンセルキー処理
         if self.inp.decide() or self.inp.cancel():
@@ -207,6 +225,8 @@ class Window:
                         return WindowAction.CONTINUE
                     else:
                         return WindowAction.DISCARD
+
+        return WindowAction.CONTINUE
 
     def draw(self):
         # ウインドウ描画
@@ -224,28 +244,33 @@ class Window:
         if self.frame_counter >= self.wait_frame // 2:
             if px.frame_count // 8 % 2 == 0:
                 px.blt(
-                    self.x + self.width // 2 - 4,
-                    self.y + self.height - 5,
+                    self.x + self.width // 2 - (self._indicator_address[2] // 2),
+                    self.y + self.height - self._indicator_address[3] - 1,
                     self._image_chips,
-                    35,
-                    248,
-                    5,
-                    8,
-                    colkey=0,
-                    rotate=90,
+                    # 35,
+                    # 248,
+                    # 5,
+                    # 8,
+                    *Window._indicator_address,
+                    # colkey=0,
+                    # rotate=90,
                 )
 
-    def drawText(self, x: int, y: int, text_list: list):
+    def drawText(self, x: int, y: int, text_list: list, col: int = px.COLOR_WHITE):
         for i, data in enumerate(text_list):
-            try:
-                textcolor = data[1]
-            except IndexError:
-                textcolor = px.COLOR_WHITE
+            # try:
+            #     textcolor = data[1]
+            #     # text = data[0]
+            # except IndexError:
+            #     textcolor = px.COLOR_WHITE
+            #     # text = data
             px.text(
                 x,
                 y + (i * int(self.fontdata.height * 1.5)),
                 data[0],
-                textcolor,
+                # text,
+                # col=textcolor,
+                col=col,
                 font=self.font,
             )
         return
@@ -266,7 +291,7 @@ class Window:
         pos_x = self.x + self._chip_size
         pos_y = self.y + self._chip_size
         if self.window_mode == "page":
-            text = self.text_list[0]
+            text = "" if not self.text_list else self.text_list[0]
             px.text(
                 pos_x,
                 pos_y + (0 * int(self.fontdata.height * 1.5)),
@@ -298,40 +323,15 @@ class MenuItem:
     # is_disabled: bool = False                # (将来用) 選択不可フラグなどを足しても便利です
 
 
+type MENU_ITEM_LIST = list[list[dict[str, Any]]]
+
+
 class ExecResult:
-    """exec_menuの戻り値基底クラス"""
+    """exec_menuの戻り値基底クラス
+    具象実装も本ファイルにて後述
+    """
 
     ...
-
-
-class RsltPush(ExecResult):
-    """exec_menu内でサブメニューをpushする時"""
-
-    def __init__(self, class_name: type[Window] | type[Menu], *args, **kwargs):
-        self.class_name = class_name
-        self.args_pos = args
-        self.args_key = kwargs
-
-
-@dataclass
-class RsltPop(ExecResult):
-    """exec_menu内で自メニューをpopする時"""
-
-    pass
-
-
-@dataclass
-class RsltDiscard(ExecResult):
-    """exec_menu後にメニュースタックをクリアする時"""
-
-    pass
-
-
-@dataclass
-class RsltContinue(ExecResult):
-    """そのまま続ける時"""
-
-    pass
 
 
 class Menu:
@@ -344,7 +344,8 @@ class Menu:
         path is not None
     ), f"固定メニュー項目データの読み込みに失敗しました：file={file}"
     menu_item_data = read_json(path)
-    _MENU_ITEM_CASHE: dict[str, list[list[dict[str, str]]]] = dict(menu_item_data)
+    # _MENU_ITEM_CASHE: dict[str, list[list[dict[str, str|list]]]] = dict(menu_item_data)
+    _MENU_ITEM_CASHE: dict[str, MENU_ITEM_LIST] = dict(menu_item_data)
 
     def __init__(
         self,
@@ -352,7 +353,8 @@ class Menu:
         x: int,
         y: int,  # width: int, height: int,
         menu_shape: list[int],
-        menu_source: str | list[list[dict[str, str]]],
+        # menu_source: str | list[list[dict[str, str|list]]],
+        menu_source: str | MENU_ITEM_LIST,
         w: int = 0,
         h: int = 0,
     ):
@@ -400,7 +402,8 @@ class Menu:
     def height(self):
         return self.windows["main"].height
 
-    def build_menu_items(self, menu_source: str | list[list[dict[str, str]]]):
+    # def build_menu_items(self, menu_source: str | list[list[dict[str, str|list]]]):
+    def build_menu_items(self, menu_source: str | MENU_ITEM_LIST):
         if isinstance(menu_source, str):  # メニュー固定項目指定時
             tmp_menudata = self._MENU_ITEM_CASHE[menu_source]
         else:  # 動的指定
@@ -446,10 +449,17 @@ class Menu:
         self.column_x_pos = []
         current_x = Window._chip_size  # 描画初期アドレスを枠のすぐ右に定義
 
+        # column_items: list[list[MenuItem]] = [
+        #     list(col) for col in zip(*self.menu_items)
+        # ]
+        # 横あり奇数リストの対策
         column_items: list[list[MenuItem]] = [
-            list(col) for col in zip(*self.menu_items)
+            [item for item in col if item is not None]
+            for col in zip_longest(*self.menu_items)
         ]
         for column_data in column_items:
+            if column_data is None:
+                continue
             # 現在のカラムのX座標を記録
             self.column_x_pos.append(current_x)
 
@@ -466,7 +476,7 @@ class Menu:
             colwidth = offset_cursor + max_column_textlen + offset_sepalete_col
             menuwidth += colwidth
             current_x += colwidth
-
+        # print(f"{self.menu_items}\n{column_items}\n{self.column_x_pos}")
         # チップサイズで丸めて最終的な幅を算出
         menuwidth = (
             px.ceil((menuwidth + framesize) / Window._chip_size) * Window._chip_size
@@ -557,6 +567,7 @@ class Menu:
 
     def draw_main(self):
         """メニュー項目文字表示"""
+        # try:
         for row_idx, row in enumerate(self.menu_items):
             for col_idx, item in enumerate(row):
                 text_x = (
@@ -567,6 +578,13 @@ class Menu:
                 text_y = self.windows["main"].y + self.row_y_pos[row_idx]
                 px.text(text_x, text_y, item.item_label, px.COLOR_WHITE, self.font)
         self.draw_cursor()
+
+    # except IndexError as e:
+    #     print(
+    #         # f"\nmenu={self.menu_items}\nitem={item}\n{self.column_x_pos}-{col_idx}"
+    #         f"{self.menu_items}\n{e}"
+    #     )
+    #     px.quit()
 
     def draw_cursor(self):
         """メニューカーソル表示"""
@@ -582,6 +600,44 @@ class Menu:
             *self.img_cursor,
             colkey=px.COLOR_BLACK,
         )
+
+
+class RsltPush(ExecResult):
+    """exec_menu内でサブメニューをpushする時"""
+
+    def __init__(self, class_name: type[Window] | type[Menu], *args, **kwargs):
+        self.class_name = class_name
+        self.args_pos = args
+        self.args_key = kwargs
+
+
+@dataclass
+class RsltPop(ExecResult):
+    """exec_menu内で自メニューをpopする時"""
+
+    on_pop: list[Callable[[], None]]
+
+
+@dataclass
+class RsltDiscard(ExecResult):
+    """exec_menu後にメニュースタックをクリアする時"""
+
+    pass
+
+
+@dataclass
+class RsltContinue(ExecResult):
+    """そのまま続ける時"""
+
+    pass
+
+
+class RsltReplace(RsltPush):
+    """exec_menu内で自身をPOP後次のメニューをpushする時
+    マネージャ側でpop後pushの値を使って処理
+    """
+
+    ...
 
 
 # class MenuYesNo(Menu):

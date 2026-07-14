@@ -2,7 +2,7 @@
 scene系基底クラスおよびシーンスタックマネージャ
 """
 
-from __future__ import annotations
+# from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import Literal
 from gameutils.lib.window import WindowManager
@@ -19,6 +19,10 @@ class BaseScene(ABC):
     def __init__(self) -> None:
         """初期化：シーン別ウインドウマネージャ生成"""
         self.wndmgr = WindowManager()
+
+    def load_bgm(self) -> None:
+        """シーン切替時のBGMロード"""
+        pass
 
     @abstractmethod
     def update(self) -> None:

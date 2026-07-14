@@ -8,9 +8,17 @@
   - ウインドウとメニューのキー操作を外部から上書き可能(自作inputモジュールを想定)
 """
 
-from __future__ import annotations
-from .window_protocol import WindowAction
-from .window_base import Window, Menu, RsltContinue, RsltDiscard, RsltPop, RsltPush
+# from __future__ import annotations
+from . import (
+    WindowAction,
+    Window,
+    Menu,
+    RsltContinue,
+    RsltDiscard,
+    RsltPop,
+    RsltPush,
+    RsltReplace,
+)
 
 
 class WindowManager:
@@ -45,8 +53,9 @@ class WindowManager:
             result = self._stacks[-1]
         return result
 
-    def update(self) -> None:
+    def update(self) -> WindowAction:
         """管理クラス配下のインスタンス更新およびインスタンス応答の処理"""
+        action = WindowAction.NOTHING
         if len(self._stacks):
             action = self._stacks[-1].update()
             match action:
@@ -70,12 +79,23 @@ class WindowManager:
                                 self.pop_stack()
                             case RsltDiscard():
                                 self.clear_stack()
+                            case RsltReplace():
+                                self.pop_stack()
+                                self.push_stack(
+                                    exec_result.class_name,
+                                    *exec_result.args_pos,
+                                    *exec_result.args_key,
+                                )
                             case RsltPush():
                                 self.push_stack(
                                     exec_result.class_name,
                                     *exec_result.args_pos,
                                     *exec_result.args_key,
                                 )
+                case _:
+                    print(action)
+                    action = WindowAction.NOTHING
+        return action
 
     def draw(self) -> None:
         """管理クラス配下のインスタンスをスタックの奥から順に描画"""
@@ -89,3 +109,8 @@ class WindowManager:
     def has_stack(self) -> bool:
         """スタックの有無"""
         return len(self._stacks) > 0
+
+    @property
+    def stack_count(self) -> int:
+        """スタックに積まれたメニュー数"""
+        return len(self._stacks)

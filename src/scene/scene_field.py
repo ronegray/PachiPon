@@ -10,7 +10,9 @@ import logging
 import pyxel as px
 import service_locater as di
 from gameutils.base import is_pressed, check_file, read_string
-from command import CommandContext
+from gameutils.lib import Window
+
+# from command import CommandContext
 from entity import EntityContext
 from menu import MenuField
 from .scene_base import BaseScene
@@ -22,7 +24,12 @@ logger = logging.getLogger(__name__)
 class SceneField(BaseScene):
     def __init__(self):
         super().__init__()
-        BaseScene.situation = "field"
+        self.situation = "field"
+        # フィールドメッセージウインドウの生成
+        message_pos = (4, px.height // 2 - 24)
+        message_size = (px.width - 8, 48)
+        self.message_window = Window("basic", *message_pos, *message_size, "once", 0)
+        self.message_window.update_row_max(2)
         # self.game_map = MapGraph()
         # map_path = check_file("assets/data/map_data.json", "r")
         # if map_path:
@@ -32,9 +39,14 @@ class SceneField(BaseScene):
         # self.map_image_width = self.map_image.width
         # self.map_image_height = self.map_image.height
 
-        self.current_node = "p17"  # 初期位置
-        self.last_visited_node = "p17"
-        self.next_node = "p17"
+        # self.current_node = "p17"  # 初期位置
+        # self.last_visited_node = "p17"
+        # self.next_node = "p17"
+        # 初期位置
+        self.current_node = (
+            self.last_visited_node
+        ) = self.next_node = di.ref.pt.get_current_point().id
+
         # self.event_manager = EventManager()
 
         # キャラクターは main.py で初期化され、サービスロケータに登録されている
@@ -53,6 +65,20 @@ class SceneField(BaseScene):
 
         self.event_flags = {node_id: True for node_id in di.ref.map.points.keys()}
 
+        # """暫定処理：BGMロード"""
+        # path = check_file("assets/sound/field.txt")
+        # if path is not None:
+        #     score_data = read_string(path)
+        # else:
+        #     raise FileNotFoundError("ファイルがない！")
+        # for i, mml in enumerate(score_data):
+        #     px.sounds[i].mml(mml)
+        #     px.musics[0].set([0], [1], [2], [3])
+        #     px.stop()
+        #     px.playm(0, loop=True)
+        self.load_bgm()
+
+    def load_bgm(self) -> None:
         """暫定処理：BGMロード"""
         path = check_file("assets/sound/field.txt")
         if path is not None:
@@ -100,7 +126,10 @@ class SceneField(BaseScene):
             if self.wndmgr.has_stack:
                 self.wndmgr.pop_stack()
             else:
-                self.wndmgr.push_stack(MenuField, self.build_context)
+                ctx = self.build_context()
+                # member_list = di.ref.pt.get_active_member()
+                # member_list.reverse()
+                self.wndmgr.push_stack(MenuField, ctx, self.message_window)
             return
 
         # 通常のフィールド操作
@@ -151,7 +180,7 @@ class SceneField(BaseScene):
                     # 移動開始
                     # di.ref.pt.move_to(next_node_id)
                     # di.ref.pt.move_to(self.next_node)
-                    di.ref.pt.set_now_route(to_route)
+                    di.ref.pt.set_current_route(to_route)
                     di.ref.pt.move_route(to_route)
                     return
 
@@ -218,12 +247,24 @@ class SceneField(BaseScene):
         # WindowManagerの描画（メニュー等）
         self.wndmgr.draw()
 
-    def build_context(self, actor_id: int = 0, target: list = []) -> CommandContext:
+    # def build_context(self, actor_id: int = 0, target: list = []) -> CommandContext:
+    #     """エンティティコマンド用コンテキスト生成"""
+    #     ctx = EntityContext(
+    #         situation=self.situation,
+    #         actor=di.ref.pt.get_member(actor_id),
+    #         allies=di.ref.pt.get_allmember(),
+    #         targets=[],
+    #         target_index=0,
+    #     )
+    #     return ctx
+
+    def build_context(self) -> EntityContext:
         """エンティティコマンド用コンテキスト生成"""
         ctx = EntityContext(
-            situation="field",
-            actor=di.ref.pt.get_member(actor_id),
-            allies=target,
-            enemies=[],
+            situation=self.situation,
+            actor=di.ref.pt.get_member(0),
+            allies=list(di.ref.pt.get_allmember()),
+            targets=[],
+            target_index=0,
         )
         return ctx

@@ -9,11 +9,14 @@
             "luck": 3,
             "exp": 1,
             "gold": 0,
+            "bodysize": "S",
             "hitdice": 1,
             "defvalue": 0,
             "magpenalty": 0,
             "guardtype": "NONE",
-            "weaktype": "ALL"
+            "weaktype": "ALL",
+            "action_pattern": ["attack","attack","attack","attack","attack","escape"],
+            "skills": [""]
         },
         {
             "name": "リザード",
@@ -24,11 +27,14 @@
             "luck": 3,
             "exp": 2,
             "gold": 1,
+            "bodysize": "M",
             "hitdice": 1,
             "defvalue": 0,
             "magpenalty": 0,
             "guardtype": "NONE",
-            "weaktype": "ALL"
+            "weaktype": "ALL",
+            "action_pattern": ["attack","attack","attack","attack","attack","escape"],
+            "skills": [""]
         }
     ],
     [
@@ -41,11 +47,14 @@
             "luck": 3,
             "exp": 3,
             "gold": 1,
+            "bodysize": "S",
             "hitdice": 1,
             "defvalue": 0,
             "magpenalty": 0,
             "guardtype": "NONE",
-            "weaktype": "ALL"
+            "weaktype": "ALL",
+            "action_pattern": ["attack","attack","attack","attack","attack","escape"],
+            "skills": [""]
         },
         {
             "name": "ラット",
@@ -56,11 +65,14 @@
             "luck": 3,
             "exp": 4,
             "gold": 1,
+            "bodysize": "S",
             "hitdice": 1,
             "defvalue": 0,
             "magpenalty": 0,
             "guardtype": "NONE",
-            "weaktype": "ALL"
+            "weaktype": "ALL",
+            "action_pattern": ["attack","attack","attack","attack","attack","escape"],
+            "skills": [""]
         }
     ],
     [
@@ -73,11 +85,14 @@
             "luck": 3,
             "exp": 6,
             "gold": 2,
+            "bodysize": "M",
             "hitdice": 2,
             "defvalue": 1,
             "magpenalty": 0,
             "guardtype": "BASH",
-            "weaktype": "SACRED"
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
         },
         {
             "name": "スケルトン",
@@ -88,363 +103,1654 @@
             "luck": 3,
             "exp": 8,
             "gold": 2,
+            "bodysize": "M",
             "hitdice": 2,
             "defvalue": 2,
             "magpenalty": 0,
             "guardtype": "STUB",
-            "weaktype": "SACRED"
-        }
-    ],
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED"
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED"
-        }
-    ],
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED"
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED"
-        }
-    ],
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED"
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED"
-        }
-    ],
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED"
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED"
-        }
-    ],
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED"
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED"
-        }
-    ],
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED"
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED"
-        }
-    ],
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED"
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED"
-        }
-    ],
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED"
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED"
-        }
-    ],
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED"
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED"
-        }
-    ],
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED"
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED"
-        }
-    ],
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED"
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED"
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
         }
     ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+,
+    [
+         {
+            "name": "コボルト",
+            "strength": 6,
+            "arcane": 3,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 6,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
+            "skills": [""]
+        },
+        {
+            "name": "スケルトン",
+            "strength": 6,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 5,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "SACRED",
+            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
+            "skills": [""]
+        }
+    ]
+
 ]

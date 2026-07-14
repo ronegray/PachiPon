@@ -8,5 +8,6 @@ memory-bank/
 *.pyc
 *.xlsx
 *.yml
-*.log
+*.log*
+debug*
 uv.lock

@@ -253,11 +253,11 @@ class MenuShowKeyItem(MenuItemBase):
     def generate_item_list(self):
         """アイテムリストの生成"""
         tmplist = di.ref.pl_item.get_by_state(ItemState.BAG)
-        filteredlist = [
-            {item_[0]: item_[1]}
-            for item_ in tmplist.items()
-            if item_[0] & 0xFF00 == ItemType.KEY_ITEM
-        ]
+        # filteredlist = [
+        #     {key: data}
+        #     for key, data in tmplist.items()
+        #     if data.ins.param.item_type == ItemType.KEY_ITEM
+        # ]
         filteredlist = [
             [
                 {
@@ -267,7 +267,7 @@ class MenuShowKeyItem(MenuItemBase):
                 }
             ]
             for _, items_ in tmplist.items()
-            if items_.ins.param.def_id & 0xFF00 == ItemType.KEY_ITEM
+            if items_.ins.param.item_type == ItemType.KEY_ITEM
         ]
 
         self.inventory_count = len(filteredlist)
@@ -350,7 +350,7 @@ class MenuShowEquips(MenuItemBase):
                 }
             ]
             for _, items_ in tmplist.items()
-            if items_.ins.param.def_id & 0xFF00 != ItemType.KEY_ITEM
+            if items_.ins.param.item_type != ItemType.KEY_ITEM
         ]
 
         self.inventory_count = len(filteredlist)
@@ -390,7 +390,7 @@ class MenuShowEquips(MenuItemBase):
         # return self.target_item[0]["args"]
         item_def = di.ref.itemmgr.get_def(self.target_item[0]["args"][0])
         if item_def is None:
-            return ""
+            return [""]
         match item_def.item_type:
             case ItemType.WEAPON:
                 expect_dmg = item_def.hitdice * 4

@@ -6,7 +6,7 @@
   - 最終スタックの更新と描画
 """
 
-from __future__ import annotations
+# from __future__ import annotations
 from . import SCENE_NAME, get_scene, BaseScene
 
 
@@ -24,9 +24,11 @@ class SceneManager:
         instance = get_scene(scene_name)()
         self._stacks.append(instance)
 
-    def previous_scene(self):
+    def previous_scene(self, is_load_bgm: bool = True):
         """前のシーンに戻る"""
         self._stacks.pop()
+        if is_load_bgm:
+            self._stacks[-1].load_bgm()
 
     def get_now_scene(self) -> BaseScene:
         """現在のシーンを返す"""
@@ -35,6 +37,11 @@ class SceneManager:
     def change_scene(self, scene_name: SCENE_NAME):
         """完全に別のシーンへ切り替える（前シーン戻り不可）"""
         self._stacks.clear()
+        self.next_scene(scene_name)
+
+    def step_next_scene(self, scene_name: SCENE_NAME):
+        """次のシーンへ進む際に自シーンを破棄（スプラッシュ演出を挟む場合に）"""
+        self._stacks.pop()
         self.next_scene(scene_name)
 
     def update(self):

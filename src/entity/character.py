@@ -5,27 +5,35 @@
 # from dataclasses import dataclass  # , field
 from gameutils.base import check_file, read_json
 from assets.asset_map import AssetMap, AssetID
+from item import PooledItem, WeaponType
 
 # import random
 # from equipments import
-from . import EntityParam, PlayerSprite, Equips  # , PlayerSpriteType, EquipSlot
+from . import (
+    EntityBase,
+    EntityParam,
+    PlayerSprite,
+    Equips,
+    EquipSlot,
+)  # , PlayerSpriteType, EquipSlot
 
-# from item import ItemState
-from skill import SkillID, Skills
+# from item import WeaponType
+from skill import SkillID  # , Skills
 # from gameutils.base import check_file, read_json
 
 
-class Character:
+class Character(EntityBase):
     """ユーザキャラクタークラス"""
 
     exp_table: list = []
 
     def __init__(self, param: EntityParam, sprite: PlayerSprite, id: int = 0):
-        self.param: EntityParam = param
-        self.sprite: PlayerSprite = sprite
-        self.id: int = id
+        # self.param: EntityParam = param
+        # self.sprite: PlayerSprite = sprite
+        # self.id: int = id
+        super().__init__(param, sprite, id)
         self.equipments: Equips = Equips(self.id)  # Equipmentsを初期化
-        self.skills: Skills = Skills(self.id)  # type:ignore
+        # self.skills: Skills = Skills(self.id)  # type:ignore
 
         # 経験値テーブルデータが無い場合は読み込み
         if not Character.exp_table:
@@ -36,105 +44,107 @@ class Character:
                 data = [0, 1, 2]
             Character.exp_table = data
 
-    # 装備効果を含めたパラメータ
-    @property
-    def max_hp(self) -> int:
-        return int(self.param.max_hp)
-
-    @property
-    def max_mp(self) -> int:
-        return int(self.param.max_mp)
+    def update_bonus(self) -> None:
+        self.multiplier = [
+            max(1, self.equipments.get_adjust_effect(SkillID.GAIN_MAXHP)),
+            max(1, self.equipments.get_adjust_effect(SkillID.GAIN_MAXMP)),
+        ]
+        self.param_bonus = [
+            int(self.equipments.get_adjust_effect(SkillID.BONUS_STR)),
+            int(self.equipments.get_adjust_effect(SkillID.BONUS_ARC)),
+            int(self.equipments.get_adjust_effect(SkillID.BONUS_END)),
+            int(self.equipments.get_adjust_effect(SkillID.BONUS_SPD)),
+            int(self.equipments.get_adjust_effect(SkillID.BONUS_LCK)),
+        ]
 
     @property
     def next_exp(self) -> int:
         return int(self.exp_table[self.param.level] - self.param.exp)
 
-    @property
-    def strength(self) -> int:
-        return int(
-            self.param.strength + self.equipments.get_adjust_effect(SkillID.BONUS_STR)
-        )
+    # @property
+    # def strength(self) -> int:
+    #     return int(
+    #         self.param.strength + self.equipments.get_adjust_effect(SkillID.BONUS_STR)
+    #     )
+
+    # @property
+    # def arcane(self) -> int:
+    #     return int(
+    #         self.param.arcane + self.equipments.get_adjust_effect(SkillID.BONUS_ARC)
+    #     )
+
+    # @property
+    # def endurance(self) -> int:
+    #     return int(
+    #         self.param.endurance + self.equipments.get_adjust_effect(SkillID.BONUS_END)
+    #     )
+
+    # @property
+    # def speed(self) -> int:
+    #     return int(
+    #         self.param.speed + self.equipments.get_adjust_effect(SkillID.BONUS_SPD)
+    #     )
+
+    # @property
+    # def luck(self) -> int:
+    #     return int(
+    #         self.param.luck + self.equipments.get_adjust_effect(SkillID.BONUS_LCK)
+    #     )
+
+    def get_equip(self, slot: EquipSlot) -> PooledItem | None:
+        """装備中のアイテムを取得"""
+        return self.equipments.get_slot(slot)
+
+    def get_weapon_type(self) -> WeaponType:
+        item = self.get_equip(EquipSlot.WEAPON)
+        if item is None:
+            return WeaponType.NONE
+        else:
+            weapon_type = (item[1].ins.param.def_id >> 4) & 0xF
+            return WeaponType(weapon_type)
 
     @property
-    def arcane(self) -> int:
-        return int(
-            self.param.arcane + self.equipments.get_adjust_effect(SkillID.BONUS_ARC)
-        )
+    def hitdice(self) -> int:
+        """武器のダイス値を取得"""
+        item = self.get_equip(EquipSlot.WEAPON)
+        if item is None:
+            return 1
+        else:
+            return item[1].ins.param.hitdice
 
     @property
-    def endurance(self) -> int:
-        return int(
-            self.param.endurance + self.equipments.get_adjust_effect(SkillID.BONUS_END)
-        )
+    def defvalue(self) -> int:
+        """防具の防御値を取得"""
+        # item = self.equipments.get_slot(EquipSlot.GUARDER)
+        item = self.get_equip(EquipSlot.GUARDER)
+        if item is None:
+            return 0
+        else:
+            return item[1].ins.param.defvalue
 
     @property
-    def speed(self) -> int:
-        return int(
-            self.param.speed + self.equipments.get_adjust_effect(SkillID.BONUS_SPD)
-        )
+    def magpenalty(self) -> int:
+        """防具のペナルティ値を取得"""
+        # item = self.equipments.get_slot(EquipSlot.GUARDER)
+        item = self.get_equip(EquipSlot.GUARDER)
+        if item is None:
+            return 0
+        else:
+            return item[1].ins.param.magpenalty
 
     @property
-    def luck(self) -> int:
-        return int(
-            self.param.luck + self.equipments.get_adjust_effect(SkillID.BONUS_LCK)
-        )
-
-    # 装備効果を含めたパラメータから算出する能力値ボーナス
-    @property
-    def bonus_str(self) -> int:
-        return self.strength // 6
+    def guard_type(self) -> int:
+        """防御タイプによる減衰はプレイヤーには無し"""
+        return 0b0000
 
     @property
-    def bonus_arc(self) -> int:
-        return self.arcane // 6
+    def weak_type(self) -> int:
+        """プレイヤーには魔法弱点無し"""
+        return 0b0000_0000
 
-    @property
-    def bonus_end(self) -> int:
-        return self.endurance // 6
-
-    @property
-    def bonus_spd(self) -> int:
-        return self.speed // 6
-
-    @property
-    def bonus_lck(self) -> int:
-        return self.luck // 6
-
-    def increase_hp(self, val: int) -> int:
-        """HP加算"""
-        real_val = min(val, self.max_hp - self.param.hp)
-        self.param.hp += real_val
-        return real_val
-
-    def decrease_hp(self, val: int) -> None:
-        """HP減算"""
-        real_val = min(val, self.param.hp)
-        self.param.hp -= real_val
-
-    def increase_mp(self, val: int) -> int:
-        """MP加算"""
-        real_val = max(val, self.max_mp - self.param.mp)
-        self.param.mp += real_val
-        return real_val
-
-    def decrease_mp(self, val: int) -> None:
-        """MP減算"""
-        real_val = min(val, self.param.mp)
-        self.param.mp -= real_val
-
-    def use_mp(self, cost: int) -> bool:
-        """MP減算"""
-        if self.param.mp < cost:
-            return False
-        self.param.mp -= cost
-        return True
-
-    def is_alive(self) -> bool:
-        return self.param.hp > 0
-
-    # def gain_exp(self, exp: int):
-    #     self.param.exp += exp
-    #     # レベルアップ判定ロジックをここに追加
+    def gain_exp(self, exp: int):
+        self.param.exp += exp
+        # レベルアップ判定ロジックをここに追加
 
     # def add_exp(self, exp_amount):
     #     self.param.exp += exp_amount

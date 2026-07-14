@@ -23,7 +23,9 @@ SCENE_NAME = Literal[
     # "field",
     # "dungeon",
     "map",
+    "battlesplash",
     "battle",
+    "battlemenu",
     # "craft",
     # "rest",
 ]
