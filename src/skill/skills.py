@@ -11,6 +11,7 @@ from dataclasses import dataclass
 # from item import ItemState
 
 # import command.entity_command
+from helper import diceroll
 from scene import SITUATION
 from . import SkillID, SkillDef, SkillManager  # , TargetType
 
@@ -63,6 +64,10 @@ class Skills:
                 if (skill_def.target_type & criteria.get(situation, 0b1111)) > 0b1:
                     result.add(skill_def)
         return result
+
+    def calc_damage(self, skill_def: SkillDef) -> int:
+        """魔法ダメージ計算（実処理）"""
+        return diceroll(int(skill_def.effect_value))
 
     # def use_skill(self, skill_id: SkillID):
     #     """指定したIDのスキルコマンドを生成してコマンドマネージャへ登録"""

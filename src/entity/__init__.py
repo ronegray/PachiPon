@@ -14,5 +14,5 @@ from .equipments import EquipSlot, Equips
 from .character import Character
 from .party import Party
 from .enemy import Enemy
-from .entity_context import EntityContext
+from .entity_context import EntityContext  # ,CommandPackage
 from .enemy_manager import EnemyManager

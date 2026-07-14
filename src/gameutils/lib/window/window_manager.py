@@ -92,6 +92,9 @@ class WindowManager:
                                     *exec_result.args_pos,
                                     *exec_result.args_key,
                                 )
+                case _:
+                    print(action)
+                    action = WindowAction.NOTHING
         return action
 
     def draw(self) -> None:

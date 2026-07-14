@@ -24,10 +24,11 @@ class SceneManager:
         instance = get_scene(scene_name)()
         self._stacks.append(instance)
 
-    def previous_scene(self):
+    def previous_scene(self, is_load_bgm: bool = True):
         """前のシーンに戻る"""
         self._stacks.pop()
-        self._stacks[-1].load_bgm()
+        if is_load_bgm:
+            self._stacks[-1].load_bgm()
 
     def get_now_scene(self) -> BaseScene:
         """現在のシーンを返す"""

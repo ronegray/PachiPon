@@ -10,7 +10,7 @@
 import logging
 from abc import ABC, abstractmethod
 from helper import diceroll
-from skill import Skills
+from skill import Skills, SkillDef
 from item import WeaponType
 from . import EntityParam, BaseSprite
 
@@ -150,6 +150,10 @@ class EntityBase(ABC):
         self.param.mp -= cost
         return True
 
+    def check_mp(self, cost: int) -> bool:
+        """MP消費可能チェック"""
+        return self.param.mp >= cost
+
     def hitroll_offence(self) -> int:
         """命中ロール：攻撃側"""
         return diceroll(self.bonus_str) + self.bonus_lck
@@ -177,7 +181,11 @@ class EntityBase(ABC):
 
     def castroll(self, dc: int) -> bool:
         """魔法発動ロール"""
-        return diceroll(self.bonus_arc) - (dc + self.magpenalty) > 0
+        return (diceroll(self.bonus_arc) - (dc + self.magpenalty)) > 0
+
+    def damageroll_skill(self, skill_def: SkillDef) -> int:
+        """魔法ダメージ計算（呼び出し）"""
+        return self.skills.calc_damage(skill_def)
 
     def suppress_damage_skill(self) -> int:
         """魔法ダメージの防御による相殺値"""

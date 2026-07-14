@@ -18,6 +18,7 @@ from .scene_newgame import SceneNewGame
 from .scene_field import SceneField
 from .scene_battlesplash import SceneBattleSplash
 from .scene_battle import SceneBattle
+from .scene_battlemenu import SceneBattleMenu
 
 
 register("splash", SceneSplash)
@@ -26,3 +27,4 @@ register("newgame", SceneNewGame)
 register("map", SceneField)
 register("battlesplash", SceneBattleSplash)
 register("battle", SceneBattle)
+register("battlemenu", SceneBattleMenu)

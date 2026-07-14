@@ -567,23 +567,24 @@ class Menu:
 
     def draw_main(self):
         """メニュー項目文字表示"""
-        try:
-            for row_idx, row in enumerate(self.menu_items):
-                for col_idx, item in enumerate(row):
-                    text_x = (
-                        self.windows["main"].x
-                        + self.column_x_pos[col_idx]
-                        + Window._chip_size
-                    )  # カーソルの右隣
-                    text_y = self.windows["main"].y + self.row_y_pos[row_idx]
-                    px.text(text_x, text_y, item.item_label, px.COLOR_WHITE, self.font)
-            self.draw_cursor()
-        except IndexError as e:
-            print(
-                # f"\nmenu={self.menu_items}\nitem={item}\n{self.column_x_pos}-{col_idx}"
-                f"{self.menu_items}\n{e}"
-            )
-            px.quit()
+        # try:
+        for row_idx, row in enumerate(self.menu_items):
+            for col_idx, item in enumerate(row):
+                text_x = (
+                    self.windows["main"].x
+                    + self.column_x_pos[col_idx]
+                    + Window._chip_size
+                )  # カーソルの右隣
+                text_y = self.windows["main"].y + self.row_y_pos[row_idx]
+                px.text(text_x, text_y, item.item_label, px.COLOR_WHITE, self.font)
+        self.draw_cursor()
+
+    # except IndexError as e:
+    #     print(
+    #         # f"\nmenu={self.menu_items}\nitem={item}\n{self.column_x_pos}-{col_idx}"
+    #         f"{self.menu_items}\n{e}"
+    #     )
+    #     px.quit()
 
     def draw_cursor(self):
         """メニューカーソル表示"""

@@ -5,7 +5,7 @@ from . import EntityBase, BaseSprite, EntityParam, EnemyParam, GuardType
 
 # from skill import Skills
 from item import WeaponType
-from skill import SkillType
+from skill import SkillID
 
 
 class Enemy(EntityBase):
@@ -67,7 +67,7 @@ class Enemy(EntityBase):
     def calc_weak_rate(self, skill_id: int = -1) -> float:
         """呪文ダメージ相性率率計算"""
         try:
-            real_skill_id = SkillType(skill_id)
+            real_skill_id = SkillID(skill_id)
         except TypeError:
             return 1.0
         # spell 0x1_1_x_0 のxの値が1~8ある

@@ -5,4 +5,4 @@ from .menu_battle import MenuBattle, MenuSelectBattleTarget
 from .menu_item import MenuSelectItemCategory
 from .menu_status import MenuStatus
 from .menu_equip import MenuSelectEquipSlot, MenuEquip
-from .menu_skill import MenuSelectSkill, MenuSelectSkillold
+from .menu_skill import MenuSelectSkill

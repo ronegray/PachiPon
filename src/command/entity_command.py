@@ -5,12 +5,14 @@ import logging
 
 # from collections import deque
 from abc import abstractmethod
-from typing import Generator, cast
+from typing import Generator, cast  # , Any
+from dataclasses import dataclass
 import pyxel as px
 from gameutils.lib import Window, WindowAction
 from helper import diceroll, upper_int
 from const import COMMAND_STEPWAIT_FRAME
 from entity import EntityContext, Enemy, Party
+from skill import TargetType
 from . import CommandBase, CommandPhase, DisplayInfo
 
 # ロギング設定
@@ -39,6 +41,17 @@ class CommandBaseEntity(CommandBase):
         else:
             self.step_wait = 0  # COMMAND_STEPWAIT_FRAME//2
             return False
+
+    def _check_living_targets(self) -> list:
+        """行動前の対象生存チェック"""
+        # 生存しているターゲットだけをリストアップ
+        living_targets = [t for t in self._ctx.targets if t.is_alive]
+        # ターゲットが全て生存していない場合は終了
+        if not living_targets:
+            self.phase = CommandPhase.FIN
+            self.step_wait = 0
+            return []
+        return living_targets
 
     @abstractmethod
     def _sequence(self) -> Generator[list[str], None, None]:
@@ -81,6 +94,15 @@ class CommandBaseEntity(CommandBase):
         return self.display_info
 
 
+@dataclass
+class CommandPackage:
+    """Command選択結果のメニュー⇔シーン間受け渡し用パッケージ"""
+
+    selected_action: type[CommandBaseEntity] | None = None
+    target_type: TargetType | None = None
+    selected_args: dict | None = None
+
+
 class Attack(CommandBaseEntity):
 
     """エンティティ共通行動：物理攻撃"""
@@ -96,22 +118,26 @@ class Attack(CommandBaseEntity):
     """
 
     def _sequence(self) -> Generator[list[str], None, None]:
-        # triggerに相当：計算はここで完結、yieldでメッセージを渡す
-
+        # 最初に必ず生死チェック
         if self._check_actor_alive():
             actor = self._ctx.actor
         else:
             return
 
-        # 生存しているターゲットだけをリストアップ
-        living_targets = [t for t in self._ctx.targets if t.is_alive]
-        # ターゲットが全て生存していない場合は終了
+        # # 生存しているターゲットだけをリストアップ
+        # living_targets = [t for t in self._ctx.targets if t.is_alive]
+        # # ターゲットが全て生存していない場合は終了
+        # if not living_targets:
+        #     self.phase = CommandPhase.FIN
+        #     self.step_wait = 0
+        #     return
+        # 生存ターゲットチェック
+        living_targets = self._check_living_targets()
         if not living_targets:
-            self.phase = CommandPhase.FIN
-            self.step_wait = 0
             return
         # 現在のターゲットが生存していればそれを使う、そうでなければリストの先頭を使う
-        current = self._ctx.targets[self._ctx.target_index]
+        # current = self._ctx.targets[self._ctx.target_index]
+        current = self._ctx.target
         target = current if current.is_alive else living_targets[0]
 
         # ファーストメッセージ
@@ -163,9 +189,10 @@ class UseItem(CommandBaseEntity):
 
 class UseSkill(CommandBaseEntity):
 
-    """ユーザ行動：防御体勢"""
+    """ユーザ行動：スキル使用"""
 
     def _sequence(self) -> Generator[list[str], None, None]:
+        # 最初に必ず生死チェック
         if self._check_actor_alive():
             actor = self._ctx.actor
         else:
@@ -196,11 +223,53 @@ class DefenceMode(CommandBaseEntity):
 
 
 class AttackSpellSingle(CommandBaseEntity):
-    def update(self) -> CommandPhase:
-        ...
+    """単体攻撃魔法"""
 
-    def draw(self) -> DisplayInfo:
-        ...
+    def _sequence(self) -> Generator[list[str], None, None]:
+        # 最初に必ず生死チェック
+        if self._check_actor_alive():
+            actor = self._ctx.actor
+        else:
+            return
+
+        # 生存ターゲットチェック
+        living_targets = self._check_living_targets()
+        if not living_targets:
+            return
+        # 現在のターゲットが生存していればそれを使う、そうでなければリストの先頭を使う
+        current = self._ctx.target
+        target = current if current.is_alive else living_targets[0]
+
+        # コマンドパッケージから取得するスキル情報
+        skill_def = self.args[0]["skillinfo"]
+
+        # ファーストメッセージ
+        yield [f"{actor.param.name}は {skill_def.name} を 詠唱する", "　　・・・・・"]
+        yield [""]
+
+        # 詠唱ロール
+        if not actor.castroll(skill_def.dc):
+            yield ["呪文は　失敗に終わった・・・"]
+            return  # ここで終了
+
+        # ダメージロール
+        damage = int(
+            (actor.damageroll_skill(skill_def) - target.suppress_damage_skill())
+            * target.calc_weak_rate(skill_def.def_id)
+        )
+
+        if damage <= 0:
+            yield [f"{target.param.name}の守りを 貫けない！"]
+            return
+
+        yield [f"{target.param.name}に {upper_int(damage)} ポイントの ダメージ！"]
+
+        # run_effectに相当：メッセージ表示後にダメージ適用
+        target.decrease_hp(damage)
+
+        if not target.is_alive:
+            # cleanupに相当：撃破メッセージ
+            yield [f"{target.param.name}は 力尽きて ころがった"]
 
 
 class RecoverSpellSingle(CommandBaseEntity):

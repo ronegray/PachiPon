@@ -6,6 +6,7 @@
 - 算出イニシアチブ値の順にコマンドを実行し、結果を表示
 """
 import logging
+from typing import Callable
 import pyxel as px
 from gameutils.base import check_file, read_string
 from gameutils.lib import Window, WindowInputHandler
@@ -19,7 +20,7 @@ import command.entity_command as e_cmd
 
 # from command.system_command import BattleStartEffect
 from entity import EntityBase, EntityContext
-from menu import MenuBattle
+# from menu import MenuBattle
 
 # ロギング設定
 logger = logging.getLogger(__name__)
@@ -44,8 +45,8 @@ class SceneBattle(BaseScene):
     def __init__(self):
         super().__init__()
         self.situation = "battle"
-        self.initiative_dict = {}  # イニシアチブ値格納辞書
-        self.battle_commands = {}  # 行動コマンド格納辞書
+        self.initiative_dict: dict = {}  # イニシアチブ値格納辞書
+        self.battle_commands: dict = {}  # 行動コマンド格納辞書
         self.is_battle_over: bool = False  # 戦闘終了フラグ
         # 背景用に直前画面のスクリーンポインタからイメージ生成
         self.bgimage: px.Image = px.Image(px.width, px.height)
@@ -220,7 +221,7 @@ class SceneBattle(BaseScene):
                 # self.battle_commands[enemy.id] = enemy_command
                 target_index, target_list = self.select_enemy_target()
                 ctx = self.build_context(
-                    enemy, target_index, self.enemy_list, target_list
+                    enemy, target_list[target_index], self.enemy_list, target_list
                 )
                 # action = ActionPattern.ATTACK
                 enemy_command = SceneBattle._enemy_commands.get(action)
@@ -244,7 +245,7 @@ class SceneBattle(BaseScene):
                 WindowInputHandler.load_default_input()
                 # 報酬の画面表示
                 ctx = self.build_context(
-                    di.ref.hero, 0, di.ref.pt.get_allmember(), self.enemy_list
+                    di.ref.hero, di.ref.hero, di.ref.pt.get_allmember(), self.enemy_list
                 )
                 di.ref.cmdmgr.push_command(
                     e_cmd.GrantReward(ctx, self.message_window, di.ref.pt)
@@ -272,24 +273,35 @@ class SceneBattle(BaseScene):
         if di.ref.cmdmgr.is_empty:
             # コマンドリストにアクティブメンバー数のコマンドが揃うまでループ
             if len(self.battle_commands.keys()) < di.ref.pt.get_active_member_count():
-                if self.wndmgr.has_stack:
-                    self.wndmgr.update()
-                else:  # メニュー未生成の場合は作成する
-                    # 逆順メンバーリストを生成
-                    member_list = di.ref.pt.get_active_member()
-                    # logger.info(f"order member list {member_list}",)
-                    member_list.reverse()
-                    ctx = self.build_context(
-                        member_list[0], 0, di.ref.pt.get_allmember(), self.enemy_list
-                    )
-                    # logger.info(f"source context {ctx}")
-                    self.wndmgr.push_stack(
-                        MenuBattle,
-                        ctx,
-                        member_list,
-                        self.battle_commands,
-                        self.message_window,
-                    )
+                # if self.wndmgr.has_stack:
+                #     self.wndmgr.update()
+                # else:  # メニュー未生成の場合は作成する
+                #     # member_list = di.ref.pt.get_active_member()
+                #     # # # logger.info(f"order member list {member_list}",)
+                #     # # member_list.reverse()
+                #     # member = [member for member in member_list
+                #     #           if member.id not in self.battle_commands.keys()]
+
+                #     # actor = target = member[0]
+                #     # ctx = self.build_context(
+                #     #     actor, target, di.ref.pt.get_allmember(), self.enemy_list
+                #     # )
+                #     # # logger.info(f"source context {ctx}")
+                #     # self.wndmgr.push_stack(
+                #     #     MenuBattle,
+                #     #     ctx,
+                #     #     # member_list,
+                #     #     self.battle_commands,
+                #     #     self.message_window,
+                #     # )
+                di.ref.scnmgr.next_scene("battlemenu")
+            # """
+            # バトルメニューシーンを呼ぶ
+            # 　コマンドの器は渡す
+            # 　シーン内メニューでコマンドを作る
+            # 　メニューは終わったらPOPする
+            # 　　コマンドの器に生成したコマンドを定義する
+            # """
             else:
                 # エネミー行動コマンドの生成
                 self.generate_enemy_commands()
@@ -358,16 +370,31 @@ class SceneBattle(BaseScene):
     def build_context(
         self,
         actor: EntityBase,
-        target_index: int,
-        ally_list: list = [],
-        target_list: list = [],
+        target: EntityBase,
+        ally_list: list,
+        target_list: list,
     ) -> EntityContext:
         """エンティティコマンド用コンテキスト生成"""
         ctx = EntityContext(
             situation=self.situation,
             actor=actor,
+            target=target,
             allies=ally_list,
             targets=target_list,
-            target_index=target_index,
+            # pending_command=None
         )
         return ctx
+
+    def transfer_battledata(self) -> tuple[EntityContext, dict, Window, Callable]:
+        """サブシーンへの戦闘関連データ受け渡し用"""
+        member_list = di.ref.pt.get_allmember()
+        member = [
+            member
+            for member in member_list
+            if member.id not in self.battle_commands.keys() and member.is_alive
+        ]
+        actor = target = member[0]
+
+        ctx = self.build_context(actor, target, member_list, self.enemy_list)
+
+        return (ctx, self.battle_commands, self.message_window, self.draw)
