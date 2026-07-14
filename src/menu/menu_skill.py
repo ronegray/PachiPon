@@ -6,9 +6,11 @@
 """
 
 import logging
-from typing import Callable
+
+# from typing import Callable
 import pyxel as px
-import service_locater as di
+
+# import service_locater as di
 from gameutils.lib import Menu, Window, ExecResult, RsltContinue, RsltPush, RsltDiscard
 
 # from item import ItemState, ItemType
@@ -24,8 +26,8 @@ logger = logging.getLogger(__name__)
 class MenuSelectSkill(Menu):
     """行動サブメニュー：使用スキル選択"""
 
-    _list_rows: int = 10
-    _pagelabel_size = 4 * 5  # 4ptフォント5文字
+    # _list_rows: int = 10
+    # _pagelabel_size = 4 * 5  # 4ptフォント5文字
     _menu_col_criteria = {"field": 1, "battle": 2}
 
     def __init__(
@@ -316,65 +318,65 @@ class MenuSelectSkill(Menu):
                 return RsltContinue()
 
 
-class MenuSelectSkillTarget(Menu):
-    """スキル使用対象を選択し、スキルコマンドを発行"""
+# class MenuSelectSkillTarget(Menu):
+#     """スキル使用対象を選択し、スキルコマンドを発行"""
 
-    def __init__(self, ctx_builder: Callable, actor_id: int, skill_def: SkillDef):
-        # actor = di.ref.pt.get_member(actor_id)
-        self._ctx = ctx_builder(actor_id=actor_id)
-        self.skill_def = skill_def
-        menu_pos = (160, 160)
-        menu_shape = [1, di.ref.pt.get_member_count()]
-        menu_items = [
-            [
-                {
-                    "id": f"{member.param.name}",
-                    "action": "use_skill",
-                    "args": [[member]],
-                }
-            ]
-            for member in di.ref.pt.get_allmember()
-        ]
-        if skill_def.target_type & 0b0001 == 0b0001:
-            self.target = di.ref.pt.get_allmember()
-            self.use_skill(self.target)
-        else:
-            self.target: list = []
-        super().__init__("basic", *menu_pos, menu_shape, menu_items)
-        self.cursor_row_offset += 2
+#     def __init__(self, ctx_builder: Callable, actor_id: int, skill_def: SkillDef):
+#         # actor = di.ref.pt.get_member(actor_id)
+#         self._ctx = ctx_builder(actor_id=actor_id)
+#         self.skill_def = skill_def
+#         menu_pos = (160, 160)
+#         menu_shape = [1, di.ref.pt.get_member_count()]
+#         menu_items = [
+#             [
+#                 {
+#                     "id": f"{member.param.name}",
+#                     "action": "use_skill",
+#                     "args": [[member]],
+#                 }
+#             ]
+#             for member in di.ref.pt.get_allmember()
+#         ]
+#         if skill_def.target_type & 0b0001 == 0b0001:
+#             self.target = di.ref.pt.get_allmember()
+#             self.use_skill(self.target)
+#         else:
+#             self.target: list = []
+#         super().__init__("basic", *menu_pos, menu_shape, menu_items)
+#         self.cursor_row_offset += 2
 
-    def exec_menu(self) -> ExecResult:
-        """選択メニュー項目の処理を実行"""
-        pos_x, pos_y = self.cursor_position
-        selected_item = self.menu_items[pos_y][pos_x]
-        logger.info(selected_item)
+#     def exec_menu(self) -> ExecResult:
+#         """選択メニュー項目の処理を実行"""
+#         pos_x, pos_y = self.cursor_position
+#         selected_item = self.menu_items[pos_y][pos_x]
+#         logger.info(selected_item)
 
-        if selected_item.menu_action is None:
-            errmsg = f"メニューアクション関数が定義されていません：{selected_item.item_label}"
-            logger.critical(errmsg, exc_info=True)
-            raise ValueError(errmsg)
+#         if selected_item.menu_action is None:
+#             errmsg = f"メニューアクション関数が定義されていません：{selected_item.item_label}"
+#             logger.critical(errmsg, exc_info=True)
+#             raise ValueError(errmsg)
 
-        logger.info(
-            f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}"
-        )
-        result = selected_item.menu_action(*selected_item.action_args)
+#         logger.info(
+#             f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}"
+#         )
+#         result = selected_item.menu_action(*selected_item.action_args)
 
-        # return WindowAction.DISCARD
-        # return RsltContinue()
-        return result
+#         # return WindowAction.DISCARD
+#         # return RsltContinue()
+#         return result
 
-    def use_skill(self, member: list) -> None:
-        """スキルコマンドを発行し、コマンドマネージャに登録"""
-        # コンテキスト内容確定
-        # if len(self.target) <= 0:
-        #     # self.target = [self.menu_items[self.cursor_position[1]]]
-        #     self.target =
-        self._ctx.allies = member
-        # コマンド判定
-        cmd = getattr(e_cmd, self.skill_def.effect_func)
-        if cmd is None:
-            errmsg = f"コマンド関数が定義されていません：{self.skill_def.effect_func}"
-            logger.critical(errmsg, exc_info=True)
-            raise ValueError(errmsg)
-        cast_skill = cmd(self._ctx, self.skill_def)
-        di.ref.cmdmgr.push_command(cast_skill)
+#     def use_skill(self, member: list) -> None:
+#         """スキルコマンドを発行し、コマンドマネージャに登録"""
+#         # コンテキスト内容確定
+#         # if len(self.target) <= 0:
+#         #     # self.target = [self.menu_items[self.cursor_position[1]]]
+#         #     self.target =
+#         self._ctx.allies = member
+#         # コマンド判定
+#         cmd = getattr(e_cmd, self.skill_def.effect_func)
+#         if cmd is None:
+#             errmsg = f"コマンド関数が定義されていません：{self.skill_def.effect_func}"
+#             logger.critical(errmsg, exc_info=True)
+#             raise ValueError(errmsg)
+#         cast_skill = cmd(self._ctx, self.skill_def)
+#         di.ref.cmdmgr.push_command(cast_skill)

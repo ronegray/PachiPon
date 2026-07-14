@@ -117,6 +117,8 @@ def ipl():
         member.equipments.equip_on_pool(
             EquipSlot.ACCESSORY_2, list(pooled_item.items())[-1]
         )
+        member.equipments.equip_on_consume(EquipSlot.CONSUME_1, ItemID.HEALPOT)
+        member.equipments.equip_on_consume(EquipSlot.CONSUME_2, ItemID.MAGICPOT)
 
     from skill import SkillID
 

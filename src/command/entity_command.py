@@ -11,7 +11,7 @@ import pyxel as px
 from gameutils.lib import Window, WindowAction
 from helper import diceroll, upper_int
 from const import COMMAND_STEPWAIT_FRAME
-from entity import EntityContext, Enemy, Party
+from entity import EntityContext, Enemy, Party, Character
 from skill import TargetType
 from . import CommandBase, CommandPhase, DisplayInfo
 
@@ -247,6 +247,11 @@ class AttackSpellSingle(CommandBaseEntity):
         yield [f"{actor.param.name}は {skill_def.name} を 詠唱する", "　　・・・・・"]
         yield [""]
 
+        # 戦闘中のＭＰ減少による使用の可否チェック
+        if not actor.use_mp(skill_def.cost):
+            yield ["しかし　ＭＰが不足している・・・"]
+            return
+
         # 詠唱ロール
         if not actor.castroll(skill_def.dc):
             yield ["呪文は　失敗に終わった・・・"]
@@ -275,38 +280,48 @@ class AttackSpellSingle(CommandBaseEntity):
 class RecoverSpellSingle(CommandBaseEntity):
     """単体回復呪文"""
 
-    def trigger(self) -> None:
-        """コマンド起動時一回性処理"""
-        self.skill_def = self.args[0]
-        self.message_window: Window = Window("basic", 0, 116, 240, 32, "once")
-        self.display_info = DisplayInfo(self.message_window)
-        # MP残量チェック
-        if self._ctx.actor.use_mp(self.skill_def.cost):
-            heal_val = diceroll(int(self.skill_def.effect_value))
-            real_val = self._ctx.allies[0].increase_hp(heal_val)
-            self.message_window.set_message([f"ＨＰが{real_val}回復しました"])
-            px.play(3, 63)
+    def _sequence(self) -> Generator[list[str], None, None]:
+        # 最初に必ず生死チェック
+        if self._check_actor_alive():
+            actor = self._ctx.actor
         else:
-            self.message_window.set_message(["ＭＰが足りません"])
+            return
 
-        # self.phase = CommandPhase.SYN
+        # 生存ターゲットチェック
+        living_targets = self._check_living_targets()
+        if not living_targets:
+            return
+        # 現在のターゲットが生存していればそれを使う、そうでなければリストの先頭を使う
+        current = self._ctx.target
+        target = current if current.is_alive else living_targets[0]
 
-    def update(self) -> CommandPhase:
-        """コマンド応答待ち"""
-        if self.phase == CommandPhase.ACK:
-            if self.display_info.target.update() == WindowAction.DISCARD:
-                return CommandPhase.FIN
-        else:
-            self.phase = CommandPhase.ACK
-        return self.phase
+        # コマンドパッケージから取得するスキル情報
+        skill_def = self.args[0]["skillinfo"]
 
-    def draw(self) -> DisplayInfo:
-        """コマンド描画情報送信"""
-        return self.display_info
+        # ファーストメッセージ
+        yield [f"{actor.param.name}は {skill_def.name} を 詠唱する", "　　・・・・・"]
+        yield [""]
 
+        # 戦闘中のＭＰ減少による使用の可否チェック
+        if not actor.use_mp(skill_def.cost):
+            yield ["しかし　ＭＰが不足している・・・"]
+            return
 
-# class EnemyAttack(CommandBaseEntity):
-# 不要の可能性
+        # 詠唱ロール
+        if not actor.castroll(skill_def.dc):
+            yield ["呪文は　失敗に終わった・・・"]
+            return  # ここで終了
+
+        # ダメージロール
+        healing = actor.damageroll_skill(skill_def)
+        # yield [""]
+
+        real_heal = target.increase_hp(healing)
+        yield [f"{target.param.name}は {upper_int(real_heal)} のＨＰが　回復した"]
+
+        # if not target.is_alive:
+        #     # cleanupに相当：撃破メッセージ
+        #     yield [f"{target.param.name}は 力尽きて ころがった"]
 
 
 class EnemyEscape(CommandBaseEntity):
@@ -368,3 +383,89 @@ class GrantReward(CommandBaseEntity):
             yield [f"{member.param.name}は　経験値{getexp}　を稼いだ！"]
 
         return
+
+
+class heal_hp(CommandBaseEntity):
+    """HP回復アイテム"""
+
+    def _sequence(self) -> Generator[list[str], None, None]:
+        # 最初に必ず生死チェック
+        if self._check_actor_alive():
+            actor = cast(Character, self._ctx.actor)
+        else:
+            return
+
+        # 生存ターゲットチェック
+        living_targets = self._check_living_targets()
+        if not living_targets:
+            return
+        # 現在のターゲットが生存していればそれを使う、そうでなければリストの先頭を使う
+        current = self._ctx.target
+        target = current if current.is_alive else living_targets[0]
+
+        # コマンドパッケージから取得するスキル情報
+        slot = self.args[0]["slot"]
+        plent = self.args[0]["iteminfo"]
+
+        # ファーストメッセージ
+        yield [
+            f"{actor.param.name}は　{target.param.name}に",
+            f"　{plent.ins.param.name} を 使用した",
+        ]
+
+        # アイテム消費
+        actor.equipments.use_consume(slot)
+
+        # 回復ロール
+        if plent.ins.param.effect_value:
+            healing = target.param.max_hp
+        else:
+            healing = diceroll(actor.param.level)
+        yield [""]
+
+        # run_effectに相当：メッセージ表示後にダメージ適用
+        real_heal = target.increase_hp(healing)
+        yield [f"{target.param.name}は {upper_int(real_heal)} のＨＰが　回復した"]
+
+
+class heal_mp(CommandBaseEntity):
+    """MP回復アイテム"""
+
+    def _sequence(self) -> Generator[list[str], None, None]:
+        # 最初に必ず生死チェック
+        if self._check_actor_alive():
+            actor = cast(Character, self._ctx.actor)
+        else:
+            return
+
+        # 生存ターゲットチェック
+        living_targets = self._check_living_targets()
+        if not living_targets:
+            return
+        # 現在のターゲットが生存していればそれを使う、そうでなければリストの先頭を使う
+        current = self._ctx.target
+        target = current if current.is_alive else living_targets[0]
+
+        # コマンドパッケージから取得するスキル情報
+        slot = self.args[0]["slot"]
+        plent = self.args[0]["iteminfo"]
+
+        # ファーストメッセージ
+        yield [
+            f"{actor.param.name}は　{target.param.name}に",
+            f"　{plent.ins.param.name} を 使用した",
+        ]
+
+        # アイテム消費
+        actor.equipments.use_consume(slot)
+
+        # 回復ロール
+        if plent.ins.param.effect_value:
+            healing = target.param.max_mp
+        else:
+            healing = diceroll(actor.param.level)
+        yield [""]
+
+        # run_effectに相当：メッセージ表示後にダメージ適用
+        real_heal = target.increase_mp(healing)
+        yield [f"{target.param.name}は {upper_int(real_heal)} のＭＰが　回復した"]

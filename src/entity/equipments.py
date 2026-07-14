@@ -207,21 +207,34 @@ class Equips:
     def equip_on_consume(self, slot: EquipSlot, def_id: ItemID):
         """スタックプールのアイテム（消耗品）を装備"""
         pooled_item = self._convert_instance(def_id)
-        _, plent = pooled_item
+        # _, plent = pooled_item
         self.equip_on_pool(slot, pooled_item)
 
     def equip_off(self, slot: EquipSlot):  # -> PooledItem:
         """アイテムの装備解除（消耗品の場合はスタック変換）"""
-        target = self._equipped_items[slot]
+        # target = self._equipped_items[slot]
+        target = self.get_slot(slot)
         if target is None:
             return
         _, plent_off = target
         plent_off.stat = ItemState.BAG
+        self._equipped_items[slot] = None
         if plent_off.ins.param.item_type == ItemType.CONSUME:
             self._convert_stack(target)
 
         # 補正効果キャッシュを更新
         self.set_adjust_effect()
+
+    def use_consume(self, slot: EquipSlot):
+        """装備中の消耗品を消費"""
+        target = self.get_slot(slot)
+        def_id = target[1].ins.param.def_id  # type: ignore
+
+        # 装備から解除しスタックに変換
+        self.equip_off(slot)
+
+        # スタックから該当IDのアイテムを1つ削除
+        di.ref.pl_stack.remove(def_id, ItemState.FREE, 1)
 
         # if isinstance(target.param.item_type, ItemType):
         #     self._equipped_items[slot] = None
