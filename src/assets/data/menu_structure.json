@@ -19,7 +19,7 @@
     ],
     "MenuField": [
         [{"id": "店に行く", "action": "enter_shop"},{"id": "力を見る", "action": "show_status"}],
-        [{"id": "装備する", "action": "equip_item"},{"id": "技を使う", "action": "use_skill"}],
+        [{"id": "装備する", "action": "equip_item"},{"id": "技を使う", "action": "select_skill"}],
         [{"id": "アイテム", "action": "select_item_category"},{"id": "システム", "action": "select_item_category"}]
     ],
     "MenuSelectItemCategory": [

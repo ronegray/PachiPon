@@ -300,17 +300,19 @@ class RecoverSpellSingle(CommandBaseEntity):
 
         # ファーストメッセージ
         yield [f"{actor.param.name}は {skill_def.name} を 詠唱する", "　　・・・・・"]
-        yield [""]
 
-        # 戦闘中のＭＰ減少による使用の可否チェック
-        if not actor.use_mp(skill_def.cost):
-            yield ["しかし　ＭＰが不足している・・・"]
-            return
+        if self._ctx.situation == "battle":
+            yield [""]
 
-        # 詠唱ロール
-        if not actor.castroll(skill_def.dc):
-            yield ["呪文は　失敗に終わった・・・"]
-            return  # ここで終了
+            # 戦闘中のＭＰ減少による使用の可否チェック
+            if not actor.use_mp(skill_def.cost):
+                yield ["しかし　ＭＰが不足している・・・"]
+                return
+
+            # 詠唱ロール
+            if not actor.castroll(skill_def.dc):
+                yield ["呪文は　失敗に終わった・・・"]
+                return  # ここで終了
 
         # ダメージロール
         healing = actor.damageroll_skill(skill_def)

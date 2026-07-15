@@ -359,7 +359,7 @@ class MenuEquip(Menu):
         # result = selected_item.menu_action(*selected_item.action_args)
         # return result
 
-        return RsltPop()
+        return RsltPop([])
 
     def generate_item_list(self):
         """アイテムリストの生成"""
