@@ -74,11 +74,13 @@ class WindowManager:
                         exec_result = self._stacks[-1].exec_menu()
                         match exec_result:
                             case RsltContinue():
-                                pass
+                                action = WindowAction.CONTINUE
                             case RsltPop():
                                 self.pop_stack()
+                                action = WindowAction.CLOSE
                             case RsltDiscard():
                                 self.clear_stack()
+                                action = WindowAction.DISCARD
                             case RsltReplace():
                                 self.pop_stack()
                                 self.push_stack(

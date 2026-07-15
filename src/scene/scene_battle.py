@@ -30,7 +30,7 @@ class SceneBattle(BaseScene):
     """バトルシーン"""
 
     _disp_addr_center: int = 128  # エネミースプライト配置のセンター位置
-    _sprite_under: int = 160
+    _sprite_under: int = 156
     _status_width: int = 80
     _status_height: int = 48
     _enemy_name_suffix: list = ["Ａ", "Ｂ", "Ｃ", "Ｄ", "Ｅ", "Ｆ"]
@@ -52,7 +52,7 @@ class SceneBattle(BaseScene):
         self.bgimage: px.Image = px.Image(px.width, px.height)
         bgpointer = self.bgimage.data_ptr()
         bgpointer[:] = px.screen.data_ptr()
-        # 戦闘メッセージウインドウの生成
+        # 戦闘メッセージ用ウインドウの生成
         message_pos = (0, 184)
         message_size = (px.width, 72)
         self.message_window = Window("basic", *message_pos, *message_size, "once", 0)

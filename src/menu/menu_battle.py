@@ -50,53 +50,29 @@ logger = logging.getLogger(__name__)
 class MenuBattle(Menu):
     def __init__(
         self,
-        # ctx_source: EntityContext,
         ctx: EntityContext,
-        # actor_list: list[Character],  # 逆順生存メンバーリスト
-        # battle_commands: dict,
-        # message_window: Window,
         command_package: e_cmd.CommandPackage,
     ):
         menu_pos = (0, 192)
         menu_shape = [1, 4]
         super().__init__("basic", *menu_pos, menu_shape, self.__class__.__name__)
-        # self.windows["main"].y = px.height - self.height
         self.cursor_row_offset += 2  # k8x12Sの縦長分対応
-        # self.ctx_source: EntityContext = ctx_source  # 再帰先へのコンテキスト引継用
-        # self.context: EntityContext = EntityContext(
-        #     situation=ctx_source.situation,
-        #     actor=ctx_source.actor,
-        #     target=ctx_source.target,
-        #     allies=ctx_source.allies,
-        #     targets=ctx_source.targets,
-        # )
+
         self.context = ctx
         self.command_package = command_package
-        # logger.info(f"\nMenuBattle init \nsrc  {ctx_source}\nlocal{self.context}")
-        # self.actor_list: list[Character] = actor_list[0:]
-        # self.actor_list: list[Character] = actor_list.copy()
-        # # self.context.actor = self.ctx_source.actor = self.actor_list.pop()
-        # self.context.actor = self.actor_list.pop()
-        # logger.info(f"\nactors \nself{self.actor_list}\narg{actor_list}\nctx{self.context.actor}")
-        self.context.actor.defend(False)  # コマンド入力前に一旦防御体勢解除
-        # self.battle_commands: dict = battle_commands
-        # self.message_window: Window = message_window
-        # サブウインドウ定義
-        self.windows["sub"] = Window(
-            "basic",
-            self.x + self.width,
-            self.y,
-            px.width - self.width,
-            self.height,
-            "once",
-        )
+
+        # コマンド用サブウインドウ
+        sub_pos = (self.x + self.width, self.y)
+        sub_size = (px.width - self.width, self.height)
+        self.windows["sub"] = Window("basic", *sub_pos, *sub_size, "once")
+
         # 名前ウインドウ定義（表示順制御の為self.windowsに乗せない）
         name_pos = (self.x, self.y - 17)
         name_size = (80, 32)
-        # self.windows["sub2"] = Window("basic", *name_pos, *name_size, "once")
-        # self.windows["sub2"].set_message([self.context.actor.param.name])
         self.namewindow = Window("basic", *name_pos, *name_size, "once")
-        # self.namewindow.set_message([self.context.actor.param.name])
+
+        # コマンド入力前に一旦防御体勢解除
+        self.context.actor.defend(False)
 
     def draw(self):
         """名前ウインドウの下部を隠す為順序制御"""
@@ -113,36 +89,19 @@ class MenuBattle(Menu):
         """選択メニュー項目の処理を実行"""
         pos_x, pos_y = self.cursor_position
         selected_item = self.menu_items[pos_y][pos_x]
-        # logger.debug(selected_item)
+        logger.info(selected_item)
 
         if selected_item.menu_action is None:
             errmsg = f"メニューアクション関数が定義されていません：{selected_item.item_label}"
             logger.critical(errmsg, exc_info=True)
             raise ValueError(errmsg)
 
-        # logger.debug(
-        #     f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}"
-        # )
         result = selected_item.menu_action(*selected_item.action_args)
 
-        # # return WindowAction.DISCARD
-        # # return RsltContinue()
-        # logger.debug(
-        #     f".exec_menu {id(self)}/{self.context.actor}\nin {self.actor_list}"
-        # )
         return result
 
     def select_target(self):
         """ユーザ行動コマンド：攻撃する／ターゲットの選択メニューへ"""
-
-        # self.battle_commands[self.context.actor.id] = e_cmd.DefenceMode(self.context, self.message_window)
-        # return self.return_exec()
-        # # サブメニュー進入前に戻りフラグをOFF
-        # self.is_submenu_return.state = False
-        # サブメニューへの引継時、コンテキストは引き回し中に書き換えるとキャンセル動作がおかしくなる
-        # self.context.pending_command = (
-        #     lambda: e_cmd.Attack(self.context)#, self.message_window)
-        # )
 
         # コマンドパッケージに選択内容登録
         self.command_package.selected_action = e_cmd.Attack
@@ -150,12 +109,7 @@ class MenuBattle(Menu):
 
         return RsltPush(
             MenuSelectBattleTarget,
-            # self.context.actor,  # 追加
-            # self.ctx_source,
-            # self.actor_list,
             self.context,
-            # self.battle_commands,
-            # self.message_window,
             {
                 "x": self.windows["sub"].x,
                 "y": self.windows["sub"].y,
@@ -167,86 +121,41 @@ class MenuBattle(Menu):
 
     def select_item(self):
         """アイテム表示メニューを開く"""
-        # # print("select item category")
-        # from menu import MenuSelectItemCategory
-
-        # # di.ref.scnmgr.stacks[-1].wndmgr.push_stack(
-        # #     MenuSelectItemCategory,
-        # #     self.cursor_x + Window._chip_size,
-        # #     self.cursor_y + Window._chip_size,
-        # # )
-        # return RsltPush(
-        #     MenuSelectItemCategory,
-        #     self.cursor_x + Window._chip_size + 1,
-        #     self.cursor_y + Window._chip_size + 1,
-        # )
         return RsltPush(
             MenuSelectItem,
-            # self.context.actor,  # 追加
-            # self.ctx_source,
-            # self.actor_list,
             self.context,
-            # self.battle_commands,
-            # self.message_window,
-            # self.windows["sub"],
             {
                 "x": self.windows["sub"].x,
                 "y": self.windows["sub"].y,
                 "w": self.windows["sub"].width,
                 "h": self.windows["sub"].height,
             },
-            # self.is_submenu_return,
             self.command_package,
         )
 
     def select_skill(self):
-        """スキル表示メニューを開く"""
-        # print("use skill")
-        # print(f"{di.ref.hero.skills._learned_skills}")
-        from menu import MenuSelectSkill
+        """スキル選択メニューを開く"""
+        from menu import MenuSelectSkillBattle
 
         return RsltPush(
-            MenuSelectSkill,
-            # self.context.actor,  # 追加
-            # self.ctx_source,
-            # self.actor_list,
+            MenuSelectSkillBattle,
             self.context,
-            # self.battle_commands,
-            # self.message_window,
-            # self.windows["sub"],
             {
                 "x": self.windows["sub"].x,
                 "y": self.windows["sub"].y,
                 "w": self.windows["sub"].width,
                 "h": self.windows["sub"].height,
             },
-            # self.is_submenu_return,
             self.command_package,
         )
 
     def defence_mode(self):
         """ユーザ行動コマンド：防御体勢"""
-        # self.battle_commands[self.context.actor.id] = e_cmd.DefenceMode(
-        #     self.context, self.message_window
-        # )
-        # return self.return_exec()
         # コマンドパッケージに選択内容登録
         self.command_package.selected_action = e_cmd.DefenceMode
         self.command_package.target_type = TargetType.SELF
-        return RsltDiscard()
 
-    # def return_exec(self):
-    #     """コマンド入力完了確認"""
-    #     # if not self.actor_list:
-    #     #     return RsltDiscard()
-    #     return RsltPush(
-    #         MenuBattle,
-    #         # self.ctx_source,
-    #         # self.actor_list,
-    #         self.context,
-    #         # self.battle_commands,
-    #         # self.message_window,
-    #     )
+        return RsltDiscard()
 
 
 class MenuSelectBattleTarget(Menu):
@@ -255,7 +164,7 @@ class MenuSelectBattleTarget(Menu):
     def __init__(
         self,
         # real_actor: Character,
-        ctx_source: EntityContext,
+        context: EntityContext,
         # actor_list: list[Character],  # 逆順生存メンバーリスト
         # battle_commands: dict,
         # message_window: Window,
@@ -277,7 +186,7 @@ class MenuSelectBattleTarget(Menu):
         # )
         # # print(f"\nsrc {id(self.ctx_source.targets)}\nctx {id(self.context.targets)}")
         # self.actor_list: list[Character] = actor_list
-        self.context: EntityContext = ctx_source
+        self.context: EntityContext = context
         # self.battle_commands: dict = battle_commands
         # self.message_window: Window = message_window
         # self.command_name: str = command_name

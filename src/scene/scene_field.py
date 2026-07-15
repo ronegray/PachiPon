@@ -10,12 +10,13 @@ import logging
 import pyxel as px
 import service_locater as di
 from gameutils.base import is_pressed, check_file, read_string
-from gameutils.lib import Window
+from gameutils.lib import Window, WindowAction
 
 # from command import CommandContext
 from entity import EntityContext
+import command.entity_command as e_cmd
 from menu import MenuField
-from .scene_base import BaseScene
+from . import BaseScene
 
 # ロギング設定
 logger = logging.getLogger(__name__)
@@ -26,10 +27,14 @@ class SceneField(BaseScene):
         super().__init__()
         self.situation = "field"
         # フィールドメッセージウインドウの生成
-        message_pos = (4, px.height // 2 - 24)
-        message_size = (px.width - 8, 48)
+        x_offset = 4
+        message_height = 56
+        message_pos = (x_offset, px.height // 2 - (message_height // 2))
+        message_size = (px.width - (x_offset * 2), message_height)
         self.message_window = Window("basic", *message_pos, *message_size, "once", 0)
-        self.message_window.update_row_max(2)
+        # self.message_window.update_row_max(2)
+
+        self.context: EntityContext
         # self.game_map = MapGraph()
         # map_path = check_file("assets/data/map_data.json", "r")
         # if map_path:
@@ -104,7 +109,21 @@ class SceneField(BaseScene):
 
         # WindowManagerにスタックがある場合はメニュー操作を優先
         if self.wndmgr.has_stack:
-            self.wndmgr.update()
+            # self.wndmgr.update()
+            # return
+            if self.wndmgr.update() == WindowAction.DISCARD:
+                if self.command_package.selected_action is None:
+                    errmsg = "コマンドが未定義です"
+                    logger.critical(errmsg, exc_info=True)
+                    raise TypeError(errmsg)
+                cmd = self.command_package.selected_action
+                di.ref.cmdmgr.push_command(
+                    cmd(
+                        self.context,
+                        self.message_window,
+                        self.command_package.selected_args,
+                    )
+                )
             return
 
         # 移動中は何もしない
@@ -126,10 +145,11 @@ class SceneField(BaseScene):
             if self.wndmgr.has_stack:
                 self.wndmgr.pop_stack()
             else:
-                ctx = self.build_context()
+                self.context = self.build_context()
                 # member_list = di.ref.pt.get_active_member()
                 # member_list.reverse()
-                self.wndmgr.push_stack(MenuField, ctx, self.message_window)
+                self.command_package = e_cmd.CommandPackage()
+                self.wndmgr.push_stack(MenuField, self.context, self.command_package)
             return
 
         # 通常のフィールド操作
@@ -263,8 +283,8 @@ class SceneField(BaseScene):
         ctx = EntityContext(
             situation=self.situation,
             actor=di.ref.pt.get_member(0),
+            target=di.ref.pt.get_member(0),
             allies=list(di.ref.pt.get_allmember()),
-            targets=[],
-            target_index=0,
+            targets=list(di.ref.pt.get_allmember()),
         )
         return ctx
