@@ -11,6 +11,7 @@ from .item_protocol import (
     ItemInstance,
     PoolEntry,
     PooledItem,
+    ItemTargetType,
 )
 from .item_pool import ItemPool, StackPool
 from .item_manager import ItemManager

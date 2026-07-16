@@ -25,6 +25,9 @@ class ItemPool:
         # self._items: dict[int, PoolEntry] = {}
         self._items: dict[int, PoolEntry] = {}
 
+    def get_def(self, def_id: ItemID):
+        return di.ref.itemmgr.get_def(def_id)
+
     # def create(self, def_id: ItemID, state: ItemState) -> tuple[int, PoolEntry]:
     def create(self, def_id: ItemID, state: ItemState) -> PooledItem:
         """アイテムをプールに生成し、インスタンスを返す"""
@@ -32,7 +35,7 @@ class ItemPool:
             raise RuntimeError("ItemPool capacity exceeded")
 
         iid = self._free.popleft()
-        item_def = di.ref.itemmgr.get_def(def_id)
+        item_def = self.get_def(def_id)
         if item_def is None:
             errmsg = f"アイテムIDが定義されていません：{def_id}"
             logger.critical(errmsg, exc_info=True)
@@ -86,6 +89,9 @@ class StackPool:
     def __init__(self):
         # {(def_id, owner_id): count}
         self._stacks: dict[tuple[ItemID, ItemState], int] = defaultdict(int)
+
+    def get_def(self, def_id: ItemID):
+        return di.ref.itemmgr.get_def(def_id)
 
     def add(self, def_id: ItemID, state: ItemState, count: int = 1) -> None:
         """スタックへのアイテム追加・数量加算"""

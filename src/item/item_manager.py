@@ -7,7 +7,7 @@
 import logging
 from gameutils.base import check_file, read_json
 from assets.asset_map import AssetID, AssetMap
-from .item_protocol import ItemID, ItemType, ItemDef
+from .item_protocol import ItemID, ItemType, ItemDef, ItemTargetType
 
 # ロギング設定
 logger = logging.getLogger(__name__)
@@ -42,6 +42,7 @@ class ItemManager:
                         def_id=def_id,
                         name=details.get("name", "Unknown"),
                         item_type=item_type,
+                        target_type=ItemTargetType[details.get("target_type", "NONE")],
                         stackable=stackable,
                         price=details.get("price", 0),
                         description=details.get("description", ""),

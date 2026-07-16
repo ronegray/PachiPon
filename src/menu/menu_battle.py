@@ -33,7 +33,7 @@ from gameutils.lib import (
 # from entity import Party
 
 from entity import EntityContext, EntityBase, Character, EquipSlot
-from skill import TargetType  # , SkillID
+from skill import SkillTargetType  # , SkillID
 
 import command.entity_command as e_cmd
 # from command import Attack, DefenceMode, UseItem, UseSkill
@@ -105,7 +105,7 @@ class MenuBattle(Menu):
 
         # コマンドパッケージに選択内容登録
         self.command_package.selected_action = e_cmd.Attack
-        self.command_package.target_type = TargetType.ENEMY
+        self.command_package.target_type = SkillTargetType.ENEMY
 
         return RsltPush(
             MenuSelectBattleTarget,
@@ -153,7 +153,7 @@ class MenuBattle(Menu):
         """ユーザ行動コマンド：防御体勢"""
         # コマンドパッケージに選択内容登録
         self.command_package.selected_action = e_cmd.DefenceMode
-        self.command_package.target_type = TargetType.SELF
+        self.command_package.target_type = SkillTargetType.SELF
 
         return RsltDiscard()
 
@@ -172,7 +172,7 @@ class MenuSelectBattleTarget(Menu):
         # ref_window: Window,
         ref_window: dict[str, int],
         # submenu_return: SubReturnFlag,
-        target_type: TargetType,
+        target_type: SkillTargetType,
         *args,
     ):
         # self.ctx_source: EntityContext = ctx_source  # 再帰先へのコンテキスト引継用
@@ -190,7 +190,7 @@ class MenuSelectBattleTarget(Menu):
         # self.battle_commands: dict = battle_commands
         # self.message_window: Window = message_window
         # self.command_name: str = command_name
-        self.target_type: TargetType = target_type
+        self.target_type: SkillTargetType = target_type
         self.item_list: MENU_ITEM_LIST = []
         self.generate_item_list()
         menu_pos = (ref_window["x"], ref_window["y"])
@@ -205,13 +205,13 @@ class MenuSelectBattleTarget(Menu):
         """メニュー項目リストの生成：ターゲット"""
         # 対象リストの振り分け
         match self.target_type:
-            case TargetType.ENEMY | TargetType.ENEMIES:
+            case SkillTargetType.ENEMY | SkillTargetType.ENEMIES:
                 target_list = self.context.targets
-            case TargetType.ALLY | TargetType.ALLIES:
+            case SkillTargetType.ALLY | SkillTargetType.ALLIES:
                 target_list = self.context.allies
-            case TargetType.SELF:  # 単体対象オブジェクトはリスト化が必要
+            case SkillTargetType.SELF:  # 単体対象オブジェクトはリスト化が必要
                 target_list = [self.context.actor]
-            case TargetType.ALL:
+            case SkillTargetType.ALL:
                 target_list = self.context.targets + self.context.allies
             case _:
                 target_list = self.context.targets
@@ -506,11 +506,10 @@ class MenuSelectItem(Menu):
 
         # コマンドパッケージに選択内容登録
         self.command_package.selected_action = getattr(e_cmd, func_name)
-        self.command_package.target_type = TargetType.ALLY  # type: ignore
+        self.command_package.target_type = SkillTargetType.ALLY  # type: ignore
         self.command_package.selected_args = {
+            "item_def": plent.ins.param,  # type: ignore
             "slot": eq_slot,
-            "itemid": item_iid,
-            "iteminfo": plent,
         }
 
         # return RsltPush(
@@ -537,4 +536,4 @@ class MenuSelectItem(Menu):
             self.command_package.target_type,
         )
 
-        return RsltContinue()
+        # return RsltContinue()

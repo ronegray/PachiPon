@@ -12,7 +12,8 @@ from gameutils.lib import Window, WindowAction
 from helper import diceroll, upper_int
 from const import COMMAND_STEPWAIT_FRAME
 from entity import EntityContext, Enemy, Party, Character
-from skill import TargetType
+from skill import SkillTargetType
+from item import ItemTargetType, StackPool, ItemState
 from . import CommandBase, CommandPhase, DisplayInfo
 
 # ロギング設定
@@ -99,7 +100,7 @@ class CommandPackage:
     """Command選択結果のメニュー⇔シーン間受け渡し用パッケージ"""
 
     selected_action: type[CommandBaseEntity] | None = None
-    target_type: TargetType | None = None
+    target_type: SkillTargetType | ItemTargetType | None = None
     selected_args: dict | None = None
 
 
@@ -313,6 +314,8 @@ class RecoverSpellSingle(CommandBaseEntity):
             if not actor.castroll(skill_def.dc):
                 yield ["呪文は　失敗に終わった・・・"]
                 return  # ここで終了
+        else:
+            actor.use_mp(skill_def.cost)
 
         # ダメージロール
         healing = actor.damageroll_skill(skill_def)
@@ -406,20 +409,24 @@ class heal_hp(CommandBaseEntity):
         target = current if current.is_alive else living_targets[0]
 
         # コマンドパッケージから取得するスキル情報
-        slot = self.args[0]["slot"]
-        plent = self.args[0]["iteminfo"]
+        item_def = self.args[0]["item_def"]
 
         # ファーストメッセージ
         yield [
             f"{actor.param.name}は　{target.param.name}に",
-            f"　{plent.ins.param.name} を 使用した",
+            f"　{item_def.name} を 使用した",
         ]
 
         # アイテム消費
-        actor.equipments.use_consume(slot)
+        if self._ctx.situation == "battle":
+            slot = self.args[0]["slot"]
+            actor.equipments.use_consume(slot)
+        else:
+            pl_stack = cast(StackPool, self.args[0]["pl_stack"])
+            pl_stack.remove(item_def.def_id, ItemState.BAG, 1)
 
         # 回復ロール
-        if plent.ins.param.effect_value:
+        if item_def.effect_value:
             healing = target.param.max_hp
         else:
             healing = diceroll(actor.param.level)

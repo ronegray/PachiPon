@@ -23,7 +23,7 @@ from gameutils.lib import (
 
 # from item import ItemState, ItemType
 from entity import EntityContext
-from skill import SkillDef, TargetType
+from skill import SkillDef, SkillTargetType
 import command.entity_command as e_cmd
 
 
@@ -328,7 +328,10 @@ class MenuSelectSkillBattle(Menu):
                 #     # self.is_submenu_return,
                 #     skill_id,
                 # )
-                if skill_def.target_type in (TargetType.ALLIES, TargetType.ENEMIES):
+                if skill_def.target_type in (
+                    SkillTargetType.ALLIES,
+                    SkillTargetType.ENEMIES,
+                ):
                     return RsltDiscard()
 
                 return RsltPush(
@@ -567,7 +570,7 @@ class MenuSelectSkillField(Menu):
     def select_target(self, skill_def: SkillDef) -> ExecResult:
         """使用するスキルの情報を元にターゲット選択メニューを呼び出し"""
 
-        if skill_def.target_type in (TargetType.ENEMY, TargetType.ENEMIES):
+        if skill_def.target_type in (SkillTargetType.ENEMY, SkillTargetType.ENEMIES):
             self.windows["sub"].set_message(["ここでは　つかえない"])
             return RsltPop([])
 
@@ -582,7 +585,7 @@ class MenuSelectSkillField(Menu):
         self.command_package.target_type = skill_def.target_type  # type: ignore
         self.command_package.selected_args = {"skillinfo": skill_def}
 
-        if skill_def.target_type in (TargetType.ALLIES, TargetType.ENEMIES):
+        if skill_def.target_type in (SkillTargetType.ALLIES, SkillTargetType.ENEMIES):
             return RsltDiscard()
 
         return RsltPush(

@@ -6,7 +6,7 @@
 
 import logging
 from gameutils.base import check_file, read_json
-from .skill_protocol import SkillID, SkillDef, SkillType, TargetType
+from .skill_protocol import SkillID, SkillDef, SkillType, SkillTargetType
 from assets.asset_map import AssetID, AssetMap
 
 
@@ -40,7 +40,7 @@ class SkillManager:
                         def_id=def_id,
                         name=details.get("name", "Unknown"),
                         skill_type=efx_type,
-                        target_type=TargetType[details.get("target_type", "NONE")],
+                        target_type=SkillTargetType[details.get("target_type", "NONE")],
                         price=details.get("price", 0),
                         description=details.get("description", ""),
                         dc=details.get("dc", 0),

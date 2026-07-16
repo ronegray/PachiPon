@@ -25,6 +25,7 @@ from gameutils.lib import (
 # from command import CommandType, CommandContext
 
 from entity import EntityContext  # Character,
+from item import ItemPool, StackPool
 import command.entity_command as e_cmd
 
 
@@ -37,6 +38,8 @@ class MenuField(Menu):
         self,
         ctx: EntityContext,
         command_package: e_cmd.CommandPackage,
+        pool_item: ItemPool,
+        pool_stack: StackPool,
     ):
         menu_pos = (4, 4)
         menu_shape = [2, 3]
@@ -45,6 +48,8 @@ class MenuField(Menu):
 
         self.context = ctx
         self.command_package = command_package
+        self.pool_item = pool_item
+        self.pool_stack = pool_stack
 
     def exec_menu(self) -> ExecResult:
         """選択メニュー項目の処理を実行"""
@@ -79,6 +84,10 @@ class MenuField(Menu):
             MenuSelectItemCategory,
             self.cursor_x + Window._chip_size + 1,
             self.cursor_y + Window._chip_size + 1,
+            self.context,
+            self.command_package,
+            self.pool_item,
+            self.pool_stack,
         )
 
     def equip_item(self):

@@ -400,6 +400,7 @@
   "CONSUME": {
     "HEALPOT": {
       "name": "回復薬",
+      "target_type": "ALLY",
       "price": 100,
       "effect_type": "heal_hp",
       "effect_value": 0,
@@ -408,6 +409,7 @@
     },
     "HIHEALPOT": {
       "name": "超回復薬",
+      "target_type": "ALLY",
       "price": 10000,
       "effect_type": "heal_hp",
       "effect_value": 1,
@@ -416,6 +418,7 @@
     },
     "MAGICPOT": {
       "name": "魔力薬",
+      "target_type": "ALLY",
       "price": 1000,
       "effect_type": "heal_mp",
       "effect_value": 0,
@@ -424,6 +427,7 @@
     },
     "HIMAGICPOT": {
       "name": "超魔力薬",
+      "target_type": "ALLY",
       "price": 99999,
       "effect_type": "heal_mp",
       "effect_value": 1,
