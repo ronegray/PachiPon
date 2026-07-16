@@ -4,14 +4,26 @@
 
 import logging
 import pyxel as px
-import service_locater as di
+
+# import service_locater as di
 from gameutils.lib import (
     Window,
     Menu,
     ExecResult,
     RsltPush,
+    RsltDiscard,
 )
-from item import ItemType, ItemID, ItemState  # , ConsumeGrade
+from helper import upper_int
+from item import (
+    ItemType,
+    ItemID,
+    ItemState,
+    ItemPool,
+    StackPool,
+    ItemTargetType,
+)  # , ConsumeGrade
+from entity import EntityContext
+import command.entity_command as e_cmd
 
 
 # ロギング設定
@@ -21,11 +33,24 @@ logger = logging.getLogger(__name__)
 class MenuSelectItemCategory(Menu):
     """アイテムカテゴリ選択メニュー"""
 
-    def __init__(self, menu_pos_x: int, menu_pos_y: int) -> None:
+    def __init__(
+        self,
+        menu_pos_x: int,
+        menu_pos_y: int,
+        ctx: EntityContext,
+        command_package: e_cmd.CommandPackage,
+        pool_item: ItemPool,
+        pool_stack: StackPool,
+    ) -> None:
         menu_pos = (menu_pos_x, menu_pos_y)
         menu_shape = [1, 3]
         super().__init__("basic", *menu_pos, menu_shape, self.__class__.__name__)
         self.cursor_row_offset += 2  # k8x12Sの縦長分対応
+
+        self.context = ctx
+        self.command_package = command_package
+        self.pool_item = pool_item
+        self.pool_stack = pool_stack
 
     def exec_menu(self) -> ExecResult:
         """選択メニュー項目の処理を実行"""
@@ -47,13 +72,19 @@ class MenuSelectItemCategory(Menu):
 
     def use_item(self):
         """消耗品アイテムメニュー表示"""
-        return RsltPush(MenuUseItem)
+        return RsltPush(
+            MenuUseItem,
+            self.context,
+            self.command_package,
+            self.pool_item,
+            self.pool_stack,
+        )
 
     def show_keyitem(self):
-        return RsltPush(MenuShowKeyItem)
+        return RsltPush(MenuShowKeyItem, self.pool_item, self.pool_stack)
 
     def show_equips(self):
-        return RsltPush(MenuShowEquips)
+        return RsltPush(MenuShowEquips, self.pool_item, self.pool_stack)
 
 
 class MenuItemBase(Menu):
@@ -62,8 +93,11 @@ class MenuItemBase(Menu):
     _list_rows: int = 10
     pagelabel_size = 4 * 5  # 4ptフォント5文字
 
-    def __init__(self):
+    def __init__(self, pool_item: ItemPool, pool_stack: StackPool) -> None:
         """データ取得と表示ウインドウの再定義"""
+        self.pool_item = pool_item
+        self.pool_stack = pool_stack
+
         menu_pos = (80, Window._chip_size)
         w = 104
         self.item_list: list = []
@@ -182,27 +216,37 @@ class MenuItemBase(Menu):
 class MenuUseItem(MenuItemBase):
     """消耗品アイテム表示・選択用メニュー"""
 
-    def __init__(self):
+    def __init__(
+        self,
+        context: EntityContext,
+        command_package: e_cmd.CommandPackage,
+        pool_item: ItemPool,
+        pool_stack: StackPool,
+    ):
         """データ取得と表示ウインドウの再定義"""
-        super().__init__()
+        super().__init__(pool_item, pool_stack)
+
+        self.context = context
+        self.command_package = command_package
+        self.inventory_count: int = 0
 
     def generate_item_list(self):
         """アイテムリストの生成"""
-        filteredlist = di.ref.pl_stack.get_by_state(ItemState.BAG)
+        filtereddict = self.pool_stack.get_by_state(ItemState.BAG)
 
-        self.inventory_count = len(filteredlist)
+        self.inventory_count = len(filtereddict)
         if self.inventory_count <= 0:
             self.item_list = [[{"id": "該当なし", "action": "None"}]]
         else:
             tmp_item_list = [
                 [
                     {
-                        "id": f"{di.ref.itemmgr.get_def(key).name} x {val}",
+                        "id": f"{self.pool_stack.get_def(key).name} × {upper_int(val)}",
                         "action": "use_item",
                         "args": [key],
                     }
                 ]
-                for key, val in filteredlist.items()
+                for key, val in filtereddict.items()
                 if val > 0
             ]
             self.item_list = [
@@ -216,7 +260,7 @@ class MenuUseItem(MenuItemBase):
         self.menu_shape = [1, len(self.item_list[self.itemlist_index])]
 
     def get_item_desc(self) -> list[str]:
-        return [di.ref.itemmgr.get_def(self.target_item[0]["args"][0]).description]
+        return [self.pool_stack.get_def(self.target_item[0]["args"][0]).description]
 
     def exec_menu(self) -> ExecResult:
         """選択メニュー項目の処理を実行"""
@@ -238,21 +282,50 @@ class MenuUseItem(MenuItemBase):
 
     def use_item(self, item_id: ItemID):
         """選択アイテムの効果関数を呼び出し"""
-        item_name = di.ref.itemmgr.get_def(item_id).name
-        print(f"{item_id} {item_name}")
-        self.windows["sub"].add_message(f"{item_name} をつかった")
+        # item_name = self.pool_stack.get_def(item_id).name
+        # print(f"{item_id} {item_name}")
+        # self.windows["sub"].add_message(f"{item_name} をつかった")
+        item_def = self.pool_stack.get_def(item_id)
+        if item_def is None:
+            errmsg = f"該当IDのアイテムが定義されていません：{item_id}"
+            logger.critical(errmsg, exc_info=True)
+            raise ValueError(errmsg)
+
+        from menu import MenuSelectFieldTarget
+
+        # コマンドパッケージに選択内容登録
+        self.command_package.selected_action = getattr(e_cmd, item_def.effect_id)
+        self.command_package.target_type = ItemTargetType(item_def.target_type)
+        self.command_package.selected_args = {
+            "item_def": item_def,
+            "pl_stack": self.pool_stack,
+        }
+        if self.command_package.target_type == ItemTargetType.NONE:
+            # ターゲットがない場合は抜けてそのまま処理実行
+            return RsltDiscard()
+        return RsltPush(
+            MenuSelectFieldTarget,
+            self.context,
+            # {
+            #     "x": self.windows["main"].x,
+            #     "y": self.windows["main"].y,
+            #     "w": self.windows["main"].width,
+            #     "h": self.windows["main"].height,
+            # },
+            self.command_package.target_type,
+        )
 
 
 class MenuShowKeyItem(MenuItemBase):
     """消耗品アイテム表示・選択用メニュー"""
 
-    def __init__(self):
+    def __init__(self, pool_item: ItemPool, pool_stack: StackPool):
         """データ取得と表示ウインドウの再定義"""
-        super().__init__()
+        super().__init__(pool_item, pool_stack)
 
     def generate_item_list(self):
         """アイテムリストの生成"""
-        tmplist = di.ref.pl_item.get_by_state(ItemState.BAG)
+        tmplist = self.pool_item.get_by_state(ItemState.BAG)
         # filteredlist = [
         #     {key: data}
         #     for key, data in tmplist.items()
@@ -291,7 +364,7 @@ class MenuShowKeyItem(MenuItemBase):
 class MenuShowEquips(MenuItemBase):
     """消耗品アイテム表示・選択用メニュー"""
 
-    def __init__(self):
+    def __init__(self, pool_item: ItemPool, pool_stack: StackPool):
         """データ取得と表示ウインドウの再定義"""
         # # x, y = 80, Window._chip_size
         # # self.item_list: list = []
@@ -313,7 +386,7 @@ class MenuShowEquips(MenuItemBase):
         # # self.is_push_right: int = 0
         # # # self.target_item = self.item_list[0][0]
         # # self.change_target_item()
-        super().__init__()
+        super().__init__(pool_item, pool_stack)
 
     # def _get_filtered_list(self, raw_list: dict[ItemID, int]) -> dict[ItemID, int]:
     #     """フィルタリング処理"""
@@ -334,7 +407,7 @@ class MenuShowEquips(MenuItemBase):
         """アイテムリストの生成"""
         # tmplist = di.ref.pl_stack.get_by_state(ItemState.BAG)
         # filteredlist = self._get_filtered_list(tmplist)
-        tmplist = di.ref.pl_item.get_by_state(ItemState.BAG)
+        tmplist = self.pool_item.get_by_state(ItemState.BAG)
         # filteredlist = [
         #     {item_[0]: item_[1]}
         #     for item_ in tmplist.items()
@@ -388,7 +461,7 @@ class MenuShowEquips(MenuItemBase):
 
     def get_item_desc(self) -> list[str]:
         # return self.target_item[0]["args"]
-        item_def = di.ref.itemmgr.get_def(self.target_item[0]["args"][0])
+        item_def = self.pool_item.get_def(self.target_item[0]["args"][0])
         if item_def is None:
             return [""]
         match item_def.item_type:

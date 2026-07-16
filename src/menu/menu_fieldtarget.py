@@ -2,7 +2,7 @@ import logging
 import pyxel as px
 from gameutils.lib import Menu, MENU_ITEM_LIST, ExecResult, RsltDiscard, RsltContinue
 from entity import EntityContext, EntityBase
-from skill import TargetType
+from skill import SkillTargetType
 
 
 # ロギング設定
@@ -10,9 +10,9 @@ logger = logging.getLogger(__name__)
 
 
 class MenuSelectFieldTarget(Menu):
-    def __init__(self, context: EntityContext, target_type: TargetType):
+    def __init__(self, context: EntityContext, target_type: SkillTargetType):
         self.context: EntityContext = context
-        self.target_type: TargetType = target_type
+        self.target_type: SkillTargetType = target_type
         self.item_list: MENU_ITEM_LIST = []
         self.generate_item_list()
 
@@ -24,11 +24,13 @@ class MenuSelectFieldTarget(Menu):
         """メニュー項目リストの生成：ターゲット"""
         # 対象リストの振り分け
         match self.target_type:
-            case TargetType.ALLY | TargetType.ALLIES:
+            case SkillTargetType.ALLY:
                 target_list = self.context.allies
-            case TargetType.SELF:  # 単体対象オブジェクトはリスト化が必要
+            case SkillTargetType.ALLIES:
+                target_list = self.context.allies
+            case SkillTargetType.SELF:  # 単体対象オブジェクトはリスト化が必要
                 target_list = [self.context.actor]
-            case TargetType.ALL:
+            case SkillTargetType.ALL:
                 target_list = self.context.targets + self.context.allies
             case _:
                 target_list = self.context.targets

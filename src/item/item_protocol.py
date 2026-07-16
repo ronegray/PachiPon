@@ -141,6 +141,15 @@ class ItemID(IntEnum):
     HIDICE       = 0x10_1_7  # 消耗品 次に実行されるダイス処理でダイス数を２ふやす
     RATIONS      = 0x10_0_8  # 消耗品 食糧を10増やす
     HIRATIONS    = 0x10_1_8  # 消耗品 食糧を50増やす
+
+class ItemTargetType(IntEnum):
+    NONE    = 0b0000 # ターゲット設定不可
+    ALLY    = 0b0010 # 味方単体
+    ALLIES  = 0b0011 # 味方全体
+    ENEMY   = 0b0100 # 敵単体
+    ENEMIES = 0b0101 # 敵全体
+    ALL     = 0b0111 # 敵味方全体
+    SELF    = 0b1000 # 自身のみ
 # fmt: on
 
 
@@ -151,6 +160,7 @@ class ItemDef:
     def_id: ItemID  # 種類を表すID (ItemID の値)
     name: str
     item_type: ItemType
+    target_type: ItemTargetType
     stackable: bool
     price: int = 0
     description: str = ""

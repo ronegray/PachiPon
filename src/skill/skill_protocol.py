@@ -95,14 +95,21 @@ class SkillID(IntEnum):
     POWERATTACK      = 0x1_F_0_2 # 強攻撃
 
 
-class TargetType(IntEnum):
-    NONE    = 0b0000
-    ALLY    = 0b0010
-    ALLIES  = 0b0011
-    ENEMY   = 0b0100
-    ENEMIES = 0b0101
-    ALL     = 0b0110 # ALLIESには自分も含む
-    SELF    = 0b1000
+class SkillTargetType(IntEnum):
+    # NONE    = 0b0000
+    # ALLY    = 0b0010
+    # ALLIES  = 0b0011
+    # ENEMY   = 0b0100
+    # ENEMIES = 0b0101
+    # ALL     = 0b0110 # ALLIESには自分も含む
+    # SELF    = 0b1000
+    NONE    = 0b0000 # ターゲット設定不可
+    ALLY    = 0b0010 # 味方単体
+    ALLIES  = 0b0011 # 味方全体
+    ENEMY   = 0b0100 # 敵単体
+    ENEMIES = 0b0101 # 敵全体
+    ALL     = 0b0111 # 敵味方全体
+    SELF    = 0b1000 # 自身のみ
 # fmt: on
 
 
@@ -113,7 +120,7 @@ class SkillDef:
     def_id: SkillID
     name: str
     skill_type: SkillType
-    target_type: TargetType
+    target_type: SkillTargetType
     price: int = 0
     description: str = ""
     dc: int = 0  # 難易度

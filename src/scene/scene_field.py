@@ -113,9 +113,10 @@ class SceneField(BaseScene):
             # return
             if self.wndmgr.update() == WindowAction.DISCARD:
                 if self.command_package.selected_action is None:
-                    errmsg = "コマンドが未定義です"
-                    logger.critical(errmsg, exc_info=True)
-                    raise TypeError(errmsg)
+                    # errmsg = "コマンドが未定義です"
+                    # logger.critical(errmsg, exc_info=True)
+                    # raise TypeError(errmsg)
+                    return
                 cmd = self.command_package.selected_action
                 di.ref.cmdmgr.push_command(
                     cmd(
@@ -149,7 +150,13 @@ class SceneField(BaseScene):
                 # member_list = di.ref.pt.get_active_member()
                 # member_list.reverse()
                 self.command_package = e_cmd.CommandPackage()
-                self.wndmgr.push_stack(MenuField, self.context, self.command_package)
+                self.wndmgr.push_stack(
+                    MenuField,
+                    self.context,
+                    self.command_package,
+                    di.ref.pl_item,
+                    di.ref.pl_stack,
+                )
             return
 
         # 通常のフィールド操作
