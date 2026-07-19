@@ -173,19 +173,44 @@ class MapGraph:
 
         # 線（Route）の描画
         for point in self.points.values():
-            for route in point.routes:
-                target_point = self.get_point(route.to_id)
-                if target_point:
-                    color = 13 if route.locked else 7
-                    px.line(
-                        point.x + offset_x,
-                        point.y + offset_y,
-                        target_point.x + offset_x,
-                        target_point.y + offset_y,
-                        color,
-                    )
+            #     for route in point.routes:
+            #         target_point = self.get_point(route.to_id)
+            #         if target_point:
+            #             color = px.COLOR_GRAY if route.locked else px.COLOR_WHITE
+            #             px.line(
+            #                 point.x + offset_x,
+            #                 point.y + offset_y,
+            #                 target_point.x + offset_x,
+            #                 target_point.y + offset_y,
+            #                 color,
+            #             )
 
-        # 点（EventPoint）の描画
-        for point in self.points.values():
-            px.circ(point.x + offset_x, point.y + offset_y, 2, 7)
-            px.text(point.x + offset_x + 4, point.y + offset_y + 4, point.name, 7)
+            # # 点（EventPoint）の描画
+            # for point in self.points.values():
+            #     px.circ(point.x + offset_x, point.y + offset_y, 2, 7)
+            #     px.text(point.x + offset_x + 4, point.y + offset_y + 4, point.name, 7)
+            # 描画範囲にあるポイントに対してのみ描画処理を実行
+            if (
+                offset_x <= point.x <= self.map_img_width
+                and offset_y <= point.y <= self.map_img_height
+            ):
+                # 線（Route）の描画
+                for route in point.routes:
+                    target_point = self.get_point(route.to_id)
+                    if target_point:
+                        color = px.COLOR_GRAY if route.locked else px.COLOR_WHITE
+                        px.line(
+                            point.x + offset_x,
+                            point.y + offset_y,
+                            target_point.x + offset_x,
+                            target_point.y + offset_y,
+                            color,
+                        )
+                # 点（EventPoint）の描画
+                px.circ(point.x + offset_x, point.y + offset_y, 2, px.COLOR_WHITE)
+                px.text(
+                    point.x + offset_x + 4,
+                    point.y + offset_y + 4,
+                    point.name,
+                    px.COLOR_WHITE,
+                )

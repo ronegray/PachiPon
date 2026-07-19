@@ -19,7 +19,7 @@ def calculate_costs():
         p2 = points.get(route["to"])
         if p1 and p2:
             tmpdist = math.sqrt((p2[0] - p1[0]) ** 2 + (p2[1] - p1[1]) ** 2)
-            dist = math.ceil(tmpdist / 56)
+            dist = math.ceil(tmpdist / 50)
             results.append(
                 f"| {route['id']} | {route['from']} | {route['to']} | {dist} |"
             )

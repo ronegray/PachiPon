@@ -430,7 +430,9 @@ class heal_hp(CommandBaseEntity):
             healing = target.param.max_hp
         else:
             healing = diceroll(actor.param.level)
-        yield [""]
+
+        if self._ctx.situation == "battle":
+            yield [""]
 
         # run_effectに相当：メッセージ表示後にダメージ適用
         real_heal = target.increase_hp(healing)
@@ -456,24 +458,30 @@ class heal_mp(CommandBaseEntity):
         target = current if current.is_alive else living_targets[0]
 
         # コマンドパッケージから取得するスキル情報
-        slot = self.args[0]["slot"]
-        plent = self.args[0]["iteminfo"]
+        item_def = self.args[0]["item_def"]
 
         # ファーストメッセージ
         yield [
             f"{actor.param.name}は　{target.param.name}に",
-            f"　{plent.ins.param.name} を 使用した",
+            f"　{item_def.name} を 使用した",
         ]
 
         # アイテム消費
-        actor.equipments.use_consume(slot)
+        if self._ctx.situation == "battle":
+            slot = self.args[0]["slot"]
+            actor.equipments.use_consume(slot)
+        else:
+            pl_stack = cast(StackPool, self.args[0]["pl_stack"])
+            pl_stack.remove(item_def.def_id, ItemState.BAG, 1)
 
         # 回復ロール
-        if plent.ins.param.effect_value:
-            healing = target.param.max_mp
+        if item_def.effect_value:
+            healing = target.param.max_hp
         else:
             healing = diceroll(actor.param.level)
-        yield [""]
+
+        if self._ctx.situation == "battle":
+            yield [""]
 
         # run_effectに相当：メッセージ表示後にダメージ適用
         real_heal = target.increase_mp(healing)

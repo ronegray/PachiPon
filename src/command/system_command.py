@@ -109,3 +109,28 @@ class BattleStartEffect(CommandBaseSystem):
         #     yield [f"{member.param.name}は　経験値{getexp}　を稼いだ！"]
 
         return
+
+
+class FoodShortageMessage(CommandBaseSystem):
+    """フードが消費量に満たない場合の警告"""
+
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [
+            "食糧が　足りなくなった",
+            "ターン経過毎に ＨＰとＭＰが５％ずつ",
+            "減少してしまう・・・",
+        ]
+        while self.display_info.target.update() == WindowAction.CONTINUE:
+            yield [self.WAIT, "0"]
+
+
+class FoodShortageEffect(CommandBaseSystem):
+    """フードが消費量に満たない場合の画面エフェクト"""
+
+    def _sequence(self) -> Generator[list[str], None, None]:
+        self.display_info.graphic_command = [
+            lambda: px.dither(0.5),
+            lambda: px.rect(0, 0, px.width, px.height, px.COLOR_RED),
+            lambda: px.dither(1),
+        ]
+        yield [self.WAIT, "0"]

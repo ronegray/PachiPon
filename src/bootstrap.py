@@ -54,20 +54,20 @@ def ipl():
     map = MapGraph()
     di.register(di.ServiceKey.MAPGRAPH, map)
 
+    # サービスロケータ登録：コマンドマネージャ
+    logger.info("Initialize - Command")
+    cmdmgr = CommandManager()
+    di.register(di.ServiceKey.COMMAND_MANAGER, cmdmgr)
+
     # サービスロケータ登録：パーティ
     logger.info("Initialize - Party")
-    pt = Party()
+    pt = Party(scnmgr=di.ref.scnmgr, map=di.ref.map, cmdmgr=di.ref.cmdmgr)
     di.register(di.ServiceKey.PARTY, pt)
 
     # サービスロケータ登録：エネミーマネージャ
     logger.info("Initialize - Enemy")
     enmmgr = EnemyManager()
     di.register(di.ServiceKey.ENEMY_MANAGER, enmmgr)
-
-    # サービスロケータ登録：コマンドマネージャ
-    logger.info("Initialize - Command")
-    cmdmgr = CommandManager()
-    di.register(di.ServiceKey.COMMAND_MANAGER, cmdmgr)
 
     # サービスロケータ登録：アイテムマネージャ
     logger.info("Initialize - Item MasterData")

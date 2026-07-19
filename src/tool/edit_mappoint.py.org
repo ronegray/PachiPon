@@ -1,0 +1,33 @@
+import sys, os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
+import pyxel as px
+from gameutils.base import check_file, read_json, write_json
+
+class App:
+    def __init__(self):
+
+        path = check_file("../assets/data/map_data.json")
+        mapdata = read_json(path)
+        self.points = mapdata["points"]
+        self.routes = mapdata["routes"]
+
+        sizing:px.Image = px.Image.from_image("../assets/image/map.bmp")
+        px.init(sizing.width, sizing.height,display_scale=2)
+        px.load("../assets/assets.pyxres")
+        # パレット読み込みしてから画像ロード
+        self.mapimage:px.Image = px.Image.from_image("../assets/image/map.bmp")
+        px.mouse(True)
+
+
+        px.run(self.update, self.draw)
+
+    def update(self):
+        pass
+
+    def draw(self):
+        px.blt(0,0,self.mapimage,0,0,self.mapimage.width,self.mapimage.height)
+        for point in self.points:
+            px.circ(point["x"], point["y"], 6, px.COLOR_WHITE)
+            px.text(point["x"]-4, point["y"]-2, point["id"], px.COLOR_RED)
+
+App()

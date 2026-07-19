@@ -9,6 +9,7 @@
 import logging
 import pyxel as px
 import service_locater as di
+from const import FIELD_MESSAGE_HEIGHT
 from gameutils.base import is_pressed, check_file, read_string
 from gameutils.lib import Window, WindowAction
 
@@ -28,9 +29,8 @@ class SceneField(BaseScene):
         self.situation = "field"
         # フィールドメッセージウインドウの生成
         x_offset = 4
-        message_height = 56
-        message_pos = (x_offset, px.height // 2 - (message_height // 2))
-        message_size = (px.width - (x_offset * 2), message_height)
+        message_pos = (x_offset, px.height // 2 - (FIELD_MESSAGE_HEIGHT // 2))
+        message_size = (px.width - (x_offset * 2), FIELD_MESSAGE_HEIGHT)
         self.message_window = Window("basic", *message_pos, *message_size, "once", 0)
         # self.message_window.update_row_max(2)
 
@@ -269,7 +269,8 @@ class SceneField(BaseScene):
 
         # プレイヤーキャラの描画 (常に画面中央)
         # self.field_chara.draw(128 - 16, 128 - 16)
-        di.ref.pt.draw(px.width // 2, px.height // 2)
+        # di.ref.pt.draw(px.width // 2, px.height // 2)
+        di.ref.pt.draw(px.width, px.height)
 
         # WindowManagerの描画（メニュー等）
         self.wndmgr.draw()

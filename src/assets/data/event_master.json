@@ -1,0 +1,282 @@
+[
+  {
+    "event_type": "SAFETY",
+    "event_id": "INCREASE_HP",
+    "event_name": "綺麗な湧き水",
+    "event_value": 2
+  },
+  {
+    "event_type": "SAFETY",
+    "event_id": "DECREASE_HP",
+    "event_name": "ギザギザ葉っぱ",
+    "event_value": 2
+  },
+  {
+    "event_type": "SAFETY",
+    "event_id": "INCREASE_MP",
+    "event_name": "穏やかな木陰",
+    "event_value": 1
+  },
+  {
+    "event_type": "SAFETY",
+    "event_id": "DECREASE_MP",
+    "event_name": "視線に気疲れ",
+    "event_value": 1
+  },
+  {
+    "event_type": "SAFETY",
+    "event_id": "INCREASE_GOLD",
+    "event_name": "コインみーっけ",
+    "event_value": 1
+  },
+  {
+    "event_type": "SAFETY",
+    "event_id": "DECREASE_GOLD",
+    "event_name": "お釣り間違い",
+    "event_value": 1
+  },
+  {
+    "event_type": "SAFETY",
+    "event_id": "INCREASE_FOOD",
+    "event_name": "食べごろ果実",
+    "event_value": 1
+  },
+  {
+    "event_type": "SAFETY",
+    "event_id": "DECREASE_FOOD",
+    "event_name": "虫食いリンゴ",
+    "event_value": 1
+  },
+  {
+    "event_type": "SAFETY",
+    "event_id": "SURPRISE_BATTLE",
+    "event_name": "飛び出し注意",
+    "event_value": 5
+  },
+  {
+    "event_type": "SAFETY",
+    "event_id": "FLGEVENT1_A",
+    "event_name": "翡翠の工芸品",
+    "event_value": 1
+  },
+  {
+    "event_type": "SAFETY",
+    "event_id": "FLGEVENT1_B",
+    "event_name": "信仰の証",
+    "event_value": 1
+  },
+  {
+    "event_type": "SAFETY",
+    "event_id": "FLGEVENT1_C",
+    "event_name": "一振りの水晶",
+    "event_value": 1
+  },
+
+  {
+    "event_type": "NORMAL",
+    "event_id": "INCREASE_HP",
+    "event_name": "お昼寝タイム",
+    "event_value": 4
+  },
+  {
+    "event_type": "NORMAL",
+    "event_id": "DECREASE_HP",
+    "event_name": "風にゆられて",
+    "event_value": 4
+  },
+  {
+    "event_type": "NORMAL",
+    "event_id": "INCREASE_MP",
+    "event_name": "静謐な空間",
+    "event_value": 4
+  },
+  {
+    "event_type": "NORMAL",
+    "event_id": "DECREASE_MP",
+    "event_name": "廃村の墓場",
+    "event_value": 4
+  },
+  {
+    "event_type": "NORMAL",
+    "event_id": "INCREASE_GOLD",
+    "event_name": "おたから情報",
+    "event_value": 3
+  },
+  {
+    "event_type": "NORMAL",
+    "event_id": "DECREASE_GOLD",
+    "event_name": "スリの被害",
+    "event_value": 3
+  },
+  {
+    "event_type": "NORMAL",
+    "event_id": "INCREASE_FOOD",
+    "event_name": "保存食の仕込",
+    "event_value": 3
+  },
+  {
+    "event_type": "NORMAL",
+    "event_id": "DECREASE_FOOD",
+    "event_name": "誘拐事件発生",
+    "event_value": 3
+  },
+  {
+    "event_type": "NORMAL",
+    "event_id": "GET_POTION",
+    "event_name": "薬草の群生地",
+    "event_value": 1
+  },
+  {
+    "event_type": "NORMAL",
+    "event_id": "LOST_POTION",
+    "event_name": "割れた薬瓶",
+    "event_value": 1
+  },
+  {
+    "event_type": "NORMAL",
+    "event_id": "MEET_ALLY",
+    "event_name": "出会いは突然",
+    "event_value": 1
+  },
+  {
+    "event_type": "NORMAL",
+    "event_id": "SURPRISE_BATTLE",
+    "event_name": "隙を見せれば",
+    "event_value": 11
+  },
+  {
+    "event_type": "NORMAL",
+    "event_id": "FLGEVENT2_D",
+    "event_name": "古龍の亡骸",
+    "event_value": 2
+  },
+  {
+    "event_type": "NORMAL",
+    "event_id": "FLGEVENT2_E",
+    "event_name": "祀られた護符",
+    "event_value": 2
+  },
+  {
+    "event_type": "NORMAL",
+    "event_id": "FLGEVENT2_F",
+    "event_name": "聖者の墓所",
+    "event_value": 2
+  },
+
+  {
+    "event_type": "GAMBLE",
+    "event_id": "INCREASE_HP",
+    "event_name": "湧き出す地脈",
+    "event_value": 8
+  },
+  {
+    "event_type": "GAMBLE",
+    "event_id": "DECREASE_HP",
+    "event_name": "暴れる地脈",
+    "event_value": 8
+  },
+  {
+    "event_type": "GAMBLE",
+    "event_id": "INCREASE_MP",
+    "event_name": "精霊の祝福",
+    "event_value": 8
+  },
+  {
+    "event_type": "GAMBLE",
+    "event_id": "DECREASE_MP",
+    "event_name": "魔力の暴走",
+    "event_value": 8
+  },
+  {
+    "event_type": "GAMBLE",
+    "event_id": "INCREASE_GOLD",
+    "event_name": "埋蔵金発掘",
+    "event_value": 10
+  },
+  {
+    "event_type": "GAMBLE",
+    "event_id": "DECREASE_GOLD",
+    "event_name": "詐欺の手口",
+    "event_value": 10
+  },
+  {
+    "event_type": "GAMBLE",
+    "event_id": "INCREASE_FOOD",
+    "event_name": "食糧事情改善",
+    "event_value": 10
+  },
+  {
+    "event_type": "GAMBLE",
+    "event_id": "DECREASE_FOOD",
+    "event_name": "カビのしつこさ",
+    "event_value": 10
+  },
+  {
+    "event_type": "GAMBLE",
+    "event_id": "GET_HIPOTION",
+    "event_name": "夢枕の贈り物",
+    "event_value": 1
+  },
+  {
+    "event_type": "GAMBLE",
+    "event_id": "LOST_HIPOTION",
+    "event_name": "うっかり青兵衛",
+    "event_value": 1
+  },
+  {
+    "event_type": "GAMBLE",
+    "event_id": "FLGEVENT3_G",
+    "event_name": "神授の宝剣",
+    "event_value": 3
+  },
+  {
+    "event_type": "GAMBLE",
+    "event_id": "FLGEVENT3_H",
+    "event_name": "祝聖の護り",
+    "event_value": 3
+  },
+  {
+    "event_type": "GAMBLE",
+    "event_id": "SURPRISE_BATTLE",
+    "event_name": "退けない戦い",
+    "event_value": 15
+  },
+
+  {
+    "event_type": "BATTLE",
+    "event_id": "CROWN",
+    "event_name": "宝冠の守護者",
+    "event_value": 10
+  },
+  {
+    "event_type": "BATTLE",
+    "event_id": "MIRROR",
+    "event_name": "神鏡の守護者",
+    "event_value": 10
+  },
+  {
+    "event_type": "BATTLE",
+    "event_id": "CEPTER",
+    "event_name": "王笏の守護者",
+    "event_value": 10
+  },
+  {
+    "event_type": "BATTLE",
+    "event_id": "GRAIL",
+    "event_name": "聖杯の守護者",
+    "event_value": 10
+  },
+  {
+    "event_type": "BATTLE",
+    "event_id": "SATAN",
+    "event_name": "魔を統べる者",
+    "event_value": 15
+  },
+  {
+    "event_type": "BATTLE",
+    "event_id": "KING",
+    "event_name": "人を統べる者",
+    "event_value": 15
+  }
+
+]

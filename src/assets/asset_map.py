@@ -29,6 +29,7 @@ class AssetID(IntEnum):
     DATA_SKILL = auto()
     DATA_ENEMY = auto()
     DATA_EXPTABLE = auto()
+    DATA_EVENT = auto()
 
 
 class AssetMap:
@@ -74,6 +75,7 @@ class AssetMap:
         cls._asset_map[AssetID.DATA_ENEMY] = f"{cls._asset_path}/data/enemy_master.json"
         cls._asset_map[AssetID.DATA_MAP] = f"{cls._asset_path}/data/map_data.json"
         cls._asset_map[AssetID.DATA_EXPTABLE] = f"{cls._asset_path}/data/exp_table.json"
+        cls._asset_map[AssetID.DATA_EVENT] = f"{cls._asset_path}/data/event_master.json"
 
     @classmethod
     def get_assetpath(cls, asset_id: AssetID) -> str:

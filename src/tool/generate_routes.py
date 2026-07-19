@@ -45,7 +45,7 @@ def generate_routes(data):
                 continue
 
             dist = calculate_distance(p1, p2)
-            if dist > 200:
+            if dist > 115:
                 continue
             dir1 = calculate_direction(p1, p2)
             dir2 = calculate_direction(p2, p1)
@@ -64,6 +64,7 @@ def generate_routes(data):
     all_pairs.sort(key=lambda x: x["dist"])
 
     route_id_counter = 1
+    max_threat = min_threat = 0
     for pair in all_pairs:
         p1_id = pair["p1_id"]
         p2_id = pair["p2_id"]
@@ -73,7 +74,11 @@ def generate_routes(data):
         # p1のdir1スロットが空いており、かつp2のdir2スロット（逆向き）も空いている場合のみ接続
         if not occupied_slots[p1_id][dir1] and not occupied_slots[p2_id][dir2]:
             # ルートを双方向で作成
-            threat = route_id_counter // 10
+            # threat = route_id_counter // 10
+            threat = int(p2_id[1:]) // 10  # + route_id_counter//10
+            max_threat = max(threat, max_threat)
+            min_threat = min(threat, min_threat)
+
             routes.append(
                 {
                     "id": f"r{route_id_counter:03d}",
@@ -85,6 +90,10 @@ def generate_routes(data):
                 }
             )
             route_id_counter += 1
+
+            threat = int(p1_id[1:]) // 10  # + route_id_counter//10
+            max_threat = max(threat, max_threat)
+            min_threat = min(threat, min_threat)
 
             routes.append(
                 {
@@ -101,6 +110,8 @@ def generate_routes(data):
             # スロットを埋める
             occupied_slots[p1_id][dir1] = True
             occupied_slots[p2_id][dir2] = True
+
+    print(f"max{max_threat} min{min_threat}")
 
     return routes
 
