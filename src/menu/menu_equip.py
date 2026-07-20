@@ -93,7 +93,7 @@ class MenuSelectEquipSlot(Menu):
         status_lines += f"\n速　度： {member.speed:3}(+{member.bonus_spd})"
         status_lines += f"\n幸　運： {member.luck:3}(+{member.bonus_lck})"
 
-        self.windows["sub"].text_list = [status_lines]
+        self.windows["sub"].message_list = [status_lines]
 
     def exec_menu(self) -> ExecResult:
         """選択メニュー項目の処理を実行"""

@@ -339,7 +339,7 @@ class SceneBattle(BaseScene):
             barwidth = wnd.width - (Window._chip_size * 2)
             member = di.ref.pt.get_member(i)
             wnd.set_message([f"{member.param.name}"])
-            state = [[text, px.COLOR_WHITE] for text in wnd.text_list]
+            state = [[text, px.COLOR_WHITE] for text in wnd.message_list]
             wnd.drawText(wnd.x + 6, wnd.y + 4, state)
             gauge_hp = member.param.hp / member.max_hp * barwidth
             px.rect(wnd.x + 8, wnd.y + 17, barwidth, 7, px.COLOR_RED)

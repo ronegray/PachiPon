@@ -241,6 +241,12 @@
     "event_name": "退けない戦い",
     "event_value": 15
   },
+  {
+    "event_type": "GAMBLE",
+    "event_id": "GET_ARMORY",
+    "event_name": "屯田兵政策",
+    "event_value": 3
+  },
 
   {
     "event_type": "BATTLE",

@@ -35,6 +35,8 @@ class EventID(IntEnum):
     GET_HIPOTION = auto()  # 高級消耗品増
     FLGEVENT3_G = auto()  # フラグイベントStep3
     FLGEVENT3_H = auto()  # フラグイベントStep3
+    GET_JUNK = auto()  # 最低装備品ゲット
+    GET_ARMORY = auto()  # 装備品ゲット
 
     # bad
     DECREASE_HP = auto()  # HP減
@@ -62,3 +64,21 @@ class Event:
     event_id: EventID
     event_name: str  # イベント表示名
     event_value: int  # ダイス値や脅威度等の値
+
+
+@dataclass
+class EventStat:
+    """イベントポイント毎に定義されるイベントの状態"""
+
+    threshold: int  # 最低目標値
+    is_opened: bool = False  # 一度実施されたイベントは表示される
+    is_cleared: bool = False  # 一回性イベントが実施済かどうか
+
+
+@dataclass
+class EventList:
+    """イベントポイントに紐づくイベントのリスト"""
+
+    eventpoint_id: str
+    eventpoint_type: EventType
+    event_stat: dict[EventID, EventStat]

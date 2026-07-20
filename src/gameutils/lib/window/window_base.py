@@ -95,7 +95,7 @@ class Window:
         self.window_mode = window_mode
         self.wait_frame = px.ceil(wait_sec * 30)  # fps = 30
         self.frame_counter = 0
-        self.text_list: list[str] = []
+        self.message_list: list[str] = []
         self.window_image = px.Image(self.width, self.height)
         self.is_indicator: bool = False
 
@@ -219,9 +219,9 @@ class Window:
                     return WindowAction.DISCARD
                 # ページ送り時は内部テキストリストを次に進める
                 case "page":
-                    self.text_list.pop(0)
+                    self.message_list.pop(0)
                     # 最終メッセージを送った後は全終了
-                    if len(self.text_list):
+                    if len(self.message_list):
                         return WindowAction.CONTINUE
                     else:
                         return WindowAction.DISCARD
@@ -278,20 +278,20 @@ class Window:
     def set_message(self, message_text: list[str]) -> None:
         if self.window_mode == "menu":
             return
-        self.text_list = message_text
+        self.message_list = message_text
 
     def add_message(self, message_text: str) -> None:
         if self.window_mode == "menu":
             return
-        self.text_list.append(message_text)
-        while len(self.text_list) > self._max_msg_rows:
-            self.text_list.pop(0)
+        self.message_list.append(message_text)
+        while len(self.message_list) > self._max_msg_rows:
+            self.message_list.pop(0)
 
     def draw_message(self):
         pos_x = self.x + self._chip_size
         pos_y = self.y + self._chip_size
         if self.window_mode == "page":
-            text = "" if not self.text_list else self.text_list[0]
+            text = "" if not self.message_list else self.message_list[0]
             px.text(
                 pos_x,
                 pos_y + (0 * int(self.fontdata.height * 1.5)),
@@ -300,7 +300,7 @@ class Window:
                 font=self.font,
             )
         else:
-            for i, text in enumerate(self.text_list):
+            for i, text in enumerate(self.message_list):
                 px.text(
                     pos_x,
                     pos_y + (i * int(self.fontdata.height * 1.5)),
@@ -309,6 +309,9 @@ class Window:
                     font=self.font,
                 )
         return
+
+    def clear_message(self):
+        self.message_list.clear()
 
 
 @dataclass

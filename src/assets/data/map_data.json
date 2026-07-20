@@ -10,7 +10,7 @@
         },
         {
             "id": "p02",
-            "point_type": "Field",
+            "point_type": "Port",
             "name": "WestLanding",
             "eventId": "ev_p02",
             "x": 493,
@@ -18,7 +18,7 @@
         },
         {
             "id": "p03",
-            "point_type": "Field",
+            "point_type": "Thoroughfare",
             "name": "StartingPoint",
             "eventId": "ev_p03",
             "x": 549,
@@ -26,7 +26,7 @@
         },
         {
             "id": "p04",
-            "point_type": "Field",
+            "point_type": "Thoroughfare",
             "name": "FirstFork",
             "eventId": "ev_p04",
             "x": 496,
@@ -34,7 +34,7 @@
         },
         {
             "id": "p05",
-            "point_type": "Port",
+            "point_type": "Town",
             "name": "Mariner Town",
             "eventId": "ev_p05",
             "x": 591,
@@ -66,7 +66,7 @@
         },
         {
             "id": "p09",
-            "point_type": "Town",
+            "point_type": "Rest Area",
             "name": "PlainsRoad",
             "eventId": "ev_p09",
             "x": 425,
@@ -74,7 +74,7 @@
         },
         {
             "id": "p10",
-            "point_type": "Shrine",
+            "point_type": "Temple",
             "name": "HiddenShrine",
             "eventId": "ev_p10",
             "x": 498,
@@ -98,7 +98,7 @@
         },
         {
             "id": "p13",
-            "point_type": "Temple",
+            "point_type": "Rest Area",
             "name": "Mountain Gate",
             "eventId": "ev_p13",
             "x": 395,
@@ -114,7 +114,7 @@
         },
         {
             "id": "p15",
-            "point_type": "Field",
+            "point_type": "Thoroughfare",
             "name": "TriJunction",
             "eventId": "ev_p15",
             "x": 332,
@@ -122,7 +122,7 @@
         },
         {
             "id": "p16",
-            "point_type": "Sea",
+            "point_type": "Frontier",
             "name": "HeavensGate",
             "eventId": "ev_p16",
             "x": 600,
@@ -130,7 +130,7 @@
         },
         {
             "id": "p17",
-            "point_type": "Dungeon",
+            "point_type": "Ruins",
             "name": "Trial",
             "eventId": "ev_p17",
             "x": 715,
@@ -138,7 +138,7 @@
         },
         {
             "id": "p18",
-            "point_type": "Dragon's Lair",
+            "point_type": "Ruins",
             "name": "Wyvern's Nest",
             "eventId": "ev_p18",
             "x": 377,
@@ -146,7 +146,7 @@
         },
         {
             "id": "p19",
-            "point_type": "Fortress",
+            "point_type": "Town",
             "name": "Seagazer",
             "eventId": "ev_p19",
             "x": 317,
@@ -162,7 +162,7 @@
         },
         {
             "id": "p21",
-            "point_type": "Field",
+            "point_type": "Frontier",
             "name": "SouthPark",
             "eventId": "ev_p21",
             "x": 730,
@@ -186,7 +186,7 @@
         },
         {
             "id": "p24",
-            "point_type": "Ancient Ruins",
+            "point_type": "Dungeon",
             "name": "DeepForestShrine",
             "eventId": "ev_p24",
             "x": 753,
@@ -226,7 +226,7 @@
         },
         {
             "id": "p29",
-            "point_type": "Field",
+            "point_type": "Thoroughfare",
             "name": "LoadLakeside",
             "eventId": "ev_p29",
             "x": 238,
@@ -258,7 +258,7 @@
         },
         {
             "id": "p33",
-            "point_type": "Frontier",
+            "point_type": "Ruins",
             "name": "Farthest Cape",
             "eventId": "ev_p33",
             "x": 595,
@@ -266,7 +266,7 @@
         },
         {
             "id": "p34",
-            "point_type": "Sanctuary",
+            "point_type": "Ruins",
             "name": "Forest Sanctuary",
             "eventId": "ev_p34",
             "x": 804,
@@ -274,7 +274,7 @@
         },
         {
             "id": "p35",
-            "point_type": "Dungeon",
+            "point_type": "Rest Area",
             "name": "River Cave",
             "eventId": "ev_p35",
             "x": 805,
@@ -282,7 +282,7 @@
         },
         {
             "id": "p36",
-            "point_type": "Temple",
+            "point_type": "Ruins",
             "name": "Gemini Tower",
             "eventId": "ev_p36",
             "x": 286,
@@ -306,7 +306,7 @@
         },
         {
             "id": "p39",
-            "point_type": "Windmill",
+            "point_type": "Rest Area",
             "name": "Shadowwood",
             "eventId": "ev_p39",
             "x": 801,
@@ -322,7 +322,7 @@
         },
         {
             "id": "p41",
-            "point_type": "Field",
+            "point_type": "Frontier",
             "name": "ForestEdge",
             "eventId": "ev_p41",
             "x": 721,
@@ -346,7 +346,7 @@
         },
         {
             "id": "p44",
-            "point_type": "Village",
+            "point_type": "Town",
             "name": "riverside",
             "eventId": "ev_p44",
             "x": 880,
@@ -362,7 +362,7 @@
         },
         {
             "id": "p46",
-            "point_type": "Field",
+            "point_type": "Thoroughfare",
             "name": "ForestCorridor",
             "eventId": "ev_p46",
             "x": 881,
@@ -394,7 +394,7 @@
         },
         {
             "id": "p50",
-            "point_type": "Field",
+            "point_type": "Thoroughfare",
             "name": "PlainsLoad",
             "eventId": "ev_p50",
             "x": 415,
@@ -410,7 +410,7 @@
         },
         {
             "id": "p52",
-            "point_type": "Field",
+            "point_type": "Frontier",
             "name": "SilentShore",
             "eventId": "ev_p52",
             "x": 556,
@@ -426,7 +426,7 @@
         },
         {
             "id": "p54",
-            "point_type": "Ancient Ruins",
+            "point_type": "Ruins",
             "name": "Gardian Statue",
             "eventId": "ev_p54",
             "x": 666,
@@ -458,7 +458,7 @@
         },
         {
             "id": "p58",
-            "point_type": "Fortress",
+            "point_type": "Temple",
             "name": "Seaside Fort",
             "eventId": "ev_p58",
             "x": 111,
@@ -474,7 +474,7 @@
         },
         {
             "id": "p60",
-            "point_type": "Jungle",
+            "point_type": "Ruins",
             "name": "Ancient Forest",
             "eventId": "ev_p60",
             "x": 770,
@@ -482,7 +482,7 @@
         },
         {
             "id": "p61",
-            "point_type": "Windmill",
+            "point_type": "Rest Area",
             "name": "PlainsView",
             "eventId": "ev_p61",
             "x": 322,
@@ -490,7 +490,7 @@
         },
         {
             "id": "p62",
-            "point_type": "Frontier",
+            "point_type": "Lake",
             "name": "Mythtic Lake",
             "eventId": "ev_p62",
             "x": 988,
@@ -506,7 +506,7 @@
         },
         {
             "id": "p64",
-            "point_type": "Dragon's Lair",
+            "point_type": "Ruins",
             "name": "Earth Cave",
             "eventId": "ev_p64",
             "x": 966,
@@ -530,7 +530,7 @@
         },
         {
             "id": "p67",
-            "point_type": "Town",
+            "point_type": "Village",
             "name": "Middle Aethelgard",
             "eventId": "ev_p67",
             "x": 224,
@@ -538,7 +538,7 @@
         },
         {
             "id": "p68",
-            "point_type": "Town",
+            "point_type": "Temple",
             "name": "Farmland",
             "eventId": "ev_p68",
             "x": 391,
@@ -546,7 +546,7 @@
         },
         {
             "id": "p69",
-            "point_type": "Town",
+            "point_type": "Rest Area",
             "name": "Aethelgard",
             "eventId": "ev_p69",
             "x": 260,

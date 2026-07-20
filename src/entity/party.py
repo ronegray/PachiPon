@@ -77,7 +77,7 @@ class Party:
         self._world_y = self._current_point.y
 
         # パーティー単位のパラメータ
-        self._pt_foods = 1
+        self._pt_foods = 100
         self._pt_golds = 50
         self._pt_eventflg = {}
         # # パーティーメッセージウインドウの生成
@@ -311,8 +311,8 @@ class Party:
             return True
         return False
 
-    def set_event_point_status(self, status: bool):
-        self._is_event_point = status
+    # def set_event_point_status(self, status: bool):
+    #     self._is_event_point = status
 
     def set_moving_status(self, status: bool):
         self._pt_is_moving = status

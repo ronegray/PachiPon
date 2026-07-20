@@ -290,6 +290,9 @@ class App:
             px.circ(point["x"], point["y"], CIRCLE_RADIUS, px.COLOR_WHITE)
             px.text(point["x"] - 4, point["y"] - 2, point["id"], px.COLOR_RED)
 
+        if px.btn(px.MOUSE_BUTTON_RIGHT):
+            px.blt(0, 0, self.mapimage, 0, 0, self.mapimage.width, self.mapimage.height)
+
         if self.mode == "dialog":
             self.dialog.draw()
 

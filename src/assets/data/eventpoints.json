@@ -1,0 +1,1682 @@
+{
+    "ev_p01": {
+        "eventpoint_type": "GAMBLE",
+        "event_stat": {
+            "GET_ARMORY": {
+                "threshold": 54
+            },
+            "DECREASE_FOOD": {
+                "threshold": 51
+            },
+            "DECREASE_MP": {
+                "threshold": 46
+            },
+            "DECREASE_GOLD": {
+                "threshold": 37
+            },
+            "LOST_POTION": {
+                "threshold": 25
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 9
+            },
+            "KING": {
+                "threshold": 0
+            }
+        }
+    },
+    "ev_p02": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "DECREASE_MP": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "GET_JUNK": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p03": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "SURPRISE_BATTLE": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "FLGEVENT1_A": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p04": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "DECREASE_GOLD": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "GET_JUNK": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p05": {
+        "eventpoint_type": "NORMAL",
+        "event_stat": {
+            "DECREASE_GOLD": {
+                "threshold": 18
+            },
+            "GET_POTION": {
+                "threshold": 16
+            },
+            "DECREASE_HP": {
+                "threshold": 14
+            },
+            "INCREASE_HP": {
+                "threshold": 11
+            },
+            "DECREASE_FOOD": {
+                "threshold": 8
+            },
+            "MEET_ALLY": {
+                "threshold": 3
+            }
+        }
+    },
+    "ev_p06": {
+        "eventpoint_type": "NORMAL",
+        "event_stat": {
+            "DECREASE_MP": {
+                "threshold": 18
+            },
+            "INCREASE_HP": {
+                "threshold": 16
+            },
+            "DECREASE_HP": {
+                "threshold": 14
+            },
+            "INCREASE_FOOD": {
+                "threshold": 11
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 8
+            },
+            "INCREASE_MP": {
+                "threshold": 3
+            }
+        }
+    },
+    "ev_p07": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "DECREASE_FOOD": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "GET_JUNK": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p08": {
+        "eventpoint_type": "NORMAL",
+        "event_stat": {
+            "INCREASE_GOLD": {
+                "threshold": 18
+            },
+            "LOST_POTION": {
+                "threshold": 16
+            },
+            "INCREASE_HP": {
+                "threshold": 14
+            },
+            "DECREASE_MP": {
+                "threshold": 11
+            },
+            "INCREASE_FOOD": {
+                "threshold": 8
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 3
+            }
+        }
+    },
+    "ev_p09": {
+        "eventpoint_type": "NORMAL",
+        "event_stat": {
+            "LOST_POTION": {
+                "threshold": 18
+            },
+            "INCREASE_FOOD": {
+                "threshold": 16
+            },
+            "DECREASE_GOLD": {
+                "threshold": 14
+            },
+            "INCREASE_MP": {
+                "threshold": 11
+            },
+            "DECREASE_FOOD": {
+                "threshold": 8
+            },
+            "INCREASE_HP": {
+                "threshold": 3
+            }
+        }
+    },
+    "ev_p10": {
+        "eventpoint_type": "GAMBLE",
+        "event_stat": {
+            "INCREASE_HP": {
+                "threshold": 54
+            },
+            "DECREASE_HP": {
+                "threshold": 51
+            },
+            "DECREASE_MP": {
+                "threshold": 46
+            },
+            "DECREASE_GOLD": {
+                "threshold": 37
+            },
+            "DECREASE_FOOD": {
+                "threshold": 25
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 9
+            }
+        }
+    },
+    "ev_p11": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "DECREASE_HP": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "FLGEVENT1_B": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p12": {
+        "eventpoint_type": "NORMAL",
+        "event_stat": {
+            "MEET_ALLY": {
+                "threshold": 18
+            },
+            "LOST_POTION": {
+                "threshold": 16
+            },
+            "INCREASE_HP": {
+                "threshold": 14
+            },
+            "DECREASE_GOLD": {
+                "threshold": 11
+            },
+            "INCREASE_GOLD": {
+                "threshold": 8
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 3
+            }
+        }
+    },
+    "ev_p13": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "DECREASE_MP": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "GET_JUNK": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p14": {
+        "eventpoint_type": "NORMAL",
+        "event_stat": {
+            "DECREASE_HP": {
+                "threshold": 18
+            },
+            "MEET_ALLY": {
+                "threshold": 16
+            },
+            "DECREASE_MP": {
+                "threshold": 14
+            },
+            "INCREASE_FOOD": {
+                "threshold": 11
+            },
+            "DECREASE_GOLD": {
+                "threshold": 8
+            },
+            "INCREASE_HP": {
+                "threshold": 3
+            }
+        }
+    },
+    "ev_p15": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "DECREASE_GOLD": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "GET_JUNK": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p16": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "DECREASE_FOOD": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "FLGEVENT1_C": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p17": {
+        "eventpoint_type": "GAMBLE",
+        "event_stat": {
+            "INCREASE_MP": {
+                "threshold": 54
+            },
+            "DECREASE_HP": {
+                "threshold": 51
+            },
+            "DECREASE_MP": {
+                "threshold": 46
+            },
+            "DECREASE_GOLD": {
+                "threshold": 37
+            },
+            "DECREASE_FOOD": {
+                "threshold": 25
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 9
+            }
+        }
+    },
+    "ev_p18": {
+        "eventpoint_type": "GAMBLE",
+        "event_stat": {
+            "INCREASE_GOLD": {
+                "threshold": 54
+            },
+            "DECREASE_HP": {
+                "threshold": 51
+            },
+            "DECREASE_MP": {
+                "threshold": 46
+            },
+            "DECREASE_GOLD": {
+                "threshold": 37
+            },
+            "DECREASE_FOOD": {
+                "threshold": 25
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 9
+            }
+        }
+    },
+    "ev_p19": {
+        "eventpoint_type": "NORMAL",
+        "event_stat": {
+            "DECREASE_FOOD": {
+                "threshold": 18
+            },
+            "INCREASE_GOLD": {
+                "threshold": 16
+            },
+            "DECREASE_MP": {
+                "threshold": 14
+            },
+            "INCREASE_MP": {
+                "threshold": 11
+            },
+            "DECREASE_HP": {
+                "threshold": 8
+            },
+            "MEET_ALLY": {
+                "threshold": 3
+            }
+        }
+    },
+    "ev_p20": {
+        "eventpoint_type": "GAMBLE",
+        "event_stat": {
+            "INCREASE_FOOD": {
+                "threshold": 54
+            },
+            "DECREASE_HP": {
+                "threshold": 51
+            },
+            "DECREASE_MP": {
+                "threshold": 46
+            },
+            "DECREASE_GOLD": {
+                "threshold": 37
+            },
+            "DECREASE_FOOD": {
+                "threshold": 25
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 9
+            }
+        }
+    },
+    "ev_p21": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "DECREASE_HP": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "GET_JUNK": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p22": {
+        "eventpoint_type": "NORMAL",
+        "event_stat": {
+            "LOST_POTION": {
+                "threshold": 18
+            },
+            "DECREASE_FOOD": {
+                "threshold": 16
+            },
+            "DECREASE_HP": {
+                "threshold": 14
+            },
+            "INCREASE_GOLD": {
+                "threshold": 11
+            },
+            "DECREASE_MP": {
+                "threshold": 8
+            },
+            "MEET_ALLY": {
+                "threshold": 3
+            }
+        }
+    },
+    "ev_p23": {
+        "eventpoint_type": "BATTLE",
+        "event_stat": {
+            "GET_HIPOTION": {
+                "threshold": 54
+            },
+            "DECREASE_HP": {
+                "threshold": 51
+            },
+            "DECREASE_MP": {
+                "threshold": 46
+            },
+            "DECREASE_GOLD": {
+                "threshold": 37
+            },
+            "DECREASE_FOOD": {
+                "threshold": 25
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 9
+            },
+            "MIRROR": {
+                "threshold": 0
+            }
+        }
+    },
+    "ev_p24": {
+        "eventpoint_type": "NORMAL",
+        "event_stat": {
+            "INCREASE_GOLD": {
+                "threshold": 18
+            },
+            "DECREASE_FOOD": {
+                "threshold": 16
+            },
+            "GET_POTION": {
+                "threshold": 14
+            },
+            "INCREASE_MP": {
+                "threshold": 11
+            },
+            "DECREASE_HP": {
+                "threshold": 8
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 3
+            }
+        }
+    },
+    "ev_p25": {
+        "eventpoint_type": "GAMBLE",
+        "event_stat": {
+            "GET_HIPOTION": {
+                "threshold": 54
+            },
+            "DECREASE_HP": {
+                "threshold": 51
+            },
+            "DECREASE_MP": {
+                "threshold": 46
+            },
+            "DECREASE_GOLD": {
+                "threshold": 37
+            },
+            "DECREASE_FOOD": {
+                "threshold": 25
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 9
+            }
+        }
+    },
+    "ev_p26": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "DECREASE_MP": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "GET_JUNK": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p27": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "DECREASE_GOLD": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "GET_JUNK": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p28": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "DECREASE_FOOD": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "GET_JUNK": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p29": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "SURPRISE_BATTLE": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "FLGEVENT1_A": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p30": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "DECREASE_HP": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "GET_JUNK": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p31": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "DECREASE_MP": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "FLGEVENT1_B": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p32": {
+        "eventpoint_type": "NORMAL",
+        "event_stat": {
+            "INCREASE_MP": {
+                "threshold": 18
+            },
+            "DECREASE_HP": {
+                "threshold": 16
+            },
+            "MEET_ALLY": {
+                "threshold": 14
+            },
+            "DECREASE_GOLD": {
+                "threshold": 11
+            },
+            "INCREASE_FOOD": {
+                "threshold": 8
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 3
+            }
+        }
+    },
+    "ev_p33": {
+        "eventpoint_type": "BATTLE",
+        "event_stat": {
+            "INCREASE_HP": {
+                "threshold": 54
+            },
+            "DECREASE_HP": {
+                "threshold": 51
+            },
+            "DECREASE_MP": {
+                "threshold": 46
+            },
+            "DECREASE_GOLD": {
+                "threshold": 37
+            },
+            "DECREASE_FOOD": {
+                "threshold": 25
+            },
+            "LOST_HIPOTION": {
+                "threshold": 9
+            },
+            "SATAN": {
+                "threshold": 0
+            }
+        }
+    },
+    "ev_p34": {
+        "eventpoint_type": "GAMBLE",
+        "event_stat": {
+            "GET_ARMORY": {
+                "threshold": 54
+            },
+            "DECREASE_HP": {
+                "threshold": 51
+            },
+            "DECREASE_MP": {
+                "threshold": 46
+            },
+            "DECREASE_GOLD": {
+                "threshold": 37
+            },
+            "DECREASE_FOOD": {
+                "threshold": 25
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 9
+            }
+        }
+    },
+    "ev_p35": {
+        "eventpoint_type": "NORMAL",
+        "event_stat": {
+            "DECREASE_FOOD": {
+                "threshold": 18
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 16
+            },
+            "DECREASE_GOLD": {
+                "threshold": 14
+            },
+            "INCREASE_MP": {
+                "threshold": 11
+            },
+            "INCREASE_FOOD": {
+                "threshold": 8
+            },
+            "INCREASE_HP": {
+                "threshold": 3
+            }
+        }
+    },
+    "ev_p36": {
+        "eventpoint_type": "GAMBLE",
+        "event_stat": {
+            "INCREASE_HP": {
+                "threshold": 54
+            },
+            "DECREASE_HP": {
+                "threshold": 51
+            },
+            "DECREASE_MP": {
+                "threshold": 46
+            },
+            "DECREASE_GOLD": {
+                "threshold": 37
+            },
+            "DECREASE_FOOD": {
+                "threshold": 25
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 9
+            }
+        }
+    },
+    "ev_p37": {
+        "eventpoint_type": "NORMAL",
+        "event_stat": {
+            "DECREASE_MP": {
+                "threshold": 18
+            },
+            "GET_POTION": {
+                "threshold": 16
+            },
+            "DECREASE_HP": {
+                "threshold": 14
+            },
+            "INCREASE_GOLD": {
+                "threshold": 11
+            },
+            "LOST_POTION": {
+                "threshold": 8
+            },
+            "INCREASE_HP": {
+                "threshold": 3
+            }
+        }
+    },
+    "ev_p38": {
+        "eventpoint_type": "NORMAL",
+        "event_stat": {
+            "DECREASE_GOLD": {
+                "threshold": 18
+            },
+            "INCREASE_MP": {
+                "threshold": 16
+            },
+            "DECREASE_MP": {
+                "threshold": 14
+            },
+            "INCREASE_HP": {
+                "threshold": 11
+            },
+            "DECREASE_FOOD": {
+                "threshold": 8
+            },
+            "INCREASE_FOOD": {
+                "threshold": 3
+            }
+        }
+    },
+    "ev_p39": {
+        "eventpoint_type": "NORMAL",
+        "event_stat": {
+            "LOST_POTION": {
+                "threshold": 18
+            },
+            "INCREASE_FOOD": {
+                "threshold": 16
+            },
+            "DECREASE_GOLD": {
+                "threshold": 14
+            },
+            "INCREASE_MP": {
+                "threshold": 11
+            },
+            "DECREASE_MP": {
+                "threshold": 8
+            },
+            "INCREASE_HP": {
+                "threshold": 3
+            }
+        }
+    },
+    "ev_p40": {
+        "eventpoint_type": "GAMBLE",
+        "event_stat": {
+            "INCREASE_MP": {
+                "threshold": 54
+            },
+            "DECREASE_HP": {
+                "threshold": 51
+            },
+            "DECREASE_MP": {
+                "threshold": 46
+            },
+            "DECREASE_GOLD": {
+                "threshold": 37
+            },
+            "DECREASE_FOOD": {
+                "threshold": 25
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 9
+            }
+        }
+    },
+    "ev_p41": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "DECREASE_GOLD": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "GET_JUNK": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p42": {
+        "eventpoint_type": "NORMAL",
+        "event_stat": {
+            "DECREASE_FOOD": {
+                "threshold": 18
+            },
+            "INCREASE_GOLD": {
+                "threshold": 16
+            },
+            "DECREASE_HP": {
+                "threshold": 14
+            },
+            "INCREASE_HP": {
+                "threshold": 11
+            },
+            "DECREASE_MP": {
+                "threshold": 8
+            },
+            "INCREASE_FOOD": {
+                "threshold": 3
+            }
+        }
+    },
+    "ev_p43": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "DECREASE_FOOD": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "GET_JUNK": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p44": {
+        "eventpoint_type": "NORMAL",
+        "event_stat": {
+            "SURPRISE_BATTLE": {
+                "threshold": 18
+            },
+            "GET_POTION": {
+                "threshold": 16
+            },
+            "DECREASE_MP": {
+                "threshold": 14
+            },
+            "INCREASE_FOOD": {
+                "threshold": 11
+            },
+            "DECREASE_GOLD": {
+                "threshold": 8
+            },
+            "MEET_ALLY": {
+                "threshold": 3
+            }
+        }
+    },
+    "ev_p45": {
+        "eventpoint_type": "GAMBLE",
+        "event_stat": {
+            "INCREASE_GOLD": {
+                "threshold": 54
+            },
+            "DECREASE_HP": {
+                "threshold": 51
+            },
+            "DECREASE_MP": {
+                "threshold": 46
+            },
+            "DECREASE_GOLD": {
+                "threshold": 37
+            },
+            "DECREASE_FOOD": {
+                "threshold": 25
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 9
+            }
+        }
+    },
+    "ev_p46": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "SURPRISE_BATTLE": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "FLGEVENT1_C": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p47": {
+        "eventpoint_type": "NORMAL",
+        "event_stat": {
+            "GET_POTION": {
+                "threshold": 18
+            },
+            "DECREASE_HP": {
+                "threshold": 16
+            },
+            "INCREASE_MP": {
+                "threshold": 14
+            },
+            "DECREASE_GOLD": {
+                "threshold": 11
+            },
+            "INCREASE_FOOD": {
+                "threshold": 8
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 3
+            }
+        }
+    },
+    "ev_p48": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "DECREASE_HP": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "GET_JUNK": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p49": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "DECREASE_MP": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "GET_JUNK": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p50": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "DECREASE_GOLD": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "FLGEVENT1_C": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p51": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "DECREASE_FOOD": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "GET_JUNK": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p52": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "SURPRISE_BATTLE": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "FLGEVENT1_A": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p53": {
+        "eventpoint_type": "BATTLE",
+        "event_stat": {
+            "INCREASE_MP": {
+                "threshold": 54
+            },
+            "DECREASE_HP": {
+                "threshold": 51
+            },
+            "DECREASE_MP": {
+                "threshold": 46
+            },
+            "DECREASE_GOLD": {
+                "threshold": 37
+            },
+            "DECREASE_FOOD": {
+                "threshold": 25
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 9
+            },
+            "CROWN": {
+                "threshold": 0
+            }
+        }
+    },
+    "ev_p54": {
+        "eventpoint_type": "NORMAL",
+        "event_stat": {
+            "MEET_ALLY": {
+                "threshold": 18
+            },
+            "LOST_POTION": {
+                "threshold": 16
+            },
+            "GET_POTION": {
+                "threshold": 14
+            },
+            "DECREASE_HP": {
+                "threshold": 11
+            },
+            "INCREASE_HP": {
+                "threshold": 8
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 3
+            }
+        }
+    },
+    "ev_p55": {
+        "eventpoint_type": "NORMAL",
+        "event_stat": {
+            "MEET_ALLY": {
+                "threshold": 18
+            },
+            "LOST_POTION": {
+                "threshold": 16
+            },
+            "INCREASE_HP": {
+                "threshold": 14
+            },
+            "DECREASE_FOOD": {
+                "threshold": 11
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 8
+            },
+            "FLGEVENT2_D": {
+                "threshold": 3
+            }
+        }
+    },
+    "ev_p56": {
+        "eventpoint_type": "GAMBLE",
+        "event_stat": {
+            "GET_HIPOTION": {
+                "threshold": 54
+            },
+            "DECREASE_HP": {
+                "threshold": 51
+            },
+            "DECREASE_MP": {
+                "threshold": 46
+            },
+            "DECREASE_GOLD": {
+                "threshold": 37
+            },
+            "DECREASE_FOOD": {
+                "threshold": 25
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 9
+            }
+        }
+    },
+    "ev_p57": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "DECREASE_HP": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "GET_JUNK": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p58": {
+        "eventpoint_type": "GAMBLE",
+        "event_stat": {
+            "INCREASE_FOOD": {
+                "threshold": 54
+            },
+            "DECREASE_HP": {
+                "threshold": 51
+            },
+            "DECREASE_MP": {
+                "threshold": 46
+            },
+            "DECREASE_GOLD": {
+                "threshold": 37
+            },
+            "DECREASE_FOOD": {
+                "threshold": 25
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 9
+            }
+        }
+    },
+    "ev_p59": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "DECREASE_MP": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "GET_JUNK": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p60": {
+        "eventpoint_type": "GAMBLE",
+        "event_stat": {
+            "GET_ARMORY": {
+                "threshold": 54
+            },
+            "DECREASE_HP": {
+                "threshold": 51
+            },
+            "DECREASE_MP": {
+                "threshold": 46
+            },
+            "DECREASE_GOLD": {
+                "threshold": 37
+            },
+            "DECREASE_FOOD": {
+                "threshold": 25
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 9
+            }
+        }
+    },
+    "ev_p61": {
+        "eventpoint_type": "NORMAL",
+        "event_stat": {
+            "DECREASE_FOOD": {
+                "threshold": 18
+            },
+            "GET_POTION": {
+                "threshold": 16
+            },
+            "DECREASE_HP": {
+                "threshold": 14
+            },
+            "INCREASE_MP": {
+                "threshold": 11
+            },
+            "DECREASE_GOLD": {
+                "threshold": 8
+            },
+            "INCREASE_HP": {
+                "threshold": 3
+            }
+        }
+    },
+    "ev_p62": {
+        "eventpoint_type": "NORMAL",
+        "event_stat": {
+            "INCREASE_HP": {
+                "threshold": 18
+            },
+            "DECREASE_GOLD": {
+                "threshold": 16
+            },
+            "INCREASE_MP": {
+                "threshold": 14
+            },
+            "LOST_POTION": {
+                "threshold": 11
+            },
+            "INCREASE_FOOD": {
+                "threshold": 8
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 3
+            }
+        }
+    },
+    "ev_p63": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "DECREASE_GOLD": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "GET_JUNK": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p64": {
+        "eventpoint_type": "GAMBLE",
+        "event_stat": {
+            "GET_HIPOTION": {
+                "threshold": 54
+            },
+            "DECREASE_HP": {
+                "threshold": 51
+            },
+            "DECREASE_MP": {
+                "threshold": 46
+            },
+            "DECREASE_GOLD": {
+                "threshold": 37
+            },
+            "DECREASE_FOOD": {
+                "threshold": 25
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 9
+            },
+            "FLGEVENT3_H": {
+                "threshold": 0
+            }
+        }
+    },
+    "ev_p65": {
+        "eventpoint_type": "GAMBLE",
+        "event_stat": {
+            "GET_ARMORY": {
+                "threshold": 54
+            },
+            "DECREASE_HP": {
+                "threshold": 51
+            },
+            "DECREASE_MP": {
+                "threshold": 46
+            },
+            "DECREASE_GOLD": {
+                "threshold": 37
+            },
+            "DECREASE_FOOD": {
+                "threshold": 25
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 9
+            },
+            "FLGEVENT3_G": {
+                "threshold": 0
+            }
+        }
+    },
+    "ev_p66": {
+        "eventpoint_type": "SAFETY",
+        "event_stat": {
+            "DECREASE_FOOD": {
+                "threshold": 6
+            },
+            "INCREASE_HP": {
+                "threshold": 5
+            },
+            "INCREASE_MP": {
+                "threshold": 4
+            },
+            "INCREASE_GOLD": {
+                "threshold": 3
+            },
+            "INCREASE_FOOD": {
+                "threshold": 2
+            },
+            "FLGEVENT1_B": {
+                "threshold": 1
+            }
+        }
+    },
+    "ev_p67": {
+        "eventpoint_type": "NORMAL",
+        "event_stat": {
+            "LOST_POTION": {
+                "threshold": 18
+            },
+            "INCREASE_FOOD": {
+                "threshold": 16
+            },
+            "DECREASE_FOOD": {
+                "threshold": 14
+            },
+            "INCREASE_MP": {
+                "threshold": 11
+            },
+            "DECREASE_HP": {
+                "threshold": 8
+            },
+            "INCREASE_HP": {
+                "threshold": 3
+            }
+        }
+    },
+    "ev_p68": {
+        "eventpoint_type": "NORMAL",
+        "event_stat": {
+            "DECREASE_GOLD": {
+                "threshold": 18
+            },
+            "GET_POTION": {
+                "threshold": 16
+            },
+            "DECREASE_MP": {
+                "threshold": 14
+            },
+            "MEET_ALLY": {
+                "threshold": 11
+            },
+            "DECREASE_FOOD": {
+                "threshold": 8
+            },
+            "FLGEVENT2_F": {
+                "threshold": 3
+            }
+        }
+    },
+    "ev_p69": {
+        "eventpoint_type": "NORMAL",
+        "event_stat": {
+            "LOST_POTION": {
+                "threshold": 18
+            },
+            "INCREASE_FOOD": {
+                "threshold": 16
+            },
+            "DECREASE_GOLD": {
+                "threshold": 14
+            },
+            "INCREASE_MP": {
+                "threshold": 11
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 8
+            },
+            "INCREASE_HP": {
+                "threshold": 3
+            }
+        }
+    },
+    "ev_p70": {
+        "eventpoint_type": "BATTLE",
+        "event_stat": {
+            "INCREASE_GOLD": {
+                "threshold": 54
+            },
+            "DECREASE_HP": {
+                "threshold": 51
+            },
+            "DECREASE_MP": {
+                "threshold": 46
+            },
+            "DECREASE_GOLD": {
+                "threshold": 37
+            },
+            "DECREASE_FOOD": {
+                "threshold": 25
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 9
+            },
+            "GRAIL": {
+                "threshold": 0
+            }
+        }
+    },
+    "ev_p71": {
+        "eventpoint_type": "BATTLE",
+        "event_stat": {
+            "INCREASE_GOLD": {
+                "threshold": 54
+            },
+            "DECREASE_HP": {
+                "threshold": 51
+            },
+            "DECREASE_MP": {
+                "threshold": 46
+            },
+            "DECREASE_GOLD": {
+                "threshold": 37
+            },
+            "DECREASE_FOOD": {
+                "threshold": 25
+            },
+            "SURPRISE_BATTLE": {
+                "threshold": 9
+            },
+            "CEPTER": {
+                "threshold": 0
+            }
+        }
+    },
+    "ev_p72": {
+        "eventpoint_type": "NORMAL",
+        "event_stat": {
+            "SURPRISE_BATTLE": {
+                "threshold": 18
+            },
+            "INCREASE_FOOD": {
+                "threshold": 16
+            },
+            "DECREASE_GOLD": {
+                "threshold": 14
+            },
+            "INCREASE_HP": {
+                "threshold": 11
+            },
+            "DECREASE_MP": {
+                "threshold": 8
+            },
+            "FLGEVENT2_D": {
+                "threshold": 3
+            }
+        }
+    }
+}

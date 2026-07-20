@@ -17,6 +17,7 @@ logger = logging.getLogger(__name__)
 if TYPE_CHECKING:
     from command import CommandManager
     from scene import SceneManager
+    from event import EventManager
     from field_map import MapGraph
     from entity import Party, Character, EnemyManager
     from gameutils.lib import SoundManager
@@ -29,6 +30,7 @@ class ServiceKey(Enum):
 
     COMMAND_MANAGER = auto()
     SCENE_MANAGER = auto()
+    EVENT_MANAGER = auto()
     MAPGRAPH = auto()
     SOUND_MANAGER = auto()
     ITEM_MANAGER = auto()
@@ -69,6 +71,10 @@ class _Ref:
     @property
     def scnmgr(self) -> SceneManager:
         return _service_container[ServiceKey.SCENE_MANAGER]
+
+    @property
+    def evtmgr(self) -> EventManager:
+        return _service_container[ServiceKey.EVENT_MANAGER]
 
     @property
     def map(self) -> MapGraph:

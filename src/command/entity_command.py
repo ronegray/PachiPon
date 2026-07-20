@@ -62,7 +62,7 @@ class CommandBaseEntity(CommandBase):
     def update(self) -> CommandPhase:
         match self.phase:
             case CommandPhase.SYN:
-                self.display_info.target.text_list.clear()
+                self.display_info.target.message_list.clear()
                 self._gen = self._sequence()
                 self._advance()
                 self.phase = CommandPhase.ACK

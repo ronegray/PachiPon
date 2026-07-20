@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 class EventManager:
     _master_def: dict[tuple[EventType, EventID], Event]
-    _master_list: list[Event]
+    # _master_list: list[Event]
 
     def __init__(self) -> None:
         """JSONファイルを読み込んでイベント定義を初期化する"""
@@ -29,7 +29,7 @@ class EventManager:
             raise FileNotFoundError(errmsg)
 
         EventManager._master_def = {}
-        EventManager._master_list = []
+        # EventManager._master_list = []
 
         for item in json_data:
             type_str = item.get("event_type")
@@ -47,7 +47,7 @@ class EventManager:
                 )
 
                 EventManager._master_def[(event_type, event_id)] = event
-                EventManager._master_list.append(event)
+                # EventManager._master_list.append(event)
             else:
                 if not hasattr(EventType, type_str):
                     logger.warning(f"Warning: EventType.{type_str} is not defined.")
@@ -62,9 +62,11 @@ class EventManager:
     @classmethod
     def get_all_definitions(cls) -> list[Event]:
         """すべてのイベント定義を取得する"""
-        return cls._master_list
+        # return cls._master_list
+        return [evt for evt in cls._master_def.values()]
 
     @classmethod
     def get_defs_by_type(cls, event_type: EventType) -> list[Event]:
         """指定されたイベント種類のすべてのイベント定義を取得する"""
-        return [evt for evt in cls._master_list if evt.event_type == event_type]
+        # return [evt for evt in cls._master_list if evt.event_type == event_type]
+        return [evt for evt in cls._master_def.values() if evt.event_type == event_type]
