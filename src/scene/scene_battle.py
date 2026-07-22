@@ -61,7 +61,7 @@ class SceneBattle(BaseScene):
         route: Route = di.ref.pt.get_current_route()
         threat = route.threat
         # 出現エネミーの決定
-        candidate_list = di.ref.enmmgr.get_threat_enemies(threat)
+        candidate_list = di.ref.enmrps.get_threat_enemies(threat)
         enemy_index = px.rndi(0, len(candidate_list) - 1)
         enemy_data = candidate_list[enemy_index]
         enemy_image = px.Image.from_image(f"assets/image/{enemy_data["name"]}.bmp")

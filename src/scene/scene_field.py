@@ -17,6 +17,9 @@ from gameutils.lib import Window, WindowAction
 from field_map import EventPoint
 from entity import EntityContext
 import command.entity_command as e_cmd
+
+# import command.system_command as s_cmd
+import command.effect_command as f_cmd
 from menu import MenuField
 from . import BaseScene
 
@@ -68,8 +71,8 @@ class SceneField(BaseScene):
         """イベントポイントウインドウの内容更新"""
         self.eventpoint_info_window.clear_message()
         self.eventpoint_info_window.add_message(self.current_point.name)
-        logger.debug(self.current_point)
-        logger.debug(self.current_point.get_eventpoint_info())
+        # logger.debug(self.current_point)
+        # logger.debug(self.current_point.get_eventpoint_info())
         for _, val in self.current_point.get_eventpoint_info().items():
             self.eventpoint_info_window.add_message(
                 f"{val["name"]}  {val["threshold"]}"
@@ -94,6 +97,14 @@ class SceneField(BaseScene):
         """フィールド関連オブジェクト群の更新処理"""
         # コマンド実行中は更新処理停止
         if not di.ref.cmdmgr.is_empty:
+            return
+
+        # 現在地点に次のイベントが定義されていた場合
+        if self.current_point.nextevent:
+            # self.update_eventpoint_info()
+            # cmd2 = s_cmd.FoodShortageMessage(self.message_window)
+            # di.ref.cmdmgr.push_command(cmd2)
+            self.current_point.flush_event()
             return
 
         # WindowManagerにスタックがある場合はメニュー操作を優先
@@ -187,8 +198,11 @@ class SceneField(BaseScene):
         #     self.event_flags[self.current_node_id] = False
         # current_point = di.ref.pt.get_current_point()?
         if is_pressed("decide") and self.current_point.is_ready:
-            dices = self.current_point.kick_event()
-            print(dices)
+            # dices = self.current_point.kick_event()
+            cmd = f_cmd.KickEvent(self.message_window, self.current_point)
+            di.ref.cmdmgr.push_command(cmd)
+            di.ref.cmdmgr.set_on_empty(self.update_eventpoint_info)
+            return
 
         # キャラクターのスプライトを更新（非移動時もアニメーション等のために必要）
         self.field_chara.update()

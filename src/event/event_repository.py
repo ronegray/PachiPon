@@ -55,7 +55,7 @@ class EventRepository:
                     logger.warning(f"Warning: EventID.{id_str} is not defined.")
 
     @classmethod
-    def get_def(cls, event_type: EventType, event_id: EventID) -> Event | None:
+    def get_event(cls, event_type: EventType, event_id: EventID) -> Event | None:
         """指定されたEventTypeとEventIDのイベント定義を取得する"""
         return cls._master_def.get((event_type, event_id))
 

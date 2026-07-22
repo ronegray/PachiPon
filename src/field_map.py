@@ -12,7 +12,7 @@ import pyxel as px
 from assets.asset_map import AssetID, AssetMap
 from gameutils.base import check_file, read_json
 import service_locater as di
-from event import EventList, EventType, EventStat
+from event import EventList, EventType, EventStat, Event, EventID
 
 
 # ルート方向指定子
@@ -80,6 +80,7 @@ class EventPoint:
         self.x: int = point_data.get("x", 0)
         self.y: int = point_data.get("y", 0)
         self.routes: list[Route] = []
+        self.nextevent: Event | None = None
 
         # イベントポイントのイベント状態を定義
         self.event_list: EventList
@@ -89,11 +90,14 @@ class EventPoint:
                 self.event_list = EventList(
                     self.event_id,
                     self.event_type,
-                    {key: EventStat(ev_def["threshold"])},
+                    {EventID[key]: EventStat(ev_def["threshold"])},
                 )
                 is_first = False
             else:
-                self.event_list.event_stat[key] = EventStat(ev_def["threshold"])
+                self.event_list.event_stat[EventID[key]] = EventStat(
+                    ev_def["threshold"]
+                )
+        pass
 
     def add_route(self, route: Route) -> None:
         """イベントポイントにルートを結合"""
@@ -109,7 +113,8 @@ class EventPoint:
         for event_id, event_stat in self.event_list.event_stat.items():
             if event_stat.threshold > 0:
                 if event_stat.is_opened:
-                    event_def = di.ref.evtmgr.get_def(
+                    logger.debug(self.event_list.eventpoint_type, event_id)  # type: ignore
+                    event_def = di.ref.evtrps.get_event(
                         self.event_list.eventpoint_type, event_id
                     )
                     name = event_def.event_name  # type: ignore
@@ -123,7 +128,7 @@ class EventPoint:
         return result_dict
 
     def kick_event(self) -> int:
-        """イベント開始
+        """イベント開始準備
         - ポイントのイベント準備状態を更新
         - イベントタイプから発生イベント決定用ダイス値を取得
         """
@@ -133,6 +138,14 @@ class EventPoint:
         cnt = EventPoint.ready_timer[self.event_type.name]
         self.ready_count = cnt
         return cnt
+
+    def rise_event(self, evt_id: EventID) -> None:
+        """実行イベント定義"""
+        self.nextevent = di.ref.evtrps.get_event(self.event_type, evt_id)
+
+    def flush_event(self) -> None:
+        """実行イベント定義のクリア"""
+        self.nextevent = None
 
     def update(self):
         """イベント準備状態の更新"""

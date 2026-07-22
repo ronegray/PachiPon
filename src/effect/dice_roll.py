@@ -1,3 +1,7 @@
+"""
+ダイスロールエフェクト
+"""
+from typing import Callable
 import pyxel as px
 
 # import service_locater as di
@@ -8,7 +12,7 @@ from const import DICEROLL_FRAME
 # --- サイコロ画像の仕様 ---
 # images[0] の (0,0) から右方向へ 16x16 px で 1〜6 の目が並んでいる前提
 
-DICE_IMG_BANK = 0
+# DICE_IMG_BANK = 0
 
 
 # # サイコロが転がるプレイエリア (64,64)〜(192,192)
@@ -31,14 +35,13 @@ class DiceRollEffect:
     friction = 0.94  # 摩擦係数
     rot_scale = 4.0  # 速度→回転速度の倍率
 
-    def __init__(self, roll_frames: int = DICEROLL_FRAME):
-        self.roll_frames = roll_frames
-
+    def __init__(self):
+        self.roll_frames: int
         # Σ FRICTION^t (t=0..roll_frames-1) = (1 - FRICTION^n) / (1 - FRICTION)
         # 初速逆算時の定数。roll_frames が変わらない限り毎回同じ値。
-        self._total_scale: float = (1.0 - self.friction**self.roll_frames) / (
-            1.0 - self.friction
-        )
+        self._total_scale: float  # = (1.0 - self.friction**self.roll_frames) / (
+        # 1.0 - self.friction
+        # )
 
         self.dice_img: px.Image
         self.count: int = 0
@@ -47,6 +50,8 @@ class DiceRollEffect:
         self.elapsed = 0
         self.flick_t = 0
         self.is_rolling = False
+
+        self.draw_commands: list[Callable] = []
 
         # per-die 状態 (start() で初期化)
         self.positions: list[list[float]] = []
@@ -100,8 +105,14 @@ class DiceRollEffect:
 
         return positions
 
-    def start(self, count: int) -> None:
+    def start(self, count: int, roll_frames: int = DICEROLL_FRAME) -> None:
         """指定個数のサイコロを左上から放り投げ始める"""
+        self.roll_frames = roll_frames
+        # Σ FRICTION^t (t=0..roll_frames-1) = (1 - FRICTION^n) / (1 - FRICTION)
+        # 初速逆算時の定数。roll_frames が変わらない限り毎回同じ値。
+        self._total_scale = (1.0 - self.friction**self.roll_frames) / (
+            1.0 - self.friction
+        )
         self.count = count
         self.elapsed = 0
         self.flick_t = 0
@@ -138,7 +149,7 @@ class DiceRollEffect:
         if not self.is_rolling:
             return
 
-        if is_pressed("decide") or is_pressed("cancel"):
+        if is_pressed("decide", "hold") or is_pressed("cancel", "hold"):
             self.elapsed = self.roll_frames
             self._finish()
 
@@ -182,22 +193,42 @@ class DiceRollEffect:
 
     def draw(self) -> None:
         """各サイコロをそれぞれの位置に描画"""
+        self.draw_commands.clear()
         for i, v in enumerate(self.values):
             sx = (v - 1) * DiceRollEffect.dice_size
             dx = int(self.positions[i][0])
             dy = int(self.positions[i][1])
             rot = int(self.rotations[i])
-            px.blt(
-                dx,
-                dy,
-                self.dice_img,
-                sx,
-                0,
-                DiceRollEffect.dice_size,
-                DiceRollEffect.dice_size,
-                px.COLOR_GREEN,
-                rot,
+            # px.blt(
+            #     dx,
+            #     dy,
+            #     self.dice_img,
+            #     sx,
+            #     0,
+            #     DiceRollEffect.dice_size,
+            #     DiceRollEffect.dice_size,
+            #     px.COLOR_GREEN,
+            #     rot,
+            # )
+            self.draw_commands.append(
+                lambda dx=dx, dy=dy, sx=sx, rot=rot: px.blt(
+                    dx,
+                    dy,
+                    self.dice_img,
+                    sx,
+                    0,
+                    DiceRollEffect.dice_size,
+                    DiceRollEffect.dice_size,
+                    px.COLOR_GREEN,
+                    rot,
+                )
             )
+            # self.draw_commands[-1]
+
+    def get_draw_commands(self) -> list[Callable]:
+        """コマンドジェネレータ用にdraw内容を取得"""
+        self.draw()
+        return self.draw_commands
 
     @property
     def total(self) -> int:

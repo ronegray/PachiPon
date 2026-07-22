@@ -55,6 +55,12 @@
   },
   {
     "event_type": "SAFETY",
+    "event_id": "GET_JUNK",
+    "event_name": "残り物には福？",
+    "event_value": 1
+  },
+  {
+    "event_type": "SAFETY",
     "event_id": "FLGEVENT1_A",
     "event_name": "翡翠の工芸品",
     "event_value": 1

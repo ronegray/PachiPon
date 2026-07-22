@@ -23,6 +23,7 @@ if TYPE_CHECKING:
     from gameutils.lib import SoundManager
     from item import ItemRepository, ItemPool, StackPool
     from skill import SkillRepository
+    from effect import DiceRollEffect
 
 
 class ServiceKey(Enum):
@@ -32,6 +33,7 @@ class ServiceKey(Enum):
     SCENE_MANAGER = auto()
     EVENT_MANAGER = auto()
     MAPGRAPH = auto()
+    DICEROLL_EFFECT = auto()
     SOUND_MANAGER = auto()
     ITEM_MANAGER = auto()
     ITEMPOOL = auto()
@@ -73,12 +75,16 @@ class _Ref:
         return _service_container[ServiceKey.SCENE_MANAGER]
 
     @property
-    def evtmgr(self) -> EventRepository:
+    def evtrps(self) -> EventRepository:
         return _service_container[ServiceKey.EVENT_MANAGER]
 
     @property
     def map(self) -> MapGraph:
         return _service_container[ServiceKey.MAPGRAPH]
+
+    @property
+    def efxdice(self) -> DiceRollEffect:
+        return _service_container[ServiceKey.DICEROLL_EFFECT]
 
     @property
     def sndmgr(self) -> SoundManager:
@@ -101,11 +107,11 @@ class _Ref:
     #     return _service_container[ServiceKey.MEMBER2]
 
     @property
-    def enmmgr(self) -> EnemyRepository:
+    def enmrps(self) -> EnemyRepository:
         return _service_container[ServiceKey.ENEMY_MANAGER]
 
     @property
-    def itemmgr(self) -> ItemRepository:
+    def itemrps(self) -> ItemRepository:
         return _service_container[ServiceKey.ITEM_MANAGER]
 
     @property
@@ -117,7 +123,7 @@ class _Ref:
         return _service_container[ServiceKey.STACKPOOL]
 
     @property
-    def sklmgr(self) -> SkillRepository:
+    def sklrps(self) -> SkillRepository:
         return _service_container[ServiceKey.SKILL_MANAGER]
 
 

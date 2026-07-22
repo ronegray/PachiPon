@@ -4,26 +4,29 @@
 import logging
 
 # from collections import deque
-from abc import abstractmethod
+# from abc import abstractmethod
 from typing import Generator, cast  # , Any
 from dataclasses import dataclass
 import pyxel as px
-from gameutils.lib import Window, WindowAction
+from gameutils.lib import Window  # , WindowAction
 from helper import diceroll, upper_int
 from const import COMMAND_STEPWAIT_FRAME
 from entity import EntityContext, Enemy, Party, Character
 from skill import SkillTargetType
 from item import ItemTargetType, StackPool, ItemState
-from . import CommandBase, CommandPhase, DisplayInfo
+
+# from . import CommandBase, CommandPhase, DisplayInfo
+from . import CommandBaseSequence, CommandPhase, DisplayInfo
+from .effect_command import efx_diceroll
 
 # ロギング設定
 logger = logging.getLogger(__name__)
 
 
-class CommandBaseEntity(CommandBase):
+class CommandBaseEntity(CommandBaseSequence):
     """エンティティが実行者となるコマンドの基底クラス"""
 
-    WAIT = "wait"  # 待機を示すリターンコマンド
+    # WAIT = "wait"  # 待機を示すリターンコマンド
 
     def __init__(self, ctx: EntityContext, wnd: Window, *args, **kwargs) -> None:
         """初期化：コンテキストの引継"""
@@ -54,45 +57,45 @@ class CommandBaseEntity(CommandBase):
             return []
         return living_targets
 
-    @abstractmethod
-    def _sequence(self) -> Generator[list[str], None, None]:
-        ...
-        # """サブクラスが実装すべき処理シーケンス"""
+    # @abstractmethod
+    # def _sequence(self) -> Generator[list[str], None, None]:
+    #     ...
+    #     # """サブクラスが実装すべき処理シーケンス"""
 
-    def update(self) -> CommandPhase:
-        match self.phase:
-            case CommandPhase.SYN:
-                self.display_info.target.message_list.clear()
-                self._gen = self._sequence()
-                self._advance()
-                self.phase = CommandPhase.ACK
-            case CommandPhase.ACK:
-                if (
-                    self.display_info.target.update() == WindowAction.DISCARD
-                    or self.step_wait < 0
-                ):
-                    self._advance()
-                self.step_wait -= 1
-        return self.phase
+    # def update(self) -> CommandPhase:
+    #     match self.phase:
+    #         case CommandPhase.SYN:
+    #             self.display_info.target.message_list.clear()
+    #             self._gen = self._sequence()
+    #             self._advance()
+    #             self.phase = CommandPhase.ACK
+    #         case CommandPhase.ACK:
+    #             if (
+    #                 self.display_info.target.update() == WindowAction.DISCARD
+    #                 or self.step_wait < 0
+    #             ):
+    #                 self._advance()
+    #             self.step_wait -= 1
+    #     return self.phase
 
-    def _advance(self):
-        try:
-            result = next(self._gen)
-            if result:
-                if result[0] == self.WAIT:
-                    self.step_wait = int(result[1]) * COMMAND_STEPWAIT_FRAME
-                else:
-                    self.display_info.message = result
-                    self.display_info.is_change = True
-                    self.step_wait = COMMAND_STEPWAIT_FRAME
-            else:
-                self.step_wait = 0
-        except StopIteration:
-            self.phase = CommandPhase.FIN
+    # def _advance(self):
+    #     try:
+    #         result = next(self._gen)
+    #         if result:
+    #             if result[0] == self.WAIT:
+    #                 self.step_wait = int(result[1]) * COMMAND_STEPWAIT_FRAME
+    #             else:
+    #                 self.display_info.message = result
+    #                 self.display_info.is_change = True
+    #                 self.step_wait = COMMAND_STEPWAIT_FRAME
+    #         else:
+    #             self.step_wait = 0
+    #     except StopIteration:
+    #         self.phase = CommandPhase.FIN
 
-    def draw(self) -> DisplayInfo:
-        """コマンド描画情報送信"""
-        return self.display_info
+    # def draw(self) -> DisplayInfo:
+    #     """コマンド描画情報送信"""
+    #     return self.display_info
 
 
 @dataclass
@@ -105,18 +108,7 @@ class CommandPackage:
 
 
 class Attack(CommandBaseEntity):
-
     """エンティティ共通行動：物理攻撃"""
-
-    """コマンドの流れ（「」内はメッセージ表示）
-    - 「actorがtargetに攻撃！」
-      - actorとtargetの設定
-    - 攻撃の命中判定（計算）
-      - 失敗の場合、「攻撃は外れた」
-      - 成功の場合
-        - ダメージ値の計算
-        - actorはtargetに〇のダメージ」
-    """
 
     def _sequence(self) -> Generator[list[str], None, None]:
         # 最初に必ず生死チェック
@@ -152,7 +144,9 @@ class Attack(CommandBaseEntity):
 
         # ダメージロール
         crit_rate = actor.get_critical_rate(judge)
-        damage = (actor.damageroll_melee() * crit_rate) - target.suppress_damage_melee()
+        dice, damage = actor.damageroll_melee()
+        yield from efx_diceroll(self.display_info, dice)
+        damage = (damage * crit_rate) - target.suppress_damage_melee()
         weapon_type = actor.get_weapon_type()
         if not weapon_type:
             damage = int(damage * target.calc_guard_rate(weapon_type))
