@@ -55,17 +55,18 @@ def ipl():
     di.register(di.ServiceKey.MAPGRAPH, map)
 
     # サービスロケータ登録：コマンドマネージャ
-    logger.info("Initialize - Command")
+    logger.info("Initialize - CommandManager")
     cmdmgr = CommandManager()
     di.register(di.ServiceKey.COMMAND_MANAGER, cmdmgr)
 
     # サービスロケータ登録：パーティ
     logger.info("Initialize - Party")
-    pt = Party(scnmgr=di.ref.scnmgr, map=di.ref.map, cmdmgr=di.ref.cmdmgr)
+    # pt = Party(scnmgr=di.ref.scnmgr, map=di.ref.map, cmdmgr=di.ref.cmdmgr)
+    pt = Party(map=di.ref.map)
     di.register(di.ServiceKey.PARTY, pt)
 
     # サービスロケータ登録：エネミーマネージャ
-    logger.info("Initialize - Enemy")
+    logger.info("Initialize - Enemy MasterData")
     enmmgr = EnemyRepository()
     di.register(di.ServiceKey.ENEMY_MANAGER, enmmgr)
 
@@ -74,6 +75,7 @@ def ipl():
     itemmgr = ItemRepository()
     di.register(di.ServiceKey.ITEM_MANAGER, itemmgr)
     # アイテムデータ初期化
+    logger.info("Initialize - Item ObjectData")
     pl_item = ItemPool()
     di.register(di.ServiceKey.ITEMPOOL, pl_item)
     pl_stack = StackPool()
@@ -122,5 +124,7 @@ def ipl():
 
     from skill import SkillID
 
-    di.ref.hero.skills.learn_skill(SkillID.SACRED_ARROW)
-    di.ref.mem2.skills.learn_skill(SkillID.HEALING_HAND)
+    # di.ref.hero.skills.learn_skill(SkillID.SACRED_ARROW)
+    pt.get_member(0).skills.learn_skill(SkillID.SACRED_ARROW)
+    # di.ref.mem2.skills.learn_skill(SkillID.HEALING_HAND)
+    pt.get_member(2).skills.learn_skill(SkillID.HEALING_HAND)

@@ -19,7 +19,7 @@ if TYPE_CHECKING:
     from scene import SceneManager
     from event import EventRepository
     from field_map import MapGraph
-    from entity import Party, Character, EnemyRepository
+    from entity import Party, EnemyRepository  # , Character
     from gameutils.lib import SoundManager
     from item import ItemRepository, ItemPool, StackPool
     from skill import SkillRepository
@@ -38,9 +38,9 @@ class ServiceKey(Enum):
     STACKPOOL = auto()
     SKILL_MANAGER = auto()
     PARTY = auto()
-    HERO = auto()
-    MEMBER1 = auto()
-    MEMBER2 = auto()
+    # HERO = auto()
+    # MEMBER1 = auto()
+    # MEMBER2 = auto()
     ENEMY_MANAGER = auto()
 
 
@@ -88,17 +88,17 @@ class _Ref:
     def pt(self) -> Party:
         return _service_container[ServiceKey.PARTY]
 
-    @property
-    def hero(self) -> Character:
-        return _service_container[ServiceKey.HERO]
+    # @property
+    # def hero(self) -> Character:
+    #     return _service_container[ServiceKey.HERO]
 
-    @property
-    def mem1(self) -> Character:
-        return _service_container[ServiceKey.MEMBER1]
+    # @property
+    # def mem1(self) -> Character:
+    #     return _service_container[ServiceKey.MEMBER1]
 
-    @property
-    def mem2(self) -> Character:
-        return _service_container[ServiceKey.MEMBER2]
+    # @property
+    # def mem2(self) -> Character:
+    #     return _service_container[ServiceKey.MEMBER2]
 
     @property
     def enmmgr(self) -> EnemyRepository:

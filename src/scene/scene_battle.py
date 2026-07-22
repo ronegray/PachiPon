@@ -245,7 +245,11 @@ class SceneBattle(BaseScene):
                 WindowInputHandler.load_default_input()
                 # 報酬の画面表示
                 ctx = self.build_context(
-                    di.ref.hero, di.ref.hero, di.ref.pt.get_allmember(), self.enemy_list
+                    # di.ref.hero, di.ref.hero, di.ref.pt.get_allmember(), self.enemy_list
+                    di.ref.pt.get_member(0),
+                    di.ref.pt.get_member(0),
+                    di.ref.pt.get_allmember(),
+                    self.enemy_list,
                 )
                 di.ref.cmdmgr.push_command(
                     e_cmd.GrantReward(ctx, self.message_window, di.ref.pt)

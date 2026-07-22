@@ -12,8 +12,9 @@ from field_map import EventPoint, Route
 from helper import diceroll
 import command.system_command as s_cmd
 from field_map import MapGraph  # , ROUTE_DIR
-from command import CommandManager
-from scene import SceneManager
+
+# from command import CommandManager
+# from scene import SceneManager
 from . import Character, EntityParam, PlayerSprite, FieldSprite
 
 # ロギング設定
@@ -45,11 +46,15 @@ class Party:
     info_window: Window
     pt_msg_window: Window
 
-    def __init__(self, map: MapGraph, cmdmgr: CommandManager, scnmgr: SceneManager):
+    def __init__(
+        self, map: MapGraph
+    ):  # , cmdmgr: CommandManager, scnmgr: SceneManager):
         """初期化"""
         self.map = map
-        self.cmdmgr = cmdmgr
-        self.scnmgr = scnmgr
+        self.cmdmgr = di.ref.cmdmgr
+        self.scnmgr = di.ref.scnmgr
+        # self.cmdmgr = cmdmgr
+        # self.scnmgr = scnmgr
         # 初期PTメンバ（主人公）の登録
         self.regist_dummy_hero()  # そもそもやるべきではない？
         self.regist_dummy_hero()
@@ -132,15 +137,16 @@ class Party:
             ),
             sprite=PlayerSprite(char_x, char_y, charimage),
         )
-        if len(self._member_list) == 0:
-            di.register(di.ServiceKey.HERO, hero)
-            self.add_ptmember(di.ref.hero)
-        elif len(self._member_list) == 1:
-            di.register(di.ServiceKey.MEMBER1, hero)
-            self.add_ptmember(di.ref.mem1)
-        elif len(self._member_list) == 2:
-            di.register(di.ServiceKey.MEMBER2, hero)
-            self.add_ptmember(di.ref.mem2)
+        # if len(self._member_list) == 0:
+        #     di.register(di.ServiceKey.HERO, hero)
+        #     self.add_ptmember(di.ref.hero)
+        # elif len(self._member_list) == 1:
+        #     di.register(di.ServiceKey.MEMBER1, hero)
+        #     self.add_ptmember(di.ref.mem1)
+        # elif len(self._member_list) == 2:
+        #     di.register(di.ServiceKey.MEMBER2, hero)
+        #     self.add_ptmember(di.ref.mem2)
+        self.add_ptmember(hero)
 
     def get_top_index(self) -> int:
         """生存中PTメンバーの先頭キャラのリストインデックスを取得"""

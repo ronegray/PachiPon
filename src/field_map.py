@@ -54,6 +54,8 @@ class Route:
 class EventPoint:
     """マップ上に定義されるイベント地点"""
 
+    ready_timer: dict[str, int] = {"NORMAL": 3, "SAFETY": 1, "GAMBLE": 9, "BATTLE": 1}
+
     def __init__(self, point_data: dict, event_dict: dict) -> None:
         """EventPointオブジェクト定義"""
         tmp_id = point_data.get("id")
@@ -120,14 +122,30 @@ class EventPoint:
 
         return result_dict
 
+    def kick_event(self) -> int:
+        """イベント開始
+        - ポイントのイベント準備状態を更新
+        - イベントタイプから発生イベント決定用ダイス値を取得
+        """
+        # イベントポイントの準備状態を変更
+        self.is_ready = False
+        # イベントタイプからカウンタ兼ダイス数を取得
+        cnt = EventPoint.ready_timer[self.event_type.name]
+        self.ready_count = cnt
+        return cnt
+
     def update(self):
-        """準備カウンタの更新"""
+        """イベント準備状態の更新"""
         self.ready_count = max(0, self.ready_count - 1)
+        if self.ready_count == 0:
+            self.is_ready = True
 
     def draw(self, offset_x: float = 0, offset_y: float = 0):
         """イベントポイント情報の描画"""
         px_COLOR_0x00FF00 = 27
-        px.circ(self.x + offset_x, self.y + offset_y, 2, px_COLOR_0x00FF00)
+        # px.circ(self.x + offset_x, self.y + offset_y, 2, px_COLOR_0x00FF00)
+        pointcolor = px_COLOR_0x00FF00 if self.is_ready else px.COLOR_RED
+        px.circ(self.x + offset_x, self.y + offset_y, 2, pointcolor)
         px.circb(self.x + offset_x, self.y + offset_y, 2, px.COLOR_WHITE)
         # px.text(
         #     self.x + offset_x + 4,

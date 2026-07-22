@@ -111,16 +111,24 @@ class SceneField(BaseScene):
                 )
             return
 
-        # 準備状態でないイベントポイントのみ更新
-        [
-            lambda: point.update()
-            for point in di.ref.map.points.values()
-            if point.is_ready is False
-        ]
+        # # 準備状態でないイベントポイントのみ更新
+        # [
+        #     lambda: point.update()
+        #     for point in di.ref.map.points.values()
+        #     if point.is_ready is False
+        # ]
 
         # 移動中は何もしない
         if di.ref.pt._pt_is_moving:
+            prev_turn = di.ref.pt.past_turns
             di.ref.pt.update()
+            # 移動によってターンが経過した時は準備状態でないイベントポイントの更新
+            if di.ref.pt.past_turns > prev_turn:
+                [
+                    point.update()
+                    for point in di.ref.map.points.values()
+                    if point.is_ready is False
+                ]
             # 移動中→移動完了への状態変化時に、前ポイントのイベント回復＆現在地修正
             # -> イベント回復はイベントポイントの更新処理へ移動
             # 移動終了時は地点情報を更新
@@ -168,7 +176,7 @@ class SceneField(BaseScene):
                     # 移動開始
                     di.ref.pt.set_current_route(to_route)
                     di.ref.pt.move_route(to_route)
-                    return
+                return
 
         # イベント発生判定
         # is_event_point = self.event_flags.get(self.current_node_id, False)
@@ -179,7 +187,8 @@ class SceneField(BaseScene):
         #     self.event_flags[self.current_node_id] = False
         # current_point = di.ref.pt.get_current_point()?
         if is_pressed("decide") and self.current_point.is_ready:
-            self.current_point
+            dices = self.current_point.kick_event()
+            print(dices)
 
         # キャラクターのスプライトを更新（非移動時もアニメーション等のために必要）
         self.field_chara.update()
