@@ -17,10 +17,10 @@ from gameutils.base import (
 from assets.asset_map import AssetMap
 from scene import SceneManager
 from field_map import MapGraph
-from item import ItemManager, ItemPool, StackPool
-from entity import Party, EnemyManager
+from item import ItemRepository, ItemPool, StackPool
+from entity import Party, EnemyRepository
 from command import CommandManager
-from skill import SkillManager
+from skill import SkillRepository
 from setup_log import setup_logging
 
 
@@ -66,12 +66,12 @@ def ipl():
 
     # サービスロケータ登録：エネミーマネージャ
     logger.info("Initialize - Enemy")
-    enmmgr = EnemyManager()
+    enmmgr = EnemyRepository()
     di.register(di.ServiceKey.ENEMY_MANAGER, enmmgr)
 
     # サービスロケータ登録：アイテムマネージャ
     logger.info("Initialize - Item MasterData")
-    itemmgr = ItemManager()
+    itemmgr = ItemRepository()
     di.register(di.ServiceKey.ITEM_MANAGER, itemmgr)
     # アイテムデータ初期化
     pl_item = ItemPool()
@@ -81,7 +81,7 @@ def ipl():
 
     # サービスロケータ登録：スキルマネージャ
     logger.info("Initialize - Skill MasterData")
-    sklmgr = SkillManager()
+    sklmgr = SkillRepository()
     di.register(di.ServiceKey.SKILL_MANAGER, sklmgr)
 
     """リリース時は削除する"""

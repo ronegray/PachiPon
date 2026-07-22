@@ -14,4 +14,4 @@ from .item_protocol import (
     ItemTargetType,
 )
 from .item_pool import ItemPool, StackPool
-from .item_manager import ItemManager
+from .item_repository import ItemRepository

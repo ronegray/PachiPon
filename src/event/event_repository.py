@@ -13,7 +13,7 @@ from .event_protocol import EventType, EventID, Event
 logger = logging.getLogger(__name__)
 
 
-class EventManager:
+class EventRepository:
     _master_def: dict[tuple[EventType, EventID], Event]
     # _master_list: list[Event]
 
@@ -28,7 +28,7 @@ class EventManager:
             logger.critical(errmsg, exc_info=True)
             raise FileNotFoundError(errmsg)
 
-        EventManager._master_def = {}
+        EventRepository._master_def = {}
         # EventManager._master_list = []
 
         for item in json_data:
@@ -46,7 +46,7 @@ class EventManager:
                     event_value=item.get("event_value", 0),
                 )
 
-                EventManager._master_def[(event_type, event_id)] = event
+                EventRepository._master_def[(event_type, event_id)] = event
                 # EventManager._master_list.append(event)
             else:
                 if not hasattr(EventType, type_str):

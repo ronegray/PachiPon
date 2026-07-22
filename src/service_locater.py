@@ -17,12 +17,12 @@ logger = logging.getLogger(__name__)
 if TYPE_CHECKING:
     from command import CommandManager
     from scene import SceneManager
-    from event import EventManager
+    from event import EventRepository
     from field_map import MapGraph
-    from entity import Party, Character, EnemyManager
+    from entity import Party, Character, EnemyRepository
     from gameutils.lib import SoundManager
-    from item import ItemManager, ItemPool, StackPool
-    from skill import SkillManager
+    from item import ItemRepository, ItemPool, StackPool
+    from skill import SkillRepository
 
 
 class ServiceKey(Enum):
@@ -73,7 +73,7 @@ class _Ref:
         return _service_container[ServiceKey.SCENE_MANAGER]
 
     @property
-    def evtmgr(self) -> EventManager:
+    def evtmgr(self) -> EventRepository:
         return _service_container[ServiceKey.EVENT_MANAGER]
 
     @property
@@ -101,11 +101,11 @@ class _Ref:
         return _service_container[ServiceKey.MEMBER2]
 
     @property
-    def enmmgr(self) -> EnemyManager:
+    def enmmgr(self) -> EnemyRepository:
         return _service_container[ServiceKey.ENEMY_MANAGER]
 
     @property
-    def itemmgr(self) -> ItemManager:
+    def itemmgr(self) -> ItemRepository:
         return _service_container[ServiceKey.ITEM_MANAGER]
 
     @property
@@ -117,7 +117,7 @@ class _Ref:
         return _service_container[ServiceKey.STACKPOOL]
 
     @property
-    def sklmgr(self) -> SkillManager:
+    def sklmgr(self) -> SkillRepository:
         return _service_container[ServiceKey.SKILL_MANAGER]
 
 

@@ -13,7 +13,7 @@ from dataclasses import dataclass
 # import command.entity_command
 from helper import diceroll
 from scene import SITUATION
-from . import SkillID, SkillDef, SkillManager  # , TargetType
+from . import SkillID, SkillDef, SkillRepository  # , TargetType
 
 
 # ロギング設定
@@ -43,7 +43,7 @@ class Skills:
             logger.warning(errmsg)
             exit()
         # return di.ref.sklmgr.get_def(skill_id)
-        return SkillManager.get_def(skill_id)
+        return SkillRepository.get_def(skill_id)
 
     def get_learned_skill_id(self) -> set[SkillID]:
         """習得済スキルのIDセット情報を取得"""
