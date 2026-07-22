@@ -21,3 +21,7 @@ class CommandBase(ABC):
     @abstractmethod
     def draw(self) -> DisplayInfo:
         ...
+
+
+# class CommandBaseSequence(CommandBase):
+#     """_sequenceジェネレータを持つコマンドの共通実装"""

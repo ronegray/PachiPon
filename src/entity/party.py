@@ -359,7 +359,6 @@ class Party:
                 if self._pt_is_encount and self.cmdmgr.is_empty:
                     self.scnmgr.next_scene("battlesplash")
                     self._pt_is_encount = False
-
             except StopIteration:
                 pass
         self._field_sprite.update()

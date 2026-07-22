@@ -197,11 +197,12 @@ class SceneField(BaseScene):
         self.camera_x = px.width // 2 - di.ref.pt._field_sprite.x
         self.camera_y = px.height // 2 - di.ref.pt._field_sprite.y
 
-        # カメラのクランプ (ワールドマップの端が画面外に出ないように調整)
-        self.camera_x = max(px.width - di.ref.map.map_img_width, min(0, self.camera_x))
-        self.camera_y = max(
-            px.height - di.ref.map.map_img_height, min(0, self.camera_y)
-        )
+        # # カメラのクランプ (ワールドマップの端が画面外に出ないように調整)
+        # self.camera_x = max(px.width - di.ref.map.map_img_width, min(0, self.camera_x))
+        # self.camera_y = max(
+        #     px.height - di.ref.map.map_img_height, min(0, self.camera_y)
+        # )
+        # 多分マップ端までキャラ位置が移動する事はないので、一旦塩漬け
 
     def draw(self):
         # プレイヤーキャラのワールド座標を取得
