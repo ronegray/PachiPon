@@ -171,9 +171,9 @@ class EntityBase(ABC):
             cnt -= 1
         return 1
 
-    def damageroll_melee(self) -> int:
+    def damageroll_melee(self) -> tuple[int, int]:
         """近接ダメージ計算"""
-        return diceroll(self.hitdice) + self.bonus_str
+        return (self.hitdice, diceroll(self.hitdice) + self.bonus_str)
 
     def suppress_damage_melee(self) -> int:
         """近接ダメージの防御による相殺値"""

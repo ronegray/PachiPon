@@ -82,7 +82,7 @@ class MenuStatus(Menu):
         )
         status_lines += f"\n速　度： {u(member.speed,2)} （＋{u(member.bonus_spd,1)}）"
         status_lines += f"\n幸　運： {u(member.luck,2)} （＋{u(member.bonus_lck,1)}）"
-        self.windows["sub"].text_list = [status_lines]
+        self.windows["sub"].message_list = [status_lines]
 
         # 装備項目の構築
         slots = [
@@ -102,7 +102,7 @@ class MenuStatus(Menu):
                 _, plent = pooled_item
                 skill_name = plent.ins.param.name
             equip_lines += f"　{label}： {skill_name}\n"
-        self.windows["sub2"].text_list = [equip_lines]
+        self.windows["sub2"].message_list = [equip_lines]
 
         # スキル項目の構築
         skill_lines = ""
@@ -116,7 +116,7 @@ class MenuStatus(Menu):
         for skill_def in member.skills.get_learned_skill_def("system"):
             skill_lines += f"　{skill_def.name}\n"
 
-        self.windows["sub3"].text_list = [skill_lines]
+        self.windows["sub3"].message_list = [skill_lines]
 
     def update(self) -> WindowAction:
         """キー入力の確認と応答"""

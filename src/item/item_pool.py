@@ -26,7 +26,7 @@ class ItemPool:
         self._items: dict[int, PoolEntry] = {}
 
     def get_def(self, def_id: ItemID):
-        return di.ref.itemmgr.get_def(def_id)
+        return di.ref.itemrps.get_def(def_id)
 
     # def create(self, def_id: ItemID, state: ItemState) -> tuple[int, PoolEntry]:
     def create(self, def_id: ItemID, state: ItemState) -> PooledItem:
@@ -91,7 +91,7 @@ class StackPool:
         self._stacks: dict[tuple[ItemID, ItemState], int] = defaultdict(int)
 
     def get_def(self, def_id: ItemID):
-        return di.ref.itemmgr.get_def(def_id)
+        return di.ref.itemrps.get_def(def_id)
 
     def add(self, def_id: ItemID, state: ItemState, count: int = 1) -> None:
         """スタックへのアイテム追加・数量加算"""

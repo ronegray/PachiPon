@@ -2,70 +2,74 @@
 システムコマンドモジュール
 """
 import logging
-from abc import abstractmethod
+
+# from abc import abstractmethod
 from typing import Generator
 import pyxel as px
-from gameutils.lib import Window, WindowAction
-from const import COMMAND_STEPWAIT_FRAME
-from . import CommandBase, CommandPhase, DisplayInfo
+from gameutils.lib import WindowAction  # , Window,
+
+# from const import COMMAND_STEPWAIT_FRAME
+# from . import CommandBase, CommandPhase, DisplayInfo
+from . import CommandBaseSequence
 
 # ロギング設定
 logger = logging.getLogger(__name__)
 
 
-class CommandBaseSystem(CommandBase):
+class CommandBaseSystem(CommandBaseSequence):
     """システムに対するユーザ操作を表すコマンドの基底クラス"""
 
-    WAIT = "wait"  # 待機を示すリターンコマンド
+    pass
+    # WAIT = "wait"  # 待機を示すリターンコマンド
 
-    def __init__(self, wnd: Window, *args, **kwargs) -> None:
-        """初期化：コンテキストの引継"""
-        self.display_info: DisplayInfo = DisplayInfo(wnd)
-        self.step_wait = COMMAND_STEPWAIT_FRAME  # メッセージ待ち間隔
-        self.se_no = 0  # サウンドエフェクトの番号
-        self.args = args
-        self.kwargs = kwargs
-        self.phase = CommandPhase.SYN
+    # def __init__(self, wnd: Window, *args, **kwargs) -> None:
+    #     """初期化：コンテキストの引継"""
+    #     self.display_info: DisplayInfo = DisplayInfo(wnd)
+    #     self.step_wait = COMMAND_STEPWAIT_FRAME  # メッセージ待ち間隔
+    #     self.se_no = 0  # サウンドエフェクトの番号
+    #     self.args = args
+    #     self.kwargs = kwargs
+    #     self.phase = CommandPhase.SYN
 
-    @abstractmethod
-    def _sequence(self) -> Generator[list[str], None, None]:
-        ...
-        # """サブクラスが実装すべき処理シーケンス"""
+    # @abstractmethod
+    # def _sequence(self) -> Generator[list[str], None, None]:
+    #     ...
+    #     # """サブクラスが実装すべき処理シーケンス"""
 
-    def update(self) -> CommandPhase:
-        match self.phase:
-            case CommandPhase.SYN:
-                self.display_info.target.text_list.clear()
-                self._gen = self._sequence()
-                self._advance()
-                self.phase = CommandPhase.ACK
-            case CommandPhase.ACK:
-                if (
-                    self.display_info.target.update() == WindowAction.DISCARD
-                    or self.step_wait < 0
-                ):
-                    self._advance()
-                self.step_wait -= 1
-        return self.phase
+    # def update(self) -> CommandPhase:
+    #     match self.phase:
+    #         case CommandPhase.SYN:
+    #             self.display_info.target.message_list.clear()
+    #             self._gen = self._sequence()
+    #             self._advance()
+    #             self.phase = CommandPhase.ACK
+    #         case CommandPhase.ACK:
+    #             if (
+    #                 self.display_info.target.update() == WindowAction.DISCARD
+    #                 or self.step_wait < 0
+    #             ):
+    #                 self._advance()
+    #             self.step_wait -= 1
+    #     return self.phase
 
-    def _advance(self):
-        try:
-            result = next(self._gen)
-            if result:
-                if result[0] == self.WAIT:
-                    self.step_wait = int(result[1]) * COMMAND_STEPWAIT_FRAME
-                else:
-                    self.display_info.message = result
-                    self.display_info.is_change = True
-                    self.step_wait = COMMAND_STEPWAIT_FRAME
-            else:
-                self.step_wait = 0
-        except StopIteration:
-            self.phase = CommandPhase.FIN
+    # def _advance(self):
+    #     try:
+    #         result = next(self._gen)
+    #         if result:
+    #             if result[0] == self.WAIT:
+    #                 self.step_wait = int(result[1]) * COMMAND_STEPWAIT_FRAME
+    #             else:
+    #                 self.display_info.message = result
+    #                 self.display_info.is_change = True
+    #                 self.step_wait = COMMAND_STEPWAIT_FRAME
+    #         else:
+    #             self.step_wait = 0
+    #     except StopIteration:
+    #         self.phase = CommandPhase.FIN
 
-    def draw(self) -> DisplayInfo:
-        """コマンド描画情報送信"""
-        return self.display_info
+    # def draw(self) -> DisplayInfo:
+    #     """コマンド描画情報送信"""
+    #     return self.display_info
 
 
 class BattleStartEffect(CommandBaseSystem):
@@ -109,3 +113,28 @@ class BattleStartEffect(CommandBaseSystem):
         #     yield [f"{member.param.name}は　経験値{getexp}　を稼いだ！"]
 
         return
+
+
+class FoodShortageMessage(CommandBaseSystem):
+    """フードが消費量に満たない場合の警告"""
+
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [
+            "食糧が　足りなくなった",
+            "ターン経過毎に ＨＰとＭＰが５％ずつ",
+            "減少してしまう・・・",
+        ]
+        while self.display_info.target.update() == WindowAction.CONTINUE:
+            yield [self.WAIT, "0"]
+
+
+class FoodShortageEffect(CommandBaseSystem):
+    """フードが消費量に満たない場合の画面エフェクト"""
+
+    def _sequence(self) -> Generator[list[str], None, None]:
+        self.display_info.graphic_command = [
+            lambda: px.dither(0.5),
+            lambda: px.rect(0, 0, px.width, px.height, px.COLOR_RED),
+            lambda: px.dither(1),
+        ]
+        yield [self.WAIT, "0"]

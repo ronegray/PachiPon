@@ -58,7 +58,7 @@ class MenuBattle(Menu):
         super().__init__("basic", *menu_pos, menu_shape, self.__class__.__name__)
         self.cursor_row_offset += 2  # k8x12Sの縦長分対応
 
-        self.context = ctx
+        self.ctx = ctx
         self.command_package = command_package
 
         # コマンド用サブウインドウ
@@ -66,13 +66,13 @@ class MenuBattle(Menu):
         sub_size = (px.width - self.width, self.height)
         self.windows["sub"] = Window("basic", *sub_pos, *sub_size, "once")
 
-        # 名前ウインドウ定義（表示順制御の為self.windowsに乗せない）
+        # 名前ウインドウ定義（表示順制御の為self.windows乗せない）
         name_pos = (self.x, self.y - 17)
         name_size = (80, 32)
         self.namewindow = Window("basic", *name_pos, *name_size, "once")
 
         # コマンド入力前に一旦防御体勢解除
-        self.context.actor.defend(False)
+        self.ctx.actor.defend(False)
 
     def draw(self):
         """名前ウインドウの下部を隠す為順序制御"""
@@ -80,7 +80,7 @@ class MenuBattle(Menu):
         self.namewindow.drawText(
             self.namewindow.x + 6,
             self.namewindow.y + 4,
-            [[self.context.actor.param.name]],
+            [[self.ctx.actor.param.name]],
             px.COLOR_WHITE,
         )
         super().draw()
@@ -109,7 +109,7 @@ class MenuBattle(Menu):
 
         return RsltPush(
             MenuSelectBattleTarget,
-            self.context,
+            self.ctx,
             {
                 "x": self.windows["sub"].x,
                 "y": self.windows["sub"].y,
@@ -123,7 +123,7 @@ class MenuBattle(Menu):
         """アイテム表示メニューを開く"""
         return RsltPush(
             MenuSelectItem,
-            self.context,
+            self.ctx,
             {
                 "x": self.windows["sub"].x,
                 "y": self.windows["sub"].y,
@@ -139,7 +139,7 @@ class MenuBattle(Menu):
 
         return RsltPush(
             MenuSelectSkillBattle,
-            self.context,
+            self.ctx,
             {
                 "x": self.windows["sub"].x,
                 "y": self.windows["sub"].y,
@@ -164,7 +164,7 @@ class MenuSelectBattleTarget(Menu):
     def __init__(
         self,
         # real_actor: Character,
-        context: EntityContext,
+        ctx: EntityContext,
         # actor_list: list[Character],  # 逆順生存メンバーリスト
         # battle_commands: dict,
         # message_window: Window,
@@ -186,7 +186,7 @@ class MenuSelectBattleTarget(Menu):
         # )
         # # print(f"\nsrc {id(self.ctx_source.targets)}\nctx {id(self.context.targets)}")
         # self.actor_list: list[Character] = actor_list
-        self.context: EntityContext = context
+        self.ctx: EntityContext = ctx
         # self.battle_commands: dict = battle_commands
         # self.message_window: Window = message_window
         # self.command_name: str = command_name
@@ -206,15 +206,15 @@ class MenuSelectBattleTarget(Menu):
         # 対象リストの振り分け
         match self.target_type:
             case SkillTargetType.ENEMY | SkillTargetType.ENEMIES:
-                target_list = self.context.targets
+                target_list = self.ctx.targets
             case SkillTargetType.ALLY | SkillTargetType.ALLIES:
-                target_list = self.context.allies
+                target_list = self.ctx.allies
             case SkillTargetType.SELF:  # 単体対象オブジェクトはリスト化が必要
-                target_list = [self.context.actor]
+                target_list = [self.ctx.actor]
             case SkillTargetType.ALL:
-                target_list = self.context.targets + self.context.allies
+                target_list = self.ctx.targets + self.ctx.allies
             case _:
-                target_list = self.context.targets
+                target_list = self.ctx.targets
 
         menu_cols = 2
         enemy_count = len(target_list)
@@ -290,7 +290,7 @@ class MenuSelectBattleTarget(Menu):
     # # cmd(self.context, self.message_window)
     def set_target(self, target: EntityBase) -> ExecResult:
         """コンテキストにターゲットを設定"""
-        self.context.target = target
+        self.ctx.target = target
         # if self.context.pending_command is None:
         #     errmsg = f"コマンドが定義されていません：{self.context}"
         #     logger.critical(errmsg, exc_info=True)
@@ -336,14 +336,14 @@ class MenuSelectItem(Menu):
         ref_window: dict[str, int],
         command_package: e_cmd.CommandPackage,
     ):
-        self.context = ctx
+        self.ctx = ctx
         self.command_package = command_package
 
         self.item_count: int = 0
         self.item_list: list[list[dict[str, str | list]]] = []
 
         self.consume_list = []
-        actor: Character = cast(Character, self.context.actor)
+        actor: Character = cast(Character, self.ctx.actor)
         plent_cons1 = actor.equipments.get_slot(EquipSlot.CONSUME_1)
         plent_cons2 = actor.equipments.get_slot(EquipSlot.CONSUME_2)
         if plent_cons1 is not None:
@@ -526,7 +526,7 @@ class MenuSelectItem(Menu):
 
         return RsltPush(
             MenuSelectBattleTarget,
-            self.context,
+            self.ctx,
             {
                 "x": self.windows["main"].x,
                 "y": self.windows["main"].y,

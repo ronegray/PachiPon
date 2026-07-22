@@ -12,7 +12,7 @@ from . import GuardType, WeakType, ActionPattern, EnemySize
 logger = logging.getLogger(__name__)
 
 
-class EnemyManager:
+class EnemyRepository:
     _master_def: dict[int, list[dict]]
 
     def __init__(self) -> None:
@@ -26,7 +26,7 @@ class EnemyManager:
             logger.critical(errmsg, exc_info=True)
             raise FileNotFoundError(errmsg)
 
-        EnemyManager._master_def = {}
+        EnemyRepository._master_def = {}
         for sthreat, data in enumerate(json_data):
             threat = int(sthreat)
             enemy_list = []
@@ -58,12 +58,12 @@ class EnemyManager:
                         "skills": [],
                     }
                 )
-            EnemyManager._master_def[threat] = enemy_list
+            EnemyRepository._master_def[threat] = enemy_list
 
     def get_threat_enemies(self, threat: int) -> list[dict]:
         """指定された脅威度のモンスターリストを取得"""
-        if not EnemyManager._master_def[threat]:
+        if not EnemyRepository._master_def[threat]:
             errmsg = f"指定された脅威度のエネミーは定義されていません：脅威度={threat}"
             logger.critical(errmsg, exc_info=True)
             raise IndexError(errmsg)
-        return EnemyManager._master_def[threat]
+        return EnemyRepository._master_def[threat]

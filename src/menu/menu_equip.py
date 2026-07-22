@@ -93,7 +93,7 @@ class MenuSelectEquipSlot(Menu):
         status_lines += f"\n速　度： {member.speed:3}(+{member.bonus_spd})"
         status_lines += f"\n幸　運： {member.luck:3}(+{member.bonus_lck})"
 
-        self.windows["sub"].text_list = [status_lines]
+        self.windows["sub"].message_list = [status_lines]
 
     def exec_menu(self) -> ExecResult:
         """選択メニュー項目の処理を実行"""
@@ -417,7 +417,7 @@ class MenuEquip(Menu):
             tmp_item_list = [
                 [
                     {
-                        "id": f"{di.ref.itemmgr.get_def(key).name} x {val}",  # type:ignore
+                        "id": f"{di.ref.itemrps.get_def(key).name} x {val}",  # type:ignore
                         "action": "use_item",
                         "args": [key],
                     }
@@ -449,7 +449,7 @@ class MenuEquip(Menu):
 
     def get_item_desc(self) -> list[str]:
         # return self.target_item[0]["args"]
-        item_def = di.ref.itemmgr.get_def(self.target_item[0]["args"][0])
+        item_def = di.ref.itemrps.get_def(self.target_item[0]["args"][0])
         if item_def is None:
             errmsg = f"アイテム定義情報の取得に失敗しました：ID={item_def}"
             logger.critical(errmsg, exc_info=True)

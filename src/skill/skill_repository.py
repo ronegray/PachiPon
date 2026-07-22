@@ -14,7 +14,7 @@ from assets.asset_map import AssetID, AssetMap
 logger = logging.getLogger(__name__)
 
 
-class SkillManager:
+class SkillRepository:
     _master_def: dict[SkillID, SkillDef]
 
     def __init__(self) -> None:
@@ -28,7 +28,7 @@ class SkillManager:
             logger.critical(errmsg, exc_info=True)
             raise FileNotFoundError(errmsg)
 
-        SkillManager._master_def = {}
+        SkillRepository._master_def = {}
         for type_name, efx_data in json_data.items():
             efx_type = SkillType[type_name]
 

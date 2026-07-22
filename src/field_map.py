@@ -11,6 +11,8 @@ from typing import Literal
 import pyxel as px
 from assets.asset_map import AssetID, AssetMap
 from gameutils.base import check_file, read_json
+import service_locater as di
+from event import EventList, EventType, EventStat, Event, EventID
 
 
 # ルート方向指定子
@@ -52,24 +54,50 @@ class Route:
 class EventPoint:
     """マップ上に定義されるイベント地点"""
 
-    def __init__(self, point_data: dict) -> None:
+    ready_timer: dict[str, int] = {"NORMAL": 3, "SAFETY": 1, "GAMBLE": 9, "BATTLE": 1}
+
+    def __init__(self, point_data: dict, event_dict: dict) -> None:
         """EventPointオブジェクト定義"""
         tmp_id = point_data.get("id")
         if tmp_id is None:
             errmsg = "イベントポイントIDが未定義です"
             logger.critical(errmsg, exc_info=True)
-            raise TypeError(errmsg)
+            raise ValueError(errmsg)
         tmp_evid = point_data.get("eventId")
         if tmp_evid is None:
             errmsg = "イベントIDが未定義です"
             logger.critical(errmsg, exc_info=True)
-            raise TypeError(errmsg)
+            raise ValueError(errmsg)
+
         self.id: str = tmp_id
-        self.name: str = point_data.get("name", "")
+        self.name: str = point_data.get("name", "Unknown")
         self.event_id: str = tmp_evid
+        self.event_type: EventType = EventType[
+            event_dict.get("eventpoint_type", "NORMAL")
+        ]
+        self.is_ready: bool = True
+        self.ready_count: int = 0
         self.x: int = point_data.get("x", 0)
         self.y: int = point_data.get("y", 0)
         self.routes: list[Route] = []
+        self.nextevent: Event | None = None
+
+        # イベントポイントのイベント状態を定義
+        self.event_list: EventList
+        is_first = True
+        for key, ev_def in event_dict["event_stat"].items():
+            if is_first:
+                self.event_list = EventList(
+                    self.event_id,
+                    self.event_type,
+                    {EventID[key]: EventStat(ev_def["threshold"])},
+                )
+                is_first = False
+            else:
+                self.event_list.event_stat[EventID[key]] = EventStat(
+                    ev_def["threshold"]
+                )
+        pass
 
     def add_route(self, route: Route) -> None:
         """イベントポイントにルートを結合"""
@@ -78,6 +106,66 @@ class EventPoint:
     def get_reachable_routes(self) -> list[Route]:
         """非ロック状態のルートを取得"""
         return [r for r in self.routes if not r.locked]
+
+    def get_eventpoint_info(self) -> dict:
+        """イベントポイントの情報を文字列化して取得"""
+        result_dict = {}
+        for event_id, event_stat in self.event_list.event_stat.items():
+            if event_stat.threshold > 0:
+                if event_stat.is_opened:
+                    logger.debug(self.event_list.eventpoint_type, event_id)  # type: ignore
+                    event_def = di.ref.evtrps.get_event(
+                        self.event_list.eventpoint_type, event_id
+                    )
+                    name = event_def.event_name  # type: ignore
+                else:
+                    name = "？？？？？？？？"
+                result_dict[event_id] = {
+                    "name": name,
+                    "threshold": event_stat.threshold,
+                }
+
+        return result_dict
+
+    def kick_event(self) -> int:
+        """イベント開始準備
+        - ポイントのイベント準備状態を更新
+        - イベントタイプから発生イベント決定用ダイス値を取得
+        """
+        # イベントポイントの準備状態を変更
+        self.is_ready = False
+        # イベントタイプからカウンタ兼ダイス数を取得
+        cnt = EventPoint.ready_timer[self.event_type.name]
+        self.ready_count = cnt
+        return cnt
+
+    def rise_event(self, evt_id: EventID) -> None:
+        """実行イベント定義"""
+        self.nextevent = di.ref.evtrps.get_event(self.event_type, evt_id)
+
+    def flush_event(self) -> None:
+        """実行イベント定義のクリア"""
+        self.nextevent = None
+
+    def update(self):
+        """イベント準備状態の更新"""
+        self.ready_count = max(0, self.ready_count - 1)
+        if self.ready_count == 0:
+            self.is_ready = True
+
+    def draw(self, offset_x: float = 0, offset_y: float = 0):
+        """イベントポイント情報の描画"""
+        px_COLOR_0x00FF00 = 27
+        # px.circ(self.x + offset_x, self.y + offset_y, 2, px_COLOR_0x00FF00)
+        pointcolor = px_COLOR_0x00FF00 if self.is_ready else px.COLOR_RED
+        px.circ(self.x + offset_x, self.y + offset_y, 2, pointcolor)
+        px.circb(self.x + offset_x, self.y + offset_y, 2, px.COLOR_WHITE)
+        # px.text(
+        #     self.x + offset_x + 4,
+        #     self.y + offset_y + 4,
+        #     self.name,
+        #     px.COLOR_WHITE,
+        # )
 
 
 class MapGraph:
@@ -118,9 +206,18 @@ class MapGraph:
             logger.critical(errmsg, exc_info=True)
             raise FileNotFoundError(errmsg)
 
+        ev_path = check_file(AssetMap.get_assetpath(AssetID.DATA_EVENTPOINT), "r")
+        if ev_path:
+            evdata: dict = read_json(ev_path)
+        else:
+            errmsg = "ポイント別イベント構成ファイルが見つかりません"
+            logger.critical(errmsg, exc_info=True)
+            raise FileNotFoundError(errmsg)
+
         # 頂点を登録
-        for p_data in data.get("points", []):
-            self.points[p_data["id"]] = EventPoint(p_data)
+        for point in data.get("points", []):
+            event_def = evdata[point["eventId"]]
+            self.points[point["id"]] = EventPoint(point, event_def)
 
         # 辺を登録
         for r_data in data.get("routes", []):
@@ -172,20 +269,29 @@ class MapGraph:
         )
 
         # 線（Route）の描画
+        draw_target_points = []
         for point in self.points.values():
-            for route in point.routes:
-                target_point = self.get_point(route.to_id)
-                if target_point:
-                    color = 13 if route.locked else 7
-                    px.line(
-                        point.x + offset_x,
-                        point.y + offset_y,
-                        target_point.x + offset_x,
-                        target_point.y + offset_y,
-                        color,
-                    )
+            # 描画範囲にあるポイントに対してのみ描画処理を実行
+            if (
+                offset_x <= point.x <= self.map_img_width
+                and offset_y <= point.y <= self.map_img_height
+            ):
+                # 線（Route）の描画
+                for route in point.routes:
+                    target_point = self.get_point(route.to_id)
+                    if target_point:
+                        color = px.COLOR_GRAY if route.locked else px.COLOR_WHITE
+                        px.line(
+                            point.x + offset_x,
+                            point.y + offset_y,
+                            target_point.x + offset_x,
+                            target_point.y + offset_y,
+                            color,
+                        )
+                # 描画対象ポイントの確保
+                # 次ポイントのroute描画でポイントが上書きされるのを防ぐ
+                draw_target_points.append(point)
 
         # 点（EventPoint）の描画
-        for point in self.points.values():
-            px.circ(point.x + offset_x, point.y + offset_y, 2, 7)
-            px.text(point.x + offset_x + 4, point.y + offset_y + 4, point.name, 7)
+        for point in draw_target_points:
+            point.draw(offset_x, offset_y)

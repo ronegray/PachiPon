@@ -7,6 +7,7 @@
 """
 
 import logging
+from setup_log import setup_logging
 import service_locater as di
 from const import APP_FPS
 from gameutils.base import (
@@ -17,12 +18,12 @@ from gameutils.base import (
 from assets.asset_map import AssetMap
 from scene import SceneManager
 from field_map import MapGraph
-from item import ItemManager, ItemPool, StackPool
-from entity import Party, EnemyManager
+from item import ItemRepository, ItemPool, StackPool
+from entity import Party, EnemyRepository
 from command import CommandManager
-from skill import SkillManager
-from setup_log import setup_logging
-
+from skill import SkillRepository
+from effect import DiceRollEffect
+from event import EventRepository
 
 # ロギング設定
 logger = logging.getLogger(__name__)
@@ -54,41 +55,53 @@ def ipl():
     map = MapGraph()
     di.register(di.ServiceKey.MAPGRAPH, map)
 
-    # サービスロケータ登録：パーティ
-    logger.info("Initialize - Party")
-    pt = Party()
-    di.register(di.ServiceKey.PARTY, pt)
-
-    # サービスロケータ登録：エネミーマネージャ
-    logger.info("Initialize - Enemy")
-    enmmgr = EnemyManager()
-    di.register(di.ServiceKey.ENEMY_MANAGER, enmmgr)
-
     # サービスロケータ登録：コマンドマネージャ
-    logger.info("Initialize - Command")
+    logger.info("Initialize - CommandManager")
     cmdmgr = CommandManager()
     di.register(di.ServiceKey.COMMAND_MANAGER, cmdmgr)
 
-    # サービスロケータ登録：アイテムマネージャ
+    # サービスロケータ登録：イベントリポジトリ
+    logger.info("Initialize - Event MasterData")
+    evtrps = EventRepository()
+    di.register(di.ServiceKey.EVENT_MANAGER, evtrps)
+
+    # サービスロケータ登録：ダイスロールエフェクト
+    logger.info("Initialize - DiceRollEffect")
+    efxdice = DiceRollEffect()
+    di.register(di.ServiceKey.DICEROLL_EFFECT, efxdice)
+
+    # サービスロケータ登録：パーティ
+    logger.info("Initialize - Party")
+    # pt = Party(scnmgr=di.ref.scnmgr, map=di.ref.map, cmdmgr=di.ref.cmdmgr)
+    pt = Party(map=di.ref.map)
+    di.register(di.ServiceKey.PARTY, pt)
+
+    # サービスロケータ登録：エネミーリポジトリ
+    logger.info("Initialize - Enemy MasterData")
+    enmrps = EnemyRepository()
+    di.register(di.ServiceKey.ENEMY_MANAGER, enmrps)
+
+    # サービスロケータ登録：アイテムリポジトリ
     logger.info("Initialize - Item MasterData")
-    itemmgr = ItemManager()
-    di.register(di.ServiceKey.ITEM_MANAGER, itemmgr)
-    # アイテムデータ初期化
+    itemrps = ItemRepository()
+    di.register(di.ServiceKey.ITEM_MANAGER, itemrps)
+    # アイテムデータプール初期化
+    logger.info("Initialize - Item ObjectData")
     pl_item = ItemPool()
     di.register(di.ServiceKey.ITEMPOOL, pl_item)
     pl_stack = StackPool()
     di.register(di.ServiceKey.STACKPOOL, pl_stack)
 
-    # サービスロケータ登録：スキルマネージャ
+    # サービスロケータ登録：スキルリポジトリ
     logger.info("Initialize - Skill MasterData")
-    sklmgr = SkillManager()
-    di.register(di.ServiceKey.SKILL_MANAGER, sklmgr)
+    sklrps = SkillRepository()
+    di.register(di.ServiceKey.SKILL_MANAGER, sklrps)
 
     """リリース時は削除する"""
     # プロトタイプ用初期アイテム (items.jsonの全アイテムを2つずつ作成)
     from item import ItemState
 
-    for item_def_id, item_def in di.ref.itemmgr.get_all_definitions().items():
+    for item_def_id, item_def in di.ref.itemrps.get_all_definitions().items():
         for _ in range(5):
             if item_def.stackable:
                 di.ref.pl_stack.add(
@@ -122,5 +135,7 @@ def ipl():
 
     from skill import SkillID
 
-    di.ref.hero.skills.learn_skill(SkillID.SACRED_ARROW)
-    di.ref.mem2.skills.learn_skill(SkillID.HEALING_HAND)
+    # di.ref.hero.skills.learn_skill(SkillID.SACRED_ARROW)
+    pt.get_member(0).skills.learn_skill(SkillID.SACRED_ARROW)
+    # di.ref.mem2.skills.learn_skill(SkillID.HEALING_HAND)
+    pt.get_member(2).skills.learn_skill(SkillID.HEALING_HAND)

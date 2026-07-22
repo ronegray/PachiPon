@@ -46,7 +46,7 @@ class MenuField(Menu):
         super().__init__("basic", *menu_pos, menu_shape, self.__class__.__name__)
         self.cursor_row_offset += 2  # k8x12Sの縦長分対応
 
-        self.context = ctx
+        self.ctx = ctx
         self.command_package = command_package
         self.pool_item = pool_item
         self.pool_stack = pool_stack
@@ -84,7 +84,7 @@ class MenuField(Menu):
             MenuSelectItemCategory,
             self.cursor_x + Window._chip_size + 1,
             self.cursor_y + Window._chip_size + 1,
-            self.context,
+            self.ctx,
             self.command_package,
             self.pool_item,
             self.pool_stack,
@@ -128,7 +128,7 @@ class MenuField(Menu):
 
         return RsltPush(
             MenuSelectSkillField,
-            self.context,
+            self.ctx,
             {
                 "x": self.x + self.width,
                 "y": self.y + self.cursor_y,

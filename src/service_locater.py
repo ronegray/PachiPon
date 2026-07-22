@@ -17,11 +17,13 @@ logger = logging.getLogger(__name__)
 if TYPE_CHECKING:
     from command import CommandManager
     from scene import SceneManager
+    from event import EventRepository
     from field_map import MapGraph
-    from entity import Party, Character, EnemyManager
+    from entity import Party, EnemyRepository  # , Character
     from gameutils.lib import SoundManager
-    from item import ItemManager, ItemPool, StackPool
-    from skill import SkillManager
+    from item import ItemRepository, ItemPool, StackPool
+    from skill import SkillRepository
+    from effect import DiceRollEffect
 
 
 class ServiceKey(Enum):
@@ -29,16 +31,18 @@ class ServiceKey(Enum):
 
     COMMAND_MANAGER = auto()
     SCENE_MANAGER = auto()
+    EVENT_MANAGER = auto()
     MAPGRAPH = auto()
+    DICEROLL_EFFECT = auto()
     SOUND_MANAGER = auto()
     ITEM_MANAGER = auto()
     ITEMPOOL = auto()
     STACKPOOL = auto()
     SKILL_MANAGER = auto()
     PARTY = auto()
-    HERO = auto()
-    MEMBER1 = auto()
-    MEMBER2 = auto()
+    # HERO = auto()
+    # MEMBER1 = auto()
+    # MEMBER2 = auto()
     ENEMY_MANAGER = auto()
 
 
@@ -71,8 +75,16 @@ class _Ref:
         return _service_container[ServiceKey.SCENE_MANAGER]
 
     @property
+    def evtrps(self) -> EventRepository:
+        return _service_container[ServiceKey.EVENT_MANAGER]
+
+    @property
     def map(self) -> MapGraph:
         return _service_container[ServiceKey.MAPGRAPH]
+
+    @property
+    def efxdice(self) -> DiceRollEffect:
+        return _service_container[ServiceKey.DICEROLL_EFFECT]
 
     @property
     def sndmgr(self) -> SoundManager:
@@ -82,24 +94,24 @@ class _Ref:
     def pt(self) -> Party:
         return _service_container[ServiceKey.PARTY]
 
-    @property
-    def hero(self) -> Character:
-        return _service_container[ServiceKey.HERO]
+    # @property
+    # def hero(self) -> Character:
+    #     return _service_container[ServiceKey.HERO]
+
+    # @property
+    # def mem1(self) -> Character:
+    #     return _service_container[ServiceKey.MEMBER1]
+
+    # @property
+    # def mem2(self) -> Character:
+    #     return _service_container[ServiceKey.MEMBER2]
 
     @property
-    def mem1(self) -> Character:
-        return _service_container[ServiceKey.MEMBER1]
-
-    @property
-    def mem2(self) -> Character:
-        return _service_container[ServiceKey.MEMBER2]
-
-    @property
-    def enmmgr(self) -> EnemyManager:
+    def enmrps(self) -> EnemyRepository:
         return _service_container[ServiceKey.ENEMY_MANAGER]
 
     @property
-    def itemmgr(self) -> ItemManager:
+    def itemrps(self) -> ItemRepository:
         return _service_container[ServiceKey.ITEM_MANAGER]
 
     @property
@@ -111,7 +123,7 @@ class _Ref:
         return _service_container[ServiceKey.STACKPOOL]
 
     @property
-    def sklmgr(self) -> SkillManager:
+    def sklrps(self) -> SkillRepository:
         return _service_container[ServiceKey.SKILL_MANAGER]
 
 

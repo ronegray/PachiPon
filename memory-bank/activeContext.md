@@ -1,8 +1,10 @@
 # Active Context - PachiPon
 
 ## 現在の作業内容
-- `src` 配下（`gameutils` パッケージを除く）の `.py` ファイルから、辞書のキーに数値（`int`, `float` など）を定義しているものを全て抽出。
-- 抽出結果を `数値キー辞書.md` に 「srcからのファイルパス：行位置[,行位置...]」のフォーマットで出力。
+- `src/event/event_protocol.py` の定義に従い、`doc/仕様.md` の「ランダムイベントのタイプ」および「ランダムイベントの内容」を定義した `src/assets/data/event_master.json` を作成する。
 
 ## 直近の決定事項
-- 手動の正規表現検索では辞書リテラル以外の箇所（リストのインデックス指定やコメントなど）を誤検知する可能性が高いため、Pythonの `ast` (Abstract Syntax Tree) 解析スクリプトを作成して確実に抽出する。
+- `event_master.json` は `src/assets/data/event_master.json` として作成する。
+- JSONフォーマットは `Event` データクラス（`event_type`, `event_id`, `event_name`, `event_value`）に正確に一致させる。
+- `event_type` および `event_id` は文字列で定義し、読みやすさと管理性を高める。
+- `event_value` にはダイスの個数や最大脅威度などの整数値を格納する。

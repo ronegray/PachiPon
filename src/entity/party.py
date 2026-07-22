@@ -5,10 +5,16 @@
 import logging
 from math import hypot
 import pyxel as px
-from const import ENCOUNT_THRESHOLD
+from const import ENCOUNT_THRESHOLD, FIELD_MESSAGE_HEIGHT
+from gameutils.lib import Window
 import service_locater as di
 from field_map import EventPoint, Route
 from helper import diceroll
+import command.system_command as s_cmd
+from field_map import MapGraph  # , ROUTE_DIR
+
+# from command import CommandManager
+# from scene import SceneManager
 from . import Character, EntityParam, PlayerSprite, FieldSprite
 
 # ロギング設定
@@ -26,6 +32,7 @@ class Party:
     _field_sprite: FieldSprite
     _is_event_point: bool
     _pt_is_moving: bool
+    _pt_is_encount: bool
     _pt_on_route: Route | None
     _move_speed: float
     _current_point: EventPoint
@@ -35,9 +42,19 @@ class Party:
     _pt_foods: int
     _pt_golds: int
     _pt_eventflg: dict[str, bool]
+    past_turns: int = 0
+    info_window: Window
+    pt_msg_window: Window
 
-    def __init__(self):
+    def __init__(
+        self, map: MapGraph
+    ):  # , cmdmgr: CommandManager, scnmgr: SceneManager):
         """初期化"""
+        self.map = map
+        self.cmdmgr = di.ref.cmdmgr
+        self.scnmgr = di.ref.scnmgr
+        # self.cmdmgr = cmdmgr
+        # self.scnmgr = scnmgr
         # 初期PTメンバ（主人公）の登録
         self.regist_dummy_hero()  # そもそもやるべきではない？
         self.regist_dummy_hero()
@@ -47,6 +64,7 @@ class Party:
         # フィールド画面用スプライトの設定
         self._field_sprite = self.set_field_sprite()
         self._pt_is_moving = False  # 移動中フラグ
+        self._pt_is_encount = False  # エンカウントフラグ
         self._pt_on_route = None  # 現在ルートの設定
         self._pt_is_battle = False  # 戦闘中フラグ
         self._is_event_point = True
@@ -54,7 +72,7 @@ class Party:
 
         # 現在地の設定
         start_point = "p01"
-        tmp_point = di.ref.map.get_point(start_point)
+        tmp_point = self.map.get_point(start_point)
         if tmp_point is None:
             errmsg = f"指定されたイベントポイント({start_point})は定義されていません"
             logger.critical(errmsg, exc_info=True)
@@ -64,13 +82,27 @@ class Party:
         self._world_y = self._current_point.y
 
         # パーティー単位のパラメータ
-        self._pt_foods = 10
+        self._pt_foods = 100
         self._pt_golds = 50
         self._pt_eventflg = {}
+        # # パーティーメッセージウインドウの生成
+        # x_offset = 4
+        # message_pos = (x_offset, px.height // 2 - (FIELD_MESSAGE_HEIGHT // 2))
+        # message_size = (px.width - (x_offset * 2), FIELD_MESSAGE_HEIGHT)
+        # self.pt_msg_window = Window("basic", *message_pos, *message_size, "once", 0)
 
         # 移動用ジェネレータ変数にダミーを定義
         # self.move_generator = self._update_movement(self._current_point)
         self.move_generator = None
+
+    def generate_pt_window(self) -> None:
+        # 現在表示ウインドウ
+        self.info_window = Window("small", px.width, 0, 56, 32, "once")
+        # パーティーメッセージウインドウの生成
+        x_offset = 4
+        message_pos = (x_offset, px.height // 2 - (FIELD_MESSAGE_HEIGHT // 2))
+        message_size = (px.width - (x_offset * 2), FIELD_MESSAGE_HEIGHT)
+        self.pt_msg_window = Window("basic", *message_pos, *message_size, "once", 0)
 
     def regist_dummy_hero(self):
         """ダミー主人公データの登録"""
@@ -105,15 +137,16 @@ class Party:
             ),
             sprite=PlayerSprite(char_x, char_y, charimage),
         )
-        if len(self._member_list) == 0:
-            di.register(di.ServiceKey.HERO, hero)
-            self.add_ptmember(di.ref.hero)
-        elif len(self._member_list) == 1:
-            di.register(di.ServiceKey.MEMBER1, hero)
-            self.add_ptmember(di.ref.mem1)
-        elif len(self._member_list) == 2:
-            di.register(di.ServiceKey.MEMBER2, hero)
-            self.add_ptmember(di.ref.mem2)
+        # if len(self._member_list) == 0:
+        #     di.register(di.ServiceKey.HERO, hero)
+        #     self.add_ptmember(di.ref.hero)
+        # elif len(self._member_list) == 1:
+        #     di.register(di.ServiceKey.MEMBER1, hero)
+        #     self.add_ptmember(di.ref.mem1)
+        # elif len(self._member_list) == 2:
+        #     di.register(di.ServiceKey.MEMBER2, hero)
+        #     self.add_ptmember(di.ref.mem2)
+        self.add_ptmember(hero)
 
     def get_top_index(self) -> int:
         """生存中PTメンバーの先頭キャラのリストインデックスを取得"""
@@ -218,16 +251,21 @@ class Party:
             distance = hypot(dx, dy)
 
             if encount_interval <= current_count:
+                self.past_turns += 1
                 if self.encount_check(encounts):
                     encounts += 1
                     # di.ref.scnmgr.next_scene("battle")
-                    di.ref.scnmgr.next_scene("battlesplash")
+                    # di.ref.scnmgr.next_scene("battlesplash")
+                    # self.scnmgr.next_scene("battlesplash")
+                    self._pt_is_encount = True
                 current_count = 0
+                self.have_food()
                 yield
             else:
                 current_count += self._move_speed
 
             if distance <= self._move_speed:
+                # 目的地到着
                 self._current_point = target_point
                 self._pt_is_moving = False
                 self.set_current_route()
@@ -279,8 +317,8 @@ class Party:
             return True
         return False
 
-    def set_event_point_status(self, status: bool):
-        self._is_event_point = status
+    # def set_event_point_status(self, status: bool):
+    #     self._is_event_point = status
 
     def set_moving_status(self, status: bool):
         self._pt_is_moving = status
@@ -294,14 +332,76 @@ class Party:
         self._pt_golds += gold
         return self._pt_golds
 
+    def have_food(self):
+        """食事処理"""
+        is_foods = self._pt_foods > 0
+        actives = self.get_active_member()
+        comsume_foods = px.ceil(sum([mem.param.level for mem in actives]) / 10)
+        self._pt_foods -= comsume_foods
+        # 減少によりフードが0以下になった場合
+        if self._pt_foods <= 0:
+            cmd1 = s_cmd.FoodShortageEffect(self.pt_msg_window)
+            self.cmdmgr.push_command(cmd1)
+            for mem in actives:
+                mem.decrease_hp(mem.param.hp // 10)
+                mem.decrease_mp(mem.param.mp // 10)
+            if is_foods:
+                # 0以下になった初回だけメッセージ表示
+                cmd2 = s_cmd.FoodShortageMessage(self.pt_msg_window)
+                self.cmdmgr.push_command(cmd2)
+
     def update(self):
+        """移動時のジェネレータとスプライト描画内容を更新"""
         if self._pt_is_moving:
             try:
                 next(self.move_generator)  # type:ignore
+                # 戦闘開始
+                if self._pt_is_encount and self.cmdmgr.is_empty:
+                    self.scnmgr.next_scene("battlesplash")
+                    self._pt_is_encount = False
             except StopIteration:
                 pass
         self._field_sprite.update()
 
     def draw(self, screen_x: int, screen_y: int):
         """パーティ先頭キャラの描画"""
-        self._field_sprite.draw(screen_x, screen_y)
+        # パーティ先頭キャラの描画
+        self._field_sprite.draw(screen_x // 2, screen_y // 2)
+
+        # ルート情報の表示
+        if not self._pt_is_moving:
+            route_list = self._current_point.get_reachable_routes()
+            for route in route_list:
+                match route.direction:
+                    case "up":
+                        info_x, info_y = 108, 84
+                    case "left":
+                        info_x, info_y = 60, 120
+                    case "right":
+                        info_x, info_y = 156, 120
+                    case "down":
+                        info_x, info_y = 108, 152
+                px.dither(0.5)
+                px.rect(info_x, info_y, 40, 16, px.COLOR_GRAY)
+                px.dither(1)
+                px.rectb(info_x, info_y, 40, 16, px.COLOR_RED)
+                px.text(
+                    info_x + 2,
+                    info_y + 2,
+                    f"cost:{route.cost}\nthreat:{route.threat}",
+                    px.COLOR_BLACK,
+                )
+
+        # パーティー情報ウインドウの描画
+        self.info_window.draw()
+        offset = 3
+        self.info_window.drawText(
+            self.info_window.x + (Window._chip_size // 2) + offset,
+            self.info_window.y + (Window._chip_size // 2) + offset,
+            [
+                [f"TURN:{self.past_turns:>6}"],
+                [f"GOLD:{self._pt_golds:>6}"],
+                [f"FOOD:{self._pt_foods:>6}"],
+            ],
+            px.COLOR_WHITE,
+        )

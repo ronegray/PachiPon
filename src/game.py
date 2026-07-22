@@ -30,6 +30,10 @@ class GameApp:
         # di.ref.sndmgr.load_bgm(0)
         # 背景マップ画像ロード
         di.ref.map.load_mapimage()
+        # ダイス画像ロード
+        di.ref.efxdice.load_diceimage()
+        # パーティー用情報ウィンドウ定義
+        di.ref.pt.generate_pt_window()
 
         # 初期表示シーン定義
         di.ref.scnmgr.next_scene("splash")

@@ -1,12 +1,13 @@
 # Progress - PachiPon
 
 ## 完了済み
-- `src` 配下（`gameutils` 除く）の数値キーを持つ辞書の調査と抽出、および `数値キー辞書.md` への書き出し。
-  - 対象のPythonファイルをAST解析した結果、該当する「キーが数値（intやfloat）の辞書定義」は存在しませんでした。
-  - このため、`数値キー辞書.md` は空ファイルとして出力されています。
+- プロジェクト構造の調査。
+- `event_protocol.py` および `仕様.md` の分析。
+- メモリバンクの初期化。
 
 ## 未着手
-- なし
+- `src/assets/data/event_master.json` の作成。
+- 作成された `event_master.json` の検証。
 
 ## 既知の問題
-- なし
+- 特になし。

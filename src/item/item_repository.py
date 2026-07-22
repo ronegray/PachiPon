@@ -13,7 +13,7 @@ from .item_protocol import ItemID, ItemType, ItemDef, ItemTargetType
 logger = logging.getLogger(__name__)
 
 
-class ItemManager:
+class ItemRepository:
     _master_def: dict[ItemID, ItemDef]
 
     def __init__(self) -> None:
@@ -27,7 +27,7 @@ class ItemManager:
             logger.critical(errmsg, exc_info=True)
             raise FileNotFoundError(errmsg)
 
-        ItemManager._master_def = {}
+        ItemRepository._master_def = {}
         for type_name, item_data in json_data.items():
             item_type = ItemType[type_name]
             stackable = (
@@ -38,7 +38,7 @@ class ItemManager:
                 if hasattr(ItemID, item_name):
                     # def_id = ItemID[item_name].value
                     def_id = ItemID[item_name]
-                    ItemManager._master_def[def_id] = ItemDef(
+                    ItemRepository._master_def[def_id] = ItemDef(
                         def_id=def_id,
                         name=details.get("name", "Unknown"),
                         item_type=item_type,

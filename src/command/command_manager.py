@@ -32,16 +32,17 @@ def _render(display_info: DisplayInfo) -> None:
     #     print(f"[window] {display_info.message} / {display_info.sub_message}")
     # else:
     # print(f"[window] {display_info.message}")
-    display_info.target.draw()
-    # display_info.target.set_message(display_info.message)
-    if display_info.is_change:
-        if isinstance(display_info.message, list):
-            for message in display_info.message:
-                display_info.target.add_message(message)
-        else:
-            display_info.target.add_message(display_info.message)
-        display_info.is_change = False
-    display_info.target.draw_message()
+    if display_info.message:
+        display_info.target.draw()
+        # display_info.target.set_message(display_info.message)
+        if display_info.is_change:
+            if isinstance(display_info.message, list):
+                for message in display_info.message:
+                    display_info.target.add_message(message)
+            else:
+                display_info.target.add_message(display_info.message)
+            display_info.is_change = False
+        display_info.target.draw_message()
 
     if display_info.graphic_command:
         for cmd in display_info.graphic_command:

@@ -61,7 +61,7 @@ class SceneBattle(BaseScene):
         route: Route = di.ref.pt.get_current_route()
         threat = route.threat
         # 出現エネミーの決定
-        candidate_list = di.ref.enmmgr.get_threat_enemies(threat)
+        candidate_list = di.ref.enmrps.get_threat_enemies(threat)
         enemy_index = px.rndi(0, len(candidate_list) - 1)
         enemy_data = candidate_list[enemy_index]
         enemy_image = px.Image.from_image(f"assets/image/{enemy_data["name"]}.bmp")
@@ -245,7 +245,11 @@ class SceneBattle(BaseScene):
                 WindowInputHandler.load_default_input()
                 # 報酬の画面表示
                 ctx = self.build_context(
-                    di.ref.hero, di.ref.hero, di.ref.pt.get_allmember(), self.enemy_list
+                    # di.ref.hero, di.ref.hero, di.ref.pt.get_allmember(), self.enemy_list
+                    di.ref.pt.get_member(0),
+                    di.ref.pt.get_member(0),
+                    di.ref.pt.get_allmember(),
+                    self.enemy_list,
                 )
                 di.ref.cmdmgr.push_command(
                     e_cmd.GrantReward(ctx, self.message_window, di.ref.pt)
@@ -339,7 +343,7 @@ class SceneBattle(BaseScene):
             barwidth = wnd.width - (Window._chip_size * 2)
             member = di.ref.pt.get_member(i)
             wnd.set_message([f"{member.param.name}"])
-            state = [[text, px.COLOR_WHITE] for text in wnd.text_list]
+            state = [[text, px.COLOR_WHITE] for text in wnd.message_list]
             wnd.drawText(wnd.x + 6, wnd.y + 4, state)
             gauge_hp = member.param.hp / member.max_hp * barwidth
             px.rect(wnd.x + 8, wnd.y + 17, barwidth, 7, px.COLOR_RED)

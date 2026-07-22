@@ -10,8 +10,8 @@ logger = logging.getLogger(__name__)
 
 
 class MenuSelectFieldTarget(Menu):
-    def __init__(self, context: EntityContext, target_type: SkillTargetType):
-        self.context: EntityContext = context
+    def __init__(self, ctx: EntityContext, target_type: SkillTargetType):
+        self.ctx: EntityContext = ctx
         self.target_type: SkillTargetType = target_type
         self.item_list: MENU_ITEM_LIST = []
         self.generate_item_list()
@@ -25,15 +25,15 @@ class MenuSelectFieldTarget(Menu):
         # 対象リストの振り分け
         match self.target_type:
             case SkillTargetType.ALLY:
-                target_list = self.context.allies
+                target_list = self.ctx.allies
             case SkillTargetType.ALLIES:
-                target_list = self.context.allies
+                target_list = self.ctx.allies
             case SkillTargetType.SELF:  # 単体対象オブジェクトはリスト化が必要
-                target_list = [self.context.actor]
+                target_list = [self.ctx.actor]
             case SkillTargetType.ALL:
-                target_list = self.context.targets + self.context.allies
+                target_list = self.ctx.targets + self.ctx.allies
             case _:
-                target_list = self.context.targets
+                target_list = self.ctx.targets
 
         menu_cols = 1
         enemy_count = len(target_list)
@@ -91,5 +91,5 @@ class MenuSelectFieldTarget(Menu):
 
     def set_target(self, target: EntityBase) -> ExecResult:
         """コンテキストにターゲットを設定"""
-        self.context.target = target
+        self.ctx.target = target
         return RsltDiscard()

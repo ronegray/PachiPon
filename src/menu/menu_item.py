@@ -47,7 +47,7 @@ class MenuSelectItemCategory(Menu):
         super().__init__("basic", *menu_pos, menu_shape, self.__class__.__name__)
         self.cursor_row_offset += 2  # k8x12Sの縦長分対応
 
-        self.context = ctx
+        self.ctx = ctx
         self.command_package = command_package
         self.pool_item = pool_item
         self.pool_stack = pool_stack
@@ -74,7 +74,7 @@ class MenuSelectItemCategory(Menu):
         """消耗品アイテムメニュー表示"""
         return RsltPush(
             MenuUseItem,
-            self.context,
+            self.ctx,
             self.command_package,
             self.pool_item,
             self.pool_stack,
@@ -218,7 +218,7 @@ class MenuUseItem(MenuItemBase):
 
     def __init__(
         self,
-        context: EntityContext,
+        ctx: EntityContext,
         command_package: e_cmd.CommandPackage,
         pool_item: ItemPool,
         pool_stack: StackPool,
@@ -226,7 +226,7 @@ class MenuUseItem(MenuItemBase):
         """データ取得と表示ウインドウの再定義"""
         super().__init__(pool_item, pool_stack)
 
-        self.context = context
+        self.ctx = ctx
         self.command_package = command_package
         self.inventory_count: int = 0
 
@@ -305,7 +305,7 @@ class MenuUseItem(MenuItemBase):
             return RsltDiscard()
         return RsltPush(
             MenuSelectFieldTarget,
-            self.context,
+            self.ctx,
             # {
             #     "x": self.windows["main"].x,
             #     "y": self.windows["main"].y,
