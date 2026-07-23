@@ -6,10 +6,12 @@
 """
 
 import logging
+import pyxel as px
 import service_locater as di
 from gameutils.lib import Menu, Window, ExecResult, RsltPush, RsltPop
 from item import ItemState, ItemType
 from entity import EquipSlot
+from helper import upper_int_format, format_leftright
 
 
 # ロギング設定
@@ -19,17 +21,23 @@ logger = logging.getLogger(__name__)
 class MenuSelectEquipSlot(Menu):
     """装備スロット選択メニュー"""
 
-    def __init__(self) -> None:
-        # 親メニューの位置情報を取得
-        wndmgr = di.ref.scnmgr.get_now_scene().wndmgr
-        parent = wndmgr.get_stack(1)
-        padding = 2
-        pos_x = parent.x + parent.width + padding
-        pos_y = padding
+    def __init__(self, parent: Menu) -> None:
+        # # 親メニューの位置情報を取得
+        # wndmgr = di.ref.scnmgr.get_now_scene().wndmgr
+        # parent = wndmgr.get_stack(1)
+        # padding = 2
+        # pos_x = parent.x + parent.width + padding
+        # pos_y = padding
 
-        # パラメータ、装備品のウインドウサイズ
-        param_w, param_h = 128, 136
-        equip_w, equip_h = 128, 88
+        # # パラメータ、装備品のウインドウサイズ
+        # param_w, param_h = 128, 136
+        # equip_w, equip_h = 128, 88
+        # 情報表示ウインドウのサイズ
+        param_w, param_h = 128, 136  # ステータス
+        equip_w, equip_h = 128, 88  # 装備
+        padding = 2
+        pos_x = parent.x + Window._chip_size
+        pos_y = parent.y + Window._chip_size
 
         menu_pos = (pos_x, pos_y + param_h + padding)
         menu_shape = [1, 6]  # 武器、防具、アクセx2、消耗品x2の6スロット
@@ -83,15 +91,39 @@ class MenuSelectEquipSlot(Menu):
         param = member.param
 
         status_lines = f"{param.name}"
-        status_lines += f"\nレベル： {param.level:2}"
-        status_lines += f"\n経験値： {param.exp:5}"
-        status_lines += f"\nＨ　Ｐ： {param.hp:3}／{param.max_hp:3}"
-        status_lines += f"\nＭ　Ｐ： {param.mp:3}／{param.max_mp:3}"
-        status_lines += f"\n筋　力： {member.strength:3}(+{member.bonus_str})"
-        status_lines += f"\n魔　力： {member.arcane:3}(+{member.bonus_arc})"
-        status_lines += f"\n耐　久： {member.endurance:3}(+{member.bonus_end})"
-        status_lines += f"\n速　度： {member.speed:3}(+{member.bonus_spd})"
-        status_lines += f"\n幸　運： {member.luck:3}(+{member.bonus_lck})"
+        # status_lines += f"\nレベル： {param.level:2}"
+        # status_lines += f"\n経験値： {param.exp:5}"
+        # status_lines += f"\nＨ　Ｐ： {param.hp:3}／{param.max_hp:3}"
+        # status_lines += f"\nＭ　Ｐ： {param.mp:3}／{param.max_mp:3}"
+        # status_lines += f"\n筋　力： {member.strength:3}(+{member.bonus_str})"
+        # status_lines += f"\n魔　力： {member.arcane:3}(+{member.bonus_arc})"
+        # status_lines += f"\n耐　久： {member.endurance:3}(+{member.bonus_end})"
+        # status_lines += f"\n速　度： {member.speed:3}(+{member.bonus_spd})"
+        # status_lines += f"\n幸　運： {member.luck:3}(+{member.bonus_lck})"
+        status_lines += f"\nレベル： {upper_int_format(param.level,2)}"
+        status_lines += f"\n経験値： {upper_int_format(param.exp,6)}"
+        status_lines += f"\nＨ　Ｐ： {upper_int_format(param.hp, 3)}／{upper_int_format(param.max_hp, 3)}"
+        status_lines += f"\nＭ　Ｐ： {upper_int_format(param.mp, 3)}／{upper_int_format(param.max_mp, 3)}"
+        status_lines += f"\n筋　力： {format_leftright(
+                upper_int_format(member.strength,2),
+                f"（＋{upper_int_format(member.bonus_str,1)}）",
+                18)}"
+        status_lines += f"\n魔　力： {format_leftright(
+                upper_int_format(member.arcane,2),
+                f"（＋{upper_int_format(member.bonus_str,1)}）",
+                18)}"
+        status_lines += f"\n耐　久： {format_leftright(
+                upper_int_format(member.endurance,2),
+                f"（＋{upper_int_format(member.bonus_end,1)}）",
+                18)}"
+        status_lines += f"\n速　度： {format_leftright(
+                upper_int_format(member.speed,2),
+                f"（＋{upper_int_format(member.bonus_spd,1)}）",
+                18)}"
+        status_lines += f"\n幸　運： {format_leftright(
+                upper_int_format(member.luck,2),
+                f"（＋{upper_int_format(member.bonus_lck,1)}）",
+                18)}"
 
         self.windows["sub"].message_list = [status_lines]
 
@@ -114,7 +146,7 @@ class MenuSelectEquipSlot(Menu):
         return result
 
     def equip_item(self, slot: EquipSlot):
-        return RsltPush(MenuEquip, slot, self.member_index)
+        return RsltPush(MenuEquip, slot, self.member_index, self.windows["sub"])
 
     def individual_update(self) -> None:
         """クラス固有の更新処理"""
@@ -132,133 +164,11 @@ class MenuSelectEquipSlot(Menu):
             update_list()
 
 
-class MenuEquipold(Menu):
-    #     _list_rows: int = 10
-
-    #     def __init__(self):
-    #         self.item_list: list = []
-    #         self.member_index: int = di.ref.pt.get_top_index()
-
-    #         # パラメータ、装備品のウインドウサイズ
-    #         param_w, param_h = 128, 136
-    #         equip_w, equip_h = 128, 88
-    #         # 現在のシーンのWindowManagerを取得
-    #         wndmgr = di.ref.scnmgr.get_now_scene().wndmgr
-    #         parent = wndmgr.get_stack(1)
-    #         padding = 2
-    #         pos_x = parent.x + parent.width
-    #         pos_y = padding
-
-    #         self.windows: dict[MENU_WINDOW_TYPE, Window] = {}
-    #         self.windows["sub"] = Window("basic", pos_x, pos_y, param_w, param_h, "once")
-    #         self.windows["sub2"] = Window("basic", self.windows["sub"].x,
-    #                                       self.windows["sub"].y + self.windows["sub"].height + padding, equip_w, equip_h, "once")
-    #         # デフォルト表示は先頭メンバー
-    #         # self.member_index = di.ref.pt.get_top_index()
-    #         self.build_status()
-
-    #         self.inputkey = WindowInputHandler.get()
-
-    #     def generate_item_list(self):
-    #         """アイテムリストの生成"""
-    #         # tmplist = di.ref.pl_stack.get_by_state(ItemState.BAG)
-    #         # filteredlist = self._get_filtered_list(tmplist)
-    #         tmplist = di.ref.pl_item.get_by_state(ItemState.BAG)
-    #         filteredlist = [
-    #             {item_[0]: item_[1]}
-    #             for item_ in tmplist.items()
-    #             if item_[0] & 0xFF00 != ItemType.KEY_ITEM
-    #         ]
-    #         filteredlist = [
-    #             [
-    #                 {
-    #                     "id": items_.ins.param.name,
-    #                     "action": "None",
-    #                     # "args": items_.ins.param.description,
-    #                     "args": [items_.ins.param.def_id],
-    #                 }
-    #             ]
-    #             for _, items_ in tmplist.items()
-    #             if items_.ins.param.def_id & 0xFF00 != ItemType.KEY_ITEM
-    #         ]
-
-    #         self.inventory_count = len(filteredlist)
-    #         if self.inventory_count <= 0:
-    #             # if self.filter_name == "":
-    #             #     self.item_list = [[{"id": "なし", "action": "None"}]]
-    #             # else:
-    #             self.item_list = [[{"id": "該当なし", "action": "None"}]]
-    #         else:
-    #             # tmp_item_list = [[{"id":f"{di.ref.itemmgr.get_def(key).name} x {val}",
-    #             #                    "action":"use_item", "args":[key]}]
-    #             #                  for key,val in filteredlist.items() if val > 0]
-    #             # self.item_list = [tmp_item_list[i:i+self.list_rows]
-    #             #                   for i in range(0, self.inventory_count, self.list_rows)]
-    #             self.item_list = [
-    #                 filteredlist[i : i + self._list_rows]
-    #                 for i in range(0, self.inventory_count, self._list_rows)
-    #             ]
-
-    #         # ページインデックスが範囲外にならないよう補正
-    #         if self.itemlist_index >= len(self.item_list):
-    #             self.itemlist_index = len(self.item_list) - 1
-    #         self.menu_shape = [1, len(self.item_list[self.itemlist_index])]
-
-    #     def build_status(self) -> None:
-    #         member = di.ref.pt.get_member(self.member_index)
-    #         param = member.base_param
-
-    #         # 装備項目の構築
-    #         slots = [
-    #             (EquipSlot.WEAPON, "武　器"),
-    #             (EquipSlot.GUARDER, "防　具"),
-    #             (EquipSlot.ACCESSORY_1, "装飾１"),
-    #             (EquipSlot.ACCESSORY_2, "装飾２"),
-    #             (EquipSlot.CONSUME_1, "消費１"),
-    #             (EquipSlot.CONSUME_2, "消費２"),
-    #         ]
-
-    #         status_lines = f"{param.name}"
-    #         status_lines += f"\nレベル： {param.level:2}"
-    #         status_lines += f"\n経験値： {param.exp:5}"
-    #         status_lines += f"\nＨ　Ｐ： {param.hp:3}／{param.max_hp:3}"
-    #         status_lines += f"\nＭ　Ｐ： {param.mp:3}／{param.max_mp:3}"
-    #         status_lines += f"\n筋　力： {member.strength:3}(+{member.bonus_str})"
-    #         status_lines += f"\n魔　力： {member.arcane:3}(+{member.bonus_arc})"
-    #         status_lines += f"\n耐　久： {member.endurance:3}(+{member.bonus_end})"
-    #         status_lines += f"\n速　度： {member.speed:3}(+{member.bonus_spd})"
-    #         status_lines += f"\n幸　運： {member.luck:3}(+{member.bonus_lck})"
-    #         equip_lines = ""
-    #         for slot, label in slots:
-    #             pooled_item = member.equipments.get_slot(slot)
-    #             if pooled_item is None:
-    #                 item_name = "なし"
-    #             else:
-    #                 _, plent = pooled_item
-    #                 item_name = plent.ins.param.name
-    #             equip_lines += f"{label}： {item_name}\n"
-
-    #         self.windows["sub"].text_list = [status_lines]
-    #         self.windows["sub2"].text_list = [equip_lines]
-
-    #     # def update(self) -> WindowAction:
-    #     #     """キー入力の確認と応答"""
-    #     #     if self.inputkey.decide() or self.inputkey.cancel():
-    #     #         return WindowAction.DISCARD
-    #     #     if self.inputkey.left():
-    #     #         self.member_index = (self.member_index - 1) % di.ref.pt.get_members()
-    #     #         self.build_status()
-    #     #     if self.inputkey.right():
-    #     #         self.member_index = (self.member_index + 1) % di.ref.pt.get_members()
-    #     #         self.build_status()
-    #     #     return WindowAction.CONTINUE
-    pass
-
-
 class MenuEquip(Menu):
     """消耗品アイテム表示・選択用メニュー"""
 
     _list_rows: int = 10
+    pagelabel_size = 4 * 5  # 4ptフォント5文字
     # 装備項目の構築
     _filter = {
         EquipSlot.WEAPON: ItemType.WEAPON,
@@ -269,10 +179,12 @@ class MenuEquip(Menu):
         EquipSlot.CONSUME_2: ItemType.CONSUME,
     }
 
-    def __init__(self, slot: EquipSlot, member_index: int):
+    def __init__(self, slot: EquipSlot, member_index: int, parent: Menu):
         """データ取得と表示ウインドウの再定義"""
         self.member = di.ref.pt.get_member(member_index)
-        x, y = 160, Window._chip_size
+        offset = 2
+        pos_x = parent.x + parent.width + offset
+        pos_y = parent.y
         w = 104
         self.item_list: list = []
         self.itemlist_index: int = 0
@@ -293,8 +205,8 @@ class MenuEquip(Menu):
         self.func_gen_item()
         super().__init__(
             "basic",
-            x,
-            y,
+            pos_x,
+            pos_y,
             [1, len(self.item_list[self.itemlist_index])],
             self.item_list[self.itemlist_index],
             w,
@@ -302,8 +214,8 @@ class MenuEquip(Menu):
         self.cursor_row_offset += 2  # k8x12Sの縦長分対応
         self.windows["sub"] = Window(
             "basic",
-            x,
-            y + self.windows["main"].height + 1,
+            pos_x,
+            pos_y + self.windows["main"].height + 1,
             self.windows["main"].width,
             64,
             "sub",
@@ -381,7 +293,8 @@ class MenuEquip(Menu):
                 }
             ]
             for iid, items_ in tmplist.items()
-            if items_.ins.param.def_id & 0xFF00 == self.slot_filter
+            # if items_.ins.param.def_id & 0xFF00 == self.slot_filter
+            if items_.ins.param.item_type == self.slot_filter
         ]
 
         self.inventory_count = len(filteredlist)
@@ -417,7 +330,11 @@ class MenuEquip(Menu):
             tmp_item_list = [
                 [
                     {
-                        "id": f"{di.ref.itemrps.get_def(key).name} x {val}",  # type:ignore
+                        # "id": f"{di.ref.itemrps.get_def(key).name} x {val}",  # type:ignore
+                        "id": format_leftright(
+                            di.ref.pl_stack.get_def(key).name,  # type: ignore
+                            f"ｘ{upper_int_format(val,2)}",
+                        ),
                         "action": "use_item",
                         "args": [key],
                     }
@@ -459,10 +376,12 @@ class MenuEquip(Menu):
                 return [f"{item_def.description}"]
             case ItemType.WEAPON:
                 expect_dmg = item_def.hitdice * 4
-                perf_txt = f"攻撃性能:{expect_dmg:>2}"
+                # perf_txt = f"攻撃性能:{expect_dmg:>2}"
+                perf_txt = f"攻撃:{upper_int_format(expect_dmg, 2)}"
             case ItemType.GUARDER:
                 perf_txt = (
-                    f"防御性能:{item_def.defvalue} 魔法阻害:{item_def.magpenalty}"
+                    # f"防御性能:{item_def.defvalue} 魔法阻害:{item_def.magpenalty}"
+                    f"防御:{upper_int_format(item_def.defvalue, 2)} 魔法阻害:{upper_int_format(item_def.magpenalty, 1)}"
                 )
             case ItemType.ORNAMENT:
                 perf_txt = "特殊な効果をもつ飾り"
@@ -513,3 +432,22 @@ class MenuEquip(Menu):
         if result:
             self.change_target_item()
         return result
+
+    def draw_main(self) -> None:
+        """ページ表示の追加"""
+        super().draw_main()
+        x = self.x + self.width - (self.pagelabel_size + Window._chip_size)
+        y = self.y
+        px.rect(
+            x,
+            y,
+            self.pagelabel_size,
+            Window._chip_size,
+            self.windows["main"]._image_chips.pget(7, 7),
+        )
+        px.text(
+            x,
+            y,
+            f"{self.itemlist_index + 1:02}/{len(self.item_list):02}",
+            px.COLOR_WHITE,
+        )

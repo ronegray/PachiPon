@@ -392,6 +392,7 @@ class Party:
                     px.COLOR_BLACK,
                 )
 
+    def draw_ptinfo(self):
         # パーティー情報ウインドウの描画
         self.info_window.draw()
         offset = 3

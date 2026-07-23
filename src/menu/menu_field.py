@@ -86,8 +86,8 @@ class MenuField(Menu):
             self.cursor_y + Window._chip_size + 1,
             self.ctx,
             self.command_package,
-            self.pool_item,
-            self.pool_stack,
+            # self.pool_item,
+            # self.pool_stack,
         )
 
     def equip_item(self):
@@ -95,7 +95,7 @@ class MenuField(Menu):
         print("equip_item")
         from menu import MenuSelectEquipSlot
 
-        return RsltPush(MenuSelectEquipSlot)
+        return RsltPush(MenuSelectEquipSlot, self)
 
     def select_skill(self):
         """スキル選択メニューを開く"""

@@ -5,7 +5,7 @@
 import logging
 import pyxel as px
 
-# import service_locater as di
+import service_locater as di
 from gameutils.lib import (
     Window,
     Menu,
@@ -13,13 +13,13 @@ from gameutils.lib import (
     RsltPush,
     RsltDiscard,
 )
-from helper import upper_int
+from helper import upper_int_format, format_leftright
 from item import (
     ItemType,
     ItemID,
     ItemState,
-    ItemPool,
-    StackPool,
+    # ItemPool,
+    # StackPool,
     ItemTargetType,
 )  # , ConsumeGrade
 from entity import EntityContext
@@ -39,8 +39,8 @@ class MenuSelectItemCategory(Menu):
         menu_pos_y: int,
         ctx: EntityContext,
         command_package: e_cmd.CommandPackage,
-        pool_item: ItemPool,
-        pool_stack: StackPool,
+        # pool_item: ItemPool,
+        # pool_stack: StackPool,
     ) -> None:
         menu_pos = (menu_pos_x, menu_pos_y)
         menu_shape = [1, 3]
@@ -49,8 +49,8 @@ class MenuSelectItemCategory(Menu):
 
         self.ctx = ctx
         self.command_package = command_package
-        self.pool_item = pool_item
-        self.pool_stack = pool_stack
+        # self.pool_item = pool_item
+        # self.pool_stack = pool_stack
 
     def exec_menu(self) -> ExecResult:
         """選択メニュー項目の処理を実行"""
@@ -76,15 +76,15 @@ class MenuSelectItemCategory(Menu):
             MenuUseItem,
             self.ctx,
             self.command_package,
-            self.pool_item,
-            self.pool_stack,
+            # self.pool_item,
+            # self.pool_stack,
         )
 
     def show_keyitem(self):
-        return RsltPush(MenuShowKeyItem, self.pool_item, self.pool_stack)
+        return RsltPush(MenuShowKeyItem)  # , self.pool_item, self.pool_stack)
 
     def show_equips(self):
-        return RsltPush(MenuShowEquips, self.pool_item, self.pool_stack)
+        return RsltPush(MenuShowEquips)  # , self.pool_item, self.pool_stack)
 
 
 class MenuItemBase(Menu):
@@ -93,10 +93,12 @@ class MenuItemBase(Menu):
     _list_rows: int = 10
     pagelabel_size = 4 * 5  # 4ptフォント5文字
 
-    def __init__(self, pool_item: ItemPool, pool_stack: StackPool) -> None:
+    def __init__(
+        self,
+    ) -> None:  # , pool_item: ItemPool, pool_stack: StackPool) -> None:
         """データ取得と表示ウインドウの再定義"""
-        self.pool_item = pool_item
-        self.pool_stack = pool_stack
+        # self.pool_item = pool_item
+        # self.pool_stack = pool_stack
 
         menu_pos = (80, Window._chip_size)
         w = 104
@@ -158,7 +160,7 @@ class MenuItemBase(Menu):
         for desc_string in item_desc:
             for i in range(0, len(desc_string) + 1):
                 if (
-                    self.windows["sub"].fontdata.font.text_width(
+                    self.windows["sub"].fontdata.font.text_width(  # type: ignore
                         desc_string[start_row : i + 1]
                     )
                     > text_area_width
@@ -166,7 +168,7 @@ class MenuItemBase(Menu):
                     message_list.append(desc_string[start_row:i])
                     start_row = i
             # 最後の残りを結合
-            message_list.append(desc_string[start_row:i])
+            message_list.append(desc_string[start_row:i])  # type: ignore
         self.windows["sub"].set_message(message_list)
 
     def individual_update(self):
@@ -220,11 +222,12 @@ class MenuUseItem(MenuItemBase):
         self,
         ctx: EntityContext,
         command_package: e_cmd.CommandPackage,
-        pool_item: ItemPool,
-        pool_stack: StackPool,
+        # pool_item: ItemPool,
+        # pool_stack: StackPool,
     ):
         """データ取得と表示ウインドウの再定義"""
-        super().__init__(pool_item, pool_stack)
+        # super().__init__(pool_item, pool_stack)
+        super().__init__()
 
         self.ctx = ctx
         self.command_package = command_package
@@ -232,7 +235,8 @@ class MenuUseItem(MenuItemBase):
 
     def generate_item_list(self):
         """アイテムリストの生成"""
-        filtereddict = self.pool_stack.get_by_state(ItemState.BAG)
+        # filtereddict = self.pool_stack.get_by_state(ItemState.BAG)
+        filtereddict = di.ref.pl_stack.get_by_state(ItemState.BAG)
 
         self.inventory_count = len(filtereddict)
         if self.inventory_count <= 0:
@@ -241,7 +245,11 @@ class MenuUseItem(MenuItemBase):
             tmp_item_list = [
                 [
                     {
-                        "id": f"{self.pool_stack.get_def(key).name} × {upper_int(val)}",
+                        # "id": f"{self.pool_stack.get_def(key).name} × {upper_int(val)}",
+                        "id": format_leftright(
+                            di.ref.itemrps.get_def(key).name,  # type: ignore
+                            f"ｘ{upper_int_format(val,2)}",
+                        ),
                         "action": "use_item",
                         "args": [key],
                     }
@@ -260,7 +268,7 @@ class MenuUseItem(MenuItemBase):
         self.menu_shape = [1, len(self.item_list[self.itemlist_index])]
 
     def get_item_desc(self) -> list[str]:
-        return [self.pool_stack.get_def(self.target_item[0]["args"][0]).description]
+        return [di.ref.itemrps.get_def(self.target_item[0]["args"][0]).description]  # type: ignore
 
     def exec_menu(self) -> ExecResult:
         """選択メニュー項目の処理を実行"""
@@ -285,7 +293,7 @@ class MenuUseItem(MenuItemBase):
         # item_name = self.pool_stack.get_def(item_id).name
         # print(f"{item_id} {item_name}")
         # self.windows["sub"].add_message(f"{item_name} をつかった")
-        item_def = self.pool_stack.get_def(item_id)
+        item_def = di.ref.itemrps.get_def(item_id)
         if item_def is None:
             errmsg = f"該当IDのアイテムが定義されていません：{item_id}"
             logger.critical(errmsg, exc_info=True)
@@ -298,7 +306,7 @@ class MenuUseItem(MenuItemBase):
         self.command_package.target_type = ItemTargetType(item_def.target_type)
         self.command_package.selected_args = {
             "item_def": item_def,
-            "pl_stack": self.pool_stack,
+            "pl_stack": di.ref.pl_stack,
         }
         if self.command_package.target_type == ItemTargetType.NONE:
             # ターゲットがない場合は抜けてそのまま処理実行
@@ -319,13 +327,15 @@ class MenuUseItem(MenuItemBase):
 class MenuShowKeyItem(MenuItemBase):
     """消耗品アイテム表示・選択用メニュー"""
 
-    def __init__(self, pool_item: ItemPool, pool_stack: StackPool):
+    def __init__(self) -> None:  # , pool_item: ItemPool, pool_stack: StackPool):
         """データ取得と表示ウインドウの再定義"""
-        super().__init__(pool_item, pool_stack)
+        # super().__init__(pool_item, pool_stack)
+        super().__init__()
 
     def generate_item_list(self):
         """アイテムリストの生成"""
-        tmplist = self.pool_item.get_by_state(ItemState.BAG)
+        # tmplist = self.pool_item.get_by_state(ItemState.BAG)
+        tmplist = di.ref.pl_item.get_by_state(ItemState.BAG)
         # filteredlist = [
         #     {key: data}
         #     for key, data in tmplist.items()
@@ -364,7 +374,7 @@ class MenuShowKeyItem(MenuItemBase):
 class MenuShowEquips(MenuItemBase):
     """消耗品アイテム表示・選択用メニュー"""
 
-    def __init__(self, pool_item: ItemPool, pool_stack: StackPool):
+    def __init__(self) -> None:  # , pool_item: ItemPool, pool_stack: StackPool):
         """データ取得と表示ウインドウの再定義"""
         # # x, y = 80, Window._chip_size
         # # self.item_list: list = []
@@ -386,7 +396,7 @@ class MenuShowEquips(MenuItemBase):
         # # self.is_push_right: int = 0
         # # # self.target_item = self.item_list[0][0]
         # # self.change_target_item()
-        super().__init__(pool_item, pool_stack)
+        super().__init__()
 
     # def _get_filtered_list(self, raw_list: dict[ItemID, int]) -> dict[ItemID, int]:
     #     """フィルタリング処理"""
@@ -407,7 +417,7 @@ class MenuShowEquips(MenuItemBase):
         """アイテムリストの生成"""
         # tmplist = di.ref.pl_stack.get_by_state(ItemState.BAG)
         # filteredlist = self._get_filtered_list(tmplist)
-        tmplist = self.pool_item.get_by_state(ItemState.BAG)
+        tmplist = di.ref.pl_item.get_by_state(ItemState.BAG)
         # filteredlist = [
         #     {item_[0]: item_[1]}
         #     for item_ in tmplist.items()
@@ -461,16 +471,18 @@ class MenuShowEquips(MenuItemBase):
 
     def get_item_desc(self) -> list[str]:
         # return self.target_item[0]["args"]
-        item_def = self.pool_item.get_def(self.target_item[0]["args"][0])
+        item_def = di.ref.itemrps.get_def(self.target_item[0]["args"][0])
         if item_def is None:
             return [""]
         match item_def.item_type:
             case ItemType.WEAPON:
                 expect_dmg = item_def.hitdice * 4
-                perf_txt = f"攻撃性能:{expect_dmg:>2}"
+                # perf_txt = f"攻撃性能:{expect_dmg:>2}"
+                perf_txt = f"攻撃:{upper_int_format(expect_dmg, 2)}"
             case ItemType.GUARDER:
                 perf_txt = (
-                    f"防御性能:{item_def.defvalue} 魔法阻害:{item_def.magpenalty}"
+                    # f"防御性能:{item_def.defvalue} 魔法阻害:{item_def.magpenalty}"
+                    f"防御:{upper_int_format(item_def.defvalue, 2)} 魔法阻害:{upper_int_format(item_def.magpenalty, 1)}"
                 )
             case ItemType.ORNAMENT:
                 perf_txt = "特殊な効果をもつ飾り"
