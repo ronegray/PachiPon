@@ -7,15 +7,17 @@
 import logging
 import pyxel as px
 import service_locater as di
+from const import APP_WIDTH, APP_HEIGHT
 from .scene_base import BaseScene
 from menu import MenuNameEntry
 from assets.asset_map import AssetID, AssetMap
 from gameutils.base import (
     check_file,
-    read_string,
+    # read_string,
     read_json,
     FontManager,
     shadowed_text,
+    is_pressed,
 )
 
 
@@ -53,37 +55,58 @@ class SceneNewGame(BaseScene):
             raise TypeError(errmsg)
 
         self.op_message: list = read_json(path)
-        self.message_top: float = px.height
-        self.msg_end_line: int = -100
+        self.message_top: float = APP_HEIGHT
+        # self.msg_end_line: int = -100
         self.op_msg_row_offset: float = self.font_opmsg.height * 1.25
+        self.msg_end_line: int = -(len(self.op_message) * (self.font_opmsg.height + 3))
 
+        self.is_finish: bool = False
+        self.dither: float = 1
+        # self.fastforward = 1 # 決定キーは早送り
         """このシーンでは遷移元（タイトル）のBGMを引き継ぐ為load_bgmは無し"""
 
     def update(self) -> None:
         """更新ループ"""
+        if self.is_finish:
+            is_break = False
+            for ch in px.channels:
+                ch.gain -= 0.001
+                if ch.gain <= 0:
+                    is_break = True
+            self.dither -= 0.01
+            if is_break:
+                for ch in px.channels:
+                    ch.gain = 0.125
+                px.dither(1)
+                di.ref.scnmgr.change_scene("map")
+
         # メニュー更新
         if self.wndmgr.has_stack:
             self.wndmgr.update()
         else:
-            self.message_top -= 0.5
-            if self.message_top < self.msg_end_line:
-                """暫定処理：BGMロード"""
-                path = check_file("assets/sound/opjingle.txt")
-                if path is not None:
-                    score_data = read_string(path)
-                else:
-                    raise FileNotFoundError("ファイルがない！")
-                for i, mml in enumerate(score_data):
-                    px.sounds[i].mml(mml)
-                px.musics[0].set([0], [1], [2])
-                px.stop()
-                px.playm(0)
-                while px.play_pos(0) is not None:
-                    pass
-                di.ref.scnmgr.change_scene("map")
+            # 決定キー押下中は早送り
+            fastforward = 4 if is_pressed("decide", "keep") else 1
+            self.message_top -= 0.5 * fastforward
+            # キャンセルキーでスキップ
+            if (self.message_top < self.msg_end_line) or is_pressed("cancel"):
+                # """暫定処理：BGMロード"""
+                # path = check_file("assets/sound/opjingle.txt")
+                # if path is not None:
+                #     score_data = read_string(path)
+                # else:
+                #     raise FileNotFoundError("ファイルがない！")
+                # for i, mml in enumerate(score_data):
+                #     px.sounds[i].mml(mml)
+                # px.musics[0].set([0], [1], [2])
+                # px.stop()
+                # px.playm(0)
+                # while px.play_pos(0) is not None:
+                #     pass
+                self.is_finish = True
 
     def draw(self) -> None:
         """描画ループ"""
+        px.dither(self.dither)
         px.cls(px.COLOR_BLACK)
         # 背景イメージ描画
         px.blt(
@@ -98,9 +121,15 @@ class SceneNewGame(BaseScene):
         )
 
         # メニュー描画
-        if self.wndmgr.has_stack:
+        if self.wndmgr.has_stack:  # 名前入力中
             self.wndmgr.draw()
         else:
+            shadowed_text(
+                APP_WIDTH - 60,
+                APP_HEIGHT - 16,
+                "FF/decide key\nskip/cancel key",
+                px.COLOR_PEACH,
+            )
             for i, data in enumerate(self.op_message):
                 msg_y = i * self.op_msg_row_offset + self.message_top
                 if msg_y < 0:

@@ -47,7 +47,7 @@ class ItemRepository:
                         price=details.get("price", 0),
                         description=details.get("description", ""),
                         hitdice=details.get("hitdice", 0),
-                        defvalue=details.get("defcalue", 0),
+                        defvalue=details.get("defvalue", 0),
                         magpenalty=details.get("magpenalty", 0),
                         effect_id=details.get("effect_type"),
                         effect_value=details.get("effect_value", 0.0),

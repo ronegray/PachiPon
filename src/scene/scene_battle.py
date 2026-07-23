@@ -262,13 +262,13 @@ class SceneBattle(BaseScene):
                 # 戦闘終了フラグが立っていない為この分岐に入らず、
                 # set_on_empty()も呼ばれない。
                 di.ref.cmdmgr.set_on_empty(di.ref.scnmgr.previous_scene)
-            return None
+            return
 
         # 生存エネミーが0匹になったら戦闘終了して前のシーンに戻る
         if len([1 for enemy in self.enemy_list if enemy.is_alive]) == 0:
             # 戦闘終了フラグON
             self.is_battle_over = True
-            return None
+            return
 
         # パーティメンバーの死亡を考慮し先頭キャラ再チェック
         di.ref.pt.update_top_index()

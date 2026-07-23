@@ -4,7 +4,7 @@
 
 import logging
 import service_locater as di
-from helper import upper_int_format as u
+from helper import upper_int_format, format_leftright
 from gameutils.lib import (
     Menu,
     Window,
@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 
 
 class MenuStatus(Menu):
-    def __init__(self, parent: Menu):
+    def __init__(self, parent: Menu) -> None:
         # 情報表示ウインドウのサイズ
         param_w, param_h = 128, 136  # ステータス
         equip_w, equip_h = 128, 88  # 装備
@@ -69,19 +69,40 @@ class MenuStatus(Menu):
         # status_lines += f"\n速　度： {member.speed:3}(+{member.bonus_spd})"
         # status_lines += f"\n幸　運： {member.luck:3}(+{member.bonus_lck})"
         status_lines = f"{param.name}"
-        status_lines += f"\nレベル： {u(param.level,1)}"
-        status_lines += f"\n次まで： {u(member.next_exp,1)}"
-        status_lines += f"\nＨ　Ｐ： {u(param.hp,3)}／{u(param.max_hp,3)}"
-        status_lines += f"\nＭ　Ｐ： {u(param.mp,3)}／{u(param.max_mp,3)}"
+        status_lines += f"\nレベル： {upper_int_format(param.level, 2)}"
+        status_lines += f"\n次まで： {upper_int_format(member.next_exp, 1)}"
+        status_lines += f"\nＨ　Ｐ： {upper_int_format(param.hp, 3)}／{upper_int_format(param.max_hp, 3)}"
+        status_lines += f"\nＭ　Ｐ： {upper_int_format(param.mp, 3)}／{upper_int_format(param.max_mp, 3)}"
         status_lines += (
-            f"\n筋　力： {u(member.strength,2)} （＋{u(member.bonus_str,1)}）"
+            # f"\n筋　力： {upper_int_format(member.strength,2)} （＋{upper_int_format(member.bonus_str,1)}）"
+            f"\n筋　力： {format_leftright(
+                upper_int_format(member.strength,2),
+                f"（＋{upper_int_format(member.bonus_str,1)}）",
+                18)}"
         )
-        status_lines += f"\n魔　力： {u(member.arcane,2)} （＋{u(member.bonus_arc,1)}）"
-        status_lines += (
-            f"\n耐　久： {u(member.endurance,2)} （＋{u(member.bonus_end,1)}）"
-        )
-        status_lines += f"\n速　度： {u(member.speed,2)} （＋{u(member.bonus_spd,1)}）"
-        status_lines += f"\n幸　運： {u(member.luck,2)} （＋{u(member.bonus_lck,1)}）"
+        # status_lines += f"\n魔　力： {upper_int_format(member.arcane,2)} （＋{upper_int_format(member.bonus_arc,1)}）"
+        # status_lines += (
+        #     f"\n耐　久： {upper_int_format(member.endurance,2)} （＋{upper_int_format(member.bonus_end,1)}）"
+        # )
+        # status_lines += f"\n速　度： {upper_int_format(member.speed,2)} （＋{upper_int_format(member.bonus_spd,1)}）"
+        # status_lines += f"\n幸　運： {upper_int_format(member.luck,2)} （＋{upper_int_format(member.bonus_lck,1)}）"
+        status_lines += f"\n魔　力： {format_leftright(
+                upper_int_format(member.arcane,2),
+                f"（＋{upper_int_format(member.bonus_str,1)}）",
+                18)}"
+        status_lines += f"\n耐　久： {format_leftright(
+                upper_int_format(member.endurance,2),
+                f"（＋{upper_int_format(member.bonus_end,1)}）",
+                18)}"
+        status_lines += f"\n速　度： {format_leftright(
+                upper_int_format(member.speed,2),
+                f"（＋{upper_int_format(member.bonus_spd,1)}）",
+                18)}"
+        status_lines += f"\n幸　運： {format_leftright(
+                upper_int_format(member.luck,2),
+                f"（＋{upper_int_format(member.bonus_lck,1)}）",
+                18)}"
+
         self.windows["sub"].message_list = [status_lines]
 
         # 装備項目の構築

@@ -22,6 +22,7 @@ from gameutils.lib import (
 )
 
 # from item import ItemState, ItemType
+from helper import upper_int, format_leftright
 from entity import EntityContext
 from skill import SkillDef, SkillTargetType
 import command.entity_command as e_cmd
@@ -155,7 +156,10 @@ class MenuSelectSkillBattle(Menu):
             tmp_item_list = [
                 [
                     {
-                        "id": f"{skill_def.name}",
+                        # "id": f"{skill_def.name}",
+                        "id": format_leftright(
+                            skill_def.name, upper_int(skill_def.cost)
+                        ),
                         "action": "select_target",
                         # "args": [skill_def.def_id, skill_def.description],
                         "args": [skill_def],
@@ -421,7 +425,10 @@ class MenuSelectSkillField(Menu):
             tmp_item_list = [
                 [
                     {
-                        "id": f"{skill_def.name}",
+                        # "id": f"{skill_def.name}",
+                        "id": format_leftright(
+                            skill_def.name, upper_int(skill_def.cost)
+                        ),
                         "action": "select_target",
                         # "args": [skill_def.def_id, skill_def.description],
                         "args": [skill_def],

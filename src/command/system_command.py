@@ -4,12 +4,14 @@
 import logging
 
 # from abc import abstractmethod
-from typing import Generator
+from typing import Generator, cast
 import pyxel as px
 from gameutils.lib import WindowAction  # , Window,
+from field_map import EventPoint
 
 # from const import COMMAND_STEPWAIT_FRAME
 # from . import CommandBase, CommandPhase, DisplayInfo
+import service_locater as di
 from . import CommandBaseSequence
 
 # ロギング設定
@@ -138,3 +140,44 @@ class FoodShortageEffect(CommandBaseSystem):
             lambda: px.dither(1),
         ]
         yield [self.WAIT, "0"]
+
+
+class KickEvent(CommandBaseSystem):
+    """フィールドイベント起動処理"""
+
+    def _sequence(self) -> Generator[list[str], None, None]:
+        point = cast(EventPoint, self.args[0])
+        dices = point.kick_event()
+        # effect = DiceRollEffect()
+        # effect.load_diceimage()
+        effect = di.ref.efxdice
+        roll_frames = 60
+        effect.start(dices, roll_frames)
+        yield ["何が起こるか", "　おたのしみ！"]
+        while effect.is_rolling:
+            effect.update()
+            self.display_info.graphic_command = effect.get_draw_commands()
+            yield ["wait", "0"]
+        yield [f"出た目は・・・　{effect.total}"]
+        while self.display_info.target.update() == WindowAction.CONTINUE:
+            yield [self.WAIT, "0"]
+        for event_id, event_stat in point.event_list.event_stat.items():
+            if effect.total >= event_stat.threshold:
+                event_stat.is_opened = True
+                point.rise_event(event_id)
+                break
+
+
+class INCREASE_HP(CommandBaseSystem):
+    def _sequence(self) -> Generator[list[str], None, None]:
+        # event_type = self.args[0]
+        # event_value = self.args[1]
+        yield ["HP回復イベント"]
+        yield ["なんか"]
+        yield ["メッセージが"]
+        yield ["流れたあとに"]
+        yield ["なんか"]
+        yield ["効果が"]
+        yield ["発生する感じ"]
+        while self.display_info.target.update() == WindowAction.CONTINUE:
+            yield [self.WAIT, "0"]

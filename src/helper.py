@@ -6,7 +6,7 @@
 """
 
 import pyxel as px
-
+import unicodedata
 
 UPPER_INT_TABLE = str.maketrans("0123456789", "０１２３４５６７８９")
 
@@ -35,3 +35,21 @@ def upper_int_format(n: int, w: int) -> str:
     """数値を全角数字に変換し幅w文字空白埋めにした結果を取得"""
     upper_str = upper_int(n)
     return upper_str if len(upper_str) >= w else ("　" * w + upper_str)[-w:]
+
+
+def format_leftright(left_str: str, right_str: str, str_len: int = 20) -> str:
+    """半角スペース数str_lenの範囲で左右文字列を端に詰めた文字列を生成"""
+
+    def calcwidth(text: str) -> int:
+        width = 0
+        for char in text:
+            if unicodedata.east_asian_width(char) in ("F", "W", "A"):
+                width += 2
+            else:
+                width += 1
+        return width
+
+    len_lstr = calcwidth(left_str)
+    len_rstr = calcwidth(right_str)
+    len_padding = str_len - (len_lstr + len_rstr)
+    return f"{left_str}{' '*len_padding}{right_str}"
