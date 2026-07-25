@@ -7,6 +7,7 @@
 
 import logging
 import pyxel as px
+from const import SoundID
 import service_locater as di
 from gameutils.lib import Menu, Window, ExecResult, RsltPush, RsltPop
 from item import ItemState, ItemType
@@ -157,9 +158,11 @@ class MenuSelectEquipSlot(Menu):
             self.build_status()
 
         if self.inputkey.left():
+            px.play(3, SoundID.PAGE_ARROW, resume=True)
             self.member_index = (self.member_index - 1) % di.ref.pt.get_member_count()
             update_list()
         if self.inputkey.right():
+            px.play(3, SoundID.PAGE_ARROW, resume=True)
             self.member_index = (self.member_index + 1) % di.ref.pt.get_member_count()
             update_list()
 
@@ -234,6 +237,7 @@ class MenuEquip(Menu):
 
         # self.member.equipments.equip_off(self.slot)
         if self.slot_filter == ItemType.CONSUME:
+            px.play(3, SoundID.CHANGE_EQUIP, resume=True)
             self.member.equipments.equip_on_consume(
                 self.slot, selected_item.action_args[0]
             )
@@ -244,6 +248,7 @@ class MenuEquip(Menu):
                 errmsg = f"プールからのアイテム取得に失敗しました：ID={iid}"
                 logger.critical(errmsg, exc_info=True)
                 raise ValueError(errmsg)
+            px.play(3, SoundID.CHANGE_EQUIP, resume=True)
             self.member.equipments.equip_on_pool(self.slot, (iid, plent))
             self.member.update_bonus()
 
@@ -415,12 +420,14 @@ class MenuEquip(Menu):
         # 左右キーでのリスト内容切替
         if len(self.item_list) > 1:
             if self.inputkey.left():
+                px.play(3, SoundID.PAGE_ARROW, resume=True)
                 self.itemlist_index = (self.itemlist_index - 1) % len(self.item_list)
                 self.remap_itemlist()
                 self.change_target_item()
                 self.is_push_left = 1
                 return
             if self.inputkey.right():
+                px.play(3, SoundID.PAGE_ARROW, resume=True)
                 self.itemlist_index = (self.itemlist_index + 1) % len(self.item_list)
                 self.remap_itemlist()
                 self.change_target_item()

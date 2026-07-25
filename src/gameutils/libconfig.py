@@ -7,6 +7,7 @@ from enum import StrEnum
 
 class ResourcePath(StrEnum):
     WINDOW_CHIP = "gameutils/lib/window/chip_window.bmp"
+    MENU_STRUCTURE = "assets/data/menu_structure.json"
 
     # FONT_BASIC  = "gameutils/base/text/k8x12S.bdf"
     # FONT_LARGE  = "gameutils/base/text/umplus_j10r.bdf"

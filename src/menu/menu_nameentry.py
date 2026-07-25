@@ -4,7 +4,7 @@
 """
 
 import pyxel as px
-from const import APP_FPS
+from const import APP_FPS, SoundID
 from gameutils.base import check_file, read_json, FontManager, shadowed_text
 from assets.asset_map import AssetID, AssetMap
 from gameutils.lib import Menu, Window, WindowAction  # , WindowInputHandler
@@ -64,10 +64,12 @@ class MenuNameEntry(Menu):
     def key_check(self) -> WindowAction:
         """キー入力の確認と応答"""
         if self.move_cursor():
-            pass
+            px.play(1, SoundID.CURSOR_VERTICAL, resume=True)
         elif self.inputkey.decide():
+            px.play(3, SoundID.DECIDE, resume=True)
             self.add_letter()
         elif self.inputkey.cancel():
+            px.play(3, SoundID.CANCEL, resume=True)
             self.delete_letter()
         return WindowAction.CONTINUE
 
@@ -112,7 +114,7 @@ class MenuNameEntry(Menu):
     def delete_letter(self) -> None:
         """入力名前文字列の末尾を削除"""
         if len(self.input_name_string) == 0:
-            di.ref.scnmgr.previous_scene()
+            di.ref.scnmgr.previous_scene(False)
             return
         else:
             tmpStr = self.input_name_string[:-1]

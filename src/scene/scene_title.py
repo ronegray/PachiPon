@@ -56,9 +56,10 @@ class SceneTitle(BaseScene):
         else:
             raise FileNotFoundError("ファイルがない！")
         for i, mml in enumerate(score_data):
-            px.sounds[i].mml(mml)
-        px.musics[0].set([0], [1], [2], [3])
-        px.playm(0, loop=True)
+            #     px.sounds[i].mml(mml)
+            # px.musics[0].set([0], [1], [2], [3])
+            # px.playm(0, loop=True)
+            px.channels[i].play(mml, loop=True)
 
     def update(self) -> None:
         """更新ループ"""

@@ -341,7 +341,7 @@ class Menu:
     """メニュー基底クラス"""
 
     # 固定メニュー項目データ読込
-    file = "assets/data/menu_structure.json"
+    file = ResourcePath.MENU_STRUCTURE
     path = check_file(file)
     assert (
         path is not None
@@ -349,6 +349,22 @@ class Menu:
     menu_item_data = read_json(path)
     # _MENU_ITEM_CASHE: dict[str, list[list[dict[str, str|list]]]] = dict(menu_item_data)
     _MENU_ITEM_CASHE: dict[str, MENU_ITEM_LIST] = dict(menu_item_data)
+
+    # UI操作音の独立定義
+    se_ch: int = 3
+    ui_se: dict[str, px.Sound] = {}
+    snd0 = px.Sound()
+    snd0.set("b4", "", "", "", 3)
+    ui_se["CURSOR_VERTICAL"] = snd0
+    # snd2 = px.Sound()
+    # snd2.set("a4g#0a4a4", "tps", "7752", "", 1)
+    # ui_se["PAGE_ARROW"] = snd2
+    snd4 = px.Sound()
+    snd4.set("e4e4e4", "s", "712", "nfn", 4)
+    ui_se["DECIDE"] = snd4
+    # snd5 = px.Sound()
+    # snd5.set("d2c1c#2", "p", "715", "", 3)
+    # ui_se["CANCEL"] = snd5
 
     def __init__(
         self,
@@ -525,10 +541,13 @@ class Menu:
     def key_check(self) -> WindowAction:
         """キー入力の確認と応答"""
         if self.move_cursor():
-            pass
+            # pass
+            px.play(self.se_ch, self.ui_se["CURSOR_VERTICAL"], resume=True)
         elif self.inputkey.decide():
+            px.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
             return WindowAction.EXECUTE
         elif self.inputkey.cancel():
+            # px.play(self.se_ch, self.ui_se["CANCEL"], resume=True)
             return WindowAction.CLOSE
         return WindowAction.CONTINUE
 
@@ -539,7 +558,7 @@ class Menu:
 
     def individual_update(self) -> Any:
         """メニュー個別のupdateフレーム処理内容"""
-        ...
+        pass
 
     def move_cursor(self) -> bool:
         """キー入力に応じたカーソル移動とインデックス制御"""
