@@ -5,7 +5,8 @@
 
 import pyxel as px
 import service_locater as di
-from .scene_base import BaseScene
+from const import SoundID
+from . import BaseScene
 from gameutils.base import is_pressed
 from gameutils.lib import Window
 
@@ -31,7 +32,7 @@ class SceneBattleSplash(BaseScene):
         self.is_skip_splash: bool = False
         self.is_next_scene: bool = False
         """このシーンではbgmは無し SEのみ"""
-        px.play(3, 63)
+        px.play(3, SoundID.ENCOUNT, resume=True)
 
     def update(self) -> None:
         """更新ループ"""

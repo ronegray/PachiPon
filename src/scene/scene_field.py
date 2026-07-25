@@ -110,11 +110,18 @@ class SceneField(BaseScene):
             score_data = read_string(path)
         else:
             raise FileNotFoundError("ファイルがない！")
+        # for i, mml in enumerate(score_data):
+        #     px.sounds[i].mml(mml)
+        #     px.musics[0].set([0], [1], [2], [3])
+        #     px.stop()
+        #     px.playm(0, loop=True)
+
+        # px.stop()
         for i, mml in enumerate(score_data):
-            px.sounds[i].mml(mml)
-            px.musics[0].set([0], [1], [2], [3])
-            px.stop()
-            px.playm(0, loop=True)
+            #     px.sounds[i].mml(mml)
+            # px.musics[0].set([0], [1], [2], [3])
+            # px.playm(0, loop=True)
+            px.channels[i].play(mml, loop=True)
 
     def update(self):
         """フィールド関連オブジェクト群の更新処理"""
@@ -134,6 +141,7 @@ class SceneField(BaseScene):
             #              self.current_point.nextevent.event_value)
             # di.ref.cmdmgr.push_command(cmd)
             # self.current_point.flush_event()
+            self.is_close_window = True
             di.ref.scnmgr.next_scene("mapevent")
             return
 
@@ -262,6 +270,7 @@ class SceneField(BaseScene):
 
         # マップ描画（地図・ノード・ルート　オフセット適用)
         di.ref.map.draw(ox, oy)
+
         # イベントポイント情報表示（移動中は非表示）
         if not di.ref.pt._pt_is_moving:
             if self.is_close_window is False:
@@ -292,6 +301,7 @@ class SceneField(BaseScene):
     def transfer_eventdata(self) -> tuple[EntityContext, CommandBase]:
         """サブシーンへのイベント関連データ受け渡し用"""
         ctx = self.build_context()
+        self.current_point.nextevent.event_type.name  # type: ignore
         event_func_name = EventID(self.current_point.nextevent.event_id).name  # type: ignore
 
         # デバッグ用

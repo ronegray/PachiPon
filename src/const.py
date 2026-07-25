@@ -1,6 +1,7 @@
 """const.py
 定数モジュール
 """
+from enum import IntEnum
 
 APP_WIDTH = 256
 APP_HEIGHT = 256
@@ -17,3 +18,63 @@ ENEMY_ID_BASE = 10  # エネミーのIDは10～の連番
 
 COMMAND_STEPWAIT_FRAME = APP_FPS  # コマンドマネージャの処理待ち間隔（メッセージ表示等）
 DICEROLL_FRAME = int(APP_FPS * 0.6)  # ダイスロールの表示フレーム数
+
+
+class SoundID(IntEnum):
+    CURSOR_VERTICAL = 0
+    CURSOR_HORIZONTAL = 1
+    PAGE_ARROW = 2
+    PAGE_LR = 3
+    DECIDE = 4
+    CANCEL = 5
+    ERROR = 6
+    WINDOW_OPEN = 7
+    WINDOW_CLOSE = 8
+    DICE_ROLL = 9
+    CHANGE_EQUIP = 10
+    LEARN_MAGIC = 11
+    ENTERING = 12
+    SHOP_BUY = 13
+    SAVE_GAME = 14
+    LOAD_GAME = 15
+
+    ENCOUNT = 18
+    ATTACK_MISS = 19
+    MAGIC_FAIL = 20
+    CHOP = 21
+    BASH = 22
+    STUB = 23
+    CAST_SACRED = 24
+    CAST_CURSE = 25
+    CAST_FIRE = 26
+    CAST_ICE = 27
+    CAST_BOLT = 28
+    CAST_MIND = 29
+    CAST_SHOCK = 30
+    CAST_LIGHT = 31
+    CRITICAL = 32
+    DAMAGE_GIVEN = 33
+    DAMAGE_TAKEN = 34
+    PLAYER_DEATH = 35
+    ENEMY_DEATH = 36
+    BATTLE_VICTORY = 37
+    BATTLE_DEFEAT = 38
+    MID_BOSS_BATTLE = 39
+    LAST_BOSS_BATTLE = 40
+    SECRET_BOSS_BATTLE = 41
+    LEVEL_UP = 42
+    RECOVER = 43
+    MP_DECREASE = 44
+    GAZE = 45
+    CHARM = 46
+    ENEMY_ESCAPE = 47
+    BOSS_DEATH = 48
+
+    EVENT_MINUS = 54
+    EVENT_PLUS = 55
+    ITEM_GET = 56
+    ITEM_LOST = 57
+    MEMBER_GET = 58
+    FANFALE = 59
+    USEITEM = 60
+    TURN_DAMAGE = 61

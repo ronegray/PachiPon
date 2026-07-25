@@ -8,12 +8,12 @@ import logging
 from typing import Generator, cast  # , Any
 from dataclasses import dataclass
 import pyxel as px
+from const import COMMAND_STEPWAIT_FRAME, SoundID
 from gameutils.lib import Window  # , WindowAction
 from helper import diceroll, upper_int
-from const import COMMAND_STEPWAIT_FRAME
 from entity import EntityContext, Enemy, Party, Character
 from skill import SkillTargetType
-from item import ItemTargetType, StackPool, ItemState
+from item import ItemTargetType, StackPool, ItemState, WeaponType
 
 # from . import CommandBase, CommandPhase, DisplayInfo
 from . import CommandBaseSequence, CommandPhase, DisplayInfo
@@ -139,6 +139,7 @@ class Attack(CommandBaseEntity):
         # 命中ロール
         judge = actor.hitroll_offence() - target.hitroll_defence()
         if judge <= 0:
+            px.play(3, SoundID.ATTACK_MISS, resume=True)
             yield ["だけど、攻撃は かすりもしなかった・・・"]
             return  # ここで終了
 
@@ -152,34 +153,45 @@ class Attack(CommandBaseEntity):
             damage = int(damage * target.calc_guard_rate(weapon_type))
 
         if damage <= 0:
+            px.play(3, SoundID.ATTACK_MISS, resume=True)
             yield [f"{target.param.name}の かたい防御に はばまれた"]
             return
 
+        match weapon_type:
+            case WeaponType.NONE | WeaponType.BASH:
+                attackse_id = SoundID.BASH
+            case WeaponType.CHOP | WeaponType.FULL:
+                attackse_id = SoundID.CHOP
+            case WeaponType.STUB:
+                attackse_id = SoundID.STUB
+        px.play(3, attackse_id, resume=True)
         yield [f"{target.param.name}に {upper_int(damage)} ポイントの ダメージ！"]
 
         # run_effectに相当：メッセージ表示後にダメージ適用
+        px.play(3, SoundID.DAMAGE_GIVEN, resume=True)
         target.decrease_hp(damage)
 
         if not target.is_alive:
             # cleanupに相当：撃破メッセージ
+            px.play(3, SoundID.ENEMY_DEATH, resume=True)
             yield [f"{target.param.name}は 力尽きて ころがった"]
 
 
-class UseItem(CommandBaseEntity):
+# class UseItem(CommandBaseEntity):
 
-    """ユーザ行動：防御体勢"""
+#     """ユーザ行動：防御体勢"""
 
-    def _sequence(self) -> Generator[list[str], None, None]:
-        if self._check_actor_alive():
-            actor = self._ctx.actor
-        else:
-            return
+#     def _sequence(self) -> Generator[list[str], None, None]:
+#         if self._check_actor_alive():
+#             actor = self._ctx.actor
+#         else:
+#             return
 
-        # ファーストメッセージ
-        yield [f"{actor.param.name}は、 防御の体勢をとっている", ""]
+#         # ファーストメッセージ
+#         yield [f"{actor.param.name}は、 防御の体勢をとっている", ""]
 
-        actor.defend()
-        yield [f"{actor.param.name}の 受けるダメージが 減少する"]
+#         actor.defend()
+#         yield [f"{actor.param.name}の 受けるダメージが 減少する"]
 
 
 class UseSkill(CommandBaseEntity):
@@ -249,6 +261,7 @@ class AttackSpellSingle(CommandBaseEntity):
 
         # 詠唱ロール
         if not actor.castroll(skill_def.dc):
+            px.play(3, SoundID.MAGIC_FAIL, resume=True)
             yield ["呪文は　失敗に終わった・・・"]
             return  # ここで終了
 
@@ -259,9 +272,11 @@ class AttackSpellSingle(CommandBaseEntity):
         )
 
         if damage <= 0:
+            px.play(3, SoundID.ATTACK_MISS, resume=True)
             yield [f"{target.param.name}の守りを 貫けない！"]
             return
 
+        px.play(3, SoundID.DAMAGE_GIVEN, resume=True)
         yield [f"{target.param.name}に {upper_int(damage)} ポイントの ダメージ！"]
 
         # run_effectに相当：メッセージ表示後にダメージ適用
@@ -269,6 +284,7 @@ class AttackSpellSingle(CommandBaseEntity):
 
         if not target.is_alive:
             # cleanupに相当：撃破メッセージ
+            px.play(3, SoundID.ENEMY_DEATH, resume=True)
             yield [f"{target.param.name}は 力尽きて ころがった"]
 
 
@@ -306,9 +322,11 @@ class RecoverSpellSingle(CommandBaseEntity):
 
             # 詠唱ロール
             if not actor.castroll(skill_def.dc):
+                px.play(3, SoundID.MAGIC_FAIL, resume=True)
                 yield ["呪文は　失敗に終わった・・・"]
                 return  # ここで終了
         else:
+            px.play(3, SoundID.CAST_LIGHT, resume=True)
             actor.use_mp(skill_def.cost)
 
         # ダメージロール
@@ -316,6 +334,7 @@ class RecoverSpellSingle(CommandBaseEntity):
         # yield [""]
 
         real_heal = target.increase_hp(healing)
+        px.play(3, SoundID.RECOVER, resume=True)
         yield [f"{target.param.name}は {upper_int(real_heal)} のＨＰが　回復した"]
 
         # if not target.is_alive:
@@ -336,6 +355,7 @@ class EnemyEscape(CommandBaseEntity):
             return
 
         # ファーストメッセージ
+        px.play(3, SoundID.ENEMY_ESCAPE, resume=True)
         yield [f"{actor.param.name}は、 逃げ出したい！", ""]
 
 
@@ -363,10 +383,10 @@ class GrantReward(CommandBaseEntity):
         pt: Party = self.args[0]
 
         # ここで勝利SEとBGMロード
-        len_fanfale = "1"
+        px.play(3, SoundID.BATTLE_VICTORY, resume=True)
         yield ["敵との戦闘に　勝利した！！"]
         yield [""]
-        yield [self.WAIT, len_fanfale]  # 勝利SEの長さを文字で返す
+        yield [self.WAIT, "1"]  # 勝利SEの長さを文字で返す
 
         # お金
         reward_gold = sum([enemy.eparam.gold for enemy in enemy_list])
@@ -430,6 +450,7 @@ class heal_hp(CommandBaseEntity):
 
         # run_effectに相当：メッセージ表示後にダメージ適用
         real_heal = target.increase_hp(healing)
+        px.play(3, SoundID.RECOVER, resume=True)
         yield [f"{target.param.name}は {upper_int(real_heal)} のＨＰが　回復した"]
 
 
@@ -479,4 +500,5 @@ class heal_mp(CommandBaseEntity):
 
         # run_effectに相当：メッセージ表示後にダメージ適用
         real_heal = target.increase_mp(healing)
+        px.play(3, SoundID.RECOVER, resume=True)
         yield [f"{target.param.name}は {upper_int(real_heal)} のＭＰが　回復した"]

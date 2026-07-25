@@ -82,7 +82,7 @@ class Party:
         self._world_y = self._current_point.y
 
         # パーティー単位のパラメータ
-        self._pt_foods = 100
+        self._pt_foods = 0
         self._pt_golds = 50
         self._pt_eventflg = {}
         # # パーティーメッセージウインドウの生成

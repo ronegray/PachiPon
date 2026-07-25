@@ -33,10 +33,10 @@ class SceneFieldEvent(BaseScene):
             logger.critical(errmsg, exc_info=True)
             raise TypeError(errmsg)
 
-        # 背景用に直前画面のスクリーンポインタからイメージ生成
-        self.bgimage: px.Image = px.Image(px.width, px.height)
-        bgpointer = self.bgimage.data_ptr()
-        bgpointer[:] = px.screen.data_ptr()
+        # # 背景用に直前画面のスクリーンポインタからイメージ生成
+        # self.bgimage: px.Image = px.Image(px.width, px.height)
+        # bgpointer = self.bgimage.data_ptr()
+        # bgpointer[:] = px.screen.data_ptr()
 
         self.eventimage: px.Image = px.Image.from_image("assets/image/event01.bmp")
         eventimage_pos = (APP_WIDTH // 2 - self.eventimage.width // 2, 0)
@@ -46,7 +46,7 @@ class SceneFieldEvent(BaseScene):
         )
 
         self.message_window = Window(
-            "large", 4, APP_HEIGHT // 2, APP_WIDTH - 8, APP_HEIGHT // 2, "once"
+            "large", 4, APP_HEIGHT // 2 - 4, APP_WIDTH - 8, APP_HEIGHT // 2, "once"
         )
         self.message_window.update_row_max(6)
 
@@ -55,8 +55,8 @@ class SceneFieldEvent(BaseScene):
             self.message_window,
             ctx,
             parent_scene.current_point.nextevent.event_type,  # type: ignore
-            parent_scene.current_point.nextevent.event_value,
-        )  # type: ignore
+            parent_scene.current_point.nextevent.event_value,  # type: ignore
+        )
         di.ref.cmdmgr.push_command(cmd)
         parent_scene.current_point.flush_event()
 
@@ -117,9 +117,20 @@ class SceneFieldEvent(BaseScene):
             di.ref.scnmgr.previous_scene()
 
     def draw(self):
-        """描画処理"""
-        px.blt(0, 0, self.bgimage, 0, 0, self.bgimage.width, self.bgimage.height)
+        """描画処理
+        ※イベントメッセージはコマンドで描画"""
+        # 背景画像描画
+        # プレイヤーキャラのワールド座標を取得
+        wx, wy = di.ref.pt.get_pt_world_address()
 
+        # カメラオフセットを計算 (プレイヤーが画面中央に来るように)
+        ox = px.width // 2 - wx
+        oy = px.height // 2 - wy
+
+        # マップ描画（地図・ノード・ルート　オフセット適用)
+        di.ref.map.draw(ox, oy)
+
+        # イベント画像の枠
         px.blt(
             self.eventimage_window.x,
             self.eventimage_window.y,
@@ -129,6 +140,7 @@ class SceneFieldEvent(BaseScene):
             self.eventimage.width,
             self.eventimage.height,
         )
+        # イベント画像本体
         px.blt(
             self.eventimage_window.x,
             self.eventimage_window.y,

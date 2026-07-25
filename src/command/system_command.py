@@ -8,6 +8,7 @@ from typing import Generator, cast
 import pyxel as px
 from gameutils.lib import WindowAction  # , Window,
 from field_map import EventPoint
+from const import SoundID
 
 # from const import COMMAND_STEPWAIT_FRAME
 # from . import CommandBase, CommandPhase, DisplayInfo
@@ -139,6 +140,7 @@ class FoodShortageEffect(CommandBaseSystem):
             lambda: px.rect(0, 0, px.width, px.height, px.COLOR_RED),
             lambda: px.dither(1),
         ]
+        px.play(3, SoundID.TURN_DAMAGE, resume=True)
         yield [self.WAIT, "0"]
 
 
@@ -154,6 +156,7 @@ class KickEvent(CommandBaseSystem):
         roll_frames = 60
         effect.start(dices, roll_frames)
         yield ["何が起こるか", "　おたのしみ！"]
+        px.play(3, SoundID.DICE_ROLL, resume=True)
         while effect.is_rolling:
             effect.update()
             self.display_info.graphic_command = effect.get_draw_commands()
@@ -172,12 +175,16 @@ class INCREASE_HP(CommandBaseSystem):
     def _sequence(self) -> Generator[list[str], None, None]:
         # event_type = self.args[0]
         # event_value = self.args[1]
+
         yield ["HP回復イベント"]
         yield ["なんか"]
         yield ["メッセージが"]
         yield ["流れたあとに"]
+        px.play(3, SoundID.EVENT_PLUS, resume=True)
         yield ["なんか"]
         yield ["効果が"]
+        px.play(3, SoundID.RECOVER, resume=True)
         yield ["発生する感じ"]
+
         while self.display_info.target.update() == WindowAction.CONTINUE:
             yield [self.WAIT, "0"]
