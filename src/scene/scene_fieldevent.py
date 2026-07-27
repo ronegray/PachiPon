@@ -38,18 +38,13 @@ class SceneFieldEvent(BaseScene):
         # bgpointer = self.bgimage.data_ptr()
         # bgpointer[:] = px.screen.data_ptr()
 
-        self.eventimage: px.Image = px.Image.from_image("assets/image/event01.bmp")
-        eventimage_pos = (APP_WIDTH // 2 - self.eventimage.width // 2, 0)
-        eventimage_size = (self.eventimage.width, self.eventimage.height)
-        self.eventimage_window = Window(
-            "large", *eventimage_pos, *eventimage_size, "once"
-        )
-
+        # イベントメッセージウインドウの生成
         self.message_window = Window(
             "large", 4, APP_HEIGHT // 2 - 4, APP_WIDTH - 8, APP_HEIGHT // 2, "once"
         )
         self.message_window.update_row_max(6)
 
+        # フィールドシーンからイベント情報を取得
         ctx, evtcmd = parent_scene.transfer_eventdata()
         cmd = evtcmd(
             self.message_window,
@@ -59,6 +54,14 @@ class SceneFieldEvent(BaseScene):
         )
         di.ref.cmdmgr.push_command(cmd)
         parent_scene.current_point.flush_event()
+
+        # イベント画像の取得
+        self.eventimage: px.Image = px.Image.from_image("assets/image/event01.bmp")
+        eventimage_pos = (APP_WIDTH // 2 - self.eventimage.width // 2, 0)
+        eventimage_size = (self.eventimage.width, self.eventimage.height)
+        self.eventimage_window = Window(
+            "large", *eventimage_pos, *eventimage_size, "once"
+        )
 
         self.load_bgm()
 

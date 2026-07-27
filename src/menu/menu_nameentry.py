@@ -64,12 +64,12 @@ class MenuNameEntry(Menu):
     def key_check(self) -> WindowAction:
         """キー入力の確認と応答"""
         if self.move_cursor():
-            px.play(1, SoundID.CURSOR_VERTICAL, resume=True)
+            px.play(self.se_ch, SoundID.CURSOR_VERTICAL, resume=True)
         elif self.inputkey.decide():
-            px.play(3, SoundID.DECIDE, resume=True)
+            px.play(self.se_ch, SoundID.DECIDE, resume=True)
             self.add_letter()
         elif self.inputkey.cancel():
-            px.play(3, SoundID.CANCEL, resume=True)
+            px.play(self.se_ch, SoundID.CANCEL, resume=True)
             self.delete_letter()
         return WindowAction.CONTINUE
 

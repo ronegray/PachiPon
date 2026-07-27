@@ -140,7 +140,7 @@ class FoodShortageEffect(CommandBaseSystem):
             lambda: px.rect(0, 0, px.width, px.height, px.COLOR_RED),
             lambda: px.dither(1),
         ]
-        px.play(3, SoundID.TURN_DAMAGE, resume=True)
+        px.play(self.se_ch, SoundID.TURN_DAMAGE, resume=True)
         yield [self.WAIT, "0"]
 
 
@@ -156,7 +156,7 @@ class KickEvent(CommandBaseSystem):
         roll_frames = 60
         effect.start(dices, roll_frames)
         yield ["何が起こるか", "　おたのしみ！"]
-        px.play(3, SoundID.DICE_ROLL, resume=True)
+        px.play(self.se_ch, SoundID.DICE_ROLL, resume=True)
         while effect.is_rolling:
             effect.update()
             self.display_info.graphic_command = effect.get_draw_commands()
@@ -170,8 +170,10 @@ class KickEvent(CommandBaseSystem):
                 point.rise_event(event_id)
                 break
 
+    # good
 
-class INCREASE_HP(CommandBaseSystem):
+
+class SAFETY_INCREASE_HP(CommandBaseSystem):
     def _sequence(self) -> Generator[list[str], None, None]:
         # event_type = self.args[0]
         # event_value = self.args[1]
@@ -180,11 +182,264 @@ class INCREASE_HP(CommandBaseSystem):
         yield ["なんか"]
         yield ["メッセージが"]
         yield ["流れたあとに"]
-        px.play(3, SoundID.EVENT_PLUS, resume=True)
+        px.play(self.se_ch, SoundID.EVENT_PLUS, resume=True)
         yield ["なんか"]
         yield ["効果が"]
-        px.play(3, SoundID.RECOVER, resume=True)
+        px.play(self.se_ch, SoundID.RECOVER, resume=True)
         yield ["発生する感じ"]
 
         while self.display_info.target.update() == WindowAction.CONTINUE:
             yield [self.WAIT, "0"]
+
+
+class NORMAL_INCREASE_HP(CommandBaseSystem):  # HP増
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class GAMBLE_INCREASE_HP(CommandBaseSystem):  # HP増
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class SAFETY_INCREASE_MP(CommandBaseSystem):  # MP増
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class NORMAL_INCREASE_MP(CommandBaseSystem):  # MP増
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class GAMBLE_INCREASE_MP(CommandBaseSystem):  # MP増
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class SAFETY_INCREASE_GOLD(CommandBaseSystem):  # おかね増
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class NORMAL_INCREASE_GOLD(CommandBaseSystem):  # おかね増
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class GAMBLE_INCREASE_GOLD(CommandBaseSystem):  # おかね増
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class SAFETY_INCREASE_FOOD(CommandBaseSystem):  # 食糧増
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class NORMAL_INCREASE_FOOD(CommandBaseSystem):  # 食糧増
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class GAMBLE_INCREASE_FOOD(CommandBaseSystem):  # 食糧増
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class SAFETY_FLGEVENT1_A(CommandBaseSystem):  # フラグイベントStep1
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class SAFETY_FLGEVENT1_B(CommandBaseSystem):  # フラグイベントStep1
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class SAFETY_FLGEVENT1_C(CommandBaseSystem):  # フラグイベントStep1
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class NORMAL_GET_POTION(CommandBaseSystem):  # 低級消耗品増
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class NORMAL_MEET_ALLY(CommandBaseSystem):  # 仲間ゲット
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class NORMAL_FLGEVENT2_D(CommandBaseSystem):  # フラグイベントStep2
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class NORMAL_FLGEVENT2_E(CommandBaseSystem):  # フラグイベントStep2
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class NORMAL_FLGEVENT2_F(CommandBaseSystem):  # フラグイベントStep2
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class GAMBLE_GET_HIPOTION(CommandBaseSystem):  # 高級消耗品増
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class GAMBLE_FLGEVENT3_G(CommandBaseSystem):  # フラグイベントStep3
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class GAMBLE_FLGEVENT3_H(CommandBaseSystem):  # フラグイベントStep3
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class SAFETY_GET_JUNK(CommandBaseSystem):  # 最低装備品ゲット
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class GAMBLE_GET_ARMORY(CommandBaseSystem):  # 装備品ゲット
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+    # bad
+
+
+class SAFETY_DECREASE_HP(CommandBaseSystem):  # HP減
+    def _sequence(self) -> Generator[list[str], None, None]:
+        # event_type = self.args[0]
+        # event_value = self.args[1]
+
+        yield ["HP回復イベント"]
+        yield ["なんか"]
+        yield ["メッセージが"]
+        yield ["流れたあとに"]
+        px.play(self.se_ch, SoundID.EVENT_MINUS, resume=True)
+        yield ["なんか"]
+        yield ["効果が"]
+        px.play(self.se_ch, SoundID.MP_DECREASE, resume=True)
+        yield ["発生する感じ"]
+
+        while self.display_info.target.update() == WindowAction.CONTINUE:
+            yield [self.WAIT, "0"]
+
+
+class NORMAL_DECREASE_HP(CommandBaseSystem):  # HP減
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class GAMBLE_DECREASE_HP(CommandBaseSystem):  # HP減
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class SAFETY_DECREASE_MP(CommandBaseSystem):  # MP減
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class NORMAL_DECREASE_MP(CommandBaseSystem):  # MP減
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class GAMBLE_DECREASE_MP(CommandBaseSystem):  # MP減
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class SAFETY_DECREASE_GOLD(CommandBaseSystem):  # おかね減
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class NORMAL_DECREASE_GOLD(CommandBaseSystem):  # おかね減
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class GAMBLE_DECREASE_GOLD(CommandBaseSystem):  # おかね減
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class SAFETY_DECREASE_FOOD(CommandBaseSystem):  # 食糧減
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class NORMAL_DECREASE_FOOD(CommandBaseSystem):  # 食糧減
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class GAMBLE_DECREASE_FOOD(CommandBaseSystem):  # 食糧減
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class NORMAL_LOST_POTION(CommandBaseSystem):  # 低級消耗品減
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class SAFETY_SURPRISE_BATTLE(CommandBaseSystem):  # 強制戦闘
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class NORMAL_SURPRISE_BATTLE(CommandBaseSystem):  # 強制戦闘
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class GAMBLE_SURPRISE_BATTLE(CommandBaseSystem):  # 強制戦闘
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class GAMBLE_LOST_HIPOTION(CommandBaseSystem):  # 高級消耗品減
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+    # boss
+
+
+class BATTLE_CROWN(CommandBaseSystem):  # 宝冠の守護者　破魔に弱い
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class BATTLE_MIRROR(CommandBaseSystem):  # 神鏡の守護者　衝撃に弱い
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class BATTLE_CEPTER(CommandBaseSystem):  # 王笏の守護者　精神に弱い
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class BATTLE_GRAIL(CommandBaseSystem):  # 聖杯の守護者　呪毒に弱い
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class BATTLE_SATAN(CommandBaseSystem):  # 魔王
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]
+
+
+class GAMBLE_KING(CommandBaseSystem):  # 人間の王
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield [""]

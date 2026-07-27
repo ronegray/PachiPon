@@ -32,7 +32,8 @@ class SceneBattleSplash(BaseScene):
         self.is_skip_splash: bool = False
         self.is_next_scene: bool = False
         """このシーンではbgmは無し SEのみ"""
-        px.play(3, SoundID.ENCOUNT, resume=True)
+        se_ch = 3
+        px.play(se_ch, SoundID.ENCOUNT, resume=True)
 
     def update(self) -> None:
         """更新ループ"""

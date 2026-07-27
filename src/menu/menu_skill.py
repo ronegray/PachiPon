@@ -9,6 +9,7 @@ import logging
 
 # from typing import Callable
 import pyxel as px
+from const import SoundID
 
 # import service_locater as di
 from gameutils.lib import (
@@ -527,19 +528,41 @@ class MenuSelectSkillField(Menu):
             # self.build_status()
 
         if self.inputkey.left():
+            px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
             # self.member_index = (self.member_index - 1) % di.ref.pt.get_member_count()
             self.member_index = (self.member_index - 1) % len(self.ctx.allies)
             _update_list()
         if self.inputkey.right():
+            px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
             # self.member_index = (self.member_index + 1) % di.ref.pt.get_member_count()
             self.member_index = (self.member_index + 1) % len(self.ctx.allies)
             _update_list()
 
+    # def move_cursor(self) -> bool:
+    #     """カーソル移動時に詳細ウインドウの内容を書き換える"""
+    #     result = super().move_cursor()
+    #     if result:
+    #         self.change_target_item()
+    #     return result
+
     def move_cursor(self) -> bool:
-        """カーソル移動時に詳細ウインドウの内容を書き換える"""
-        result = super().move_cursor()
+        """キー入力に応じたカーソル移動とインデックス制御"""
+        result = False
+        if self.inputkey.up():
+            self.cursor_position[1] = (self.cursor_position[1] - 1) % self.menu_shape[1]
+            result = True
+        # if self.inputkey.left():
+        #     self.cursor_position[0] = (self.cursor_position[0] - 1) % self.menu_shape[0]
+        #     return True
+        if self.inputkey.down():
+            self.cursor_position[1] = (self.cursor_position[1] + 1) % self.menu_shape[1]
+            result = True
+        # if self.inputkey.right():
+        #     self.cursor_position[0] = (self.cursor_position[0] + 1) % self.menu_shape[0]
+        #     return True
         if result:
             self.change_target_item()
+        # return False
         return result
 
     def get_item_desc(self) -> list[str]:

@@ -12,7 +12,7 @@ import service_locater as di
 from const import FIELD_MESSAGE_HEIGHT, APP_WIDTH, APP_HEIGHT
 from gameutils.base import is_pressed, check_file, read_string
 from gameutils.lib import Window, WindowAction
-from event import EventID
+from event import EventID, EventType
 
 # from command import CommandContext
 from field_map import EventPoint
@@ -302,10 +302,14 @@ class SceneField(BaseScene):
         """サブシーンへのイベント関連データ受け渡し用"""
         ctx = self.build_context()
         self.current_point.nextevent.event_type.name  # type: ignore
-        event_func_name = EventID(self.current_point.nextevent.event_id).name  # type: ignore
+        event_func_name = (
+            EventType(self.current_point.nextevent.event_type).name  # type: ignore
+            + "_"
+            + EventID(self.current_point.nextevent.event_id).name
+        )  # type: ignore
 
         # デバッグ用
-        event_func_name = "INCREASE_HP"
+        event_func_name = "NORMAL_DECREASE_HP"
 
         evtcmd = getattr(s_cmd, event_func_name)
         return (ctx, evtcmd)
