@@ -35,7 +35,7 @@ class CommandBaseSequence(CommandBase):
         """初期化：コンテキストの引継"""
         self.display_info: DisplayInfo = DisplayInfo(wnd)
         self.step_wait = COMMAND_STEPWAIT_FRAME  # メッセージ待ち間隔
-        self.se_no = 0  # サウンドエフェクトの番号
+        self.se_ch = 3  # サウンドエフェクトのチャンネル番号
         self.args = args
         self.kwargs = kwargs
         self.phase = CommandPhase.SYN

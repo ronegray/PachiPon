@@ -86,7 +86,8 @@ def efx_diceroll(
     # effect.load_diceimage()
     effect = di.ref.efxdice
     effect.start(dices)
-    px.play(3, SoundID.DICE_ROLL, resume=True)
+    se_ch = 3
+    px.play(se_ch, SoundID.DICE_ROLL, resume=True)
     while effect.is_rolling:
         effect.update()
         disp_info.graphic_command = effect.get_draw_commands()
