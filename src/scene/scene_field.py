@@ -305,8 +305,8 @@ class SceneField(BaseScene):
         event_func_name = (
             EventType(self.current_point.nextevent.event_type).name  # type: ignore
             + "_"
-            + EventID(self.current_point.nextevent.event_id).name
-        )  # type: ignore
+            + EventID(self.current_point.nextevent.event_id).name  # type: ignore
+        )
 
         # デバッグ用
         event_func_name = "NORMAL_DECREASE_HP"
