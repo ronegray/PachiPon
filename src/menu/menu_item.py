@@ -7,13 +7,7 @@ import pyxel as px
 from const import SoundID
 
 import service_locater as di
-from gameutils.lib import (
-    Window,
-    Menu,
-    ExecResult,
-    RsltPush,
-    RsltDiscard,
-)
+from gameutils.lib import Window, Menu, ExecResult, RsltPush, RsltDiscard, RsltContinue
 from helper import upper_int_format, format_leftright
 from item import (
     ItemType,
@@ -244,7 +238,7 @@ class MenuUseItem(MenuItemBase):
 
         self.inventory_count = len(filtereddict)
         if self.inventory_count <= 0:
-            self.item_list = [[{"id": "該当なし", "action": "None"}]]
+            self.item_list = [[[{"id": "該当なし", "action": "None", "args": [""]}]]]
         else:
             tmp_item_list = [
                 [
@@ -272,7 +266,12 @@ class MenuUseItem(MenuItemBase):
         self.menu_shape = [1, len(self.item_list[self.itemlist_index])]
 
     def get_item_desc(self) -> list[str]:
-        return [di.ref.itemrps.get_def(self.target_item[0]["args"][0]).description]  # type: ignore
+        target_item = di.ref.itemrps.get_def(self.target_item[0]["args"][0])
+        if target_item is None:
+            desc = "持っていない"
+        else:
+            desc = target_item.description
+        return [desc]
 
     def exec_menu(self) -> ExecResult:
         """選択メニュー項目の処理を実行"""
@@ -280,6 +279,8 @@ class MenuUseItem(MenuItemBase):
         selected_item = self.menu_items[pos_y][pos_x]
         logger.info(selected_item)
 
+        if self.inventory_count == 0:
+            return RsltContinue()
         if selected_item.menu_action is None:
             errmsg = f"メニューアクション関数が定義されていません：{selected_item.item_label}"
             logger.critical(errmsg, exc_info=True)
@@ -359,7 +360,7 @@ class MenuShowKeyItem(MenuItemBase):
 
         self.inventory_count = len(filteredlist)
         if self.inventory_count <= 0:
-            self.item_list = [[{"id": "該当なし", "action": "None"}]]
+            self.item_list = [[[{"id": "該当なし", "action": "None", "args": [""]}]]]
         else:
             self.item_list = [
                 filteredlist[i : i + self._list_rows]
@@ -372,6 +373,9 @@ class MenuShowKeyItem(MenuItemBase):
         self.menu_shape = [1, len(self.item_list[self.itemlist_index])]
 
     def get_item_desc(self) -> list[str]:
+        item_def = di.ref.itemrps.get_def(self.target_item[0]["args"][0])
+        if item_def is None:
+            return ["対象を持っていない"]
         return [self.target_item[0]["args"]]
 
 
@@ -445,7 +449,7 @@ class MenuShowEquips(MenuItemBase):
             # if self.filter_name == "":
             #     self.item_list = [[{"id": "なし", "action": "None"}]]
             # else:
-            self.item_list = [[{"id": "該当なし", "action": "None"}]]
+            self.item_list = [[[{"id": "該当なし", "action": "None", "args": [""]}]]]
         else:
             # tmp_item_list = [[{"id":f"{di.ref.itemmgr.get_def(key).name} x {val}",
             #                    "action":"use_item", "args":[key]}]
@@ -477,7 +481,7 @@ class MenuShowEquips(MenuItemBase):
         # return self.target_item[0]["args"]
         item_def = di.ref.itemrps.get_def(self.target_item[0]["args"][0])
         if item_def is None:
-            return [""]
+            return ["対象を持っていない"]
         match item_def.item_type:
             case ItemType.WEAPON:
                 expect_dmg = item_def.hitdice * 4

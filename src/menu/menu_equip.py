@@ -9,7 +9,7 @@ import logging
 import pyxel as px
 from const import SoundID
 import service_locater as di
-from gameutils.lib import Menu, Window, ExecResult, RsltPush, RsltPop
+from gameutils.lib import Menu, Window, ExecResult, RsltPush, RsltPop, RsltContinue
 from item import ItemState, ItemType
 from entity import EquipSlot
 from helper import upper_int_format, format_leftright
@@ -232,7 +232,9 @@ class MenuEquip(Menu):
         logger.info(selected_item)
 
         # self.member.equipments.equip_off(self.slot)
-        if self.slot_filter == ItemType.CONSUME:
+        if self.inventory_count <= 0:
+            return RsltContinue()
+        elif self.slot_filter == ItemType.CONSUME:
             px.play(self.se_ch, SoundID.CHANGE_EQUIP, resume=True)
             self.member.equipments.equip_on_consume(
                 self.slot, selected_item.action_args[0]
@@ -303,7 +305,7 @@ class MenuEquip(Menu):
             # if self.filter_name == "":
             #     self.item_list = [[{"id": "なし", "action": "None"}]]
             # else:
-            self.item_list = [[{"id": "該当なし", "action": "None"}]]
+            self.item_list = [[[{"id": "該当なし", "action": "None", "args": [""]}]]]
         else:
             # tmp_item_list = [[{"id":f"{di.ref.itemmgr.get_def(key).name} x {val}",
             #                    "action":"use_item", "args":[key]}]
@@ -326,7 +328,7 @@ class MenuEquip(Menu):
 
         self.inventory_count = len(filteredlist)
         if self.inventory_count <= 0:
-            self.item_list = [[{"id": "該当なし", "action": "None"}]]
+            self.item_list = [[[{"id": "該当なし", "action": "None", "args": [""]}]]]
         else:
             tmp_item_list = [
                 [
@@ -369,9 +371,10 @@ class MenuEquip(Menu):
         # return self.target_item[0]["args"]
         item_def = di.ref.itemrps.get_def(self.target_item[0]["args"][0])
         if item_def is None:
-            errmsg = f"アイテム定義情報の取得に失敗しました：ID={item_def}"
-            logger.critical(errmsg, exc_info=True)
-            raise ValueError(errmsg)
+            # errmsg = f"アイテム定義情報の取得に失敗しました：ID={item_def}"
+            # logger.critical(errmsg, exc_info=True)
+            # raise ValueError(errmsg)
+            return ["何も持っていない"]
         match item_def.item_type:
             case ItemType.CONSUME:
                 return [f"{item_def.description}"]
