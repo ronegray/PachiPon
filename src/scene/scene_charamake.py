@@ -3,12 +3,13 @@
 """
 import logging
 import pyxel as px
-from const import BASE_PARAM
+
+# from const import BASE_PARAM
 from helper import upper_int_format, format_leftright
 from gameutils.lib import Window
 from assets.asset_map import AssetID, AssetMap
 import service_locater as di
-from entity import EntityParam, PlayerSprite, Character, EntityContext
+from entity import PlayerSprite, Character, EntityContext
 from menu import MenuCharaMake
 import command.entity_command as e_cmd
 
@@ -30,14 +31,7 @@ class SceneCharaMake(BaseScene):
         )
 
         # キャラクターのベースデータ作成
-        self.param = EntityParam(
-            name="********",
-            strength=BASE_PARAM,
-            arcane=BASE_PARAM,
-            endurance=BASE_PARAM,
-            speed=BASE_PARAM,
-            luck=BASE_PARAM,
-        )
+        self.param = di.ref.scnmgr.get_now_scene().param  # type: ignore
         self.charaimage: px.Image = px.Image.from_image(
             AssetMap.get_assetpath(AssetID.IMAGE_CHARA)
         )
@@ -114,9 +108,13 @@ class SceneCharaMake(BaseScene):
                     targets=[],
                 )
                 cmd = e_cmd.CharacterInitialHPMP(ctx, self.message_window)
+                self.hero.equip_default()
                 di.ref.pt.add_ptmember(self.hero)
+                di.ref.pt.set_field_sprite()
                 di.ref.cmdmgr.push_command(cmd)
-                di.ref.cmdmgr.set_on_empty(lambda: di.ref.scnmgr.next_scene("map"))
+                di.ref.cmdmgr.set_on_empty(
+                    lambda: di.ref.scnmgr.change_scene("opening")
+                )
 
     def draw(self):
         """描画処理"""

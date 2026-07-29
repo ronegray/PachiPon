@@ -14,7 +14,7 @@ SE_CH = 3  # 効果音用チャンネル番号
 
 BASE_PARAM = 3
 INITIAL_MAX_PARAM = 18
-BONUS_POINT = 28
+BONUS_POINT = 1
 
 # フィールド上のメッセージウインドウ高さ
 FIELD_MESSAGE_HEIGHT = 56

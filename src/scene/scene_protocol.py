@@ -14,6 +14,7 @@ SCENE_NAME = Literal[
     "title",
     "newgame",
     "charamake",
+    "opening",
     # "ngplus",
     "dataload",
     "config",
