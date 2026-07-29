@@ -4,6 +4,7 @@ from .window_protocol import WINDOW_MODE, MENU_WINDOW_TYPE, WindowAction
 from .window_base import (
     Window,
     Menu,
+    MenuYesNo,
     MenuItem,
     ExecResult,
     MENU_ITEM_LIST,

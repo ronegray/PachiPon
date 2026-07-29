@@ -24,9 +24,10 @@ class SceneManager:
         instance = get_scene(scene_name)()
         self._stacks.append(instance)
 
-    def previous_scene(self, is_load_bgm: bool = True):
+    def previous_scene(self, is_load_bgm: bool = True, step: int = 1):
         """前のシーンに戻る"""
-        self._stacks.pop()
+        for _ in range(step):
+            self._stacks.pop()
         if is_load_bgm:
             self._stacks[-1].load_bgm()
 

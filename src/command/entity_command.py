@@ -9,11 +9,12 @@ from typing import Generator, cast  # , Any
 from dataclasses import dataclass
 import pyxel as px
 from const import SoundID
-from gameutils.lib import Window  # , WindowAction
+from gameutils.lib import Window, WindowAction
 from helper import diceroll, upper_int
 from entity import EntityContext, Enemy, Party, Character
 from skill import SkillTargetType
 from item import ItemTargetType, StackPool, ItemState, WeaponType
+import service_locater as di
 
 # from . import CommandBase, CommandPhase, DisplayInfo
 from . import CommandBaseSequence, CommandPhase  # , DisplayInfo
@@ -147,7 +148,7 @@ class Attack(CommandBaseEntity):
         # ダメージロール
         crit_rate = actor.get_critical_rate(judge)
         dice, damage = actor.damageroll_melee()
-        yield from efx_diceroll(self.display_info, dice)
+        _ = yield from efx_diceroll(self.display_info, dice)  # type: ignore
         damage = (damage * crit_rate) - target.suppress_damage_melee()
         weapon_type = actor.get_weapon_type()
         if not weapon_type:
@@ -384,6 +385,7 @@ class GrantReward(CommandBaseEntity):
         pt: Party = self.args[0]
 
         # ここで勝利SEとBGMロード
+        px.stop()
         px.play(self.se_ch, SoundID.BATTLE_VICTORY, resume=True)
         yield ["敵との戦闘に　勝利した！！"]
         yield [""]
@@ -402,6 +404,71 @@ class GrantReward(CommandBaseEntity):
             member.gain_exp(getexp)
             yield [f"{member.param.name}は　経験値{getexp}　を稼いだ！"]
 
+        return
+
+
+class CharacterInitialHPMP(CommandBaseEntity):
+    """キャラメイク時の初期HPとMPの決定"""
+
+    def _sequence(self) -> Generator[list[str], None, None]:
+        effect = di.ref.efxdice
+        roll_frames = 60
+        yield ["初期ＨＰとＭＰを決めるため", "サイコロを２回転がします"]
+        yield ["ＨＰサイコロの数は、１＋耐久ボーナス値"]
+        dices = 1 + self._ctx.actor.bonus_end
+        effect.start(dices, roll_frames)
+        while effect.is_rolling:
+            effect.update()
+            self.display_info.graphic_command = effect.get_draw_commands()
+            yield ["wait", "0"]
+        max_hp = effect.total
+        yield [f"最大ＨＰは {max_hp} になりました"]
+        self._ctx.actor.param.max_hp = max_hp
+        self._ctx.actor.param.hp = max_hp
+        while self.display_info.target.update() == WindowAction.CONTINUE:
+            yield [self.WAIT, "0"]
+
+        yield ["ＭＰサイコロの数は、１＋魔力ボーナス値"]
+        dices = 1 + self._ctx.actor.bonus_arc
+        effect.start(dices, roll_frames)
+        while effect.is_rolling:
+            effect.update()
+            self.display_info.graphic_command = effect.get_draw_commands()
+            yield ["wait", "0"]
+        max_mp = effect.total
+        yield [f"最大ＭＰは {max_mp} になりました"]
+        self._ctx.actor.param.max_mp = max_mp
+        self._ctx.actor.param.mp = max_mp
+        while self.display_info.target.update() == WindowAction.CONTINUE:
+            yield [self.WAIT, "0"]
+
+
+class CharacterLevelup(CommandBaseEntity):
+    """レベルアップメッセージと効果音"""
+
+    def _sequence(self) -> Generator[list[str], None, None]:
+        px.play(self.se_ch, SoundID.LEVEL_UP, resume=True)
+        yield [f"{self._ctx.actor.param.name}は　レベルアップ！！", ""]
+        return
+
+
+class CharacterGainHPMP(CommandBaseEntity):
+    """レベルアップによるHPとMPの上昇"""
+
+    def _sequence(self) -> Generator[list[str], None, None]:
+        yield ["ＨＰの上昇値を決定します", "Ｌｅｔ’ｓ　ｄｉｃｅｒｏｌｌ！"]
+        val = yield from efx_diceroll(self.display_info, 1)  # type: ignore
+        yield [f"ＨＰが{val} 増えました！"]
+        gain = val + self._ctx.actor.bonus_end
+        self._ctx.actor.param.max_hp += gain
+        self._ctx.actor.param.hp += gain
+
+        yield ["ＭＰの上昇値を決定します"]
+        val = yield from efx_diceroll(self.display_info, 1)  # type: ignore
+        yield [f"ＭＰが{val} 増えました！"]
+        gain = val + self._ctx.actor.bonus_arc
+        self._ctx.actor.param.max_mp += gain
+        self._ctx.actor.param.mp += gain
         return
 
 

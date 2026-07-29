@@ -32,6 +32,7 @@ class AssetID(IntEnum):
     DATA_EVENT = auto()
     DATA_EVENTPOINT = auto()
     IMAGE_DICE = auto()
+    DATA_PARAM = auto()
 
 
 class AssetMap:
@@ -82,6 +83,7 @@ class AssetMap:
             AssetID.DATA_EVENTPOINT
         ] = f"{cls._asset_path}/data/eventpoints.json"
         cls._asset_map[AssetID.IMAGE_DICE] = f"{cls._asset_path}/image/dice.bmp"
+        cls._asset_map[AssetID.DATA_PARAM] = f"{cls._asset_path}/data/desc_param.json"
 
     @classmethod
     def get_assetpath(cls, asset_id: AssetID) -> str:

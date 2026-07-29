@@ -13,6 +13,7 @@ from .window import (
     WindowManager,
     Window,
     Menu,
+    MenuYesNo,
     MenuItem,
     MENU_ITEM_LIST,
     ExecResult,

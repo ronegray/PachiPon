@@ -13,6 +13,7 @@ SCENE_NAME = Literal[
     "splash",
     "title",
     "newgame",
+    "charamake",
     # "ngplus",
     "dataload",
     "config",
@@ -27,6 +28,7 @@ SCENE_NAME = Literal[
     "battlesplash",
     "battle",
     "battlemenu",
+    "levelup",
     # "craft",
     # "rest",
 ]

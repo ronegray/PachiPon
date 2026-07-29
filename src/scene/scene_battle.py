@@ -6,7 +6,8 @@
 - 算出イニシアチブ値の順にコマンドを実行し、結果を表示
 """
 import logging
-from typing import Callable
+
+# from typing import Callable
 import pyxel as px
 from gameutils.base import check_file, read_string
 from gameutils.lib import Window, WindowInputHandler
@@ -17,6 +18,7 @@ from field_map import Route
 from entity import Enemy, EntityParam, EnemyParam, BaseSprite, ActionPattern, Character
 from . import BaseScene
 import command.entity_command as e_cmd
+
 
 # from command.system_command import BattleStartEffect
 from entity import EntityBase, EntityContext
@@ -238,30 +240,34 @@ class SceneBattle(BaseScene):
           - コマンド数が揃ったらエネミー側コマンドと行動順を決定してコマンドスタック追加
         """
         if self.is_battle_over:
-            # 戦闘終了処理
-            # self.grant_rewards()
-            if di.ref.cmdmgr.is_empty:
-                # 入力制御の復旧
-                WindowInputHandler.load_default_input()
-                # 報酬の画面表示
-                ctx = self.build_context(
-                    # di.ref.hero, di.ref.hero, di.ref.pt.get_allmember(), self.enemy_list
-                    di.ref.pt.get_member(0),
-                    di.ref.pt.get_member(0),
-                    di.ref.pt.get_allmember(),
-                    self.enemy_list,
-                )
-                di.ref.cmdmgr.push_command(
-                    e_cmd.GrantReward(ctx, self.message_window, di.ref.pt)
-                )
-                # 【コールバック登録ルール】
-                # set_on_empty()は「次にスタックが空になった時」に一度だけ発火する。
-                # GrantRewardをpushする直前に登録することで
-                # 「報酬コマンド完了→シーン遷移」の順序を保証する。
-                # 通常ターン終了時（コマンドスタック空→次ターン入力）では
-                # 戦闘終了フラグが立っていない為この分岐に入らず、
-                # set_on_empty()も呼ばれない。
-                di.ref.cmdmgr.set_on_empty(di.ref.scnmgr.previous_scene)
+            # # 戦闘終了処理
+            # # self.grant_rewards()
+            # if di.ref.cmdmgr.is_empty:
+            #     # 入力制御の復旧
+            #     WindowInputHandler.load_default_input()
+            #     # 報酬の画面表示
+            #     ctx = self.build_context(
+            #         # di.ref.hero, di.ref.hero, di.ref.pt.get_allmember(), self.enemy_list
+            #         di.ref.pt.get_member(0),
+            #         di.ref.pt.get_member(0),
+            #         di.ref.pt.get_allmember(),
+            #         self.enemy_list,
+            #     )
+            #     di.ref.cmdmgr.push_command(
+            #         e_cmd.GrantReward(ctx, self.message_window, di.ref.pt)
+            #     )
+            #     # 【コールバック登録ルール】
+            #     # set_on_empty()は「次にスタックが空になった時」に一度だけ発火する。
+            #     # GrantRewardをpushする直前に登録することで
+            #     # 「報酬コマンド完了→シーン遷移」の順序を保証する。
+            #     # 通常ターン終了時（コマンドスタック空→次ターン入力）では
+            #     # 戦闘終了フラグが立っていない為この分岐に入らず、
+            #     # set_on_empty()も呼ばれない。
+            #     # di.ref.cmdmgr.set_on_empty(di.ref.scnmgr.previous_scene)
+            #     di.ref.cmdmgr.set_on_empty(self.check_levelup)
+            # 入力制御の復旧
+            WindowInputHandler.load_default_input()
+            di.ref.scnmgr.next_scene("levelup")
             return
 
         # 生存エネミーが0匹になったら戦闘終了して前のシーンに戻る
@@ -389,7 +395,7 @@ class SceneBattle(BaseScene):
         )
         return ctx
 
-    def transfer_battledata(self) -> tuple[EntityContext, dict, Window, Callable]:
+    def transfer_battledata(self) -> tuple[EntityContext, dict, Window, px.Image]:
         """サブシーンへの戦闘関連データ受け渡し用"""
         member_list = di.ref.pt.get_allmember()
         member = [
@@ -401,4 +407,5 @@ class SceneBattle(BaseScene):
 
         ctx = self.build_context(actor, target, member_list, self.enemy_list)
 
-        return (ctx, self.battle_commands, self.message_window, self.draw)
+        # return (ctx, self.battle_commands, self.message_window, self.draw)
+        return (ctx, self.battle_commands, self.message_window, self.bgimage)
