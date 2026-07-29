@@ -41,7 +41,8 @@ class GameApp:
         # """開発用に通常画面まで一気に遷移
         # リリース時は削除"""
         di.ref.scnmgr.next_scene("title")
-        di.ref.scnmgr.next_scene("map")
+        di.ref.scnmgr.next_scene("charamake")
+        # di.ref.scnmgr.next_scene("map")
 
         # Pyxel実行開始
         logger.info("Start Pyxel frame procedure.")

@@ -80,7 +80,7 @@ logger = logging.getLogger(__name__)
 
 def efx_diceroll(
     disp_info: DisplayInfo, dices: int
-) -> Generator[list[str], None, None]:
+) -> Generator[list[str | int], None, int]:
     """コマンドジェネレータからダイスロールを実行する為のヘルパー関数"""
     # effect = DiceRollEffect()
     # effect.load_diceimage()
@@ -93,4 +93,5 @@ def efx_diceroll(
         disp_info.graphic_command = effect.get_draw_commands()
         yield ["wait", "0"]
     disp_info.graphic_command = None
-    effect = None
+    # effect = None
+    return effect.total

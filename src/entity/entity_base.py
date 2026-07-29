@@ -207,4 +207,9 @@ class EntityBase(ABC):
         return 1.0
 
     def get_weapon_type(self) -> WeaponType:
+        """武器種取得　※プレイヤーキャラ用シグネチャ"""
         return WeaponType.NONE
+
+    def gain_parameter(self, target: str) -> None:
+        """レベルアップ時のパラメタ上昇　※プレイヤーキャラ用シグネチャ"""
+        pass

@@ -64,6 +64,15 @@ class Window:
     _image_chips: px.Image
     _max_msg_rows: int = 3
     _indicator_address: tuple = (16, 8, 8, 4)
+    # UI操作音の独立定義
+    se_ch: int = 3
+    ui_se: dict[str, px.Sound] = {}
+    snd4 = px.Sound()
+    snd4.set("e4e4e4", "s", "712", "nfn", 4)
+    ui_se["DECIDE"] = snd4
+    # snd5 = px.Sound()
+    # snd5.set("d2c1c#2", "p", "715", "", 3)
+    # ui_se["CANCEL"] = snd5
 
     def __init__(
         self,
@@ -213,6 +222,7 @@ class Window:
 
         # 決定またはキャンセルキー処理
         if self.inp.decide() or self.inp.cancel():
+            px.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
             match self.window_mode:
                 # ページ送り以外では全終了
                 case "once" | "wait":
@@ -362,9 +372,9 @@ class Menu:
     snd4 = px.Sound()
     snd4.set("e4e4e4", "s", "712", "nfn", 4)
     ui_se["DECIDE"] = snd4
-    # snd5 = px.Sound()
-    # snd5.set("d2c1c#2", "p", "715", "", 3)
-    # ui_se["CANCEL"] = snd5
+    snd5 = px.Sound()
+    snd5.set("d2c1c#2", "p", "715", "", 3)
+    ui_se["CANCEL"] = snd5
 
     def __init__(
         self,
@@ -541,7 +551,6 @@ class Menu:
     def key_check(self) -> WindowAction:
         """キー入力の確認と応答"""
         if self.move_cursor():
-            # pass
             px.play(self.se_ch, self.ui_se["CURSOR_VERTICAL"], resume=True)
         elif self.inputkey.decide():
             px.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
@@ -655,47 +664,57 @@ class RsltReplace(RsltPush):
     ...
 
 
-# class MenuYesNo(Menu):
-#     def __init__(self, x, y, msg:list, command_instance, parent):
-#         super().__init__(x + 2*G_.CHIP_PIXEL, y + (len(msg)*2+1)*G_.CHIP_PIXEL , [1,2],  [["はい"],["いいえ"]], 4, 3)
-#         self.address = [x,y]
-#         _textlength = 0
-#         for texts in msg:
-#             _textlength = max(len(texts),_textlength)
-#         _msg_window_width = (_textlength*2+2)*G_.CHIP_PIXEL
-#         if x + _msg_window_width > px.width:
-#             x = px.width - _msg_window_width
-#         self.message_window  = Window(x, y, _msg_window_width, (len(msg)*2+2)*G_.CHIP_PIXEL, 0)
-#         self.message = msg
-#         self.command_instance     = command_instance
-#         self.parent = parent
+class MenuYesNo(Menu):
+    """はい／いいえ確認ダイアログ用メニュー"""
 
-#     def update(self):
-#         if self.is_command:
-#             return self.chkCmdRtn()
-#         btn = comf.get_button_state()
-#         if btn["a"]:
-#             px.play(3,G_.SNDEFX["pi"], resume=True)
-#             match self.cursor_position[1] % self.menu_shape[1]:
-#                 case 0:
-#                     self.command_instance.exec()
-#                     self.is_command = True
-#                 case 1:
-#                     return False
-#             return True
-#         if btn["b"]:
-#             if self.is_command:
-#                 return True
-#             else:
-#                 return False
+    def __init__(self, ans: dict[str, bool], msg: list[str], x: int = 0, y: int = 0):
+        # 戻り値搬送用
+        self.ans: dict[str, bool] = ans
+        # メッセージ用ウインドウの生成
+        msg_h = (
+            int((px.ceil(len(msg) * FontManager.get_fontdata("basic").height / 8)) * 8)
+            + Window._chip_size * 2
+        )
+        message_pos = (0, px.height // 2 - msg_h // 2)
+        message_size = (px.width, msg_h)
+        self.message_window = Window("basic", *message_pos, *message_size, "once")
+        self.message_window.update_row_max(len(msg))
+        self.message_window.set_message(msg)
 
-#         self.moveCursor()
-#         return True
+        # メニューの生成および配置座標の更新
+        menu_shape = [1, 2]
+        super().__init__("basic", 0, 0, menu_shape, "MenuYesNo")
+        self.windows["main"].x = x if x > 0 else px.width - self.width
+        self.windows["main"].y = (
+            y
+            if y > 0
+            else (
+                self.message_window.y + self.message_window.height - Window._chip_size
+            )
+        )
 
-#     def draw(self):
-#         if self.is_command:
-#             self.command_instance.draw()
-#         else:
-#             self.message_window.draw()
-#             self.message_window.drawText(self.address[0]+8,self.address[1]+8, self.message)
-#             self.drawMenu()
+    def key_check(self) -> WindowAction:
+        """キー入力の確認と応答"""
+        if self.move_cursor():
+            px.play(self.se_ch, self.ui_se["CURSOR_VERTICAL"], resume=True)
+        elif self.inputkey.decide():
+            self.ans["answer"] = self.menu_items[self.cursor_position[1]][
+                0
+            ].action_args[0]
+            if self.ans["answer"]:
+                px.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
+            elif self.ans["answer"] is False:
+                px.play(self.se_ch, self.ui_se["CANCEL"], resume=True)
+            self.ans["finished"] = True
+            return WindowAction.CLOSE
+        elif self.inputkey.cancel():
+            px.play(self.se_ch, self.ui_se["CANCEL"], resume=True)
+            self.ans["answer"] = False
+            self.ans["finished"] = True
+            return WindowAction.CLOSE
+        return WindowAction.CONTINUE
+
+    def draw(self):
+        self.message_window.draw()
+        self.message_window.draw_message()
+        super().draw()

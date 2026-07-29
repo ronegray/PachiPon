@@ -143,8 +143,25 @@ class Character(EntityBase):
         return 0b0000_0000
 
     def gain_exp(self, exp: int):
+        """expの加算"""
         self.param.exp += exp
-        # レベルアップ判定ロジックをここに追加
+
+    def check_levelup(self) -> int:
+        """レベルアップ判定ロジック"""
+        up_count = 0
+        for nextexp in self.exp_table[self.param.level :]:
+            if self.param.exp >= nextexp:
+                up_count += 1
+            else:
+                break
+        return up_count
+
+    def gain_parameter(self, target: str) -> None:
+        """指定されたパラメタを加算"""
+        val = getattr(self.param, target)
+        if val is None:
+            raise ValueError
+        setattr(self.param, target, val + 1)
 
     # def add_exp(self, exp_amount):
     #     self.param.exp += exp_amount

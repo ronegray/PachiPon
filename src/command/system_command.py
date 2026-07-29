@@ -154,9 +154,8 @@ class KickEvent(CommandBaseSystem):
         # effect.load_diceimage()
         effect = di.ref.efxdice
         roll_frames = 60
-        effect.start(dices, roll_frames)
         yield ["何が起こるか", "　おたのしみ！"]
-        px.play(self.se_ch, SoundID.DICE_ROLL, resume=True)
+        effect.start(dices, roll_frames)
         while effect.is_rolling:
             effect.update()
             self.display_info.graphic_command = effect.get_draw_commands()

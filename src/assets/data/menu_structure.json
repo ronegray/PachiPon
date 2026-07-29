@@ -32,5 +32,16 @@
         [{"id": "技を使う", "action": "select_skill"}],
         [{"id": "アイテム", "action": "select_item"}],
         [{"id": "防御体勢", "action": "defence_mode"}]
+    ],
+    "MenuLevelup": [
+        [{"id": "腕　力", "action": "ask_confirm","args": ["strength"]}],
+        [{"id": "魔　力", "action": "ask_confirm","args": ["arcane"]}],
+        [{"id": "耐　久", "action": "ask_confirm","args": ["endurance"]}],
+        [{"id": "速　度", "action": "ask_confirm","args": ["speed"]}],
+        [{"id": "幸　運", "action": "ask_confirm","args": ["luck"]}]
+    ],
+    "MenuYesNo": [
+        [{"id": "同　意", "action": "none", "args": [true]}],
+        [{"id": "拒　否", "action": "none", "args": [false]}]
     ]
 }

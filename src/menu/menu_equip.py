@@ -23,16 +23,6 @@ class MenuSelectEquipSlot(Menu):
     """装備スロット選択メニュー"""
 
     def __init__(self, parent: Menu) -> None:
-        # # 親メニューの位置情報を取得
-        # wndmgr = di.ref.scnmgr.get_now_scene().wndmgr
-        # parent = wndmgr.get_stack(1)
-        # padding = 2
-        # pos_x = parent.x + parent.width + padding
-        # pos_y = padding
-
-        # # パラメータ、装備品のウインドウサイズ
-        # param_w, param_h = 128, 136
-        # equip_w, equip_h = 128, 88
         # 情報表示ウインドウのサイズ
         param_w, param_h = 128, 136  # ステータス
         equip_w, equip_h = 128, 88  # 装備
@@ -59,7 +49,6 @@ class MenuSelectEquipSlot(Menu):
         """メニューアイテム生成"""
         self.item_list.clear()
         member = di.ref.pt.get_member(self.member_index)
-        # param = member.base_param
         # 装備項目の構築
         slots = [
             (EquipSlot.WEAPON, "武　器"),
@@ -92,37 +81,28 @@ class MenuSelectEquipSlot(Menu):
         param = member.param
 
         status_lines = f"{param.name}"
-        # status_lines += f"\nレベル： {param.level:2}"
-        # status_lines += f"\n経験値： {param.exp:5}"
-        # status_lines += f"\nＨ　Ｐ： {param.hp:3}／{param.max_hp:3}"
-        # status_lines += f"\nＭ　Ｐ： {param.mp:3}／{param.max_mp:3}"
-        # status_lines += f"\n筋　力： {member.strength:3}(+{member.bonus_str})"
-        # status_lines += f"\n魔　力： {member.arcane:3}(+{member.bonus_arc})"
-        # status_lines += f"\n耐　久： {member.endurance:3}(+{member.bonus_end})"
-        # status_lines += f"\n速　度： {member.speed:3}(+{member.bonus_spd})"
-        # status_lines += f"\n幸　運： {member.luck:3}(+{member.bonus_lck})"
         status_lines += f"\nレベル： {upper_int_format(param.level,2)}"
         status_lines += f"\n経験値： {upper_int_format(param.exp,6)}"
         status_lines += f"\nＨ　Ｐ： {upper_int_format(param.hp, 3)}／{upper_int_format(param.max_hp, 3)}"
         status_lines += f"\nＭ　Ｐ： {upper_int_format(param.mp, 3)}／{upper_int_format(param.max_mp, 3)}"
         status_lines += f"\n筋　力： {format_leftright(
-                upper_int_format(member.strength,2),
+                upper_int_format(member.strength, 3),
                 f"（＋{upper_int_format(member.bonus_str,1)}）",
                 18)}"
         status_lines += f"\n魔　力： {format_leftright(
-                upper_int_format(member.arcane,2),
+                upper_int_format(member.arcane, 3),
                 f"（＋{upper_int_format(member.bonus_str,1)}）",
                 18)}"
         status_lines += f"\n耐　久： {format_leftright(
-                upper_int_format(member.endurance,2),
+                upper_int_format(member.endurance, 3),
                 f"（＋{upper_int_format(member.bonus_end,1)}）",
                 18)}"
         status_lines += f"\n速　度： {format_leftright(
-                upper_int_format(member.speed,2),
+                upper_int_format(member.speed, 3),
                 f"（＋{upper_int_format(member.bonus_spd,1)}）",
                 18)}"
         status_lines += f"\n幸　運： {format_leftright(
-                upper_int_format(member.luck,2),
+                upper_int_format(member.luck, 3),
                 f"（＋{upper_int_format(member.bonus_lck,1)}）",
                 18)}"
 
@@ -146,7 +126,7 @@ class MenuSelectEquipSlot(Menu):
         result = selected_item.menu_action(*selected_item.action_args)
         return result
 
-    def equip_item(self, slot: EquipSlot):
+    def equip_item(self, slot: EquipSlot) -> RsltPush:
         return RsltPush(MenuEquip, slot, self.member_index, self.windows["sub"])
 
     def individual_update(self) -> None:

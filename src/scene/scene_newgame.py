@@ -39,6 +39,7 @@ class SceneNewGame(BaseScene):
         self.bgpos_y = (px.height - self.bgimage.height) // 2
 
         # メニュー生成
+        self.user_name: str = ""
         self.wndmgr.push_stack(MenuNameEntry)
 
         # オープニングメッセージ

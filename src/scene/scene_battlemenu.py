@@ -7,7 +7,8 @@
 import logging
 
 # from typing import Callable
-# import pyxel as px
+import pyxel as px
+
 # from gameutils.base import check_file, read_string
 from gameutils.lib import WindowAction  # Window, WindowAction, WindowInputHandler
 
@@ -86,7 +87,8 @@ class SceneBattleMenu(BaseScene):
             self.context,
             self.battle_commands,
             self.message_window,
-            self.parent_draw,
+            # self.parent_draw,
+            self.bgimage,
         ) = battle_data
         # キャンセル後の再実行時を考慮して担当キャラの入力済コマンドがあれば削除
         self.battle_commands.pop(self.context.actor.id, None)
@@ -171,7 +173,12 @@ class SceneBattleMenu(BaseScene):
         - バトルメニュー
         """
         # 背景描画
-        self.parent_draw()
+        # self.parent_draw()
+        px.dither(0.3)
+        px.blt(0, 0, self.bgimage, 0, 0, self.bgimage.width, self.bgimage.height)
+        # px.dither(0.5)
+        # px.rect(0,0,px.width,px.height,px.COLOR_NAVY)
+        px.dither(1)
         self.wndmgr.draw()
 
     # def build_context(
