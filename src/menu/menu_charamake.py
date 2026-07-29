@@ -267,7 +267,6 @@ class MenuCharaMake(Menu):
                         upper_int_format(member.luck, 2),
                         f"（＋{upper_int_format(member.bonus_lck,1)}）",
                         14)}"
-
             px.text(
                 self.width - self.font.text_width(param) - Window._chip_size,  # type: ignore
                 y + self.height - self.cursor_row_offset,

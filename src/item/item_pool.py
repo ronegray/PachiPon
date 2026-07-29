@@ -24,6 +24,12 @@ class ItemPool:
         self._free: deque[int] = deque(range(capacity))
         # self._items: dict[int, PoolEntry] = {}
         self._items: dict[int, PoolEntry] = {}
+        self.create_initial_items()
+
+    def create_initial_items(self) -> None:
+        """ゲーム開始時装備アイテムの作成"""
+        self.create(ItemID.DAGGER, ItemState.BAG)
+        self.create(ItemID.CLOTH, ItemState.BAG)
 
     def get_def(self, def_id: ItemID):
         return di.ref.itemrps.get_def(def_id)

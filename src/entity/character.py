@@ -17,9 +17,11 @@ from . import (
     EquipSlot,
 )  # , PlayerSpriteType, EquipSlot
 
-# from item import WeaponType
+from item import ItemType
 from skill import SkillID  # , Skills
+
 # from gameutils.base import check_file, read_json
+import service_locater as di
 
 
 class Character(EntityBase):
@@ -163,34 +165,11 @@ class Character(EntityBase):
             raise ValueError
         setattr(self.param, target, val + 1)
 
-    # def add_exp(self, exp_amount):
-    #     self.param.exp += exp_amount
-    #     self._check_level_up()
-
-    # def _check_level_up(self):
-    #     exp_table_path = check_file("assets/data/exp_table.json", "r")
-    #     if not exp_table_path:
-    #         print("Error: exp_table.json not found.")
-    #         return
-    #     exp_table = read_json(exp_table_path)
-
-    #     while (
-    #         self.param.level < len(exp_table)
-    #         and self.param.exp >= exp_table[self.param.level]
-    #     ):
-    #         self.param.level += 1
-    #         self._apply_level_up_bonus()
-
-    # def _apply_level_up_bonus(self):
-    #     # HPとMPがサイコロ1回分上昇
-    #     hp_roll = random.randint(1, 6)
-    #     mp_roll = random.randint(1, 6)
-    #     self.param.hp += hp_roll
-    #     self.param.max_hp += hp_roll
-    #     self.param.mp += mp_roll
-    #     self.param.max_mp += mp_roll
-
-    #     # 筋力、魔力、耐久、速度、幸運の任意の一つを1ポイントアップ
-    #     stats = ["strength", "magic", "defense", "speed", "luck"]
-    #     chosen_stat = random.choice(stats)
-    #     setattr(self.param, chosen_stat, getattr(self.param, chosen_stat) + 1)
+    def equip_default(self) -> None:
+        """キャラ作成時のデフォルト装備を設定"""
+        pooled = di.ref.pl_item.get_by_type(ItemType.WEAPON)
+        pl_item = [(key, val) for key, val in pooled.items()]
+        self.equipments.equip_on_pool(EquipSlot.WEAPON, pl_item[0])
+        pooled = di.ref.pl_item.get_by_type(ItemType.GUARDER)
+        pl_item = [(key, val) for key, val in pooled.items()]
+        self.equipments.equip_on_pool(EquipSlot.GUARDER, pl_item[0])

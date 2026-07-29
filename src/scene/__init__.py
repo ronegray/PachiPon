@@ -14,8 +14,9 @@ from .scene_manager import SceneManager
 # 個別シーン用モジュール
 from .scene_splash import SceneSplash
 from .scene_title import SceneTitle
+from .scene_nameentry import SceneNameEntry
 from .scene_charamake import SceneCharaMake
-from .scene_newgame import SceneNewGame
+from .scene_opening import SceneOpening
 from .scene_field import SceneField
 from .scene_fieldevent import SceneFieldEvent
 from .scene_battlesplash import SceneBattleSplash
@@ -26,8 +27,9 @@ from .scene_levelup import SceneLevelup
 
 register("splash", SceneSplash)
 register("title", SceneTitle)
-register("newgame", SceneNewGame)
+register("newgame", SceneNameEntry)
 register("charamake", SceneCharaMake)
+register("opening", SceneOpening)
 register("map", SceneField)
 register("mapevent", SceneFieldEvent)
 register("battlesplash", SceneBattleSplash)

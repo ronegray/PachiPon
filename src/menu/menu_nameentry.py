@@ -2,22 +2,25 @@
 メニューモジュール：名前入力
 
 """
-
+import logging
 import pyxel as px
-from const import APP_FPS, SoundID
 from gameutils.base import check_file, read_json, FontManager, shadowed_text
-from assets.asset_map import AssetID, AssetMap
 from gameutils.lib import Menu, Window, WindowAction  # , WindowInputHandler
+from const import APP_FPS, SoundID
+from assets.asset_map import AssetID, AssetMap
 import service_locater as di
+from entity import EntityParam
+
 
 # ロギング設定
-import logging
-
 logger = logging.getLogger(__name__)
 
 
 class MenuNameEntry(Menu):
-    def __init__(self):
+    def __init__(self, param: EntityParam):
+        # 名前引き渡し用キャラクタパラメータ
+        self.param = param
+
         path = check_file(AssetMap.get_assetpath(AssetID.DATA_LETTER))
         if path is not None:
             self.name_chars = read_json(path)
@@ -29,12 +32,13 @@ class MenuNameEntry(Menu):
         menu_shape = [11, 9]
         super().__init__("basic", *menu_pos, menu_shape, self.name_chars[0])
 
+        self.max_name_length = 8
         self.prefix = "名前　：　"
         self.input_name_string = ""
         self.name_string = self.prefix + self.input_name_string
         # self.is_need_redraw = True
         self.warning_counter: int = 0  # 注意メッセージの表示中カウンタ
-        self.warning_frames: int = APP_FPS * 5  # 注意メッセージの表示フレーム数
+        self.warning_frames: int = APP_FPS * 3  # 注意メッセージの表示フレーム数
         self.warning_message: str = ""  # 注意メッセージの内容
         self.warning_fontdata = FontManager.get_fontdata("large")
         if self.warning_fontdata.font is None:
@@ -42,21 +46,29 @@ class MenuNameEntry(Menu):
             logger.critical(errmsg, exc_info=True)
             raise TypeError(errmsg)
 
-        subwin_width = 208
-        subwin_height = 24
+        # 名前表示ウインドウ
+        name_w, name_h = 208, 24
         self.windows["sub"] = Window(
             "large",
-            px.width // 2 - subwin_width // 2,
-            (self.windows["main"].y + self.windows["main"].height + Window._chip_size),
-            subwin_width,
-            subwin_height,
+            # px.width // 2 - name_w // 2,
+            (px.width - name_w) // 2,
+            # (self.windows["main"].y + self.windows["main"].height + Window._chip_size),
+            (self.y + self.height + Window._chip_size),
+            name_w,
+            name_h,
             "sub",
         )
         self.cursor_row_offset += 2  # k8x12Sの縦長分対応
 
     def individual_update(self) -> None:
         # 名前文字列を更新
-        self.windows["sub"].set_message([self.name_string])
+        if (
+            px.frame_count % APP_FPS < APP_FPS // 2
+            or len(self.input_name_string) == self.max_name_length
+        ):
+            self.windows["sub"].set_message([self.name_string])
+        else:
+            self.windows["sub"].set_message([self.name_string + "＿"])
         # 注意メッセージ表示カウンタ更新
         if self.warning_counter > 0:
             self.warning_counter -= 1
@@ -89,7 +101,9 @@ class MenuNameEntry(Menu):
                     return
                 else:
                     # di.ref.scnmgr.change_scene("map")
-                    di.ref.scnmgr._stacks[-1].wndmgr.pop_stack()
+                    # di.ref.scnmgr._stacks[-1].wndmgr.pop_stack()
+                    self.param.name = self.input_name_string
+                    di.ref.scnmgr.next_scene("charamake")
                     return
             case "片":
                 self.build_menu_items(self.name_chars[1])
@@ -101,7 +115,7 @@ class MenuNameEntry(Menu):
                 self.build_menu_items(self.name_chars[0])
                 return
         tmpStr = self.input_name_string + selected_item.item_label
-        if len(tmpStr) > 8:
+        if len(tmpStr) > self.max_name_length:
             self.warning_message = "名前の文字数は８文字が上限です"
             # SE "don"
             self.warning_counter = self.warning_frames
@@ -123,6 +137,13 @@ class MenuNameEntry(Menu):
 
     def draw(self):
         super().draw()
+        shadowed_text(
+            self.windows["sub"].x,
+            self.windows["sub"].y + self.windows["sub"].height + self.cursor_row_offset,
+            "決定キー：文字入力　キャンセルキー：文字削除\nED：名前確定",
+            px.COLOR_LIGHT_BLUE,
+            self.windows["main"].font,
+        )
         if self.warning_counter > 0:
             msglen = (
                 0

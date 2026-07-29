@@ -26,6 +26,7 @@ class SceneTitle(BaseScene):
             (px.width - self.bgimage.width) // 2,
             (px.height - self.bgimage.height) // 2,
         )
+        # タイトルロゴ設定
         self.logo = px.Image.from_image(AssetMap.get_assetpath(AssetID.IMAGE_LOGO))
         self.logopos = (
             (px.width - self.logo.width) // 2,
