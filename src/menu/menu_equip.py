@@ -9,7 +9,16 @@ import logging
 import pyxel as px
 from const import SoundID
 import service_locater as di
-from gameutils.lib import Menu, Window, ExecResult, RsltPush, RsltPop, RsltContinue
+from gameutils.base import shadowed_text
+from gameutils.lib import (
+    Menu,
+    Window,
+    ExecResult,
+    RsltPush,
+    RsltPop,
+    RsltContinue,
+    WindowAction,
+)
 from item import ItemState, ItemType
 from entity import EquipSlot
 from helper import upper_int_format, format_leftright
@@ -129,6 +138,27 @@ class MenuSelectEquipSlot(Menu):
     def equip_item(self, slot: EquipSlot) -> RsltPush:
         return RsltPush(MenuEquip, slot, self.member_index, self.windows["sub"])
 
+    def update(self) -> WindowAction:
+        """更新"""
+        self.individual_update()
+        """キー入力の確認と応答"""
+        if self.move_cursor():
+            px.play(self.se_ch, self.ui_se["CURSOR_VERTICAL"], resume=True)
+        elif self.inputkey.decide():
+            px.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
+            return WindowAction.EXECUTE
+        elif self.inputkey.cancel():
+            px.play(self.se_ch, self.ui_se["CANCEL"], resume=True)
+            return WindowAction.CLOSE
+        elif self.inputkey.other1():
+            px.play(self.se_ch, SoundID.CHANGE_EQUIP, resume=True)
+            member = di.ref.pt.get_member(self.member_index)
+            slot = self.item_list[self.cursor_position[1]][0]["args"][0]
+            member.equipments.equip_off(slot)
+            self.generate_item_list()
+            self.build_menu_items(self.item_list)
+        return WindowAction.CONTINUE
+
     def individual_update(self) -> None:
         """クラス固有の更新処理"""
 
@@ -151,16 +181,20 @@ class MenuSelectEquipSlot(Menu):
         if self.inputkey.up():
             self.cursor_position[1] = (self.cursor_position[1] - 1) % self.menu_shape[1]
             return True
-        # if self.inputkey.left():
-        #     self.cursor_position[0] = (self.cursor_position[0] - 1) % self.menu_shape[0]
-        #     return True
         if self.inputkey.down():
             self.cursor_position[1] = (self.cursor_position[1] + 1) % self.menu_shape[1]
             return True
-        # if self.inputkey.right():
-        #     self.cursor_position[0] = (self.cursor_position[0] + 1) % self.menu_shape[0]
-        #     return True
         return False
+
+    def draw(self) -> None:
+        super().draw()
+        shadowed_text(
+            self.x,
+            self.y + self.height + self.cursor_row_offset,
+            "メニューキー：装備解除",
+            px.COLOR_LIGHT_BLUE,
+            self.font,
+        )
 
 
 class MenuEquip(Menu):
@@ -194,14 +228,16 @@ class MenuEquip(Menu):
         self.slot = slot
         self.slot_filter = self._filter[slot]
         if self.slot_filter == ItemType.CONSUME:
-            self.func_gen_item = self.generate_item_list_consume
-            self.func_equip = self.member.equipments.equip_on_consume
+            # self.func_gen_item = self.generate_item_list_consume
+            self.generate_item_list_consume()
+            # self.func_equip = self.member.equipments.equip_on_consume
         else:
-            self.func_gen_item = self.generate_item_list
-            self.func_equip = self.member.equipments.equip_on_pool
+            # self.func_gen_item = self.generate_item_list
+            self.generate_item_list()
+            # self.func_equip = self.member.equipments.equip_on_pool
         # # self.list_rows: int = 10
         # # self.inventory_count: int = 0
-        self.func_gen_item()
+        # self.func_gen_item()
         super().__init__(
             "basic",
             pos_x,

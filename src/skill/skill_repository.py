@@ -53,6 +53,7 @@ class SkillRepository:
                     print(
                         f"Warning: EffectID.{efx_name} is not defined in EffectID enum."
                     )
+        pass
 
     # def get_def(self, def_id: SkillID) -> SkillDef | None:
     #     """指定されたIDのスキル定義を取得する"""
