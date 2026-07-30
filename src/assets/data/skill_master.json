@@ -10,6 +10,206 @@
             "effect_func": "AttackSpellSingle",
             "effect_value": 1
         },
+        "SANCTUARY": {
+            "name": "聖域の光",
+            "target_type": "ENEMIES",
+            "price": 150,
+            "description": "破魔の光を放ち、敵全体にダメージを与える",
+            "dc": 2,
+            "cost": 10,
+            "effect_func": "AttackSpellArea",
+            "effect_value": 1
+        },
+        "HOLY_SMITE": {
+            "name": "破魔の裁き",
+            "target_type": "ENEMY",
+            "price": 250,
+            "description": "破魔の裁きを下し、アンデッドを即座に滅する",
+            "dc": 3,
+            "cost": 15,
+            "effect_func": "InstantDeathSpellUndead",
+            "effect_value": 1
+        },
+        "CURSE_PAIN": {
+            "name": "苦痛の呪い",
+            "target_type": "ENEMY",
+            "price": 100,
+            "description": "呪毒の力で対象を苦しめ、ダイス目を１下げる",
+            "dc": 1,
+            "cost": 5,
+            "effect_func": "DebuffDiceSpellSingle",
+            "effect_value": 1
+        },
+        "POISON_CLOUD": {
+            "name": "毒霧",
+            "target_type": "ENEMY",
+            "price": 150,
+            "description": "猛毒の霧をまとわせ、受けた瞬間以降継続ダメージを与える",
+            "dc": 2,
+            "cost": 10,
+            "effect_func": "PoisonSpellSingle",
+            "effect_value": 1
+        },
+        "STATUE_GAZE": {
+            "name": "石化の視線",
+            "target_type": "ENEMY",
+            "price": 250,
+            "description": "呪毒の視線で対象を石のように硬直させ、行動不能にする",
+            "dc": 3,
+            "cost": 15,
+            "effect_func": "ParalyzeSpellSingle",
+            "effect_value": 1
+        },
+        "FIRE_BOLT": {
+            "name": "火炎弾",
+            "target_type": "ENEMY",
+            "price": 100,
+            "description": "火炎の力で敵を撃つ魔法の弾",
+            "dc": 1,
+            "cost": 5,
+            "effect_func": "AttackSpellSingle",
+            "effect_value": 1
+        },
+        "BURN_FLOOD": {
+            "name": "業火の奔流",
+            "target_type": "ENEMIES",
+            "price": 150,
+            "description": "業火を敵全体に浴びせ、範囲にダメージを与える",
+            "dc": 2,
+            "cost": 10,
+            "effect_func": "AttackSpellArea",
+            "effect_value": 1
+        },
+        "INFERNO": {
+            "name": "大業火",
+            "target_type": "ENEMIES",
+            "price": 250,
+            "description": "大業火を巻き起こし、敵全体に強烈なダメージを与える",
+            "dc": 3,
+            "cost": 15,
+            "effect_func": "AttackSpellAreaStrong",
+            "effect_value": 2
+        },
+        "ICE_NEEDLE": {
+            "name": "氷の針",
+            "target_type": "ENEMY",
+            "price": 100,
+            "description": "氷結の力で敵を貫く氷の針を放つ",
+            "dc": 1,
+            "cost": 5,
+            "effect_func": "AttackSpellSingle",
+            "effect_value": 1
+        },
+        "FROST_CIRCLE": {
+            "name": "霜の円環",
+            "target_type": "ENEMIES",
+            "price": 150,
+            "description": "霜の円環を広げ、敵全体にダメージを与える",
+            "dc": 2,
+            "cost": 10,
+            "effect_func": "AttackSpellArea",
+            "effect_value": 1
+        },
+        "BLIZZARD": {
+            "name": "大吹雪",
+            "target_type": "ENEMIES",
+            "price": 250,
+            "description": "猛烈な吹雪を巻き起こし、敵全体に強烈なダメージを与える",
+            "dc": 3,
+            "cost": 15,
+            "effect_func": "AttackSpellAreaStrong",
+            "effect_value": 2
+        },
+        "BOLT_SHOWER": {
+            "name": "雷雨",
+            "target_type": "ENEMIES",
+            "price": 100,
+            "description": "雷電を雨のように降らせ、敵全体にダメージを与える",
+            "dc": 1,
+            "cost": 5,
+            "effect_func": "AttackSpellArea",
+            "effect_value": 1
+        },
+        "THUNDER_PILLER": {
+            "name": "雷撃の柱",
+            "target_type": "ENEMY",
+            "price": 150,
+            "description": "雷電を一点に集中させ、敵単体に強烈なダメージを与える",
+            "dc": 2,
+            "cost": 10,
+            "effect_func": "AttackSpellSingleStrong",
+            "effect_value": 2
+        },
+        "ELECTROMAGNETIC": {
+            "name": "電磁乱舞",
+            "target_type": "ENEMIES",
+            "price": 250,
+            "description": "電磁の力を乱舞させ、敵全体に強烈なダメージを与える",
+            "dc": 3,
+            "cost": 15,
+            "effect_func": "AttackSpellAreaStrong",
+            "effect_value": 2
+        },
+        "SLEEP_SONG": {
+            "name": "眠りの歌",
+            "target_type": "ENEMIES",
+            "price": 100,
+            "description": "精神を惑わす歌を歌い、敵全体を眠らせる",
+            "dc": 1,
+            "cost": 5,
+            "effect_func": "SleepSpellArea",
+            "effect_value": 1
+        },
+        "DISTURB_MIND": {
+            "name": "精神撹乱",
+            "target_type": "ENEMY",
+            "price": 150,
+            "description": "精神を撹乱し、対象の魔法発動ロールに３のペナルティを与える",
+            "dc": 2,
+            "cost": 10,
+            "effect_func": "DebuffSpellRollSingle",
+            "effect_value": 3
+        },
+        "CHARM_ILLUSION": {
+            "name": "幻惑の魅了",
+            "target_type": "ENEMY",
+            "price": 250,
+            "description": "幻惑の力で対象を魅了し、意のままに操る",
+            "dc": 3,
+            "cost": 15,
+            "effect_func": "CharmSpellSingle",
+            "effect_value": 1
+        },
+        "SHOCK_BULLET": {
+            "name": "衝撃弾",
+            "target_type": "ENEMY",
+            "price": 100,
+            "description": "衝撃の力で敵を撃つ魔法の弾",
+            "dc": 1,
+            "cost": 5,
+            "effect_func": "AttackSpellSingle",
+            "effect_value": 1
+        },
+        "SONIC_WAVE": {
+            "name": "音撃波",
+            "target_type": "ENEMIES",
+            "price": 150,
+            "description": "衝撃波を敵全体に浴びせ、範囲にダメージを与える",
+            "dc": 2,
+            "cost": 10,
+            "effect_func": "AttackSpellArea",
+            "effect_value": 1
+        },
+        "BLOW_AWAY": {
+            "name": "吹き飛ばし",
+            "target_type": "ENEMY",
+            "price": 250,
+            "description": "衝撃の力で敵を吹き飛ばし、ダメージを与えつつ次のイニシアチブを０に固定する",
+            "dc": 3,
+            "cost": 15,
+            "effect_func": "AttackSpellSingleStun",
+            "effect_value": 2
+        },
         "HEALING_HAND": {
             "name": "癒しの手",
             "target_type": "ALLY",
@@ -19,8 +219,27 @@
             "cost": 5,
             "effect_func": "RecoverSpellSingle",
             "effect_value": 1
+        },
+        "CURE_POISON": {
+            "name": "解毒の光",
+            "target_type": "ALLY",
+            "price": 150,
+            "description": "霊光の力で対象の毒を解除する",
+            "dc": 2,
+            "cost": 10,
+            "effect_func": "CurePoisonSingle",
+            "effect_value": 1
+        },
+        "ANGEL_STAIR": {
+            "name": "天使の階段",
+            "target_type": "ALLIES",
+            "price": 250,
+            "description": "天より降り注ぐ霊光で、味方全体の体力を回復させる",
+            "dc": 3,
+            "cost": 15,
+            "effect_func": "RecoverSpellArea",
+            "effect_value": 2
         }
-
     },
     "PASSIVE": {
         "ATTACK_BONUS": {

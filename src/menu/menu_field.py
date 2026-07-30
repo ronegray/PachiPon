@@ -1,4 +1,4 @@
-"""menu_field.py
+"""
 メニューモジュール：フィールド
 """
 
@@ -99,31 +99,6 @@ class MenuField(Menu):
 
     def select_skill(self):
         """スキル選択メニューを開く"""
-        # # print("use skill")
-        # # print(f"{di.ref.hero.skills._learned_skills}")
-        # # from menu import MenuSelectSkillold
-
-        # # return RsltPush(MenuSelectSkillold, self.build_context)
-        # from menu import MenuSelectSkill
-
-        # return RsltPush(
-        #     MenuSelectSkill,
-        #     self.context.actor,
-        #     self.context,
-        #     [],
-        #     {},
-        #     self.message_window,
-        #     self.message_window,
-        # )
-        # # self,
-        # # real_actor: Character,
-        # # ctx_source: EntityContext,
-        # # actor_list: list[Character],  # 逆順生存メンバーリスト
-        # # battle_commands: dict,
-        # # message_window: Window,
-        # # # サイズや位置を確認する為の参照用　実処理で使わない
-        # # ref_window: Window,
-
         from menu import MenuSelectSkillField
 
         return RsltPush(

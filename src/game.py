@@ -22,7 +22,6 @@ class GameApp:
         logger.info("Initialize - Pyxel")
         self.initialize_pyxel()
 
-        # di.ref.hero.sprite.img = px.Image.from_image("assets/image/character16.bmp")
         # 外部ライブラリ初期化２（機能クラス）
         # from gameutils.lib import SoundManager
         # sndmgr = SoundManager()
@@ -36,12 +35,11 @@ class GameApp:
         di.ref.pt.generate_pt_window()
 
         # 初期表示シーン定義
-        # di.ref.scnmgr.next_scene("splash")
+        di.ref.scnmgr.next_scene("splash")
 
-        # # """開発用に通常画面まで一気に遷移
-        # # リリース時は削除"""
-        # di.ref.scnmgr.next_scene("title")
-        # di.ref.scnmgr.next_scene("charamake")
+        # """開発用に通常画面まで一気に遷移
+        # リリース時は削除"""
+        di.ref.scnmgr.next_scene("newgame")
         di.ref.scnmgr.next_scene("map")
 
         # Pyxel実行開始
@@ -65,11 +63,7 @@ class GameApp:
     def update(self):
         """pyxel updateフレーム処理"""
         di.ref.scnmgr.update()
-        # # コマンドupdate結果でスタッククリアされたら
-        # is_executing = not di.ref.cmdmgr.is_empty
         di.ref.cmdmgr.update()
-        # if is_executing and di.ref.cmdmgr.is_empty:
-        #     di.ref.scnmgr.get_now_scene().wndmgr.clear_stack()
 
     def draw(self):
         """pyxel drawフレーム処理"""

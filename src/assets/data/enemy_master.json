@@ -1,11 +1,11 @@
 [
     [
-         {
-            "name": "バット",
-            "strength": 3,
-            "arcane": 3,
-            "endurance": 3,
-            "speed": 3,
+        {
+            "name": "トード",
+            "strength": 2,
+            "arcane": 2,
+            "endurance": 2,
+            "speed": 4,
             "luck": 3,
             "exp": 1,
             "gold": 0,
@@ -15,37 +15,55 @@
             "magpenalty": 0,
             "guardtype": "NONE",
             "weaktype": "ALL",
-            "action_pattern": ["attack","attack","attack","attack","attack","escape"],
-            "skills": [""]
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         },
         {
-            "name": "リザード",
-            "strength": 3,
-            "arcane": 3,
-            "endurance": 6,
-            "speed": 3,
+            "name": "バット",
+            "strength": 2,
+            "arcane": 2,
+            "endurance": 2,
+            "speed": 4,
             "luck": 3,
-            "exp": 2,
-            "gold": 1,
-            "bodysize": "M",
+            "exp": 1,
+            "gold": 0,
+            "bodysize": "S",
             "hitdice": 1,
             "defvalue": 0,
             "magpenalty": 0,
             "guardtype": "NONE",
             "weaktype": "ALL",
-            "action_pattern": ["attack","attack","attack","attack","attack","escape"],
-            "skills": [""]
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
     ],
     [
-         {
-            "name": "レイヴン",
-            "strength": 3,
-            "arcane": 6,
+        {
+            "name": "リザード",
+            "strength": 2,
+            "arcane": 2,
             "endurance": 3,
             "speed": 6,
             "luck": 3,
-            "exp": 3,
+            "exp": 2,
             "gold": 1,
             "bodysize": "S",
             "hitdice": 1,
@@ -53,1704 +71,3469 @@
             "magpenalty": 0,
             "guardtype": "NONE",
             "weaktype": "ALL",
-            "action_pattern": ["attack","attack","attack","attack","attack","escape"],
-            "skills": [""]
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         },
         {
-            "name": "ラット",
-            "strength": 6,
-            "arcane": 3,
+            "name": "レイヴン",
+            "strength": 2,
+            "arcane": 2,
             "endurance": 3,
             "speed": 6,
+            "luck": 3,
+            "exp": 2,
+            "gold": 1,
+            "bodysize": "S",
+            "hitdice": 1,
+            "defvalue": 0,
+            "magpenalty": 0,
+            "guardtype": "NONE",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        }
+    ],
+    [
+        {
+            "name": "キャット",
+            "strength": 4,
+            "arcane": 2,
+            "endurance": 4,
+            "speed": 7,
             "luck": 3,
             "exp": 4,
             "gold": 1,
             "bodysize": "S",
             "hitdice": 1,
-            "defvalue": 0,
+            "defvalue": 1,
             "magpenalty": 0,
             "guardtype": "NONE",
             "weaktype": "ALL",
-            "action_pattern": ["attack","attack","attack","attack","attack","escape"],
-            "skills": [""]
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "コボルド",
+            "strength": 5,
+            "arcane": 4,
+            "endurance": 5,
+            "speed": 5,
+            "luck": 3,
+            "exp": 4,
+            "gold": 1,
+            "bodysize": "M",
+            "hitdice": 1,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "マイト",
+            "strength": 4,
+            "arcane": 4,
+            "endurance": 4,
+            "speed": 6,
+            "luck": 3,
+            "exp": 5,
+            "gold": 1,
+            "bodysize": "S",
+            "hitdice": 1,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "モンキー",
+            "strength": 4,
+            "arcane": 2,
+            "endurance": 4,
+            "speed": 7,
+            "luck": 3,
+            "exp": 5,
+            "gold": 1,
+            "bodysize": "S",
+            "hitdice": 1,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "NONE",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ラット",
+            "strength": 4,
+            "arcane": 2,
+            "endurance": 4,
+            "speed": 7,
+            "luck": 3,
+            "exp": 5,
+            "gold": 1,
+            "bodysize": "S",
+            "hitdice": 1,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "NONE",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
     ],
     [
-         {
-            "name": "コボルト",
+        {
+            "name": "オーク",
             "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
+            "arcane": 5,
+            "endurance": 7,
             "speed": 5,
             "luck": 3,
-            "exp": 6,
+            "exp": 7,
             "gold": 2,
             "bodysize": "M",
             "hitdice": 2,
             "defvalue": 1,
             "magpenalty": 0,
             "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ゴブリン",
+            "strength": 5,
+            "arcane": 5,
+            "endurance": 6,
+            "speed": 6,
+            "luck": 3,
+            "exp": 7,
+            "gold": 2,
+            "bodysize": "S",
+            "hitdice": 1,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         },
         {
             "name": "スケルトン",
             "strength": 6,
             "arcane": 6,
-            "endurance": 8,
+            "endurance": 7,
             "speed": 5,
             "luck": 3,
             "exp": 8,
             "gold": 2,
             "bodysize": "M",
             "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
+            "defvalue": 1,
+            "magpenalty": 1,
             "guardtype": "STUB",
             "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ドッグ",
+            "strength": 5,
+            "arcane": 3,
+            "endurance": 6,
+            "speed": 7,
+            "luck": 3,
+            "exp": 8,
+            "gold": 2,
+            "bodysize": "S",
+            "hitdice": 1,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "NONE",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ドラウ",
+            "strength": 6,
+            "arcane": 5,
+            "endurance": 7,
+            "speed": 5,
+            "luck": 3,
+            "exp": 9,
+            "gold": 3,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "マーフォーク",
+            "strength": 7,
+            "arcane": 4,
+            "endurance": 7,
+            "speed": 5,
+            "luck": 3,
+            "exp": 9,
+            "gold": 3,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 1,
+            "magpenalty": 0,
+            "guardtype": "STUB",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
-    ]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-,
+    ],
     [
-         {
-            "name": "コボルト",
+        {
+            "name": "イーグル",
             "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
+            "arcane": 4,
+            "endurance": 7,
+            "speed": 8,
+            "luck": 4,
+            "exp": 11,
             "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
+            "bodysize": "S",
+            "hitdice": 1,
+            "defvalue": 2,
             "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
+            "guardtype": "NONE",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         },
         {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
+            "name": "ジャイアント・センチピード",
+            "strength": 7,
+            "arcane": 2,
+            "endurance": 9,
+            "speed": 6,
+            "luck": 4,
+            "exp": 12,
             "gold": 2,
             "bodysize": "M",
             "hitdice": 2,
             "defvalue": 2,
             "magpenalty": 0,
+            "guardtype": "CHOP",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "スタージ",
+            "strength": 6,
+            "arcane": 2,
+            "endurance": 8,
+            "speed": 7,
+            "luck": 4,
+            "exp": 13,
+            "gold": 2,
+            "bodysize": "S",
+            "hitdice": 1,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "CHOP",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ゾンビ",
+            "strength": 7,
+            "arcane": 8,
+            "endurance": 8,
+            "speed": 6,
+            "luck": 4,
+            "exp": 13,
+            "gold": 2,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 1,
             "guardtype": "STUB",
             "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ホブゴブリン",
+            "strength": 7,
+            "arcane": 6,
+            "endurance": 8,
+            "speed": 6,
+            "luck": 4,
+            "exp": 14,
+            "gold": 3,
+            "bodysize": "M",
+            "hitdice": 2,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ヴァイパー",
+            "strength": 6,
+            "arcane": 4,
+            "endurance": 7,
+            "speed": 8,
+            "luck": 4,
+            "exp": 15,
+            "gold": 3,
+            "bodysize": "S",
+            "hitdice": 1,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "NONE",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
-    ]
-,
+    ],
     [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
-        },
         {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
+            "name": "ウルフ",
+            "strength": 8,
+            "arcane": 4,
+            "endurance": 10,
+            "speed": 8,
+            "luck": 4,
+            "exp": 16,
+            "gold": 3,
             "bodysize": "M",
-            "hitdice": 2,
+            "hitdice": 3,
             "defvalue": 2,
             "magpenalty": 0,
+            "guardtype": "NONE",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "グール",
+            "strength": 8,
+            "arcane": 9,
+            "endurance": 10,
+            "speed": 7,
+            "luck": 4,
+            "exp": 17,
+            "gold": 3,
+            "bodysize": "M",
+            "hitdice": 3,
+            "defvalue": 2,
+            "magpenalty": 1,
             "guardtype": "STUB",
             "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ジャイアント・スパイダー",
+            "strength": 9,
+            "arcane": 3,
+            "endurance": 12,
+            "speed": 6,
+            "luck": 4,
+            "exp": 18,
+            "gold": 3,
+            "bodysize": "L",
+            "hitdice": 4,
+            "defvalue": 3,
+            "magpenalty": 0,
+            "guardtype": "CHOP",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "トログロダイト",
+            "strength": 8,
+            "arcane": 7,
+            "endurance": 10,
+            "speed": 7,
+            "luck": 4,
+            "exp": 19,
+            "gold": 4,
+            "bodysize": "M",
+            "hitdice": 3,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ノール",
+            "strength": 8,
+            "arcane": 7,
+            "endurance": 10,
+            "speed": 7,
+            "luck": 4,
+            "exp": 20,
+            "gold": 4,
+            "bodysize": "M",
+            "hitdice": 3,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "リザードフォーク",
+            "strength": 8,
+            "arcane": 7,
+            "endurance": 10,
+            "speed": 7,
+            "luck": 4,
+            "exp": 22,
+            "gold": 4,
+            "bodysize": "M",
+            "hitdice": 3,
+            "defvalue": 2,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
-    ]
-,
+    ],
     [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
+        {
+            "name": "ウォーグ",
+            "strength": 10,
+            "arcane": 5,
+            "endurance": 13,
+            "speed": 9,
+            "luck": 4,
+            "exp": 24,
+            "gold": 4,
             "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
+            "hitdice": 4,
+            "defvalue": 3,
             "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
+            "guardtype": "NONE",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         },
         {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
+            "name": "クロコダイル",
+            "strength": 11,
+            "arcane": 5,
+            "endurance": 14,
+            "speed": 8,
+            "luck": 4,
+            "exp": 26,
+            "gold": 4,
+            "bodysize": "L",
+            "hitdice": 5,
+            "defvalue": 4,
+            "magpenalty": 0,
+            "guardtype": "NONE",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "シャーク",
+            "strength": 11,
+            "arcane": 5,
+            "endurance": 14,
+            "speed": 8,
+            "luck": 4,
+            "exp": 27,
+            "gold": 5,
+            "bodysize": "L",
+            "hitdice": 5,
+            "defvalue": 4,
+            "magpenalty": 0,
+            "guardtype": "NONE",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "バグベア",
+            "strength": 10,
+            "arcane": 8,
+            "endurance": 13,
+            "speed": 8,
+            "luck": 4,
+            "exp": 29,
+            "gold": 5,
             "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
+            "hitdice": 4,
+            "defvalue": 3,
+            "magpenalty": 0,
+            "guardtype": "BASH",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ワーウルフ",
+            "strength": 11,
+            "arcane": 7,
+            "endurance": 14,
+            "speed": 8,
+            "luck": 4,
+            "exp": 31,
+            "gold": 5,
+            "bodysize": "M",
+            "hitdice": 4,
+            "defvalue": 3,
             "magpenalty": 0,
             "guardtype": "STUB",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "インプ",
+            "strength": 10,
+            "arcane": 10,
+            "endurance": 13,
+            "speed": 9,
+            "luck": 4,
+            "exp": 32,
+            "gold": 6,
+            "bodysize": "S",
+            "hitdice": 3,
+            "defvalue": 3,
+            "magpenalty": 1,
+            "guardtype": "FULL",
             "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
-    ]
-,
+    ],
     [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
+        {
+            "name": "オーガ",
+            "strength": 17,
+            "arcane": 8,
+            "endurance": 20,
+            "speed": 7,
+            "luck": 4,
+            "exp": 34,
+            "gold": 5,
+            "bodysize": "L",
+            "hitdice": 6,
+            "defvalue": 5,
+            "magpenalty": 1,
+            "guardtype": "CHOP",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         },
         {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
+            "name": "シャドウ",
+            "strength": 12,
+            "arcane": 12,
+            "endurance": 17,
+            "speed": 9,
+            "luck": 4,
+            "exp": 36,
+            "gold": 5,
             "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
+            "hitdice": 5,
+            "defvalue": 3,
+            "magpenalty": 2,
+            "guardtype": "FULL",
+            "weaktype": "SACRED",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ワイト",
+            "strength": 12,
+            "arcane": 12,
+            "endurance": 17,
+            "speed": 9,
+            "luck": 4,
+            "exp": 39,
+            "gold": 6,
+            "bodysize": "M",
+            "hitdice": 5,
+            "defvalue": 3,
+            "magpenalty": 2,
             "guardtype": "STUB",
             "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ドッペルゲンガー",
+            "strength": 13,
+            "arcane": 9,
+            "endurance": 17,
+            "speed": 9,
+            "luck": 5,
+            "exp": 41,
+            "gold": 6,
+            "bodysize": "M",
+            "hitdice": 5,
+            "defvalue": 3,
+            "magpenalty": 1,
+            "guardtype": "STUB",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ケンタウロス",
+            "strength": 14,
+            "arcane": 9,
+            "endurance": 18,
+            "speed": 8,
+            "luck": 5,
+            "exp": 44,
+            "gold": 7,
+            "bodysize": "L",
+            "hitdice": 6,
+            "defvalue": 4,
+            "magpenalty": 1,
+            "guardtype": "STUB",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ダイア・ウルフ",
+            "strength": 13,
+            "arcane": 6,
+            "endurance": 17,
+            "speed": 9,
+            "luck": 5,
+            "exp": 46,
+            "gold": 7,
+            "bodysize": "L",
+            "hitdice": 6,
+            "defvalue": 4,
+            "magpenalty": 1,
+            "guardtype": "NONE",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
-    ]
-,
+    ],
     [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
+        {
+            "name": "アウルベア",
+            "strength": 16,
+            "arcane": 13,
+            "endurance": 22,
+            "speed": 9,
+            "luck": 5,
+            "exp": 48,
+            "gold": 6,
+            "bodysize": "L",
+            "hitdice": 7,
+            "defvalue": 5,
+            "magpenalty": 2,
+            "guardtype": "NONE",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         },
         {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
+            "name": "ガーゴイル",
+            "strength": 13,
+            "arcane": 14,
+            "endurance": 21,
+            "speed": 9,
+            "luck": 5,
+            "exp": 51,
+            "gold": 6,
             "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
+            "hitdice": 6,
+            "defvalue": 4,
+            "magpenalty": 2,
             "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "グリフィン",
+            "strength": 16,
+            "arcane": 13,
+            "endurance": 22,
+            "speed": 9,
+            "luck": 5,
+            "exp": 55,
+            "gold": 7,
+            "bodysize": "L",
+            "hitdice": 7,
+            "defvalue": 5,
+            "magpenalty": 2,
+            "guardtype": "NONE",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ミノタウロス",
+            "strength": 16,
+            "arcane": 11,
+            "endurance": 21,
+            "speed": 9,
+            "luck": 5,
+            "exp": 58,
+            "gold": 7,
+            "bodysize": "L",
+            "hitdice": 7,
+            "defvalue": 5,
+            "magpenalty": 1,
+            "guardtype": "STUB",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ミミック",
+            "strength": 13,
+            "arcane": 14,
+            "endurance": 21,
+            "speed": 9,
+            "luck": 5,
+            "exp": 61,
+            "gold": 8,
+            "bodysize": "M",
+            "hitdice": 6,
+            "defvalue": 4,
+            "magpenalty": 2,
+            "guardtype": "STUB",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "タイガー",
+            "strength": 15,
+            "arcane": 7,
+            "endurance": 20,
+            "speed": 11,
+            "luck": 5,
+            "exp": 65,
+            "gold": 8,
+            "bodysize": "L",
+            "hitdice": 7,
+            "defvalue": 5,
+            "magpenalty": 1,
+            "guardtype": "NONE",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
-    ]
-,
+    ],
     [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
+        {
+            "name": "トロル",
+            "strength": 22,
+            "arcane": 11,
+            "endurance": 29,
+            "speed": 8,
+            "luck": 4,
+            "exp": 66,
+            "gold": 8,
+            "bodysize": "L",
+            "hitdice": 8,
+            "defvalue": 6,
+            "magpenalty": 1,
+            "guardtype": "CHOP",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         },
         {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
+            "name": "ナイトメア",
+            "strength": 18,
+            "arcane": 17,
+            "endurance": 25,
+            "speed": 10,
+            "luck": 6,
+            "exp": 71,
+            "gold": 9,
+            "bodysize": "L",
+            "hitdice": 8,
+            "defvalue": 5,
+            "magpenalty": 2,
+            "guardtype": "STUB",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "バジリスク",
+            "strength": 17,
+            "arcane": 15,
+            "endurance": 25,
+            "speed": 12,
+            "luck": 5,
+            "exp": 75,
+            "gold": 9,
             "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
+            "hitdice": 7,
+            "defvalue": 4,
+            "magpenalty": 2,
+            "guardtype": "NONE",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "マンティコア",
+            "strength": 18,
+            "arcane": 15,
+            "endurance": 26,
+            "speed": 11,
+            "luck": 5,
+            "exp": 80,
+            "gold": 10,
+            "bodysize": "L",
+            "hitdice": 8,
+            "defvalue": 5,
+            "magpenalty": 2,
+            "guardtype": "NONE",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ミイラ",
+            "strength": 16,
+            "arcane": 18,
+            "endurance": 24,
+            "speed": 10,
+            "luck": 4,
+            "exp": 84,
+            "gold": 11,
+            "bodysize": "M",
+            "hitdice": 7,
+            "defvalue": 4,
+            "magpenalty": 2,
             "guardtype": "STUB",
             "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "サイクロプス",
+            "strength": 22,
+            "arcane": 11,
+            "endurance": 29,
+            "speed": 8,
+            "luck": 4,
+            "exp": 89,
+            "gold": 11,
+            "bodysize": "L",
+            "hitdice": 8,
+            "defvalue": 6,
+            "magpenalty": 1,
+            "guardtype": "CHOP",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
-    ]
-,
+    ],
     [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
+        {
+            "name": "エティン",
+            "strength": 24,
+            "arcane": 13,
+            "endurance": 33,
+            "speed": 9,
+            "luck": 5,
+            "exp": 88,
+            "gold": 10,
+            "bodysize": "L",
+            "hitdice": 9,
+            "defvalue": 7,
+            "magpenalty": 1,
+            "guardtype": "CHOP",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         },
         {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
+            "name": "サラマンダー",
+            "strength": 19,
+            "arcane": 19,
+            "endurance": 28,
+            "speed": 12,
+            "luck": 7,
+            "exp": 94,
+            "gold": 11,
             "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
+            "hitdice": 8,
+            "defvalue": 5,
+            "magpenalty": 2,
             "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "シャンブリング・マウンド",
+            "strength": 17,
+            "arcane": 8,
+            "endurance": 39,
+            "speed": 6,
+            "luck": 5,
+            "exp": 100,
+            "gold": 12,
+            "bodysize": "L",
+            "hitdice": 9,
+            "defvalue": 7,
+            "magpenalty": 1,
+            "guardtype": "BASH",
+            "weaktype": "FIRE",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ラミア",
+            "strength": 21,
+            "arcane": 14,
+            "endurance": 29,
+            "speed": 11,
+            "luck": 6,
+            "exp": 106,
+            "gold": 12,
+            "bodysize": "L",
+            "hitdice": 9,
+            "defvalue": 6,
+            "magpenalty": 1,
+            "guardtype": "STUB",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ワイヴァーン",
+            "strength": 22,
+            "arcane": 21,
+            "endurance": 33,
+            "speed": 10,
+            "luck": 7,
+            "exp": 113,
+            "gold": 13,
+            "bodysize": "L",
+            "hitdice": 9,
+            "defvalue": 7,
+            "magpenalty": 3,
+            "guardtype": "FULL",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ホワイト・ドラゴン(ヤング)",
+            "strength": 22,
+            "arcane": 21,
+            "endurance": 33,
+            "speed": 10,
+            "luck": 7,
+            "exp": 119,
+            "gold": 14,
+            "bodysize": "L",
+            "hitdice": 9,
+            "defvalue": 7,
+            "magpenalty": 3,
+            "guardtype": "FULL",
+            "weaktype": "FIRE",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
-    ]
-,
+    ],
     [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
+        {
+            "name": "アボレス",
+            "strength": 22,
+            "arcane": 22,
+            "endurance": 36,
+            "speed": 10,
+            "luck": 6,
+            "exp": 115,
+            "gold": 13,
+            "bodysize": "XL",
+            "hitdice": 11,
+            "defvalue": 7,
+            "magpenalty": 3,
+            "guardtype": "STUB",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         },
         {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
+            "name": "キマイラ",
+            "strength": 23,
+            "arcane": 20,
+            "endurance": 35,
+            "speed": 13,
+            "luck": 6,
+            "exp": 123,
+            "gold": 14,
+            "bodysize": "L",
+            "hitdice": 10,
+            "defvalue": 6,
+            "magpenalty": 3,
+            "guardtype": "NONE",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ゴースト",
+            "strength": 21,
+            "arcane": 22,
+            "endurance": 33,
+            "speed": 12,
+            "luck": 5,
+            "exp": 131,
+            "gold": 15,
             "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
+            "hitdice": 9,
+            "defvalue": 5,
+            "magpenalty": 3,
+            "guardtype": "FULL",
             "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "サキュバス",
+            "strength": 23,
+            "arcane": 22,
+            "endurance": 34,
+            "speed": 13,
+            "luck": 7,
+            "exp": 139,
+            "gold": 16,
+            "bodysize": "M",
+            "hitdice": 9,
+            "defvalue": 5,
+            "magpenalty": 3,
+            "guardtype": "FULL",
+            "weaktype": "SACRED",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ヒル・ジャイアント",
+            "strength": 28,
+            "arcane": 14,
+            "endurance": 38,
+            "speed": 10,
+            "luck": 5,
+            "exp": 147,
+            "gold": 17,
+            "bodysize": "L",
+            "hitdice": 10,
+            "defvalue": 7,
+            "magpenalty": 2,
+            "guardtype": "CHOP",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "メドゥサ",
+            "strength": 23,
+            "arcane": 16,
+            "endurance": 33,
+            "speed": 13,
+            "luck": 6,
+            "exp": 155,
+            "gold": 18,
+            "bodysize": "M",
+            "hitdice": 9,
+            "defvalue": 5,
+            "magpenalty": 2,
+            "guardtype": "STUB",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
-    ]
-,
+    ],
     [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
+        {
+            "name": "イフリート",
+            "strength": 26,
+            "arcane": 25,
+            "endurance": 39,
+            "speed": 13,
+            "luck": 7,
+            "exp": 148,
+            "gold": 16,
+            "bodysize": "L",
+            "hitdice": 11,
+            "defvalue": 7,
+            "magpenalty": 3,
+            "guardtype": "STUB",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         },
         {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
+            "name": "オーガ・メイジ",
+            "strength": 32,
+            "arcane": 17,
+            "endurance": 44,
+            "speed": 11,
+            "luck": 5,
+            "exp": 158,
+            "gold": 17,
+            "bodysize": "L",
+            "hitdice": 11,
+            "defvalue": 8,
+            "magpenalty": 2,
+            "guardtype": "CHOP",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "グリーン・ドラゴン(ヤング)",
+            "strength": 29,
+            "arcane": 27,
+            "endurance": 44,
+            "speed": 12,
+            "luck": 7,
+            "exp": 169,
+            "gold": 19,
+            "bodysize": "L",
+            "hitdice": 11,
+            "defvalue": 8,
+            "magpenalty": 4,
+            "guardtype": "FULL",
+            "weaktype": "CURCE",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ゴルゴン",
+            "strength": 26,
+            "arcane": 23,
+            "endurance": 41,
+            "speed": 14,
+            "luck": 6,
+            "exp": 179,
+            "gold": 20,
+            "bodysize": "L",
+            "hitdice": 11,
+            "defvalue": 7,
+            "magpenalty": 3,
+            "guardtype": "NONE",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ストーン・ジャイアント",
+            "strength": 32,
+            "arcane": 17,
+            "endurance": 44,
+            "speed": 11,
+            "luck": 5,
+            "exp": 189,
+            "gold": 21,
+            "bodysize": "L",
+            "hitdice": 11,
+            "defvalue": 8,
+            "magpenalty": 2,
+            "guardtype": "CHOP",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "トリケラトプス",
+            "strength": 26,
+            "arcane": 13,
+            "endurance": 38,
+            "speed": 14,
+            "luck": 6,
+            "exp": 200,
+            "gold": 22,
+            "bodysize": "XL",
+            "hitdice": 12,
+            "defvalue": 8,
+            "magpenalty": 2,
+            "guardtype": "NONE",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
-    ]
-,
+    ],
     [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
-        },
         {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
+            "name": "ヴァンパイア",
+            "strength": 27,
+            "arcane": 30,
+            "endurance": 43,
+            "speed": 14,
+            "luck": 6,
+            "exp": 188,
+            "gold": 20,
             "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
+            "hitdice": 11,
+            "defvalue": 6,
+            "magpenalty": 3,
             "guardtype": "STUB",
             "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ヴロック",
+            "strength": 31,
+            "arcane": 30,
+            "endurance": 46,
+            "speed": 14,
+            "luck": 8,
+            "exp": 201,
+            "gold": 22,
+            "bodysize": "L",
+            "hitdice": 12,
+            "defvalue": 7,
+            "magpenalty": 3,
+            "guardtype": "FULL",
+            "weaktype": "SACRED",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ティラノサウルス",
+            "strength": 29,
+            "arcane": 14,
+            "endurance": 43,
+            "speed": 15,
+            "luck": 7,
+            "exp": 214,
+            "gold": 23,
+            "bodysize": "XL",
+            "hitdice": 13,
+            "defvalue": 8,
+            "magpenalty": 2,
+            "guardtype": "NONE",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ドラゴン・タートル",
+            "strength": 33,
+            "arcane": 31,
+            "endurance": 51,
+            "speed": 12,
+            "luck": 8,
+            "exp": 227,
+            "gold": 25,
+            "bodysize": "XL",
+            "hitdice": 13,
+            "defvalue": 9,
+            "magpenalty": 4,
+            "guardtype": "FULL",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ナイト・ハグ",
+            "strength": 28,
+            "arcane": 29,
+            "endurance": 43,
+            "speed": 15,
+            "luck": 8,
+            "exp": 241,
+            "gold": 26,
+            "bodysize": "M",
+            "hitdice": 11,
+            "defvalue": 6,
+            "magpenalty": 3,
+            "guardtype": "STUB",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "フロスト・ジャイアント",
+            "strength": 36,
+            "arcane": 19,
+            "endurance": 50,
+            "speed": 12,
+            "luck": 6,
+            "exp": 254,
+            "gold": 28,
+            "bodysize": "L",
+            "hitdice": 12,
+            "defvalue": 8,
+            "magpenalty": 2,
+            "guardtype": "CHOP",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
-    ]
-,
+    ],
     [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
+        {
+            "name": "ガーディアン・ナーガ",
+            "strength": 33,
+            "arcane": 30,
+            "endurance": 53,
+            "speed": 16,
+            "luck": 7,
+            "exp": 235,
+            "gold": 25,
+            "bodysize": "L",
+            "hitdice": 13,
+            "defvalue": 8,
+            "magpenalty": 3,
+            "guardtype": "NONE",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         },
         {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
+            "name": "クレイ・ゴーレム",
+            "strength": 34,
+            "arcane": 14,
+            "endurance": 67,
+            "speed": 12,
+            "luck": 6,
+            "exp": 251,
+            "gold": 27,
+            "bodysize": "L",
+            "hitdice": 13,
+            "defvalue": 9,
+            "magpenalty": 4,
+            "guardtype": "FULL",
+            "weaktype": "NONE",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "コアトル",
+            "strength": 33,
+            "arcane": 34,
+            "endurance": 53,
+            "speed": 16,
+            "luck": 8,
+            "exp": 268,
+            "gold": 29,
+            "bodysize": "L",
+            "hitdice": 13,
+            "defvalue": 8,
+            "magpenalty": 3,
+            "guardtype": "FULL",
+            "weaktype": "CURCE",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "シルヴァー・ドラゴン(ヤング)",
+            "strength": 35,
+            "arcane": 35,
+            "endurance": 57,
+            "speed": 14,
+            "luck": 8,
+            "exp": 284,
+            "gold": 31,
+            "bodysize": "L",
+            "hitdice": 13,
+            "defvalue": 9,
+            "magpenalty": 4,
+            "guardtype": "FULL",
+            "weaktype": "FIRE",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ファイアー・ジャイアント",
+            "strength": 40,
+            "arcane": 22,
+            "endurance": 57,
+            "speed": 13,
+            "luck": 6,
+            "exp": 301,
+            "gold": 33,
+            "bodysize": "L",
+            "hitdice": 13,
+            "defvalue": 9,
+            "magpenalty": 2,
+            "guardtype": "CHOP",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "レッド・ドラゴン(ヤング)",
+            "strength": 35,
+            "arcane": 35,
+            "endurance": 57,
+            "speed": 14,
+            "luck": 8,
+            "exp": 317,
+            "gold": 35,
+            "bodysize": "L",
+            "hitdice": 13,
+            "defvalue": 9,
+            "magpenalty": 4,
+            "guardtype": "FULL",
+            "weaktype": "ICE",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
-    ]
-,
+    ],
     [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
+        {
+            "name": "クラウド・ジャイアント",
+            "strength": 46,
+            "arcane": 25,
+            "endurance": 66,
+            "speed": 12,
+            "luck": 6,
+            "exp": 290,
+            "gold": 31,
+            "bodysize": "XL",
+            "hitdice": 15,
+            "defvalue": 10,
+            "magpenalty": 3,
+            "guardtype": "CHOP",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         },
         {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
+            "name": "ゴールド・ドラゴン(ヤング)",
+            "strength": 40,
+            "arcane": 40,
+            "endurance": 65,
+            "speed": 15,
+            "luck": 8,
+            "exp": 310,
+            "gold": 33,
+            "bodysize": "L",
+            "hitdice": 14,
+            "defvalue": 9,
+            "magpenalty": 5,
+            "guardtype": "FULL",
+            "weaktype": "ICE",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ストーン・ゴーレム",
+            "strength": 38,
+            "arcane": 16,
+            "endurance": 75,
+            "speed": 13,
+            "luck": 6,
+            "exp": 331,
+            "gold": 36,
+            "bodysize": "L",
+            "hitdice": 14,
+            "defvalue": 9,
+            "magpenalty": 5,
+            "guardtype": "FULL",
+            "weaktype": "NONE",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ディヴァウラー",
+            "strength": 34,
+            "arcane": 39,
+            "endurance": 56,
+            "speed": 16,
+            "luck": 6,
+            "exp": 351,
+            "gold": 38,
             "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
+            "hitdice": 13,
+            "defvalue": 7,
+            "magpenalty": 4,
             "guardtype": "STUB",
             "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ヘズロウ",
+            "strength": 38,
+            "arcane": 39,
+            "endurance": 59,
+            "speed": 16,
+            "luck": 8,
+            "exp": 371,
+            "gold": 41,
+            "bodysize": "L",
+            "hitdice": 14,
+            "defvalue": 8,
+            "magpenalty": 4,
+            "guardtype": "FULL",
+            "weaktype": "SACRED",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "リトリーヴァー",
+            "strength": 39,
+            "arcane": 16,
+            "endurance": 76,
+            "speed": 12,
+            "luck": 6,
+            "exp": 392,
+            "gold": 43,
+            "bodysize": "XL",
+            "hitdice": 15,
+            "defvalue": 10,
+            "magpenalty": 5,
+            "guardtype": "FULL",
+            "weaktype": "NONE",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
-    ]
-,
+    ],
     [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
+        {
+            "name": "カッパー・ドラゴン(アダルト)",
+            "strength": 45,
+            "arcane": 46,
+            "endurance": 73,
+            "speed": 16,
+            "luck": 9,
+            "exp": 355,
+            "gold": 38,
+            "bodysize": "L",
+            "hitdice": 15,
+            "defvalue": 10,
+            "magpenalty": 5,
+            "guardtype": "FULL",
+            "weaktype": "SHOCK",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         },
         {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
+            "name": "グリーン・ドラゴン(アダルト)",
+            "strength": 45,
+            "arcane": 46,
+            "endurance": 73,
+            "speed": 16,
+            "luck": 9,
+            "exp": 380,
+            "gold": 41,
+            "bodysize": "L",
+            "hitdice": 15,
+            "defvalue": 10,
+            "magpenalty": 5,
+            "guardtype": "FULL",
+            "weaktype": "CURCE",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "シー・サーペント",
+            "strength": 46,
+            "arcane": 46,
+            "endurance": 74,
+            "speed": 15,
+            "luck": 9,
+            "exp": 405,
+            "gold": 44,
+            "bodysize": "XL",
+            "hitdice": 16,
+            "defvalue": 11,
+            "magpenalty": 5,
+            "guardtype": "FULL",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "パープル・ワーム",
+            "strength": 40,
+            "arcane": 14,
+            "endurance": 68,
+            "speed": 17,
+            "luck": 7,
+            "exp": 430,
+            "gold": 47,
+            "bodysize": "XL",
+            "hitdice": 16,
+            "defvalue": 10,
+            "magpenalty": 3,
+            "guardtype": "CHOP",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "リッチ",
+            "strength": 38,
+            "arcane": 44,
+            "endurance": 63,
+            "speed": 17,
+            "luck": 7,
+            "exp": 454,
+            "gold": 50,
             "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
+            "hitdice": 14,
+            "defvalue": 8,
+            "magpenalty": 4,
             "guardtype": "STUB",
             "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ローパー",
+            "strength": 37,
+            "arcane": 42,
+            "endurance": 67,
+            "speed": 15,
+            "luck": 8,
+            "exp": 479,
+            "gold": 53,
+            "bodysize": "L",
+            "hitdice": 15,
+            "defvalue": 9,
+            "magpenalty": 4,
+            "guardtype": "STUB",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
-    ]
-,
+    ],
     [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
+        {
+            "name": "アイアン・ゴーレム",
+            "strength": 47,
+            "arcane": 20,
+            "endurance": 95,
+            "speed": 14,
+            "luck": 6,
+            "exp": 430,
+            "gold": 46,
+            "bodysize": "L",
+            "hitdice": 16,
+            "defvalue": 10,
+            "magpenalty": 5,
+            "guardtype": "FULL",
+            "weaktype": "NONE",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         },
         {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
+            "name": "アイス・デヴィル",
+            "strength": 47,
+            "arcane": 49,
+            "endurance": 75,
+            "speed": 18,
+            "luck": 9,
+            "exp": 460,
+            "gold": 50,
+            "bodysize": "L",
+            "hitdice": 16,
+            "defvalue": 9,
+            "magpenalty": 4,
+            "guardtype": "FULL",
             "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "グラブレズゥ",
+            "strength": 48,
+            "arcane": 49,
+            "endurance": 76,
+            "speed": 17,
+            "luck": 9,
+            "exp": 490,
+            "gold": 53,
+            "bodysize": "XL",
+            "hitdice": 17,
+            "defvalue": 10,
+            "magpenalty": 4,
+            "guardtype": "FULL",
+            "weaktype": "SACRED",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ストーム・ジャイアント",
+            "strength": 57,
+            "arcane": 31,
+            "endurance": 82,
+            "speed": 14,
+            "luck": 7,
+            "exp": 520,
+            "gold": 57,
+            "bodysize": "XL",
+            "hitdice": 17,
+            "defvalue": 11,
+            "magpenalty": 3,
+            "guardtype": "CHOP",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ブルー・ドラゴン(アダルト)",
+            "strength": 50,
+            "arcane": 51,
+            "endurance": 82,
+            "speed": 16,
+            "luck": 9,
+            "exp": 550,
+            "gold": 61,
+            "bodysize": "XL",
+            "hitdice": 17,
+            "defvalue": 11,
+            "magpenalty": 5,
+            "guardtype": "FULL",
+            "weaktype": "ICE",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "フロフェモス",
+            "strength": 42,
+            "arcane": 47,
+            "endurance": 76,
+            "speed": 15,
+            "luck": 8,
+            "exp": 580,
+            "gold": 64,
+            "bodysize": "XL",
+            "hitdice": 17,
+            "defvalue": 10,
+            "magpenalty": 4,
+            "guardtype": "STUB",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
-    ]
-,
+    ],
     [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
+        {
+            "name": "アストラル・デーヴァ",
+            "strength": 49,
+            "arcane": 55,
+            "endurance": 82,
+            "speed": 21,
+            "luck": 10,
+            "exp": 520,
+            "gold": 56,
             "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
+            "hitdice": 16,
+            "defvalue": 9,
+            "magpenalty": 4,
+            "guardtype": "FULL",
+            "weaktype": "CURCE",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         },
         {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
+            "name": "クラッグ・リノーム",
+            "strength": 56,
+            "arcane": 57,
+            "endurance": 92,
+            "speed": 17,
+            "luck": 9,
+            "exp": 556,
+            "gold": 60,
+            "bodysize": "XL",
+            "hitdice": 18,
+            "defvalue": 12,
+            "magpenalty": 5,
+            "guardtype": "FULL",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "シルヴァー・ドラゴン(アダルト)",
+            "strength": 56,
+            "arcane": 57,
+            "endurance": 92,
+            "speed": 17,
+            "luck": 9,
+            "exp": 593,
+            "gold": 65,
+            "bodysize": "XL",
+            "hitdice": 18,
+            "defvalue": 12,
+            "magpenalty": 5,
+            "guardtype": "FULL",
+            "weaktype": "FIRE",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "トランペット・アルコン",
+            "strength": 50,
+            "arcane": 55,
+            "endurance": 83,
+            "speed": 20,
+            "luck": 10,
+            "exp": 629,
+            "gold": 69,
+            "bodysize": "L",
+            "hitdice": 17,
+            "defvalue": 10,
+            "magpenalty": 4,
+            "guardtype": "FULL",
+            "weaktype": "CURCE",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ナルフェシュネー",
+            "strength": 53,
+            "arcane": 55,
+            "endurance": 83,
+            "speed": 19,
+            "luck": 9,
+            "exp": 666,
+            "gold": 74,
+            "bodysize": "L",
+            "hitdice": 17,
+            "defvalue": 10,
+            "magpenalty": 4,
+            "guardtype": "FULL",
             "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "レッド・ドラゴン(アダルト)",
+            "strength": 56,
+            "arcane": 57,
+            "endurance": 92,
+            "speed": 17,
+            "luck": 9,
+            "exp": 702,
+            "gold": 78,
+            "bodysize": "XL",
+            "hitdice": 18,
+            "defvalue": 12,
+            "magpenalty": 5,
+            "guardtype": "FULL",
+            "weaktype": "ICE",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
-    ]
-,
+    ],
     [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
+        {
+            "name": "ゴールド・ドラゴン(アダルト)",
+            "strength": 62,
+            "arcane": 64,
+            "endurance": 103,
+            "speed": 18,
+            "luck": 10,
+            "exp": 625,
+            "gold": 68,
+            "bodysize": "XL",
+            "hitdice": 19,
+            "defvalue": 12,
+            "magpenalty": 6,
+            "guardtype": "FULL",
+            "weaktype": "ICE",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         },
         {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
+            "name": "ネオセリッド",
+            "strength": 51,
+            "arcane": 59,
+            "endurance": 94,
+            "speed": 17,
+            "luck": 9,
+            "exp": 669,
+            "gold": 73,
+            "bodysize": "XL",
+            "hitdice": 19,
+            "defvalue": 11,
+            "magpenalty": 5,
             "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "フェニックス",
+            "strength": 56,
+            "arcane": 54,
+            "endurance": 93,
+            "speed": 21,
+            "luck": 9,
+            "exp": 713,
+            "gold": 79,
+            "bodysize": "L",
+            "hitdice": 18,
+            "defvalue": 10,
+            "magpenalty": 5,
+            "guardtype": "NONE",
+            "weaktype": "ICE",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ホワイト・ドラゴン(エインシャント)",
+            "strength": 62,
+            "arcane": 64,
+            "endurance": 103,
+            "speed": 18,
+            "luck": 10,
+            "exp": 756,
+            "gold": 84,
+            "bodysize": "XL",
+            "hitdice": 19,
+            "defvalue": 12,
+            "magpenalty": 6,
+            "guardtype": "FULL",
+            "weaktype": "FIRE",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
-    ]
-,
+    ],
     [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
+        {
+            "name": "ブラス・ドラゴン(エインシャント)",
+            "strength": 68,
+            "arcane": 72,
+            "endurance": 114,
+            "speed": 19,
+            "luck": 10,
+            "exp": 745,
+            "gold": 82,
+            "bodysize": "XL",
+            "hitdice": 20,
+            "defvalue": 13,
+            "magpenalty": 6,
+            "guardtype": "FULL",
+            "weaktype": "ICE",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         },
         {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
+            "name": "ブラック・ドラゴン(エインシャント)",
+            "strength": 68,
+            "arcane": 72,
+            "endurance": 114,
+            "speed": 19,
+            "luck": 10,
+            "exp": 797,
+            "gold": 89,
+            "bodysize": "XL",
+            "hitdice": 20,
+            "defvalue": 13,
+            "magpenalty": 6,
+            "guardtype": "FULL",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "プラネター",
+            "strength": 61,
+            "arcane": 69,
+            "endurance": 103,
+            "speed": 22,
+            "luck": 11,
+            "exp": 849,
+            "gold": 95,
+            "bodysize": "L",
+            "hitdice": 19,
+            "defvalue": 11,
+            "magpenalty": 5,
+            "guardtype": "FULL",
+            "weaktype": "CURCE",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ホーンド・デヴィル",
+            "strength": 64,
+            "arcane": 69,
+            "endurance": 103,
+            "speed": 21,
+            "luck": 10,
+            "exp": 901,
+            "gold": 102,
+            "bodysize": "L",
+            "hitdice": 19,
+            "defvalue": 11,
+            "magpenalty": 5,
+            "guardtype": "FULL",
             "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
-    ]
-,
+    ],
     [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
+        {
+            "name": "アイス・リノーム",
+            "strength": 74,
+            "arcane": 79,
+            "endurance": 126,
+            "speed": 20,
+            "luck": 10,
+            "exp": 885,
+            "gold": 98,
+            "bodysize": "XL",
+            "hitdice": 21,
+            "defvalue": 13,
+            "magpenalty": 6,
+            "guardtype": "FULL",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         },
         {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
+            "name": "カッパー・ドラゴン(エインシャント)",
+            "strength": 74,
+            "arcane": 79,
+            "endurance": 126,
+            "speed": 20,
+            "luck": 10,
+            "exp": 947,
+            "gold": 106,
+            "bodysize": "XL",
+            "hitdice": 21,
+            "defvalue": 13,
+            "magpenalty": 6,
+            "guardtype": "FULL",
+            "weaktype": "SHOCK",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "グリーン・ドラゴン(エインシャント)",
+            "strength": 74,
+            "arcane": 79,
+            "endurance": 126,
+            "speed": 20,
+            "luck": 10,
+            "exp": 1009,
+            "gold": 114,
+            "bodysize": "XL",
+            "hitdice": 21,
+            "defvalue": 13,
+            "magpenalty": 6,
+            "guardtype": "FULL",
+            "weaktype": "CURCE",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "マリリス",
+            "strength": 70,
+            "arcane": 76,
+            "endurance": 114,
+            "speed": 22,
+            "luck": 10,
+            "exp": 1071,
+            "gold": 122,
+            "bodysize": "L",
+            "hitdice": 20,
+            "defvalue": 11,
+            "magpenalty": 5,
+            "guardtype": "FULL",
             "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
-    ]
-,
+    ],
     [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
+        {
+            "name": "クラーケン",
+            "strength": 74,
+            "arcane": 74,
+            "endurance": 127,
+            "speed": 23,
+            "luck": 10,
+            "exp": 1050,
+            "gold": 118,
+            "bodysize": "XL",
+            "hitdice": 22,
+            "defvalue": 13,
+            "magpenalty": 5,
+            "guardtype": "NONE",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         },
         {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
+            "name": "ブルー・ドラゴン(エインシャント)",
+            "strength": 81,
+            "arcane": 87,
+            "endurance": 139,
+            "speed": 21,
+            "luck": 11,
+            "exp": 1124,
+            "gold": 127,
+            "bodysize": "XL",
+            "hitdice": 22,
+            "defvalue": 14,
+            "magpenalty": 6,
+            "guardtype": "FULL",
+            "weaktype": "ICE",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ブロンズ・ドラゴン(エインシャント)",
+            "strength": 81,
+            "arcane": 87,
+            "endurance": 139,
+            "speed": 21,
+            "luck": 11,
+            "exp": 1197,
+            "gold": 137,
+            "bodysize": "XL",
+            "hitdice": 22,
+            "defvalue": 14,
+            "magpenalty": 6,
+            "guardtype": "FULL",
+            "weaktype": "ICE",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
-    ]
-,
+    ],
     [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
+        {
+            "name": "ショゴス",
+            "strength": 74,
+            "arcane": 89,
+            "endurance": 141,
+            "speed": 20,
+            "luck": 10,
+            "exp": 1240,
+            "gold": 140,
+            "bodysize": "XL",
+            "hitdice": 23,
+            "defvalue": 13,
+            "magpenalty": 6,
+            "guardtype": "STUB",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         },
         {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
+            "name": "シルヴァー・ドラゴン(エインシャント)",
+            "strength": 89,
+            "arcane": 96,
+            "endurance": 153,
+            "speed": 22,
+            "luck": 11,
+            "exp": 1327,
+            "gold": 151,
+            "bodysize": "XL",
+            "hitdice": 23,
+            "defvalue": 14,
+            "magpenalty": 7,
+            "guardtype": "FULL",
+            "weaktype": "FIRE",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "レッド・ドラゴン(エインシャント)",
+            "strength": 89,
+            "arcane": 96,
+            "endurance": 153,
+            "speed": 22,
+            "luck": 11,
+            "exp": 1414,
+            "gold": 162,
+            "bodysize": "XL",
+            "hitdice": 23,
+            "defvalue": 14,
+            "magpenalty": 7,
+            "guardtype": "FULL",
+            "weaktype": "ICE",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
-    ]
-,
+    ],
     [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
+        {
+            "name": "ゴールド・ドラゴン(エインシャント)",
+            "strength": 97,
+            "arcane": 105,
+            "endurance": 169,
+            "speed": 23,
+            "luck": 11,
+            "exp": 1460,
+            "gold": 168,
+            "bodysize": "XL",
+            "hitdice": 24,
+            "defvalue": 15,
+            "magpenalty": 7,
+            "guardtype": "FULL",
+            "weaktype": "ICE",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         },
         {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
+            "name": "ターン・リノーム",
+            "strength": 97,
+            "arcane": 105,
+            "endurance": 169,
+            "speed": 23,
+            "luck": 11,
+            "exp": 1562,
+            "gold": 181,
+            "bodysize": "XL",
+            "hitdice": 24,
+            "defvalue": 15,
+            "magpenalty": 7,
+            "guardtype": "FULL",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "defend",
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "バロール",
+            "strength": 93,
+            "arcane": 101,
+            "endurance": 155,
+            "speed": 24,
+            "luck": 11,
+            "exp": 1664,
+            "gold": 195,
+            "bodysize": "XL",
+            "hitdice": 24,
+            "defvalue": 14,
+            "magpenalty": 6,
+            "guardtype": "FULL",
             "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
+        },
+        {
+            "name": "ピット・フィーンド",
+            "strength": 92,
+            "arcane": 101,
+            "endurance": 154,
+            "speed": 25,
+            "luck": 11,
+            "exp": 1767,
+            "gold": 208,
+            "bodysize": "L",
+            "hitdice": 23,
+            "defvalue": 13,
+            "magpenalty": 6,
+            "guardtype": "FULL",
+            "weaktype": "SACRED",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
-    ]
-,
+    ],
     [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
-        },
         {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
+            "name": "ソーラー",
+            "strength": 118,
+            "arcane": 135,
+            "endurance": 200,
+            "speed": 28,
+            "luck": 13,
+            "exp": 2400,
+            "gold": 280,
+            "bodysize": "XL",
+            "hitdice": 28,
+            "defvalue": 16,
+            "magpenalty": 6,
+            "guardtype": "FULL",
+            "weaktype": "CURCE",
+            "action_pattern": [
+                "defend",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
-    ]
-,
+    ],
     [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
-        },
         {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
+            "name": "タラスク",
+            "strength": 142,
+            "arcane": 83,
+            "endurance": 227,
+            "speed": 35,
+            "luck": 12,
+            "exp": 3800,
+            "gold": 450,
+            "bodysize": "XL",
+            "hitdice": 32,
+            "defvalue": 18,
+            "magpenalty": 6,
+            "guardtype": "NONE",
+            "weaktype": "ALL",
+            "action_pattern": [
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "attack",
+                "escape"
+            ],
+            "skills": [
+                ""
+            ]
         }
     ]
-,
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
-        }
-    ]
-,
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
-        }
-    ]
-,
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
-        }
-    ]
-,
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
-        }
-    ]
-,
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
-        }
-    ]
-,
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
-        }
-    ]
-,
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
-        }
-    ]
-,
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
-        }
-    ]
-,
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
-        }
-    ]
-,
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
-        }
-    ]
-,
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
-        }
-    ]
-,
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
-        }
-    ]
-,
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
-        }
-    ]
-,
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
-        }
-    ]
-,
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
-        }
-    ]
-,
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
-        }
-    ]
-,
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
-        }
-    ]
-,
-    [
-         {
-            "name": "コボルト",
-            "strength": 6,
-            "arcane": 3,
-            "endurance": 5,
-            "speed": 5,
-            "luck": 3,
-            "exp": 6,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 1,
-            "magpenalty": 0,
-            "guardtype": "BASH",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","attack","attack","attack","attack","escape"],
-            "skills": [""]
-        },
-        {
-            "name": "スケルトン",
-            "strength": 6,
-            "arcane": 6,
-            "endurance": 8,
-            "speed": 5,
-            "luck": 3,
-            "exp": 8,
-            "gold": 2,
-            "bodysize": "M",
-            "hitdice": 2,
-            "defvalue": 2,
-            "magpenalty": 0,
-            "guardtype": "STUB",
-            "weaktype": "SACRED",
-            "action_pattern": ["defend","defend","attack","attack","attack","escape"],
-            "skills": [""]
-        }
-    ]
-
 ]

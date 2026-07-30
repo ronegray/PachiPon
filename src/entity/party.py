@@ -56,7 +56,7 @@ class Party:
         # self.cmdmgr = cmdmgr
         # self.scnmgr = scnmgr
         # # 初期PTメンバ（主人公）の登録
-        self.regist_dummy_hero()  # そもそもやるべきではない？
+        # self.regist_dummy_hero()  # そもそもやるべきではない？
         # self.regist_dummy_hero()
         # self.regist_dummy_hero()
         # self.add_ptmember(di.ref.hero)
