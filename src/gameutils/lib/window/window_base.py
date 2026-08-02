@@ -203,22 +203,28 @@ class Window:
         if (self.height - Window._chip_size) > (self.fontdata.height * row_max):
             self._max_msg_rows = row_max
 
+    def update_indicator(self, indicate: bool) -> None:
+        """インジケータ状態のON/OFF"""
+        self.is_indicator = indicate
+
     def update(self) -> WindowAction:
         self.frame_counter += 1
         # menuモードのウインドウは基本的にupdateを実行しないが念の為
-        if self.window_mode == "menu":
+        # if self.window_mode == "menu":
+        if self.window_mode in ("menu", "sub"):
             return WindowAction.CONTINUE
         # waitモード時は待機フレーム数が過ぎると全終了
         if self.window_mode == "wait" and self.frame_counter <= self.wait_frame:
             return WindowAction.DISCARD
         # waitモード時は待機フレーム数の半分を過ぎるまでキー入力を受け付けない
         if self.window_mode == "wait" and self.frame_counter <= self.wait_frame // 2:
-            self.is_indicator = True  # インジケータ点灯フラグON
+            self.update_indicator(True)  # インジケータ点灯フラグON
             return WindowAction.CONTINUE
 
-        # ボタンを押したら終わりのタイプはすぐインジケータ点灯
-        if self.window_mode in ("once", "page"):
-            self.is_indicator = True
+        # # ボタンを押したら終わりのタイプはすぐインジケータ点灯
+        # if self.window_mode in ("once", "page"):
+        #     self.update_indicator(True)
+        """チラチラし過ぎるので別の方法を検討"""
 
         # 決定またはキャンセルキー処理
         if self.inp.decide() or self.inp.cancel():
@@ -251,11 +257,13 @@ class Window:
             colkey=px.COLOR_BLACK,
         )
         # ボタン押下アイコン
-        if self.frame_counter >= self.wait_frame // 2:
+        # if self.frame_counter >= self.wait_frame // 2:
+        if self.is_indicator:
             if px.frame_count // 8 % 2 == 0:
                 px.blt(
                     self.x + self.width // 2 - (self._indicator_address[2] // 2),
-                    self.y + self.height - self._indicator_address[3] - 1,
+                    # self.y + self.height - self._indicator_address[3] - 1,
+                    self.y + self.height - self._indicator_address[3],
                     self._image_chips,
                     # 35,
                     # 248,

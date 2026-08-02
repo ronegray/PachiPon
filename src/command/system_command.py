@@ -7,12 +7,13 @@ import logging
 from typing import Generator, cast
 import pyxel as px
 from gameutils.lib import WindowAction  # , Window,
-from field_map import EventPoint
 from const import SoundID
+import service_locater as di
+from field_map import EventPoint, PointPlaceType
+from item import ItemState
 
 # from const import COMMAND_STEPWAIT_FRAME
 # from . import CommandBase, CommandPhase, DisplayInfo
-import service_locater as di
 from . import CommandBaseSequence
 
 # ロギング設定
@@ -73,6 +74,62 @@ class CommandBaseSystem(CommandBaseSequence):
     # def draw(self) -> DisplayInfo:
     #     """コマンド描画情報送信"""
     #     return self.display_info
+
+
+class ShopPurchase(CommandBaseSystem):
+    """ショップ購入対応"""
+
+    def _sequence(self) -> Generator[list[str], None, None]:
+        pt = self.args[0]
+        item_def = self.args[1]
+        stackpool = self.args[2]
+
+        eventpoint = pt.get_current_point()
+        pt._pt_golds = 99999
+        # 所持金チェック
+        if pt._pt_golds >= item_def.price:
+            match eventpoint.point_type:
+                case PointPlaceType.CAPITAL_CITY:
+                    buy_message = "お買い上げ　誠にありがとうございます"
+                case PointPlaceType.TOWN:
+                    buy_message = "よし売った！ありがとよ！"
+                case PointPlaceType.VILLAGE:
+                    buy_message = "どうもおおきにのう～"
+            # self.message_window.clear_message()
+            # self.message_window.set_message([buy_message]) # type: ignore
+            px.play(self.se_ch, SoundID.SHOP_BUY, resume=True)
+            yield [buy_message]  # type: ignore
+
+            # 購入処理
+            pt._pt_golds -= item_def.price
+            stackpool.add(item_def.def_id, ItemState.BAG)
+        else:
+            match eventpoint.point_type:
+                case PointPlaceType.CAPITAL_CITY:
+                    not_enough_message = "お客様\n当店の割引券をお持ちなのですか？"
+                case PointPlaceType.TOWN:
+                    not_enough_message = (
+                        "ちょっと待ちなよ\nあんたの手持ちじゃ足りねえみてえだぜ"
+                    )
+                case PointPlaceType.VILLAGE:
+                    not_enough_message = (
+                        "どれどれ、ひぃふぅみぃ・・・\nこれじゃ売ってやれんのう"
+                    )
+            yield [not_enough_message]  # type: ignore
+
+        self.display_info.target.update_indicator(True)
+        while self.display_info.target.update() == WindowAction.CONTINUE:
+            yield [self.WAIT, "0"]
+        self.display_info.target.update_indicator(False)
+
+        match eventpoint.point_type:
+            case PointPlaceType.CAPITAL_CITY:
+                next_message = "他に御入用は　ございますか？"
+            case PointPlaceType.TOWN:
+                next_message = "他にもなんか　買ってくかい？"
+            case PointPlaceType.VILLAGE:
+                next_message = "そっちのもどうじゃろか？"
+        yield [next_message]  # type: ignore
 
 
 class BattleStartEffect(CommandBaseSystem):

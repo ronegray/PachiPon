@@ -43,5 +43,15 @@
     "MenuYesNo": [
         [{"id": "同　意", "action": "none", "args": [true]}],
         [{"id": "拒　否", "action": "none", "args": [false]}]
+    ],
+    "MenuSelectShopCategory": [
+
+        [
+            {"id": "消耗品", "action": "buy_consume"},
+            {"id": "装備品", "action": "buy_equips"},
+            {"id": "食料品", "action": "buy_foods"},
+            {"id": "下取り", "action": "cell_equips"},
+            {"id": "Ｂｙｅ", "action": "exit_shop"}
+        ]
     ]
 }

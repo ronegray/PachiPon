@@ -88,7 +88,7 @@ class ItemID(IntEnum):
     LANCE        = 0x00_4_4
     MAGICSPEAR   = 0x00_4_5
     # 最強武器
-    SACREDWEAPON = 0x00_7_6
+    SACREDWEAPON = 0x00_7_9
     # 防具 カテゴリ_魔法制約ペナ有無_アイテム識別子
     # ※魔法制約ペナ有無は論理情報で実際にはItemDef.magpenaltyを使用する
     CLOTH        = 0x07_0_1  # 魔法制約0
@@ -98,7 +98,7 @@ class ItemID(IntEnum):
     HALFPLATE    = 0x07_1_5  # 魔法制約-4
     FULLPLATE    = 0x07_1_6  # 魔法制約-8
     # 最強防具
-    HOLYGUARD    = 0x07_1_7  # 魔法制約-3
+    HOLYGUARD    = 0x07_1_9  # 魔法制約-3
     # アクセサリ（効果の高い方が優先で重複はしない）
     # アイテムそのものの識別子であり、効果識別子とはItemDef.effect_idで紐付け
     ATKRING      = 0x0B_0_1  # アクセ　物理ダメージダイス＋１
@@ -150,6 +150,12 @@ class ItemTargetType(IntEnum):
     ENEMIES = 0b0101 # 敵全体
     ALL     = 0b0111 # 敵味方全体
     SELF    = 0b1000 # 自身のみ
+
+class ItemRank(IntEnum):
+    JUNK   = 0
+    NORMAL = 1
+    RARE   = 2
+    LEGEND = 3
 # fmt: on
 
 
@@ -162,6 +168,7 @@ class ItemDef:
     item_type: ItemType
     target_type: ItemTargetType
     stackable: bool
+    rank: ItemRank
     price: int = 0
     description: str = ""
     # 装備品

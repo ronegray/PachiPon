@@ -7,6 +7,7 @@ from .item_protocol import (
     ItemID,
     ItemDef,
     ItemState,
+    ItemRank,
     # UniqueIdentifyItem,
     ItemInstance,
     PoolEntry,

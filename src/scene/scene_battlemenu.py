@@ -7,7 +7,7 @@
 import logging
 
 # from typing import Callable
-import pyxel as px
+# import pyxel as px
 
 # from gameutils.base import check_file, read_string
 from gameutils.lib import WindowAction  # Window, WindowAction, WindowInputHandler
@@ -76,6 +76,7 @@ class SceneBattleMenu(BaseScene):
 
         # logger.info(f"source context {ctx}")
         parent_scene = di.ref.scnmgr.get_now_scene()
+        self.parent_draw = parent_scene.draw
         if not isinstance(parent_scene, SceneBattle):
             errmsg = (
                 f"想定外のシーンから呼び出されました：{parent_scene.__class__.__name__}"
@@ -173,12 +174,12 @@ class SceneBattleMenu(BaseScene):
         - バトルメニュー
         """
         # 背景描画
-        # self.parent_draw()
-        px.dither(0.3)
-        px.blt(0, 0, self.bgimage, 0, 0, self.bgimage.width, self.bgimage.height)
-        # px.dither(0.5)
-        # px.rect(0,0,px.width,px.height,px.COLOR_NAVY)
-        px.dither(1)
+        self.parent_draw()
+        # px.dither(0.3)
+        # px.blt(0, 0, self.bgimage, 0, 0, self.bgimage.width, self.bgimage.height)
+        # # px.dither(0.5)
+        # # px.rect(0,0,px.width,px.height,px.COLOR_NAVY)
+        # px.dither(1)
         self.wndmgr.draw()
 
     # def build_context(
