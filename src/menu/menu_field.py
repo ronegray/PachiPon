@@ -11,8 +11,9 @@ from gameutils.lib import (
     Window,
     ExecResult,
     RsltPush,
+    RsltDiscard,
 )  # , WindowAction, RsltContinue
-# import service_locater as di
+import service_locater as di
 
 # from entity.character import EquipSlot
 # from entity import EquipSlot
@@ -68,7 +69,19 @@ class MenuField(Menu):
 
     def enter_shop(self):
         """商店メニューを開く"""
-        print("enter shop")
+        # from menu import MenuSelectShopCategory
+
+        # return RsltPush(
+        #     MenuSelectShopCategory,
+        #     self.cursor_x + Window._chip_size + 1,
+        #     self.cursor_y + Window._chip_size + 1,
+        #     self.ctx,
+        #     self.command_package,
+        #     # self.pool_item,
+        #     # self.pool_stack,
+        # )
+        di.ref.scnmgr.next_scene("shop")
+        return RsltDiscard()
 
     def show_status(self):
         """ステータスメニューを開く"""

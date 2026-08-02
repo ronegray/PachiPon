@@ -10,9 +10,9 @@
 
 # from __future__ import annotations
 from . import (
-    WindowAction,
     Window,
     Menu,
+    WindowAction,
     RsltContinue,
     RsltDiscard,
     RsltPop,

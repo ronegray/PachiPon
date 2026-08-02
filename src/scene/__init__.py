@@ -23,6 +23,7 @@ from .scene_battlesplash import SceneBattleSplash
 from .scene_battle import SceneBattle
 from .scene_battlemenu import SceneBattleMenu
 from .scene_levelup import SceneLevelup
+from .scene_shop import SceneShop
 
 
 register("splash", SceneSplash)
@@ -32,6 +33,7 @@ register("charamake", SceneCharaMake)
 register("opening", SceneOpening)
 register("map", SceneField)
 register("mapevent", SceneFieldEvent)
+register("shop", SceneShop)
 register("battlesplash", SceneBattleSplash)
 register("battle", SceneBattle)
 register("battlemenu", SceneBattleMenu)

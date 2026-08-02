@@ -8,6 +8,7 @@
 
 import logging
 from typing import Literal
+from enum import IntEnum  # , auto
 import pyxel as px
 from assets.asset_map import AssetID, AssetMap
 from gameutils.base import check_file, read_json
@@ -51,6 +52,25 @@ class Route:
         self.direction: ROUTE_DIR = tmp_dir
 
 
+class PointPlaceType(IntEnum):
+    """イベントポイントの場所タイプ"""
+
+    UNKNOWN = 99
+    VILLAGE = 0
+    TOWN = 1
+    CAPITAL_CITY = 2
+    PORT = 3
+    THOROUGHFARE = 4
+    LAKE = 5
+    DUNGEON = 6
+    REST_AREA = 7
+    TEMPLE = 8
+    FRONTIER = 9
+    RUINS = 10
+    FOREST = 11
+    MOUNTAIN = 12
+
+
 class EventPoint:
     """マップ上に定義されるイベント地点"""
 
@@ -70,6 +90,9 @@ class EventPoint:
             raise ValueError(errmsg)
 
         self.id: str = tmp_id
+        self.point_type: PointPlaceType = PointPlaceType[
+            point_data.get("point_type", "UNKNOWN")
+        ]
         self.name: str = point_data.get("name", "Unknown")
         self.event_id: str = tmp_evid
         self.event_type: EventType = EventType[

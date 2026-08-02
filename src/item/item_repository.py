@@ -7,7 +7,7 @@
 import logging
 from gameutils.base import check_file, read_json
 from assets.asset_map import AssetID, AssetMap
-from .item_protocol import ItemID, ItemType, ItemDef, ItemTargetType
+from .item_protocol import ItemID, ItemType, ItemDef, ItemTargetType, ItemRank
 
 # ロギング設定
 logger = logging.getLogger(__name__)
@@ -30,7 +30,7 @@ class ItemRepository:
         ItemRepository._master_def = {}
         for type_name, item_data in json_data.items():
             item_type = ItemType[type_name]
-            stackable = (
+            is_stackable = (
                 item_type == ItemType.CONSUME
             )  # 現状のルール: 消耗品のみスタック可
 
@@ -43,7 +43,8 @@ class ItemRepository:
                         name=details.get("name", "Unknown"),
                         item_type=item_type,
                         target_type=ItemTargetType[details.get("target_type", "NONE")],
-                        stackable=stackable,
+                        stackable=is_stackable,
+                        rank=ItemRank[details.get("rank", "JUNK")],
                         price=details.get("price", 0),
                         description=details.get("description", ""),
                         hitdice=details.get("hitdice", 0),
@@ -59,6 +60,15 @@ class ItemRepository:
     def get_def(self, def_id: ItemID) -> ItemDef | None:
         """指定されたIDのアイテム定義を取得する"""
         return self._master_def.get(def_id)
+
+    def get_def_by_type(self, item_type: ItemType) -> dict[ItemID, ItemDef]:
+        """指定されたアイテムタイプのアイテム定義を取得する"""
+        result = {
+            item_id: item_def
+            for item_id, item_def in self._master_def.items()
+            if item_def.item_type == item_type
+        }
+        return result
 
     def get_all_definitions(self) -> dict[ItemID, ItemDef]:
         """すべてのアイテム定義を取得する"""

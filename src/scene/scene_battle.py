@@ -66,7 +66,10 @@ class SceneBattle(BaseScene):
         candidate_list = di.ref.enmrps.get_threat_enemies(threat)
         enemy_index = px.rndi(0, len(candidate_list) - 1)
         enemy_data = candidate_list[enemy_index]
-        enemy_image = px.Image.from_image(f"assets/image/{enemy_data["name"]}.bmp")
+        path = check_file(f"assets/image/{enemy_data["name"]}.bmp")
+        if path is None:
+            path = check_file("assets/image/unknown.bmp")
+        enemy_image = px.Image.from_image(str(path))
         # エネミー出現数の算出
         enemy_count = min(enemy_data["bodysize"], diceroll(1))
         # エネミーインスタンスの生成

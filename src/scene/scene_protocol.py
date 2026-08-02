@@ -30,7 +30,7 @@ SCENE_NAME = Literal[
     "battle",
     "battlemenu",
     "levelup",
-    # "craft",
+    "shop",
     # "rest",
 ]
 

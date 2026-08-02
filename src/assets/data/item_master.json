@@ -2,51 +2,61 @@
   "KEY_ITEM": {
     "CROWN": {
       "name": "宝冠",
+      "rank": "LEGEND",
       "price": 0,
       "description": "象徴の一。真理の智慧を示す。"
     },
     "MIRROR": {
       "name": "神鏡",
+      "rank": "LEGEND",
       "price": 0,
       "description": "象徴の一。神秘の力を示す。"
     },
     "CEPTER": {
       "name": "王笏",
+      "rank": "LEGEND",
       "price": 0,
       "description": "象徴の一。王の権能を示す。"
     },
     "GRAIL": {
       "name": "聖杯",
+      "rank": "LEGEND",
       "price": 0,
       "description": "象徴の一。楽土の安寧を示す。"
     },
     "JADEEYE": {
       "name": "翡翠の瞳",
+      "rank": "RARE",
       "price": 0,
       "description": "何かを見通すような深い眼差しが刻まれている"
     },
     "CROSS": {
       "name": "十字架",
+      "rank": "RARE",
       "price": 0,
       "description": "古ぼけた小さな十字架には見た事もない文字が刻まれている"
     },
     "CRYSTALROD": {
       "name": "水晶の杖",
+      "rank": "RARE",
       "price": 0,
       "description": "六角形の杖の先端には台座のような造形が刻まれている"
     },
     "DRAGONFANG": {
       "name": "朽ちた竜の牙",
+      "rank": "LEGEND",
       "price": 0,
       "description": "太古に息絶えた竜の骸からは恐ろしい力を感じる"
     },
     "TARISMAN": {
       "name": "伝承者の護符",
+      "rank": "LEGEND",
       "price": 0,
       "description": "古代より伝わる護符からは張り詰めた力を感じる"
     },
     "HOLYSHROUD": {
       "name": "最期の亜麻布",
+      "rank": "LEGEND",
       "price": 0,
       "description": "古の聖人を覆ったという布からは静謐な力を感じる"
     }
@@ -54,30 +64,35 @@
   "WEAPON": {
     "DAGGER": {
       "name": "ダガー",
-      "price": 0,
+      "rank": "JUNK",
+      "price": 10,
       "hitdice": 1,
       "description": "護身用の短剣"
     },
     "SHORTSWORD": {
       "name": "ショートソード",
+      "rank": "JUNK",
       "price": 100,
       "hitdice": 2,
       "description": "使いやすい剣"
     },
     "LONGSWORD": {
       "name": "ロングソード",
+      "rank": "NORMAL",
       "price": 500,
       "hitdice": 3,
       "description": "一般的な剣"
     },
     "CLAYMORE": {
       "name": "クレイモア",
+      "rank": "NORMAL",
       "price": 1000,
       "hitdice": 4,
       "description": "両手持ちの大剣"
     },
     "MAGICBLADE": {
       "name": "ミスティックエッジ",
+      "rank": "RARE",
       "price": 5000,
       "hitdice": 5,
       "description": "魔法で強化された剣"
@@ -85,30 +100,35 @@
 
     "MACE": {
       "name": "メイス",
-      "price": 0,
+      "rank": "JUNK",
+      "price": 10,
       "hitdice": 1,
       "description": "柄に飾り頭部を付けた武器"
     },
     "FLAIL": {
       "name": "フレイル",
+      "rank": "JUNK",
       "price": 100,
       "hitdice": 2,
       "description": "柄に短い棒を鎖で括り付けた武器"
     },
     "MORNINGSTAR": {
       "name": "モーニングスター",
+      "rank": "NORMAL",
       "price": 500,
       "hitdice": 3,
       "description": "柄にトゲ付き金属球を付けた武器"
     },
     "WARHAMMER": {
       "name": "ウォーハンマー",
+      "rank": "NORMAL",
       "price": 1000,
       "hitdice": 4,
       "description": "重い金属の頭部を持つ武器"
     },
     "MAGICMACE": {
       "name": "アストラルハンマー",
+      "rank": "RARE",
       "price": 5000,
       "hitdice": 5,
       "description": "魔法で強化された槌"
@@ -116,30 +136,35 @@
 
     "JAVELIN": {
       "name": "ジャベリン",
-      "price": 0,
+      "rank": "JUNK",
+      "price": 10,
       "hitdice": 1,
       "description": "細い投擲用の槍"
     },
     "SPEAR": {
       "name": "スピア",
+      "rank": "JUNK",
       "price": 100,
       "hitdice": 2,
       "description": "柄の長い槍"
     },
     "PIKE": {
       "name": "パイク",
+      "rank": "NORMAL",
       "price": 500,
       "hitdice": 3,
       "description": "非常に柄の長い槍"
     },
     "LANCE": {
       "name": "ランス",
+      "rank": "NORMAL",
       "price": 1000,
       "hitdice": 4,
       "description": "突撃用の円錐状の槍"
     },
     "MAGICSPEAR": {
       "name": "ルーンドスピア",
+      "rank": "RARE",
       "price": 5000,
       "hitdice": 5,
       "description": "魔法で強化された槍"
@@ -147,6 +172,7 @@
 
     "SACREDWEAPON": {
       "name": "神聖な武器",
+      "rank": "LEGEND",
       "price": 0,
       "hitdice": 6,
       "description": "神の力を宿す武器"
@@ -155,6 +181,7 @@
   "GUARDER": {
     "CLOTH": {
       "name": "布の服",
+      "rank": "JUNK",
       "price": 0,
       "defvalue": 1,
       "magpenalty": 0,
@@ -162,6 +189,7 @@
     },
     "LEATHER": {
       "name": "皮の胸当て",
+      "rank": "JUNK",
       "price": 250,
       "defvalue": 2,
       "magpenalty": 1,
@@ -169,6 +197,7 @@
     },
     "CHAIN": {
       "name": "鎖帷子",
+      "rank": "NORMAL",
       "price": 700,
       "defvalue": 4,
       "magpenalty": 2,
@@ -176,6 +205,7 @@
     },
     "ENCHANTROBE": {
       "name": "魔術のローブ",
+      "rank": "NORMAL",
       "price": 1980,
       "defvalue": 5,
       "magpenalty": 0,
@@ -183,6 +213,7 @@
     },
     "HALFPLATE": {
       "name": "板金鎧",
+      "rank": "RARE",
       "price": 4800,
       "defvalue": 7,
       "magpenalty": 4,
@@ -190,6 +221,7 @@
     },
     "FULLPLATE": {
       "name": "甲冑",
+      "rank": "RARE",
       "price": 12000,
       "defvalue": 9,
       "magpenalty": 8,
@@ -197,6 +229,7 @@
     },
     "HOLYGUARD": {
       "name": "神聖な防具",
+      "rank": "LEGEND",
       "price": 0,
       "defvalue": 10,
       "magpenalty": 3,
@@ -206,6 +239,7 @@
   "ORNAMENT": {
     "ATKRING": {
       "name": "打撃のリング",
+      "rank": "NORMAL",
       "price": 1000,
       "effect_type": "attack_bonus",
       "effect_value": 1,
@@ -214,6 +248,7 @@
     },
     "SPDRING": {
       "name": "軽業のリング",
+      "rank": "NORMAL",
       "price": 1000,
       "effect_type": "speed_bonus",
       "effect_value": 1,
@@ -222,6 +257,7 @@
     },
     "DEFRING": {
       "name": "忍耐のリング",
+      "rank": "NORMAL",
       "price": 1000,
       "effect_type": "reduce_weapon",
       "effect_value": 1,
@@ -230,6 +266,7 @@
     },
     "REGRING": {
       "name": "抵抗のリング",
+      "rank": "NORMAL",
       "price": 1000,
       "effect_type": "recuce_spell",
       "effect_value": 1,
@@ -238,6 +275,7 @@
     },
     "HIATKRING": {
       "name": "超打撃のリング",
+      "rank": "LEGEND",
       "price": 30000,
       "effect_type": "attack_bonus",
       "effect_value": 3,
@@ -246,6 +284,7 @@
     },
     "HISPDRING": {
       "name": "超軽業のリング",
+      "rank": "LEGEND",
       "price": 30000,
       "effect_type": "speed_bonus",
       "effect_value": 3,
@@ -254,6 +293,7 @@
     },
     "HIDEFRING": {
       "name": "超忍耐のリング",
+      "rank": "LEGEND",
       "price": 30000,
       "effect_type": "reduce_weapon",
       "effect_value": 3,
@@ -262,6 +302,7 @@
     },
     "HIREGRING": {
       "name": "超抵抗のリング",
+      "rank": "LEGEND",
       "price": 30000,
       "effect_type": "recuce_spell",
       "effect_value": 3,
@@ -270,6 +311,7 @@
     },
     "HPBELT": {
       "name": "頑健のベルト",
+      "rank": "NORMAL",
       "price": 2000,
       "effect_type": "gain_maxhp",
       "effect_value": 1.5,
@@ -278,6 +320,7 @@
     },
     "MPBELT": {
       "name": "精神のベルト",
+      "rank": "NORMAL",
       "price": 2000,
       "effect_type": "gain_maxmp",
       "effect_value": 1.5,
@@ -286,6 +329,7 @@
     },
     "HIHPBELT": {
       "name": "超頑健のベルト",
+      "rank": "LEGEND",
       "price": 50000,
       "effect_type": "gain_maxhp",
       "effect_value": 3,
@@ -294,6 +338,7 @@
     },
     "HIMPBELT": {
       "name": "超精神のベルト",
+      "rank": "LEGEND",
       "price": 50000,
       "effect_type": "gain_maxmp",
       "effect_value": 3,
@@ -302,6 +347,7 @@
     },
     "CHEATDICE": {
       "name": "不正のダイス",
+      "rank": "LEGEND",
       "price": 50000,
       "effect_type": "dice_bonus",
       "effect_value": 1,
@@ -310,6 +356,7 @@
     },
     "GODDICE": {
       "name": "神のダイス",
+      "rank": "LEGEND",
       "price": 999999,
       "effect_type": "dice_bonus",
       "effect_value": 3,
@@ -318,6 +365,7 @@
     },
     "POWAMULET": {
       "name": "筋のアミュレット",
+      "rank": "RARE",
       "price": 3000,
       "effect_type": "bonus_str",
       "effect_value": 3,
@@ -326,6 +374,7 @@
     },
     "ARCAMULET": {
       "name": "魔のアミュレット",
+      "rank": "RARE",
       "price": 3000,
       "effect_type": "bonus_arc",
       "effect_value": 3,
@@ -334,6 +383,7 @@
     },
     "CONAMULET": {
       "name": "耐のアミュレット",
+      "rank": "RARE",
       "price": 3000,
       "effect_type": "bonus_end",
       "effect_value": 3,
@@ -342,6 +392,7 @@
     },
     "SPDAMULET": {
       "name": "速のアミュレット",
+      "rank": "RARE",
       "price": 3000,
       "effect_type": "bonus_spd",
       "effect_value": 3,
@@ -350,6 +401,7 @@
     },
     "LCKAMULET": {
       "name": "運のアミュレット",
+      "rank": "RARE",
       "price": 3000,
       "effect_type": "bonus_lck",
       "effect_value": 3,
@@ -358,7 +410,8 @@
     },
     "HIPOWAMULET": {
       "name": "超筋アミュレット",
-      "price": 3000,
+      "rank": "LEGEND",
+      "price": 65535,
       "effect_type": "bonus_str",
       "effect_value": 6,
       "is_percent": false,
@@ -366,7 +419,8 @@
     },
     "HIARCAMULET": {
       "name": "超魔アミュレット",
-      "price": 3000,
+      "rank": "LEGEND",
+      "price": 65535,
       "effect_type": "bonus_arc",
       "effect_value": 6,
       "is_percent": false,
@@ -374,7 +428,8 @@
     },
     "HICONAMULET": {
       "name": "超耐アミュレット",
-      "price": 3000,
+      "rank": "LEGEND",
+      "price": 65535,
       "effect_type": "bonus_end",
       "effect_value": 6,
       "is_percent": false,
@@ -382,7 +437,8 @@
     },
     "HISPDAMULET": {
       "name": "超速アミュレット",
-      "price": 3000,
+      "rank": "LEGEND",
+      "price": 65535,
       "effect_type": "bonus_spd",
       "effect_value": 6,
       "is_percent": false,
@@ -390,7 +446,8 @@
     },
     "HILCKAMULET": {
       "name": "超運アミュレット",
-      "price": 3000,
+      "rank": "LEGEND",
+      "price": 65535,
       "effect_type": "bonus_lck",
       "effect_value": 6,
       "is_percent": false,
@@ -400,6 +457,7 @@
   "CONSUME": {
     "HEALPOT": {
       "name": "回復薬",
+      "rank": "JUNK",
       "target_type": "ALLY",
       "price": 100,
       "effect_type": "heal_hp",
@@ -410,6 +468,7 @@
     "HIHEALPOT": {
       "name": "超回復薬",
       "target_type": "ALLY",
+      "rank": "RARE",
       "price": 10000,
       "effect_type": "heal_hp",
       "effect_value": 1,
@@ -419,6 +478,7 @@
     "MAGICPOT": {
       "name": "魔力薬",
       "target_type": "ALLY",
+      "rank": "NORMAL",
       "price": 1000,
       "effect_type": "heal_mp",
       "effect_value": 0,
@@ -428,6 +488,7 @@
     "HIMAGICPOT": {
       "name": "超魔力薬",
       "target_type": "ALLY",
+      "rank": "RARE",
       "price": 99999,
       "effect_type": "heal_mp",
       "effect_value": 1,
@@ -436,6 +497,7 @@
     },
     "TORCH": {
       "name": "たいまつ",
+      "rank": "JUNK",
       "price": 10,
       "effect_type": "torchlight",
       "effect_value": 0,
@@ -444,6 +506,7 @@
     },
     "KEY": {
       "name": "万能鍵",
+      "rank": "JUNK",
       "price": 100,
       "effect_type": "unlock_key",
       "effect_value": 0,
@@ -452,6 +515,7 @@
     },
     "SMOKE": {
       "name": "煙幕弾",
+      "rank": "JUNK",
       "price": 100,
       "effect_type": "escape_battle",
       "effect_value": 0,
@@ -460,6 +524,7 @@
     },
     "HORSESHOE": {
       "name": "蹄鉄の護符",
+      "rank": "RARE",
       "price": 10000,
       "effect_type": "reduce_negative",
       "effect_value": 1,
@@ -468,6 +533,7 @@
     },
     "CLOVER": {
       "name": "四つ葉の護符",
+      "rank": "LEGEND",
       "price": 99999,
       "effect_type": "reduce_negative",
       "effect_value": 2,
@@ -476,6 +542,7 @@
     },
     "DICE": {
       "name": "追加ダイス",
+      "rank": "RARE",
       "price": 10000,
       "effect_type": "dice_plus",
       "effect_value": 1,
@@ -484,6 +551,7 @@
     },
     "HIDICE": {
       "name": "超追加ダイス",
+      "rank": "LEGEND",
       "price": 99999,
       "effect_type": "dice_plus",
       "effect_value": 2,
@@ -492,6 +560,7 @@
     },
     "RATIONS": {
       "name": "高栄養保存食",
+      "rank": "NORMAL",
       "price": 100,
       "effect_type": "food_plus",
       "effect_value": 10,
@@ -500,9 +569,10 @@
     },
     "HIRATIONS": {
       "name": "超栄養保存食",
+      "rank": "RARE",
       "price": 1000,
       "effect_type": "food_plus",
-      "effect_value": 50,
+      "effect_value": 100,
       "is_percent": false,
       "description": "食糧を50増やす"
     }

@@ -10,7 +10,6 @@ from typing import Literal
 
 
 WINDOW_MODE = Literal["once", "wait", "page", "menu", "sub"]
-# FONT_SIZE_NAME = Literal["small", "basic", "large"]
 MENU_WINDOW_TYPE = Literal["main", "sub", "sub2", "sub3"]
 
 

@@ -225,11 +225,11 @@ class MenuUseItem(MenuItemBase):
     ):
         """データ取得と表示ウインドウの再定義"""
         # super().__init__(pool_item, pool_stack)
+        self.inventory_count: int = 0
         super().__init__()
 
         self.ctx = ctx
         self.command_package = command_package
-        self.inventory_count: int = 0
 
     def generate_item_list(self):
         """アイテムリストの生成"""
