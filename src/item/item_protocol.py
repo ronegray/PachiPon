@@ -180,6 +180,15 @@ class ItemDef:
     effect_value: float = 0.0
     is_percent: bool = False
 
+    @property
+    def expect_damage(self) -> int:
+        """ダメージ期待値"""
+        if self.item_type != ItemType.WEAPON:
+            return 0
+        dice_min = 1
+        dice_max = 6
+        return (self.hitdice * (dice_min + dice_max)) // 2 + 1
+
 
 # --- インスタンス管理（装備品など） ---
 class ItemState(IntEnum):

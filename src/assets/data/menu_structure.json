@@ -53,5 +53,13 @@
             {"id": "下取り", "action": "cell_equips"},
             {"id": "Ｂｙｅ", "action": "exit_shop"}
         ]
+    ],
+    "MenuBuyFoods": [
+        [
+            {"id": "１０食分", "action": "none", "args": [1]},
+            {"id": "１００食分", "action": "none", "args": [10]},
+            {"id": "１０００食分", "action": "none", "args": [100]},
+            {"id": "９９００食分", "action": "none", "args": [990]}
+        ]
     ]
 }

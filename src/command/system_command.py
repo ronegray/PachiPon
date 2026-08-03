@@ -7,7 +7,7 @@ import logging
 from typing import Generator, cast
 import pyxel as px
 from gameutils.lib import WindowAction  # , Window,
-from const import SoundID
+from const import SoundID, FOOD_UNITS
 import service_locater as di
 from field_map import EventPoint, PointPlaceType
 from item import ItemState
@@ -77,12 +77,13 @@ class CommandBaseSystem(CommandBaseSequence):
 
 
 class ShopPurchase(CommandBaseSystem):
-    """ショップ購入対応"""
+    """ショップ購入対応（スタック／インスタンス共用）"""
 
     def _sequence(self) -> Generator[list[str], None, None]:
         pt = self.args[0]
         item_def = self.args[1]
-        stackpool = self.args[2]
+        # stackpool = self.args[2]
+        func_add_pool = self.args[2]
 
         eventpoint = pt.get_current_point()
         pt._pt_golds = 99999
@@ -101,8 +102,67 @@ class ShopPurchase(CommandBaseSystem):
             yield [buy_message]  # type: ignore
 
             # 購入処理
-            pt._pt_golds -= item_def.price
-            stackpool.add(item_def.def_id, ItemState.BAG)
+            # pt._pt_golds -= item_def.price
+            pt.spend_gold(item_def.price)
+            # pool.add(item_def.def_id, ItemState.BAG)
+            func_add_pool(item_def.def_id, ItemState.BAG)
+
+        else:
+            match eventpoint.point_type:
+                case PointPlaceType.CAPITAL_CITY:
+                    not_enough_message = "お客様\n当店の割引券をお持ちなのですか？"
+                case PointPlaceType.TOWN:
+                    not_enough_message = (
+                        "ちょっと待ちなよ\nあんたの手持ちじゃ足りねえみてえだぜ"
+                    )
+                case PointPlaceType.VILLAGE:
+                    not_enough_message = (
+                        "どれどれ、ひぃふぅみぃ・・・\nこれじゃ売ってやれんのう"
+                    )
+            yield [not_enough_message]  # type: ignore
+
+        self.display_info.target.update_indicator(True)
+        while self.display_info.target.update() == WindowAction.CONTINUE:
+            yield [self.WAIT, "0"]
+        self.display_info.target.update_indicator(False)
+
+        match eventpoint.point_type:
+            case PointPlaceType.CAPITAL_CITY:
+                next_message = "他に御入用は　ございますか？"
+            case PointPlaceType.TOWN:
+                next_message = "他にもなんか　買ってくかい？"
+            case PointPlaceType.VILLAGE:
+                next_message = "そっちのもどうじゃろか？"
+        yield [next_message]  # type: ignore
+
+
+class PurchaseFoods(CommandBaseSystem):
+    """ショップ購入対応（食料品）"""
+
+    def _sequence(self) -> Generator[list[str], None, None]:
+        pt = self.args[0]
+        price = self.args[1]
+
+        eventpoint = pt.get_current_point()
+        # 所持金チェック
+        if pt._pt_golds >= price:
+            match eventpoint.point_type:
+                case PointPlaceType.CAPITAL_CITY:
+                    buy_message = "最高級シェフの手になる自慢の一品でございます"
+                case PointPlaceType.TOWN:
+                    buy_message = "うちのを食ったら他のは食えねえぜ！"
+                case PointPlaceType.VILLAGE:
+                    buy_message = "ばあさんの手作りじゃぞい"
+            # self.message_window.clear_message()
+            # self.message_window.set_message([buy_message]) # type: ignore
+            px.play(self.se_ch, SoundID.SHOP_BUY, resume=True)
+            yield [buy_message]  # type: ignore
+
+            # 購入処理
+            pt.spend_gold(price)
+            # pool.add(item_def.def_id, ItemState.BAG)
+            pt.earn_foods(price * FOOD_UNITS)
+
         else:
             match eventpoint.point_type:
                 case PointPlaceType.CAPITAL_CITY:

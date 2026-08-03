@@ -17,8 +17,6 @@ from gameutils.lib import (
 from helper import upper_int_format, format_leftright
 from item import (
     ItemType,
-    # ItemID,
-    ItemState,
     # ItemRank,
 )
 from entity import Party
@@ -68,12 +66,12 @@ class MenuSelectShopCategory(Menu):
 
     def buy_foods(self):
         return RsltPush(
-            MenuBuyFoods, self.pt, self.message_window
+            MenuBuyFoods, self.pt, self.message_window, self.y
         )  # , self.pool_item, self.pool_stack)
 
     def buy_equips(self):
         return RsltPush(
-            MenuBuyEquips, self.pt, self.message_window
+            MenuBuyEquips, self.pt, self.message_window, self.y
         )  # , self.pool_item, self.pool_stack)
 
 
@@ -105,7 +103,7 @@ class MenuItemBase(Menu):
         )
         self.cursor_row_offset += 2  # k8x12Sの縦長分対応
 
-        sub_w, sub_h = 80, 104
+        sub_w, sub_h = 88, 104
         self.windows["sub"] = Window(
             "basic",
             menu_pos[0] + self.width + 1,
@@ -239,9 +237,10 @@ class MenuBuyConsume(MenuItemBase):
 
     def generate_item_list(self):
         """アイテムリストの生成"""
+        eventpoint_rank = self.pt.get_current_point().point_type.value
         # filtereddict = di.ref.pl_stack.get_by_state(ItemState.BAG)
         filtereddict = di.ref.itemrps.get_def_by_type(ItemType.CONSUME)
-        eventpoint_rank = self.pt.get_current_point().point_type.value
+        # eventpoint_rank = self.pt.get_current_point().point_type.value
 
         tmp_item_list = [
             [
@@ -249,11 +248,11 @@ class MenuBuyConsume(MenuItemBase):
                     "id": format_leftright(
                         item_def.name, f"　{upper_int_format(item_def.price, 6)}Ｇ", 34
                     ),
-                    "action": "buy_consume",
+                    "action": "none",
                     "args": [item_def],
                 }
             ]
-            for item_id, item_def in filtereddict.items()
+            for _, item_def in filtereddict.items()
             if eventpoint_rank >= item_def.rank.value >= eventpoint_rank - 1
         ]
         self.inventory_count = len(tmp_item_list)
@@ -283,7 +282,10 @@ class MenuBuyConsume(MenuItemBase):
         logger.info(selected_item)
 
         cmd = s_cmd.ShopPurchase(
-            self.message_window, self.pt, selected_item.action_args[0], di.ref.pl_stack
+            self.message_window,
+            self.pt,
+            selected_item.action_args[0],
+            di.ref.pl_stack.add,
         )
         di.ref.cmdmgr.push_command(cmd)
         return RsltContinue()
@@ -298,38 +300,61 @@ class MenuBuyFoods(MenuItemBase):
 
     def generate_item_list(self):
         """アイテムリストの生成"""
-        tmplist = di.ref.pl_item.get_by_state(ItemState.BAG)
-        filteredlist = [
+        # tmplist = di.ref.pl_item.get_by_state(ItemState.BAG)
+        # filteredlist = [
+        #     [
+        #         {
+        #             "id": items_.ins.param.name,
+        #             "action": "None",
+        #             "args": items_.ins.param.description,
+        #         }
+        #     ]
+        #     for _, items_ in tmplist.items()
+        #     if items_.ins.param.item_type == ItemType.KEY_ITEM
+        # ]
+
+        # self.inventory_count = len(filteredlist)
+        # if self.inventory_count <= 0:
+        #     self.item_list = [[[{"id": "該当なし", "action": "None", "args": [""]}]]]
+        # else:
+        #     self.item_list = [
+        #         filteredlist[i : i + self._list_rows]
+        #         for i in range(0, self.inventory_count, self._list_rows)
+        # ]
+        self.item_list = [
             [
-                {
-                    "id": items_.ins.param.name,
-                    "action": "None",
-                    "args": items_.ins.param.description,
-                }
+                [
+                    {"id": "１０食分", "action": "none", "args": [1]},
+                ],
+                [
+                    {"id": "１００食分", "action": "none", "args": [10]},
+                ],
+                [
+                    {"id": "１０００食分", "action": "none", "args": [100]},
+                ],
+                [{"id": "９９００食分", "action": "none", "args": [990]}],
             ]
-            for _, items_ in tmplist.items()
-            if items_.ins.param.item_type == ItemType.KEY_ITEM
         ]
 
-        self.inventory_count = len(filteredlist)
-        if self.inventory_count <= 0:
-            self.item_list = [[[{"id": "該当なし", "action": "None", "args": [""]}]]]
-        else:
-            self.item_list = [
-                filteredlist[i : i + self._list_rows]
-                for i in range(0, self.inventory_count, self._list_rows)
-            ]
-
-        # ページインデックスが範囲外にならないよう補正
-        if self.itemlist_index >= len(self.item_list):
-            self.itemlist_index = len(self.item_list) - 1
+        # # ページインデックスが範囲外にならないよう補正
+        # if self.itemlist_index >= len(self.item_list):
+        #     self.itemlist_index = len(self.item_list) - 1
         self.menu_shape = [1, len(self.item_list[self.itemlist_index])]
 
     def get_item_desc(self) -> list[str]:
-        item_def = di.ref.itemrps.get_def(self.target_item[0]["args"][0])
-        if item_def is None:
-            return ["対象を持っていない"]
-        return [self.target_item[0]["args"]]
+        return ["とってもとっても\nおいしそう！！"]
+
+    def exec_menu(self) -> ExecResult:
+        """選択メニュー項目の処理を実行"""
+        pos_x, pos_y = self.cursor_position
+        selected_item = self.menu_items[pos_y][pos_x]
+        logger.info(selected_item)
+
+        cmd = s_cmd.PurchaseFoods(
+            self.message_window, self.pt, selected_item.action_args[0]
+        )
+        di.ref.cmdmgr.push_command(cmd)
+        return RsltContinue()
 
 
 class MenuBuyEquips(MenuItemBase):
@@ -342,27 +367,43 @@ class MenuBuyEquips(MenuItemBase):
 
     def generate_item_list(self):
         """アイテムリストの生成"""
-        tmplist = di.ref.pl_item.get_by_state(ItemState.BAG)
-        filteredlist = [
+        eventpoint_rank = self.pt.get_current_point().point_type.value
+        # tmplist = di.ref.pl_item.get_by_state(ItemState.BAG)
+        filtereddict_w = di.ref.itemrps.get_def_by_type(ItemType.WEAPON)
+        filtereddict_g = di.ref.itemrps.get_def_by_type(ItemType.GUARDER)
+        filtereddict_o = di.ref.itemrps.get_def_by_type(ItemType.ORNAMENT)
+        filtereddict = filtereddict_w | filtereddict_g | filtereddict_o
+        # filteredlist = [
+        #     [
+        #         {
+        #             "id": items_.ins.param.name,
+        #             "action": "None",
+        #             "args": [items_.ins.param.def_id],
+        #         }
+        #     ]
+        #     for _, items_ in tmplist.items()
+        #     if items_.ins.param.item_type != ItemType.KEY_ITEM
+        # ]
+        tmp_item_list = [
             [
                 {
-                    "id": items_.ins.param.name,
-                    "action": "None",
-                    "args": [items_.ins.param.def_id],
+                    "id": format_leftright(
+                        item_def.name, f"　{upper_int_format(item_def.price, 6)}Ｇ", 34
+                    ),
+                    "action": "none",
+                    "args": [item_def],
                 }
             ]
-            for _, items_ in tmplist.items()
-            if items_.ins.param.item_type != ItemType.KEY_ITEM
+            for _, item_def in filtereddict.items()
+            if eventpoint_rank >= item_def.rank.value >= eventpoint_rank - 1
         ]
 
-        self.inventory_count = len(filteredlist)
-        if self.inventory_count <= 0:
-            self.item_list = [[[{"id": "該当なし", "action": "None", "args": [""]}]]]
-        else:
-            self.item_list = [
-                filteredlist[i : i + self._list_rows]
-                for i in range(0, self.inventory_count, self._list_rows)
-            ]
+        self.inventory_count = len(tmp_item_list)
+        self.inventory_count = len(tmp_item_list)
+        self.item_list = [
+            tmp_item_list[i : i + self._list_rows]
+            for i in range(0, self.inventory_count, self._list_rows)
+        ]
 
         # ページインデックスが範囲外にならないよう補正
         if self.itemlist_index >= len(self.item_list):
@@ -370,20 +411,36 @@ class MenuBuyEquips(MenuItemBase):
         self.menu_shape = [1, len(self.item_list[self.itemlist_index])]
 
     def get_item_desc(self) -> list[str]:
-        item_def = di.ref.itemrps.get_def(self.target_item[0]["args"][0])
-        if item_def is None:
-            return ["対象を持っていない"]
+        # item_def = di.ref.itemrps.get_def(self.target_item[0]["args"][0])
+        item_def = self.target_item[0]["args"][0]
+
         match item_def.item_type:
             case ItemType.WEAPON:
-                expect_dmg = item_def.hitdice * 4
-                perf_txt = f"攻撃:{upper_int_format(expect_dmg, 2)}"
+                # expect_dmg = item_def.hitdice * 4
+                # perf_txt1 = f"攻撃:{upper_int_format(expect_dmg, 2)}"
+                perf_txt1 = f"攻撃:{upper_int_format(item_def.expect_damage, 2)}"
+                return [f"{perf_txt1}", f"{item_def.description}"]
             case ItemType.GUARDER:
-                perf_txt = (
-                    # f"防御性能:{item_def.defvalue} 魔法阻害:{item_def.magpenalty}"
-                    f"防御:{upper_int_format(item_def.defvalue, 2)} 魔法阻害:{upper_int_format(item_def.magpenalty, 1)}"
-                )
+                perf_txt1 = f"防御:{upper_int_format(item_def.defvalue, 2)}"
+                perf_txt2 = f"魔法阻害:{upper_int_format(item_def.magpenalty, 1)}"
             case ItemType.ORNAMENT:
-                perf_txt = "特殊な効果をもつ飾り"
+                perf_txt1 = "特殊な効果を"
+                perf_txt2 = "　もつ飾り"
             case _:
-                perf_txt = ""
-        return [f"{perf_txt}", f"{item_def.description}"]
+                perf_txt1 = perf_txt2 = ""
+        return [f"{perf_txt1}", f"{perf_txt2}", f"{item_def.description}"]
+
+    def exec_menu(self) -> ExecResult:
+        """選択メニュー項目の処理を実行"""
+        pos_x, pos_y = self.cursor_position
+        selected_item = self.menu_items[pos_y][pos_x]
+        logger.info(selected_item)
+
+        cmd = s_cmd.ShopPurchase(
+            self.message_window,
+            self.pt,
+            selected_item.action_args[0],
+            di.ref.pl_item.create,
+        )
+        di.ref.cmdmgr.push_command(cmd)
+        return RsltContinue()
