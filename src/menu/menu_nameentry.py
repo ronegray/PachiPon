@@ -2,6 +2,7 @@
 メニューモジュール：名前入力
 
 """
+
 import logging
 import pyxel as px
 from gameutils.base import check_file, read_json, FontManager, shadowed_text

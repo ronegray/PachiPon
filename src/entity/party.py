@@ -338,6 +338,16 @@ class Party:
         self._pt_golds += gold
         return self._pt_golds
 
+    def spend_gold(self, gold: int) -> int:
+        """消費ゴールドをPTから減算し総額を取得"""
+        self._pt_golds -= gold
+        return self._pt_golds
+
+    def earn_foods(self, foods: int) -> int:
+        """獲得食糧をPTに加算し総額を取得"""
+        self._pt_foods += foods
+        return self._pt_foods
+
     def have_food(self):
         """食事処理"""
         is_foods = self._pt_foods > 0

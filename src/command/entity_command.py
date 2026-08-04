@@ -1,6 +1,7 @@
 """
 エンティティコマンドモジュール
 """
+
 import logging
 
 # from collections import deque
@@ -197,7 +198,6 @@ class Attack(CommandBaseEntity):
 
 
 class UseSkill(CommandBaseEntity):
-
     """ユーザ行動：スキル使用"""
 
     def _sequence(self) -> Generator[list[str], None, None]:
@@ -215,7 +215,6 @@ class UseSkill(CommandBaseEntity):
 
 
 class DefenceMode(CommandBaseEntity):
-
     """ユーザ行動：防御体勢"""
 
     def _sequence(self) -> Generator[list[str], None, None]:

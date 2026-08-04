@@ -90,30 +90,45 @@ class MenuSelectEquipSlot(Menu):
         param = member.param
 
         status_lines = f"{param.name}"
-        status_lines += f"\nレベル： {upper_int_format(param.level,2)}"
-        status_lines += f"\n経験値： {upper_int_format(param.exp,6)}"
+        status_lines += f"\nレベル： {upper_int_format(param.level, 2)}"
+        status_lines += f"\n経験値： {upper_int_format(param.exp, 6)}"
         status_lines += f"\nＨ　Ｐ： {upper_int_format(param.hp, 3)}／{upper_int_format(param.max_hp, 3)}"
         status_lines += f"\nＭ　Ｐ： {upper_int_format(param.mp, 3)}／{upper_int_format(param.max_mp, 3)}"
-        status_lines += f"\n筋　力： {format_leftright(
+        status_lines += f"\n筋　力： {
+            format_leftright(
                 upper_int_format(member.strength, 3),
-                f"（＋{upper_int_format(member.bonus_str,1)}）",
-                18)}"
-        status_lines += f"\n魔　力： {format_leftright(
+                f'（＋{upper_int_format(member.bonus_str, 1)}）',
+                18,
+            )
+        }"
+        status_lines += f"\n魔　力： {
+            format_leftright(
                 upper_int_format(member.arcane, 3),
-                f"（＋{upper_int_format(member.bonus_str,1)}）",
-                18)}"
-        status_lines += f"\n耐　久： {format_leftright(
+                f'（＋{upper_int_format(member.bonus_str, 1)}）',
+                18,
+            )
+        }"
+        status_lines += f"\n耐　久： {
+            format_leftright(
                 upper_int_format(member.endurance, 3),
-                f"（＋{upper_int_format(member.bonus_end,1)}）",
-                18)}"
-        status_lines += f"\n速　度： {format_leftright(
+                f'（＋{upper_int_format(member.bonus_end, 1)}）',
+                18,
+            )
+        }"
+        status_lines += f"\n速　度： {
+            format_leftright(
                 upper_int_format(member.speed, 3),
-                f"（＋{upper_int_format(member.bonus_spd,1)}）",
-                18)}"
-        status_lines += f"\n幸　運： {format_leftright(
+                f'（＋{upper_int_format(member.bonus_spd, 1)}）',
+                18,
+            )
+        }"
+        status_lines += f"\n幸　運： {
+            format_leftright(
                 upper_int_format(member.luck, 3),
-                f"（＋{upper_int_format(member.bonus_lck,1)}）",
-                18)}"
+                f'（＋{upper_int_format(member.bonus_lck, 1)}）',
+                18,
+            )
+        }"
 
         self.windows["sub"].message_list = [status_lines]
 
@@ -372,7 +387,7 @@ class MenuEquip(Menu):
                         # "id": f"{di.ref.itemrps.get_def(key).name} x {val}",  # type:ignore
                         "id": format_leftright(
                             di.ref.pl_stack.get_def(key).name,  # type: ignore
-                            f"ｘ{upper_int_format(val,2)}",
+                            f"ｘ{upper_int_format(val, 2)}",
                         ),
                         "action": "use_item",
                         "args": [key],

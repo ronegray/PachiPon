@@ -4,6 +4,7 @@
 シーン：フィールドのサブモジュールとして、
 イベントコマンドの実行機能を提供
 """
+
 import logging
 import pyxel as px
 from const import APP_WIDTH, APP_HEIGHT

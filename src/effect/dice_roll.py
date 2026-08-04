@@ -1,6 +1,7 @@
 """
 ダイスロールエフェクト
 """
+
 from typing import Callable
 import pyxel as px
 

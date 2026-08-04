@@ -7,7 +7,8 @@
 import logging
 from gameutils.base import check_file, read_json
 from assets.asset_map import AssetID, AssetMap
-from .item_protocol import ItemID, ItemType, ItemDef, ItemTargetType, ItemRank
+from const import CELL_PRICE_MULTIPLIER
+from . import ItemID, ItemType, ItemDef, ItemTargetType, ItemRank
 
 # ロギング設定
 logger = logging.getLogger(__name__)
@@ -73,3 +74,7 @@ class ItemRepository:
     def get_all_definitions(self) -> dict[ItemID, ItemDef]:
         """すべてのアイテム定義を取得する"""
         return self._master_def
+
+    def calc_cellprice(self, def_id: ItemID) -> int:
+        item_def = self.get_def(def_id)
+        return int(item_def.price * CELL_PRICE_MULTIPLIER)  # type: ignore

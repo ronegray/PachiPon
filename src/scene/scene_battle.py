@@ -5,6 +5,7 @@
 - バトルコマンドの生成とユーザコマンド入力
 - 算出イニシアチブ値の順にコマンドを実行し、結果を表示
 """
+
 import logging
 
 # from typing import Callable
@@ -66,7 +67,7 @@ class SceneBattle(BaseScene):
         candidate_list = di.ref.enmrps.get_threat_enemies(threat)
         enemy_index = px.rndi(0, len(candidate_list) - 1)
         enemy_data = candidate_list[enemy_index]
-        path = check_file(f"assets/image/{enemy_data["name"]}.bmp")
+        path = check_file(f"assets/image/{enemy_data['name']}.bmp")
         if path is None:
             path = check_file("assets/image/unknown.bmp")
         enemy_image = px.Image.from_image(str(path))
@@ -158,9 +159,10 @@ class SceneBattle(BaseScene):
         # バトルシーンでは決定キーの入力を連打状態に更新する
         # バトルシーンから抜ける際に復旧関数で元に戻す
         _hold_frames, _repeat_frames = 4, 2
-        WindowInputHandler._wrapper.decide = lambda: px.btnp(
-            px.KEY_Z, _hold_frames, _repeat_frames
-        ) or px.btnp(px.GAMEPAD1_BUTTON_A, _hold_frames, _repeat_frames)
+        WindowInputHandler._wrapper.decide = lambda: (
+            px.btnp(px.KEY_Z, _hold_frames, _repeat_frames)
+            or px.btnp(px.GAMEPAD1_BUTTON_A, _hold_frames, _repeat_frames)
+        )
 
     def load_bgm(self) -> None:
         """シーン切替時のBGMロード"""

@@ -46,7 +46,7 @@ class MenuSelectFieldTarget(Menu):
             self.item_list = [
                 [
                     {
-                        "id": f"{target.param.name.ljust(9, "　")}",
+                        "id": f"{target.param.name.ljust(9, '　')}",
                         "action": "set_target",
                         "args": [target],
                     }

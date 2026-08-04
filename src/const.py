@@ -1,6 +1,7 @@
 """const.py
 定数モジュール
 """
+
 from enum import IntEnum
 
 APP_WIDTH = 256
@@ -11,10 +12,13 @@ APP_TITLE = "PachiPon"
 APP_VERSION = "0.0.1"
 
 SE_CH = 3  # 効果音用チャンネル番号
+FOOD_UNITS = 10  # １ゴールドあたりの獲得食糧
+CELL_PRICE_MULTIPLIER = 0.1  # 売却時の価格倍率
 
+# キャラメイク時のパラメタ関連
 BASE_PARAM = 3
 INITIAL_MAX_PARAM = 18
-BONUS_POINT = 1
+BONUS_POINT = 28
 
 # フィールド上のメッセージウインドウ高さ
 FIELD_MESSAGE_HEIGHT = 56

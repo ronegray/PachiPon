@@ -2,6 +2,7 @@
 ゲームアプリケーション起動モジュール
 - Pyxelの起動処理に必要な値の設定
 """
+
 import logging
 from bootstrap import ipl
 from game import GameApp

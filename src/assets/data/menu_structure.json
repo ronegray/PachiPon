@@ -50,8 +50,16 @@
             {"id": "消耗品", "action": "buy_consume"},
             {"id": "装備品", "action": "buy_equips"},
             {"id": "食料品", "action": "buy_foods"},
-            {"id": "下取り", "action": "cell_equips"},
+            {"id": "下取り", "action": "sell_item"},
             {"id": "Ｂｙｅ", "action": "exit_shop"}
+        ]
+    ],
+    "MenuBuyFoods": [
+        [
+            {"id": "１０食分", "action": "none", "args": [1]},
+            {"id": "１００食分", "action": "none", "args": [10]},
+            {"id": "１０００食分", "action": "none", "args": [100]},
+            {"id": "９９００食分", "action": "none", "args": [990]}
         ]
     ]
 }

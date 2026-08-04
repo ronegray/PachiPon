@@ -3,6 +3,7 @@
 - マスタ定義ファイルの情報を保持
 - 指定したIDの情報を提供
 """
+
 import logging
 from gameutils.base import check_file, read_json
 from assets.asset_map import AssetID, AssetMap

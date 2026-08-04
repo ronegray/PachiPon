@@ -1,7 +1,7 @@
 import logging
 from collections import defaultdict, deque
 import service_locater as di
-from .item_protocol import (
+from . import (
     ItemID,
     ItemType,
     ItemState,
@@ -55,7 +55,9 @@ class ItemPool:
 
     def destroy(self, iid: int) -> None:
         """アイテムを破棄し、IDを再利用可能にする"""
+        print(f"削除前 {len(self._items)}")
         self._items.pop(iid, None)
+        print(f"削除後 {len(self._items)}")
         self._free.append(iid)
 
     def get(self, iid: int) -> PoolEntry | None:

@@ -3,6 +3,7 @@
 
 エンティティオブジェクトのパラメータ項目と初期値を定義
 """
+
 from dataclasses import dataclass, field
 from enum import IntEnum
 

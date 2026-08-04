@@ -98,7 +98,7 @@ class SceneField(BaseScene):
         for _, val in self.current_point.get_eventpoint_info().items():
             self.eventpoint_info_window.add_message(
                 # f"{val["name"]}  {val["threshold"]}"
-                format_leftright(val["name"], f"[{val["threshold"]:>2}]", 21)
+                format_leftright(val["name"], f"[{val['threshold']:>2}]", 21)
             )
         logger.debug(self.eventpoint_info_window.message_list)
         return
