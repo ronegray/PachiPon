@@ -1,6 +1,7 @@
 """
 エフェクトコマンドモジュール
 """
+
 import logging
 import pyxel as px
 from const import SoundID

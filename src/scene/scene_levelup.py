@@ -1,6 +1,7 @@
 """
 シーンモジュール：レベルアップ
 """
+
 import logging
 import pyxel as px
 import service_locater as di

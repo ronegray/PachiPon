@@ -243,34 +243,49 @@ class MenuCharaMake(Menu):
         for i, y in enumerate(self.row_y_pos):
             match i:
                 case 0:
-                    param = f"{format_leftright(
-                        upper_int_format(member.strength, 2),
-                        f"（＋{upper_int_format(member.bonus_str,1)}）",
-                        14)}"
+                    param = f"{
+                        format_leftright(
+                            upper_int_format(member.strength, 2),
+                            f'（＋{upper_int_format(member.bonus_str, 1)}）',
+                            14,
+                        )
+                    }"
                 case 1:
-                    param = f"{format_leftright(
-                        upper_int_format(member.arcane, 2),
-                        f"（＋{upper_int_format(member.bonus_arc,1)}）",
-                        14)}"
+                    param = f"{
+                        format_leftright(
+                            upper_int_format(member.arcane, 2),
+                            f'（＋{upper_int_format(member.bonus_arc, 1)}）',
+                            14,
+                        )
+                    }"
                 case 2:
-                    param = f"{format_leftright(
-                        upper_int_format(member.endurance, 2),
-                        f"（＋{upper_int_format(member.bonus_end,1)}）",
-                        14)}"
+                    param = f"{
+                        format_leftright(
+                            upper_int_format(member.endurance, 2),
+                            f'（＋{upper_int_format(member.bonus_end, 1)}）',
+                            14,
+                        )
+                    }"
                 case 3:
-                    param = f"{format_leftright(
-                        upper_int_format(member.speed, 2),
-                        f"（＋{upper_int_format(member.bonus_spd,1)}）",
-                        14)}"
+                    param = f"{
+                        format_leftright(
+                            upper_int_format(member.speed, 2),
+                            f'（＋{upper_int_format(member.bonus_spd, 1)}）',
+                            14,
+                        )
+                    }"
                 case 4:
-                    param = f"{format_leftright(
-                        upper_int_format(member.luck, 2),
-                        f"（＋{upper_int_format(member.bonus_lck,1)}）",
-                        14)}"
+                    param = f"{
+                        format_leftright(
+                            upper_int_format(member.luck, 2),
+                            f'（＋{upper_int_format(member.bonus_lck, 1)}）',
+                            14,
+                        )
+                    }"
             px.text(
                 self.width - self.font.text_width(param) - Window._chip_size,  # type: ignore
                 y + self.height - self.cursor_row_offset,
-                param,
+                param,  # type: ignore
                 px.COLOR_WHITE,
                 self.font,
             )  # type: ignore

@@ -7,6 +7,7 @@
 - スプライトインスタンスの保持
 - スキルインスタンスの保持
 """
+
 import logging
 from abc import ABC, abstractmethod
 from helper import diceroll

@@ -226,7 +226,7 @@ class MenuSelectBattleTarget(Menu):
             tmp_item_list = [
                 [
                     {
-                        "id": f"{target.param.name.ljust(9, "　")}",
+                        "id": f"{target.param.name.ljust(9, '　')}",
                         "action": "set_target",
                         # # "args": [target.id, "Attack"],
                         # "args": [target.id, self.command_name],

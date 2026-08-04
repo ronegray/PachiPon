@@ -1,6 +1,7 @@
 """
 エネミーモジュール
 """
+
 from . import EntityBase, BaseSprite, EntityParam, EnemyParam, GuardType
 
 # from skill import Skills

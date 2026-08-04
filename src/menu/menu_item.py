@@ -246,7 +246,7 @@ class MenuUseItem(MenuItemBase):
                         # "id": f"{self.pool_stack.get_def(key).name} × {upper_int(val)}",
                         "id": format_leftright(
                             di.ref.itemrps.get_def(key).name,  # type: ignore
-                            f"ｘ{upper_int_format(val,2)}",
+                            f"ｘ{upper_int_format(val, 2)}",
                         ),
                         "action": "use_item",
                         "args": [key],

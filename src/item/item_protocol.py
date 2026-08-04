@@ -230,5 +230,5 @@ class PoolEntry:
     stat: ItemState
 
 
-# 装備スロット用独自型
+# インスタンスアイテム用独自型
 type PooledItem = tuple[int, PoolEntry]

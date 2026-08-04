@@ -5,20 +5,18 @@
 import logging
 import pyxel as px
 from const import SoundID
-
 import service_locater as di
 from gameutils.lib import (
     Window,
     Menu,
+    MenuYesNo,
     ExecResult,
     RsltPush,
     RsltContinue,
-)  # , RsltDiscard
-from helper import upper_int_format, format_leftright
-from item import (
-    ItemType,
-    # ItemRank,
+    RsltDiscard,
 )
+from helper import upper_int_format, format_leftright
+from item import ItemType, ItemState
 from entity import Party
 from field_map import PointPlaceType
 import command.system_command as s_cmd
@@ -60,19 +58,29 @@ class MenuSelectShopCategory(Menu):
         result = selected_item.menu_action(*selected_item.action_args)
         return result
 
-    def buy_consume(self):
-        """消耗品アイテムメニュー表示"""
+    def buy_consume(self) -> ExecResult:
+        """消耗品アイテム購入"""
         return RsltPush(MenuBuyConsume, self.pt, self.message_window, self.y)
 
-    def buy_foods(self):
+    def buy_foods(self) -> ExecResult:
+        """食糧購入"""
         return RsltPush(
             MenuBuyFoods, self.pt, self.message_window, self.y
         )  # , self.pool_item, self.pool_stack)
 
-    def buy_equips(self):
+    def buy_equips(self) -> ExecResult:
+        """装備品アイテム購入"""
         return RsltPush(
             MenuBuyEquips, self.pt, self.message_window, self.y
         )  # , self.pool_item, self.pool_stack)
+
+    def sell_item(self) -> ExecResult:
+        """バッグ内アイテム売却"""
+        return RsltPush(MenuSellItems, self.pt, self.message_window, self.y)
+
+    def exit_shop(self) -> ExecResult:
+        """ショップメニューを閉じる"""
+        return RsltDiscard()
 
 
 class MenuItemBase(Menu):
@@ -116,6 +124,7 @@ class MenuItemBase(Menu):
         # self.is_push_right: int = 0
         # self.change_target_item()
         self.target_item = self.item_list[self.itemlist_index][self.cursor_position[1]]
+        self.windows["sub"].update_row_max(6)
         self.set_description_string()
 
     def generate_item_list(self):
@@ -399,7 +408,6 @@ class MenuBuyEquips(MenuItemBase):
         ]
 
         self.inventory_count = len(tmp_item_list)
-        self.inventory_count = len(tmp_item_list)
         self.item_list = [
             tmp_item_list[i : i + self._list_rows]
             for i in range(0, self.inventory_count, self._list_rows)
@@ -444,3 +452,178 @@ class MenuBuyEquips(MenuItemBase):
         )
         di.ref.cmdmgr.push_command(cmd)
         return RsltContinue()
+
+
+class MenuSellItems(MenuItemBase):
+    """消耗品アイテム表示・選択用メニュー"""
+
+    def __init__(self, party: Party, message_window: Window, y: int) -> None:
+        """データ取得と表示ウインドウの再定義"""
+
+        super().__init__(party, message_window, y)
+        # YesNoダイアログ応答内容
+        self.ans: dict[str, bool | None] = {"answer": None, "finished": False}
+
+    def generate_item_list(self):
+        """アイテムリストの生成"""
+        # eventpoint_rank = self.pt.get_current_point().point_type.value
+        # # tmplist = di.ref.pl_item.get_by_state(ItemState.BAG)
+        # filtereddict_w = di.ref.itemrps.get_def_by_type(ItemType.WEAPON)
+        # filtereddict_g = di.ref.itemrps.get_def_by_type(ItemType.GUARDER)
+        # filtereddict_o = di.ref.itemrps.get_def_by_type(ItemType.ORNAMENT)
+        # filtereddict = filtereddict_w | filtereddict_g | filtereddict_o
+        # # filteredlist = [
+        # #     [
+        # #         {
+        # #             "id": items_.ins.param.name,
+        # #             "action": "None",
+        # #             "args": [items_.ins.param.def_id],
+        # #         }
+        # #     ]
+        # #     for _, items_ in tmplist.items()
+        # #     if items_.ins.param.item_type != ItemType.KEY_ITEM
+        # # ]
+        # tmp_item_list = [
+        #     [
+        #         {
+        #             "id": format_leftright(
+        #                 item_def.name, f"　{upper_int_format(item_def.price, 6)}Ｇ", 34
+        #             ),
+        #             "action": "none",
+        #             "args": [item_def],
+        #         }
+        #     ]
+        #     for _, item_def in filtereddict.items()
+        #     if eventpoint_rank >= item_def.rank.value >= eventpoint_rank - 1
+        # ]
+        #
+        # self.inventory_count = len(tmp_item_list)
+        # self.item_list = [
+        #     tmp_item_list[i : i + self._list_rows]
+        #     for i in range(0, self.inventory_count, self._list_rows)
+        # ]
+
+        tmplist = di.ref.pl_item.get_by_state(ItemState.BAG)
+        filteredlist = [
+            [
+                {
+                    # "id": items_.ins.param.name,
+                    "id": format_leftright(
+                        items_.ins.param.name,
+                        f"　{
+                            upper_int_format(
+                                di.ref.itemrps.calc_cellprice(items_.ins.param.def_id),
+                                6,
+                            )
+                        }Ｇ",
+                        34,
+                    ),
+                    "action": "None",
+                    "args": [
+                        iid,
+                        items_.ins.param,
+                        di.ref.itemrps.calc_cellprice(items_.ins.param.def_id),
+                    ],
+                }
+            ]
+            for iid, items_ in tmplist.items()
+            if items_.ins.param.item_type != ItemType.KEY_ITEM
+        ]
+
+        self.inventory_count = len(filteredlist)
+        if self.inventory_count <= 0:
+            self.item_list = [[[{"id": "該当なし", "action": "None", "args": [""]}]]]
+        else:
+            self.item_list = [
+                filteredlist[i : i + self._list_rows]
+                for i in range(0, self.inventory_count, self._list_rows)
+            ]
+
+        # ページインデックスが範囲外にならないよう補正
+        if self.itemlist_index >= len(self.item_list):
+            self.itemlist_index = len(self.item_list) - 1
+        self.menu_shape = [1, len(self.item_list[self.itemlist_index])]
+
+    def get_item_desc(self) -> list[str]:
+        # item_def = di.ref.itemrps.get_def(self.target_item[0]["args"][1])
+        item_def = self.target_item[0]["args"][1]
+        if item_def is None:
+            return ["対象を持っていない"]
+        match item_def.item_type:
+            case ItemType.WEAPON:
+                # expect_dmg = item_def.hitdice * 4
+                # perf_txt1 = f"攻撃:{upper_int_format(expect_dmg, 2)}"
+                perf_txt1 = f"攻撃:{upper_int_format(item_def.expect_damage, 2)}"
+                return [f"{perf_txt1}", f"{item_def.description}"]
+            case ItemType.GUARDER:
+                perf_txt1 = f"防御:{upper_int_format(item_def.defvalue, 2)}"
+                perf_txt2 = f"魔法阻害:{upper_int_format(item_def.magpenalty, 1)}"
+            case ItemType.ORNAMENT:
+                perf_txt1 = "特殊な効果を"
+                perf_txt2 = "　もつ飾り"
+            case _:
+                perf_txt1 = perf_txt2 = ""
+        return [f"{perf_txt1}", f"{perf_txt2}", f"{item_def.description}"]
+
+    def update_menu(self) -> None:
+        """売却後のメニュー項目更新用"""
+        self.generate_item_list()
+        self.build_menu_items(self.item_list[self.itemlist_index])
+        pass
+
+    def individual_update(self):
+        """Yes選択時は売却処理呼び出し"""
+        super().individual_update()
+        if self.ans["answer"]:
+            pos_x, pos_y = self.cursor_position
+            selected_item = self.menu_items[pos_y][pos_x]
+            cmd = s_cmd.SellEquip(
+                self.message_window, self.pt, selected_item.action_args, di.ref.pl_item
+            )
+            di.ref.cmdmgr.push_command(cmd)
+            di.ref.cmdmgr.set_on_empty(self.update_menu)
+            self.ans["answer"] = None
+            return
+
+    def exec_menu(self) -> ExecResult:
+        """選択メニュー項目の処理を実行"""
+        pos_x, pos_y = self.cursor_position
+        selected_item = self.menu_items[pos_y][pos_x]
+        logger.info(selected_item)
+
+        # cmd = s_cmd.SellEquip(
+        #     self.message_window,
+        #     self.pt,
+        #     selected_item.action_args,
+        # )
+        # di.ref.cmdmgr.push_command(cmd)
+        # return RsltContinue()
+
+        eventpoint = self.pt.get_current_point()
+        match eventpoint.point_type:
+            case PointPlaceType.CAPITAL_CITY:
+                ask_message = [
+                    f"そちらの品物ですと、評価額は{
+                        upper_int_format(selected_item.action_args[2], 6)
+                    }Ｇ",
+                    "　といったところです",
+                ]
+            case PointPlaceType.TOWN:
+                ask_message = [
+                    f"そいつの買取なら、そうだな{
+                        upper_int_format(selected_item.action_args[2], 6)
+                    }Ｇ",
+                    "　ぐらいでどうだ？",
+                ]
+            case PointPlaceType.VILLAGE:
+                ask_message = [
+                    f"そうじゃなあ、{
+                        upper_int_format(selected_item.action_args[2], 6)
+                    }Ｇ",
+                    "　なら買うてやろう",
+                ]
+        return RsltPush(
+            MenuYesNo,
+            self.ans,
+            ask_message,  # type: ignore
+        )

@@ -1,6 +1,7 @@
 """
 システムコマンドモジュール
 """
+
 import logging
 
 # from abc import abstractmethod
@@ -190,6 +191,48 @@ class PurchaseFoods(CommandBaseSystem):
             case PointPlaceType.VILLAGE:
                 next_message = "そっちのもどうじゃろか？"
         yield [next_message]  # type: ignore
+
+
+class SellEquip(CommandBaseSystem):
+    """装備下取り"""
+
+    def _sequence(self) -> Generator[list[str], None, None]:
+        pt = self.args[0]
+        item_iid, item_def, sellprice = self.args[1]
+        pool_item = self.args[2]
+
+        eventpoint = pt.get_current_point()
+        # 所持金チェック
+        match eventpoint.point_type:
+            case PointPlaceType.CAPITAL_CITY:
+                sell_message = "それでは、こちらお受け取りください"
+            case PointPlaceType.TOWN:
+                sell_message = "んじゃこいつだ！確かめてくんな！"
+            case PointPlaceType.VILLAGE:
+                sell_message = "足りるかの・・・おお、あったあった"
+        px.play(self.se_ch, SoundID.SHOP_BUY, resume=True)
+        yield [sell_message]  # type: ignore
+
+        # 売却処理
+        pt.earn_gold(sellprice)
+        pool_item.destroy(item_iid)
+        print(f"sell={item_iid}")
+
+        self.display_info.target.update_indicator(True)
+        while self.display_info.target.update() == WindowAction.CONTINUE:
+            yield [self.WAIT, "0"]
+        self.display_info.target.update_indicator(False)
+
+        match eventpoint.point_type:
+            case PointPlaceType.CAPITAL_CITY:
+                next_message = "よいお取引に感謝いたします"
+            case PointPlaceType.TOWN:
+                next_message = "またいいもん持ってきてくれよ！"
+            case PointPlaceType.VILLAGE:
+                next_message = "さて、いくらで売れるかの・・・"
+        self.display_info.target.update_indicator(True)
+        yield [next_message]  # type: ignore
+        self.display_info.target.update_indicator(False)
 
 
 class BattleStartEffect(CommandBaseSystem):

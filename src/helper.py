@@ -52,4 +52,4 @@ def format_leftright(left_str: str, right_str: str, str_len: int = 20) -> str:
     len_lstr = calcwidth(left_str)
     len_rstr = calcwidth(right_str)
     len_padding = str_len - (len_lstr + len_rstr)
-    return f"{left_str}{' '*len_padding}{right_str}"
+    return f"{left_str}{' ' * len_padding}{right_str}"

@@ -1,6 +1,7 @@
 """
 入力ライブラリ用インタフェース定義
 """
+
 from typing import Literal, Callable
 
 

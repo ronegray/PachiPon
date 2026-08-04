@@ -606,7 +606,7 @@ class Menu:
 
     def draw_main(self):
         """メニュー項目文字表示"""
-
+        # try:
         for row_idx, row in enumerate(self.menu_items):
             for col_idx, item in enumerate(row):
                 text_x = (
@@ -617,6 +617,10 @@ class Menu:
                 text_y = self.windows["main"].y + self.row_y_pos[row_idx]
                 px.text(text_x, text_y, item.item_label, px.COLOR_WHITE, self.font)
         self.draw_cursor()
+
+    # except Exception as e:
+    #     print(f"{self.column_x_pos}\n{col_idx}\n{item}", e)
+    #     px.quit()
 
     def draw_cursor(self):
         """メニューカーソル表示"""

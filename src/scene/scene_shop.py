@@ -1,6 +1,7 @@
 """
 シーンモジュール：ショップ
 """
+
 import logging
 import pyxel as px
 from gameutils.base import check_file, read_string

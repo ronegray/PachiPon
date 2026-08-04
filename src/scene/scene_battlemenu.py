@@ -4,6 +4,7 @@
 シーン：バトルのサブモジュールとして、
 バトルメニューで作成した結果をコマンド化する機能を提供
 """
+
 import logging
 
 # from typing import Callable

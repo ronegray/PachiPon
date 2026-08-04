@@ -77,10 +77,13 @@ class MenuStatus(Menu):
         status_lines += f"\nＭ　Ｐ： {upper_int_format(param.mp, 3)}／{upper_int_format(param.max_mp, 3)}"
         status_lines += (
             # f"\n筋　力： {upper_int_format(member.strength,2)} （＋{upper_int_format(member.bonus_str,1)}）"
-            f"\n筋　力： {format_leftright(
-                upper_int_format(member.strength, 3),
-                f"（＋{upper_int_format(member.bonus_str,1)}）",
-                18)}"
+            f"\n筋　力： {
+                format_leftright(
+                    upper_int_format(member.strength, 3),
+                    f'（＋{upper_int_format(member.bonus_str, 1)}）',
+                    18,
+                )
+            }"
         )
         # status_lines += f"\n魔　力： {upper_int_format(member.arcane,2)} （＋{upper_int_format(member.bonus_arc,1)}）"
         # status_lines += (
@@ -88,22 +91,34 @@ class MenuStatus(Menu):
         # )
         # status_lines += f"\n速　度： {upper_int_format(member.speed,2)} （＋{upper_int_format(member.bonus_spd,1)}）"
         # status_lines += f"\n幸　運： {upper_int_format(member.luck,2)} （＋{upper_int_format(member.bonus_lck,1)}）"
-        status_lines += f"\n魔　力： {format_leftright(
+        status_lines += f"\n魔　力： {
+            format_leftright(
                 upper_int_format(member.arcane, 3),
-                f"（＋{upper_int_format(member.bonus_str,1)}）",
-                18)}"
-        status_lines += f"\n耐　久： {format_leftright(
+                f'（＋{upper_int_format(member.bonus_str, 1)}）',
+                18,
+            )
+        }"
+        status_lines += f"\n耐　久： {
+            format_leftright(
                 upper_int_format(member.endurance, 3),
-                f"（＋{upper_int_format(member.bonus_end,1)}）",
-                18)}"
-        status_lines += f"\n速　度： {format_leftright(
+                f'（＋{upper_int_format(member.bonus_end, 1)}）',
+                18,
+            )
+        }"
+        status_lines += f"\n速　度： {
+            format_leftright(
                 upper_int_format(member.speed, 3),
-                f"（＋{upper_int_format(member.bonus_spd,1)}）",
-                18)}"
-        status_lines += f"\n幸　運： {format_leftright(
+                f'（＋{upper_int_format(member.bonus_spd, 1)}）',
+                18,
+            )
+        }"
+        status_lines += f"\n幸　運： {
+            format_leftright(
                 upper_int_format(member.luck, 3),
-                f"（＋{upper_int_format(member.bonus_lck,1)}）",
-                18)}"
+                f'（＋{upper_int_format(member.bonus_lck, 1)}）',
+                18,
+            )
+        }"
 
         self.windows["sub"].message_list = [status_lines]
 
