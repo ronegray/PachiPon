@@ -360,7 +360,9 @@ class MenuShowKeyItem(MenuItemBase):
 
         self.inventory_count = len(filteredlist)
         if self.inventory_count <= 0:
-            self.item_list = [[[{"id": "該当なし", "action": "None", "args": [""]}]]]
+            self.item_list = [
+                [[{"id": "該当なし", "action": "None", "args": ["対象を持っていない"]}]]
+            ]
         else:
             self.item_list = [
                 filteredlist[i : i + self._list_rows]
@@ -373,9 +375,10 @@ class MenuShowKeyItem(MenuItemBase):
         self.menu_shape = [1, len(self.item_list[self.itemlist_index])]
 
     def get_item_desc(self) -> list[str]:
-        item_def = di.ref.itemrps.get_def(self.target_item[0]["args"][0])
-        if item_def is None:
-            return ["対象を持っていない"]
+        # item_def = di.ref.itemrps.get_def(self.target_item[0]["args"][0])
+        # if item_def is None:
+        #     return ["対象を持っていない"]
+
         return [self.target_item[0]["args"]]
 
 

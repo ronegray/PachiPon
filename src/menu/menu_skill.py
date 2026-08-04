@@ -152,7 +152,9 @@ class MenuSelectSkillBattle(Menu):
 
         self.item_count = len(tmplist)
         if self.item_count <= 0:
-            self.skill_list = [[{"id": "該当なし", "action": "None", "args": [""]}]]
+            self.skill_list = [
+                [{"id": "該当なし", "action": "None", "args": ["習得していない"]}]
+            ]
         else:
             tmp_item_list = [
                 [
@@ -169,7 +171,9 @@ class MenuSelectSkillBattle(Menu):
                 for skill_def in tmplist
             ]
             if len(tmp_item_list) <= 0:
-                self.skill_list = [[{"id": "該当なし", "action": "None", "args": [""]}]]
+                self.skill_list = [
+                    [{"id": "該当なし", "action": "None", "args": ["習得していない"]}]
+                ]
             else:
                 if menu_cols > 1:
                     self.item_list_multicol(menu_cols, tmp_item_list)
@@ -274,7 +278,7 @@ class MenuSelectSkillBattle(Menu):
     def get_item_desc(self) -> list[str]:
         # item_def = di.ref.sklmgr.get_def(self.target_item["args"][1])
         # return [""] if item_def is None else [item_def.description]
-        return [self.target_item[0]["args"][0].description]  # type: ignore
+        return [self.target_item[self.cursor_position[0]]["args"][0].description]  # type: ignore
 
     def exec_menu(self) -> ExecResult:
         """選択メニュー項目の処理を実行"""

@@ -60,23 +60,27 @@ class MenuSelectShopCategory(Menu):
 
     def buy_consume(self) -> ExecResult:
         """消耗品アイテム購入"""
-        return RsltPush(MenuBuyConsume, self.pt, self.message_window, self.y)
+        return RsltPush(
+            MenuBuyConsume, self.pt, self.message_window, self.y + self.height
+        )
 
     def buy_foods(self) -> ExecResult:
         """食糧購入"""
         return RsltPush(
-            MenuBuyFoods, self.pt, self.message_window, self.y
+            MenuBuyFoods, self.pt, self.message_window, self.y + self.height
         )  # , self.pool_item, self.pool_stack)
 
     def buy_equips(self) -> ExecResult:
         """装備品アイテム購入"""
         return RsltPush(
-            MenuBuyEquips, self.pt, self.message_window, self.y
+            MenuBuyEquips, self.pt, self.message_window, self.y + self.height
         )  # , self.pool_item, self.pool_stack)
 
     def sell_item(self) -> ExecResult:
         """バッグ内アイテム売却"""
-        return RsltPush(MenuSellItems, self.pt, self.message_window, self.y)
+        return RsltPush(
+            MenuSellItems, self.pt, self.message_window, self.y + self.height
+        )
 
     def exit_shop(self) -> ExecResult:
         """ショップメニューを閉じる"""
@@ -94,7 +98,7 @@ class MenuItemBase(Menu):
         self.pt = party
         self.message_window = message_window
 
-        y_offset = 1
+        y_offset = Window._chip_size + 1
         menu_w, menu_h = 160, 120
         menu_pos = (Window._chip_size // 2, y - menu_h - y_offset)
         self.item_list: list = []
@@ -330,25 +334,25 @@ class MenuBuyFoods(MenuItemBase):
         #         filteredlist[i : i + self._list_rows]
         #         for i in range(0, self.inventory_count, self._list_rows)
         # ]
-        self.item_list = [
-            [
-                [
-                    {"id": "１０食分", "action": "none", "args": [1]},
-                ],
-                [
-                    {"id": "１００食分", "action": "none", "args": [10]},
-                ],
-                [
-                    {"id": "１０００食分", "action": "none", "args": [100]},
-                ],
-                [{"id": "９９００食分", "action": "none", "args": [990]}],
-            ]
-        ]
+        # self.item_list = [
+        #     [
+        #         [
+        #             {"id": "１０食分", "action": "none", "args": [1]},
+        #         ],
+        #         [
+        #             {"id": "１００食分", "action": "none", "args": [10]},
+        #         ],
+        #         [
+        #             {"id": "１０００食分", "action": "none", "args": [100]},
+        #         ],
+        #         [{"id": "９９００食分", "action": "none", "args": [990]}],
+        #     ]
+        # ]
 
-        # # ページインデックスが範囲外にならないよう補正
-        # if self.itemlist_index >= len(self.item_list):
-        #     self.itemlist_index = len(self.item_list) - 1
-        self.menu_shape = [1, len(self.item_list[self.itemlist_index])]
+        # # # ページインデックスが範囲外にならないよう補正
+        # # if self.itemlist_index >= len(self.item_list):
+        # #     self.itemlist_index = len(self.item_list) - 1
+        # self.menu_shape = [1, len(self.item_list[self.itemlist_index])]
 
         self.item_list = [self._MENU_ITEM_CASHE[self.__class__.__name__]]
         self.menu_shape = [1, 4]
