@@ -350,6 +350,9 @@ class MenuBuyFoods(MenuItemBase):
         #     self.itemlist_index = len(self.item_list) - 1
         self.menu_shape = [1, len(self.item_list[self.itemlist_index])]
 
+        self.item_list = [self._MENU_ITEM_CASHE[self.__class__.__name__]]
+        self.menu_shape = [1, 4]
+
     def get_item_desc(self) -> list[str]:
         return ["とってもとっても\nおいしそう！！"]
 
