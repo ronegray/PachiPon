@@ -68,9 +68,15 @@ class SceneShop(BaseScene):
             score_data = read_string(path)
         else:
             raise FileNotFoundError("ファイルがない！")
+        # px.stop()
+        # for i, mml in enumerate(score_data):
+        #     px.channels[i].play(mml, loop=True)
         px.stop()
-        for i, mml in enumerate(score_data):
-            px.channels[i].play(mml, loop=True)
+        for i, ch in enumerate(px.channels):
+            mml = "R"
+            if i < len(score_data):
+                mml = score_data[i]
+            ch.play(mml, loop=True)
 
     def update(self) -> None:
         """更新処理

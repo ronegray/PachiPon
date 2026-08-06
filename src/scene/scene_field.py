@@ -116,12 +116,17 @@ class SceneField(BaseScene):
         #     px.stop()
         #     px.playm(0, loop=True)
 
-        # px.stop()
-        for i, mml in enumerate(score_data):
-            #     px.sounds[i].mml(mml)
-            # px.musics[0].set([0], [1], [2], [3])
-            # px.playm(0, loop=True)
-            px.channels[i].play(mml, loop=True)
+        px.stop()
+        # for i, mml in enumerate(score_data):
+        #     #     px.sounds[i].mml(mml)
+        #     # px.musics[0].set([0], [1], [2], [3])
+        #     # px.playm(0, loop=True)
+        #     px.channels[i].play(mml, loop=True)
+        for i, ch in enumerate(px.channels):
+            mml = "R"
+            if i < len(score_data):
+                mml = score_data[i]
+            ch.play(mml, loop=True)
 
     def update(self):
         """フィールド関連オブジェクト群の更新処理"""

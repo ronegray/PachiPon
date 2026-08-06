@@ -74,11 +74,17 @@ class SceneFieldEvent(BaseScene):
             score_data = read_string(path)
         else:
             raise FileNotFoundError("ファイルがない！")
-        for i, mml in enumerate(score_data):
-            px.sounds[i].mml(mml)
-            px.musics[0].set([0], [1], [2], [3])
-            px.stop()
-            px.playm(0, loop=True)
+        # for i, mml in enumerate(score_data):
+        #     px.sounds[i].mml(mml)
+        #     px.musics[0].set([0], [1], [2], [3])
+        #     px.stop()
+        #     px.playm(0, loop=True)
+        px.stop()
+        for i, ch in enumerate(px.channels):
+            mml = "R"
+            if i < len(score_data):
+                mml = score_data[i]
+            ch.play(mml, loop=True)
 
     def update(self):
         """更新処理
