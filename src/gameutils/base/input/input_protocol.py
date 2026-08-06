@@ -17,6 +17,8 @@ ACTION_NAME = Literal[
     "cancel",
     "other1",
     "other2",
+    "start",
+    "select",
     "LS",
     "RS",
 ]

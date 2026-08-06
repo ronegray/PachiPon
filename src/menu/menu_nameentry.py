@@ -84,6 +84,12 @@ class MenuNameEntry(Menu):
         elif self.inputkey.cancel():
             px.play(self.se_ch, SoundID.CANCEL, resume=True)
             self.delete_letter()
+        elif self.inputkey.start():
+            px.play(self.se_ch, SoundID.DECIDE, resume=True)
+            # 文字種３パターンのは矩形リストなので代表でindex0を使用
+            pos_row = len(self.name_chars[0]) - 1
+            pos_col = len(self.name_chars[0][-1]) - 1
+            self.cursor_position = [pos_col, pos_row]
         return WindowAction.CONTINUE
 
     def add_letter(self) -> None:
@@ -141,7 +147,7 @@ class MenuNameEntry(Menu):
         shadowed_text(
             self.windows["sub"].x,
             self.windows["sub"].y + self.windows["sub"].height + self.cursor_row_offset,
-            "決定キー：文字入力　キャンセルキー：文字削除\nED：名前確定",
+            "決定キー：文字入力　キャンセルキー：文字削除\nED：名前確定　スタートキー：カーソルをEDへ",
             px.COLOR_LIGHT_BLUE,
             self.windows["main"].font,
         )
