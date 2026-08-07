@@ -18,7 +18,6 @@ CommandManager: CommandProtocolのみを相手にするスタック型Invoker。
   後者はScene側がスタックの空き状況（is_empty）を見て判断する。
 """
 
-# from __future__ import annotations
 from typing import Callable
 from . import CommandBase, DisplayInfo, CommandPhase
 
@@ -28,13 +27,9 @@ def _render(display_info: DisplayInfo) -> None:
     実プロジェクトではここを pyxel の px.rect()/px.text() 等の呼び出しに
     置き換える。サンプルでは標準出力で代替する。
     """
-    # if display_info.sub_message:
-    #     print(f"[window] {display_info.message} / {display_info.sub_message}")
-    # else:
-    # print(f"[window] {display_info.message}")
+
     if display_info.message:
         display_info.target.draw()
-        # display_info.target.set_message(display_info.message)
         if display_info.is_change:
             if isinstance(display_info.message, list):
                 for message in display_info.message:

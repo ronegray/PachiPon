@@ -3,8 +3,6 @@
 """
 
 import logging
-#####from typing import Callable
-
 import pyxel as px
 from gameutils.lib import (
     Menu,
@@ -12,20 +10,9 @@ from gameutils.lib import (
     ExecResult,
     RsltPush,
     RsltDiscard,
-)  # , WindowAction, RsltContinue
+)
 import service_locater as di
-
-# from entity.character import EquipSlot
-# from entity import EquipSlot
-# from item.item_protocol import Owner
-# from item.item_manager import ItemManager
-# from menu import MenuItemWindow#, MenuSelectItemCategory
-
-# from .menu_equip_slot import SelectEquipSlot # コメントアウト
-# from item import ItemState
-# from command import CommandType, CommandContext
-
-from entity import EntityContext  # Character,
+from entity import EntityContext
 from item import ItemPool, StackPool
 import command.entity_command as e_cmd
 
@@ -69,17 +56,7 @@ class MenuField(Menu):
 
     def enter_shop(self):
         """商店メニューを開く"""
-        # from menu import MenuSelectShopCategory
 
-        # return RsltPush(
-        #     MenuSelectShopCategory,
-        #     self.cursor_x + Window._chip_size + 1,
-        #     self.cursor_y + Window._chip_size + 1,
-        #     self.ctx,
-        #     self.command_package,
-        #     # self.pool_item,
-        #     # self.pool_stack,
-        # )
         di.ref.scnmgr.next_scene("shop")
         return RsltDiscard()
 
@@ -99,8 +76,6 @@ class MenuField(Menu):
             self.cursor_y + Window._chip_size + 1,
             self.ctx,
             self.command_package,
-            # self.pool_item,
-            # self.pool_stack,
         )
 
     def equip_item(self):

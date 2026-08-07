@@ -6,7 +6,7 @@ debug.logに情報を出力する為の設定ファイル
 """
 
 import logging
-import logging.handlers
+# import logging.handlers
 
 LOG_FILENAME = "debug.log"
 
@@ -19,10 +19,10 @@ def setup_logging(log_level: int):
         level=log_level,
         format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
         handlers=[
-            # logging.FileHandler(LOG_FILENAME, encoding="utf-8"),  # ファイル出力
+            logging.FileHandler(LOG_FILENAME, encoding="utf-8"),  # ファイル出力
             logging.StreamHandler(),  # コンソール出力
-            logging.handlers.RotatingFileHandler(
-                LOG_FILENAME, maxBytes=1048576, backupCount=5
-            ),
+            # logging.handlers.RotatingFileHandler(
+            #     LOG_FILENAME, maxBytes=1048576, backupCount=5
+            # ),
         ],
     )

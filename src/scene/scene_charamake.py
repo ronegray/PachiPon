@@ -4,8 +4,6 @@
 
 import logging
 import pyxel as px
-
-# from const import BASE_PARAM
 from helper import upper_int_format, format_leftright
 from gameutils.lib import Window
 from assets.asset_map import AssetID, AssetMap

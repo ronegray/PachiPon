@@ -2,25 +2,20 @@
 キャラクター本体モジュール
 """
 
-# from dataclasses import dataclass  # , field
 from gameutils.base import check_file, read_json
 from assets.asset_map import AssetMap, AssetID
 from item import PooledItem, WeaponType
 
-# import random
-# from equipments import
 from . import (
     EntityBase,
     EntityParam,
     PlayerSprite,
     Equips,
     EquipSlot,
-)  # , PlayerSpriteType, EquipSlot
+)
 
 from item import ItemType
-from skill import SkillID  # , Skills
-
-# from gameutils.base import check_file, read_json
+from skill import SkillID
 import service_locater as di
 
 
@@ -30,12 +25,8 @@ class Character(EntityBase):
     exp_table: list = []
 
     def __init__(self, param: EntityParam, sprite: PlayerSprite, id: int = 0):
-        # self.param: EntityParam = param
-        # self.sprite: PlayerSprite = sprite
-        # self.id: int = id
         super().__init__(param, sprite, id)
         self.equipments: Equips = Equips(self.id)  # Equipmentsを初期化
-        # self.skills: Skills = Skills(self.id)  # type:ignore
 
         # 経験値テーブルデータが無い場合は読み込み
         if not Character.exp_table:
@@ -63,36 +54,6 @@ class Character(EntityBase):
     def next_exp(self) -> int:
         return int(self.exp_table[self.param.level] - self.param.exp)
 
-    # @property
-    # def strength(self) -> int:
-    #     return int(
-    #         self.param.strength + self.equipments.get_adjust_effect(SkillID.BONUS_STR)
-    #     )
-
-    # @property
-    # def arcane(self) -> int:
-    #     return int(
-    #         self.param.arcane + self.equipments.get_adjust_effect(SkillID.BONUS_ARC)
-    #     )
-
-    # @property
-    # def endurance(self) -> int:
-    #     return int(
-    #         self.param.endurance + self.equipments.get_adjust_effect(SkillID.BONUS_END)
-    #     )
-
-    # @property
-    # def speed(self) -> int:
-    #     return int(
-    #         self.param.speed + self.equipments.get_adjust_effect(SkillID.BONUS_SPD)
-    #     )
-
-    # @property
-    # def luck(self) -> int:
-    #     return int(
-    #         self.param.luck + self.equipments.get_adjust_effect(SkillID.BONUS_LCK)
-    #     )
-
     def get_equip(self, slot: EquipSlot) -> PooledItem | None:
         """装備中のアイテムを取得"""
         return self.equipments.get_slot(slot)
@@ -117,7 +78,6 @@ class Character(EntityBase):
     @property
     def defvalue(self) -> int:
         """防具の防御値を取得"""
-        # item = self.equipments.get_slot(EquipSlot.GUARDER)
         item = self.get_equip(EquipSlot.GUARDER)
         if item is None:
             return 0
@@ -127,7 +87,6 @@ class Character(EntityBase):
     @property
     def magpenalty(self) -> int:
         """防具のペナルティ値を取得"""
-        # item = self.equipments.get_slot(EquipSlot.GUARDER)
         item = self.get_equip(EquipSlot.GUARDER)
         if item is None:
             return 0

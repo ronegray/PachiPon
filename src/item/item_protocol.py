@@ -2,20 +2,13 @@
 アイテム関連のID定義モジュール
 """
 
-from dataclasses import dataclass  # , field
-from enum import IntEnum  # , auto
-# from typing import Optional
-# from typing import Callable
+from dataclasses import dataclass
+from enum import IntEnum
 
 
 # fmt: off
 class ItemType(IntEnum):
     """アイテムの属性"""
-    # WEAPON   = 0x00_00 # 武器：インスタンス管理
-    # GUARDER  = 0x07_00 # 防具：インスタンス管理
-    # ORNAMENT = 0x0B_00 # 装飾：インスタンス管理
-    # CONSUME  = 0x10_00 # 消耗品：スタック管理
-    # KEY_ITEM = 0x0F_00 # 重要品：インスタンス管理
     WEAPON   = 0x00 # 武器：インスタンス管理
     GUARDER  = 0x07 # 防具：インスタンス管理
     ORNAMENT = 0x0B # 装飾：インスタンス管理
@@ -199,23 +192,6 @@ class ItemState(IntEnum):
     HERO = 0  # 主人公の装備品
     MEM1 = 1  # 仲間１の装備品
     MEM2 = 2  # 仲間２の装備品
-
-
-# # アイテムの状態をまとめたデータクラス
-# @dataclass
-# class ItemState:
-#     equipped: bool = False
-#     durability: int = 100
-
-
-# @dataclass
-# class UniqueIdentifyItem:
-#     """アイテム個体識別情報"""
-
-#     instance_id: int  # 固有ID
-#     def_id: ItemID  # 定義ID
-#     state: ItemState  # 所持者ID
-#     # state: ItemState = field(default_factory=ItemState)
 
 
 @dataclass

@@ -9,12 +9,9 @@ import pyxel as px
 import service_locater as di
 from const import APP_WIDTH, APP_HEIGHT
 from .scene_base import BaseScene
-
-# from menu import MenuNameEntry
 from assets.asset_map import AssetID, AssetMap
 from gameutils.base import (
     check_file,
-    # read_string,
     read_json,
     FontManager,
     shadowed_text,
@@ -54,7 +51,6 @@ class SceneOpening(BaseScene):
 
         self.op_message: list = read_json(path)
         self.message_top: float = APP_HEIGHT
-        # self.msg_end_line: int = -100
         self.op_msg_row_offset: float = self.font_opmsg.height * 1.25
         self.msg_end_line: int = -(len(self.op_message) * (self.font_opmsg.height + 3))
 

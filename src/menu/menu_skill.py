@@ -6,12 +6,8 @@
 """
 
 import logging
-
-# from typing import Callable
 import pyxel as px
 from const import SoundID
-
-# import service_locater as di
 from gameutils.lib import (
     Menu,
     Window,
@@ -21,8 +17,6 @@ from gameutils.lib import (
     RsltPop,
     RsltDiscard,
 )
-
-# from item import ItemState, ItemType
 from helper import upper_int, format_leftright
 from entity import EntityContext
 from skill import SkillDef, SkillTargetType
@@ -37,41 +31,21 @@ class MenuSelectSkillBattle(Menu):
     """行動サブメニュー：戦闘時使用スキル選択"""
 
     _list_rows: int = 8
-    # _pagelabel_size = 4 * 5  # 4ptフォント5文字
     _menu_col_criteria = {"field": 1, "battle": 2}
 
     def __init__(
         self,
-        # real_actor: Character,
         ctx: EntityContext,
-        # actor_list: list[Character],  # 逆順生存メンバーリスト
-        # battle_commands: dict,
-        # message_window: Window,
-        # サイズや位置を確認する為の参照用　実処理で使わない
-        # ref_window: Window,
         ref_window: dict[str, int],
         command_package: e_cmd.CommandPackage,
     ):
-        # self.ctx_source: EntityContext = ctx  # 再帰先へのコンテキスト引継用
-        # self.context: EntityContext = EntityContext(
-        #     ctx.situation,
-        #     real_actor,
-        #     ctx.allies,
-        #     ctx.targets,
-        # )
-        # self.actor_list: list[Character] = actor_list
-        # self.battle_commands: dict = battle_commands
-        # self.message_window: Window = message_window
         self.ctx = ctx
         self.command_package = command_package
 
-        # self.item_list: list = []
         self.item_count: int = 0
         self.skill_list: list[list[dict[str, str | list]]] = []
         self.generate_item_list()
 
-        # menu_pos = (ref_window.x, ref_window.y)
-        # menu_size = (ref_window.width, ref_window.height)
         menu_pos = (ref_window["x"], ref_window["y"])
         menu_size = (
             (ref_window["w"], ref_window["h"])
@@ -83,36 +57,8 @@ class MenuSelectSkillBattle(Menu):
         )
         self.cursor_row_offset += 2  # k8x12Sの縦長分対応
         # """使用するスキルを選択データ取得と表示ウインドウの再定義"""
-        # self.buid_context = ctx_builder
-        #
-        # # padding = 2
-        # menu_pos = (80, Window._chip_size + namewindow_height)
-        # skill_w, skill_h = 104, 144  # 習得スキル
-        # self.skill_list: list = []
-        # self.member_index: int = di.ref.pt.get_top_index()
         self.member_index: int = 0
-        # self.generate_item_list()
-        # super().__init__(
-        #     "basic",
-        #     *menu_pos,
-        #     [1, len(self.skill_list)],
-        #     self.skill_list,
-        #     # px.width - x - Window._chip_size,
-        #     skill_w,
-        #     skill_h,
-        # )
-        #
 
-        # # スキル詳細情報ウインドウ
-        # info_height = 8 + 16 + 8 # 上枠＋フォント分16px + 下枠
-        # self.windows["sub"] = Window(
-        #     "basic",
-        #     0,
-        #     menu_pos[1] - info_height,
-        #     px.width,
-        #     info_height,
-        #     "sub",
-        # )
         if self.ctx.situation == "battle":
             info_height = 8 + 8 + 8  # 上枠＋フォント分8px + 下枠
             sub_pos = (0, ref_window["y"] - info_height)
@@ -123,14 +69,10 @@ class MenuSelectSkillBattle(Menu):
             sub_size = (self.width, info_height)
         self.windows["sub"] = Window("basic", *sub_pos, *sub_size, "sub")
 
-        # self.is_push_left: int = 0
-        # self.is_push_right: int = 0
-
         self.change_target_item()
 
         # フィールド時は利用者名前ウインドウ
         if self.ctx.situation == "field":
-            # self.set_actor_name()
             namewindow_height = Window._chip_size + 16
             self.windows["sub2"] = Window(
                 "basic",
@@ -159,12 +101,10 @@ class MenuSelectSkillBattle(Menu):
             tmp_item_list = [
                 [
                     {
-                        # "id": f"{skill_def.name}",
                         "id": format_leftright(
                             skill_def.name, upper_int(skill_def.cost)
                         ),
                         "action": "select_target",
-                        # "args": [skill_def.def_id, skill_def.description],
                         "args": [skill_def],
                     }
                 ]
@@ -208,7 +148,6 @@ class MenuSelectSkillBattle(Menu):
         self.cursor_position = [0, 0]
 
     def set_actor_name(self):
-        # member = di.ref.pt.get_member(self.member_index)
         member = self.ctx.allies[self.member_index]
         self.windows["sub2"].set_message([member.param.name])
 
@@ -238,33 +177,16 @@ class MenuSelectSkillBattle(Menu):
         if self.ctx.situation == "battle":
             return
 
-        # 左右キーでのリスト内容切替
-        # if len(self.skill_list) > 1:
-        #     if self.inputkey.left():
-        #         self.member_index = (self.member_index - 1) % len(self.skill_list)
-        #         self.remap_itemlist()
-        #         self.change_target_item()
-        #         self.is_push_left = 1
-        #         return
-        #     if self.inputkey.right():
-        #         self.member_index = (self.member_index + 1) % len(self.skill_list)
-        #         self.remap_itemlist()
-        #         self.change_target_item()
-        #         self.is_push_right = 1
         def _update_list():
             self.generate_item_list()
             self.build_menu_items(self.skill_list)
-            # self.remap_itemlist()
             self.change_target_item()
             self.set_actor_name()
-            # self.build_status()
 
         if self.inputkey.left():
-            # self.member_index = (self.member_index - 1) % di.ref.pt.get_member_count()
             self.member_index = (self.member_index - 1) % len(self.ctx.allies)
             _update_list()
         if self.inputkey.right():
-            # self.member_index = (self.member_index + 1) % di.ref.pt.get_member_count()
             self.member_index = (self.member_index + 1) % len(self.ctx.allies)
             _update_list()
 
@@ -276,8 +198,6 @@ class MenuSelectSkillBattle(Menu):
         return result
 
     def get_item_desc(self) -> list[str]:
-        # item_def = di.ref.sklmgr.get_def(self.target_item["args"][1])
-        # return [""] if item_def is None else [item_def.description]
         return [self.target_item[self.cursor_position[0]]["args"][0].description]  # type: ignore
 
     def exec_menu(self) -> ExecResult:
@@ -291,24 +211,12 @@ class MenuSelectSkillBattle(Menu):
             logger.critical(errmsg, exc_info=True)
             raise ValueError(errmsg)
 
-        # logger.info(
-        #     f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}"
-        # )
         result = selected_item.menu_action(*selected_item.action_args)
 
         return result
 
     def select_target(self, skill_def: SkillDef) -> ExecResult:
         """使用するスキルの情報を元にターゲット選択メニューを呼び出し"""
-        # # item_name = di.ref.sklmgr.get_def(skill_id).name
-        # # print(f"{skill_id} {item_name}")
-        # # self.windows["sub"].add_message(f"{item_name} をつかった")
-
-        # skill_def = di.ref.sklmgr.get_def(skill_id)
-
-        # return RsltPush(
-        #     MenuSelectSkillTarget, self.buid_context, self.member_index, skill_def
-        # )
         if not self.ctx.actor.check_mp(skill_def.cost):
             self.windows["sub"].set_message(["ＭＰが足りません"])
             return RsltContinue()
@@ -326,17 +234,6 @@ class MenuSelectSkillBattle(Menu):
                 self.command_package.target_type = skill_def.target_type  # type: ignore
                 self.command_package.selected_args = {"skillinfo": skill_def}
 
-                # return RsltPush(
-                #     MenuSelectBattleTarget,
-                #     self.context.actor,  # 追加
-                #     self.ctx_source,
-                #     self.actor_list,
-                #     self.battle_commands,
-                #     self.message_window,
-                #     self.windows["sub"],
-                #     # self.is_submenu_return,
-                #     skill_id,
-                # )
                 if skill_def.target_type in (
                     SkillTargetType.ALLIES,
                     SkillTargetType.ENEMIES,
@@ -362,8 +259,6 @@ class MenuSelectSkillField(Menu):
     """行動サブメニュー：フィールド時使用スキル選択"""
 
     _list_rows: int = 8
-    # _pagelabel_size = 4 * 5  # 4ptフォント5文字
-    # _menu_col_criteria = {"field": 1, "battle": 2}
 
     def __init__(
         self,
@@ -374,13 +269,10 @@ class MenuSelectSkillField(Menu):
         self.ctx = ctx
         self.command_package = command_package
 
-        # self.item_list: list = []
         self.item_count: int = 0
         self.skill_list: list[list[dict[str, str | list]]] = []
         self.generate_item_list()
 
-        # menu_pos = (ref_window.x, ref_window.y)
-        # menu_size = (ref_window.width, ref_window.height)
         menu_pos = (ref_window["x"], ref_window["y"])
         menu_size = (104, 144)
         super().__init__(
@@ -396,13 +288,9 @@ class MenuSelectSkillField(Menu):
         sub_size = (self.width, info_height)
         self.windows["sub"] = Window("basic", *sub_pos, *sub_size, "sub")
 
-        # self.is_push_left: int = 0
-        # self.is_push_right: int = 0
-
         self.change_target_item()
 
         # フィールド時は利用者名前ウインドウ
-        # self.set_actor_name()
         namewindow_height = Window._chip_size + 16
         self.windows["sub2"] = Window(
             "basic",
@@ -412,7 +300,6 @@ class MenuSelectSkillField(Menu):
             namewindow_height,
             "sub",
         )
-        # self.windows["sub2"].set_message([self.ctx.actor.param.name])
         self.set_actor_name()
 
     def generate_item_list(self):
@@ -430,17 +317,14 @@ class MenuSelectSkillField(Menu):
             tmp_item_list = [
                 [
                     {
-                        # "id": f"{skill_def.name}",
                         "id": format_leftright(
                             skill_def.name, upper_int(skill_def.cost)
                         ),
                         "action": "select_target",
-                        # "args": [skill_def.def_id, skill_def.description],
                         "args": [skill_def],
                     }
                 ]
                 for skill_def in tmplist
-                # if skill_def.target_type & 0b0110 == 0b0010
             ]
             if len(tmp_item_list) <= 0:
                 self.skill_list = [[{"id": "該当なし", "action": "None", "args": [""]}]]
@@ -478,8 +362,6 @@ class MenuSelectSkillField(Menu):
         self.cursor_position = [0, 0]
 
     def set_actor_name(self):
-        # member = di.ref.pt.get_member(self.member_index)
-        # member = self.ctx.allies[self.member_index]
         member = self.ctx.actor = self.ctx.allies[self.member_index]
         self.windows["sub2"].set_message([member.param.name])
 
@@ -509,45 +391,20 @@ class MenuSelectSkillField(Menu):
         if self.ctx.situation == "battle":
             return
 
-        # 左右キーでのリスト内容切替
-        # if len(self.skill_list) > 1:
-        #     if self.inputkey.left():
-        #         self.member_index = (self.member_index - 1) % len(self.skill_list)
-        #         self.remap_itemlist()
-        #         self.change_target_item()
-        #         self.is_push_left = 1
-        #         return
-        #     if self.inputkey.right():
-        #         self.member_index = (self.member_index + 1) % len(self.skill_list)
-        #         self.remap_itemlist()
-        #         self.change_target_item()
-        #         self.is_push_right = 1
         def _update_list():
             self.set_actor_name()
             self.generate_item_list()
             self.build_menu_items(self.skill_list)
-            # self.remap_itemlist()
             self.change_target_item()
-            # self.set_actor_name()
-            # self.build_status()
 
         if self.inputkey.left():
             px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
-            # self.member_index = (self.member_index - 1) % di.ref.pt.get_member_count()
             self.member_index = (self.member_index - 1) % len(self.ctx.allies)
             _update_list()
         if self.inputkey.right():
             px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
-            # self.member_index = (self.member_index + 1) % di.ref.pt.get_member_count()
             self.member_index = (self.member_index + 1) % len(self.ctx.allies)
             _update_list()
-
-    # def move_cursor(self) -> bool:
-    #     """カーソル移動時に詳細ウインドウの内容を書き換える"""
-    #     result = super().move_cursor()
-    #     if result:
-    #         self.change_target_item()
-    #     return result
 
     def move_cursor(self) -> bool:
         """キー入力に応じたカーソル移動とインデックス制御"""
@@ -555,24 +412,14 @@ class MenuSelectSkillField(Menu):
         if self.inputkey.up():
             self.cursor_position[1] = (self.cursor_position[1] - 1) % self.menu_shape[1]
             result = True
-        # if self.inputkey.left():
-        #     self.cursor_position[0] = (self.cursor_position[0] - 1) % self.menu_shape[0]
-        #     return True
         if self.inputkey.down():
             self.cursor_position[1] = (self.cursor_position[1] + 1) % self.menu_shape[1]
             result = True
-        # if self.inputkey.right():
-        #     self.cursor_position[0] = (self.cursor_position[0] + 1) % self.menu_shape[0]
-        #     return True
         if result:
             self.change_target_item()
-        # return False
         return result
 
     def get_item_desc(self) -> list[str]:
-        # item_def = di.ref.sklmgr.get_def(self.target_item["args"][1])
-        # return [""] if item_def is None else [item_def.description]
-        # return [self.target_item[0]["args"][0].description]  # type: ignore
         skill_def = self.target_item[0]["args"][0]
         if isinstance(skill_def, SkillDef):
             desc = skill_def.description  # type: ignore
@@ -593,10 +440,6 @@ class MenuSelectSkillField(Menu):
             errmsg = f"メニューアクション関数が定義されていません：{selected_item.item_label}"
             logger.critical(errmsg, exc_info=True)
             raise ValueError(errmsg)
-
-        # logger.info(
-        #     f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}"
-        # )
         result = selected_item.menu_action(*selected_item.action_args)
 
         return result
@@ -625,11 +468,5 @@ class MenuSelectSkillField(Menu):
         return RsltPush(
             MenuSelectFieldTarget,
             self.ctx,
-            # {
-            #     "x": self.windows["main"].x,
-            #     "y": self.windows["main"].y,
-            #     "w": self.windows["main"].width,
-            #     "h": self.windows["main"].height,
-            # },
             self.command_package.target_type,
         )

@@ -4,21 +4,9 @@
 
 from typing import Callable
 import pyxel as px
-
-# import service_locater as di
 from assets.asset_map import AssetMap, AssetID
 from gameutils.base import is_pressed
 from const import DICEROLL_FRAME, SoundID, SE_CH
-
-# --- サイコロ画像の仕様 ---
-# images[0] の (0,0) から右方向へ 16x16 px で 1〜6 の目が並んでいる前提
-
-# DICE_IMG_BANK = 0
-
-
-# # サイコロが転がるプレイエリア (64,64)〜(192,192)
-# roll_x1, roll_y1 = 84, 84
-# roll_x2, roll_y2 = 172, 172
 
 
 class DiceRollEffect:
@@ -40,9 +28,7 @@ class DiceRollEffect:
         self.roll_frames: int
         # Σ FRICTION^t (t=0..roll_frames-1) = (1 - FRICTION^n) / (1 - FRICTION)
         # 初速逆算時の定数。roll_frames が変わらない限り毎回同じ値。
-        self._total_scale: float  # = (1.0 - self.friction**self.roll_frames) / (
-        # 1.0 - self.friction
-        # )
+        self._total_scale: float
 
         self.dice_img: px.Image
         self.count: int = 0
@@ -136,7 +122,6 @@ class DiceRollEffect:
             self.positions.append([sx, sy])
 
             # ③ 最終位置に届く初速を逆算
-            #    pos(n) = pos(0) + v0 * total_scale  →  v0 = Δpos / total_scale
             fx, fy = self._final_positions[i]
             vx = (fx - sx) / self._total_scale
             vy = (fy - sy) / self._total_scale
@@ -201,17 +186,6 @@ class DiceRollEffect:
             dx = int(self.positions[i][0])
             dy = int(self.positions[i][1])
             rot = int(self.rotations[i])
-            # px.blt(
-            #     dx,
-            #     dy,
-            #     self.dice_img,
-            #     sx,
-            #     0,
-            #     DiceRollEffect.dice_size,
-            #     DiceRollEffect.dice_size,
-            #     px.COLOR_GREEN,
-            #     rot,
-            # )
             self.draw_commands.append(
                 lambda dx=dx, dy=dy, sx=sx, rot=rot: px.blt(
                     dx,
@@ -225,7 +199,6 @@ class DiceRollEffect:
                     rot,
                 )
             )
-            # self.draw_commands[-1]
 
     def get_draw_commands(self) -> list[Callable]:
         """コマンドジェネレータ用にdraw内容を取得"""

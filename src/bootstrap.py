@@ -97,46 +97,46 @@ def ipl():
     sklrps = SkillRepository()
     di.register(di.ServiceKey.SKILL_MANAGER, sklrps)
 
-    """リリース時は削除する"""
-    # プロトタイプ用初期アイテム (items.jsonの全アイテムを2つずつ作成)
-    di.ref.pt.regist_dummy_hero()
-    from item import ItemState
+    # """リリース時は削除する"""
+    # # プロトタイプ用初期アイテム (items.jsonの全アイテムを2つずつ作成)
+    # di.ref.pt.regist_dummy_hero()
+    # from item import ItemState
 
-    for item_def_id, item_def in di.ref.itemrps.get_all_definitions().items():
-        for _ in range(5):
-            if item_def.stackable:
-                di.ref.pl_stack.add(
-                    item_def_id, ItemState.BAG, 1
-                )  # スタック可能な場合は1つずつ追加
-            else:
-                di.ref.pl_item.create(
-                    item_def_id, ItemState.BAG
-                )  # スタック不可の場合はインスタンスを作成
+    # for item_def_id, item_def in di.ref.itemrps.get_all_definitions().items():
+    #     for _ in range(5):
+    #         if item_def.stackable:
+    #             di.ref.pl_stack.add(
+    #                 item_def_id, ItemState.BAG, 1
+    #             )  # スタック可能な場合は1つずつ追加
+    #         else:
+    #             di.ref.pl_item.create(
+    #                 item_def_id, ItemState.BAG
+    #             )  # スタック不可の場合はインスタンスを作成
 
-    from entity import EquipSlot
-    from item import ItemID
+    # from entity import EquipSlot
+    # from item import ItemID
 
-    for member in di.ref.pt.get_allmember():
-        pooled_item = di.ref.pl_item.get_by_category(ItemID.SACREDWEAPON)
-        member.equipments.equip_on_pool(EquipSlot.WEAPON, list(pooled_item.items())[-1])
-        pooled_item = di.ref.pl_item.get_by_category(ItemID.HOLYGUARD)
-        member.equipments.equip_on_pool(
-            EquipSlot.GUARDER, list(pooled_item.items())[-1]
-        )
-        pooled_item = di.ref.pl_item.get_by_category(ItemID.HISPDAMULET)
-        member.equipments.equip_on_pool(
-            EquipSlot.ACCESSORY_1, list(pooled_item.items())[-1]
-        )
-        pooled_item = di.ref.pl_item.get_by_category(ItemID.HILCKAMULET)
-        member.equipments.equip_on_pool(
-            EquipSlot.ACCESSORY_2, list(pooled_item.items())[-1]
-        )
-        member.equipments.equip_on_consume(EquipSlot.CONSUME_1, ItemID.HEALPOT)
-        member.equipments.equip_on_consume(EquipSlot.CONSUME_2, ItemID.MAGICPOT)
+    # for member in di.ref.pt.get_allmember():
+    #     pooled_item = di.ref.pl_item.get_by_category(ItemID.SACREDWEAPON)
+    #     member.equipments.equip_on_pool(EquipSlot.WEAPON, list(pooled_item.items())[-1])
+    #     pooled_item = di.ref.pl_item.get_by_category(ItemID.HOLYGUARD)
+    #     member.equipments.equip_on_pool(
+    #         EquipSlot.GUARDER, list(pooled_item.items())[-1]
+    #     )
+    #     pooled_item = di.ref.pl_item.get_by_category(ItemID.HISPDAMULET)
+    #     member.equipments.equip_on_pool(
+    #         EquipSlot.ACCESSORY_1, list(pooled_item.items())[-1]
+    #     )
+    #     pooled_item = di.ref.pl_item.get_by_category(ItemID.HILCKAMULET)
+    #     member.equipments.equip_on_pool(
+    #         EquipSlot.ACCESSORY_2, list(pooled_item.items())[-1]
+    #     )
+    #     member.equipments.equip_on_consume(EquipSlot.CONSUME_1, ItemID.HEALPOT)
+    #     member.equipments.equip_on_consume(EquipSlot.CONSUME_2, ItemID.MAGICPOT)
 
-    from skill import SkillID
+    # from skill import SkillID
 
-    # di.ref.hero.skills.learn_skill(SkillID.SACRED_ARROW)
-    pt.get_member(0).skills.learn_skill(SkillID.SACRED_ARROW)
-    # di.ref.mem2.skills.learn_skill(SkillID.HEALING_HAND)
-    pt.get_member(0).skills.learn_skill(SkillID.HEALING_HAND)
+    # # di.ref.hero.skills.learn_skill(SkillID.SACRED_ARROW)
+    # pt.get_member(0).skills.learn_skill(SkillID.SACRED_ARROW)
+    # # di.ref.mem2.skills.learn_skill(SkillID.HEALING_HAND)
+    # pt.get_member(0).skills.learn_skill(SkillID.HEALING_HAND)

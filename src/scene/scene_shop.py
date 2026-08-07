@@ -68,9 +68,6 @@ class SceneShop(BaseScene):
             score_data = read_string(path)
         else:
             raise FileNotFoundError("ファイルがない！")
-        # px.stop()
-        # for i, mml in enumerate(score_data):
-        #     px.channels[i].play(mml, loop=True)
         px.stop()
         for i, ch in enumerate(px.channels):
             mml = "R"
@@ -117,8 +114,6 @@ class SceneShop(BaseScene):
                 self.message_window.update_indicator(True)
 
             self.is_goodbye = True
-            # if self.message_window.update() == WindowAction.DISCARD:
-            #     # di.ref.scnmgr.previous_scene([bye_message])
 
     def draw(self) -> None:
         px.blt(0, 0, self.bgimage, 0, 0, self.bgimage.width, self.bgimage.height)

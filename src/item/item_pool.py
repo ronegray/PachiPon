@@ -8,7 +8,7 @@ from . import (
     ItemInstance,
     PoolEntry,
     PooledItem,
-)  # , UniqueIdentifyItem
+)
 
 
 # ロギング設定
@@ -18,11 +18,8 @@ logger = logging.getLogger(__name__)
 class ItemPool:
     """全アイテムインスタンスを一元管理するプール"""
 
-    # a = {"id": int, "inst": ItemInstance, "item": ItemState}
-
     def __init__(self, capacity: int = 4096):
         self._free: deque[int] = deque(range(capacity))
-        # self._items: dict[int, PoolEntry] = {}
         self._items: dict[int, PoolEntry] = {}
         self.create_initial_items()
 
@@ -34,7 +31,6 @@ class ItemPool:
     def get_def(self, def_id: ItemID):
         return di.ref.itemrps.get_def(def_id)
 
-    # def create(self, def_id: ItemID, state: ItemState) -> tuple[int, PoolEntry]:
     def create(self, def_id: ItemID, state: ItemState) -> PooledItem:
         """アイテムをプールに生成し、インスタンスを返す"""
         if not self._free:
@@ -95,7 +91,6 @@ class StackPool:
     """(def_id, owner_id) → 数量 のシンプル管理"""
 
     def __init__(self):
-        # {(def_id, owner_id): count}
         self._stacks: dict[tuple[ItemID, ItemState], int] = defaultdict(int)
 
     def get_def(self, def_id: ItemID):

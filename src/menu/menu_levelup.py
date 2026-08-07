@@ -4,9 +4,6 @@
 
 import logging
 import pyxel as px
-
-# import service_locater as di
-# from const import SoundID
 from helper import upper_int_format, format_leftright
 from gameutils.lib import (
     Menu,
@@ -16,7 +13,7 @@ from gameutils.lib import (
     ExecResult,
     RsltPush,
 )
-from entity import Character  # , EntityParam
+from entity import Character
 
 
 # ロギング設定

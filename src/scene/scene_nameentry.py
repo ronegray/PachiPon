@@ -6,8 +6,6 @@ import logging
 import pyxel as px
 from const import BASE_PARAM
 from assets.asset_map import AssetID, AssetMap
-
-# import service_locater as di
 from menu import MenuNameEntry
 from entity import EntityParam
 from .scene_base import BaseScene

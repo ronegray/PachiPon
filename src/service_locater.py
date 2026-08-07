@@ -40,9 +40,6 @@ class ServiceKey(Enum):
     STACKPOOL = auto()
     SKILL_MANAGER = auto()
     PARTY = auto()
-    # HERO = auto()
-    # MEMBER1 = auto()
-    # MEMBER2 = auto()
     ENEMY_MANAGER = auto()
 
 
@@ -93,18 +90,6 @@ class _Ref:
     @property
     def pt(self) -> Party:
         return _service_container[ServiceKey.PARTY]
-
-    # @property
-    # def hero(self) -> Character:
-    #     return _service_container[ServiceKey.HERO]
-
-    # @property
-    # def mem1(self) -> Character:
-    #     return _service_container[ServiceKey.MEMBER1]
-
-    # @property
-    # def mem2(self) -> Character:
-    #     return _service_container[ServiceKey.MEMBER2]
 
     @property
     def enmrps(self) -> EnemyRepository:

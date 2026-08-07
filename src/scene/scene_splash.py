@@ -46,7 +46,6 @@ class SceneSplash(BaseScene):
             self.to_title()
 
     def to_title(self):
-        # di.ref.app.scene = di.ref.app.change_scene("title")
         di.ref.scnmgr.next_scene("title")
         px.dither(1)
 

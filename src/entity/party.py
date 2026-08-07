@@ -5,17 +5,14 @@
 import logging
 from math import hypot
 import pyxel as px
-from const import ENCOUNT_THRESHOLD, FIELD_MESSAGE_HEIGHT
+from const import ENCOUNT_THRESHOLD, FIELD_MESSAGE_HEIGHT, INITIAL_FOODS, INITIAL_GOLD
 from gameutils.lib import Window
 import service_locater as di
 from field_map import EventPoint, Route
 from helper import diceroll
 import command.system_command as s_cmd
-from field_map import MapGraph  # , ROUTE_DIR
-
-# from command import CommandManager
-# from scene import SceneManager
-from . import Character, FieldSprite, EntityParam, PlayerSprite
+from field_map import MapGraph
+from . import Character, FieldSprite
 
 # ロギング設定
 logger = logging.getLogger(__name__)
@@ -46,23 +43,14 @@ class Party:
     info_window: Window
     pt_msg_window: Window
 
-    def __init__(
-        self, map: MapGraph
-    ):  # , cmdmgr: CommandManager, scnmgr: SceneManager):
+    def __init__(self, map: MapGraph):
         """初期化"""
         self.map = map
         self.cmdmgr = di.ref.cmdmgr
         self.scnmgr = di.ref.scnmgr
-        # self.cmdmgr = cmdmgr
-        # self.scnmgr = scnmgr
-        # # 初期PTメンバ（主人公）の登録
-        # self.regist_dummy_hero()  # そもそもやるべきではない？
-        # self.regist_dummy_hero()
-        # self.regist_dummy_hero()
-        # self.add_ptmember(di.ref.hero)
 
         # フィールド画面用スプライトの設定
-        self._field_sprite: FieldSprite  # = self.set_field_sprite()
+        self._field_sprite: FieldSprite
 
         # 関連フラグの設定
         self._pt_is_moving = False  # 移動中フラグ
@@ -84,17 +72,11 @@ class Party:
         self._world_y = self._current_point.y
 
         # パーティー単位のパラメータ
-        self._pt_foods = 0
-        self._pt_golds = 50
+        self._pt_foods = INITIAL_FOODS
+        self._pt_golds = INITIAL_GOLD
         self._pt_eventflg = {}
-        # # パーティーメッセージウインドウの生成
-        # x_offset = 4
-        # message_pos = (x_offset, px.height // 2 - (FIELD_MESSAGE_HEIGHT // 2))
-        # message_size = (px.width - (x_offset * 2), FIELD_MESSAGE_HEIGHT)
-        # self.pt_msg_window = Window("basic", *message_pos, *message_size, "once", 0)
 
         # 移動用ジェネレータ変数にダミーを定義
-        # self.move_generator = self._update_movement(self._current_point)
         self.move_generator = None
 
     def generate_pt_window(self) -> None:
@@ -106,50 +88,50 @@ class Party:
         message_size = (px.width - (x_offset * 2), FIELD_MESSAGE_HEIGHT)
         self.pt_msg_window = Window("basic", *message_pos, *message_size, "once", 0)
 
-    def regist_dummy_hero(self):
-        """ダミー主人公データの登録"""
-        # キャラクターの初期化
-        # hero_param = EntityParam(
-        #     name="メンバー" + str(len(self._member_list)),
-        #     strength=px.rndi(1, 10),
-        #     arcane=px.rndi(1, 10),
-        #     endurance=px.rndi(1, 10),
-        #     speed=px.rndi(1, 10),
-        #     luck=px.rndi(1, 10),
-        #     max_hp=px.rndi(1, 10),
-        #     max_mp=px.rndi(1, 10),
-        # )
-        # PlayerSprite は pyxel.blt同様pyxel.Imageオブジェクトを受け取り可能
-        charimage = px.Image.from_image("assets/image/character16.bmp")
-        char_x = 20  # 初期X座標
-        char_y = 20  # 初期Y座標
-        # hero_sprite = PlayerSprite(char_x, char_y, charimage)  # img=0 を明示的に指定
-        # hero = Character(id=0, param=hero_param, sprite=hero_sprite)  # id=1を設定
-        hero = Character(
-            id=len(self._member_list),
-            param=EntityParam(
-                name="ほげほげふーばー" + str(len(self._member_list)),
-                strength=px.rndi(1, 10) * 10,
-                arcane=px.rndi(1, 10) * 10,
-                endurance=px.rndi(1, 10) * 10,
-                speed=px.rndi(1, 10) * 10,
-                luck=px.rndi(1, 10) * 10,
-                max_hp=px.rndi(5, 10) * 10,
-                max_mp=px.rndi(5, 10) * 10,
-            ),
-            sprite=PlayerSprite(char_x, char_y, charimage),
-        )
-        # if len(self._member_list) == 0:
-        #     di.register(di.ServiceKey.HERO, hero)
-        #     self.add_ptmember(di.ref.hero)
-        # elif len(self._member_list) == 1:
-        #     di.register(di.ServiceKey.MEMBER1, hero)
-        #     self.add_ptmember(di.ref.mem1)
-        # elif len(self._member_list) == 2:
-        #     di.register(di.ServiceKey.MEMBER2, hero)
-        #     self.add_ptmember(di.ref.mem2)
-        self.add_ptmember(hero)
-        self.set_field_sprite()
+    # def regist_dummy_hero(self):
+    #     """ダミー主人公データの登録"""
+    #     # キャラクターの初期化
+    #     # hero_param = EntityParam(
+    #     #     name="メンバー" + str(len(self._member_list)),
+    #     #     strength=px.rndi(1, 10),
+    #     #     arcane=px.rndi(1, 10),
+    #     #     endurance=px.rndi(1, 10),
+    #     #     speed=px.rndi(1, 10),
+    #     #     luck=px.rndi(1, 10),
+    #     #     max_hp=px.rndi(1, 10),
+    #     #     max_mp=px.rndi(1, 10),
+    #     # )
+    #     # PlayerSprite は pyxel.blt同様pyxel.Imageオブジェクトを受け取り可能
+    #     charimage = px.Image.from_image("assets/image/character16.bmp")
+    #     char_x = 20  # 初期X座標
+    #     char_y = 20  # 初期Y座標
+    #     # hero_sprite = PlayerSprite(char_x, char_y, charimage)  # img=0 を明示的に指定
+    #     # hero = Character(id=0, param=hero_param, sprite=hero_sprite)  # id=1を設定
+    #     hero = Character(
+    #         id=len(self._member_list),
+    #         param=EntityParam(
+    #             name="ほげほげふーばー" + str(len(self._member_list)),
+    #             strength=px.rndi(1, 10) * 10,
+    #             arcane=px.rndi(1, 10) * 10,
+    #             endurance=px.rndi(1, 10) * 10,
+    #             speed=px.rndi(1, 10) * 10,
+    #             luck=px.rndi(1, 10) * 10,
+    #             max_hp=px.rndi(5, 10) * 10,
+    #             max_mp=px.rndi(5, 10) * 10,
+    #         ),
+    #         sprite=PlayerSprite(char_x, char_y, charimage),
+    #     )
+    #     # if len(self._member_list) == 0:
+    #     #     di.register(di.ServiceKey.HERO, hero)
+    #     #     self.add_ptmember(di.ref.hero)
+    #     # elif len(self._member_list) == 1:
+    #     #     di.register(di.ServiceKey.MEMBER1, hero)
+    #     #     self.add_ptmember(di.ref.mem1)
+    #     # elif len(self._member_list) == 2:
+    #     #     di.register(di.ServiceKey.MEMBER2, hero)
+    #     #     self.add_ptmember(di.ref.mem2)
+    #     self.add_ptmember(hero)
+    #     self.set_field_sprite()
 
     def get_top_index(self) -> int:
         """生存中PTメンバーの先頭キャラのリストインデックスを取得"""
@@ -196,7 +178,6 @@ class Party:
         x, y = 0, 0  # 描画位置
         u, v = 0, 0  # イメージの取得相対位置
         w, h = 16, 16  # 取得するイメージのサイズ
-        # return FieldSprite(x, y, self._member_list[0].sprite.img, u, v, w, h)
         self._field_sprite = FieldSprite(
             x, y, self._member_list[0].sprite.img, u, v, w, h
         )
@@ -204,42 +185,6 @@ class Party:
     def set_sprite_direction(self, direction: str) -> None:
         """パーティのフィールドスプライトの方向設定用ラッパー"""
         self._field_sprite.set_direction(direction)
-
-    # def _update_movement(self, target_point: EventPoint):
-    #     """移動中の現在位置および描画位置の更新"""
-    #     target_x, target_y = target_point.x, target_point.y
-
-    #     while True:
-    #         dx = target_x - self._world_x
-    #         dy = target_y - self._world_y
-    #         distance = hypot(dx, dy)
-
-    #         if distance <= self._move_speed:
-    #             self._current_point = target_point
-    #             self._pt_is_moving = False
-    #             self._field_sprite._is_moving = False
-    #             return
-    #         else:
-    #             # 移動方向を正規化
-    #             if distance > 0:
-    #                 direction_x = dx / distance
-    #                 direction_y = dy / distance
-    #             else:
-    #                 direction_x = 0
-    #                 direction_y = 0
-
-    #         self._world_x += direction_x * self._move_speed
-    #         self._world_y += direction_y * self._move_speed
-
-    #         yield
-
-    # def move_to(self, target_point_id: str):
-    #     """フィールド移動先の設定と移動ジェネレータ生成"""
-    #     target_point = di.ref.map.get_point(target_point_id)
-    #     if target_point is None:
-    #         quit()
-    #     self._pt_is_moving = self._field_sprite._is_moving = True
-    #     self.move_generator = self._update_movement(target_point)
 
     def _update_move_route(self, target_point: EventPoint, to_route: Route):
         """移動中の現在位置および描画位置の更新"""
@@ -260,9 +205,6 @@ class Party:
                 self.past_turns += 1
                 if self.encount_check(encounts):
                     encounts += 1
-                    # di.ref.scnmgr.next_scene("battle")
-                    # di.ref.scnmgr.next_scene("battlesplash")
-                    # self.scnmgr.next_scene("battlesplash")
                     self._pt_is_encount = True
                 current_count = 0
                 self.have_food()
@@ -322,9 +264,6 @@ class Party:
         if roll + encounts <= ENCOUNT_THRESHOLD:
             return True
         return False
-
-    # def set_event_point_status(self, status: bool):
-    #     self._is_event_point = status
 
     def set_moving_status(self, status: bool):
         self._pt_is_moving = status

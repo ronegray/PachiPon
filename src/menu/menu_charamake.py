@@ -10,7 +10,6 @@ from helper import upper_int_format, format_leftright
 from gameutils.base import check_file, read_json
 from gameutils.lib import (
     Menu,
-    # MENU_ITEM_LIST,
     Window,
     MenuYesNo,
     WindowAction,
@@ -18,7 +17,7 @@ from gameutils.lib import (
     RsltPush,
 )
 from assets.asset_map import AssetID, AssetMap
-from entity import Character  # , EntityParam
+from entity import Character
 
 
 # ロギング設定
@@ -199,7 +198,6 @@ class MenuCharaMake(Menu):
                     px.play(self.se_ch, SoundID.ERROR, resume=True)
             else:
                 px.play(self.se_ch, SoundID.ERROR, resume=True)
-            # self.cursor_position[0] = (self.cursor_position[0] + 1) % self.menu_shape[0]
             return True
         return False
 
@@ -221,7 +219,6 @@ class MenuCharaMake(Menu):
         """更新"""
         if self.ans["finished"]:
             if self.ans["answer"]:
-                # self.target.append(self.menu_items[self.cursor_position[1]][0].action_args[0])
                 return WindowAction.CLOSE
             elif self.ans["answer"] is False:
                 self.ans["finished"] = False

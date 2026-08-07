@@ -7,7 +7,6 @@ Commandクラス自身および利用側の処理で必要とする取り決め�
 
 """
 
-# from __future__ import annotations
 from dataclasses import dataclass, field
 from enum import IntEnum, auto
 from typing import Callable

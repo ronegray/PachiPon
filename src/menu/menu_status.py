@@ -60,37 +60,18 @@ class MenuStatus(Menu):
         param = member.param
 
         # メインステータス
-        # status_lines = f"{param.name}"
-        # status_lines += f"\nレベル： {param.level:2}"
-        # status_lines += f"\n次まで： {member.next_exp:5}"
-        # status_lines += f"\nＨ　Ｐ： {param.hp:3}／{param.max_hp:3}"
-        # status_lines += f"\nＭ　Ｐ： {param.mp:3}／{param.max_mp:3}"
-        # status_lines += f"\n筋　力： {member.strength:3}(+{member.bonus_str})"
-        # status_lines += f"\n魔　力： {member.arcane:3}(+{member.bonus_arc})"
-        # status_lines += f"\n耐　久： {member.endurance:3}(+{member.bonus_end})"
-        # status_lines += f"\n速　度： {member.speed:3}(+{member.bonus_spd})"
-        # status_lines += f"\n幸　運： {member.luck:3}(+{member.bonus_lck})"
         status_lines = f"{param.name}"
         status_lines += f"\nレベル： {upper_int_format(param.level, 2)}"
         status_lines += f"\n次まで： {upper_int_format(member.next_exp, 1)}"
         status_lines += f"\nＨ　Ｐ： {upper_int_format(param.hp, 3)}／{upper_int_format(param.max_hp, 3)}"
         status_lines += f"\nＭ　Ｐ： {upper_int_format(param.mp, 3)}／{upper_int_format(param.max_mp, 3)}"
-        status_lines += (
-            # f"\n筋　力： {upper_int_format(member.strength,2)} （＋{upper_int_format(member.bonus_str,1)}）"
-            f"\n筋　力： {
+        status_lines += f"\n筋　力： {
                 format_leftright(
                     upper_int_format(member.strength, 3),
                     f'（＋{upper_int_format(member.bonus_str, 1)}）',
                     18,
                 )
             }"
-        )
-        # status_lines += f"\n魔　力： {upper_int_format(member.arcane,2)} （＋{upper_int_format(member.bonus_arc,1)}）"
-        # status_lines += (
-        #     f"\n耐　久： {upper_int_format(member.endurance,2)} （＋{upper_int_format(member.bonus_end,1)}）"
-        # )
-        # status_lines += f"\n速　度： {upper_int_format(member.speed,2)} （＋{upper_int_format(member.bonus_spd,1)}）"
-        # status_lines += f"\n幸　運： {upper_int_format(member.luck,2)} （＋{upper_int_format(member.bonus_lck,1)}）"
         status_lines += f"\n魔　力： {
             format_leftright(
                 upper_int_format(member.arcane, 3),
@@ -144,13 +125,6 @@ class MenuStatus(Menu):
 
         # スキル項目の構築
         skill_lines = ""
-        # for id in member.skills.get_learned_skill_id():
-        #     skill = di.ref.sklmgr.get_def(id)
-        #     if skill is None:
-        #         skill_name = "なし"
-        #     else:
-        #         skill_name = skill.name
-        #     skill_lines += f"　{skill_name}\n"
         for skill_def in member.skills.get_learned_skill_def("system"):
             skill_lines += f"　{skill_def.name}\n"
 
