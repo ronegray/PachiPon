@@ -11,11 +11,6 @@ import unicodedata
 UPPER_INT_TABLE = str.maketrans("0123456789", "０１２３４５６７８９")
 
 
-# def diceroll(dice_num: int) -> int:
-#     """指定した数d6を振った結果を取得"""
-#     return px.rndi(dice_num, dice_num * 6)
-
-
 def diceroll(dice_num: int) -> int:
     """指定した数d6を振った結果を取得"""
     return sum(diceroll_values(dice_num))

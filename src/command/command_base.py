@@ -4,7 +4,6 @@ Command系基底クラス
 コマンド関連クラスの契約となる抽象クラス
 """
 
-# from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import Generator
 from gameutils.lib import Window, WindowAction

@@ -30,11 +30,8 @@ class PlayerSprite(BaseSprite):
         colkey: int = px.COLOR_GREEN,
     ):
         super().__init__(x, y, img, u, v, w, h, colkey)
-        # self.speed = 1
         self._direction = "front"  # 正面向きをデフォルトとする
         self._animation_frame = 0
-        # self._is_event_point = False
-        # self._is_moving = False  # 移動中フラグ
 
         # 各方向のスプライトU, V座標を定義 (32x32pxが8枚、colkeyは親クラスで指定済み)
         self.sprite_uvs = {
@@ -44,10 +41,6 @@ class PlayerSprite(BaseSprite):
             "back": [(192, 0), (224, 0)],  # 後ろ向き2枚
         }
 
-    # def move(self, dx, dy):
-    #     self.x += dx * self.speed
-    #     self.y += dy * self.speed
-
     def set_sprite_image(self, image_type: PlayerSpriteType):
         self.img = px.Image(32, 32)
 
@@ -55,20 +48,7 @@ class PlayerSprite(BaseSprite):
         if direction in self.sprite_uvs:
             self._direction = direction
 
-    # def set_event_point_status(self, status: bool):
-    #     self._is_event_point = status
-
-    # def set_moving_status(self, status: bool):
-    #     self._is_moving = status
-
     def update(self):
-        # # # イベントポイント上、または移動中の場合のみアニメーション
-        # # if self._is_event_point or self._is_moving:
-        # #     self._animation_frame = (pyxel.frame_count // (60 // 4)) % 2 # pyxel.frame_rate の代わりに60を使用
-        # # else:
-        # #     self._animation_frame = 0 # 停止中はアニメーションを停止
-        # if self._is_moving is False:
-        #     self._direction = "front"
         self._animation_frame = (
             px.frame_count // (60 // 4)
         ) % 2  # pyxel.frame_rate の代わりに60を使用
@@ -79,8 +59,6 @@ class PlayerSprite(BaseSprite):
 
         # 現在の方向とアニメーションフレームに基づいてU, V座標を取得
         u, v = self.sprite_uvs[self._direction][self._animation_frame]
-
-        # img_val = self.img.value if isinstance(self.img, pyxel.Image) else self.img
 
         if self.colkey is not None:
             px.blt(

@@ -3,9 +3,7 @@
 """
 
 import logging
-from typing import cast  # Callable
-# from dataclasses import dataclass
-
+from typing import cast
 import pyxel as px
 from gameutils.lib import (
     Menu,
@@ -15,36 +13,14 @@ from gameutils.lib import (
     RsltContinue,
     RsltPush,
     RsltDiscard,
-    # RsltReplace,
-)  # , WindowAction, RsltContinue
-# import service_locater as di
-
-
-# from entity.character import EquipSlot
-# from entity import EquipSlot
-# from item.item_protocol import Owner
-# from item.item_manager import ItemManager
-# from menu import MenuItemWindow#, MenuSelectItemCategory
-
-# from .menu_equip_slot import SelectEquipSlot # コメントアウト
-# from item import ItemState
-# from command import CommandType, CommandContext
-
-# from entity import Party
-
+)
 from entity import EntityContext, EntityBase, Character, EquipSlot
-from skill import SkillTargetType  # , SkillID
-
+from skill import SkillTargetType
 import command.entity_command as e_cmd
-# from command import Attack, DefenceMode, UseItem, UseSkill
 
 
 # ロギング設定
 logger = logging.getLogger(__name__)
-
-
-# class SubReturnFlag:
-#     state: bool = False
 
 
 class MenuBattle(Menu):
@@ -163,33 +139,12 @@ class MenuSelectBattleTarget(Menu):
 
     def __init__(
         self,
-        # real_actor: Character,
         ctx: EntityContext,
-        # actor_list: list[Character],  # 逆順生存メンバーリスト
-        # battle_commands: dict,
-        # message_window: Window,
-        # サイズや位置を確認する為の参照用　実処理で使わない
-        # ref_window: Window,
         ref_window: dict[str, int],
-        # submenu_return: SubReturnFlag,
         target_type: SkillTargetType,
         *args,
     ):
-        # self.ctx_source: EntityContext = ctx_source  # 再帰先へのコンテキスト引継用
-        # self.context: EntityContext = EntityContext(
-        #     situation=ctx_source.situation,
-        #     # ctx_source.actor,
-        #     actor=real_actor,
-        #     target=real_actor,
-        #     allies=ctx_source.allies,
-        #     targets=ctx_source.targets,
-        # )
-        # # print(f"\nsrc {id(self.ctx_source.targets)}\nctx {id(self.context.targets)}")
-        # self.actor_list: list[Character] = actor_list
         self.ctx: EntityContext = ctx
-        # self.battle_commands: dict = battle_commands
-        # self.message_window: Window = message_window
-        # self.command_name: str = command_name
         self.target_type: SkillTargetType = target_type
         self.item_list: MENU_ITEM_LIST = []
         self.generate_item_list()
@@ -228,8 +183,6 @@ class MenuSelectBattleTarget(Menu):
                     {
                         "id": f"{target.param.name.ljust(9, '　')}",
                         "action": "set_target",
-                        # # "args": [target.id, "Attack"],
-                        # "args": [target.id, self.command_name],
                         "args": [target],
                     }
                 ]
@@ -247,15 +200,9 @@ class MenuSelectBattleTarget(Menu):
                     self.item_list.append(tmp_list.copy())
                     cnt += 2
             if len(tmp_item_list) != cnt:
-                # list[list[dict[str, str]]]
                 self.item_list.append(tmp_list.copy())
 
         self.menu_shape = [menu_cols, len(self.item_list)]
-
-    # def individual_update(self) -> None:
-    #     """キャンセル時に自分のIDのコマンドがあれば削除する"""
-    #     if self.inputkey.cancel():
-    #         self.battle_commands.pop(self.context.actor.id)
 
     def exec_menu(self) -> ExecResult:
         """選択メニュー項目の処理を実行"""
@@ -265,69 +212,25 @@ class MenuSelectBattleTarget(Menu):
         except IndexError:
             # 空データを選択した時はスルー
             return RsltContinue()
-        # logger.info(selected_item)
 
         if selected_item.menu_action is None:
             errmsg = f"メニューアクション関数が定義されていません：{selected_item.item_label}"
             logger.critical(errmsg, exc_info=True)
             raise ValueError(errmsg)
 
-        # logger.info(
-        #     f"選択メニュー実行：{selected_item.item_label}"
-        # )
         result = selected_item.menu_action(*selected_item.action_args)
 
         return result
 
-    # def set_target(self, id: int, command: str) -> ExecResult:
-    #     """コンテキストにターゲットを設定"""
-    # for i, target in enumerate(self.context.targets):
-    #     if target.id == id:
-    #         self.context.target_index = i
-    #         logger.debug(f"{i}={target.param.name}")
-    # cmd = getattr(e_cmd, command)
-    # # logger.info(f"\nselect command\n{cmd}")
-    # # cmd(self.context, self.message_window)
     def set_target(self, target: EntityBase) -> ExecResult:
         """コンテキストにターゲットを設定"""
         self.ctx.target = target
-        # if self.context.pending_command is None:
-        #     errmsg = f"コマンドが定義されていません：{self.context}"
-        #     logger.critical(errmsg, exc_info=True)
-        #     raise ValueError(errmsg)
-        # self.battle_commands[self.context.actor.id] = (
-        #     self.context.pending_command
-        # )
-
-        # # logger.info(f"\nctx for command list\n{self.context}")
-        # # # サブメニュー終了フラグを立てて前のメニューに戻る
-        # # self.is_submenu_return.state = True
-        # # return RsltPop()
-
-        # # # 自分自身をpopしてから次メンバーのバトルメニューをpush（無理やり）
-        # # import service_locater as di
-        # #
-        # # di.ref.scnmgr.get_now_scene().wndmgr.pop_stack()
-
-        # logger.debug(f"{self.battle_commands}")
-        # # 自身をpopして次のメニューをpushする戻り値を採用
-        # if not self.actor_list:
-        #     return RsltDiscard()
-        # return RsltReplace(
-        #     MenuBattle,
-        #     self.ctx_source,
-        #     self.actor_list,
-        #     self.battle_commands,
-        #     self.message_window,
-        # )
         return RsltDiscard()
 
 
 class MenuSelectItem(Menu):
     """行動サブメニュー：戦闘時使用アイテム選択　※バトル専用"""
 
-    # _list_rows: int = 10
-    # _pagelabel_size = 4 * 5  # 4ptフォント5文字
     _menu_col_criteria = {"field": 1, "battle": 2}
 
     def __init__(
@@ -377,31 +280,10 @@ class MenuSelectItem(Menu):
 
         self.change_target_item()
 
-        # # フィールド時は利用者名前ウインドウ
-        # if self.context.situation == "field":
-        #     # self.set_actor_name()
-        #     namewindow_height = Window._chip_size + 16
-        #     self.windows["sub2"] = Window(
-        #         "basic",
-        #         menu_pos[0],
-        #         menu_pos[1] - namewindow_height,
-        #         self.width,
-        #         namewindow_height,
-        #         "sub",
-        #     )
-        #     self.windows["sub2"].set_message([self.context.actor.param.name])
-
     def generate_item_list(self):
         """メニュー項目リストの生成：スキル"""
         # コンテキストシチュエーションに応じてメニューカラム数変更
         menu_cols = 1
-
-        # actor: Character = cast(Character, self.context.actor)
-        # plent_cons1 = actor.equipments.get_slot(EquipSlot.CONSUME_1)
-        # plent_cons2 = actor.equipments.get_slot(EquipSlot.CONSUME_2)
-
-        # tmplist = [consume for consume in (plent_cons1, plent_cons2)
-        #            if consume is not None]
 
         self.item_count = len(self.consume_list)
         if self.item_count <= 0:
@@ -430,9 +312,6 @@ class MenuSelectItem(Menu):
                     ]
                 ]
             else:
-                # if menu_cols > 1:
-                #     self.item_list_multicol(menu_cols, tmp_item_list)
-                # else:
                 self.item_list = tmp_item_list.copy()
 
         self.menu_shape = [menu_cols, len(self.item_list)]
@@ -489,9 +368,6 @@ class MenuSelectItem(Menu):
             logger.critical(errmsg, exc_info=True)
             raise ValueError(errmsg)
 
-        # logger.info(
-        #     f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}"
-        # )
         result = selected_item.menu_action(*selected_item.action_args)
 
         return result
@@ -512,18 +388,6 @@ class MenuSelectItem(Menu):
             "slot": eq_slot,
         }
 
-        # return RsltPush(
-        #     MenuSelectBattleTarget,
-        #     self.context.actor,  # 追加
-        #     self.ctx_source,
-        #     self.actor_list,
-        #     self.battle_commands,
-        #     self.message_window,
-        #     self.windows["sub"],
-        #     # self.is_submenu_return,
-        #     skill_id,
-        # )
-
         return RsltPush(
             MenuSelectBattleTarget,
             self.ctx,
@@ -535,5 +399,3 @@ class MenuSelectItem(Menu):
             },
             self.command_package.target_type,
         )
-
-        # return RsltContinue()

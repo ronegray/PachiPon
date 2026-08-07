@@ -34,7 +34,6 @@ class SkillRepository:
 
             for efx_name, details in efx_data.items():
                 if hasattr(SkillID, efx_name):
-                    # def_id = EffectID[item_name].value
                     def_id = SkillID[efx_name]
                     self._master_def[def_id] = SkillDef(
                         def_id=def_id,
@@ -55,15 +54,7 @@ class SkillRepository:
                     )
         pass
 
-    # def get_def(self, def_id: SkillID) -> SkillDef | None:
-    #     """指定されたIDのスキル定義を取得する"""
-    #     return self._master_def.get(def_id)
-
     @classmethod
     def get_def(cls, def_id: SkillID) -> SkillDef | None:
         """指定されたIDのスキル定義を取得する"""
         return cls._master_def.get(def_id)
-
-    # def get_all_definitions(self) -> dict[SkillID, SkillDef]:
-    #     """すべてのアイテム定義を取得する"""
-    #     return self._master_def

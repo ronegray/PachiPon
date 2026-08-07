@@ -13,16 +13,12 @@ from const import FIELD_MESSAGE_HEIGHT, APP_WIDTH, APP_HEIGHT
 from gameutils.base import is_pressed, check_file, read_string
 from gameutils.lib import Window, WindowAction
 from event import EventID, EventType
-
-# from command import CommandContext
 from field_map import EventPoint
 from entity import EntityContext
 from command import CommandBase
 import command.entity_command as e_cmd
 from helper import format_leftright
 import command.system_command as s_cmd
-
-# import command.effect_command as f_cmd
 from menu import MenuField
 from . import BaseScene
 
@@ -57,15 +53,9 @@ class SceneField(BaseScene):
         self.ctx: EntityContext
 
         # 位置情報
-        # current_point = di.ref.pt.get_current_point()
-        # startpoint_id = current_point.id
-        # self.current_node_id: str = startpoint_id
         self.current_point: EventPoint = di.ref.pt.get_current_point()
         self.last_visited_node: str = self.current_point.id
         self.next_node: str = ""
-        # self.eventpoint_info_window.add_message(self.current_point.name)
-        # for key, val in self.current_point.get_eventpoint_info().items():
-        #     self.eventpoint_info_window.add_message(f"{val["name"]}  {val["threshold"]}")
         self.update_eventpoint_info()
 
         # キャラクターは main.py で初期化され、サービスロケータに登録されている
@@ -74,8 +64,6 @@ class SceneField(BaseScene):
         # カメラオフセット
         self.camera_x = 0
         self.camera_y = 0
-
-        # self.event_flags = {node_id: True for node_id in di.ref.map.points.keys()}
 
         self.load_bgm()
 
@@ -93,11 +81,8 @@ class SceneField(BaseScene):
                     f"イベント実行準備中です（あと{self.current_point.ready_count}ターン）"
                 ]
             )
-        # logger.debug(self.current_point)
-        # logger.debug(self.current_point.get_eventpoint_info())
         for _, val in self.current_point.get_eventpoint_info().items():
             self.eventpoint_info_window.add_message(
-                # f"{val["name"]}  {val["threshold"]}"
                 format_leftright(val["name"], f"[{val['threshold']:>2}]", 21)
             )
         logger.debug(self.eventpoint_info_window.message_list)
@@ -110,18 +95,13 @@ class SceneField(BaseScene):
             score_data = read_string(path)
         else:
             raise FileNotFoundError("ファイルがない！")
-        # for i, mml in enumerate(score_data):
-        #     px.sounds[i].mml(mml)
-        #     px.musics[0].set([0], [1], [2], [3])
-        #     px.stop()
-        #     px.playm(0, loop=True)
 
-        # px.stop()
-        for i, mml in enumerate(score_data):
-            #     px.sounds[i].mml(mml)
-            # px.musics[0].set([0], [1], [2], [3])
-            # px.playm(0, loop=True)
-            px.channels[i].play(mml, loop=True)
+        px.stop()
+        for i, ch in enumerate(px.channels):
+            mml = "R"
+            if i < len(score_data):
+                mml = score_data[i]
+            ch.play(mml, loop=True)
 
     def update(self):
         """フィールド関連オブジェクト群の更新処理"""
@@ -131,16 +111,6 @@ class SceneField(BaseScene):
 
         # 現在地点に次のイベントが定義されていた場合、イベントを実行
         if self.current_point.nextevent:
-            # # cmd2 = s_cmd.FoodShortageMessage(self.message_window)
-            # # di.ref.cmdmgr.push_command(cmd2)
-            # event_func_name = EventID(self.current_point.nextevent.event_id).name
-            # event_func_name = "INCREASE_HP"
-            # evtcmd = getattr(s_cmd, event_func_name)
-            # cmd = evtcmd(self.message_window,
-            #              self.current_point.nextevent.event_type,
-            #              self.current_point.nextevent.event_value)
-            # di.ref.cmdmgr.push_command(cmd)
-            # self.current_point.flush_event()
             self.is_close_window = True
             di.ref.scnmgr.next_scene("mapevent")
             return
@@ -159,13 +129,6 @@ class SceneField(BaseScene):
                     )
                 )
             return
-
-        # # 準備状態でないイベントポイントのみ更新
-        # [
-        #     lambda: point.update()
-        #     for point in di.ref.map.points.values()
-        #     if point.is_ready is False
-        # ]
 
         # 移動中は何もしない
         if di.ref.pt._pt_is_moving:
@@ -186,7 +149,6 @@ class SceneField(BaseScene):
                 self.current_point = di.ref.pt.get_current_point()
                 self.update_eventpoint_info()
                 self.last_visited_node = self.current_point.id
-                # self.eventpoint_info_window.set_message([f"{di.ref.pt._current_point.event_list}"])
             return
 
         # ウインドウ抑止判定
@@ -213,7 +175,6 @@ class SceneField(BaseScene):
         actions = ["up", "down", "left", "right"]
         for d in actions:
             if is_pressed(d):  # type: ignore
-                # to_route = di.ref.map.get_route(self.current_node_id, d)
                 to_route = di.ref.map.get_route(self.current_point.id, d)
                 if to_route:
                     self.next_node = to_route.to_id
@@ -231,16 +192,7 @@ class SceneField(BaseScene):
                     di.ref.pt.move_route(to_route)
                 return
 
-        # イベント発生判定
-        # is_event_point = self.event_flags.get(self.current_node_id, False)
-        # # self.field_chara.set_event_point_status(is_event_point)
-        # di.ref.pt.set_event_point_status(is_event_point)
-
-        # if is_pressed("decide") and is_event_point:
-        #     self.event_flags[self.current_node_id] = False
-        # current_point = di.ref.pt.get_current_point()?
         if is_pressed("decide") and self.current_point.is_ready:
-            # dices = self.current_point.kick_event()
             cmd = s_cmd.KickEvent(self.message_window, self.current_point)
             di.ref.cmdmgr.push_command(cmd)
             di.ref.cmdmgr.set_on_empty(self.update_eventpoint_info)

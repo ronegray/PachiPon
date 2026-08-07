@@ -140,6 +140,8 @@ _DEFAULT_BINDS_PAD: dict[ACTION_NAME, int] = {  # パッド
     "cancel": px.GAMEPAD1_BUTTON_B,
     "other1": px.GAMEPAD1_BUTTON_X,
     "other2": px.GAMEPAD1_BUTTON_Y,
+    "start": px.GAMEPAD1_BUTTON_START,
+    "select": px.GAMEPAD1_BUTTON_BACK,
     "LS": px.GAMEPAD1_BUTTON_LEFTSHOULDER,
     "RS": px.GAMEPAD1_BUTTON_RIGHTSHOULDER,
 }
@@ -152,6 +154,8 @@ _DEFAULT_BINDS_KBD: dict[ACTION_NAME, int] = {  # キーボード
     "cancel": px.KEY_X,
     "other1": px.KEY_C,
     "other2": px.KEY_V,
+    "start": px.KEY_RETURN,
+    "select": px.KEY_SHIFT,
     "LS": px.KEY_LSHIFT,
     "RS": px.KEY_RSHIFT,
 }

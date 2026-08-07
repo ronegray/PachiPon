@@ -237,22 +237,12 @@ class MenuEquip(Menu):
         self.item_list: list = []
         self.itemlist_index: int = 0
         self.inventory_count: int = 0
-        # self.filter_cursor: int = 0
-        # self.filter_name: list[str] = ["", "COMSUME", "LEGEND"]
-        # self.filter_types = ConsumeGrade
         self.slot = slot
         self.slot_filter = self._filter[slot]
         if self.slot_filter == ItemType.CONSUME:
-            # self.func_gen_item = self.generate_item_list_consume
             self.generate_item_list_consume()
-            # self.func_equip = self.member.equipments.equip_on_consume
         else:
-            # self.func_gen_item = self.generate_item_list
             self.generate_item_list()
-            # self.func_equip = self.member.equipments.equip_on_pool
-        # # self.list_rows: int = 10
-        # # self.inventory_count: int = 0
-        # self.func_gen_item()
         super().__init__(
             "basic",
             pos_x,
@@ -272,9 +262,7 @@ class MenuEquip(Menu):
         )
         self.is_push_left: int = 0
         self.is_push_right: int = 0
-        # # # self.target_item = self.item_list[0][0]
         self.change_target_item()
-        # super().__init__()
 
     def exec_menu(self) -> ExecResult:
         """選択メニュー項目の処理を実行"""
@@ -282,7 +270,6 @@ class MenuEquip(Menu):
         selected_item = self.menu_items[pos_y][pos_x]
         logger.info(selected_item)
 
-        # self.member.equipments.equip_off(self.slot)
         if self.inventory_count <= 0:
             return RsltContinue()
         elif self.slot_filter == ItemType.CONSUME:
@@ -311,58 +298,28 @@ class MenuEquip(Menu):
         parent.generate_item_list()
         parent.build_menu_items(parent.item_list)
         parent.build_status()
-        # parent.menu_items = parent.item_list
-
-        # if selected_item.menu_action is None:
-        #     errmsg = f"メニューアクション関数が定義されていません：{selected_item.item_label}"
-        #     logger.critical(errmsg, exc_info=True)
-        #     raise ValueError(errmsg)
-
-        # logger.info(
-        #     f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}"
-        # )
-
-        # result = selected_item.menu_action(*selected_item.action_args)
-        # return result
 
         return RsltPop([])
 
     def generate_item_list(self):
         """アイテムリストの生成"""
-        # tmplist = di.ref.pl_stack.get_by_state(ItemState.BAG)
-        # filteredlist = self._get_filtered_list(tmplist)
         tmplist = di.ref.pl_item.get_by_state(ItemState.BAG)
-        # filteredlist = [
-        #     {item_[0]: item_[1]}
-        #     for item_ in tmplist.items()
-        #     if item_[0] & 0xFF00 != ItemType.KEY_ITEM
-        # ]
         filteredlist = [
             [
                 {
                     "id": items_.ins.param.name,
                     "action": "None",
-                    # "args": items_.ins.param.description,
                     "args": [items_.ins.param.def_id, iid],
                 }
             ]
             for iid, items_ in tmplist.items()
-            # if items_.ins.param.def_id & 0xFF00 == self.slot_filter
             if items_.ins.param.item_type == self.slot_filter
         ]
 
         self.inventory_count = len(filteredlist)
         if self.inventory_count <= 0:
-            # if self.filter_name == "":
-            #     self.item_list = [[{"id": "なし", "action": "None"}]]
-            # else:
             self.item_list = [[[{"id": "該当なし", "action": "None", "args": [""]}]]]
         else:
-            # tmp_item_list = [[{"id":f"{di.ref.itemmgr.get_def(key).name} x {val}",
-            #                    "action":"use_item", "args":[key]}]
-            #                  for key,val in filteredlist.items() if val > 0]
-            # self.item_list = [tmp_item_list[i:i+self.list_rows]
-            #                   for i in range(0, self.inventory_count, self.list_rows)]
             self.item_list = [
                 filteredlist[i : i + self._list_rows]
                 for i in range(0, self.inventory_count, self._list_rows)
@@ -384,7 +341,6 @@ class MenuEquip(Menu):
             tmp_item_list = [
                 [
                     {
-                        # "id": f"{di.ref.itemrps.get_def(key).name} x {val}",  # type:ignore
                         "id": format_leftright(
                             di.ref.pl_stack.get_def(key).name,  # type: ignore
                             f"ｘ{upper_int_format(val, 2)}",
@@ -419,25 +375,17 @@ class MenuEquip(Menu):
         self.cursor_position = [0, 0]
 
     def get_item_desc(self) -> list[str]:
-        # return self.target_item[0]["args"]
         item_def = di.ref.itemrps.get_def(self.target_item[0]["args"][0])
         if item_def is None:
-            # errmsg = f"アイテム定義情報の取得に失敗しました：ID={item_def}"
-            # logger.critical(errmsg, exc_info=True)
-            # raise ValueError(errmsg)
             return ["何も持っていない"]
         match item_def.item_type:
             case ItemType.CONSUME:
                 return [f"{item_def.description}"]
             case ItemType.WEAPON:
                 expect_dmg = item_def.hitdice * 4
-                # perf_txt = f"攻撃性能:{expect_dmg:>2}"
                 perf_txt = f"攻撃:{upper_int_format(expect_dmg, 2)}"
             case ItemType.GUARDER:
-                perf_txt = (
-                    # f"防御性能:{item_def.defvalue} 魔法阻害:{item_def.magpenalty}"
-                    f"防御:{upper_int_format(item_def.defvalue, 2)} 魔法阻害:{upper_int_format(item_def.magpenalty, 1)}"
-                )
+                perf_txt = f"防御:{upper_int_format(item_def.defvalue, 2)} 魔法阻害:{upper_int_format(item_def.magpenalty, 1)}"
             case ItemType.ORNAMENT:
                 perf_txt = "特殊な効果をもつ飾り"
             case _:

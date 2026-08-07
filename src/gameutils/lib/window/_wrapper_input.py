@@ -21,6 +21,8 @@ class WindowInputWrapper:
     cancel: Callable[[], bool] = field(default=lambda: False)
     other1: Callable[[], bool] = field(default=lambda: False)
     other2: Callable[[], bool] = field(default=lambda: False)
+    start: Callable[[], bool] = field(default=lambda: False)
+    select: Callable[[], bool] = field(default=lambda: False)
     LS: Callable[[], bool] = field(default=lambda: False)
     RS: Callable[[], bool] = field(default=lambda: False)
 
@@ -49,6 +51,8 @@ def set_default_pyxel_input() -> WindowInputWrapper:
         cancel=lambda: px.btnp(px.KEY_X) or px.btnp(px.GAMEPAD1_BUTTON_B),
         other1=lambda: px.btnp(px.KEY_C) or px.btnp(px.GAMEPAD1_BUTTON_X),
         other2=lambda: px.btnp(px.KEY_V) or px.btnp(px.GAMEPAD1_BUTTON_Y),
+        start=lambda: px.btnp(px.KEY_RETURN) or px.btnp(px.GAMEPAD1_BUTTON_START),
+        select=lambda: px.btnp(px.KEY_SHIFT) or px.btnp(px.GAMEPAD1_BUTTON_BACK),
         LS=lambda: px.btnp(px.KEY_LSHIFT) or px.btnp(px.GAMEPAD1_BUTTON_LEFTSHOULDER),
         RS=lambda: px.btnp(px.KEY_RSHIFT) or px.btnp(px.GAMEPAD1_BUTTON_RIGHTSHOULDER),
     )

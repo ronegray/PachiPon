@@ -8,12 +8,10 @@
 import logging
 import pyxel as px
 from const import APP_WIDTH, APP_HEIGHT
-from gameutils.lib import Window  # , WindowAction, WindowInputHandler
+from gameutils.lib import Window
 import service_locater as di
-from gameutils.base import check_file, read_string  # is_pressed,
+from gameutils.base import check_file, read_string
 from . import BaseScene, SceneField
-# import command.entity_command as e_cmd
-# from menu import MenuBattle
 
 # ロギング設定
 logger = logging.getLogger(__name__)
@@ -33,11 +31,6 @@ class SceneFieldEvent(BaseScene):
             )
             logger.critical(errmsg, exc_info=True)
             raise TypeError(errmsg)
-
-        # # 背景用に直前画面のスクリーンポインタからイメージ生成
-        # self.bgimage: px.Image = px.Image(px.width, px.height)
-        # bgpointer = self.bgimage.data_ptr()
-        # bgpointer[:] = px.screen.data_ptr()
 
         # イベントメッセージウインドウの生成
         self.message_window = Window(
@@ -74,11 +67,12 @@ class SceneFieldEvent(BaseScene):
             score_data = read_string(path)
         else:
             raise FileNotFoundError("ファイルがない！")
-        for i, mml in enumerate(score_data):
-            px.sounds[i].mml(mml)
-            px.musics[0].set([0], [1], [2], [3])
-            px.stop()
-            px.playm(0, loop=True)
+        px.stop()
+        for i, ch in enumerate(px.channels):
+            mml = "R"
+            if i < len(score_data):
+                mml = score_data[i]
+            ch.play(mml, loop=True)
 
     def update(self):
         """更新処理
@@ -89,34 +83,6 @@ class SceneFieldEvent(BaseScene):
           - コマンド数が揃ったらエネミー側コマンドと行動順を決定してコマンドスタック追加
         """
 
-        # # 基本的にメニューを回す
-        # # 完了またはキャンセル時の処理は
-        # is_submenu_open = self.wndmgr.stack_count > 1
-        # result = self.wndmgr.update()
-        # # サブメニューオープン時は確定処理を行わない
-        # if is_submenu_open:
-        #     return
-        # match result:
-        #     # case WindowAction.NOTHING:
-        #     #     pass
-        #     case WindowAction.CLOSE:
-        #         """バトルメニューキャンセル時"""
-        #         if self.context.actor.id > 0:
-        #             self.battle_commands.pop(self.context.actor.id - 1)
-        #         di.ref.scnmgr.previous_scene(False)
-        #     case WindowAction.NOTHING:
-        #         """バトルメニュー決定完了時"""
-        #         if self.command_package.selected_action is None:
-        #             errmsg = "コマンドが未定義です"
-        #             logger.critical(errmsg, exc_info=True)
-        #             raise TypeError(errmsg)
-        #         cmd = self.command_package.selected_action
-        #         self.battle_commands[self.context.actor.id] = cmd(
-        #             self.context,
-        #             self.message_window,
-        #             self.command_package.selected_args,
-        #         )
-        #         di.ref.scnmgr.previous_scene(False)
         if di.ref.cmdmgr.is_empty:
             di.ref.scnmgr.previous_scene()
 

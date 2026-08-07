@@ -60,23 +60,27 @@ class MenuSelectShopCategory(Menu):
 
     def buy_consume(self) -> ExecResult:
         """消耗品アイテム購入"""
-        return RsltPush(MenuBuyConsume, self.pt, self.message_window, self.y)
+        return RsltPush(
+            MenuBuyConsume, self.pt, self.message_window, self.y + self.height
+        )
 
     def buy_foods(self) -> ExecResult:
         """食糧購入"""
         return RsltPush(
-            MenuBuyFoods, self.pt, self.message_window, self.y
-        )  # , self.pool_item, self.pool_stack)
+            MenuBuyFoods, self.pt, self.message_window, self.y + self.height
+        )
 
     def buy_equips(self) -> ExecResult:
         """装備品アイテム購入"""
         return RsltPush(
-            MenuBuyEquips, self.pt, self.message_window, self.y
-        )  # , self.pool_item, self.pool_stack)
+            MenuBuyEquips, self.pt, self.message_window, self.y + self.height
+        )
 
     def sell_item(self) -> ExecResult:
         """バッグ内アイテム売却"""
-        return RsltPush(MenuSellItems, self.pt, self.message_window, self.y)
+        return RsltPush(
+            MenuSellItems, self.pt, self.message_window, self.y + self.height
+        )
 
     def exit_shop(self) -> ExecResult:
         """ショップメニューを閉じる"""
@@ -94,7 +98,7 @@ class MenuItemBase(Menu):
         self.pt = party
         self.message_window = message_window
 
-        y_offset = 1
+        y_offset = Window._chip_size + 1
         menu_w, menu_h = 160, 120
         menu_pos = (Window._chip_size // 2, y - menu_h - y_offset)
         self.item_list: list = []
@@ -120,9 +124,6 @@ class MenuItemBase(Menu):
             sub_h,
             "sub",
         )
-        # self.is_push_left: int = 0
-        # self.is_push_right: int = 0
-        # self.change_target_item()
         self.target_item = self.item_list[self.itemlist_index][self.cursor_position[1]]
         self.windows["sub"].update_row_max(6)
         self.set_description_string()
@@ -169,7 +170,6 @@ class MenuItemBase(Menu):
         - キャンセル押下時はカテゴリ選択メニューに戻ってメッセージ設定"""
 
         if self.inputkey.cancel():
-            # self.message_window.clear_message()
             self.message_window.update_indicator(False)
             # 地点別の対応
             eventpoint = di.ref.pt.get_current_point()
@@ -191,14 +191,12 @@ class MenuItemBase(Menu):
                 self.itemlist_index = (self.itemlist_index - 1) % len(self.item_list)
                 self.remap_itemlist()
                 self.change_target_item()
-                # self.is_push_left = 1
                 return
             if self.inputkey.right():
                 px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
                 self.itemlist_index = (self.itemlist_index + 1) % len(self.item_list)
                 self.remap_itemlist()
                 self.change_target_item()
-                # self.is_push_right = 1
 
     def move_cursor(self) -> bool:
         """カーソル移動時に詳細ウインドウの内容を書き換える"""
@@ -232,24 +230,10 @@ class MenuItemBase(Menu):
 class MenuBuyConsume(MenuItemBase):
     """消耗品アイテム表示・選択用メニュー"""
 
-    # def __init__(
-    #     self,
-    #     # ctx: EntityContext,
-    #     # command_package: e_cmd.CommandPackage,
-    # ):
-    #     """データ取得と表示ウインドウの再定義"""
-    #     super().__init__()
-
-    #     # self.ctx = ctx
-    #     # self.command_package = command_package
-    #     self.inventory_count: int = 0
-
     def generate_item_list(self):
         """アイテムリストの生成"""
         eventpoint_rank = self.pt.get_current_point().point_type.value
-        # filtereddict = di.ref.pl_stack.get_by_state(ItemState.BAG)
         filtereddict = di.ref.itemrps.get_def_by_type(ItemType.CONSUME)
-        # eventpoint_rank = self.pt.get_current_point().point_type.value
 
         tmp_item_list = [
             [
@@ -276,7 +260,6 @@ class MenuBuyConsume(MenuItemBase):
         self.menu_shape = [1, len(self.item_list[self.itemlist_index])]
 
     def get_item_desc(self) -> list[str]:
-        # target_item = di.ref.itemrps.get_def(self.target_item[0]["args"][0])
         target_item = self.target_item[0]["args"][0]
         if target_item is None:
             desc = "持っていない"
@@ -303,52 +286,11 @@ class MenuBuyConsume(MenuItemBase):
 class MenuBuyFoods(MenuItemBase):
     """消耗品アイテム表示・選択用メニュー"""
 
-    # def __init__(self) -> None:
-    #     """データ取得と表示ウインドウの再定義"""
-    #     super().__init__()
-
     def generate_item_list(self):
         """アイテムリストの生成"""
-        # tmplist = di.ref.pl_item.get_by_state(ItemState.BAG)
-        # filteredlist = [
-        #     [
-        #         {
-        #             "id": items_.ins.param.name,
-        #             "action": "None",
-        #             "args": items_.ins.param.description,
-        #         }
-        #     ]
-        #     for _, items_ in tmplist.items()
-        #     if items_.ins.param.item_type == ItemType.KEY_ITEM
-        # ]
 
-        # self.inventory_count = len(filteredlist)
-        # if self.inventory_count <= 0:
-        #     self.item_list = [[[{"id": "該当なし", "action": "None", "args": [""]}]]]
-        # else:
-        #     self.item_list = [
-        #         filteredlist[i : i + self._list_rows]
-        #         for i in range(0, self.inventory_count, self._list_rows)
-        # ]
-        self.item_list = [
-            [
-                [
-                    {"id": "１０食分", "action": "none", "args": [1]},
-                ],
-                [
-                    {"id": "１００食分", "action": "none", "args": [10]},
-                ],
-                [
-                    {"id": "１０００食分", "action": "none", "args": [100]},
-                ],
-                [{"id": "９９００食分", "action": "none", "args": [990]}],
-            ]
-        ]
-
-        # # ページインデックスが範囲外にならないよう補正
-        # if self.itemlist_index >= len(self.item_list):
-        #     self.itemlist_index = len(self.item_list) - 1
-        self.menu_shape = [1, len(self.item_list[self.itemlist_index])]
+        self.item_list = [self._MENU_ITEM_CASHE[self.__class__.__name__]]
+        self.menu_shape = [1, 4]
 
     def get_item_desc(self) -> list[str]:
         return ["とってもとっても\nおいしそう！！"]
@@ -369,30 +311,13 @@ class MenuBuyFoods(MenuItemBase):
 class MenuBuyEquips(MenuItemBase):
     """消耗品アイテム表示・選択用メニュー"""
 
-    # def __init__(self) -> None:
-    #     """データ取得と表示ウインドウの再定義"""
-
-    #     super().__init__()
-
     def generate_item_list(self):
         """アイテムリストの生成"""
         eventpoint_rank = self.pt.get_current_point().point_type.value
-        # tmplist = di.ref.pl_item.get_by_state(ItemState.BAG)
         filtereddict_w = di.ref.itemrps.get_def_by_type(ItemType.WEAPON)
         filtereddict_g = di.ref.itemrps.get_def_by_type(ItemType.GUARDER)
         filtereddict_o = di.ref.itemrps.get_def_by_type(ItemType.ORNAMENT)
         filtereddict = filtereddict_w | filtereddict_g | filtereddict_o
-        # filteredlist = [
-        #     [
-        #         {
-        #             "id": items_.ins.param.name,
-        #             "action": "None",
-        #             "args": [items_.ins.param.def_id],
-        #         }
-        #     ]
-        #     for _, items_ in tmplist.items()
-        #     if items_.ins.param.item_type != ItemType.KEY_ITEM
-        # ]
         tmp_item_list = [
             [
                 {
@@ -419,13 +344,10 @@ class MenuBuyEquips(MenuItemBase):
         self.menu_shape = [1, len(self.item_list[self.itemlist_index])]
 
     def get_item_desc(self) -> list[str]:
-        # item_def = di.ref.itemrps.get_def(self.target_item[0]["args"][0])
         item_def = self.target_item[0]["args"][0]
 
         match item_def.item_type:
             case ItemType.WEAPON:
-                # expect_dmg = item_def.hitdice * 4
-                # perf_txt1 = f"攻撃:{upper_int_format(expect_dmg, 2)}"
                 perf_txt1 = f"攻撃:{upper_int_format(item_def.expect_damage, 2)}"
                 return [f"{perf_txt1}", f"{item_def.description}"]
             case ItemType.GUARDER:
@@ -466,48 +388,10 @@ class MenuSellItems(MenuItemBase):
 
     def generate_item_list(self):
         """アイテムリストの生成"""
-        # eventpoint_rank = self.pt.get_current_point().point_type.value
-        # # tmplist = di.ref.pl_item.get_by_state(ItemState.BAG)
-        # filtereddict_w = di.ref.itemrps.get_def_by_type(ItemType.WEAPON)
-        # filtereddict_g = di.ref.itemrps.get_def_by_type(ItemType.GUARDER)
-        # filtereddict_o = di.ref.itemrps.get_def_by_type(ItemType.ORNAMENT)
-        # filtereddict = filtereddict_w | filtereddict_g | filtereddict_o
-        # # filteredlist = [
-        # #     [
-        # #         {
-        # #             "id": items_.ins.param.name,
-        # #             "action": "None",
-        # #             "args": [items_.ins.param.def_id],
-        # #         }
-        # #     ]
-        # #     for _, items_ in tmplist.items()
-        # #     if items_.ins.param.item_type != ItemType.KEY_ITEM
-        # # ]
-        # tmp_item_list = [
-        #     [
-        #         {
-        #             "id": format_leftright(
-        #                 item_def.name, f"　{upper_int_format(item_def.price, 6)}Ｇ", 34
-        #             ),
-        #             "action": "none",
-        #             "args": [item_def],
-        #         }
-        #     ]
-        #     for _, item_def in filtereddict.items()
-        #     if eventpoint_rank >= item_def.rank.value >= eventpoint_rank - 1
-        # ]
-        #
-        # self.inventory_count = len(tmp_item_list)
-        # self.item_list = [
-        #     tmp_item_list[i : i + self._list_rows]
-        #     for i in range(0, self.inventory_count, self._list_rows)
-        # ]
-
         tmplist = di.ref.pl_item.get_by_state(ItemState.BAG)
         filteredlist = [
             [
                 {
-                    # "id": items_.ins.param.name,
                     "id": format_leftright(
                         items_.ins.param.name,
                         f"　{
@@ -545,14 +429,11 @@ class MenuSellItems(MenuItemBase):
         self.menu_shape = [1, len(self.item_list[self.itemlist_index])]
 
     def get_item_desc(self) -> list[str]:
-        # item_def = di.ref.itemrps.get_def(self.target_item[0]["args"][1])
         item_def = self.target_item[0]["args"][1]
         if item_def is None:
             return ["対象を持っていない"]
         match item_def.item_type:
             case ItemType.WEAPON:
-                # expect_dmg = item_def.hitdice * 4
-                # perf_txt1 = f"攻撃:{upper_int_format(expect_dmg, 2)}"
                 perf_txt1 = f"攻撃:{upper_int_format(item_def.expect_damage, 2)}"
                 return [f"{perf_txt1}", f"{item_def.description}"]
             case ItemType.GUARDER:
@@ -590,14 +471,6 @@ class MenuSellItems(MenuItemBase):
         pos_x, pos_y = self.cursor_position
         selected_item = self.menu_items[pos_y][pos_x]
         logger.info(selected_item)
-
-        # cmd = s_cmd.SellEquip(
-        #     self.message_window,
-        #     self.pt,
-        #     selected_item.action_args,
-        # )
-        # di.ref.cmdmgr.push_command(cmd)
-        # return RsltContinue()
 
         eventpoint = self.pt.get_current_point()
         match eventpoint.point_type:

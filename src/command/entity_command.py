@@ -3,10 +3,7 @@
 """
 
 import logging
-
-# from collections import deque
-# from abc import abstractmethod
-from typing import Generator, cast  # , Any
+from typing import Generator, cast
 from dataclasses import dataclass
 import pyxel as px
 from const import SoundID
@@ -16,9 +13,7 @@ from entity import EntityContext, Enemy, Party, Character
 from skill import SkillTargetType
 from item import ItemTargetType, StackPool, ItemState, WeaponType
 import service_locater as di
-
-# from . import CommandBase, CommandPhase, DisplayInfo
-from . import CommandBaseSequence, CommandPhase  # , DisplayInfo
+from . import CommandBaseSequence, CommandPhase
 from .effect_command import efx_diceroll
 
 # ロギング設定
@@ -28,25 +23,17 @@ logger = logging.getLogger(__name__)
 class CommandBaseEntity(CommandBaseSequence):
     """エンティティが実行者となるコマンドの基底クラス"""
 
-    # WAIT = "wait"  # 待機を示すリターンコマンド
-
     def __init__(self, ctx: EntityContext, wnd: Window, *args, **kwargs) -> None:
         """初期化：コンテキストの引継"""
         super().__init__(wnd, *args, **kwargs)
         self._ctx: EntityContext = ctx
-        # self.display_info: DisplayInfo = DisplayInfo(wnd)
-        # self.step_wait = COMMAND_STEPWAIT_FRAME  # メッセージ待ち間隔
-        # self.se_ch = 3  # サウンドエフェクトの番号
-        # self.args = args
-        # self.kwargs = kwargs
-        # self.phase = CommandPhase.SYN
 
     def _check_actor_alive(self) -> bool:
         """行動前の行動可否チェック"""
         if self._ctx.actor.is_alive:
             return True
         else:
-            self.step_wait = 0  # COMMAND_STEPWAIT_FRAME//2
+            self.step_wait = 0
             return False
 
     def _check_living_targets(self) -> list:
@@ -59,46 +46,6 @@ class CommandBaseEntity(CommandBaseSequence):
             self.step_wait = 0
             return []
         return living_targets
-
-    # @abstractmethod
-    # def _sequence(self) -> Generator[list[str], None, None]:
-    #     ...
-    #     # """サブクラスが実装すべき処理シーケンス"""
-
-    # def update(self) -> CommandPhase:
-    #     match self.phase:
-    #         case CommandPhase.SYN:
-    #             self.display_info.target.message_list.clear()
-    #             self._gen = self._sequence()
-    #             self._advance()
-    #             self.phase = CommandPhase.ACK
-    #         case CommandPhase.ACK:
-    #             if (
-    #                 self.display_info.target.update() == WindowAction.DISCARD
-    #                 or self.step_wait < 0
-    #             ):
-    #                 self._advance()
-    #             self.step_wait -= 1
-    #     return self.phase
-
-    # def _advance(self):
-    #     try:
-    #         result = next(self._gen)
-    #         if result:
-    #             if result[0] == self.WAIT:
-    #                 self.step_wait = int(result[1]) * COMMAND_STEPWAIT_FRAME
-    #             else:
-    #                 self.display_info.message = result
-    #                 self.display_info.is_change = True
-    #                 self.step_wait = COMMAND_STEPWAIT_FRAME
-    #         else:
-    #             self.step_wait = 0
-    #     except StopIteration:
-    #         self.phase = CommandPhase.FIN
-
-    # def draw(self) -> DisplayInfo:
-    #     """コマンド描画情報送信"""
-    #     return self.display_info
 
 
 @dataclass
@@ -120,19 +67,11 @@ class Attack(CommandBaseEntity):
         else:
             return
 
-        # # 生存しているターゲットだけをリストアップ
-        # living_targets = [t for t in self._ctx.targets if t.is_alive]
-        # # ターゲットが全て生存していない場合は終了
-        # if not living_targets:
-        #     self.phase = CommandPhase.FIN
-        #     self.step_wait = 0
-        #     return
         # 生存ターゲットチェック
         living_targets = self._check_living_targets()
         if not living_targets:
             return
         # 現在のターゲットが生存していればそれを使う、そうでなければリストの先頭を使う
-        # current = self._ctx.targets[self._ctx.target_index]
         current = self._ctx.target
         target = current if current.is_alive else living_targets[0]
 
@@ -178,23 +117,6 @@ class Attack(CommandBaseEntity):
             # cleanupに相当：撃破メッセージ
             px.play(self.se_ch, SoundID.ENEMY_DEATH, resume=True)
             yield [f"{target.param.name}は 力尽きて ころがった"]
-
-
-# class UseItem(CommandBaseEntity):
-
-#     """ユーザ行動：防御体勢"""
-
-#     def _sequence(self) -> Generator[list[str], None, None]:
-#         if self._check_actor_alive():
-#             actor = self._ctx.actor
-#         else:
-#             return
-
-#         # ファーストメッセージ
-#         yield [f"{actor.param.name}は、 防御の体勢をとっている", ""]
-
-#         actor.defend()
-#         yield [f"{actor.param.name}の 受けるダメージが 減少する"]
 
 
 class UseSkill(CommandBaseEntity):
@@ -338,10 +260,6 @@ class RecoverSpellSingle(CommandBaseEntity):
         px.play(self.se_ch, SoundID.RECOVER, resume=True)
         yield [f"{target.param.name}は {upper_int(real_heal)} のＨＰが　回復した"]
 
-        # if not target.is_alive:
-        #     # cleanupに相当：撃破メッセージ
-        #     yield [f"{target.param.name}は 力尽きて ころがった"]
-
 
 class EnemyEscape(CommandBaseEntity):
     """エネミー専用行動：撤退"""
@@ -393,7 +311,7 @@ class GrantReward(CommandBaseEntity):
         # お金
         reward_gold = sum([enemy.eparam.gold for enemy in enemy_list])
         pt.earn_gold(reward_gold)
-        yield [f"パーティーは　{reward_gold}ゴールド　の儲け"]
+        yield [f"パーティーは　{upper_int(reward_gold)}ゴールド　の儲け"]
 
         # 経験値はメンバー人数割りで死亡者も全員獲得
         reward_exp = sum([enemy.param.exp for enemy in enemy_list])
@@ -401,7 +319,7 @@ class GrantReward(CommandBaseEntity):
         for member in pt.get_allmember():
             getexp = px.ceil(reward_exp / num)
             member.gain_exp(getexp)
-            yield [f"{member.param.name}は　経験値{getexp}　を稼いだ！"]
+            yield [f"{member.param.name}は　経験値{upper_int(getexp)}　を稼いだ！"]
 
         return
 

@@ -42,7 +42,6 @@ class MenuSelectFieldTarget(Menu):
             logger.critical(errmsg, exc_info=True)
             raise ValueError(errmsg)
         else:
-            # tmp_item_list = [
             self.item_list = [
                 [
                     {
@@ -55,19 +54,6 @@ class MenuSelectFieldTarget(Menu):
                 if target.is_alive
             ]
 
-            # tmp_list = []
-            # cnt = 0
-            # for i, tmp_item in enumerate(tmp_item_list):
-            #     if i % menu_cols == 0:
-            #         tmp_list = [].copy()
-            #     tmp_list.append(tmp_item[0])
-            #     if len(tmp_list) == menu_cols:
-            #         self.item_list.append(tmp_list.copy())
-            #         cnt += 2
-            # if len(tmp_item_list) != cnt:
-            #     # list[list[dict[str, str]]]
-            #     self.item_list.append(tmp_list.copy())
-
         self.menu_shape = [menu_cols, len(self.item_list)]
 
     def exec_menu(self) -> ExecResult:
@@ -78,7 +64,6 @@ class MenuSelectFieldTarget(Menu):
         except IndexError:
             # 空データを選択した時はスルー
             return RsltContinue()
-        # logger.info(selected_item)
 
         if selected_item.menu_action is None:
             errmsg = f"メニューアクション関数が定義されていません：{selected_item.item_label}"

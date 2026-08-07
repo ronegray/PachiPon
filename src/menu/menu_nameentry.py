@@ -6,7 +6,7 @@
 import logging
 import pyxel as px
 from gameutils.base import check_file, read_json, FontManager, shadowed_text
-from gameutils.lib import Menu, Window, WindowAction  # , WindowInputHandler
+from gameutils.lib import Menu, Window, WindowAction
 from const import APP_FPS, SoundID
 from assets.asset_map import AssetID, AssetMap
 import service_locater as di
@@ -37,7 +37,6 @@ class MenuNameEntry(Menu):
         self.prefix = "名前　：　"
         self.input_name_string = ""
         self.name_string = self.prefix + self.input_name_string
-        # self.is_need_redraw = True
         self.warning_counter: int = 0  # 注意メッセージの表示中カウンタ
         self.warning_frames: int = APP_FPS * 3  # 注意メッセージの表示フレーム数
         self.warning_message: str = ""  # 注意メッセージの内容
@@ -51,9 +50,7 @@ class MenuNameEntry(Menu):
         name_w, name_h = 208, 24
         self.windows["sub"] = Window(
             "large",
-            # px.width // 2 - name_w // 2,
             (px.width - name_w) // 2,
-            # (self.windows["main"].y + self.windows["main"].height + Window._chip_size),
             (self.y + self.height + Window._chip_size),
             name_w,
             name_h,
@@ -84,12 +81,16 @@ class MenuNameEntry(Menu):
         elif self.inputkey.cancel():
             px.play(self.se_ch, SoundID.CANCEL, resume=True)
             self.delete_letter()
+        elif self.inputkey.start():
+            px.play(self.se_ch, SoundID.DECIDE, resume=True)
+            # 文字種３パターンのは矩形リストなので代表でindex0を使用
+            pos_row = len(self.name_chars[0]) - 1
+            pos_col = len(self.name_chars[0][-1]) - 1
+            self.cursor_position = [pos_col, pos_row]
         return WindowAction.CONTINUE
 
     def add_letter(self) -> None:
         """入力名前文字列の末尾に追加"""
-        # self.is_need_redraw = True
-        # SE "pi"
         pos_x, pos_y = self.cursor_position
         selected_item = self.menu_items[pos_y][pos_x]
         logger.info(selected_item)
@@ -101,8 +102,6 @@ class MenuNameEntry(Menu):
                     self.warning_message = "名前が入力されていません"
                     return
                 else:
-                    # di.ref.scnmgr.change_scene("map")
-                    # di.ref.scnmgr._stacks[-1].wndmgr.pop_stack()
                     self.param.name = self.input_name_string
                     di.ref.scnmgr.next_scene("charamake")
                     return
@@ -118,7 +117,6 @@ class MenuNameEntry(Menu):
         tmpStr = self.input_name_string + selected_item.item_label
         if len(tmpStr) > self.max_name_length:
             self.warning_message = "名前の文字数は８文字が上限です"
-            # SE "don"
             self.warning_counter = self.warning_frames
             return
         else:
@@ -141,7 +139,7 @@ class MenuNameEntry(Menu):
         shadowed_text(
             self.windows["sub"].x,
             self.windows["sub"].y + self.windows["sub"].height + self.cursor_row_offset,
-            "決定キー：文字入力　キャンセルキー：文字削除\nED：名前確定",
+            "決定キー：文字入力　キャンセルキー：文字削除\nED：名前確定　スタートキー：カーソルをEDへ",
             px.COLOR_LIGHT_BLUE,
             self.windows["main"].font,
         )
@@ -154,7 +152,6 @@ class MenuNameEntry(Menu):
             msg_pos_x = (px.width - msglen) / 2
             msg_pos_y = px.height - (self.warning_fontdata.height * 3)
             backoffset = 4
-            # px.dither(0.9)
             px.rect(
                 msg_pos_x - backoffset,
                 msg_pos_y - backoffset,
@@ -162,7 +159,6 @@ class MenuNameEntry(Menu):
                 self.warning_fontdata.height + (backoffset * 2),
                 px.COLOR_BLACK,
             )
-            # px.dither(1)
             shadowed_text(
                 msg_pos_x,
                 msg_pos_y,

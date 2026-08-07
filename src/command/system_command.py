@@ -3,18 +3,13 @@
 """
 
 import logging
-
-# from abc import abstractmethod
 from typing import Generator, cast
 import pyxel as px
-from gameutils.lib import WindowAction  # , Window,
+from gameutils.lib import WindowAction
 from const import SoundID, FOOD_UNITS
 import service_locater as di
 from field_map import EventPoint, PointPlaceType
 from item import ItemState
-
-# from const import COMMAND_STEPWAIT_FRAME
-# from . import CommandBase, CommandPhase, DisplayInfo
 from . import CommandBaseSequence
 
 # ロギング設定
@@ -25,56 +20,6 @@ class CommandBaseSystem(CommandBaseSequence):
     """システムに対するユーザ操作を表すコマンドの基底クラス"""
 
     pass
-    # WAIT = "wait"  # 待機を示すリターンコマンド
-
-    # def __init__(self, wnd: Window, *args, **kwargs) -> None:
-    #     """初期化：コンテキストの引継"""
-    #     self.display_info: DisplayInfo = DisplayInfo(wnd)
-    #     self.step_wait = COMMAND_STEPWAIT_FRAME  # メッセージ待ち間隔
-    #     self.se_no = 0  # サウンドエフェクトの番号
-    #     self.args = args
-    #     self.kwargs = kwargs
-    #     self.phase = CommandPhase.SYN
-
-    # @abstractmethod
-    # def _sequence(self) -> Generator[list[str], None, None]:
-    #     ...
-    #     # """サブクラスが実装すべき処理シーケンス"""
-
-    # def update(self) -> CommandPhase:
-    #     match self.phase:
-    #         case CommandPhase.SYN:
-    #             self.display_info.target.message_list.clear()
-    #             self._gen = self._sequence()
-    #             self._advance()
-    #             self.phase = CommandPhase.ACK
-    #         case CommandPhase.ACK:
-    #             if (
-    #                 self.display_info.target.update() == WindowAction.DISCARD
-    #                 or self.step_wait < 0
-    #             ):
-    #                 self._advance()
-    #             self.step_wait -= 1
-    #     return self.phase
-
-    # def _advance(self):
-    #     try:
-    #         result = next(self._gen)
-    #         if result:
-    #             if result[0] == self.WAIT:
-    #                 self.step_wait = int(result[1]) * COMMAND_STEPWAIT_FRAME
-    #             else:
-    #                 self.display_info.message = result
-    #                 self.display_info.is_change = True
-    #                 self.step_wait = COMMAND_STEPWAIT_FRAME
-    #         else:
-    #             self.step_wait = 0
-    #     except StopIteration:
-    #         self.phase = CommandPhase.FIN
-
-    # def draw(self) -> DisplayInfo:
-    #     """コマンド描画情報送信"""
-    #     return self.display_info
 
 
 class ShopPurchase(CommandBaseSystem):
@@ -83,7 +28,6 @@ class ShopPurchase(CommandBaseSystem):
     def _sequence(self) -> Generator[list[str], None, None]:
         pt = self.args[0]
         item_def = self.args[1]
-        # stackpool = self.args[2]
         func_add_pool = self.args[2]
 
         eventpoint = pt.get_current_point()
@@ -97,15 +41,11 @@ class ShopPurchase(CommandBaseSystem):
                     buy_message = "よし売った！ありがとよ！"
                 case PointPlaceType.VILLAGE:
                     buy_message = "どうもおおきにのう～"
-            # self.message_window.clear_message()
-            # self.message_window.set_message([buy_message]) # type: ignore
             px.play(self.se_ch, SoundID.SHOP_BUY, resume=True)
             yield [buy_message]  # type: ignore
 
             # 購入処理
-            # pt._pt_golds -= item_def.price
             pt.spend_gold(item_def.price)
-            # pool.add(item_def.def_id, ItemState.BAG)
             func_add_pool(item_def.def_id, ItemState.BAG)
 
         else:
@@ -154,14 +94,11 @@ class PurchaseFoods(CommandBaseSystem):
                     buy_message = "うちのを食ったら他のは食えねえぜ！"
                 case PointPlaceType.VILLAGE:
                     buy_message = "ばあさんの手作りじゃぞい"
-            # self.message_window.clear_message()
-            # self.message_window.set_message([buy_message]) # type: ignore
             px.play(self.se_ch, SoundID.SHOP_BUY, resume=True)
             yield [buy_message]  # type: ignore
 
             # 購入処理
             pt.spend_gold(price)
-            # pool.add(item_def.def_id, ItemState.BAG)
             pt.earn_foods(price * FOOD_UNITS)
 
         else:
@@ -244,37 +181,13 @@ class BattleStartEffect(CommandBaseSystem):
         circle_max = px.sqrt(circle_center[0] ** 2 + circle_center[1] ** 2)
 
         while circle_size < circle_max:
-            # px.dither(circle_size / circle_max)
-
             self.display_info.graphic_command = [
                 lambda: px.dither(circle_size / circle_max),
-                # lambda: px.dither(0.1),
                 lambda: px.circ(*circle_center, circle_size, px.COLOR_BLACK),
                 lambda: px.dither(1),
             ]
-            # px.dither(1)
             circle_size += 6
             yield [self.WAIT, "0"]
-
-        # # ここで勝利SEとBGMロード
-        # len_fanfale = "1"
-        # yield ["敵との戦闘に　勝利した！！"]
-        # yield [""]
-        # yield [self.WAIT, len_fanfale]  # 勝利SEの長さを文字で返す
-
-        # # お金
-        # reward_gold = sum([enemy.eparam.gold for enemy in enemy_list])
-        # pt.earn_gold(reward_gold)
-        # yield [f"パーティーは　{reward_gold}ゴールド　の儲け"]
-
-        # # 経験値はメンバー人数割りで死亡者も全員獲得
-        # reward_exp = sum([enemy.param.exp for enemy in enemy_list])
-        # num = pt.get_member_count()
-        # for member in pt.get_allmember():
-        #     getexp = px.ceil(reward_exp / num)
-        #     member.gain_exp(getexp)
-        #     yield [f"{member.param.name}は　経験値{getexp}　を稼いだ！"]
-
         return
 
 
@@ -310,8 +223,6 @@ class KickEvent(CommandBaseSystem):
     def _sequence(self) -> Generator[list[str], None, None]:
         point = cast(EventPoint, self.args[0])
         dices = point.kick_event()
-        # effect = DiceRollEffect()
-        # effect.load_diceimage()
         effect = di.ref.efxdice
         roll_frames = 60
         yield ["何が起こるか", "　おたのしみ！"]
@@ -334,9 +245,6 @@ class KickEvent(CommandBaseSystem):
 
 class SAFETY_INCREASE_HP(CommandBaseSystem):
     def _sequence(self) -> Generator[list[str], None, None]:
-        # event_type = self.args[0]
-        # event_value = self.args[1]
-
         yield ["HP回復イベント"]
         yield ["なんか"]
         yield ["メッセージが"]

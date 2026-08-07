@@ -7,8 +7,6 @@
 """
 
 import logging
-
-# from typing import Callable
 import pyxel as px
 from gameutils.base import check_file, read_string
 from gameutils.lib import Window, WindowInputHandler
@@ -19,11 +17,8 @@ from field_map import Route
 from entity import Enemy, EntityParam, EnemyParam, BaseSprite, ActionPattern, Character
 from . import BaseScene
 import command.entity_command as e_cmd
-
-
-# from command.system_command import BattleStartEffect
 from entity import EntityBase, EntityContext
-# from menu import MenuBattle
+
 
 # ロギング設定
 logger = logging.getLogger(__name__)
@@ -141,19 +136,6 @@ class SceneBattle(BaseScene):
             )
             status_x += SceneBattle._status_width + status_offset
 
-        # di.ref.cmdmgr.push_command(BattleStartEffect(self.message_window))
-
-        # """暫定処理：BGMロード"""
-        # path = check_file("assets/sound/battle.txt")
-        # if path is not None:
-        #     score_data = read_string(path)
-        # else:
-        #     raise FileNotFoundError("ファイルがない！")
-        # for i, mml in enumerate(score_data):
-        #     px.sounds[i].mml(mml)
-        # px.musics[0].set([0], [1], [2], [3])
-        # px.stop()
-        # px.playm(0, loop=True)
         self.load_bgm()
 
         # バトルシーンでは決定キーの入力を連打状態に更新する
@@ -172,11 +154,13 @@ class SceneBattle(BaseScene):
             score_data = read_string(path)
         else:
             raise FileNotFoundError("ファイルがない！")
-        for i, mml in enumerate(score_data):
-            px.sounds[i].mml(mml)
-        px.musics[0].set([0], [1], [2], [3])
+
         px.stop()
-        px.playm(0, loop=True)
+        for i, ch in enumerate(px.channels):
+            mml = "R"
+            if i < len(score_data):
+                mml = score_data[i]
+            ch.play(mml, loop=True)
 
     def select_enemy_target(self) -> tuple[int, list[Character]]:
         """エネミーエンティティの敵対ターゲット決定"""
@@ -200,37 +184,11 @@ class SceneBattle(BaseScene):
             if enemy.is_alive:
                 action_index = diceroll(1) - 1
                 action = enemy.eparam.action_pattern[action_index]
-                # match action:
-                #     case ActionPattern.ATTACK:
-                #         target_index, target_list = self.select_enemy_target()
-                #         ctx = self.build_context(enemy, target_index, self.enemy_list, target_list)
-                #         # cmd = e_cmd.EnemyAttack(ctx, self.message_window)
-                #         cmd = e_cmd.Attack(ctx, self.message_window)
-                #     case ActionPattern.ESCAPE:
-                #         target_index, target_list = self.select_enemy_target()
-                #         ctx = self.build_context(enemy, target_index, self.enemy_list, target_list)
-                #         cmd = e_cmd.EnemyEscape(ctx, self.message_window)
-                #     case ActionPattern.SKILL:
-                #         target_index, target_list = self.select_enemy_target()
-                #         ctx = self.build_context(enemy, target_index, self.enemy_list, target_list)
-                #         cmd = e_cmd.UseSkill(ctx, self.message_window)
-                #     case ActionPattern.SPECIAL:
 
-                #         target_index, target_list = self.select_enemy_target()
-                #         ctx = self.build_context(enemy, target_index, self.enemy_list, target_list)
-                #         cmd = e_cmd.EnemySpecial(ctx, self.message_window)
-                #     case ActionPattern.DEFEND:
-                #         target_index, target_list = self.select_enemy_target()
-                #         ctx = self.build_context(enemy, target_index, self.enemy_list, target_list)
-                #         cmd = e_cmd.DefenceMode(ctx, self.message_window)
-                #     case _:
-                #         return
-                # self.battle_commands[enemy.id] = enemy_command
                 target_index, target_list = self.select_enemy_target()
                 ctx = self.build_context(
                     enemy, target_list[target_index], self.enemy_list, target_list
                 )
-                # action = ActionPattern.ATTACK
                 enemy_command = SceneBattle._enemy_commands.get(action)
                 if enemy_command is None:
                     raise NameError
@@ -245,31 +203,6 @@ class SceneBattle(BaseScene):
           - コマンド数が揃ったらエネミー側コマンドと行動順を決定してコマンドスタック追加
         """
         if self.is_battle_over:
-            # # 戦闘終了処理
-            # # self.grant_rewards()
-            # if di.ref.cmdmgr.is_empty:
-            #     # 入力制御の復旧
-            #     WindowInputHandler.load_default_input()
-            #     # 報酬の画面表示
-            #     ctx = self.build_context(
-            #         # di.ref.hero, di.ref.hero, di.ref.pt.get_allmember(), self.enemy_list
-            #         di.ref.pt.get_member(0),
-            #         di.ref.pt.get_member(0),
-            #         di.ref.pt.get_allmember(),
-            #         self.enemy_list,
-            #     )
-            #     di.ref.cmdmgr.push_command(
-            #         e_cmd.GrantReward(ctx, self.message_window, di.ref.pt)
-            #     )
-            #     # 【コールバック登録ルール】
-            #     # set_on_empty()は「次にスタックが空になった時」に一度だけ発火する。
-            #     # GrantRewardをpushする直前に登録することで
-            #     # 「報酬コマンド完了→シーン遷移」の順序を保証する。
-            #     # 通常ターン終了時（コマンドスタック空→次ターン入力）では
-            #     # 戦闘終了フラグが立っていない為この分岐に入らず、
-            #     # set_on_empty()も呼ばれない。
-            #     # di.ref.cmdmgr.set_on_empty(di.ref.scnmgr.previous_scene)
-            #     di.ref.cmdmgr.set_on_empty(self.check_levelup)
             # 入力制御の復旧
             WindowInputHandler.load_default_input()
             di.ref.scnmgr.next_scene("levelup")
@@ -288,35 +221,7 @@ class SceneBattle(BaseScene):
         if di.ref.cmdmgr.is_empty:
             # コマンドリストにアクティブメンバー数のコマンドが揃うまでループ
             if len(self.battle_commands.keys()) < di.ref.pt.get_active_member_count():
-                # if self.wndmgr.has_stack:
-                #     self.wndmgr.update()
-                # else:  # メニュー未生成の場合は作成する
-                #     # member_list = di.ref.pt.get_active_member()
-                #     # # # logger.info(f"order member list {member_list}",)
-                #     # # member_list.reverse()
-                #     # member = [member for member in member_list
-                #     #           if member.id not in self.battle_commands.keys()]
-
-                #     # actor = target = member[0]
-                #     # ctx = self.build_context(
-                #     #     actor, target, di.ref.pt.get_allmember(), self.enemy_list
-                #     # )
-                #     # # logger.info(f"source context {ctx}")
-                #     # self.wndmgr.push_stack(
-                #     #     MenuBattle,
-                #     #     ctx,
-                #     #     # member_list,
-                #     #     self.battle_commands,
-                #     #     self.message_window,
-                #     # )
                 di.ref.scnmgr.next_scene("battlemenu")
-            # """
-            # バトルメニューシーンを呼ぶ
-            # 　コマンドの器は渡す
-            # 　シーン内メニューでコマンドを作る
-            # 　メニューは終わったらPOPする
-            # 　　コマンドの器に生成したコマンドを定義する
-            # """
             else:
                 # エネミー行動コマンドの生成
                 self.generate_enemy_commands()
@@ -345,8 +250,6 @@ class SceneBattle(BaseScene):
         # 背景描画
         px.dither(0.3)
         px.blt(0, 0, self.bgimage, 0, 0, self.bgimage.width, self.bgimage.height)
-        # px.dither(0.5)
-        # px.rect(0,0,px.width,px.height,px.COLOR_NAVY)
         px.dither(1)
         self.wndmgr.draw()
         for i, wnd in enumerate(self.status_windows):
@@ -396,7 +299,6 @@ class SceneBattle(BaseScene):
             target=target,
             allies=ally_list,
             targets=target_list,
-            # pending_command=None
         )
         return ctx
 
@@ -412,5 +314,4 @@ class SceneBattle(BaseScene):
 
         ctx = self.build_context(actor, target, member_list, self.enemy_list)
 
-        # return (ctx, self.battle_commands, self.message_window, self.draw)
         return (ctx, self.battle_commands, self.message_window, self.bgimage)

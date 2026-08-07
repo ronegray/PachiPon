@@ -3,8 +3,6 @@
 """
 
 from . import EntityBase, BaseSprite, EntityParam, EnemyParam, GuardType
-
-# from skill import Skills
 from item import WeaponType
 from skill import SkillID
 

@@ -5,17 +5,10 @@
 from enum import IntEnum
 from dataclasses import dataclass
 
-# fmt: off
-# class EffectCategory(IntEnum):
-#     ACTIVE  = 0x1_0_0_0
-#     PASSIVE = 0xA_0_0_0
 
+# fmt: off
 class SkillType(IntEnum):
     """効果の属性"""
-    # SPELL = 0x1_1_0_0
-    # ENEMY = 0x1_0_0_0
-    # ITEMS = 0x0_0_0_0
-
     ACTIVE  = 0x1_0_0_0
     PASSIVE = 0xA_0_0_0
 
@@ -58,11 +51,6 @@ class SkillID(IntEnum):
     ANGEL_STAIR      = 0x1_1_8_3 # 範囲回復
 
     ### item
-    # DICE_DAMAGE      = 0x7_0_01
-    # BONUS_INITIATIVE = 0x7_0_02
-    # DICE_HIT         = 0x7_0_03
-    # DICE_ENEMYDAMAGE = 0x7_0_04
-    # DICE_ENEMYSPELL  = 0x7_0_05
     ATTACK_BONUS     = 0xA_1_0_1
     SPEED_BONUS      = 0xA_1_0_2
     REDUCE_WEAPON    = 0xA_1_0_3
@@ -76,18 +64,12 @@ class SkillID(IntEnum):
     BONUS_SPD        = 0xA_2_0_6
     BONUS_LCK        = 0xA_2_0_7
     HEAL_HP          = 0x1_2_0_1 # 消耗品　HP回復(レベルd6)
-    # HIHEALPOT        = 0x7_2_02 # 消耗品　HP回復全快
     HEAL_MP          = 0x1_2_0_2 # 消耗品　MP回復(レベルd6/2※切り上げ)
-    # HIMAGICPOT       = 0x7_2_04 # 消耗品　MP回復全快
     TORCHLIGHT       = 0xA_3_0_1 # 消耗品　イベント：ダンジョン時に１消費
     UNLOCK_KEY       = 0xA_3_0_2 # 消耗品　イベント：宝箱時に１消費
     ESCAPE_BATTLE    = 0xA_3_0_3 # 消耗品　使用直後の戦闘発生を回避／現在の戦闘から即座に離脱（敗北扱い）
     REDUCE_NEGATIVE  = 0xA_3_0_4 # 消耗品 次のランダムイベントからマイナス選択肢を１つ減らす
-    # CLOVER           = 0x7_2_09 # 消耗品 次のランダムイベントからマイナス選択肢を２つ減らす
     DICE_PLUS        = 0xA_3_0_5 # 消耗品 次に実行されるダイス処理でダイス数を１ふやす
-    # HIDICE           = 0x7_2_0B # 消耗品 次に実行されるダイス処理でダイス数を２ふやす
-    # RATIONS          = 0x7_2_0C # 消耗品 食糧を10増やす
-    # HIRATIONS        = 0x7_2_0D # 消耗品 食糧を50増やす
     FOOD_PLUS        = 0x1_2_0_3
 
     ### enemy special 0x1_F_0_0
@@ -96,13 +78,6 @@ class SkillID(IntEnum):
 
 
 class SkillTargetType(IntEnum):
-    # NONE    = 0b0000
-    # ALLY    = 0b0010
-    # ALLIES  = 0b0011
-    # ENEMY   = 0b0100
-    # ENEMIES = 0b0101
-    # ALL     = 0b0110 # ALLIESには自分も含む
-    # SELF    = 0b1000
     NONE    = 0b0000 # ターゲット設定不可
     ALLY    = 0b0010 # 味方単体
     ALLIES  = 0b0011 # 味方全体

@@ -56,10 +56,13 @@
     ],
     "MenuBuyFoods": [
         [
-            {"id": "１０食分", "action": "none", "args": [1]},
-            {"id": "１００食分", "action": "none", "args": [10]},
-            {"id": "１０００食分", "action": "none", "args": [100]},
-            {"id": "９９００食分", "action": "none", "args": [990]}
+            {"id": "１０食分　　　　　　　　　　　１Ｇ", "action": "none", "args": [1]}
+        ],[
+            {"id": "１００食分　　　　　　　　　１０Ｇ", "action": "none", "args": [10]}
+        ],[
+            {"id": "１０００食分　　　　　　　１００Ｇ", "action": "none", "args": [100]}
+        ],[
+            {"id": "９９００食分　　　　　　　９９０Ｇ", "action": "none", "args": [990]}
         ]
     ]
 }

@@ -179,16 +179,9 @@ class EventPoint:
     def draw(self, offset_x: float = 0, offset_y: float = 0):
         """イベントポイント情報の描画"""
         px_COLOR_0x00FF00 = 27
-        # px.circ(self.x + offset_x, self.y + offset_y, 2, px_COLOR_0x00FF00)
         pointcolor = px_COLOR_0x00FF00 if self.is_ready else px.COLOR_RED
         px.circ(self.x + offset_x, self.y + offset_y, 2, pointcolor)
         px.circb(self.x + offset_x, self.y + offset_y, 2, px.COLOR_WHITE)
-        # px.text(
-        #     self.x + offset_x + 4,
-        #     self.y + offset_y + 4,
-        #     self.name,
-        #     px.COLOR_WHITE,
-        # )
 
 
 class MapGraph:

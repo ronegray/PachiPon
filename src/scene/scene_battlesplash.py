@@ -9,8 +9,6 @@ from const import SoundID
 from . import BaseScene
 from gameutils.base import is_pressed
 from gameutils.lib import Window
-
-# from assets.asset_map import AssetID, AssetMap
 from command.system_command import BattleStartEffect
 
 

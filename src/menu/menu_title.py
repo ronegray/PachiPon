@@ -3,13 +3,10 @@
 """
 
 import logging
-
-# from gameutils.base import is_pressed
 import pyxel as px
 from gameutils.lib import (
     Menu,
     WindowAction,
-    # WindowInputHandler,
     ExecResult,
     RsltContinue,
 )
@@ -25,15 +22,6 @@ class MenuTitle(Menu):
         menu_shape = [1, 3]
         super().__init__("large", *menu_pos, menu_shape, "MenuTitle")
 
-    # def key_check(self) -> WindowAction:
-    #     """キー入力の確認と応答"""
-    #     # inp = WindowInputHandler.get()
-    #     if self.move_cursor():
-    #         pass
-    #     # if inp.decide():
-
-    #         return WindowAction.EXECUTE
-    #     return WindowAction.CONTINUE
     def key_check(self) -> WindowAction:
         """キー入力の確認と応答"""
         if self.move_cursor():
@@ -42,9 +30,6 @@ class MenuTitle(Menu):
         elif self.inputkey.decide():
             px.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
             return WindowAction.EXECUTE
-        # elif self.inputkey.cancel():
-        #     # px.play(self.se_ch, self.ui_se["CANCEL"], resume=True)
-        #     return WindowAction.CLOSE
         return WindowAction.CONTINUE
 
     def exec_menu(self) -> ExecResult:
@@ -63,7 +48,6 @@ class MenuTitle(Menu):
         )
         selected_item.menu_action(*selected_item.action_args)
 
-        # return WindowAction.DISCARD
         return RsltContinue()
 
     # タイトル画面からの遷移先は、キャンセルでタイトル画面に戻る為にスタック追加として処理
