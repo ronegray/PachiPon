@@ -23,4 +23,4 @@ class ResourcePath(StrEnum):
     CONFIG_KEYS = "keyconfig.json"
 
     # MUSIC_LIST  = "gameutils/lib/sound/musiclist.json"
-    MUSIC_LIST = "assets/sound/musiclist.json"
+    SCORE_LIST = "assets/sound/scorelist.json"

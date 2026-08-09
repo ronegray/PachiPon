@@ -44,7 +44,7 @@ class SoundManager:
 
         # 楽曲リストのロード {scene_id(int):filename(str)}
         # music_list = "musiclist.json"
-        music_list = ResourcePath.MUSIC_LIST
+        music_list = ResourcePath.SCORE_LIST
         path = check_file(music_list)
         if path is not None:
             self._music_list = read_json(path)
