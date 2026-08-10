@@ -80,8 +80,8 @@ class FadeController:
 
     def step(self) -> float:
         """1フレーム進行させ、現在のfactorを返す"""
-        # if self.state == FadeState.NONE:
-        #     return self.current_factor
+        if self.state == FadeState.NONE:
+            return self.current_factor
         self.elapsed_frames += 1
         t = min(self.elapsed_frames / self.duration_frames, 1.0)
         self.current_factor = (
@@ -97,7 +97,7 @@ class FadeController:
 
 
 # ===================== 楽曲データの保持（pyxel資源には非依存） =====================
-class MucisScoreLibrary:
+class MusicScoreLibrary:
     """マスタ一覧(index→ファイルパス)と、各曲のトラックMMLテキストの読み込み・保持を担当。
     px.Sound/Musicの構築や再生には一切関与しない。
     """
@@ -125,7 +125,7 @@ class MucisScoreLibrary:
         path = check_file(score_path)
         if path is None:
             print("譜面ファイルが見つからない為、このシーンのBGMは再生されません")
-            self._score_book[score_name] = [""]
+            self._score_book[score_name] = []
             return False
         score = read_string(path)
         self._score_book[score_name] = score
@@ -183,7 +183,7 @@ class SoundManager:
 
         self._bgm_fade = FadeController()  # current_factor=1.0からスタート
         # self._current_music_index: int = -1 # 負を未設定としたint確定のパラメタとする
-        self._lib_music_score = MucisScoreLibrary()
+        self._lib_music_score = MusicScoreLibrary()
 
     # ---------- config反映 ----------
     def set_basegain_factor(self, factor_level: float = 0.7):
@@ -198,13 +198,14 @@ class SoundManager:
         """音量コンフィグ定義値factor_level(1.0~0.0)をベースに音量係数を設定"""
         if factor_level < 0.0 or factor_level > 1.0:
             print(
-                f"範囲外のfactor_level({factor_level})が指定された為、デフォルト値0.6を設定します"
+                f"範囲外のfactor_level({factor_level})が指定された為、デフォルト値0.7を設定します"
             )
             factor_level = 0.7
         factor = factor_level**2  # 小さい音量程変化幅が小さくなる
 
         self._gain_factor = factor
         self._update_basegain_cache()
+        self._apply_base_gain_all()
 
     def _update_basegain_cache(self):
         """全チャンネルのデフォルト音量値キャッシュを更新"""
@@ -219,7 +220,7 @@ class SoundManager:
         # for ch, gain in self._ch_base_gain.items():
         #     px.channels[ch].gain = gain
         for i, ch in enumerate(px.channels):
-            ch.gain = self._ch_base_gain.get(i, self._base_gain // 10)
+            ch.gain = self._ch_base_gain.get(i, self._base_gain / 10)
 
     # ---------- リソースロード ----------
     # def load_assets(self, resource_path: str):
@@ -284,8 +285,10 @@ class SoundManager:
 
     # ---------- BGM停止 ----------
     def stop_music(self):
-        # px.stop(*BGM_CHANNELS) #<-複数チャンネルの停止はエラーになる
-        px.stop()
+        # # px.stop(*BGM_CHANNELS) #<-複数チャンネルの停止はエラーになる
+        # px.stop()
+        for ch in BGM_CHANNELS:
+            px.channels[ch].stop()
         self._bgm_fade.set_immediate(1.0)  # 次回再生に備えて基準へ戻す
         # self._current_music_index = None
 
@@ -299,11 +302,11 @@ class SoundManager:
     # ---------- 効果音（固定ch・上書き方式） ----------
     def play_se_instant(self, sound_id: int):
         px.channels[SE_INSTANT_CH].gain = self._ch_base_gain[SE_INSTANT_CH]
-        px.play(SE_INSTANT_CH, sound_id, resume=True)
+        px.play(SE_INSTANT_CH, sound_id)
 
     def play_se_sustain(self, sound_id: int):
         px.channels[SE_SUSTAIN_CH].gain = self._ch_base_gain[SE_SUSTAIN_CH]
-        px.play(SE_SUSTAIN_CH, sound_id, resume=True)
+        px.play(SE_SUSTAIN_CH, sound_id)
 
     # def stop_se_instant(self):
     #     px.stop(SE_INSTANT_CH)

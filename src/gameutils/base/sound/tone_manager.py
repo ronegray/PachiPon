@@ -30,6 +30,7 @@ MODE_NOISE_LONG = 2
 GAIN_WAVES = 1.0
 GAIN_ONOFF = 0.3
 GAIN_NOISE = 0.6
+GAIN_MAX = 1.0
 
 # 系統別のsample_bits値
 BITS_WAVES = 4
@@ -115,79 +116,19 @@ class ToneManager:
             mode=MODE_WAVETABLE,
             gain=GAIN_WAVES,
             sample_bits=BITS_WAVES,
-            wavetable=[
-                8,
-                9,
-                10,
-                12,
-                13,
-                14,
-                14,
-                15,
-                15,
-                15,
-                14,
-                14,
-                13,
-                12,
-                10,
-                9,
-                8,
-                6,
-                5,
-                3,
-                2,
-                1,
-                1,
-                0,
-                0,
-                0,
-                1,
-                1,
-                2,
-                3,
-                5,
-                6,
-            ],
+            wavetable=(
+                [8, 9, 10, 12, 13, 14, 14, 15, 15, 15, 14, 14, 13, 12, 10, 9]
+                + [8, 6, 5, 3, 2, 1, 1, 0, 0, 0, 1, 1, 2, 3, 5, 6]
+            ),
         )
         ToneManager._tone_params[ToneNameIndex.SAW] = ToneParam(
             mode=MODE_WAVETABLE,
             gain=GAIN_WAVES,
             sample_bits=BITS_WAVES,
-            wavetable=[
-                0,
-                0,
-                1,
-                1,
-                2,
-                2,
-                3,
-                3,
-                4,
-                4,
-                5,
-                5,
-                6,
-                6,
-                7,
-                7,
-                8,
-                8,
-                9,
-                9,
-                10,
-                10,
-                11,
-                11,
-                12,
-                12,
-                13,
-                13,
-                14,
-                14,
-                15,
-                15,
-            ],
+            wavetable=(
+                [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7]
+                + [8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15]
+            ),
         )
         ToneManager._tone_params[ToneNameIndex.PULSE2] = ToneParam(
             mode=MODE_WAVETABLE,
@@ -200,18 +141,70 @@ class ToneManager:
         )
 
         # pyxel.tonesの拡張とトーンパラメタの反映
-        ch_max = 8
-        self.reset_tone(ch_max)
+        tone_max = 8
+        self.expand_tone(tone_max)
+        self.reset_tone()
 
-    def reset_tone(self, ch_max: int = 4) -> None:
-        """pyxel.tonesの拡張および初期トーンパラメタ設定"""
-        px.tones[:] = [px.Tone() for _ in range(ch_max)]
+    def set_tone(self, tone_index: int, chache_index: int) -> None:
+        """指定した番号のトーンに、指定したキャッシュ番号のトーンパラメタを設定"""
+        try:
+            tone = px.tones[tone_index]
+            param = ToneManager._tone_params[ToneNameIndex(chache_index)]
+        except (IndexError, ValueError):
+            print(
+                f"指定したインデックス値が不正です\n pyxel.tones={len(px.tones)}, cache={len(ToneManager._tone_params)}"
+            )
+            return
+        tone.mode = param.mode
+        tone.gain = min(param.gain, GAIN_MAX)
+        tone.sample_bits = param.sample_bits
+        tone.wavetable[:] = param.wavetable
+
+    def reset_tone(self) -> None:
+        """実tone集合にトーンパラメタキャッシュ設定を反映\n
+        ※実tone集合数が基準の為反映されないパラメタキャッシュがあり得る"""
         for i, tone in enumerate(px.tones):
-            param = ToneManager._tone_params[ToneNameIndex(i)]
+            param = ToneManager._tone_params.get(ToneNameIndex(i), None)
+            if param is None:
+                continue
             tone.mode = param.mode
-            tone.gain = param.gain
+            tone.gain = min(param.gain, GAIN_MAX)
             tone.sample_bits = param.sample_bits
             tone.wavetable[:] = param.wavetable
+
+    def expand_tone(self, tone_max: int = 4) -> int:
+        """pyxel.tonesの拡張"""
+        # px.tones[:] = [px.Tone() for _ in range(tone_max)]
+        tone_list = []
+        # 既存のtoneは触らない
+        for tone_index in range(tone_max + 1):
+            try:
+                tone = px.tones[tone_index]
+            except IndexError:
+                tone = px.Tone()
+            tone_list.append(tone)
+
+        px.tones[:] = tone_list
+
+        return len(px.tones)
+
+    def _check_index(self, tone_index: ToneNameIndex) -> None:
+        """トーンパラメタキャッシュのインデックス範囲チェック"""
+        if tone_index < ToneNameIndex.TRIANGLE or tone_index > ToneNameIndex.CUSTOM3:
+            raise IndexError("tone_indexの指定値が許容範囲外です")
+        # パラメータキャッシュを全て格納できるようpyxel.toneを拡張する
+        existing_max = max(ToneManager._tone_params.keys(), default=-1)
+        tone_max = max(existing_max, tone_index)
+        self.expand_tone(tone_max)
+
+    def _validate_wavetable(self, sample_bits: int, wavetable: list[int]) -> None:
+        """wavetableの指定値にsample_bitsの範囲で表現できない値が含まれていないかチェック"""
+        max_vol = (1 << sample_bits) - 1
+        for vol in wavetable:
+            if vol < 0 or vol > max_vol:
+                raise ValueError(
+                    "wavetableにsample_bitsの許容範囲を超えた値が指定されています"
+                )
 
     def edit_tone(
         self,
@@ -222,22 +215,35 @@ class ToneManager:
         wavetable: list[int],
     ) -> None:
         """カスタムパラメタtoneの定義追加/修正"""
-        if tone_index < ToneNameIndex.TRIANGLE or tone_index > ToneNameIndex.CUSTOM3:
-            raise IndexError("tone_indexの指定値が許容範囲外です")
+        # if (tone_index < ToneNameIndex.TRIANGLE
+        #         or tone_index > ToneNameIndex.CUSTOM3):
+        #     raise IndexError("tone_indexの指定値が許容範囲外です")
+        self._check_index(tone_index)
+
         # wavetableのデータチェック
-        max_vol = (1 << sample_bits) - 1
-        for vol in wavetable:
-            if vol > max_vol:
-                raise ValueError(
-                    "wavetableにsample_bitsの許容範囲を超えた値が指定されています"
-                )
+        # max_vol = (1 << sample_bits) - 1
+        # for vol in wavetable:
+        #     if vol > max_vol:
+        #         raise ValueError("wavetableにsample_bitsの許容範囲を超えた値が指定されています")
+        self._validate_wavetable(sample_bits, wavetable)
+        # # gainのデータチェック
+        # if gain > GAIN_MAX:
+        #     gain = GAIN_MAX
+        #     print(f"gain値の最大値({GAIN_MAX})を越える値が指定された為、最大値にクリップされました")
         # toneパラメタの反映（既存インデックス指定時はオブジェクト上書き）
         ToneManager._tone_params[tone_index] = ToneParam(
             mode=mode, gain=gain, sample_bits=sample_bits, wavetable=wavetable
         )
+        # # パラメータキャッシュを越えるインデックス指定時はpyxel.toneの拡張が必要
+        # tone_len = len(ToneManager._tone_params)
+        # tone_max = tone_len if tone_len > tone_index else tone_index
+        # self.expand_tone(tone_max)
 
     def load_tone(self, filename: str, tone_index: ToneNameIndex):
-        """jsonファイルの読み込み"""
+        """jsonファイルを読み込んで指定番号のトーンパラメタキャッシュを更新"""
+
+        self._check_index(tone_index)
+
         # with open(filename, "r", encoding = "UTF-8") as f:
         #     data = json.load(f)
         # return data
@@ -245,7 +251,14 @@ class ToneManager:
         if path is None:
             raise FileNotFoundError(f"ファイルが見つかりません：{filename}")
         tone_param = read_json(path)
-        target = ToneManager._tone_params.get(tone_index, ToneParam(0, 0, 0, [0]))
+
+        target = ToneManager._tone_params.get(tone_index, None)
+        if target is None:
+            ToneManager._tone_params[tone_index] = ToneParam(
+                MODE_WAVETABLE, GAIN_WAVES, BITS_WAVES, [0]
+            )
+            target = ToneManager._tone_params[tone_index]
+        self._validate_wavetable(target.sample_bits, target.wavetable)
         target.mode = tone_param.get("mode", MODE_WAVETABLE)
         target.gain = tone_param.get("gain", GAIN_WAVES)
         target.sample_bits = tone_param.get("sample_bits", BITS_WAVES)
