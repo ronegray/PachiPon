@@ -8,7 +8,7 @@
 
 import logging
 import pyxel as px
-from gameutils.base import check_file, read_string
+from gameutils.base import check_file
 from gameutils.lib import Window, WindowInputHandler
 from const import ENEMY_ID_BASE
 import service_locater as di
@@ -148,19 +148,20 @@ class SceneBattle(BaseScene):
 
     def load_bgm(self) -> None:
         """シーン切替時のBGMロード"""
-        """暫定処理：BGMロード"""
-        path = check_file("assets/sound/battle.txt")
-        if path is not None:
-            score_data = read_string(path)
-        else:
-            raise FileNotFoundError("ファイルがない！")
+        # """暫定処理：BGMロード"""
+        # path = check_file("assets/sound/battle.txt")
+        # if path is not None:
+        #     score_data = read_string(path)
+        # else:
+        #     raise FileNotFoundError("ファイルがない！")
 
-        px.stop()
-        for i, ch in enumerate(px.channels):
-            mml = "R"
-            if i < len(score_data):
-                mml = score_data[i]
-            ch.play(mml, loop=True)
+        # px.stop()
+        # for i, ch in enumerate(px.channels):
+        #     mml = "R"
+        #     if i < len(score_data):
+        #         mml = score_data[i]
+        #     ch.play(mml, loop=True)
+        di.ref.sndmgr.request_bgm("battle")
 
     def select_enemy_target(self) -> tuple[int, list[Character]]:
         """エネミーエンティティの敵対ターゲット決定"""

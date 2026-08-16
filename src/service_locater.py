@@ -20,7 +20,7 @@ if TYPE_CHECKING:
     from event import EventRepository
     from field_map import MapGraph
     from entity import Party, EnemyRepository  # , Character
-    from gameutils.lib import SoundManager
+    from gameutils.base import SoundManager
     from item import ItemRepository, ItemPool, StackPool
     from skill import SkillRepository
     from effect import DiceRollEffect

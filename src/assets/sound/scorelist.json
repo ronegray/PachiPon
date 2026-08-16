@@ -1,0 +1,7 @@
+{
+    "title": "assets/sound/title.txt",
+    "field": "assets/sound/field.txt",
+    "battle": "assets/sound/battle.txt",
+    "shop": "assets/sound/shop.txt",
+    "event_slow": "assets/sound/event_slow.txt"
+}

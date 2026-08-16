@@ -7,7 +7,7 @@
 """
 
 import pyxel as px
-from . import custom_tone
+from . import custom_tone_old
 from ...base import check_file, read_json, read_string
 from ...libconfig import ResourcePath
 
@@ -16,7 +16,7 @@ class SoundManager:
     _music_list: dict[str, str] = {}  # 利用シーンID:曲名（＝ファイル名）
     _now_bgm: int = 0  # BGM再生するMusic番号（クロスフェードで入れ替わる）
     _range_se_ch: tuple[int, int] = (5, 7)  # SEで利用できるchの開始番号と終了番号
-    _custom_tones: list[custom_tone.CustomTone] = []
+    _custom_tones: list[custom_tone_old.CustomTone] = []
 
     def __init__(self, channel_num: int = 8, tone_num: int = 24):
         # global _music_list, custom_tones
@@ -33,7 +33,7 @@ class SoundManager:
         tone_list = []
         for i in range(tone_num):
             # カスタムトーン生成
-            customtone = custom_tone.CustomTone()
+            customtone = custom_tone_old.CustomTone()
             self._custom_tones.append(customtone)
             # カスタムトーン内のトーンオブジェクトを取得
             tone = customtone.get_parameter("tone")

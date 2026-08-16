@@ -14,6 +14,8 @@ from gameutils.base import (
     initialize_input,
     load_keyconfig,
     FontManager,
+    SoundManager,
+    # ToneManager,
 )
 from assets.asset_map import AssetMap
 from scene import SceneManager
@@ -40,6 +42,10 @@ def ipl():
     initialize_input(APP_FPS)
     load_keyconfig()
     FontManager.initialize()
+    # tonemgr = ToneManager()
+    sndmgr = SoundManager()
+    di.register(di.ServiceKey.SOUND_MANAGER, sndmgr)
+    di.ref.sndmgr.load_music_master()
 
     # アセットマップ初期化
     logger.info("Initialize - AssetMap")

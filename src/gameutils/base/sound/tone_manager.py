@@ -18,6 +18,11 @@ class ToneNameIndex(IntEnum):
     CUSTOM1 = 8
     CUSTOM2 = 9
     CUSTOM3 = 10
+    CUSTOM4 = 11
+    CUSTOM5 = 12
+    CUSTOM6 = 13
+    CUSTOM7 = 14
+    CUSTOM8 = 15
 
 
 #  0 for wavetable, 1 for short-period noise, 2 for long-period noise.
@@ -158,6 +163,8 @@ class ToneManager:
         tone.mode = param.mode
         tone.gain = min(param.gain, GAIN_MAX)
         tone.sample_bits = param.sample_bits
+        if tone.mode == 0:
+            tone.sample_bits = param.sample_bits
         tone.wavetable[:] = param.wavetable
 
     def reset_tone(self) -> None:
@@ -169,7 +176,8 @@ class ToneManager:
                 continue
             tone.mode = param.mode
             tone.gain = min(param.gain, GAIN_MAX)
-            tone.sample_bits = param.sample_bits
+            if tone.mode == 0:
+                tone.sample_bits = param.sample_bits
             tone.wavetable[:] = param.wavetable
 
     def expand_tone(self, tone_max: int = 4) -> int:

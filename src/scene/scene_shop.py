@@ -4,7 +4,6 @@
 
 import logging
 import pyxel as px
-from gameutils.base import check_file, read_string
 from gameutils.lib import Window, WindowAction
 import service_locater as di
 from field_map import PointPlaceType
@@ -63,17 +62,18 @@ class SceneShop(BaseScene):
 
     def load_bgm(self) -> None:
         """シーン切替時のBGMロード"""
-        path = check_file("assets/sound/shop.txt")
-        if path is not None:
-            score_data = read_string(path)
-        else:
-            raise FileNotFoundError("ファイルがない！")
-        px.stop()
-        for i, ch in enumerate(px.channels):
-            mml = "R"
-            if i < len(score_data):
-                mml = score_data[i]
-            ch.play(mml, loop=True)
+        # path = check_file("assets/sound/shop.txt")
+        # if path is not None:
+        #     score_data = read_string(path)
+        # else:
+        #     raise FileNotFoundError("ファイルがない！")
+        # px.stop()
+        # for i, ch in enumerate(px.channels):
+        #     mml = "R"
+        #     if i < len(score_data):
+        #         mml = score_data[i]
+        #     ch.play(mml, loop=True)
+        di.ref.sndmgr.request_bgm("shop")
 
     def update(self) -> None:
         """更新処理

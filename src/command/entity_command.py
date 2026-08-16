@@ -81,7 +81,8 @@ class Attack(CommandBaseEntity):
         # 命中ロール
         judge = actor.hitroll_offence() - target.hitroll_defence()
         if judge <= 0:
-            px.play(self.se_ch, SoundID.ATTACK_MISS, resume=True)
+            # px.play(self.se_ch, SoundID.ATTACK_MISS, resume=True)
+            di.ref.sndmgr.play_se_sustain(SoundID.ATTACK_MISS)
             yield ["だけど、攻撃は かすりもしなかった・・・"]
             return  # ここで終了
 
@@ -95,7 +96,8 @@ class Attack(CommandBaseEntity):
             damage = int(damage * target.calc_guard_rate(weapon_type))
 
         if damage <= 0:
-            px.play(self.se_ch, SoundID.ATTACK_MISS, resume=True)
+            # px.play(self.se_ch, SoundID.ATTACK_MISS, resume=True)
+            di.ref.sndmgr.play_se_sustain(SoundID.ATTACK_MISS)
             yield [f"{target.param.name}の かたい防御に はばまれた"]
             return
 
@@ -106,16 +108,19 @@ class Attack(CommandBaseEntity):
                 attackse_id = SoundID.CHOP
             case WeaponType.STUB:
                 attackse_id = SoundID.STUB
-        px.play(self.se_ch, attackse_id, resume=True)
+        # px.play(self.se_ch, attackse_id, resume=True)
+        di.ref.sndmgr.play_se_sustain(attackse_id)
         yield [f"{target.param.name}に {upper_int(damage)} ポイントの ダメージ！"]
 
         # run_effectに相当：メッセージ表示後にダメージ適用
-        px.play(self.se_ch, SoundID.DAMAGE_GIVEN, resume=True)
+        # px.play(self.se_ch, SoundID.DAMAGE_GIVEN, resume=True)
+        di.ref.sndmgr.play_se_sustain(SoundID.DAMAGE_GIVEN)
         target.decrease_hp(damage)
 
         if not target.is_alive:
             # cleanupに相当：撃破メッセージ
-            px.play(self.se_ch, SoundID.ENEMY_DEATH, resume=True)
+            # px.play(self.se_ch, SoundID.ENEMY_DEATH, resume=True)
+            di.ref.sndmgr.play_se_sustain(SoundID.ENEMY_DEATH)
             yield [f"{target.param.name}は 力尽きて ころがった"]
 
 
@@ -184,7 +189,8 @@ class AttackSpellSingle(CommandBaseEntity):
 
         # 詠唱ロール
         if not actor.castroll(skill_def.dc):
-            px.play(self.se_ch, SoundID.MAGIC_FAIL, resume=True)
+            # px.play(self.se_ch, SoundID.MAGIC_FAIL, resume=True)
+            di.ref.sndmgr.play_se_sustain(SoundID.MAGIC_FAIL)
             yield ["呪文は　失敗に終わった・・・"]
             return  # ここで終了
 
@@ -196,10 +202,12 @@ class AttackSpellSingle(CommandBaseEntity):
 
         if damage <= 0:
             px.play(self.se_ch, SoundID.ATTACK_MISS, resume=True)
+            di.ref.sndmgr.play_se_sustain(SoundID.ATTACK_MISS)
             yield [f"{target.param.name}の守りを 貫けない！"]
             return
 
         px.play(self.se_ch, SoundID.DAMAGE_GIVEN, resume=True)
+        di.ref.sndmgr.play_se_sustain(SoundID.DAMAGE_GIVEN)
         yield [f"{target.param.name}に {upper_int(damage)} ポイントの ダメージ！"]
 
         # run_effectに相当：メッセージ表示後にダメージ適用
@@ -207,7 +215,8 @@ class AttackSpellSingle(CommandBaseEntity):
 
         if not target.is_alive:
             # cleanupに相当：撃破メッセージ
-            px.play(self.se_ch, SoundID.ENEMY_DEATH, resume=True)
+            # px.play(self.se_ch, SoundID.ENEMY_DEATH, resume=True)
+            di.ref.sndmgr.play_se_sustain(SoundID.ENEMY_DEATH)
             yield [f"{target.param.name}は 力尽きて ころがった"]
 
 
@@ -245,11 +254,13 @@ class RecoverSpellSingle(CommandBaseEntity):
 
             # 詠唱ロール
             if not actor.castroll(skill_def.dc):
-                px.play(self.se_ch, SoundID.MAGIC_FAIL, resume=True)
+                # px.play(self.se_ch, SoundID.MAGIC_FAIL, resume=True)
+                di.ref.sndmgr.play_se_sustain(SoundID.MAGIC_FAIL)
                 yield ["呪文は　失敗に終わった・・・"]
                 return  # ここで終了
         else:
-            px.play(self.se_ch, SoundID.CAST_LIGHT, resume=True)
+            # px.play(self.se_ch, SoundID.CAST_LIGHT, resume=True)
+            di.ref.sndmgr.play_se_sustain(SoundID.CAST_LIGHT)
             actor.use_mp(skill_def.cost)
 
         # ダメージロール
@@ -257,7 +268,8 @@ class RecoverSpellSingle(CommandBaseEntity):
         # yield [""]
 
         real_heal = target.increase_hp(healing)
-        px.play(self.se_ch, SoundID.RECOVER, resume=True)
+        # px.play(self.se_ch, SoundID.RECOVER, resume=True)
+        di.ref.sndmgr.play_se_sustain(SoundID.RECOVER)
         yield [f"{target.param.name}は {upper_int(real_heal)} のＨＰが　回復した"]
 
 
@@ -274,7 +286,8 @@ class EnemyEscape(CommandBaseEntity):
             return
 
         # ファーストメッセージ
-        px.play(self.se_ch, SoundID.ENEMY_ESCAPE, resume=True)
+        # px.play(self.se_ch, SoundID.ENEMY_ESCAPE, resume=True)
+        di.ref.sndmgr.play_se_sustain(SoundID.ENEMY_ESCAPE)
         yield [f"{actor.param.name}は、 逃げ出したい！", ""]
 
 
@@ -303,7 +316,8 @@ class GrantReward(CommandBaseEntity):
 
         # ここで勝利SEとBGMロード
         px.stop()
-        px.play(self.se_ch, SoundID.BATTLE_VICTORY, resume=True)
+        # px.play(self.se_ch, SoundID.BATTLE_VICTORY, resume=True)
+        di.ref.sndmgr.play_se_sustain(SoundID.BATTLE_VICTORY)
         yield ["敵との戦闘に　勝利した！！"]
         yield [""]
         yield [self.WAIT, "1"]  # 勝利SEの長さを文字で返す
@@ -364,7 +378,8 @@ class CharacterLevelup(CommandBaseEntity):
     """レベルアップメッセージと効果音"""
 
     def _sequence(self) -> Generator[list[str], None, None]:
-        px.play(self.se_ch, SoundID.LEVEL_UP, resume=True)
+        # px.play(self.se_ch, SoundID.LEVEL_UP, resume=True)
+        di.ref.sndmgr.play_se_sustain(SoundID.LEVEL_UP)
         yield [f"{self._ctx.actor.param.name}は　レベルアップ！！", ""]
         return
 
@@ -435,7 +450,8 @@ class heal_hp(CommandBaseEntity):
 
         # run_effectに相当：メッセージ表示後にダメージ適用
         real_heal = target.increase_hp(healing)
-        px.play(self.se_ch, SoundID.RECOVER, resume=True)
+        # px.play(self.se_ch, SoundID.RECOVER, resume=True)
+        di.ref.sndmgr.play_se_sustain(SoundID.RECOVER)
         yield [f"{target.param.name}は {upper_int(real_heal)} のＨＰが　回復した"]
 
 
@@ -485,5 +501,6 @@ class heal_mp(CommandBaseEntity):
 
         # run_effectに相当：メッセージ表示後にダメージ適用
         real_heal = target.increase_mp(healing)
-        px.play(self.se_ch, SoundID.RECOVER, resume=True)
+        # px.play(self.se_ch, SoundID.RECOVER, resume=True)
+        di.ref.sndmgr.play_se_sustain(SoundID.RECOVER)
         yield [f"{target.param.name}は {upper_int(real_heal)} のＭＰが　回復した"]

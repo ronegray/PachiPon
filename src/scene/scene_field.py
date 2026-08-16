@@ -10,7 +10,7 @@ import logging
 import pyxel as px
 import service_locater as di
 from const import FIELD_MESSAGE_HEIGHT, APP_WIDTH, APP_HEIGHT
-from gameutils.base import is_pressed, check_file, read_string
+from gameutils.base import is_pressed
 from gameutils.lib import Window, WindowAction
 from event import EventID, EventType
 from field_map import EventPoint
@@ -90,18 +90,19 @@ class SceneField(BaseScene):
 
     def load_bgm(self) -> None:
         """暫定処理：BGMロード"""
-        path = check_file("assets/sound/field.txt")
-        if path is not None:
-            score_data = read_string(path)
-        else:
-            raise FileNotFoundError("ファイルがない！")
+        # path = check_file("assets/sound/field.txt")
+        # if path is not None:
+        #     score_data = read_string(path)
+        # else:
+        #     raise FileNotFoundError("ファイルがない！")
 
-        px.stop()
-        for i, ch in enumerate(px.channels):
-            mml = "R"
-            if i < len(score_data):
-                mml = score_data[i]
-            ch.play(mml, loop=True)
+        # px.stop()
+        # for i, ch in enumerate(px.channels):
+        #     mml = "R"
+        #     if i < len(score_data):
+        #         mml = score_data[i]
+        #     ch.play(mml, loop=True)
+        di.ref.sndmgr.request_bgm("field")
 
     def update(self):
         """フィールド関連オブジェクト群の更新処理"""

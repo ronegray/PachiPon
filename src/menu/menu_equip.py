@@ -158,15 +158,19 @@ class MenuSelectEquipSlot(Menu):
         self.individual_update()
         """キー入力の確認と応答"""
         if self.move_cursor():
-            px.play(self.se_ch, self.ui_se["CURSOR_VERTICAL"], resume=True)
+            # px.play(self.se_ch, self.ui_se["CURSOR_VERTICAL"], resume=True)
+            self.se.play(self.ui_se["CURSOR_VERTICAL"])
         elif self.inputkey.decide():
-            px.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
+            # px.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
+            self.se.play(self.ui_se["DECIDE"])
             return WindowAction.EXECUTE
         elif self.inputkey.cancel():
-            px.play(self.se_ch, self.ui_se["CANCEL"], resume=True)
+            # px.play(self.se_ch, self.ui_se["CANCEL"], resume=True)
+            self.se.play(self.ui_se["CANCEL"])
             return WindowAction.CLOSE
         elif self.inputkey.other1():
-            px.play(self.se_ch, SoundID.CHANGE_EQUIP, resume=True)
+            # px.play(self.se_ch, SoundID.CHANGE_EQUIP, resume=True)
+            self.se.play(SoundID.CHANGE_EQUIP)
             member = di.ref.pt.get_member(self.member_index)
             slot = self.item_list[self.cursor_position[1]][0]["args"][0]
             member.equipments.equip_off(slot)
@@ -183,11 +187,13 @@ class MenuSelectEquipSlot(Menu):
             self.build_status()
 
         if self.inputkey.left():
-            px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
+            # px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
+            self.se.play(SoundID.PAGE_ARROW)
             self.member_index = (self.member_index - 1) % di.ref.pt.get_member_count()
             update_list()
         if self.inputkey.right():
-            px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
+            # px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
+            self.se.play(SoundID.PAGE_ARROW)
             self.member_index = (self.member_index + 1) % di.ref.pt.get_member_count()
             update_list()
 
@@ -273,7 +279,8 @@ class MenuEquip(Menu):
         if self.inventory_count <= 0:
             return RsltContinue()
         elif self.slot_filter == ItemType.CONSUME:
-            px.play(self.se_ch, SoundID.CHANGE_EQUIP, resume=True)
+            # px.play(self.se_ch, SoundID.CHANGE_EQUIP, resume=True)
+            self.se.play(SoundID.CHANGE_EQUIP)
             self.member.equipments.equip_on_consume(
                 self.slot, selected_item.action_args[0]
             )
@@ -284,7 +291,8 @@ class MenuEquip(Menu):
                 errmsg = f"プールからのアイテム取得に失敗しました：ID={iid}"
                 logger.critical(errmsg, exc_info=True)
                 raise ValueError(errmsg)
-            px.play(self.se_ch, SoundID.CHANGE_EQUIP, resume=True)
+            # px.play(self.se_ch, SoundID.CHANGE_EQUIP, resume=True)
+            self.se.play(SoundID.CHANGE_EQUIP)
             self.member.equipments.equip_on_pool(self.slot, (iid, plent))
             self.member.update_bonus()
 
@@ -418,14 +426,16 @@ class MenuEquip(Menu):
         # 左右キーでのリスト内容切替
         if len(self.item_list) > 1:
             if self.inputkey.left():
-                px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
+                # px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
+                self.se.play(SoundID.PAGE_ARROW)
                 self.itemlist_index = (self.itemlist_index - 1) % len(self.item_list)
                 self.remap_itemlist()
                 self.change_target_item()
                 self.is_push_left = 1
                 return
             if self.inputkey.right():
-                px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
+                # px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
+                self.se.play(SoundID.PAGE_ARROW)
                 self.itemlist_index = (self.itemlist_index + 1) % len(self.item_list)
                 self.remap_itemlist()
                 self.change_target_item()

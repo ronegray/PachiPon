@@ -11,6 +11,7 @@ from typing import Literal
 
 WINDOW_MODE = Literal["once", "wait", "page", "menu", "sub"]
 MENU_WINDOW_TYPE = Literal["main", "sub", "sub2", "sub3"]
+SE_CHANNEL = 7
 
 
 class WindowAction(Enum):

@@ -21,7 +21,7 @@ import pyxel as px
 
 from ...libconfig import ResourcePath
 from ...base import check_file, read_json, FONT_SIZE_NAME, FontManager
-from . import WINDOW_MODE, MENU_WINDOW_TYPE, WindowAction
+from . import WINDOW_MODE, MENU_WINDOW_TYPE, WindowAction, SE_CHANNEL
 from ._wrapper_input import WindowInputWrapper, set_default_pyxel_input
 
 
@@ -57,6 +57,17 @@ class WindowInputHandler:
         return cls._wrapper
 
 
+class WindowSEHandler:
+    """鳴音関数の管理"""
+
+    def __init__(self):
+        self.play: Callable = lambda sound_id: px.play(ch=3, snd=sound_id, resume=True)
+
+    @classmethod
+    def set_func(cls, func: Callable):
+        cls.play = func
+
+
 class Window:
     """汎用ウインドウクラス"""
 
@@ -65,7 +76,7 @@ class Window:
     _max_msg_rows: int = 3
     _indicator_address: tuple = (16, 8, 8, 4)
     # UI操作音の独立定義
-    se_ch: int = 3
+    se_ch: int = SE_CHANNEL
     ui_se: dict[str, px.Sound] = {}
     snd4 = px.Sound()
     snd4.set("e4e4e4", "s", "712", "nfn", 4)
@@ -73,6 +84,7 @@ class Window:
     # snd5 = px.Sound()
     # snd5.set("d2c1c#2", "p", "715", "", 3)
     # ui_se["CANCEL"] = snd5
+    se = WindowSEHandler
 
     def __init__(
         self,
@@ -228,7 +240,8 @@ class Window:
 
         # 決定またはキャンセルキー処理
         if self.inp.decide() or self.inp.cancel():
-            px.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
+            # WindowSoundHandler.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
+            self.se.play(self.ui_se["DECIDE"])
             match self.window_mode:
                 # ページ送り以外では全終了
                 case "once" | "wait":
@@ -369,7 +382,7 @@ class Menu:
     _MENU_ITEM_CASHE: dict[str, MENU_ITEM_LIST] = dict(menu_item_data)
 
     # UI操作音の独立定義
-    se_ch: int = 3
+    se_ch: int = SE_CHANNEL
     ui_se: dict[str, px.Sound] = {}
     snd0 = px.Sound()
     snd0.set("b4", "", "", "", 3)
@@ -383,6 +396,7 @@ class Menu:
     snd5 = px.Sound()
     snd5.set("d2c1c#2", "p", "715", "", 3)
     ui_se["CANCEL"] = snd5
+    se = WindowSEHandler
 
     def __init__(
         self,
@@ -559,9 +573,11 @@ class Menu:
     def key_check(self) -> WindowAction:
         """キー入力の確認と応答"""
         if self.move_cursor():
-            px.play(self.se_ch, self.ui_se["CURSOR_VERTICAL"], resume=True)
+            # WindowSoundHandler.play(self.se_ch, self.ui_se["CURSOR_VERTICAL"], resume=True)
+            self.se.play(self.ui_se["CURSOR_VERTICAL"])
         elif self.inputkey.decide():
-            px.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
+            # WindowSoundHandler.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
+            self.se.play(self.ui_se["DECIDE"])
             return WindowAction.EXECUTE
         elif self.inputkey.cancel():
             # px.play(self.se_ch, self.ui_se["CANCEL"], resume=True)
@@ -708,19 +724,23 @@ class MenuYesNo(Menu):
     def key_check(self) -> WindowAction:
         """キー入力の確認と応答"""
         if self.move_cursor():
-            px.play(self.se_ch, self.ui_se["CURSOR_VERTICAL"], resume=True)
+            # WindowSoundHandler.play(self.se_ch, self.ui_se["CURSOR_VERTICAL"], resume=True)
+            self.se.play(self.ui_se["CURSOR_VERTICAL"])
         elif self.inputkey.decide():
             self.ans["answer"] = self.menu_items[self.cursor_position[1]][
                 0
             ].action_args[0]
             if self.ans["answer"]:
-                px.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
+                # WindowSoundHandler.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
+                self.se.play(self.ui_se["DECIDE"])
             elif self.ans["answer"] is False:
-                px.play(self.se_ch, self.ui_se["CANCEL"], resume=True)
+                # WindowSoundHandler.play(self.se_ch, self.ui_se["CANCEL"], resume=True)
+                self.se.play(self.ui_se["CANCEL"])
             self.ans["finished"] = True
             return WindowAction.CLOSE
         elif self.inputkey.cancel():
-            px.play(self.se_ch, self.ui_se["CANCEL"], resume=True)
+            # WindowSoundHandler.play(self.se_ch, self.ui_se["CANCEL"], resume=True)
+            self.se.play(self.ui_se["CANCEL"])
             self.ans["answer"] = False
             self.ans["finished"] = True
             return WindowAction.CLOSE

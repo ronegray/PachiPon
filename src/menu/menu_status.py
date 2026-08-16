@@ -3,7 +3,8 @@
 """
 
 import logging
-import pyxel as px
+
+# import pyxel as px
 import service_locater as di
 from const import SoundID
 from helper import upper_int_format, format_leftright
@@ -135,11 +136,13 @@ class MenuStatus(Menu):
         if self.inputkey.decide() or self.inputkey.cancel():
             return WindowAction.DISCARD
         if self.inputkey.left():
-            px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
+            # px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
+            self.se.play(SoundID.PAGE_ARROW)
             self.member_index = (self.member_index - 1) % di.ref.pt.get_member_count()
             self.build_status()
         if self.inputkey.right():
-            px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
+            # px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
+            self.se.play(SoundID.PAGE_ARROW)
             self.member_index = (self.member_index + 1) % di.ref.pt.get_member_count()
             self.build_status()
         return WindowAction.CONTINUE

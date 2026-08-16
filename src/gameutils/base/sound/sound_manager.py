@@ -106,6 +106,7 @@ class MusicScoreLibrary:
         self._score_list: dict[str, str] = {}  # score_name -> 曲データファイルパス
         # self._track_cache: dict[int, list[str]] = {}  # index -> list[各トラックのMMLテキスト]
         self._score_book: dict[str, list[str]] = {}  # score_name -> [ch別MML譜面]
+        # self.load_scorelist()
 
     def load_scorelist(self) -> bool:  # , master_json_path: str):
         """譜面一覧を読み込み、譜面"""
@@ -300,11 +301,11 @@ class SoundManager:
         )
 
     # ---------- 効果音（固定ch・上書き方式） ----------
-    def play_se_instant(self, sound_id: int):
+    def play_se_instant(self, sound_id: int | px.Sound):
         px.channels[SE_INSTANT_CH].gain = self._ch_base_gain[SE_INSTANT_CH]
         px.play(SE_INSTANT_CH, sound_id)
 
-    def play_se_sustain(self, sound_id: int):
+    def play_se_sustain(self, sound_id: int | px.Sound):
         px.channels[SE_SUSTAIN_CH].gain = self._ch_base_gain[SE_SUSTAIN_CH]
         px.play(SE_SUSTAIN_CH, sound_id)
 

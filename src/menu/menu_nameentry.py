@@ -74,15 +74,19 @@ class MenuNameEntry(Menu):
     def key_check(self) -> WindowAction:
         """キー入力の確認と応答"""
         if self.move_cursor():
-            px.play(self.se_ch, SoundID.CURSOR_VERTICAL, resume=True)
+            # px.play(self.se_ch, SoundID.CURSOR_VERTICAL, resume=True)
+            self.se.play(SoundID.CURSOR_VERTICAL)
         elif self.inputkey.decide():
-            px.play(self.se_ch, SoundID.DECIDE, resume=True)
+            # px.play(self.se_ch, SoundID.DECIDE, resume=True)
+            self.se.play(SoundID.DECIDE)
             self.add_letter()
         elif self.inputkey.cancel():
-            px.play(self.se_ch, SoundID.CANCEL, resume=True)
+            # px.play(self.se_ch, SoundID.CANCEL, resume=True)
+            self.se.play(SoundID.CANCEL)
             self.delete_letter()
         elif self.inputkey.start():
-            px.play(self.se_ch, SoundID.DECIDE, resume=True)
+            # px.play(self.se_ch, SoundID.DECIDE, resume=True)
+            self.se.play(SoundID.DECIDE)
             # 文字種３パターンのは矩形リストなので代表でindex0を使用
             pos_row = len(self.name_chars[0]) - 1
             pos_col = len(self.name_chars[0][-1]) - 1

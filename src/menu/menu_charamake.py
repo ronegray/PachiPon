@@ -126,7 +126,8 @@ class MenuCharaMake(Menu):
     def move_cursor(self) -> bool:
         """キー入力に応じたカーソル移動とインデックス制御"""
         if self.inputkey.up():
-            px.play(self.se_ch, SoundID.CURSOR_VERTICAL, resume=True)
+            # px.play(self.se_ch, SoundID.CURSOR_VERTICAL, resume=True)
+            self.se.play(self.ui_se["CURSOR_VERTICAL"])
             self.cursor_position[1] = (self.cursor_position[1] - 1) % self.menu_shape[1]
             self.set_description_string()
             return True
@@ -154,15 +155,18 @@ class MenuCharaMake(Menu):
                         is_assigned = True
                         self.hero.param.luck -= 1
             if is_assigned:
-                px.play(self.se_ch, SoundID.DECIDE, resume=True)
+                # px.play(self.se_ch, SoundID.DECIDE, resume=True)
+                self.se.play(self.ui_se["DECIDE"])
                 self.assigned = max(0, self.assigned - 1)
                 self.set_bonuspoint_string()
             else:
-                px.play(self.se_ch, SoundID.ERROR, resume=True)
+                # px.play(self.se_ch, SoundID.ERROR, resume=True)
+                self.se.play(SoundID.ERROR)
 
             return True
         if self.inputkey.down():
-            px.play(self.se_ch, SoundID.CURSOR_VERTICAL, resume=True)
+            # px.play(self.se_ch, SoundID.CURSOR_VERTICAL, resume=True)
+            self.se.play(self.ui_se["CURSOR_VERTICAL"])
             self.cursor_position[1] = (self.cursor_position[1] + 1) % self.menu_shape[1]
             self.set_description_string()
             return True
@@ -191,13 +195,16 @@ class MenuCharaMake(Menu):
                             is_assigned = True
                             self.hero.param.luck += 1
                 if is_assigned:
-                    px.play(self.se_ch, SoundID.DECIDE, resume=True)
+                    # px.play(self.se_ch, SoundID.DECIDE, resume=True)
+                    self.se.play(SoundID.DECIDE)
                     self.assigned = min(self.bonus_max, self.assigned + 1)
                     self.set_bonuspoint_string()
                 else:
-                    px.play(self.se_ch, SoundID.ERROR, resume=True)
+                    # px.play(self.se_ch, SoundID.ERROR, resume=True)
+                    self.se.play(SoundID.ERROR)
             else:
-                px.play(self.se_ch, SoundID.ERROR, resume=True)
+                # px.play(self.se_ch, SoundID.ERROR, resume=True)
+                self.se.play(SoundID.ERROR)
             return True
         return False
 
@@ -207,10 +214,12 @@ class MenuCharaMake(Menu):
             pass
         elif self.inputkey.decide():
             if self.bonus_max == self.assigned:
-                px.play(self.se_ch, SoundID.DECIDE, resume=True)
+                # px.play(self.se_ch, SoundID.DECIDE, resume=True)
+                self.se.play(SoundID.DECIDE)
                 return WindowAction.EXECUTE
             else:
-                px.play(self.se_ch, SoundID.ERROR, resume=True)
+                # px.play(self.se_ch, SoundID.ERROR, resume=True)
+                self.se.play(SoundID.ERROR)
         elif self.inputkey.cancel():
             di.ref.scnmgr.previous_scene()
         return WindowAction.CONTINUE

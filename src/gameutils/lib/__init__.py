@@ -3,12 +3,13 @@
 """
 
 # from .event import EventControl, EventManager
-from .sound import (
-    SoundManager,
-)  # init, play_bgm, play_se, stop, load_bgm, fadeout, fadein
+# from .sound import (
+#     SoundManager,
+# )  # init, play_bgm, play_se, stop, load_bgm, fadeout, fadein
 from .window import (
     WINDOW_MODE,
     MENU_WINDOW_TYPE,
+    SE_CHANNEL,
     WindowAction,
     WindowManager,
     Window,
@@ -23,4 +24,5 @@ from .window import (
     RsltContinue,
     RsltReplace,
     WindowInputHandler,
+    WindowSEHandler,
 )

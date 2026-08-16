@@ -10,7 +10,7 @@
 from pyxel import Tone, sin
 
 # from .file_system import check_file, read_json, write_json
-from ...base import check_file, read_json, write_json
+from .. import check_file, read_json, write_json
 
 
 class CustomTone:

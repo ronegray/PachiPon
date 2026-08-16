@@ -6,6 +6,7 @@ Pyxelアプリケーション本体モジュール
 
 import logging
 import pyxel as px
+from gameutils.lib import WindowSEHandler
 from const import APP_WIDTH, APP_HEIGHT, APP_TITLE, APP_FPS
 import service_locater as di
 
@@ -20,13 +21,11 @@ class GameApp:
 
         # Pyxel初期化処理
         logger.info("Initialize - Pyxel")
-        self.initialize_pyxel()
+        self.initialize_pyxel(7)
 
         # 外部ライブラリ初期化２（機能クラス）
-        # from gameutils.lib import SoundManager
-        # sndmgr = SoundManager()
-        # di.register(di.ServiceKey.SOUND_MANAGER, sndmgr)
-        # di.ref.sndmgr.load_bgm(0)
+        WindowSEHandler.set_func(di.ref.sndmgr.play_se_instant)
+
         # 背景マップ画像ロード
         di.ref.map.load_mapimage()
         # ダイス画像ロード
@@ -64,6 +63,7 @@ class GameApp:
         """pyxel updateフレーム処理"""
         di.ref.scnmgr.update()
         di.ref.cmdmgr.update()
+        di.ref.sndmgr.update()
 
     def draw(self):
         """pyxel drawフレーム処理"""
