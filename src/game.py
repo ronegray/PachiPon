@@ -7,6 +7,7 @@ Pyxelアプリケーション本体モジュール
 import logging
 import pyxel as px
 from gameutils.lib import WindowSEHandler
+from config import CONF_DISP_SIZE
 from const import APP_WIDTH, APP_HEIGHT, APP_TITLE, APP_FPS
 import service_locater as di
 
@@ -21,7 +22,8 @@ class GameApp:
 
         # Pyxel初期化処理
         logger.info("Initialize - Pyxel")
-        self.initialize_pyxel(7)
+        disp_scale = CONF_DISP_SIZE[di.ref.conf.display_size]["args"][1]
+        self.initialize_pyxel(disp_scale)
 
         # 外部ライブラリ初期化２（機能クラス）
         WindowSEHandler.set_func(di.ref.sndmgr.play_se_instant)

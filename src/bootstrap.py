@@ -13,11 +13,17 @@ from const import APP_FPS
 from gameutils.base import (
     initialize_input,
     load_keyconfig,
+    check_file,
+    read_json,
     FontManager,
     SoundManager,
+    BGM_CHANNELS,
+    SE_INSTANT_CH,
+    SE_SUSTAIN_CH,
     # ToneManager,
 )
-from assets.asset_map import AssetMap
+from config import ApplicationConfig, CONF_VOLUME  # , CONF_DISP_SIZE, CONF_TEXT_SPEED
+from assets.asset_map import AssetMap, AssetID
 from scene import SceneManager
 from field_map import MapGraph
 from item import ItemRepository, ItemPool, StackPool
@@ -51,6 +57,20 @@ def ipl():
     logger.info("Initialize - AssetMap")
     AssetMap.initialize_assetmap()
 
+    # コンフィグ設定のロード
+    path = check_file(AssetMap.get_assetpath(AssetID.SYSCONFIG))
+    # コンフィグファイルが無ければApplicationConfigのデフォルト値使用
+    if path is None:
+        conf = ApplicationConfig()
+    else:
+        data = read_json(path)
+        conf = ApplicationConfig(**data)
+    di.register(di.ServiceKey.APP_CONFIG, conf)
+    bgm_factor = CONF_VOLUME[di.ref.conf.vol_bgm]["args"][1]
+    di.ref.sndmgr.set_basegain_factor(bgm_factor, BGM_CHANNELS)
+    se_factor = CONF_VOLUME[di.ref.conf.vol_se]["args"][1]
+    di.ref.sndmgr.set_basegain_factor(se_factor, (SE_INSTANT_CH, SE_SUSTAIN_CH))
+
     # サービスロケータ登録：シーンマネージャ
     logger.info("Initialize - SceneManager")
     scnmgr = SceneManager()
@@ -69,7 +89,7 @@ def ipl():
     # サービスロケータ登録：イベントリポジトリ
     logger.info("Initialize - Event MasterData")
     evtrps = EventRepository()
-    di.register(di.ServiceKey.EVENT_MANAGER, evtrps)
+    di.register(di.ServiceKey.EVENT_REPOSITORY, evtrps)
 
     # サービスロケータ登録：ダイスロールエフェクト
     logger.info("Initialize - DiceRollEffect")
@@ -85,12 +105,12 @@ def ipl():
     # サービスロケータ登録：エネミーリポジトリ
     logger.info("Initialize - Enemy MasterData")
     enmrps = EnemyRepository()
-    di.register(di.ServiceKey.ENEMY_MANAGER, enmrps)
+    di.register(di.ServiceKey.ENEMY_REPOSITORY, enmrps)
 
     # サービスロケータ登録：アイテムリポジトリ
     logger.info("Initialize - Item MasterData")
     itemrps = ItemRepository()
-    di.register(di.ServiceKey.ITEM_MANAGER, itemrps)
+    di.register(di.ServiceKey.ITEM_REPOSITORY, itemrps)
     # アイテムデータプール初期化
     logger.info("Initialize - Item ObjectData")
     pl_item = ItemPool()
@@ -101,7 +121,7 @@ def ipl():
     # サービスロケータ登録：スキルリポジトリ
     logger.info("Initialize - Skill MasterData")
     sklrps = SkillRepository()
-    di.register(di.ServiceKey.SKILL_MANAGER, sklrps)
+    di.register(di.ServiceKey.SKILL_REPOSITORY, sklrps)
 
     # """リリース時は削除する"""
     # # プロトタイプ用初期アイテム (items.jsonの全アイテムを2つずつ作成)

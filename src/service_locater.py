@@ -15,6 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 if TYPE_CHECKING:
+    from config import ApplicationConfig
     from command import CommandManager
     from scene import SceneManager
     from event import EventRepository
@@ -29,18 +30,22 @@ if TYPE_CHECKING:
 class ServiceKey(Enum):
     """DIコンテナ用キー定義"""
 
+    APP_CONFIG = auto()
+    ITEM_REPOSITORY = auto()
+    SKILL_REPOSITORY = auto()
+    ENEMY_REPOSITORY = auto()
+    EVENT_REPOSITORY = auto()
+
     COMMAND_MANAGER = auto()
     SCENE_MANAGER = auto()
-    EVENT_MANAGER = auto()
-    MAPGRAPH = auto()
-    DICEROLL_EFFECT = auto()
     SOUND_MANAGER = auto()
-    ITEM_MANAGER = auto()
+
+    PARTY = auto()
     ITEMPOOL = auto()
     STACKPOOL = auto()
-    SKILL_MANAGER = auto()
-    PARTY = auto()
-    ENEMY_MANAGER = auto()
+    MAPGRAPH = auto()
+
+    DICEROLL_EFFECT = auto()
 
 
 # サービスコンテナ
@@ -64,6 +69,10 @@ def show() -> dict:
 # 型アクセサクラス
 class _Ref:
     @property
+    def conf(self) -> ApplicationConfig:
+        return _service_container[ServiceKey.APP_CONFIG]
+
+    @property
     def cmdmgr(self) -> CommandManager:
         return _service_container[ServiceKey.COMMAND_MANAGER]
 
@@ -73,7 +82,7 @@ class _Ref:
 
     @property
     def evtrps(self) -> EventRepository:
-        return _service_container[ServiceKey.EVENT_MANAGER]
+        return _service_container[ServiceKey.EVENT_REPOSITORY]
 
     @property
     def map(self) -> MapGraph:
@@ -93,11 +102,11 @@ class _Ref:
 
     @property
     def enmrps(self) -> EnemyRepository:
-        return _service_container[ServiceKey.ENEMY_MANAGER]
+        return _service_container[ServiceKey.ENEMY_REPOSITORY]
 
     @property
     def itemrps(self) -> ItemRepository:
-        return _service_container[ServiceKey.ITEM_MANAGER]
+        return _service_container[ServiceKey.ITEM_REPOSITORY]
 
     @property
     def pl_item(self) -> ItemPool:
@@ -109,7 +118,7 @@ class _Ref:
 
     @property
     def sklrps(self) -> SkillRepository:
-        return _service_container[ServiceKey.SKILL_MANAGER]
+        return _service_container[ServiceKey.SKILL_REPOSITORY]
 
 
 ref = _Ref()

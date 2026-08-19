@@ -121,8 +121,8 @@ class MenuLevelup(Menu):
         RC = self.key_check()
         return RC
 
-    def individual_update(self):
-        """MenuYesNoからの戻り値に応じた処理"""
+    # def individual_update(self):
+    #     """MenuYesNoからの戻り値に応じた処理"""
 
     def ask_confirm(self) -> RsltPush:
         return RsltPush(

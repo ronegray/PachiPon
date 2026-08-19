@@ -223,7 +223,7 @@ class Window:
         self.frame_counter += 1
         # menuモードのウインドウは基本的にupdateを実行しないが念の為
         # if self.window_mode == "menu":
-        if self.window_mode in ("menu", "sub"):
+        if self.window_mode in ("menu", "sub", "hold"):
             return WindowAction.CONTINUE
         # waitモード時は待機フレーム数が過ぎると全終了
         if self.window_mode == "wait" and self.frame_counter <= self.wait_frame:

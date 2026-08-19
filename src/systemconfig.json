@@ -1,0 +1,9 @@
+{
+    "vol_bgm": 0,
+    "vol_se": 2,
+    "display_size": 5,
+    "is_fullscreen": false,
+    "text_speed": 3,
+    "is_memory_cursor": true,
+    "is_cutin_dice": false
+}

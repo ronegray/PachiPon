@@ -11,37 +11,15 @@
         [{"id": "データ３", "action": "load_data", "args": 2}],
         [{"id": "データ４", "action": "load_data", "args": 3}]
     ],
-    "MenuConfig": [
+    "MenuSelectConfigTarget": [
         [{"id": "ＢＧＭ音量", "action": "set_vol_bgm"}],
         [{"id": "効果音音量", "action": "set_vol_se"}],
         [{"id": "画面サイズ", "action": "set_dispsize"}],
         [{"id": "全画面表示", "action": "set_fullscreen"}],
         [{"id": "文字待ち時間", "action": "set_textspeed"}],
-        [{"id": "カーソル位置", "action": "set_dispsize"}],
+        [{"id": "カーソル位置", "action": "set_cursorpos"}],
         [{"id": "ダイス演出", "action": "set_cutin_dice"}],
         [{"id": "キー割り当て", "action": "assign_key"}]
-    ],
-    "MenuVolume": [
-        [{"id": "最大", "action": "none", "args": [1]}],
-        [{"id": "大きめ", "action": "none", "args": [0.5]}],
-        [{"id": "標準", "action": "none", "args": [0.25]}],
-        [{"id": "小さめ", "action": "none", "args": [0.125]}],
-        [{"id": "極小", "action": "none", "args": [0.0625]}],
-        [{"id": "無音", "action": "none", "args": [0.0]}]
-    ],
-    "MenuDispSize": [
-        [{"id": "最大", "action": "none", "args": [7]}],
-        [{"id": "大きめ", "action": "none", "args": [5]}],
-        [{"id": "標準", "action": "none", "args": [3]}],
-        [{"id": "小さめ", "action": "none", "args": [2]}],
-        [{"id": "極小", "action": "none", "args": [1]}]
-    ],
-    "MenuTextSpeed": [
-        [{"id": "キー待ち", "action": "none", "args": [7]}],
-        [{"id": "遅め", "action": "none", "args": [5]}],
-        [{"id": "標準", "action": "none", "args": [3]}],
-        [{"id": "速め", "action": "none", "args": [2]}],
-        [{"id": "待ち無し", "action": "none", "args": [1]}]
     ],
     "MenuField": [
         [{"id": "店に行く", "action": "enter_shop"},{"id": "力を見る", "action": "show_status"}],

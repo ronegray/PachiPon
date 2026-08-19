@@ -179,15 +179,20 @@ class SoundManager:
         self._gain_factor: float = 1.0
         # self._base_gain_value: float = computebase_gain(NUM_CHANNELS)
         self._ch_base_gain: dict[int, float] = {}
-        self._update_basegain_cache()
-        self._apply_base_gain_all()
+        # self._update_basegain_cache()
+        # self._apply_base_gain_all()
+        for ch in range(NUM_CHANNELS):
+            self._update_basegain_cache(ch)
+            self._apply_base_gain(ch)
 
         self._bgm_fade = FadeController()  # current_factor=1.0からスタート
         # self._current_music_index: int = -1 # 負を未設定としたint確定のパラメタとする
         self._lib_music_score = MusicScoreLibrary()
 
     # ---------- config反映 ----------
-    def set_basegain_factor(self, factor_level: float = 0.7):
+    def set_basegain_factor(
+        self, factor_level: float = 0.7, seq_ch: tuple = BGM_CHANNELS
+    ):
         # if factor > 1.0:
         #     print(f"[SoundManager] gain_factor={factor} は1.0を超えています。1.0にクランプします。")
         #     factor = 1.0
@@ -205,23 +210,35 @@ class SoundManager:
         factor = factor_level**2  # 小さい音量程変化幅が小さくなる
 
         self._gain_factor = factor
-        self._update_basegain_cache()
-        self._apply_base_gain_all()
+        # self._update_basegain_cache()
+        # self._apply_base_gain_all()
+        for ch in seq_ch:
+            self._update_basegain_cache(ch)
+            self._apply_base_gain(ch)
 
-    def _update_basegain_cache(self):
+    def _update_basegain_cache(self, ch: int):
         """全チャンネルのデフォルト音量値キャッシュを更新"""
         gain = self._base_gain * self._gain_factor
-        self._ch_base_gain = {ch: gain for ch in range(NUM_CHANNELS)}
+        self._ch_base_gain[ch] = gain
 
-    def _apply_base_gain_all(self):
-        # for ch, gain in self._ch_base_gain.items():
-        #     px.channels[ch].gain = gain
-        """全チャンネルの音量値をキャッシュから設定
-        チャンネル側を軸として定義をおこなう"""
-        # for ch, gain in self._ch_base_gain.items():
-        #     px.channels[ch].gain = gain
-        for i, ch in enumerate(px.channels):
-            ch.gain = self._ch_base_gain.get(i, self._base_gain / 10)
+    def _apply_base_gain(self, ch: int):
+        """チャンネルの音量値をキャッシュから設定"""
+        px.channels[ch].gain = self._ch_base_gain.get(ch, self._base_gain / 10)
+
+    # def _update_basegain_cache(self):
+    #     """全チャンネルのデフォルト音量値キャッシュを更新"""
+    #     gain = self._base_gain * self._gain_factor
+    #     self._ch_base_gain = {ch: gain for ch in range(NUM_CHANNELS)}
+
+    # def _apply_base_gain_all(self):
+    #     # for ch, gain in self._ch_base_gain.items():
+    #     #     px.channels[ch].gain = gain
+    #     """全チャンネルの音量値をキャッシュから設定
+    #     チャンネル側を軸として定義をおこなう"""
+    #     # for ch, gain in self._ch_base_gain.items():
+    #     #     px.channels[ch].gain = gain
+    #     for i, ch in enumerate(px.channels):
+    #         ch.gain = self._ch_base_gain.get(i, self._base_gain / 10)
 
     # ---------- リソースロード ----------
     # def load_assets(self, resource_path: str):

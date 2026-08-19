@@ -76,6 +76,8 @@ class WindowManager:
                             case RsltContinue():
                                 action = WindowAction.CONTINUE
                             case RsltPop():
+                                for func_on_pop in exec_result.on_pop:
+                                    func_on_pop()
                                 self.pop_stack()
                                 action = WindowAction.CLOSE
                             case RsltDiscard():
