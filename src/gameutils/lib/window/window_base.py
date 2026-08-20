@@ -40,8 +40,8 @@ class WindowInputHandler:
             right=wrapper_dict.get("right", lambda: False),
             decide=wrapper_dict.get("decide", lambda: False),
             cancel=wrapper_dict.get("cancel", lambda: False),
-            other1=wrapper_dict.get("other1", lambda: False),
-            other2=wrapper_dict.get("other2", lambda: False),
+            action=wrapper_dict.get("action", lambda: False),
+            menu=wrapper_dict.get("menu", lambda: False),
             LS=wrapper_dict.get("LS", lambda: False),
             RS=wrapper_dict.get("RS", lambda: False),
         )
@@ -58,7 +58,7 @@ class WindowInputHandler:
 
 
 class WindowSEHandler:
-    """鳴音関数の管理"""
+    """効果音鳴音用関数の管理"""
 
     def __init__(self):
         self.play: Callable = lambda sound_id: px.play(ch=3, snd=sound_id, resume=True)

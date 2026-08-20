@@ -19,8 +19,8 @@ class WindowInputWrapper:
     right: Callable[[], bool] = field(default=lambda: False)
     decide: Callable[[], bool] = field(default=lambda: False)
     cancel: Callable[[], bool] = field(default=lambda: False)
-    other1: Callable[[], bool] = field(default=lambda: False)
-    other2: Callable[[], bool] = field(default=lambda: False)
+    action: Callable[[], bool] = field(default=lambda: False)
+    menu: Callable[[], bool] = field(default=lambda: False)
     start: Callable[[], bool] = field(default=lambda: False)
     select: Callable[[], bool] = field(default=lambda: False)
     LS: Callable[[], bool] = field(default=lambda: False)
@@ -29,7 +29,7 @@ class WindowInputWrapper:
 
 def set_default_pyxel_input() -> WindowInputWrapper:
     """外部入力機能を使わない場合のデフォルト定義（オプション）"""
-    _hold_frames, _repeat_frames = 12, 6
+    _hold_frames, _repeat_frames = 9, 3
     return WindowInputWrapper(
         up=lambda: (
             px.btnp(px.KEY_UP, _hold_frames, _repeat_frames)
@@ -49,8 +49,8 @@ def set_default_pyxel_input() -> WindowInputWrapper:
         ),
         decide=lambda: px.btnp(px.KEY_Z) or px.btnp(px.GAMEPAD1_BUTTON_A),
         cancel=lambda: px.btnp(px.KEY_X) or px.btnp(px.GAMEPAD1_BUTTON_B),
-        other1=lambda: px.btnp(px.KEY_C) or px.btnp(px.GAMEPAD1_BUTTON_X),
-        other2=lambda: px.btnp(px.KEY_V) or px.btnp(px.GAMEPAD1_BUTTON_Y),
+        action=lambda: px.btnp(px.KEY_C) or px.btnp(px.GAMEPAD1_BUTTON_X),
+        menu=lambda: px.btnp(px.KEY_V) or px.btnp(px.GAMEPAD1_BUTTON_Y),
         start=lambda: px.btnp(px.KEY_RETURN) or px.btnp(px.GAMEPAD1_BUTTON_START),
         select=lambda: px.btnp(px.KEY_SHIFT) or px.btnp(px.GAMEPAD1_BUTTON_BACK),
         LS=lambda: px.btnp(px.KEY_LSHIFT) or px.btnp(px.GAMEPAD1_BUTTON_LEFTSHOULDER),

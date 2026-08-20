@@ -156,7 +156,7 @@ class SceneField(BaseScene):
         self.is_close_window = is_pressed("cancel", "keep")
 
         # メニューキー判定
-        if is_pressed("other1"):
+        if is_pressed("menu"):
             if self.wndmgr.has_stack:
                 self.wndmgr.pop_stack()
             else:

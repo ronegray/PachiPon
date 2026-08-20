@@ -168,7 +168,7 @@ class MenuSelectEquipSlot(Menu):
             # px.play(self.se_ch, self.ui_se["CANCEL"], resume=True)
             self.se.play(self.ui_se["CANCEL"])
             return WindowAction.CLOSE
-        elif self.inputkey.other1():
+        elif self.inputkey.action():
             # px.play(self.se_ch, SoundID.CHANGE_EQUIP, resume=True)
             self.se.play(SoundID.CHANGE_EQUIP)
             member = di.ref.pt.get_member(self.member_index)

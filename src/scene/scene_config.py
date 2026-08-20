@@ -10,8 +10,9 @@ import logging
 from dataclasses import asdict
 import pyxel as px
 from assets.asset_map import AssetID, AssetMap
-from gameutils.base import input, check_file, write_json
+from gameutils.base import get_keymap, check_file, write_json
 from gameutils.lib import Window, WindowAction
+from helper import upper_str
 import service_locater as di
 from menu import MenuSelectConfigTarget
 from config import CONF_VOLUME, CONF_DISP_SIZE, CONF_TEXT_SPEED
@@ -96,49 +97,51 @@ class SceneConfig(BaseScene):
         self.config_info.append(f"カーソル位置：{curpos}")
         cutin_dice = "表示する" if di.ref.conf.is_cutin_dice else "非表示"
         self.config_info.append(f"ダイス演出　：{cutin_dice}")
-        # self.config_info.append("キー割り当て：")
+        self.config_info.append("キー割り当て：")
         # キーアサイン
         self.keybind = [
-            ["キー割り当て：", " ", " "],
-            ["アクション", "ゲームパッド", "キーボード"],
+            # ["キー割り当て：", " ", " "],
+            ["アクション", "パッド", "キー"],
         ]
+        # keymap_pad = {
+        #     action_name: self.key_names.get(
+        #         keymaps["code"], f"Unknown({keymaps["code"]})"
+        #     )
+        #     for action_name, keymaps in get_keymap("pad").items()
+        # }
+        # logger.debug(get_keymap("pad"))
+        # keymap_kbd = {
+        #     action_name: self.key_names.get(
+        #         keymaps["code"], f"Unknown({keymaps["code"]})"
+        #     )
+        #     for action_name, keymaps in get_keymap("kbd").items()
+        # }
+        # logger.debug(get_keymap("kbd"))
+        ASSIGNABLE_ACTIONS = {
+            "decide": "決定／イベント開始",
+            "cancel": "取消／ウインドウ消去",
+            "menu": "メニュー表示",
+        }
         keymap_pad = {
             action_name: self.key_names.get(
-                keymaps["code"], f"Unknown({keymaps["code"]})"
+                keymaps[0]["code"], f"Unknown({keymaps[0]["code"]})"
             )
-            for action_name, keymaps in input.get_keymap("pad").items()
+            for action_name, keymaps in get_keymap("pad").items()
+            if action_name in ASSIGNABLE_ACTIONS
         }
-        logger.debug(input.get_keymap("pad"))
         keymap_kbd = {
             action_name: self.key_names.get(
-                keymaps["code"], f"Unknown({keymaps["code"]})"
+                keymaps[0]["code"], f"Unknown({keymaps[0]["code"]})"
             )
-            for action_name, keymaps in input.get_keymap("kbd").items()
+            for action_name, keymaps in get_keymap("kbd").items()
+            if action_name in ASSIGNABLE_ACTIONS
         }
-        logger.debug(input.get_keymap("kbd"))
-        ASSIGNABLE_ACTIONS_INDEX = {
-            "up": 0,
-            "down": 1,
-            "left": 2,
-            "right": 3,
-            "decide": 4,
-            "cancel": 5,
-        }
-        ASSIGNABLE_ACTIONS = [
-            "うえ",
-            "した",
-            "ひだり",
-            "みぎ",
-            "けってい／しらべる",
-            "キャンセル／もどる",
-        ]
-
-        for action_key, action_name_id in ASSIGNABLE_ACTIONS_INDEX.items():
+        for action_key, action_name in ASSIGNABLE_ACTIONS.items():
             self.keybind += [
                 [
-                    ASSIGNABLE_ACTIONS[action_name_id],
-                    keymap_pad[action_key],
-                    keymap_kbd[action_key],
+                    action_name,
+                    upper_str(keymap_pad[action_key]),
+                    upper_str(keymap_kbd[action_key]),
                 ]
             ]
 
@@ -155,12 +158,12 @@ class SceneConfig(BaseScene):
         for txt in self.config_info:
             px.text(x, y, txt, px.COLOR_WHITE, self.window_config_info.font)
             y += 13
-        y += 32
-        x = 16
+        # y += 32
+        x = 104
         for name, pad, kbd in self.keybind:
             px.text(x, y, name, px.COLOR_WHITE, self.window_config_info.font)
-            px.text(x + 80, y, pad, px.COLOR_WHITE, self.window_config_info.font)
-            px.text(x + 160, y, kbd, px.COLOR_WHITE, self.window_config_info.font)
+            px.text(x + 92, y, pad, px.COLOR_WHITE, self.window_config_info.font)
+            px.text(x + 124, y, kbd, px.COLOR_WHITE, self.window_config_info.font)
             y += px.ceil(self.window_config_info.fontdata.height * 1.25)
 
     def draw(self) -> None:
