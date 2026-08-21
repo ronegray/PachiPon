@@ -46,8 +46,8 @@ def ipl():
     # 外部ライブラリ初期化１（基礎クラス）
     logger.info("Initialize - gameutils.base")
     initialize_input(APP_FPS)
-
     load_keyconfig()
+
     FontManager.initialize()
     # tonemgr = ToneManager()
     sndmgr = SoundManager()

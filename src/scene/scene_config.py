@@ -12,10 +12,11 @@ import pyxel as px
 from assets.asset_map import AssetID, AssetMap
 from gameutils.base import get_keymap, check_file, write_json
 from gameutils.lib import Window, WindowAction
-from helper import upper_str
+
+# from helper import upper_str
 import service_locater as di
 from menu import MenuSelectConfigTarget
-from config import CONF_VOLUME, CONF_DISP_SIZE, CONF_TEXT_SPEED
+from config import CONF_VOLUME, CONF_DISP_SIZE, CONF_TEXT_SPEED, ASSIGNABLE_KEY_ACTIONS
 from . import BaseScene
 
 
@@ -46,13 +47,6 @@ class SceneConfig(BaseScene):
         )
         self.window_titlebar.set_message(["　　　　　システムコンフィグ"])
 
-        # コンフィグ項目選択メニュー
-        self.wndmgr.push_stack(
-            MenuSelectConfigTarget,
-            self.window_titlebar.y + title_h,
-            self.build_config_info,
-        )
-
         # pyxel標準キー定義名
         self.key_names = {
             getattr(px, name): name.replace("KEY_", "")
@@ -64,6 +58,13 @@ class SceneConfig(BaseScene):
         # コンフィグ情報テキスト生成
         self.build_config_info()
 
+        # コンフィグ項目選択メニュー
+        self.wndmgr.push_stack(
+            MenuSelectConfigTarget,
+            self.window_titlebar.y + title_h,
+            self.build_config_info,
+        )
+
         """前シーンのBGMを引き継ぐ為設定不要"""
 
     def update(self) -> None:
@@ -73,7 +74,7 @@ class SceneConfig(BaseScene):
         ):
             di.ref.scnmgr.previous_scene(False)
 
-    def build_config_info(self) -> None:
+    def build_config_info(self) -> list:
         """描画用のコンフィグ現在設定情報文字列を生成"""
         self.config_info.clear()
         self.keybind.clear()
@@ -98,58 +99,88 @@ class SceneConfig(BaseScene):
         cutin_dice = "表示する" if di.ref.conf.is_cutin_dice else "非表示"
         self.config_info.append(f"ダイス演出　：{cutin_dice}")
         self.config_info.append("キー割り当て：")
-        # キーアサイン
-        self.keybind = [
-            # ["キー割り当て：", " ", " "],
-            ["アクション", "パッド", "キー"],
-        ]
+        # # キーアサイン
+        # self.keybind = [
+        #     # ["キー割り当て：", " ", " "],
+        #     ["アクション", "パッド", "キー"],
+        # ]
+        # # keymap_pad = {
+        # #     action_name: self.key_names.get(
+        # #         keymaps["code"], f"Unknown({keymaps["code"]})"
+        # #     )
+        # #     for action_name, keymaps in get_keymap("pad").items()
+        # # }
+        # # logger.debug(get_keymap("pad"))
+        # # keymap_kbd = {
+        # #     action_name: self.key_names.get(
+        # #         keymaps["code"], f"Unknown({keymaps["code"]})"
+        # #     )
+        # #     for action_name, keymaps in get_keymap("kbd").items()
+        # # }
+        # # logger.debug(get_keymap("kbd"))
+
         # keymap_pad = {
         #     action_name: self.key_names.get(
-        #         keymaps["code"], f"Unknown({keymaps["code"]})"
+        #         keymaps[0]["code"], f"Unknown({keymaps[0]["code"]})"
         #     )
         #     for action_name, keymaps in get_keymap("pad").items()
+        #     if action_name in ASSIGNABLE_KEY_ACTIONS
         # }
-        # logger.debug(get_keymap("pad"))
         # keymap_kbd = {
         #     action_name: self.key_names.get(
-        #         keymaps["code"], f"Unknown({keymaps["code"]})"
+        #         keymaps[0]["code"], f"Unknown({keymaps[0]["code"]})"
         #     )
         #     for action_name, keymaps in get_keymap("kbd").items()
+        #     if action_name in ASSIGNABLE_KEY_ACTIONS
         # }
-        # logger.debug(get_keymap("kbd"))
-        ASSIGNABLE_ACTIONS = {
-            "decide": "決定／イベント開始",
-            "cancel": "取消／ウインドウ消去",
-            "menu": "メニュー表示",
-        }
-        keymap_pad = {
-            action_name: self.key_names.get(
-                keymaps[0]["code"], f"Unknown({keymaps[0]["code"]})"
-            )
-            for action_name, keymaps in get_keymap("pad").items()
-            if action_name in ASSIGNABLE_ACTIONS
-        }
-        keymap_kbd = {
-            action_name: self.key_names.get(
-                keymaps[0]["code"], f"Unknown({keymaps[0]["code"]})"
-            )
-            for action_name, keymaps in get_keymap("kbd").items()
-            if action_name in ASSIGNABLE_ACTIONS
-        }
-        for action_key, action_name in ASSIGNABLE_ACTIONS.items():
-            self.keybind += [
-                [
-                    action_name,
-                    upper_str(keymap_pad[action_key]),
-                    upper_str(keymap_kbd[action_key]),
-                ]
-            ]
+        # for action_key, action_name in ASSIGNABLE_KEY_ACTIONS.items():
+        #     self.keybind += [
+        #         [
+        #             action_name,
+        #             upper_str(keymap_pad[action_key]),
+        #             upper_str(keymap_kbd[action_key]),
+        #         ]
+        #     ]
+        keyassign = self.build_keyassign_matrix()
 
         # 情報作成時＝データ内容変更時と捉えて、データ内容をファイルに出力
         path = check_file(AssetMap.get_assetpath(AssetID.SYSCONFIG), "w")
         if path is None:
             raise SystemError("コンフィグファイルが出力出来ません")
         write_json(path, asdict(di.ref.conf))
+
+        return keyassign
+
+    def build_keyassign_matrix(self) -> list:
+        # キーアサイン
+        self.keybind = [
+            ["アクション", "パッド", "キー"],
+        ]
+        keymap_pad = {
+            action_name: self.key_names.get(
+                keymaps[0]["code"], f"Unknown({keymaps[0]["code"]})"
+            )
+            for action_name, keymaps in get_keymap("pad").items()
+            if action_name in ASSIGNABLE_KEY_ACTIONS
+        }
+        keymap_kbd = {
+            action_name: self.key_names.get(
+                keymaps[0]["code"], f"Unknown({keymaps[0]["code"]})"
+            )
+            for action_name, keymaps in get_keymap("kbd").items()
+            if action_name in ASSIGNABLE_KEY_ACTIONS
+        }
+        for action_key, action_name in ASSIGNABLE_KEY_ACTIONS.items():
+            self.keybind += [
+                [
+                    action_name,
+                    # upper_str(keymap_pad[action_key]),
+                    # upper_str(keymap_kbd[action_key]),
+                    (keymap_pad[action_key]),
+                    (keymap_kbd[action_key]),
+                ]
+            ]
+        return self.keybind
 
     def draw_config_info(self) -> None:
         """事前に生成したコンフィグ現在設定情報を描画"""

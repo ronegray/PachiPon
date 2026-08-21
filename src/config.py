@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import pyxel as px
 
 # menu_structure.jsonから移植
 # "MenuVolume": [
@@ -55,6 +56,33 @@ CONF_TEXT_SPEED: dict = {
     1: {"label": "速め", "action": "none", "args": [1, 4]},
     0: {"label": "待ち無し", "action": "none", "args": [0, 9]},
 }
+
+
+ASSIGNABLE_KEY_ACTIONS = {
+    "decide": "決定／イベント開始",
+    "cancel": "取消／ウインドウ消去",
+    "menu": "メニュー表示",
+}
+
+
+KEYCODE_UNASSIGNABLE = [
+    px.GAMEPAD1_BUTTON_DPAD_UP,
+    px.GAMEPAD1_BUTTON_DPAD_DOWN,
+    px.GAMEPAD1_BUTTON_DPAD_LEFT,
+    px.GAMEPAD1_BUTTON_DPAD_RIGHT,
+    px.GAMEPAD1_AXIS_LEFTX,
+    px.GAMEPAD1_AXIS_LEFTY,
+    px.GAMEPAD1_AXIS_RIGHTX,
+    px.GAMEPAD1_AXIS_RIGHTY,
+    px.KEY_UP,
+    px.KEY_DOWN,
+    px.KEY_LEFT,
+    px.KEY_RIGHT,
+    px.KEY_W,
+    px.KEY_A,
+    px.KEY_S,
+    px.KEY_D,
+]
 
 
 @dataclass

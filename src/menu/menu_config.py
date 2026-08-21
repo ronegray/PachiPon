@@ -7,18 +7,33 @@ from typing import Callable
 import pyxel as px
 import service_locater as di
 
-# from const import SoundID
-from config import CONF_VOLUME, CONF_DISP_SIZE, CONF_TEXT_SPEED
-from gameutils.base import BGM_CHANNELS, SE_INSTANT_CH, SE_SUSTAIN_CH  # , get_keymap
+from const import SoundID
+from config import (
+    CONF_VOLUME,
+    CONF_DISP_SIZE,
+    CONF_TEXT_SPEED,
+    ASSIGNABLE_KEY_ACTIONS,
+    KEYCODE_UNASSIGNABLE,
+)
+from gameutils.base import (
+    BGM_CHANNELS,
+    SE_INSTANT_CH,
+    SE_SUSTAIN_CH,
+    listener,
+    keybind,
+    unbind_action,
+)
 from gameutils.lib import (
     Window,
     Menu,
     MenuYesNo,
     MENU_ITEM_LIST,
+    WindowAction,
     ExecResult,
     RsltPush,
     RsltPop,
 )
+
 
 # ロギング設定
 logger = logging.getLogger(__name__)
@@ -116,7 +131,9 @@ class MenuSelectConfigTarget(Menu):
         )
 
     def assign_key(self):
-        return RsltPush(MenuAssignKey)
+        return RsltPush(
+            MenuAssignKey, self.cursor_x, self.cursor_y, self.build_config_info
+        )
 
 
 class MenuConfigVolume(Menu):
@@ -272,68 +289,144 @@ class MenuConfigTextSpeed(Menu):
 
 class MenuAssignKey(Menu):
     ...
-    # def __init__(self):
-    #     self.key_names = {getattr(px, name): name.replace("KEY_", "").replace("GAMEPAD1_", "")
-    #                       for name in dir(px)
-    #                       if name.startswith("KEY_") or name.startswith("GAMEPAD1_")
-    #     }
 
-    #     item_list = self.build_keyassign_matrix()
-    #     super().__init__(px.width//2 -96 ,8, [3,7], item_list, 7, 5)
-    #     # self.prefix     = "なまえ　：　"
-    #     # self.InputName  = ""
-    #     self.insMsgWnd  = Window(px.width//2 - (P_CHIP_SIZE*17)//2, px.height//1.5, P_CHIP_SIZE*17, P_CHIP_SIZE*5, 0)
-    #     # self.txtMsg     = Message(self.insMsgWnd.P_x+P_CHIP_SIZE, self.insMsgWnd.P_y+P_CHIP_SIZE*2, [self.prefix + self.InputName])
-    #     self.txtMsg     = Message(self.insMsgWnd.P_x+P_CHIP_SIZE, self.insMsgWnd.P_y+P_CHIP_SIZE*2, ["わりあてるキーをおしてください"])
+    def __init__(self, x: int, y: int, build_config_info: Callable):
+        # self.key_names = {getattr(px, name): name.replace("KEY_", "").replace("GAMEPAD1_", "")
+        #                   for name in dir(px)
+        #                   if name.startswith("KEY_") or name.startswith("GAMEPAD1_")
+        # }
+        self.build_config_info = build_config_info
+        item_list = self.build_config_info()
+        # super().__init__(px.width//2 -96 ,8, [3,7], item_list, 7, 5)
+        row_offset = 2
+        menu_pos_x, menu_pos_y = (
+            x + Window._chip_size,
+            y + Window._chip_size + row_offset,
+        )
+        menu_shape = [3, 4]
+        super().__init__("basic", menu_pos_x, menu_pos_y, menu_shape, item_list)
+        self.cursor_row_offset += 2
 
-    #     self.flgMsgWnd2 = False
-    #     self.Parent = Parent
-    #     self.posCursor = [1,1]
+        # self.insMsgWnd  = Window(px.width//2 - (P_CHIP_SIZE*17)//2, px.height//1.5, P_CHIP_SIZE*17, P_CHIP_SIZE*5, 0)
+        # # self.txtMsg     = Message(self.insMsgWnd.P_x+P_CHIP_SIZE, self.insMsgWnd.P_y+P_CHIP_SIZE*2, [self.prefix + self.InputName])
+        # self.txtMsg     = Message(self.insMsgWnd.P_x+P_CHIP_SIZE, self.insMsgWnd.P_y+P_CHIP_SIZE*2, ["わりあてるキーをおしてください"])
+        suggest_x, suggest_y = menu_pos_x, menu_pos_y + self.height
+        suggest_w, suggest_h = 128, 24
+        self.suggest_window = Window(
+            "basic", suggest_x, suggest_y, suggest_w, suggest_h, "hold"
+        )
+        self.suggest_window.set_message(["割り当てるキーを押して下さい"])
+        self.is_keylisten: bool = False
 
-    # @classmethod
-    # def build_keyassign_matrix(cls) -> list:
-    #     item_list = [["アクション","ゲームパッド","キーボード"]]
-    #     self.keymap_pad = {action_name: self.key_names.get(keymaps["code"],
-    #                                                    f"Unknown({keymaps["code"]})")
-    #                    for action_name, keymaps in get_keymap("pad").items()}
-    #     self.keymap_kbd = {action_name: self.key_names.get(keymaps["code"],
-    #                                                    f"Unknown({keymaps["code"]})")
-    #                    for action_name, keymaps in get_keymap("kbd").items()}
-    #     for action_key, action_name_id in ASSIGNABLE_ACTIONS_INDEX.items():
-    #         item_list += [[ASSIGNABLE_ACTIONS[action_name_id],
-    #                    self.keymap_pad[action_key], self.keymap_kbd[action_key]]]
-    #         print(item_list)
+        self.cursor_position = [1, 1]
 
-    #     return item_list
+    def update(self) -> WindowAction:
+        # if self.flgMsgWnd:
+        #     if self.posCursor[0] % self.wndSize[0] == 1:
+        #         target = "pad"
+        #     elif self.posCursor[0] % self.wndSize[0] == 2:
+        #         target = "kbd"
+        #     response = inp.listener(target)
+        #     if response:
+        #         action_name = list(ASSIGNABLE_ACTIONS_INDEX.keys())[(self.posCursor[1]-1) % self.wndSize[1]]
+        #         inp.keybind(action_name, *response, target)
+        #         self.items = self.build_keyassign_matrix()
+        #         self.flgMsgWnd = False
+        #     return True
 
-    # def update(self):
-    #     if self.flgMsgWnd:
-    #         if self.posCursor[0] % self.wndSize[0] == 1:
-    #             target = "pad"
-    #         elif self.posCursor[0] % self.wndSize[0] == 2:
-    #             target = "kbd"
-    #         response = inp.listener(target)
-    #         if response:
-    #             action_name = list(ASSIGNABLE_ACTIONS_INDEX.keys())[(self.posCursor[1]-1) % self.wndSize[1]]
-    #             inp.keybind(action_name, *response, target)
-    #             self.items = self.build_keyassign_matrix()
-    #             self.flgMsgWnd = False
-    #         return True
+        # if inp.is_pressed("decide"):
+        #     px.play(3,SNDEFX["pi"], resume=True)
+        #     if self.flgMsgWnd is False:
+        #         self.flgMsgWnd = True
+        #         return True
 
-    #     if inp.is_pressed("decide"):
-    #         px.play(3,SNDEFX["pi"], resume=True)
-    #         if self.flgMsgWnd is False:
-    #             self.flgMsgWnd = True
-    #             return True
+        # if inp.is_pressed("cancel"):
+        #     px.play(3,SNDEFX["pi"], resume=True)
+        #     self.flgMsgWnd = False
+        #     return False
+        #     self.Parent.now_scene = SCENE_STATUS["Title"]
 
-    #     if inp.is_pressed("cancel"):
-    #         px.play(3,SNDEFX["pi"], resume=True)
-    #         self.flgMsgWnd = False
-    #         return False
-    #         self.Parent.now_scene = SCENE_STATUS["Title"]
+        # self.moveCursor()
+        # return True
+        if self.is_keylisten:
+            match self.cursor_position[0]:
+                case 1:
+                    target = "pad"
+                case 2:
+                    target = "kbd"
+            response = listener(target)
+            if response != (-999, -999):
+                if response[0] in KEYCODE_UNASSIGNABLE:
+                    di.ref.sndmgr.play_se_instant(SoundID.ERROR)
+                    self.is_keylisten = False
+                    return WindowAction.CONTINUE
+                action_name = list(ASSIGNABLE_KEY_ACTIONS)[self.cursor_position[1] - 1]
+                unbind_action(action_name, target)
+                keybind(action_name, *response, target)
+                items = self.build_config_info()
+                self.build_menu_items(items)
+                self.is_keylisten = False
+            return WindowAction.CONTINUE
 
-    #     self.moveCursor()
-    #     return True
+        """キー入力に応じたカーソル移動とインデックス制御"""
+
+        def _move_cursor() -> bool:
+            if self.inputkey.up():
+                self.cursor_position[1] = (
+                    self.cursor_position[1] - 1
+                ) % self.menu_shape[1]
+                if self.cursor_position[1] == 0:
+                    self.cursor_position[1] = (
+                        self.cursor_position[1] - 1
+                    ) % self.menu_shape[1]
+                return True
+            if self.inputkey.left():
+                self.cursor_position[0] = (
+                    self.cursor_position[0] - 1
+                ) % self.menu_shape[0]
+                if self.cursor_position[0] == 0:
+                    self.cursor_position[0] = (
+                        self.cursor_position[0] - 1
+                    ) % self.menu_shape[0]
+                return True
+            if self.inputkey.down():
+                self.cursor_position[1] = (
+                    self.cursor_position[1] + 1
+                ) % self.menu_shape[1]
+                if self.cursor_position[1] == 0:
+                    self.cursor_position[1] = (
+                        self.cursor_position[1] + 1
+                    ) % self.menu_shape[1]
+                return True
+            if self.inputkey.right():
+                self.cursor_position[0] = (
+                    self.cursor_position[0] + 1
+                ) % self.menu_shape[0]
+                if self.cursor_position[0] == 0:
+                    self.cursor_position[0] = (
+                        self.cursor_position[0] + 1
+                    ) % self.menu_shape[0]
+                return True
+            return False
+
+        """キー入力の確認と応答"""
+        if _move_cursor():
+            self.se.play(self.ui_se["CURSOR_VERTICAL"])
+        elif self.inputkey.decide():
+            self.se.play(self.ui_se["DECIDE"])
+            if self.is_keylisten is False:
+                self.is_keylisten = True
+            return WindowAction.EXECUTE
+        elif self.inputkey.cancel():
+            self.is_keylisten = False
+            return WindowAction.CLOSE
+        return WindowAction.CONTINUE
+
+    def draw(self) -> None:
+        super().draw()
+        if self.is_keylisten:
+            self.suggest_window.draw()
+            self.suggest_window.draw_message()
 
     # def moveCursor(self):
     #     if inp.is_pressed("up", "hold"):

@@ -453,6 +453,9 @@ class Menu:
     def height(self):
         return self.windows["main"].height
 
+    def update_keyassign(self) -> None:
+        WindowInputHandler.update_window_input()
+
     # def build_menu_items(self, menu_source: str | list[list[dict[str, str|list]]]):
     def build_menu_items(self, menu_source: str | MENU_ITEM_LIST):
         if isinstance(menu_source, str):  # メニュー固定項目指定時

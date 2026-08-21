@@ -17,6 +17,7 @@ from .input import (
     TARGET_DEVICE,
     ACTION_NAME,
     initialize_input,
+    unbind_action,
     keybind,
     listener,
     is_pressed,
