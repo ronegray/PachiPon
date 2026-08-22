@@ -5,5 +5,5 @@
     "is_fullscreen": false,
     "text_speed": 4,
     "is_memory_cursor": true,
-    "is_cutin_dice": true
+    "is_cutin_dice": false
 }

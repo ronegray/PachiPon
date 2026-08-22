@@ -22,6 +22,7 @@ from gameutils.base import (
     SE_SUSTAIN_CH,
     # ToneManager,
 )
+from wiring_window_input import wire_window_input_from_input_system
 from config import ApplicationConfig, CONF_VOLUME  # , CONF_DISP_SIZE, CONF_TEXT_SPEED
 from assets.asset_map import AssetMap, AssetID
 from scene import SceneManager
@@ -47,6 +48,7 @@ def ipl():
     logger.info("Initialize - gameutils.base")
     initialize_input(APP_FPS)
     load_keyconfig()
+    wire_window_input_from_input_system()
 
     FontManager.initialize()
     # tonemgr = ToneManager()

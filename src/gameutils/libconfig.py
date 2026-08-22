@@ -1,11 +1,16 @@
-"""libconfig.py
-gameutilsライブラリで使用するリソースファイルのパス定義
+"""
+gameutilsライブラリ群で利用する設定を纏めたクラス
 """
 
 from enum import StrEnum
 
 
 class ResourcePath(StrEnum):
+    """
+    gameutilsライブラリで使用するリソース類のパス定義
+    アプリケーションの構成で必要に応じて編集可能
+    """
+
     WINDOW_CHIP = "gameutils/lib/window/chip_window.bmp"
     MENU_STRUCTURE = "assets/data/menu_structure.json"
 

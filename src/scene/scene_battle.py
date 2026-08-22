@@ -9,7 +9,7 @@
 import logging
 import pyxel as px
 from gameutils.base import check_file
-from gameutils.lib import Window, WindowInputHandler
+from gameutils.lib import Window  # , WindowInputHandler
 from const import ENEMY_ID_BASE
 import service_locater as di
 from helper import diceroll
@@ -138,13 +138,13 @@ class SceneBattle(BaseScene):
 
         self.load_bgm()
 
-        # バトルシーンでは決定キーの入力を連打状態に更新する
-        # バトルシーンから抜ける際に復旧関数で元に戻す
-        _hold_frames, _repeat_frames = 4, 2
-        WindowInputHandler._wrapper.decide = lambda: (
-            px.btnp(px.KEY_Z, _hold_frames, _repeat_frames)
-            or px.btnp(px.GAMEPAD1_BUTTON_A, _hold_frames, _repeat_frames)
-        )
+        # # バトルシーンでは決定キーの入力を連打状態に更新する
+        # # バトルシーンから抜ける際に復旧関数で元に戻す
+        # _hold_frames, _repeat_frames = 4, 2
+        # WindowInputHandler._wrapper.decide = lambda: (
+        #     px.btnp(px.KEY_Z, _hold_frames, _repeat_frames)
+        #     or px.btnp(px.GAMEPAD1_BUTTON_A, _hold_frames, _repeat_frames)
+        # )
 
     def load_bgm(self) -> None:
         """シーン切替時のBGMロード"""
@@ -205,7 +205,7 @@ class SceneBattle(BaseScene):
         """
         if self.is_battle_over:
             # 入力制御の復旧
-            WindowInputHandler.load_default_input()
+            # WindowInputHandler.load_default_input()
             di.ref.scnmgr.next_scene("levelup")
             return
 

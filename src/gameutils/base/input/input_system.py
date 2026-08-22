@@ -8,14 +8,25 @@
 from dataclasses import dataclass, field
 
 import pyxel as px
-from ...libconfig import ResourcePath
-from ..file import check_file, write_json, read_json
-from .input_protocol import (
+
+# from ...libconfig import ResourcePath
+# from ..file import check_file, write_json, read_json
+# from ...input_protocol import (
+#     INPUT_MODE,
+#     TARGET_DEVICE,
+#     ACTION_NAME,
+#     is_action_name,
+#     InputHandler,
+# )
+from gameutils import (
+    ResourcePath,
     INPUT_MODE,
     TARGET_DEVICE,
     ACTION_NAME,
+    is_action_name,
     InputHandler,
 )
+from ..file import check_file, write_json, read_json
 
 
 # 入力関連定数
@@ -187,8 +198,8 @@ _DEFAULT_BINDS_PAD: dict[ACTION_NAME, list] = {
     "menu": [px.GAMEPAD1_BUTTON_Y],
     "start": [px.GAMEPAD1_BUTTON_START],
     "select": [px.GAMEPAD1_BUTTON_BACK],
-    "LS": [px.GAMEPAD1_BUTTON_LEFTSHOULDER],
-    "RS": [px.GAMEPAD1_BUTTON_RIGHTSHOULDER],
+    "LS": [px.GAMEPAD1_BUTTON_LEFTSHOULDER, px.GAMEPAD1_BUTTON_DPAD_LEFT],
+    "RS": [px.GAMEPAD1_BUTTON_RIGHTSHOULDER, px.GAMEPAD1_BUTTON_DPAD_RIGHT],
 }
 _DEFAULT_BINDS_KBD: dict[ACTION_NAME, list] = {
     # 移動系はカーソルキーとWASD両方をデフォルトで割当
@@ -202,8 +213,8 @@ _DEFAULT_BINDS_KBD: dict[ACTION_NAME, list] = {
     "menu": [px.KEY_V],
     "start": [px.KEY_RETURN],
     "select": [px.KEY_SHIFT],
-    "LS": [px.KEY_LSHIFT],
-    "RS": [px.KEY_RSHIFT],
+    "LS": [px.KEY_LSHIFT, px.KEY_LEFT],
+    "RS": [px.KEY_RSHIFT, px.KEY_RIGHT],
 }
 
 
@@ -341,18 +352,17 @@ def is_pressed(action_name: ACTION_NAME, mode: INPUT_MODE = "once") -> bool:
     アナログ入力ハンドラ内のframe_countカウンタ更新が
     フレームによって飛んでしまう(hold判定のズレ・リセット漏れ)ため不可。
     """
+    if not is_action_name(action_name):
+        errmsg = f"未定義のアクション名です: {action_name}"
+        raise ValueError(errmsg)
     # パッド
     # func_pad = _action_keymap_pad.get(action_name)
     # is_pad = func_pad(mode) if func_pad else False
-    result_pad = [
-        binding.handler(mode) for binding in _bindings_pad.get(action_name, [])
-    ]
+    result_pad = [b.handler(mode) for b in _bindings_pad.get(action_name, [])]
     # キーボード
     # func_kbd = _action_keymap_kbd.get(action_name)
     # is_kbd = func_kbd(mode) if func_kbd else False
-    result_kbd = [
-        binding.handler(mode) for binding in _bindings_kbd.get(action_name, [])
-    ]
+    result_kbd = [b.handler(mode) for b in _bindings_kbd.get(action_name, [])]
     # return is_pad or is_kbd
     return any(result_pad) or any(result_kbd)
 
