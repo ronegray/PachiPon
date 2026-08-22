@@ -354,6 +354,8 @@ class MenuAssignKey(Menu):
                     target = "pad"
                 case 2:
                     target = "kbd"
+                case _:
+                    target = "pad"
             response = listener(target)
             if response != (-999, -999):
                 if response[0] in KEYCODE_UNASSIGNABLE:
