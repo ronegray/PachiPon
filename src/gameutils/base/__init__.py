@@ -17,6 +17,7 @@ from .input import (
     TARGET_DEVICE,
     ACTION_NAME,
     initialize_input,
+    unbind_action,
     keybind,
     listener,
     is_pressed,
@@ -25,3 +26,4 @@ from .input import (
     load_keyconfig,
 )
 from .text import FONT_SIZE_NAME, FontManager, shadowed_text
+from .sound import SoundManager, ToneManager, BGM_CHANNELS, SE_INSTANT_CH, SE_SUSTAIN_CH

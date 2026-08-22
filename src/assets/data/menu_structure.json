@@ -3,7 +3,7 @@
     "MenuTitle": [
         [{"id": "ニューゲーム", "action": "to_newgame"}],
         [{"id": "データロード", "action": "to_dataload"}],
-        [{"id": "セッティング", "action": "to_config"}]
+        [{"id": "コンフィグ", "action": "to_config"}]
     ],
     "MenuDataload": [
         [{"id": "データ１", "action": "load_data", "args": 0}],
@@ -11,11 +11,15 @@
         [{"id": "データ３", "action": "load_data", "args": 2}],
         [{"id": "データ４", "action": "load_data", "args": 3}]
     ],
-    "MenuConfig": [
+    "MenuSelectConfigTarget": [
         [{"id": "ＢＧＭ音量", "action": "set_vol_bgm"}],
         [{"id": "効果音音量", "action": "set_vol_se"}],
         [{"id": "画面サイズ", "action": "set_dispsize"}],
-        [{"id": "ボタン割当", "action": "assign_key"}]
+        [{"id": "全画面表示", "action": "set_fullscreen"}],
+        [{"id": "文字待ち時間", "action": "set_textspeed"}],
+        [{"id": "カーソル位置", "action": "set_cursorpos"}],
+        [{"id": "ダイス演出", "action": "set_cutin_dice"}],
+        [{"id": "キー割り当て", "action": "assign_key"}]
     ],
     "MenuField": [
         [{"id": "店に行く", "action": "enter_shop"},{"id": "力を見る", "action": "show_status"}],

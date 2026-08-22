@@ -9,8 +9,9 @@ from enum import Enum, auto
 from typing import Literal
 
 
-WINDOW_MODE = Literal["once", "wait", "page", "menu", "sub"]
+WINDOW_MODE = Literal["once", "wait", "page", "menu", "sub", "hold"]
 MENU_WINDOW_TYPE = Literal["main", "sub", "sub2", "sub3"]
+SE_CHANNEL = 7
 
 
 class WindowAction(Enum):

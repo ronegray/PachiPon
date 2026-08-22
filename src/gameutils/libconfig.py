@@ -1,11 +1,16 @@
-"""libconfig.py
-gameutilsライブラリで使用するリソースファイルのパス定義
+"""
+gameutilsライブラリ群で利用する設定を纏めたクラス
 """
 
 from enum import StrEnum
 
 
 class ResourcePath(StrEnum):
+    """
+    gameutilsライブラリで使用するリソース類のパス定義
+    アプリケーションの構成で必要に応じて編集可能
+    """
+
     WINDOW_CHIP = "gameutils/lib/window/chip_window.bmp"
     MENU_STRUCTURE = "assets/data/menu_structure.json"
 
@@ -23,4 +28,4 @@ class ResourcePath(StrEnum):
     CONFIG_KEYS = "keyconfig.json"
 
     # MUSIC_LIST  = "gameutils/lib/sound/musiclist.json"
-    MUSIC_LIST = "assets/sound/musiclist.json"
+    SCORE_LIST = "assets/sound/scorelist.json"

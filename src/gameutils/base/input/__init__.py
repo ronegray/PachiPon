@@ -1,8 +1,9 @@
-from .input_protocol import INPUT_MODE, TARGET_DEVICE, ACTION_NAME
+from ...input_protocol import INPUT_MODE, TARGET_DEVICE, ACTION_NAME
 
 # from .input_handler import InputHandler
 from .input_system import (
     initialize_input,
+    unbind_action,
     keybind,
     listener,
     is_pressed,

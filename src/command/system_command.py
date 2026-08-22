@@ -5,9 +5,11 @@
 import logging
 from typing import Generator, cast
 import pyxel as px
+import service_locater as di
 from gameutils.lib import WindowAction
 from const import SoundID, FOOD_UNITS
-import service_locater as di
+
+# import service_locater as di
 from field_map import EventPoint, PointPlaceType
 from item import ItemState
 from . import CommandBaseSequence
@@ -41,7 +43,8 @@ class ShopPurchase(CommandBaseSystem):
                     buy_message = "よし売った！ありがとよ！"
                 case PointPlaceType.VILLAGE:
                     buy_message = "どうもおおきにのう～"
-            px.play(self.se_ch, SoundID.SHOP_BUY, resume=True)
+            # px.play(self.se_ch, SoundID.SHOP_BUY, resume=True)
+            di.ref.sndmgr.play_se_instant(SoundID.SHOP_BUY)
             yield [buy_message]  # type: ignore
 
             # 購入処理
@@ -94,7 +97,8 @@ class PurchaseFoods(CommandBaseSystem):
                     buy_message = "うちのを食ったら他のは食えねえぜ！"
                 case PointPlaceType.VILLAGE:
                     buy_message = "ばあさんの手作りじゃぞい"
-            px.play(self.se_ch, SoundID.SHOP_BUY, resume=True)
+            # px.play(self.se_ch, SoundID.SHOP_BUY, resume=True)
+            di.ref.sndmgr.play_se_instant(SoundID.SHOP_BUY)
             yield [buy_message]  # type: ignore
 
             # 購入処理
@@ -147,7 +151,8 @@ class SellEquip(CommandBaseSystem):
                 sell_message = "んじゃこいつだ！確かめてくんな！"
             case PointPlaceType.VILLAGE:
                 sell_message = "足りるかの・・・おお、あったあった"
-        px.play(self.se_ch, SoundID.SHOP_BUY, resume=True)
+        # px.play(self.se_ch, SoundID.SHOP_BUY, resume=True)
+        di.ref.sndmgr.play_se_instant(SoundID.SHOP_BUY)
         yield [sell_message]  # type: ignore
 
         # 売却処理
@@ -213,7 +218,8 @@ class FoodShortageEffect(CommandBaseSystem):
             lambda: px.rect(0, 0, px.width, px.height, px.COLOR_RED),
             lambda: px.dither(1),
         ]
-        px.play(self.se_ch, SoundID.TURN_DAMAGE, resume=True)
+        # px.play(self.se_ch, SoundID.TURN_DAMAGE, resume=True)
+        di.ref.sndmgr.play_se_instant(SoundID.TURN_DAMAGE)
         yield [self.WAIT, "0"]
 
 
@@ -249,10 +255,12 @@ class SAFETY_INCREASE_HP(CommandBaseSystem):
         yield ["なんか"]
         yield ["メッセージが"]
         yield ["流れたあとに"]
-        px.play(self.se_ch, SoundID.EVENT_PLUS, resume=True)
+        # px.play(self.se_ch, SoundID.EVENT_PLUS, resume=True)
+        di.ref.sndmgr.play_se_instant(SoundID.EVENT_PLUS)
         yield ["なんか"]
         yield ["効果が"]
-        px.play(self.se_ch, SoundID.RECOVER, resume=True)
+        # px.play(self.se_ch, SoundID.RECOVER, resume=True)
+        di.ref.sndmgr.play_se_instant(SoundID.RECOVER)
         yield ["発生する感じ"]
 
         while self.display_info.target.update() == WindowAction.CONTINUE:
@@ -390,10 +398,12 @@ class SAFETY_DECREASE_HP(CommandBaseSystem):  # HP減
         yield ["なんか"]
         yield ["メッセージが"]
         yield ["流れたあとに"]
-        px.play(self.se_ch, SoundID.EVENT_MINUS, resume=True)
+        # px.play(self.se_ch, SoundID.EVENT_MINUS, resume=True)
+        di.ref.sndmgr.play_se_instant(SoundID.EVENT_MINUS)
         yield ["なんか"]
         yield ["効果が"]
-        px.play(self.se_ch, SoundID.MP_DECREASE, resume=True)
+        # px.play(self.se_ch, SoundID.MP_DECREASE, resume=True)
+        di.ref.sndmgr.play_se_instant(SoundID.MP_DECREASE)
         yield ["発生する感じ"]
 
         while self.display_info.target.update() == WindowAction.CONTINUE:

@@ -151,14 +151,16 @@ class MenuItemBase(Menu):
         # 左右キーでのリスト内容切替
         if len(self.item_list) > 1:
             if self.inputkey.left():
-                px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
+                # px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
+                self.se.play(SoundID.PAGE_ARROW)
                 self.itemlist_index = (self.itemlist_index - 1) % len(self.item_list)
                 self.remap_itemlist()
                 self.change_target_item()
                 self.is_push_left = 1
                 return
             if self.inputkey.right():
-                px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
+                # px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
+                self.se.play(SoundID.PAGE_ARROW)
                 self.itemlist_index = (self.itemlist_index + 1) % len(self.item_list)
                 self.remap_itemlist()
                 self.change_target_item()
@@ -168,7 +170,8 @@ class MenuItemBase(Menu):
         """カーソル移動時に詳細ウインドウの内容を書き換える"""
         result = super().move_cursor()
         if result:
-            px.play(self.se_ch, SoundID.CURSOR_VERTICAL, resume=True)
+            # px.play(self.se_ch, SoundID.CURSOR_VERTICAL, resume=True)
+            self.se.play(SoundID.CURSOR_VERTICAL)
             self.change_target_item()
         return result
 

@@ -4,9 +4,10 @@
 
 from typing import Callable
 import pyxel as px
+import service_locater as di
 from assets.asset_map import AssetMap, AssetID
 from gameutils.base import is_pressed
-from const import DICEROLL_FRAME, SoundID, SE_CH
+from const import DICEROLL_FRAME, SoundID  # , SE_CH
 
 
 class DiceRollEffect:
@@ -130,7 +131,8 @@ class DiceRollEffect:
             self.rotations.append(float(px.rndi(0, 359)))
             speed0 = (vx**2 + vy**2) ** 0.5
             self.rot_speeds.append(speed0 * self.rot_scale)
-        px.play(SE_CH, SoundID.DICE_ROLL, resume=True)
+        # px.play(SE_CH, SoundID.DICE_ROLL, resume=True)
+        di.ref.sndmgr.play_se_sustain(SoundID.DICE_ROLL)
 
     def update(self) -> None:
         if not self.is_rolling:

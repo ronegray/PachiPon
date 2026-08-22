@@ -5,24 +5,36 @@
 - 判定対象操作に対するキーの入力チェック
 - 設定の保存・呼び出し
 """
+from dataclasses import dataclass, field
 
 import pyxel as px
-from ...libconfig import ResourcePath
-from ..file import check_file, write_json, read_json
-from .input_protocol import (
+
+# from ...libconfig import ResourcePath
+# from ..file import check_file, write_json, read_json
+# from ...input_protocol import (
+#     INPUT_MODE,
+#     TARGET_DEVICE,
+#     ACTION_NAME,
+#     is_action_name,
+#     InputHandler,
+# )
+from gameutils import (
+    ResourcePath,
     INPUT_MODE,
     TARGET_DEVICE,
     ACTION_NAME,
+    is_action_name,
     InputHandler,
 )
+from ..file import check_file, write_json, read_json
 
 
 # 入力関連定数
 _ANALOG_THRESHOLD_XY = 0x3FFF  # アナログレバー閾値
 _ANALOG_THRESHOLD_TRIGGER = 0x00FF  # トリガーボタン閾値
 _GAME_FPS = 30  # 外部からの設定可能
-_WAIT_SEC_KEYREPEAT = 0.4  # キーリピートまでの長押し時間
-_INTERVAL_SEC_KEYREPEAT = 0.2  # キーリピート感覚
+_WAIT_SEC_KEYREPEAT = 0.3  # キーリピートまでの長押し時間
+_INTERVAL_SEC_KEYREPEAT = 0.1  # キーリピート感覚
 _ASSIGNABLE_KEYS = (
     px.KEY_ESCAPE,
     px.KEY_F1,
@@ -37,9 +49,6 @@ _ASSIGNABLE_KEYS = (
     px.KEY_F10,
     px.KEY_F11,
     px.KEY_F12,
-    px.KEY_PRINTSCREEN,
-    px.KEY_SCROLLLOCK,
-    px.KEY_PAUSE,
     px.KEY_1,
     px.KEY_2,
     px.KEY_3,
@@ -110,7 +119,6 @@ _ASSIGNABLE_KEYS = (
     px.KEY_LEFT,
     px.KEY_DOWN,
     px.KEY_RIGHT,
-    px.KEY_NUMLOCKCLEAR,
     px.KEY_KP_DIVIDE,
     px.KEY_KP_MULTIPLY,
     px.KEY_KP_MINUS,
@@ -130,43 +138,128 @@ _ASSIGNABLE_KEYS = (
 )
 
 
-# デフォルトキーマップ
-_DEFAULT_BINDS_PAD: dict[ACTION_NAME, int] = {  # パッド
-    "up": px.GAMEPAD1_BUTTON_DPAD_UP,
-    "down": px.GAMEPAD1_BUTTON_DPAD_DOWN,
-    "left": px.GAMEPAD1_BUTTON_DPAD_LEFT,
-    "right": px.GAMEPAD1_BUTTON_DPAD_RIGHT,
-    "decide": px.GAMEPAD1_BUTTON_A,
-    "cancel": px.GAMEPAD1_BUTTON_B,
-    "other1": px.GAMEPAD1_BUTTON_X,
-    "other2": px.GAMEPAD1_BUTTON_Y,
-    "start": px.GAMEPAD1_BUTTON_START,
-    "select": px.GAMEPAD1_BUTTON_BACK,
-    "LS": px.GAMEPAD1_BUTTON_LEFTSHOULDER,
-    "RS": px.GAMEPAD1_BUTTON_RIGHTSHOULDER,
+# # デフォルトキーマップ
+# _DEFAULT_BINDS_PAD: dict[ACTION_NAME, int] = {  # パッド
+#     "up": px.GAMEPAD1_BUTTON_DPAD_UP,
+#     "down": px.GAMEPAD1_BUTTON_DPAD_DOWN,
+#     "left": px.GAMEPAD1_BUTTON_DPAD_LEFT,
+#     "right": px.GAMEPAD1_BUTTON_DPAD_RIGHT,
+#     "decide": px.GAMEPAD1_BUTTON_A,
+#     "cancel": px.GAMEPAD1_BUTTON_B,
+#     "action": px.GAMEPAD1_BUTTON_X,
+#     "menu": px.GAMEPAD1_BUTTON_Y,
+#     "start": px.GAMEPAD1_BUTTON_START,
+#     "select": px.GAMEPAD1_BUTTON_BACK,
+#     "LS": px.GAMEPAD1_BUTTON_LEFTSHOULDER,
+#     "RS": px.GAMEPAD1_BUTTON_RIGHTSHOULDER,
+# }
+# _DEFAULT_BINDS_KBD: dict[ACTION_NAME, int] = {  # キーボード
+#     "up": px.KEY_UP,
+#     "down": px.KEY_DOWN,
+#     "left": px.KEY_LEFT,
+#     "right": px.KEY_RIGHT,
+#     "decide": px.KEY_Z,
+#     "cancel": px.KEY_X,
+#     "action": px.KEY_C,
+#     "menu": px.KEY_V,
+#     "start": px.KEY_RETURN,
+#     "select": px.KEY_SHIFT,
+#     "LS": px.KEY_LSHIFT,
+#     "RS": px.KEY_RSHIFT,
+# }
+
+# --- デフォルトキーマップ ---
+# 各アクションは int（単純ボタン）または
+# {"code": .., "input_sign": ..}（符号付き。主にアナログ軸用）を
+# 要素に持つ list で定義する。1アクションに複数キーを割当可能。
+#
+# 注: パッドのアナログスティック上下(AXIS_LEFTY)の符号方向はpyxel/実機依存のため
+#     実測の上で input_sign を確定させること。ここでは "上 = 負" を仮定している。
+_DEFAULT_BINDS_PAD: dict[ACTION_NAME, list] = {
+    "up": [
+        px.GAMEPAD1_BUTTON_DPAD_UP,
+        {"code": px.GAMEPAD1_AXIS_LEFTY, "input_sign": -1},
+    ],
+    "down": [
+        px.GAMEPAD1_BUTTON_DPAD_DOWN,
+        {"code": px.GAMEPAD1_AXIS_LEFTY, "input_sign": 1},
+    ],
+    "left": [
+        px.GAMEPAD1_BUTTON_DPAD_LEFT,
+        {"code": px.GAMEPAD1_AXIS_LEFTX, "input_sign": -1},
+    ],
+    "right": [
+        px.GAMEPAD1_BUTTON_DPAD_RIGHT,
+        {"code": px.GAMEPAD1_AXIS_LEFTX, "input_sign": 1},
+    ],
+    "decide": [px.GAMEPAD1_BUTTON_A],
+    "cancel": [px.GAMEPAD1_BUTTON_B],
+    "action": [px.GAMEPAD1_BUTTON_X],
+    "menu": [px.GAMEPAD1_BUTTON_Y],
+    "start": [px.GAMEPAD1_BUTTON_START],
+    "select": [px.GAMEPAD1_BUTTON_BACK],
+    "LS": [px.GAMEPAD1_BUTTON_LEFTSHOULDER, px.GAMEPAD1_BUTTON_DPAD_LEFT],
+    "RS": [px.GAMEPAD1_BUTTON_RIGHTSHOULDER, px.GAMEPAD1_BUTTON_DPAD_RIGHT],
 }
-_DEFAULT_BINDS_KBD: dict[ACTION_NAME, int] = {  # キーボード
-    "up": px.KEY_UP,
-    "down": px.KEY_DOWN,
-    "left": px.KEY_LEFT,
-    "right": px.KEY_RIGHT,
-    "decide": px.KEY_Z,
-    "cancel": px.KEY_X,
-    "other1": px.KEY_C,
-    "other2": px.KEY_V,
-    "start": px.KEY_RETURN,
-    "select": px.KEY_SHIFT,
-    "LS": px.KEY_LSHIFT,
-    "RS": px.KEY_RSHIFT,
+_DEFAULT_BINDS_KBD: dict[ACTION_NAME, list] = {
+    # 移動系はカーソルキーとWASD両方をデフォルトで割当
+    "up": [px.KEY_UP, px.KEY_W],
+    "down": [px.KEY_DOWN, px.KEY_S],
+    "left": [px.KEY_LEFT, px.KEY_A],
+    "right": [px.KEY_RIGHT, px.KEY_D],
+    "decide": [px.KEY_Z],
+    "cancel": [px.KEY_X],
+    "action": [px.KEY_C],
+    "menu": [px.KEY_V],
+    "start": [px.KEY_RETURN],
+    "select": [px.KEY_SHIFT],
+    "LS": [px.KEY_LSHIFT, px.KEY_LEFT],
+    "RS": [px.KEY_RSHIFT, px.KEY_RIGHT],
 }
 
+
+# # --- 内部状態（モジュール変数） ---
+# # アクション：入力判定関数
+# _action_keymap_pad: dict[str, InputHandler] = {}
+# _action_keymap_kbd: dict[str, InputHandler] = {}
+# # アクション：[キーコード、入力正負]
+# _key_assign_map_pad: dict[str, dict[str, int]] = {}
+# _key_assign_map_kbd: dict[str, dict[str, int]] = {}
+@dataclass
+class KeyBinding:
+    """1つのキー割当（キーコード＋符号＋生成済み判定関数）をまとめて保持する"""
+
+    code: int
+    input_sign: int = 1
+    handler: InputHandler = field(init=False, repr=False)
+
+    def __post_init__(self) -> None:
+        self.handler = _generate_handler(self.code, self.input_sign)
+
+
 # --- 内部状態（モジュール変数） ---
-# アクション：入力判定関数
-_action_keymap_pad: dict[str, InputHandler] = {}
-_action_keymap_kbd: dict[str, InputHandler] = {}
-# アクション：[キーコード、入力正負]
-_key_assign_map_pad: dict[str, dict[str, int]] = {}
-_key_assign_map_kbd: dict[str, dict[str, int]] = {}
+# アクション：割当済みKeyBindingのリスト
+_bindings_pad: dict[str, list[KeyBinding]] = {}
+_bindings_kbd: dict[str, list[KeyBinding]] = {}
+
+
+def _resolve_bind_map(
+    bind_target: TARGET_DEVICE, loaded_data: dict | None
+) -> dict[ACTION_NAME, list]:
+    """デフォルト値とロード済みJSON(あれば)をマージした定義データを返す
+
+    loaded_data が None の場合は素のデフォルト定義を返す。
+    デフォルトにあってロードデータに無いアクションはデフォルト値で補完する
+    （安全なマージ）。
+    """
+    defaults = _DEFAULT_BINDS_PAD if bind_target == "pad" else _DEFAULT_BINDS_KBD
+    if loaded_data is None:
+        return {action: list(keys) for action, keys in defaults.items()}
+
+    section = loaded_data.get(bind_target, {})
+    return {
+        action: section.get(action, default) for action, default in defaults.items()
+    }
 
 
 def initialize_input(fps: int = 30) -> None:
@@ -175,8 +268,10 @@ def initialize_input(fps: int = 30) -> None:
     global _GAME_FPS
     _GAME_FPS = fps
     # 一括バインド
-    _bind_all_actions("pad")
-    _bind_all_actions("kbd")
+    # _bind_all_actions("pad")
+    # _bind_all_actions("kbd")
+    for target in ("pad", "kbd"):
+        _bind_all_actions(target, _resolve_bind_map(target, None))
 
 
 def keybind(
@@ -192,23 +287,33 @@ def keybind(
             if key_code < px.GAMEPAD1_AXIS_LEFTX:
                 print(f"Warning: {action_name} to {key_code} is not a valid Pad code.")
                 return False
-            target_actmap = _action_keymap_pad
-            target_assign = _key_assign_map_pad
+            # target_actmap = _action_keymap_pad
+            # target_assign = _key_assign_map_pad
+            target_bindings = _bindings_pad
         case "kbd":
             if key_code >= px.MOUSE_POS_X:
                 print(
                     f"Warning: {action_name} to {key_code} is not a valid keyboard code."
                 )
                 return False
-            target_actmap = _action_keymap_kbd
-            target_assign = _key_assign_map_kbd
+            # target_actmap = _action_keymap_kbd
+            # target_assign = _key_assign_map_kbd
+            target_bindings = _bindings_kbd
         # case _:
         #     return False
 
-    target_actmap[action_name] = _generate_handler(key_code, input_sign)
-    target_assign[action_name] = {"code": key_code, "input_sign": input_sign}
-
+    # target_actmap[action_name] = _generate_handler(key_code, input_sign)
+    # target_assign[action_name] = {"code": key_code, "input_sign": input_sign}
+    target_bindings.setdefault(action_name, []).append(
+        KeyBinding(code=key_code, input_sign=input_sign)
+    )
     return True
+
+
+def unbind_action(action_name: ACTION_NAME, bind_target: TARGET_DEVICE = "pad") -> None:
+    """指定アクションの割当を全て解除する（1つだけに差し替えたい場合に先に呼ぶ）"""
+    target_bindings = _bindings_pad if bind_target == "pad" else _bindings_kbd
+    target_bindings.pop(action_name, [])
 
 
 def listener(listen_target: TARGET_DEVICE = "pad") -> tuple[int, int]:
@@ -217,9 +322,8 @@ def listener(listen_target: TARGET_DEVICE = "pad") -> tuple[int, int]:
         # キーパッドの判定(アナログ入力)
         for keycode in range(px.GAMEPAD1_AXIS_LEFTX, px.GAMEPAD1_AXIS_RIGHTY + 1):
             input_val = px.btnv(keycode)
-            if (
-                abs(input_val) > _ANALOG_THRESHOLD_XY
-            ):  # 1以上、とかだと遊びの範囲で超反応するケースあり
+            # 1以上、とかだと遊びの範囲で超反応するケースあり
+            if abs(input_val) > _ANALOG_THRESHOLD_XY:
                 input_sign = int(px.sgn(input_val))
                 return keycode, input_sign
         for keycode in range(px.GAMEPAD1_AXIS_TRIGGERLEFT, px.GAMEPAD1_AXIS_RIGHTY + 1):
@@ -241,45 +345,80 @@ def listener(listen_target: TARGET_DEVICE = "pad") -> tuple[int, int]:
 
 
 def is_pressed(action_name: ACTION_NAME, mode: INPUT_MODE = "once") -> bool:
-    """アクションに該当する入力の有無を判定する"""
+    """アクションに該当する入力の有無を判定する
+
+    注意: リスト内包表記で全ハンドラを先に評価してからany()を取ること。
+    ジェネレータ式でany()に直接渡すと短絡評価が起き、
+    アナログ入力ハンドラ内のframe_countカウンタ更新が
+    フレームによって飛んでしまう(hold判定のズレ・リセット漏れ)ため不可。
+    """
+    if not is_action_name(action_name):
+        errmsg = f"未定義のアクション名です: {action_name}"
+        raise ValueError(errmsg)
     # パッド
-    func_pad = _action_keymap_pad.get(action_name)
-    is_pad = func_pad(mode) if func_pad else False
+    # func_pad = _action_keymap_pad.get(action_name)
+    # is_pad = func_pad(mode) if func_pad else False
+    result_pad = [b.handler(mode) for b in _bindings_pad.get(action_name, [])]
     # キーボード
-    func_kbd = _action_keymap_kbd.get(action_name)
-    is_kbd = func_kbd(mode) if func_kbd else False
+    # func_kbd = _action_keymap_kbd.get(action_name)
+    # is_kbd = func_kbd(mode) if func_kbd else False
+    result_kbd = [b.handler(mode) for b in _bindings_kbd.get(action_name, [])]
+    # return is_pad or is_kbd
+    return any(result_pad) or any(result_kbd)
 
-    return is_pad or is_kbd
 
-
-def get_keymap(target: TARGET_DEVICE):
+def get_keymap(target: TARGET_DEVICE) -> dict[str, list[dict[str, int]]]:
     """本モジュール利用側へキーマップ情報を提供"""
     match target:
         case "pad":
-            keymap = _key_assign_map_pad
+            # keymap = _key_assign_map_pad
+            bindings = _bindings_pad
         case "kbd":
-            keymap = _key_assign_map_kbd
+            # keymap = _key_assign_map_kbd
+            bindings = _bindings_kbd
 
-    return keymap
+    # return keymap
+    return {
+        action: [
+            {"code": binds.code, "input_sign": binds.input_sign}
+            for binds in binding_list
+        ]
+        for action, binding_list in bindings.items()
+    }
 
 
 def _bind_all_actions(bind_target: TARGET_DEVICE, key_assign_map: dict | None = None):
     """定義済データの一括反映"""
     # 定義済データ未指定の場合はデフォルト定義をベースとする
     if key_assign_map is None:
-        if bind_target == "pad":
-            key_assign_map = _DEFAULT_BINDS_PAD.copy()
-        elif bind_target == "kbd":
-            key_assign_map = _DEFAULT_BINDS_KBD.copy()
+        # if bind_target == "pad":
+        #     key_assign_map = _DEFAULT_BINDS_PAD.copy()
+        # elif bind_target == "kbd":
+        #     key_assign_map = _DEFAULT_BINDS_KBD.copy()
+        key_assign_map = _resolve_bind_map(bind_target, None)
+    if bind_target == "pad":
+        _bindings_pad.clear()
+    else:
+        _bindings_kbd.clear()
 
-    for action, key in key_assign_map.items():
-        if isinstance(key, dict):
-            sign = key["input_sign"]
-            keycode = key["code"]
-        else:
-            sign = 1
-            keycode = key
-        keybind(action, keycode, sign, bind_target)
+    # for action, key in key_assign_map.items():
+    for action, keys in key_assign_map.items():
+        # if isinstance(key, dict):
+        #     sign = key["input_sign"]
+        #     keycode = key["code"]
+        # else:
+        #     sign = 1
+        #     keycode = key
+        # keybind(action, keycode, sign, bind_target)
+        key_list = keys if isinstance(keys, list) else [keys]
+        for key in key_list:
+            if isinstance(key, dict):
+                sign = key["input_sign"]
+                keycode = key["code"]
+            else:
+                sign = 1
+                keycode = key
+            keybind(action, keycode, sign, bind_target)
 
 
 def _wrap_analog_input(
@@ -372,7 +511,8 @@ def _generate_handler(key_code: int, input_sign: int = 1) -> InputHandler:
 
 def save_config():
     """jsonファイルとして設定を保存"""
-    key_config_data = {"pad": _key_assign_map_pad, "kbd": _key_assign_map_kbd}
+    # key_config_data = {"pad": _key_assign_map_pad, "kbd": _key_assign_map_kbd}
+    key_config_data = {"pad": get_keymap("pad"), "kbd": get_keymap("kbd")}
     path = check_file(ResourcePath.CONFIG_KEYS, "w")
     if path is not None:
         write_json(path, key_config_data)
@@ -388,25 +528,31 @@ def load_keyconfig():
     try:
         loaded_data = read_json(path)
 
-        # デフォルト値をベースに、JSONにある設定だけを上書き（安全なマージ）
-        key_assign_map = {}
-        for action in _DEFAULT_BINDS_PAD.keys():
-            # JSONにキーがあればその値を、無ければデフォルト値を取得
-            key_assign_map[action] = loaded_data["pad"].get(
-                action, _DEFAULT_BINDS_PAD[action]
-            )
-        # アクション：[キーコード、入力正負]の辞書データから入力判定関数と保存用データを再生成
-        _bind_all_actions("pad", key_assign_map)
+        #     # デフォルト値をベースに、JSONにある設定だけを上書き（安全なマージ）
+        #     key_assign_map = {}
+        #     for action in _DEFAULT_BINDS_PAD.keys():
+        #         # JSONにキーがあればその値を、無ければデフォルト値を取得
+        #         key_assign_map[action] = loaded_data["pad"].get(
+        #             action, _DEFAULT_BINDS_PAD[action]
+        #         )
+        #     # アクション：[キーコード、入力正負]の辞書データから入力判定関数と保存用データを再生成
+        #     _bind_all_actions("pad", key_assign_map)
 
-        for action in _DEFAULT_BINDS_KBD.keys():
-            # JSONにキーがあればその値を、無ければデフォルト値を取得
-            key_assign_map[action] = loaded_data["kbd"].get(
-                action, _DEFAULT_BINDS_KBD[action]
-            )
-        _bind_all_actions("kbd", key_assign_map)
+        #     for action in _DEFAULT_BINDS_KBD.keys():
+        #         # JSONにキーがあればその値を、無ければデフォルト値を取得
+        #         key_assign_map[action] = loaded_data["kbd"].get(
+        #             action, _DEFAULT_BINDS_KBD[action]
+        #         )
+        #     _bind_all_actions("kbd", key_assign_map)
+        # except Exception:
+        #     # ファイルが壊れていた場合はデフォルト設定のまま進行
+        #     print("設定ファイルが破損しているため、デフォルト値を使用します。")
+        for target in ("pad", "kbd"):
+            _bind_all_actions(target, _resolve_bind_map(target, loaded_data))
     except Exception:
         # ファイルが壊れていた場合はデフォルト設定のまま進行
         print("設定ファイルが破損しているため、デフォルト値を使用します。")
+        initialize_input(_GAME_FPS)
 
 
 def _sec_to_frames(seconds):

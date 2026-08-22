@@ -14,6 +14,7 @@ from .scene_manager import SceneManager
 # 個別シーン用モジュール
 from .scene_splash import SceneSplash
 from .scene_title import SceneTitle
+from .scene_config import SceneConfig
 from .scene_nameentry import SceneNameEntry
 from .scene_charamake import SceneCharaMake
 from .scene_opening import SceneOpening
@@ -28,6 +29,7 @@ from .scene_shop import SceneShop
 
 register("splash", SceneSplash)
 register("title", SceneTitle)
+register("config", SceneConfig)
 register("newgame", SceneNameEntry)
 register("charamake", SceneCharaMake)
 register("opening", SceneOpening)

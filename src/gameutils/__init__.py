@@ -4,3 +4,10 @@
 """
 
 from .libconfig import ResourcePath
+from .input_protocol import (
+    INPUT_MODE,
+    TARGET_DEVICE,
+    ACTION_NAME,
+    is_action_name,
+    InputHandler,
+)

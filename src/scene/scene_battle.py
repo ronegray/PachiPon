@@ -8,8 +8,8 @@
 
 import logging
 import pyxel as px
-from gameutils.base import check_file, read_string
-from gameutils.lib import Window, WindowInputHandler
+from gameutils.base import check_file
+from gameutils.lib import Window  # , WindowInputHandler
 from const import ENEMY_ID_BASE
 import service_locater as di
 from helper import diceroll
@@ -138,29 +138,30 @@ class SceneBattle(BaseScene):
 
         self.load_bgm()
 
-        # バトルシーンでは決定キーの入力を連打状態に更新する
-        # バトルシーンから抜ける際に復旧関数で元に戻す
-        _hold_frames, _repeat_frames = 4, 2
-        WindowInputHandler._wrapper.decide = lambda: (
-            px.btnp(px.KEY_Z, _hold_frames, _repeat_frames)
-            or px.btnp(px.GAMEPAD1_BUTTON_A, _hold_frames, _repeat_frames)
-        )
+        # # バトルシーンでは決定キーの入力を連打状態に更新する
+        # # バトルシーンから抜ける際に復旧関数で元に戻す
+        # _hold_frames, _repeat_frames = 4, 2
+        # WindowInputHandler._wrapper.decide = lambda: (
+        #     px.btnp(px.KEY_Z, _hold_frames, _repeat_frames)
+        #     or px.btnp(px.GAMEPAD1_BUTTON_A, _hold_frames, _repeat_frames)
+        # )
 
     def load_bgm(self) -> None:
         """シーン切替時のBGMロード"""
-        """暫定処理：BGMロード"""
-        path = check_file("assets/sound/battle.txt")
-        if path is not None:
-            score_data = read_string(path)
-        else:
-            raise FileNotFoundError("ファイルがない！")
+        # """暫定処理：BGMロード"""
+        # path = check_file("assets/sound/battle.txt")
+        # if path is not None:
+        #     score_data = read_string(path)
+        # else:
+        #     raise FileNotFoundError("ファイルがない！")
 
-        px.stop()
-        for i, ch in enumerate(px.channels):
-            mml = "R"
-            if i < len(score_data):
-                mml = score_data[i]
-            ch.play(mml, loop=True)
+        # px.stop()
+        # for i, ch in enumerate(px.channels):
+        #     mml = "R"
+        #     if i < len(score_data):
+        #         mml = score_data[i]
+        #     ch.play(mml, loop=True)
+        di.ref.sndmgr.request_bgm("battle")
 
     def select_enemy_target(self) -> tuple[int, list[Character]]:
         """エネミーエンティティの敵対ターゲット決定"""
@@ -204,7 +205,7 @@ class SceneBattle(BaseScene):
         """
         if self.is_battle_over:
             # 入力制御の復旧
-            WindowInputHandler.load_default_input()
+            # WindowInputHandler.load_default_input()
             di.ref.scnmgr.next_scene("levelup")
             return
 

@@ -1,4 +1,5 @@
 from .menu_title import MenuTitle
+from .menu_config import MenuSelectConfigTarget
 from .menu_nameentry import MenuNameEntry
 from .menu_field import MenuField
 from .menu_fieldtarget import MenuSelectFieldTarget

@@ -19,42 +19,79 @@ from typing import Callable, Any
 from itertools import zip_longest
 import pyxel as px
 
-from ...libconfig import ResourcePath
+# from ...libconfig import ResourcePath
 from ...base import check_file, read_json, FONT_SIZE_NAME, FontManager
-from . import WINDOW_MODE, MENU_WINDOW_TYPE, WindowAction
+from . import WINDOW_MODE, MENU_WINDOW_TYPE, WindowAction, SE_CHANNEL
+
+# from ._wrapper_input import WindowInputWrapper, INPUT_MODE, set_default_pyxel_input
 from ._wrapper_input import WindowInputWrapper, set_default_pyxel_input
+from gameutils import ResourcePath, InputHandler, INPUT_MODE
 
 
 class WindowInputHandler:
-    """Window/Menuクラス共通の入力ハンドラクラス"""
+    """Window/Menuクラス共通の入力ハンドラクラス
+    input_system との接続はアプリケーション層の input_wiring.py が担う。"""
 
     _wrapper: WindowInputWrapper = set_default_pyxel_input()
 
     @classmethod
-    def update_window_input(cls, wrapper_dict: dict[str, Callable[[], bool]]) -> None:
-        """外部入力機能による定義更新"""
+    def update_window_input(
+        # cls, _wrapper_dict: dict[str, Callable[[INPUT_MODE], bool]]
+        cls,
+        _wrapper_dict: dict[str, InputHandler],
+    ) -> None:
+        """外部入力機能による定義更新
+
+        wrapper_dict の各値は Callable[[INPUT_MODE], bool]。
+        呼び出し元（input_wiring.py等）が何を渡すか（input_system経由か、
+        別のモック実装か）を本クラスは関知しない。
+        """
+        # default_handler_hold: Callable[[INPUT_MODE], bool] = lambda mode="hold": False
+        # default_handler_once: Callable[[INPUT_MODE], bool] = lambda mode="once": False
+
+        # default_handler_hold: InputHandler = lambda mode="hold": False
+        # default_handler_once: InputHandler = lambda mode="once": False
+        def default_handler_hold(mode: INPUT_MODE = "hold") -> bool:
+            return False
+
+        def default_handler_once(mode: INPUT_MODE = "once") -> bool:
+            return False
+
         cls._wrapper = WindowInputWrapper(
-            up=wrapper_dict.get("up", lambda: False),
-            down=wrapper_dict.get("down", lambda: False),
-            left=wrapper_dict.get("left", lambda: False),
-            right=wrapper_dict.get("right", lambda: False),
-            decide=wrapper_dict.get("decide", lambda: False),
-            cancel=wrapper_dict.get("cancel", lambda: False),
-            other1=wrapper_dict.get("other1", lambda: False),
-            other2=wrapper_dict.get("other2", lambda: False),
-            LS=wrapper_dict.get("LS", lambda: False),
-            RS=wrapper_dict.get("RS", lambda: False),
+            up=_wrapper_dict.get("up", default_handler_hold),
+            down=_wrapper_dict.get("down", default_handler_hold),
+            left=_wrapper_dict.get("left", default_handler_hold),
+            right=_wrapper_dict.get("right", default_handler_hold),
+            decide=_wrapper_dict.get("decide", default_handler_once),
+            cancel=_wrapper_dict.get("cancel", default_handler_once),
+            action=_wrapper_dict.get("action", default_handler_once),
+            menu=_wrapper_dict.get("menu", default_handler_once),
+            start=_wrapper_dict.get("start", default_handler_once),
+            select=_wrapper_dict.get("select", default_handler_once),
+            LS=_wrapper_dict.get("LS", default_handler_once),
+            RS=_wrapper_dict.get("RS", default_handler_once),
         )
 
     @classmethod
     def load_default_input(cls) -> None:
-        """個別要求により設定変更した場合の復旧用"""
+        """個別要求により設定変更した場合の復旧用（pyxel直叩きのデフォルトに戻す）"""
         cls._wrapper = set_default_pyxel_input()
 
     @classmethod
     def get(cls) -> WindowInputWrapper:
         """入力ハンドラの取得"""
         return cls._wrapper
+
+
+class WindowSEHandler:
+    """効果音鳴音用関数の管理"""
+
+    def __init__(self):
+        self.play: Callable = lambda sound_id: px.play(ch=3, snd=sound_id, resume=True)
+
+    @classmethod
+    def set_func(cls, func: Callable):
+        cls.play = func
 
 
 class Window:
@@ -65,7 +102,7 @@ class Window:
     _max_msg_rows: int = 3
     _indicator_address: tuple = (16, 8, 8, 4)
     # UI操作音の独立定義
-    se_ch: int = 3
+    se_ch: int = SE_CHANNEL
     ui_se: dict[str, px.Sound] = {}
     snd4 = px.Sound()
     snd4.set("e4e4e4", "s", "712", "nfn", 4)
@@ -73,6 +110,7 @@ class Window:
     # snd5 = px.Sound()
     # snd5.set("d2c1c#2", "p", "715", "", 3)
     # ui_se["CANCEL"] = snd5
+    se = WindowSEHandler
 
     def __init__(
         self,
@@ -92,7 +130,7 @@ class Window:
         # 管理クラスへの参照
         self.fontdata = FontManager.get_fontdata(font_size_name)
         self.font = self.fontdata.font
-        self.inp = WindowInputHandler.get()
+        self.inputkey = WindowInputHandler.get()
         # 共通基本パラメータ
         self.x = (
             x if x + width <= px.width else px.width - width
@@ -211,7 +249,7 @@ class Window:
         self.frame_counter += 1
         # menuモードのウインドウは基本的にupdateを実行しないが念の為
         # if self.window_mode == "menu":
-        if self.window_mode in ("menu", "sub"):
+        if self.window_mode in ("menu", "sub", "hold"):
             return WindowAction.CONTINUE
         # waitモード時は待機フレーム数が過ぎると全終了
         if self.window_mode == "wait" and self.frame_counter <= self.wait_frame:
@@ -227,8 +265,9 @@ class Window:
         """チラチラし過ぎるので別の方法を検討"""
 
         # 決定またはキャンセルキー処理
-        if self.inp.decide() or self.inp.cancel():
-            px.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
+        if self.inputkey.decide() or self.inputkey.cancel():
+            # WindowSoundHandler.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
+            self.se.play(self.ui_se["DECIDE"])
             match self.window_mode:
                 # ページ送り以外では全終了
                 case "once" | "wait":
@@ -369,7 +408,7 @@ class Menu:
     _MENU_ITEM_CASHE: dict[str, MENU_ITEM_LIST] = dict(menu_item_data)
 
     # UI操作音の独立定義
-    se_ch: int = 3
+    se_ch: int = SE_CHANNEL
     ui_se: dict[str, px.Sound] = {}
     snd0 = px.Sound()
     snd0.set("b4", "", "", "", 3)
@@ -383,6 +422,7 @@ class Menu:
     snd5 = px.Sound()
     snd5.set("d2c1c#2", "p", "715", "", 3)
     ui_se["CANCEL"] = snd5
+    se = WindowSEHandler
 
     def __init__(
         self,
@@ -438,6 +478,9 @@ class Menu:
     @property
     def height(self):
         return self.windows["main"].height
+
+    # def update_keyassign(self) -> None:
+    #     WindowInputHandler.update_window_input()
 
     # def build_menu_items(self, menu_source: str | list[list[dict[str, str|list]]]):
     def build_menu_items(self, menu_source: str | MENU_ITEM_LIST):
@@ -559,11 +602,13 @@ class Menu:
     def key_check(self) -> WindowAction:
         """キー入力の確認と応答"""
         if self.move_cursor():
-            px.play(self.se_ch, self.ui_se["CURSOR_VERTICAL"], resume=True)
-        elif self.inputkey.decide():
-            px.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
+            # WindowSoundHandler.play(self.se_ch, self.ui_se["CURSOR_VERTICAL"], resume=True)
+            self.se.play(self.ui_se["CURSOR_VERTICAL"])
+        elif self.inputkey.decide("hold"):
+            # WindowSoundHandler.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
+            self.se.play(self.ui_se["DECIDE"])
             return WindowAction.EXECUTE
-        elif self.inputkey.cancel():
+        elif self.inputkey.cancel("hold"):
             # px.play(self.se_ch, self.ui_se["CANCEL"], resume=True)
             return WindowAction.CLOSE
         return WindowAction.CONTINUE
@@ -708,19 +753,23 @@ class MenuYesNo(Menu):
     def key_check(self) -> WindowAction:
         """キー入力の確認と応答"""
         if self.move_cursor():
-            px.play(self.se_ch, self.ui_se["CURSOR_VERTICAL"], resume=True)
+            # WindowSoundHandler.play(self.se_ch, self.ui_se["CURSOR_VERTICAL"], resume=True)
+            self.se.play(self.ui_se["CURSOR_VERTICAL"])
         elif self.inputkey.decide():
             self.ans["answer"] = self.menu_items[self.cursor_position[1]][
                 0
             ].action_args[0]
             if self.ans["answer"]:
-                px.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
+                # WindowSoundHandler.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
+                self.se.play(self.ui_se["DECIDE"])
             elif self.ans["answer"] is False:
-                px.play(self.se_ch, self.ui_se["CANCEL"], resume=True)
+                # WindowSoundHandler.play(self.se_ch, self.ui_se["CANCEL"], resume=True)
+                self.se.play(self.ui_se["CANCEL"])
             self.ans["finished"] = True
             return WindowAction.CLOSE
         elif self.inputkey.cancel():
-            px.play(self.se_ch, self.ui_se["CANCEL"], resume=True)
+            # WindowSoundHandler.play(self.se_ch, self.ui_se["CANCEL"], resume=True)
+            self.se.play(self.ui_se["CANCEL"])
             self.ans["answer"] = False
             self.ans["finished"] = True
             return WindowAction.CLOSE

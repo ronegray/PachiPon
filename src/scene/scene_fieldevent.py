@@ -10,7 +10,6 @@ import pyxel as px
 from const import APP_WIDTH, APP_HEIGHT
 from gameutils.lib import Window
 import service_locater as di
-from gameutils.base import check_file, read_string
 from . import BaseScene, SceneField
 
 # ロギング設定
@@ -61,18 +60,19 @@ class SceneFieldEvent(BaseScene):
 
     def load_bgm(self) -> None:
         """シーン切替時のBGMロード"""
-        """暫定処理：BGMロード"""
-        path = check_file("assets/sound/event_slow.txt")
-        if path is not None:
-            score_data = read_string(path)
-        else:
-            raise FileNotFoundError("ファイルがない！")
-        px.stop()
-        for i, ch in enumerate(px.channels):
-            mml = "R"
-            if i < len(score_data):
-                mml = score_data[i]
-            ch.play(mml, loop=True)
+        # """暫定処理：BGMロード"""
+        # path = check_file("assets/sound/event_slow.txt")
+        # if path is not None:
+        #     score_data = read_string(path)
+        # else:
+        #     raise FileNotFoundError("ファイルがない！")
+        # px.stop()
+        # for i, ch in enumerate(px.channels):
+        #     mml = "R"
+        #     if i < len(score_data):
+        #         mml = score_data[i]
+        #     ch.play(mml, loop=True)
+        di.ref.sndmgr.request_bgm("event_slow")
 
     def update(self):
         """更新処理
