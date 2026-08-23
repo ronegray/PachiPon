@@ -13,7 +13,7 @@ from gameutils.lib import (
     Window,
     MENU_WINDOW_TYPE,
     WindowAction,
-    WindowInputHandler,
+    # WindowInputHandler,
 )
 from entity import EquipSlot
 
@@ -53,7 +53,7 @@ class MenuStatus(Menu):
         self.member_index: int = di.ref.pt.get_top_index()
         self.build_status()
 
-        self.inputkey = WindowInputHandler.get()
+        # self.inputkey = WindowInputHandler.get()
 
     def build_status(self) -> None:
         """ステータス表示内容の構築（装備含む）"""
@@ -135,12 +135,14 @@ class MenuStatus(Menu):
         """キー入力の確認と応答"""
         if self.inputkey.decide() or self.inputkey.cancel():
             return WindowAction.DISCARD
-        if self.inputkey.left():
+        # if self.inputkey.left():
+        if self.inputkey.LS():
             # px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
             self.se.play(SoundID.PAGE_ARROW)
             self.member_index = (self.member_index - 1) % di.ref.pt.get_member_count()
             self.build_status()
-        if self.inputkey.right():
+        # if self.inputkey.right():
+        if self.inputkey.RS():
             # px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
             self.se.play(SoundID.PAGE_ARROW)
             self.member_index = (self.member_index + 1) % di.ref.pt.get_member_count()

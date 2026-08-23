@@ -12,3 +12,4 @@ memory-bank/
 debug*
 uv.lock
 tool/
+src/systemconfig.json

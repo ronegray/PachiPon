@@ -348,6 +348,9 @@ class CharacterInitialHPMP(CommandBaseEntity):
         yield ["ＨＰサイコロの数は、１＋耐久ボーナス値"]
         dices = 1 + self._ctx.actor.bonus_end
         effect.start(dices, roll_frames)
+        if not di.ref.conf.is_cutin_dice:
+            effect.skip()
+            self.display_info.graphic_command = effect.get_draw_commands()
         while effect.is_rolling:
             effect.update()
             self.display_info.graphic_command = effect.get_draw_commands()
@@ -356,12 +359,16 @@ class CharacterInitialHPMP(CommandBaseEntity):
         yield [f"最大ＨＰは {max_hp} になりました"]
         self._ctx.actor.param.max_hp = max_hp
         self._ctx.actor.param.hp = max_hp
+        self.display_info.target.update_indicator(True)
         while self.display_info.target.update() == WindowAction.CONTINUE:
             yield [self.WAIT, "0"]
 
         yield ["ＭＰサイコロの数は、１＋魔力ボーナス値"]
         dices = 1 + self._ctx.actor.bonus_arc
         effect.start(dices, roll_frames)
+        if not di.ref.conf.is_cutin_dice:
+            effect.skip()
+            self.display_info.graphic_command = effect.get_draw_commands()
         while effect.is_rolling:
             effect.update()
             self.display_info.graphic_command = effect.get_draw_commands()

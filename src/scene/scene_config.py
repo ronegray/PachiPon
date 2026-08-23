@@ -16,7 +16,13 @@ from gameutils.lib import Window, WindowAction
 # from helper import upper_str
 import service_locater as di
 from menu import MenuSelectConfigTarget
-from config import CONF_VOLUME, CONF_DISP_SIZE, CONF_TEXT_SPEED, ASSIGNABLE_KEY_ACTIONS
+from config import (
+    CONF_VOLUME,
+    CONF_DISP_SIZE,
+    CONF_TEXT_SPEED,
+    ASSIGNABLE_KEY_ACTIONS,
+    KEYNAME_MAP,
+)
 from . import BaseScene
 
 
@@ -99,48 +105,7 @@ class SceneConfig(BaseScene):
         cutin_dice = "表示する" if di.ref.conf.is_cutin_dice else "非表示"
         self.config_info.append(f"ダイス演出　：{cutin_dice}")
         self.config_info.append("キー割り当て：")
-        # # キーアサイン
-        # self.keybind = [
-        #     # ["キー割り当て：", " ", " "],
-        #     ["アクション", "パッド", "キー"],
-        # ]
-        # # keymap_pad = {
-        # #     action_name: self.key_names.get(
-        # #         keymaps["code"], f"Unknown({keymaps["code"]})"
-        # #     )
-        # #     for action_name, keymaps in get_keymap("pad").items()
-        # # }
-        # # logger.debug(get_keymap("pad"))
-        # # keymap_kbd = {
-        # #     action_name: self.key_names.get(
-        # #         keymaps["code"], f"Unknown({keymaps["code"]})"
-        # #     )
-        # #     for action_name, keymaps in get_keymap("kbd").items()
-        # # }
-        # # logger.debug(get_keymap("kbd"))
-
-        # keymap_pad = {
-        #     action_name: self.key_names.get(
-        #         keymaps[0]["code"], f"Unknown({keymaps[0]["code"]})"
-        #     )
-        #     for action_name, keymaps in get_keymap("pad").items()
-        #     if action_name in ASSIGNABLE_KEY_ACTIONS
-        # }
-        # keymap_kbd = {
-        #     action_name: self.key_names.get(
-        #         keymaps[0]["code"], f"Unknown({keymaps[0]["code"]})"
-        #     )
-        #     for action_name, keymaps in get_keymap("kbd").items()
-        #     if action_name in ASSIGNABLE_KEY_ACTIONS
-        # }
-        # for action_key, action_name in ASSIGNABLE_KEY_ACTIONS.items():
-        #     self.keybind += [
-        #         [
-        #             action_name,
-        #             upper_str(keymap_pad[action_key]),
-        #             upper_str(keymap_kbd[action_key]),
-        #         ]
-        #     ]
+        # キーアサイン
         keyassign = self.build_keyassign_matrix()
 
         # 情報作成時＝データ内容変更時と捉えて、データ内容をファイルに出力
@@ -152,19 +117,21 @@ class SceneConfig(BaseScene):
         return keyassign
 
     def build_keyassign_matrix(self) -> list:
-        # キーアサイン
+        """キーアサイン状態から表示文字列を作成"""
         self.keybind = [
             ["アクション", "パッド", "キー"],
         ]
         keymap_pad = {
-            action_name: self.key_names.get(
+            # action_name: self.key_names.get(
+            action_name: KEYNAME_MAP.get(
                 keymaps[0]["code"], f"Unknown({keymaps[0]["code"]})"
             )
             for action_name, keymaps in get_keymap("pad").items()
             if action_name in ASSIGNABLE_KEY_ACTIONS
         }
         keymap_kbd = {
-            action_name: self.key_names.get(
+            # action_name: self.key_names.get(
+            action_name: KEYNAME_MAP.get(
                 keymaps[0]["code"], f"Unknown({keymaps[0]["code"]})"
             )
             for action_name, keymaps in get_keymap("kbd").items()
@@ -174,8 +141,6 @@ class SceneConfig(BaseScene):
             self.keybind += [
                 [
                     action_name,
-                    # upper_str(keymap_pad[action_key]),
-                    # upper_str(keymap_kbd[action_key]),
                     (keymap_pad[action_key]),
                     (keymap_kbd[action_key]),
                 ]
@@ -184,13 +149,12 @@ class SceneConfig(BaseScene):
 
     def draw_config_info(self) -> None:
         """事前に生成したコンフィグ現在設定情報を描画"""
-        x = 104
+        x = 96
         y = self.window_titlebar.y + self.window_titlebar.height + Window._chip_size - 1
         for txt in self.config_info:
             px.text(x, y, txt, px.COLOR_WHITE, self.window_config_info.font)
             y += 13
-        # y += 32
-        x = 104
+
         for name, pad, kbd in self.keybind:
             px.text(x, y, name, px.COLOR_WHITE, self.window_config_info.font)
             px.text(x + 92, y, pad, px.COLOR_WHITE, self.window_config_info.font)
@@ -198,6 +162,7 @@ class SceneConfig(BaseScene):
             y += px.ceil(self.window_config_info.fontdata.height * 1.25)
 
     def draw(self) -> None:
+        """描画"""
         self.window_config_info.draw()
         self.draw_config_info()
         self.window_titlebar.draw()

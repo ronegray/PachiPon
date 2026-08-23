@@ -139,8 +139,9 @@ class DiceRollEffect:
             return
 
         if is_pressed("decide", "hold") or is_pressed("cancel", "hold"):
-            self.elapsed = self.roll_frames
-            self._finish()
+            # self.elapsed = self.roll_frames
+            # self._finish()
+            self.skip()
 
         self.elapsed += 1
         self.flick_t += 1
@@ -172,6 +173,11 @@ class DiceRollEffect:
         # 演出終了: 浮動小数点の誤差を消すため最終位置へスナップして確定
         if self.elapsed >= self.roll_frames:
             self._finish()
+
+    def skip(self) -> None:
+        """イベントスキップ"""
+        self.elapsed = self.roll_frames
+        self._finish()
 
     def _finish(self) -> None:
         self.values = self.final_values

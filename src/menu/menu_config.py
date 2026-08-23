@@ -321,33 +321,6 @@ class MenuAssignKey(Menu):
         self.cursor_position = [1, 1]
 
     def update(self) -> WindowAction:
-        # if self.flgMsgWnd:
-        #     if self.posCursor[0] % self.wndSize[0] == 1:
-        #         target = "pad"
-        #     elif self.posCursor[0] % self.wndSize[0] == 2:
-        #         target = "kbd"
-        #     response = inp.listener(target)
-        #     if response:
-        #         action_name = list(ASSIGNABLE_ACTIONS_INDEX.keys())[(self.posCursor[1]-1) % self.wndSize[1]]
-        #         inp.keybind(action_name, *response, target)
-        #         self.items = self.build_keyassign_matrix()
-        #         self.flgMsgWnd = False
-        #     return True
-
-        # if inp.is_pressed("decide"):
-        #     px.play(3,SNDEFX["pi"], resume=True)
-        #     if self.flgMsgWnd is False:
-        #         self.flgMsgWnd = True
-        #         return True
-
-        # if inp.is_pressed("cancel"):
-        #     px.play(3,SNDEFX["pi"], resume=True)
-        #     self.flgMsgWnd = False
-        #     return False
-        #     self.Parent.now_scene = SCENE_STATUS["Title"]
-
-        # self.moveCursor()
-        # return True
         if self.is_keylisten:
             match self.cursor_position[0]:
                 case 1:
@@ -363,8 +336,8 @@ class MenuAssignKey(Menu):
                     self.is_keylisten = False
                     return WindowAction.CONTINUE
                 action_name = list(ASSIGNABLE_KEY_ACTIONS)[self.cursor_position[1] - 1]
-                unbind_action(action_name, target)
-                keybind(action_name, *response, target)
+                unbind_action(action_name, target)  # type: ignore
+                keybind(action_name, *response, target)  # type: ignore
                 items = self.build_config_info()
                 self.build_menu_items(items)
                 self.is_keylisten = False

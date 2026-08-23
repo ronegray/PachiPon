@@ -80,7 +80,9 @@ def _make_handler(*sources: int | tuple[int, int]) -> InputHandler:
             if mode == "keep":
                 digital_hit = digital_hit or px.btn(code)
             elif mode == "hold":
-                digital_hit = digital_hit or px.btnp(code, _HOLD_FRAMES, _REPEAT_FRAMES)
+                digital_hit = digital_hit or px.btnp(
+                    code, hold=_HOLD_FRAMES, repeat=_REPEAT_FRAMES
+                )
             else:  # "once"
                 digital_hit = digital_hit or px.btnp(code)
 
@@ -172,6 +174,16 @@ def set_default_pyxel_input() -> WindowInputWrapper:
         menu=_make_handler(px.KEY_V, px.GAMEPAD1_BUTTON_Y),
         start=_make_handler(px.KEY_RETURN, px.GAMEPAD1_BUTTON_START),
         select=_make_handler(px.KEY_SHIFT, px.GAMEPAD1_BUTTON_BACK),
-        LS=_make_handler(px.KEY_LSHIFT, px.GAMEPAD1_BUTTON_LEFTSHOULDER),
-        RS=_make_handler(px.KEY_RSHIFT, px.GAMEPAD1_BUTTON_RIGHTSHOULDER),
+        LS=_make_handler(
+            px.KEY_LSHIFT,
+            px.GAMEPAD1_BUTTON_LEFTSHOULDER,
+            px.KEY_LEFT,
+            px.GAMEPAD1_BUTTON_DPAD_LEFT,
+        ),
+        RS=_make_handler(
+            px.KEY_RSHIFT,
+            px.GAMEPAD1_BUTTON_RIGHTSHOULDER,
+            px.KEY_RIGHT,
+            px.GAMEPAD1_BUTTON_DPAD_RIGHT,
+        ),
     )
