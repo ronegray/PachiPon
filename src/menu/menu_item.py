@@ -150,7 +150,8 @@ class MenuItemBase(Menu):
         """クラス固有の更新処理"""
         # 左右キーでのリスト内容切替
         if len(self.item_list) > 1:
-            if self.inputkey.left():
+            # if self.inputkey.left():
+            if self.inputkey.LS():
                 # px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
                 self.se.play(SoundID.PAGE_ARROW)
                 self.itemlist_index = (self.itemlist_index - 1) % len(self.item_list)
@@ -158,7 +159,8 @@ class MenuItemBase(Menu):
                 self.change_target_item()
                 self.is_push_left = 1
                 return
-            if self.inputkey.right():
+            # if self.inputkey.right():
+            if self.inputkey.RS():
                 # px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
                 self.se.play(SoundID.PAGE_ARROW)
                 self.itemlist_index = (self.itemlist_index + 1) % len(self.item_list)

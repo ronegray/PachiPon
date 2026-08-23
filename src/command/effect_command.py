@@ -26,6 +26,9 @@ def efx_diceroll(
     # se_ch = 3
     # px.play(se_ch, SoundID.DICE_ROLL, resume=True)
     di.ref.sndmgr.play_se_sustain(SoundID.DICE_ROLL)
+    if not di.ref.conf.is_cutin_dice:
+        effect.skip()
+        disp_info.graphic_command = effect.get_draw_commands()
     while effect.is_rolling:
         effect.update()
         disp_info.graphic_command = effect.get_draw_commands()

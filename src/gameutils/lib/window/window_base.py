@@ -265,8 +265,9 @@ class Window:
         """チラチラし過ぎるので別の方法を検討"""
 
         # 決定またはキャンセルキー処理
-        if self.inputkey.decide() or self.inputkey.cancel():
+        if self.inputkey.decide("hold") or self.inputkey.cancel():
             # WindowSoundHandler.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
+            self.update_indicator(False)
             self.se.play(self.ui_se["DECIDE"])
             match self.window_mode:
                 # ページ送り以外では全終了

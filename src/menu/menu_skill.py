@@ -397,12 +397,14 @@ class MenuSelectSkillField(Menu):
             self.build_menu_items(self.skill_list)
             self.change_target_item()
 
-        if self.inputkey.left():
+        # if self.inputkey.left():
+        if self.inputkey.LS():
             # px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
             self.se.play(SoundID.PAGE_ARROW)
             self.member_index = (self.member_index - 1) % len(self.ctx.allies)
             _update_list()
-        if self.inputkey.right():
+        # if self.inputkey.right():
+        if self.inputkey.RS():
             # px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
             self.se.play(SoundID.PAGE_ARROW)
             self.member_index = (self.member_index + 1) % len(self.ctx.allies)

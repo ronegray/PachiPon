@@ -68,7 +68,7 @@ class ShopPurchase(CommandBaseSystem):
         self.display_info.target.update_indicator(True)
         while self.display_info.target.update() == WindowAction.CONTINUE:
             yield [self.WAIT, "0"]
-        self.display_info.target.update_indicator(False)
+        # self.display_info.target.update_indicator(False)
 
         match eventpoint.point_type:
             case PointPlaceType.CAPITAL_CITY:
@@ -122,7 +122,7 @@ class PurchaseFoods(CommandBaseSystem):
         self.display_info.target.update_indicator(True)
         while self.display_info.target.update() == WindowAction.CONTINUE:
             yield [self.WAIT, "0"]
-        self.display_info.target.update_indicator(False)
+        # self.display_info.target.update_indicator(False)
 
         match eventpoint.point_type:
             case PointPlaceType.CAPITAL_CITY:
@@ -163,7 +163,7 @@ class SellEquip(CommandBaseSystem):
         self.display_info.target.update_indicator(True)
         while self.display_info.target.update() == WindowAction.CONTINUE:
             yield [self.WAIT, "0"]
-        self.display_info.target.update_indicator(False)
+        # self.display_info.target.update_indicator(False)
 
         match eventpoint.point_type:
             case PointPlaceType.CAPITAL_CITY:
@@ -174,7 +174,7 @@ class SellEquip(CommandBaseSystem):
                 next_message = "さて、いくらで売れるかの・・・"
         self.display_info.target.update_indicator(True)
         yield [next_message]  # type: ignore
-        self.display_info.target.update_indicator(False)
+        # self.display_info.target.update_indicator(False)
 
 
 class BattleStartEffect(CommandBaseSystem):
@@ -233,6 +233,9 @@ class KickEvent(CommandBaseSystem):
         roll_frames = 60
         yield ["何が起こるか", "　おたのしみ！"]
         effect.start(dices, roll_frames)
+        if not di.ref.conf.is_cutin_dice:
+            effect.skip()
+            self.display_info.graphic_command = effect.get_draw_commands()
         while effect.is_rolling:
             effect.update()
             self.display_info.graphic_command = effect.get_draw_commands()

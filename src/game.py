@@ -22,6 +22,7 @@ class GameApp:
 
         # Pyxel初期化処理
         logger.info("Initialize - Pyxel")
+        # コンフィグに応じた画面サイズで初期化
         disp_scale = CONF_DISP_SIZE[di.ref.conf.display_size]["args"][1]
         self.initialize_pyxel(disp_scale)
 
@@ -57,6 +58,9 @@ class GameApp:
             quit_key=px.KEY_NONE,
             display_scale=scale,
         )
+        # configに応じた全画面状態の設定
+        px.fullscreen(di.ref.conf.is_fullscreen)
+
         from assets.asset_map import AssetMap, AssetID
 
         px.load(AssetMap.get_assetpath(AssetID.PYXRES))
