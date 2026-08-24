@@ -7,7 +7,6 @@
 
 import logging
 import pyxel as px
-from const import SoundID
 from gameutils.lib import (
     Menu,
     Window,
@@ -17,6 +16,8 @@ from gameutils.lib import (
     RsltPop,
     RsltDiscard,
 )
+from const import SoundID
+import service_locater as di
 from helper import upper_int, format_leftright
 from entity import EntityContext
 from skill import SkillDef, SkillTargetType
@@ -198,7 +199,13 @@ class MenuSelectSkillBattle(Menu):
         return result
 
     def get_item_desc(self) -> list[str]:
-        return [self.target_item[self.cursor_position[0]]["args"][0].description]  # type: ignore
+        # return [self.target_item[self.cursor_position[0]]["args"][0].description]  # type: ignore
+        target_item = di.ref.itemrps.get_def(self.target_item[0]["args"][0])  # type: ignore
+        if target_item is None:
+            desc = "対象を持っていない"
+        else:
+            desc = target_item.description
+        return [desc]
 
     def exec_menu(self) -> ExecResult:
         """選択メニュー項目の処理を実行"""
@@ -206,6 +213,8 @@ class MenuSelectSkillBattle(Menu):
         selected_item = self.menu_items[pos_y][pos_x]
         logger.info(selected_item)
 
+        if self.item_count == 0:
+            return RsltContinue()
         if selected_item.menu_action is None:
             errmsg = f"メニューアクション関数が定義されていません：{selected_item.item_label}"
             logger.critical(errmsg, exc_info=True)

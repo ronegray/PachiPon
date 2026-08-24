@@ -54,6 +54,7 @@ class MenuStatus(Menu):
         self.build_status()
 
         # self.inputkey = WindowInputHandler.get()
+        self.inputkey = self.windows["sub"].inputkey
 
     def build_status(self) -> None:
         """ステータス表示内容の構築（装備含む）"""
