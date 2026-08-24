@@ -363,6 +363,8 @@ class MenuSelectItem(Menu):
         selected_item = self.menu_items[pos_y][pos_x]
         logger.info(selected_item)
 
+        if self.item_count == 0:
+            return RsltContinue()
         if selected_item.menu_action is None:
             errmsg = f"メニューアクション関数が定義されていません：{selected_item.item_label}"
             logger.critical(errmsg, exc_info=True)

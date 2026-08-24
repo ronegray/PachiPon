@@ -247,7 +247,7 @@ class MenuUseItem(MenuItemBase):
     def get_item_desc(self) -> list[str]:
         target_item = di.ref.itemrps.get_def(self.target_item[0]["args"][0])
         if target_item is None:
-            desc = "持っていない"
+            desc = "対象を持っていない"
         else:
             desc = target_item.description
         return [desc]
@@ -324,7 +324,7 @@ class MenuShowKeyItem(MenuItemBase):
         self.inventory_count = len(filteredlist)
         if self.inventory_count <= 0:
             self.item_list = [
-                [[{"id": "該当なし", "action": "None", "args": ["対象を持っていない"]}]]
+                [[{"id": "該当なし", "action": "None", "args": "対象を持っていない"}]]
             ]
         else:
             self.item_list = [
