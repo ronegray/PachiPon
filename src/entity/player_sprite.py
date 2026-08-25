@@ -61,8 +61,6 @@ class PlayerSprite(BaseSprite):
         u, v = self.sprite_uvs[self._direction][self._animation_frame]
 
         if self.colkey is not None:
-            px.blt(
-                draw_x, draw_y, self.img, u, v, self.w, self.h, self.colkey, scale=0.5
-            )
+            px.blt(draw_x, draw_y, self.img, u, v, self.w, self.h, self.colkey, scale=0.5)
         else:
             px.blt(draw_x, draw_y, self.img, u, v, self.w, self.h, scale=0.5)

@@ -37,9 +37,7 @@ class SceneShop(BaseScene):
         self.is_shop: bool = True
         match eventpoint.point_type:
             case PointPlaceType.CAPITAL_CITY:
-                enter_message = (
-                    "ご来店ありがとうございます。\n本日はどういった御用件でしょう？"
-                )
+                enter_message = "ご来店ありがとうございます。\n本日はどういった御用件でしょう？"
                 filename = "assets/image/shop_city.bmp"
             case PointPlaceType.TOWN:
                 enter_message = "ようこそウチの店へ！\nどんな物を探してるんだ？"

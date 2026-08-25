@@ -33,9 +33,7 @@ def generate_routes(data):
 
     # 各ポイントの各方向スロットが埋まっているかを管理
     # occupied_slots[point_id][direction] = bool
-    occupied_slots = {
-        p["id"]: {d: False for d in ["up", "down", "left", "right"]} for p in points
-    }
+    occupied_slots = {p["id"]: {d: False for d in ["up", "down", "left", "right"]} for p in points}
 
     # 全ての可能なペアを距離順に並べる
     all_pairs = []

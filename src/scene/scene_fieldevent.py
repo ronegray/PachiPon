@@ -25,9 +25,7 @@ class SceneFieldEvent(BaseScene):
 
         parent_scene = di.ref.scnmgr.get_now_scene()
         if not isinstance(parent_scene, SceneField):
-            errmsg = (
-                f"想定外のシーンから呼び出されました：{parent_scene.__class__.__name__}"
-            )
+            errmsg = f"想定外のシーンから呼び出されました：{parent_scene.__class__.__name__}"
             logger.critical(errmsg, exc_info=True)
             raise TypeError(errmsg)
 
@@ -52,9 +50,7 @@ class SceneFieldEvent(BaseScene):
         self.eventimage: px.Image = px.Image.from_image("assets/image/event01.bmp")
         eventimage_pos = (APP_WIDTH // 2 - self.eventimage.width // 2, 0)
         eventimage_size = (self.eventimage.width, self.eventimage.height)
-        self.eventimage_window = Window(
-            "large", *eventimage_pos, *eventimage_size, "once"
-        )
+        self.eventimage_window = Window("large", *eventimage_pos, *eventimage_size, "once")
 
         self.load_bgm()
 

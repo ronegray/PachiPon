@@ -107,20 +107,12 @@ class PointDialog:
         init_type = point["point_type"] if point else ""
         init_name = point["name"] if point else ""
 
-        self.field_type = InputField(
-            self.x + 10, self.y + 22, w - 20, 12, "point_type", init_type
-        )
-        self.field_name = InputField(
-            self.x + 10, self.y + 52, w - 20, 12, "name", init_name
-        )
+        self.field_type = InputField(self.x + 10, self.y + 22, w - 20, 12, "point_type", init_type)
+        self.field_name = InputField(self.x + 10, self.y + 52, w - 20, 12, "name", init_name)
         self.field_type.active = True
 
-        self.btn_ok = Button(
-            self.x + 10, self.y + h - 18, 70, 14, "OK", px.COLOR_DARK_BLUE
-        )
-        self.btn_cancel = Button(
-            self.x + w - 80, self.y + h - 18, 70, 14, "Cancel", px.COLOR_RED
-        )
+        self.btn_ok = Button(self.x + 10, self.y + h - 18, 70, 14, "OK", px.COLOR_DARK_BLUE)
+        self.btn_cancel = Button(self.x + w - 80, self.y + h - 18, 70, 14, "Cancel", px.COLOR_RED)
 
     def fields(self):
         return (self.field_type, self.field_name)
@@ -274,14 +266,10 @@ class App:
 
         for route in self.routes:
             from_addr = [
-                (point["x"], point["y"])
-                for point in self.points
-                if point["id"] == route["from"]
+                (point["x"], point["y"]) for point in self.points if point["id"] == route["from"]
             ]
             to_addr = [
-                (point["x"], point["y"])
-                for point in self.points
-                if point["id"] == route["to"]
+                (point["x"], point["y"]) for point in self.points if point["id"] == route["to"]
             ]
             if not route.get("locked", False):
                 px.line(*from_addr[0], *to_addr[0], px.COLOR_WHITE)

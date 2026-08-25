@@ -23,7 +23,9 @@ class EventControl(StrEnum):
     # pyxel.blt, pyxel.dither
     WARP = auto()  # 場面転換（移動先タイルマップID、出現位置X,Y）
     # pyxel.bltm, pyxel.dither, Character.move
-    FADE = auto()  # 画面フェードインアウト（フェードタイプ（イン、アウト）、フェード値、フェード時間）
+    FADE = (
+        auto()
+    )  # 画面フェードインアウト（フェードタイプ（イン、アウト）、フェード値、フェード時間）
     # pyxel.dither, pyxel.frame_count,
     SHAKE = auto()  # 画面揺れ（揺れの大きさ、揺れの方向（縦、横、ランダム）揺れ時間）
     # pyxel.camera, pyxel.cls
@@ -39,9 +41,7 @@ class EventControl(StrEnum):
     QUIET = auto()  # 音声再生全停止
     ITEM = auto()  # アイテムの操作（アイテムID、操作（追加increase、減少decrease））
     FLG_SET = auto()  # フラグの設定（フラグID、設定値（True、False））
-    FLG_CHECK = (
-        auto()
-    )  # フラグの判定とジャンプ（フラグID、判定値（True、False）、ラベル名）
+    FLG_CHECK = auto()  # フラグの判定とジャンプ（フラグID、判定値（True、False）、ラベル名）
     SELECT = auto()  # 選択肢（[選択肢１，選択肢１の結果実行する処理]...非制限数リスト）
     GOTO = auto()  # 指定ラベルの処理までジャンプする（ラベル名）
     LABEL = auto()  # GOTO、FLG_CHECKでのジャンプ先を示す（ラベル名）

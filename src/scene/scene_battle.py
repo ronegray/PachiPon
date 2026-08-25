@@ -112,9 +112,7 @@ class SceneBattle(BaseScene):
             # 次のスプライト描画位置を更新
             sprite_x += enemy_image.width + sprite_offset
             # インスタンスをリストに追加
-            self.enemy_list.append(
-                Enemy(base_param, enemy_param, enemy_sprite, i + ENEMY_ID_BASE)
-            )
+            self.enemy_list.append(Enemy(base_param, enemy_param, enemy_sprite, i + ENEMY_ID_BASE))
 
         # メンバーステータスウインドウの生成
         status_offset = Window._chip_size // 2
@@ -230,10 +228,7 @@ class SceneBattle(BaseScene):
                 self.calc_initiative()
                 # イニシアチブ値の大きいコマンドがスタック上位に来るようpush
                 initive_list = [
-                    k
-                    for k, _ in sorted(
-                        self.initiative_dict.items(), key=lambda item: item[1]
-                    )
+                    k for k, _ in sorted(self.initiative_dict.items(), key=lambda item: item[1])
                 ]
                 for member_id in initive_list:
                     di.ref.cmdmgr.push_command(self.battle_commands[member_id])

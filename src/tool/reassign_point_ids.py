@@ -22,9 +22,7 @@ def distance(p1: dict, p2: dict) -> float:
     return math.hypot(p1["x"] - p2["x"], p1["y"] - p2["y"])
 
 
-def reorder_points_by_distance_from_start(
-    points: list[dict], start_id: str = "p01"
-) -> list[dict]:
+def reorder_points_by_distance_from_start(points: list[dict], start_id: str = "p01") -> list[dict]:
     """start_id(p01)を先頭に固定し、それ以外のpointを
     「基点(p01)からの距離」だけで昇順ソートしたリストを返す。
     """

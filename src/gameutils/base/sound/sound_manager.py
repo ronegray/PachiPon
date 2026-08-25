@@ -25,9 +25,7 @@ TARGET_TOTAL_GAIN = 0.98  # 全ch同時最大振幅時の合計上限（1.0未�
 # VOLUME_LEVEL_FACTORS = (1.0, 0.5, 0.25, 0.125, 0.0625, 0.0)  # -6dBずつ + ミュート
 
 
-def compute_base_gain(
-    num_channels: int, target_total: float = TARGET_TOTAL_GAIN
-) -> float:
+def compute_base_gain(num_channels: int, target_total: float = TARGET_TOTAL_GAIN) -> float:
     """全ch同時最大振幅・完全同位相でも合計が target_total を超えないための channel.gain 基準値"""
     return target_total / num_channels
 
@@ -62,9 +60,7 @@ class FadeController:
     ):
         """現在値(current_factor)を起点に新しいフェードを開始する"""
         self.state = (
-            FadeState.FADE_IN
-            if target_factor > self.current_factor
-            else FadeState.FADE_OUT
+            FadeState.FADE_IN if target_factor > self.current_factor else FadeState.FADE_OUT
         )
         self.start_factor = self.current_factor
         self.target_factor = target_factor
@@ -84,9 +80,7 @@ class FadeController:
             return self.current_factor
         self.elapsed_frames += 1
         t = min(self.elapsed_frames / self.duration_frames, 1.0)
-        self.current_factor = (
-            self.start_factor + (self.target_factor - self.start_factor) * t
-        )
+        self.current_factor = self.start_factor + (self.target_factor - self.start_factor) * t
         if t >= 1.0:
             callback = self.on_complete
             self.state = FadeState.NONE
@@ -172,9 +166,7 @@ class SoundManager:
     def __init__(self):
         # --- 構造的セットアップ（config非依存） ---
         px.channels[:] = [px.Channel() for _ in range(NUM_CHANNELS)]
-        self.sounds = [
-            px.Sound() for _ in range(NUM_CHANNELS)
-        ]  # 各チャンネル用サウンドデータ
+        self.sounds = [px.Sound() for _ in range(NUM_CHANNELS)]  # 各チャンネル用サウンドデータ
 
         self._gain_factor: float = 1.0
         # self._base_gain_value: float = computebase_gain(NUM_CHANNELS)
@@ -190,9 +182,7 @@ class SoundManager:
         self._lib_music_score = MusicScoreLibrary()
 
     # ---------- config反映 ----------
-    def set_basegain_factor(
-        self, factor_level: float = 0.7, seq_ch: tuple = BGM_CHANNELS
-    ):
+    def set_basegain_factor(self, factor_level: float = 0.7, seq_ch: tuple = BGM_CHANNELS):
         # if factor > 1.0:
         #     print(f"[SoundManager] gain_factor={factor} は1.0を超えています。1.0にクランプします。")
         #     factor = 1.0
@@ -342,9 +332,7 @@ class SoundManager:
     def _apply_bgm_gain(self):
         """フェード中の音量変化を各チャンネルに反映"""
         for ch in BGM_CHANNELS:
-            px.channels[ch].gain = (
-                self._ch_base_gain[ch] * self._bgm_fade.current_factor
-            )
+            px.channels[ch].gain = self._ch_base_gain[ch] * self._bgm_fade.current_factor
 
     def update(self):
         """フェード中のみ音量変化についての状態更新を実行"""

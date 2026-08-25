@@ -39,18 +39,14 @@ class SceneConfig(BaseScene):
         # 設定情報表示ウインドウ
         info_x, info_y = 0, 0
         info_w, info_h = px.width, px.height
-        self.window_config_info = Window(
-            "basic", info_x, info_y, info_w, info_h, "hold"
-        )
+        self.window_config_info = Window("basic", info_x, info_y, info_w, info_h, "hold")
         self.config_info: list[str] = []
         self.keybind: list[list[str]] = []
 
         # 画面タイトルウインドウ
         title_x, title_y = 0, 0
         title_w, title_h = px.width, 24
-        self.window_titlebar = Window(
-            "large", title_x, title_y, title_w, title_h, "hold"
-        )
+        self.window_titlebar = Window("large", title_x, title_y, title_w, title_h, "hold")
         self.window_titlebar.set_message(["　　　　　システムコンフィグ"])
 
         # pyxel標準キー定義名
@@ -86,20 +82,14 @@ class SceneConfig(BaseScene):
         self.keybind.clear()
 
         # 設定
-        self.config_info.append(
-            f"ＢＧＭ音量　：{CONF_VOLUME[di.ref.conf.vol_bgm]["label"]}"
-        )
-        self.config_info.append(
-            f"効果音音量　：{CONF_VOLUME[di.ref.conf.vol_se]["label"]}"
-        )
+        self.config_info.append(f"ＢＧＭ音量　：{CONF_VOLUME[di.ref.conf.vol_bgm]["label"]}")
+        self.config_info.append(f"効果音音量　：{CONF_VOLUME[di.ref.conf.vol_se]["label"]}")
         self.config_info.append(
             f"画面サイズ　：{CONF_DISP_SIZE[di.ref.conf.display_size]["label"]}"
         )
         fulsc = "する" if di.ref.conf.is_fullscreen else "しない"
         self.config_info.append(f"全画面表示　：{fulsc}")
-        self.config_info.append(
-            f"文字送り待ち：{CONF_TEXT_SPEED[di.ref.conf.text_speed]["label"]}"
-        )
+        self.config_info.append(f"文字送り待ち：{CONF_TEXT_SPEED[di.ref.conf.text_speed]["label"]}")
         curpos = "記憶" if di.ref.conf.is_memory_cursor else "初期化"
         self.config_info.append(f"カーソル位置：{curpos}")
         cutin_dice = "表示する" if di.ref.conf.is_cutin_dice else "非表示"
@@ -123,17 +113,13 @@ class SceneConfig(BaseScene):
         ]
         keymap_pad = {
             # action_name: self.key_names.get(
-            action_name: KEYNAME_MAP.get(
-                keymaps[0]["code"], f"Unknown({keymaps[0]["code"]})"
-            )
+            action_name: KEYNAME_MAP.get(keymaps[0]["code"], f"Unknown({keymaps[0]["code"]})")
             for action_name, keymaps in get_keymap("pad").items()
             if action_name in ASSIGNABLE_KEY_ACTIONS
         }
         keymap_kbd = {
             # action_name: self.key_names.get(
-            action_name: KEYNAME_MAP.get(
-                keymaps[0]["code"], f"Unknown({keymaps[0]["code"]})"
-            )
+            action_name: KEYNAME_MAP.get(keymaps[0]["code"], f"Unknown({keymaps[0]["code"]})")
             for action_name, keymaps in get_keymap("kbd").items()
             if action_name in ASSIGNABLE_KEY_ACTIONS
         }

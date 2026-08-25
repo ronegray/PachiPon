@@ -132,9 +132,7 @@ class Window:
         self.font = self.fontdata.font
         self.inputkey = WindowInputHandler.get()
         # 共通基本パラメータ
-        self.x = (
-            x if x + width <= px.width else px.width - width
-        )  # 右端からはみ出す場合を考慮
+        self.x = x if x + width <= px.width else px.width - width  # 右端からはみ出す場合を考慮
         self.y = y
         self.width = width
         self.height = height
@@ -167,9 +165,7 @@ class Window:
             for Xpos in range(self.chip_cnt_w):
                 # 四隅
                 if Ypos == 0 and Xpos == 0:
-                    self.window_image.blt(
-                        0, 0, self._image_chips, *lefttop, colkey=0
-                    )  # 左上
+                    self.window_image.blt(0, 0, self._image_chips, *lefttop, colkey=0)  # 左上
                 elif Ypos == 0 and Xpos == self.chip_cnt_w - 1:
                     self.window_image.blt(
                         self.width - self._chip_size,
@@ -378,9 +374,7 @@ class MenuItem:
 
     item_label: str  # 画面に表示する文字列
     menu_action: Callable[..., Any] | None = None  # 実行する関数オブジェクト
-    action_args: tuple[Any, ...] = field(
-        default_factory=tuple
-    )  # 関数に渡す引数（あれば）
+    action_args: tuple[Any, ...] = field(default_factory=tuple)  # 関数に渡す引数（あれば）
     # is_disabled: bool = False                # (将来用) 選択不可フラグなどを足しても便利です
 
 
@@ -401,9 +395,7 @@ class Menu:
     # 固定メニュー項目データ読込
     file = ResourcePath.MENU_STRUCTURE
     path = check_file(file)
-    assert (
-        path is not None
-    ), f"固定メニュー項目データの読み込みに失敗しました：file={file}"
+    assert path is not None, f"固定メニュー項目データの読み込みに失敗しました：file={file}"
     menu_item_data = read_json(path)
     # _MENU_ITEM_CASHE: dict[str, list[list[dict[str, str|list]]]] = dict(menu_item_data)
     _MENU_ITEM_CASHE: dict[str, MENU_ITEM_LIST] = dict(menu_item_data)
@@ -453,14 +445,10 @@ class Menu:
         width = w if w > 0 else calc_winsize[0]
         height = h if h > 0 else calc_winsize[1]
 
-        adjusted_x = (
-            x if x + width <= px.width else px.width - width
-        )  # 右端からはみ出す場合を考慮
+        adjusted_x = x if x + width <= px.width else px.width - width  # 右端からはみ出す場合を考慮
         # ウインドウ生成処理
         self.windows: dict[MENU_WINDOW_TYPE, Window] = {}
-        self.windows["main"] = Window(
-            font_size_name, adjusted_x, y, width, height, "menu"
-        )
+        self.windows["main"] = Window(font_size_name, adjusted_x, y, width, height, "menu")
         self.cursor_x = self.cursor_y = 0
         self.inputkey = WindowInputHandler.get()
 
@@ -519,9 +507,7 @@ class Menu:
         menuwidth = menuheight = 0
         framesize = Window._chip_size * 2  # 左右または上下の枠サイズ合計
         # --- 幅(X座標)の計算と保持 ---
-        offset_cursor = Window._chip_size + (
-            Window._chip_size // 4
-        )  # カーソルサイズ、文字との余白
+        offset_cursor = Window._chip_size + (Window._chip_size // 4)  # カーソルサイズ、文字との余白
         offset_sepalete_col = (
             2 if self.font is None else self.font.text_width(" ") // 2
         )  # 項目間余白
@@ -535,8 +521,7 @@ class Menu:
         # ]
         # 横あり奇数リストの対策
         column_items: list[list[MenuItem]] = [
-            [item for item in col if item is not None]
-            for col in zip_longest(*self.menu_items)
+            [item for item in col if item is not None] for col in zip_longest(*self.menu_items)
         ]
         for column_data in column_items:
             if column_data is None:
@@ -546,44 +531,32 @@ class Menu:
 
             if self.font:
                 text_list = [items.item_label for items in column_data]
-                max_column_textlen = self.font.text_width(
-                    max(text_list, key=self.font.text_width)
-                )
+                max_column_textlen = self.font.text_width(max(text_list, key=self.font.text_width))
             else:
                 # デフォルトフォントの場合の文字長は4ピクセル
-                max_column_textlen = (
-                    max([len(item.item_label) for item in column_data]) * 4
-                )
+                max_column_textlen = max([len(item.item_label) for item in column_data]) * 4
             colwidth = offset_cursor + max_column_textlen + offset_sepalete_col
             menuwidth += colwidth
             current_x += colwidth
         # print(f"{self.menu_items}\n{column_items}\n{self.column_x_pos}")
         # チップサイズで丸めて最終的な幅を算出
-        menuwidth = (
-            px.ceil((menuwidth + framesize) / Window._chip_size) * Window._chip_size
-        )
+        menuwidth = px.ceil((menuwidth + framesize) / Window._chip_size) * Window._chip_size
 
         # 高さ
         rows = self.menu_shape[1]
         offset_sepalete_row = self.fontdata.height // 2
         # 文字列／カーソル表示用のpixelアドレスキャッシュ初期化
         self.row_y_pos: list[int] = []
-        current_y = (
-            Window._chip_size - 1
-        )  # 描画初期アドレスを枠の下(余白埋め気味)に定義
+        current_y = Window._chip_size - 1  # 描画初期アドレスを枠の下(余白埋め気味)に定義
 
         for _ in range(rows):
             self.row_y_pos.append(current_y)
             current_y += self.fontdata.height + offset_sepalete_row
 
         # 最終行はオフセット不要（枠の余白が相当するため
-        menuheight = (
-            rows * (self.fontdata.height + offset_sepalete_row) - offset_sepalete_row
-        )
+        menuheight = rows * (self.fontdata.height + offset_sepalete_row) - offset_sepalete_row
         # チップサイズで丸めて最終的な幅を算出
-        menuheight = (
-            px.ceil((menuheight + framesize) / Window._chip_size) * Window._chip_size
-        )
+        menuheight = px.ceil((menuheight + framesize) / Window._chip_size) * Window._chip_size
 
         return [menuwidth, menuheight]
 
@@ -620,21 +593,23 @@ class Menu:
     # 個別キー判定など入れずに、key_checkのオーバーライドで実装する
 
     def individual_update(self) -> Any:
-        """メニュー個別のupdateフレーム処理内容"""
+        """メニュー個別のupdateフレーム処理内容
+        ※結果でupdateを抜けたい場合はupdateをオーバーライドする事
+        """
         pass
 
     def move_cursor(self) -> bool:
         """キー入力に応じたカーソル移動とインデックス制御"""
-        if self.inputkey.up():
+        if self.menu_shape[1] > 1 and self.inputkey.up():
             self.cursor_position[1] = (self.cursor_position[1] - 1) % self.menu_shape[1]
             return True
-        if self.inputkey.left():
+        if self.menu_shape[0] > 1 and self.inputkey.left():
             self.cursor_position[0] = (self.cursor_position[0] - 1) % self.menu_shape[0]
             return True
-        if self.inputkey.down():
+        if self.menu_shape[1] > 1 and self.inputkey.down():
             self.cursor_position[1] = (self.cursor_position[1] + 1) % self.menu_shape[1]
             return True
-        if self.inputkey.right():
+        if self.menu_shape[0] > 1 and self.inputkey.right():
             self.cursor_position[0] = (self.cursor_position[0] + 1) % self.menu_shape[0]
             return True
         return False
@@ -656,9 +631,7 @@ class Menu:
         for row_idx, row in enumerate(self.menu_items):
             for col_idx, item in enumerate(row):
                 text_x = (
-                    self.windows["main"].x
-                    + self.column_x_pos[col_idx]
-                    + Window._chip_size
+                    self.windows["main"].x + self.column_x_pos[col_idx] + Window._chip_size
                 )  # カーソルの右隣
                 text_y = self.windows["main"].y + self.row_y_pos[row_idx]
                 px.text(text_x, text_y, item.item_label, px.COLOR_WHITE, self.font)
@@ -672,9 +645,7 @@ class Menu:
         """メニューカーソル表示"""
         pos_x, pos_y = self.cursor_position
         self.cursor_x = self.windows["main"].x + self.column_x_pos[pos_x]
-        self.cursor_y = (
-            self.windows["main"].y + self.row_y_pos[pos_y] + self.cursor_row_offset
-        )
+        self.cursor_y = self.windows["main"].y + self.row_y_pos[pos_y] + self.cursor_row_offset
         px.blt(
             self.cursor_x,
             self.cursor_y,
@@ -744,11 +715,7 @@ class MenuYesNo(Menu):
         super().__init__("basic", 0, 0, menu_shape, "MenuYesNo")
         self.windows["main"].x = x if x > 0 else px.width - self.width
         self.windows["main"].y = (
-            y
-            if y > 0
-            else (
-                self.message_window.y + self.message_window.height - Window._chip_size
-            )
+            y if y > 0 else (self.message_window.y + self.message_window.height - Window._chip_size)
         )
 
     def key_check(self) -> WindowAction:
@@ -757,9 +724,7 @@ class MenuYesNo(Menu):
             # WindowSoundHandler.play(self.se_ch, self.ui_se["CURSOR_VERTICAL"], resume=True)
             self.se.play(self.ui_se["CURSOR_VERTICAL"])
         elif self.inputkey.decide():
-            self.ans["answer"] = self.menu_items[self.cursor_position[1]][
-                0
-            ].action_args[0]
+            self.ans["answer"] = self.menu_items[self.cursor_position[1]][0].action_args[0]
             if self.ans["answer"]:
                 # WindowSoundHandler.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
                 self.se.play(self.ui_se["DECIDE"])

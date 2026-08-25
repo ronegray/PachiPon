@@ -15,9 +15,7 @@ from . import DisplayInfo
 logger = logging.getLogger(__name__)
 
 
-def efx_diceroll(
-    disp_info: DisplayInfo, dices: int
-) -> Generator[list[str | int], None, int]:
+def efx_diceroll(disp_info: DisplayInfo, dices: int) -> Generator[list[str | int], None, int]:
     """コマンドジェネレータからダイスロールを実行する為のヘルパー関数"""
     # effect = DiceRollEffect()
     # effect.load_diceimage()

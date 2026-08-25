@@ -60,9 +60,7 @@ class CustomTone:
         waveform: list = []
         for x in range(width):
             angle = (x / width) * 360
-            waveform.append(
-                min((2**self._sample_bits) - 1, int(sin(angle) * amplitude + center_y))
-            )
+            waveform.append(min((2**self._sample_bits) - 1, int(sin(angle) * amplitude + center_y)))
         self._waveform_dicts["sign"] = waveform.copy()
 
         self.update_wavetable(self._waveform_dicts["sign"])
@@ -76,9 +74,7 @@ class CustomTone:
         """Toneクラス用パラメータをカスタムクラスのプロパティから反映"""
         self._entity.mode = mode if mode is not None else self._mode
         self._entity.gain = gain if gain is not None else self._gain
-        self._entity.sample_bits = (
-            sample_bits if sample_bits is not None else self._sample_bits
-        )
+        self._entity.sample_bits = sample_bits if sample_bits is not None else self._sample_bits
 
     def get_parameter(
         self, param_name: str | None = None

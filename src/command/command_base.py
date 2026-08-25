@@ -52,10 +52,7 @@ class CommandBaseSequence(CommandBase):
                 self._advance()
                 self.phase = CommandPhase.ACK
             case CommandPhase.ACK:
-                if (
-                    self.display_info.target.update() == WindowAction.DISCARD
-                    or self.step_wait < 0
-                ):
+                if self.display_info.target.update() == WindowAction.DISCARD or self.step_wait < 0:
                     self._advance()
                 self.step_wait -= 1
         return self.phase

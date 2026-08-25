@@ -178,9 +178,7 @@ class Party:
         x, y = 0, 0  # 描画位置
         u, v = 0, 0  # イメージの取得相対位置
         w, h = 16, 16  # 取得するイメージのサイズ
-        self._field_sprite = FieldSprite(
-            x, y, self._member_list[0].sprite.img, u, v, w, h
-        )
+        self._field_sprite = FieldSprite(x, y, self._member_list[0].sprite.img, u, v, w, h)
 
     def set_sprite_direction(self, direction: str) -> None:
         """パーティのフィールドスプライトの方向設定用ラッパー"""

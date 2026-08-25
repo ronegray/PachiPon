@@ -43,9 +43,7 @@ class SceneField(BaseScene):
         # イベント状態ウインドウの生成
         evstate_pos = (0, 232)
         evstate_size = (APP_WIDTH, 8 + 8 + 8)  # 下枠+文字サイズ+上枠
-        self.eventpoint_state_window = Window(
-            "basic", *evstate_pos, *evstate_size, "once"
-        )
+        self.eventpoint_state_window = Window("basic", *evstate_pos, *evstate_size, "once")
         # ウインドウ表示抑止フラグ
         self.is_close_window: bool = False
 
@@ -77,9 +75,7 @@ class SceneField(BaseScene):
             )
         else:
             self.eventpoint_state_window.set_message(
-                [
-                    f"イベント実行準備中です（あと{self.current_point.ready_count}ターン）"
-                ]
+                [f"イベント実行準備中です（あと{self.current_point.ready_count}ターン）"]
             )
         for _, val in self.current_point.get_eventpoint_info().items():
             self.eventpoint_info_window.add_message(
@@ -137,11 +133,7 @@ class SceneField(BaseScene):
             di.ref.pt.update()
             # 移動によってターンが経過した時は準備状態でないイベントポイントの更新
             if di.ref.pt.past_turns > prev_turn:
-                [
-                    point.update()
-                    for point in di.ref.map.points.values()
-                    if point.is_ready is False
-                ]
+                [point.update() for point in di.ref.map.points.values() if point.is_ready is False]
             # 移動中→移動完了への状態変化時に、前ポイントのイベント回復＆現在地修正
             # -> イベント回復はイベントポイントの更新処理へ移動
             # 移動終了時は地点情報を更新

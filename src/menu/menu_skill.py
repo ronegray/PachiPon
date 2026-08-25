@@ -49,13 +49,9 @@ class MenuSelectSkillBattle(Menu):
 
         menu_pos = (ref_window["x"], ref_window["y"])
         menu_size = (
-            (ref_window["w"], ref_window["h"])
-            if self.ctx.situation == "battle"
-            else (104, 144)
+            (ref_window["w"], ref_window["h"]) if self.ctx.situation == "battle" else (104, 144)
         )
-        super().__init__(
-            "basic", *menu_pos, self.menu_shape, self.skill_list, *menu_size
-        )
+        super().__init__("basic", *menu_pos, self.menu_shape, self.skill_list, *menu_size)
         self.cursor_row_offset += 2  # k8x12Sの縦長分対応
         # """使用するスキルを選択データ取得と表示ウインドウの再定義"""
         self.member_index: int = 0
@@ -95,16 +91,12 @@ class MenuSelectSkillBattle(Menu):
 
         self.item_count = len(tmplist)
         if self.item_count <= 0:
-            self.skill_list = [
-                [{"id": "該当なし", "action": "None", "args": ["習得していない"]}]
-            ]
+            self.skill_list = [[{"id": "該当なし", "action": "None", "args": ["習得していない"]}]]
         else:
             tmp_item_list = [
                 [
                     {
-                        "id": format_leftright(
-                            skill_def.name, upper_int(skill_def.cost)
-                        ),
+                        "id": format_leftright(skill_def.name, upper_int(skill_def.cost)),
                         "action": "select_target",
                         "args": [skill_def],
                     }
@@ -237,9 +229,7 @@ class MenuSelectSkillBattle(Menu):
                 from menu import MenuSelectBattleTarget
 
                 # コマンドパッケージに選択内容登録
-                self.command_package.selected_action = getattr(
-                    e_cmd, skill_def.effect_func
-                )
+                self.command_package.selected_action = getattr(e_cmd, skill_def.effect_func)
                 self.command_package.target_type = skill_def.target_type  # type: ignore
                 self.command_package.selected_args = {"skillinfo": skill_def}
 
@@ -284,9 +274,7 @@ class MenuSelectSkillField(Menu):
 
         menu_pos = (ref_window["x"], ref_window["y"])
         menu_size = (104, 144)
-        super().__init__(
-            "basic", *menu_pos, self.menu_shape, self.skill_list, *menu_size
-        )
+        super().__init__("basic", *menu_pos, self.menu_shape, self.skill_list, *menu_size)
         self.cursor_row_offset += 2  # k8x12Sの縦長分対応
 
         self.member_index: int = 0
@@ -326,9 +314,7 @@ class MenuSelectSkillField(Menu):
             tmp_item_list = [
                 [
                     {
-                        "id": format_leftright(
-                            skill_def.name, upper_int(skill_def.cost)
-                        ),
+                        "id": format_leftright(skill_def.name, upper_int(skill_def.cost)),
                         "action": "select_target",
                         "args": [skill_def],
                     }

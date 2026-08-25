@@ -30,9 +30,7 @@ class SceneOpening(BaseScene):
         super().__init__()
         self.situation = "system"
         # 背景イメージ設定
-        self.bgimage: px.Image = px.Image.from_image(
-            AssetMap.get_assetpath(AssetID.IMAGE_NEWGAME)
-        )
+        self.bgimage: px.Image = px.Image.from_image(AssetMap.get_assetpath(AssetID.IMAGE_NEWGAME))
         self.bgpos_x = (px.width - self.bgimage.width) // 2
         self.bgpos_y = (px.height - self.bgimage.height) // 2
 

@@ -8,9 +8,7 @@ from skill import SkillID
 
 
 class Enemy(EntityBase):
-    def __init__(
-        self, param: EntityParam, eparam: EnemyParam, sprite: BaseSprite, id: int = 0
-    ):
+    def __init__(self, param: EntityParam, eparam: EnemyParam, sprite: BaseSprite, id: int = 0):
         self.eparam = eparam  # エネミー専用パラメタ
         super().__init__(param, sprite, id)
 

@@ -49,9 +49,7 @@ def _adapt(action_name: ACTION_NAME) -> InputHandler:
     リバインド後の再配線が不要になる。
     """
     # input_system_action = _ACTION_NAME_MAP[menu_action_name]
-    action_default_mode = (
-        "hold" if action_name in ("up", "down", "left", "right") else "once"
-    )
+    action_default_mode = "hold" if action_name in ("up", "down", "left", "right") else "once"
 
     def handler(mode: INPUT_MODE = action_default_mode) -> bool:
         return is_pressed(action_name, mode)
@@ -66,6 +64,4 @@ def wire_window_input_from_input_system() -> None:
     1回呼び出せば良い。設定画面でのキー再割当があっても、
     このメソッドを再度呼び出す必要はない。
     """
-    WindowInputHandler.update_window_input(
-        {name: _adapt(name) for name in get_args(ACTION_NAME)}
-    )
+    WindowInputHandler.update_window_input({name: _adapt(name) for name in get_args(ACTION_NAME)})

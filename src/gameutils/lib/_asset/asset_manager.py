@@ -27,9 +27,7 @@ class AssetManager:
         # cls._asset_map[AssetID.FONT_LARGE] = f"{ASSETS_PATH}/font/unifont_jp-17.0.04.bdf"
         # cls._asset_map[AssetID.SCRIPT_PATH] = f"{ASSETS_PATH}/script/"
         cls._asset_map[AssetID.IMAGE_CHARA] = f"{ASSETS_PATH}/image/charatest.bmp"
-        cls._asset_map[
-            AssetID.IMAGE_SPLASH
-        ] = f"{ASSETS_PATH}/image/pyxel_logo_152x64.png"
+        cls._asset_map[AssetID.IMAGE_SPLASH] = f"{ASSETS_PATH}/image/pyxel_logo_152x64.png"
         cls._asset_map[AssetID.IMAGE_TITLE] = f"{ASSETS_PATH}/image/title.bmp"
         cls._asset_map[AssetID.IMAGE_MAP] = f"{ASSETS_PATH}/image/map.png"
         cls._asset_map[AssetID.DATA_ITEM] = f"{ASSETS_PATH}/data/item_master.json"

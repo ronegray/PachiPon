@@ -48,9 +48,7 @@ class EnemyRepository:
                         "hitdice": params.get("hitdice", 3),
                         "defvalue": params.get("defvalue", 3),
                         "magpenalty": params.get("magpenalty", 3),
-                        "guardtype": getattr(
-                            GuardType, params.get("guardtype", "NONE")
-                        ),
+                        "guardtype": getattr(GuardType, params.get("guardtype", "NONE")),
                         "weaktype": getattr(WeakType, params.get("weaktype", "NONE")),
                         "action_pattern": [
                             getattr(ActionPattern, str(action).upper())

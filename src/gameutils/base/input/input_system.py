@@ -257,9 +257,7 @@ def _resolve_bind_map(
         return {action: list(keys) for action, keys in defaults.items()}
 
     section = loaded_data.get(bind_target, {})
-    return {
-        action: section.get(action, default) for action, default in defaults.items()
-    }
+    return {action: section.get(action, default) for action, default in defaults.items()}
 
 
 def initialize_input(fps: int = 30) -> None:
@@ -292,9 +290,7 @@ def keybind(
             target_bindings = _bindings_pad
         case "kbd":
             if key_code >= px.MOUSE_POS_X:
-                print(
-                    f"Warning: {action_name} to {key_code} is not a valid keyboard code."
-                )
+                print(f"Warning: {action_name} to {key_code} is not a valid keyboard code.")
                 return False
             # target_actmap = _action_keymap_kbd
             # target_assign = _key_assign_map_kbd
@@ -379,10 +375,7 @@ def get_keymap(target: TARGET_DEVICE) -> dict[str, list[dict[str, int]]]:
 
     # return keymap
     return {
-        action: [
-            {"code": binds.code, "input_sign": binds.input_sign}
-            for binds in binding_list
-        ]
+        action: [{"code": binds.code, "input_sign": binds.input_sign} for binds in binding_list]
         for action, binding_list in bindings.items()
     }
 

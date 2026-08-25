@@ -41,9 +41,7 @@ class MenuCharaMake(Menu):
         gain_w = 128  # 上昇項目選択
         menu_pos_x, menu_pos_y = Window._chip_size, 76
         menu_shape = [1, 5]
-        super().__init__(
-            "basic", menu_pos_x, menu_pos_y, menu_shape, "MenuLevelup", gain_w
-        )
+        super().__init__("basic", menu_pos_x, menu_pos_y, menu_shape, "MenuLevelup", gain_w)
         self.cursor_row_offset += 2  # k8x12Sの縦長分対応
 
         # ボーナスポイント現在値
@@ -106,9 +104,7 @@ class MenuCharaMake(Menu):
             logger.critical(errmsg, exc_info=True)
             raise ValueError(errmsg)
 
-        logger.info(
-            f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}"
-        )
+        logger.info(f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}")
 
         result = selected_item.menu_action()
         return result
