@@ -316,6 +316,10 @@ class SoundManager:
         px.channels[SE_SUSTAIN_CH].gain = self._ch_base_gain[SE_SUSTAIN_CH]
         px.play(SE_SUSTAIN_CH, sound_id)
 
+    def wait_se_fin(self) -> bool:
+        """SEの鳴り終わりを検出"""
+        return px.play_pos(SE_SUSTAIN_CH) is None
+
     # def stop_se_instant(self):
     #     px.stop(SE_INSTANT_CH)
 

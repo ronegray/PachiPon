@@ -725,18 +725,20 @@ class MenuYesNo(Menu):
             self.se.play(self.ui_se["CURSOR_VERTICAL"])
         elif self.inputkey.decide():
             self.ans["answer"] = self.menu_items[self.cursor_position[1]][0].action_args[0]
-            if self.ans["answer"]:
-                # WindowSoundHandler.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
-                self.se.play(self.ui_se["DECIDE"])
-            elif self.ans["answer"] is False:
-                # WindowSoundHandler.play(self.se_ch, self.ui_se["CANCEL"], resume=True)
-                self.se.play(self.ui_se["CANCEL"])
+            # if self.ans["answer"]:
+            #     # WindowSoundHandler.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
+            #     self.se.play(self.ui_se["DECIDE"])
+            # elif self.ans["answer"] is False:
+            #     # WindowSoundHandler.play(self.se_ch, self.ui_se["CANCEL"], resume=True)
+            #     self.se.play(self.ui_se["CANCEL"])
+            self.se.play(self.ui_se["DECIDE"])
             self.ans["finished"] = True
             return WindowAction.CLOSE
         elif self.inputkey.cancel():
             # WindowSoundHandler.play(self.se_ch, self.ui_se["CANCEL"], resume=True)
             self.se.play(self.ui_se["CANCEL"])
-            self.ans["answer"] = False
+            # self.ans["answer"] = False
+            # self.ans["finished"] = True
             self.ans["finished"] = True
             return WindowAction.CLOSE
         return WindowAction.CONTINUE

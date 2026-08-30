@@ -575,6 +575,27 @@
       "effect_value": 100,
       "is_percent": false,
       "description": "食糧を50増やす"
+    },
+    "NSKILLBOOK": {
+      "name": "一般技術書",
+      "rank": "JUNK",
+      "price": 50,
+      "effect_type": "learn_junk",
+      "description": "簡単なスキルを取得出来る"
+    },
+    "RSKILLBOOK": {
+      "name": "専門技術書",
+      "rank": "NORMAL",
+      "price": 1000,
+      "effect_type": "learn_normal",
+      "description": "上級のスキルを取得出来る"
+    },
+    "LSKILLBOOK": {
+      "name": "隠匿秘伝書",
+      "rank": "RARE",
+      "price": 30000,
+      "effect_type": "learn_rare",
+      "description": "最上級のスキルを取得出来る"
     }
   }
 }

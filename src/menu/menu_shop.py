@@ -409,7 +409,7 @@ class MenuSellItems(MenuItemBase):
 
         self.inventory_count = len(filteredlist)
         if self.inventory_count <= 0:
-            self.item_list = [[[{"id": "該当なし", "action": "None", "args": [""]}]]]
+            self.item_list = [[[{"id": "該当なし", "action": "None", "args": [None, None, None]}]]]
         else:
             self.item_list = [
                 filteredlist[i : i + self._list_rows]
@@ -465,6 +465,8 @@ class MenuSellItems(MenuItemBase):
         selected_item = self.menu_items[pos_y][pos_x]
         logger.info(selected_item)
 
+        if selected_item.action_args[0] is None:
+            return RsltContinue()
         eventpoint = self.pt.get_current_point()
         match eventpoint.point_type:
             case PointPlaceType.CAPITAL_CITY:

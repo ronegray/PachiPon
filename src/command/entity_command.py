@@ -11,10 +11,10 @@ from gameutils.lib import Window, WindowAction
 from helper import diceroll, upper_int
 from entity import EntityContext, Enemy, Party, Character
 from skill import SkillTargetType
-from item import ItemTargetType, StackPool, ItemState, WeaponType
+from item import ItemTargetType, StackPool, ItemState  # , WeaponType
 import service_locater as di
 from . import CommandBaseSequence, CommandPhase
-from .effect_command import efx_diceroll
+from .effect_command import efx_diceroll, efx_physical_attack
 
 # ロギング設定
 logger = logging.getLogger(__name__)
@@ -79,7 +79,10 @@ class Attack(CommandBaseEntity):
         yield [f"{actor.param.name}は {target.param.name} に 襲い掛かる！", ""]
 
         # 命中ロール
-        judge = actor.hitroll_offence() - target.hitroll_defence()
+        hit = actor.hitroll_offence()
+        dodge = target.hitroll_defence()
+        judge = hit - dodge
+        logger.debug(f"actor={actor.param.name},hit={hit}, dodge={dodge}")
         if judge <= 0:
             # px.play(self.se_ch, SoundID.ATTACK_MISS, resume=True)
             di.ref.sndmgr.play_se_sustain(SoundID.ATTACK_MISS)
@@ -101,15 +104,16 @@ class Attack(CommandBaseEntity):
             yield [f"{target.param.name}の かたい防御に はばまれた"]
             return
 
-        match weapon_type:
-            case WeaponType.NONE | WeaponType.BASH:
-                attackse_id = SoundID.BASH
-            case WeaponType.CHOP | WeaponType.FULL:
-                attackse_id = SoundID.CHOP
-            case WeaponType.STUB:
-                attackse_id = SoundID.STUB
-        # px.play(self.se_ch, attackse_id, resume=True)
-        di.ref.sndmgr.play_se_sustain(attackse_id)
+        # match weapon_type:
+        #     case WeaponType.NONE | WeaponType.BASH:
+        #         attackse_id = SoundID.BASH
+        #     case WeaponType.CHOP | WeaponType.FULL:
+        #         attackse_id = SoundID.CHOP
+        #     case WeaponType.STUB:
+        #         attackse_id = SoundID.STUB
+        # # px.play(self.se_ch, attackse_id, resume=True)
+        # di.ref.sndmgr.play_se_sustain(attackse_id)
+        yield from efx_physical_attack(self.display_info, target, weapon_type)  # type: ignore
         yield [f"{target.param.name}に {upper_int(damage)} ポイントの ダメージ！"]
 
         # run_effectに相当：メッセージ表示後にダメージ適用
@@ -135,10 +139,7 @@ class UseSkill(CommandBaseEntity):
             return
 
         # ファーストメッセージ
-        yield [f"{actor.param.name}は、 防御の体勢をとっている", ""]
-
-        actor.defend()
-        yield [f"{actor.param.name}の 受けるダメージが 減少する"]
+        yield [f"{actor.param.name}は、 スキルを使いたがった", ""]
 
 
 class DefenceMode(CommandBaseEntity):
@@ -355,7 +356,7 @@ class CharacterInitialHPMP(CommandBaseEntity):
             effect.update()
             self.display_info.graphic_command = effect.get_draw_commands()
             yield ["wait", "0"]
-        max_hp = effect.total
+        max_hp = effect.total + self._ctx.actor.endurance
         yield [f"最大ＨＰは {max_hp} になりました"]
         self._ctx.actor.param.max_hp = max_hp
         self._ctx.actor.param.hp = max_hp
@@ -373,7 +374,7 @@ class CharacterInitialHPMP(CommandBaseEntity):
             effect.update()
             self.display_info.graphic_command = effect.get_draw_commands()
             yield ["wait", "0"]
-        max_mp = effect.total
+        max_mp = effect.total + self._ctx.actor.bonus_arc
         yield [f"最大ＭＰは {max_mp} になりました"]
         self._ctx.actor.param.max_mp = max_mp
         self._ctx.actor.param.mp = max_mp

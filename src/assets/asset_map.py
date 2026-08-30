@@ -33,6 +33,8 @@ class AssetID(IntEnum):
     DATA_EVENTPOINT = auto()
     IMAGE_DICE = auto()
     DATA_PARAM = auto()
+    IMAGE_EFX_WEAPON = auto()
+    IMAGE_EFX_SKILL = auto()
 
 
 class AssetMap:
@@ -78,6 +80,8 @@ class AssetMap:
         cls._asset_map[AssetID.DATA_EVENTPOINT] = f"{cls._asset_path}/data/eventpoints.json"
         cls._asset_map[AssetID.IMAGE_DICE] = f"{cls._asset_path}/image/dice.bmp"
         cls._asset_map[AssetID.DATA_PARAM] = f"{cls._asset_path}/data/desc_param.json"
+        cls._asset_map[AssetID.IMAGE_EFX_WEAPON] = f"{cls._asset_path}/image/efx_weapon.bmp"
+        cls._asset_map[AssetID.IMAGE_EFX_SKILL] = f"{cls._asset_path}/image/efx_skill.bmp"
 
     @classmethod
     def get_assetpath(cls, asset_id: AssetID) -> str:
