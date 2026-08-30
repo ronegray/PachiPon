@@ -57,37 +57,37 @@ class EffectRepository:
         }
 
         EffectRepository._efx_skill_def = {  #: dict[SkillID, tuple[int, list[int]]]
-            SkillID.SACRED_ARROW: (0, [1, 1, 1, 1]),
-            SkillID.SANCTUARY: (0, [1, 1, 1, 1]),
-            SkillID.HOLY_SMITE: (0, [1, 1, 1, 1]),
+            SkillID.SACRED_ARROW: (0, [2, 4, 6, 3]),
+            SkillID.SANCTUARY: (0, [2, 4, 6, 3]),
+            SkillID.HOLY_SMITE: (0, [2, 4, 6, 3]),
             # 呪毒(curse)
-            SkillID.CURSE_PAIN: (1, [1, 1, 1, 1]),
-            SkillID.POISON_CLOUD: (1, [1, 1, 1, 1]),
-            SkillID.STATUE_GAZE: (1, [1, 1, 1, 1]),
+            SkillID.CURSE_PAIN: (1, [2, 4, 6, 3]),
+            SkillID.POISON_CLOUD: (1, [2, 4, 6, 3]),
+            SkillID.STATUE_GAZE: (1, [2, 4, 6, 3]),
             # 火炎(fire)
-            SkillID.FIRE_BOLT: (2, [1, 1, 1, 1]),
-            SkillID.BURN_FLOOD: (2, [1, 1, 1, 1]),
-            SkillID.INFERNO: (2, [1, 1, 1, 1]),
+            SkillID.FIRE_BOLT: (2, [2, 4, 6, 3]),
+            SkillID.BURN_FLOOD: (2, [2, 4, 6, 3]),
+            SkillID.INFERNO: (2, [2, 4, 6, 3]),
             # 氷結(ice)
-            SkillID.ICE_NEEDLE: (3, [1, 1, 1, 1]),
-            SkillID.FROST_CIRCLE: (3, [1, 1, 1, 1]),
-            SkillID.BLIZZARD: (3, [1, 1, 1, 1]),
+            SkillID.ICE_NEEDLE: (3, [2, 4, 6, 3]),
+            SkillID.FROST_CIRCLE: (3, [2, 4, 6, 3]),
+            SkillID.BLIZZARD: (3, [2, 4, 6, 3]),
             # 雷電(bolt)
-            SkillID.BOLT_SHOWER: (4, [1, 1, 1, 1]),
-            SkillID.THUNDER_PILLER: (4, [1, 1, 1, 1]),
-            SkillID.ELECTROMAGNETIC: (4, [1, 1, 1, 1]),
+            SkillID.BOLT_SHOWER: (4, [2, 4, 6, 3]),
+            SkillID.THUNDER_PILLER: (4, [2, 4, 6, 3]),
+            SkillID.ELECTROMAGNETIC: (4, [2, 4, 6, 3]),
             # 精神(mind)
-            SkillID.SLEEP_SONG: (5, [1, 1, 1, 1]),
-            SkillID.DISTURB_MIND: (5, [1, 1, 1, 1]),
-            SkillID.CHARM_ILLUSION: (5, [1, 1, 1, 1]),
+            SkillID.SLEEP_SONG: (5, [2, 4, 6, 3]),
+            SkillID.DISTURB_MIND: (5, [2, 4, 6, 3]),
+            SkillID.CHARM_ILLUSION: (5, [2, 4, 6, 3]),
             # 衝撃(shock)
-            SkillID.SHOCK_BULLET: (6, [1, 1, 1, 1]),
-            SkillID.SONIC_WAVE: (6, [1, 1, 1, 1]),
-            SkillID.BLOW_AWAY: (6, [1, 1, 1, 1]),
+            SkillID.SHOCK_BULLET: (6, [2, 4, 6, 3]),
+            SkillID.SONIC_WAVE: (6, [2, 4, 6, 3]),
+            SkillID.BLOW_AWAY: (6, [2, 4, 6, 3]),
             # 霊光(light)
-            SkillID.HEALING_HAND: (7, [1, 1, 1, 1]),
-            SkillID.CURE_POISON: (7, [1, 1, 1, 1]),
-            SkillID.ANGEL_STAIR: (7, [1, 1, 1, 1]),
+            SkillID.HEALING_HAND: (7, [2, 4, 6, 3]),
+            SkillID.CURE_POISON: (7, [2, 4, 6, 3]),
+            SkillID.ANGEL_STAIR: (7, [2, 4, 6, 3]),
         }
 
     def get_efx(self, effect_id: WeaponType | SkillID) -> tuple[px.Image, list[int]]:

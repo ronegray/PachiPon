@@ -92,7 +92,7 @@ class Attack(CommandBaseEntity):
         # ダメージロール
         crit_rate = actor.get_critical_rate(judge)
         dice, damage = actor.damageroll_melee()
-        _ = yield from efx_diceroll(self.display_info, dice)  # type: ignore
+        yield from efx_diceroll(self.display_info, dice)  # type: ignore
         damage = (damage * crit_rate) - target.suppress_damage_melee()
         weapon_type = actor.get_weapon_type()
         if not weapon_type:
@@ -360,9 +360,11 @@ class CharacterInitialHPMP(CommandBaseEntity):
         yield [f"最大ＨＰは {max_hp} になりました"]
         self._ctx.actor.param.max_hp = max_hp
         self._ctx.actor.param.hp = max_hp
+
         self.display_info.target.update_indicator(True)
         while self.display_info.target.update() == WindowAction.CONTINUE:
             yield [self.WAIT, "0"]
+        self.display_info.target.update_indicator(False)
 
         yield ["ＭＰサイコロの数は、１＋魔力ボーナス値"]
         dices = 1 + self._ctx.actor.bonus_arc
@@ -378,8 +380,11 @@ class CharacterInitialHPMP(CommandBaseEntity):
         yield [f"最大ＭＰは {max_mp} になりました"]
         self._ctx.actor.param.max_mp = max_mp
         self._ctx.actor.param.mp = max_mp
+
+        self.display_info.target.update_indicator(True)
         while self.display_info.target.update() == WindowAction.CONTINUE:
             yield [self.WAIT, "0"]
+        self.display_info.target.update_indicator(False)
 
 
 class CharacterLevelup(CommandBaseEntity):
@@ -403,12 +408,23 @@ class CharacterGainHPMP(CommandBaseEntity):
         self._ctx.actor.param.max_hp += gain
         self._ctx.actor.param.hp += gain
 
+        self.display_info.target.update_indicator(True)
+        while self.display_info.target.update() == WindowAction.CONTINUE:
+            yield [self.WAIT, "0"]
+        self.display_info.target.update_indicator(False)
+
         yield ["ＭＰの上昇値を決定します"]
         val = yield from efx_diceroll(self.display_info, 1)  # type: ignore
         yield [f"ＭＰが{val} 増えました！"]
         gain = val + self._ctx.actor.bonus_arc
         self._ctx.actor.param.max_mp += gain
         self._ctx.actor.param.mp += gain
+
+        self.display_info.target.update_indicator(True)
+        while self.display_info.target.update() == WindowAction.CONTINUE:
+            yield [self.WAIT, "0"]
+        self.display_info.target.update_indicator(False)
+
         return
 
 

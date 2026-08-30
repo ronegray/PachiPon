@@ -53,7 +53,7 @@ class SceneBattle(BaseScene):
         # 戦闘メッセージ用ウインドウの生成
         message_pos = (0, 184)
         message_size = (px.width, 72)
-        self.message_window = Window("basic", *message_pos, *message_size, "once", 0)
+        self.message_window = Window("basic", *message_pos, *message_size, "view", 0)
         self.message_window.update_row_max(self.message_window._max_msg_rows + 1)
         # 移動中ルート情報から脅威度を取得
         route: Route = di.ref.pt.get_current_route()

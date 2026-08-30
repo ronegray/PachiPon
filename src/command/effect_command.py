@@ -25,7 +25,7 @@ def efx_diceroll(disp_info: DisplayInfo, dices: int) -> Generator[list[str | int
     effect.start(dices)
     # se_ch = 3
     # px.play(se_ch, SoundID.DICE_ROLL, resume=True)
-    di.ref.sndmgr.play_se_sustain(SoundID.DICE_ROLL)
+    di.ref.sndmgr.play_se_sustain(SoundID.DICE_RESULT)
     if not di.ref.conf.is_cutin_dice:
         effect.skip()
         disp_info.graphic_command = effect.get_draw_commands()
@@ -33,7 +33,7 @@ def efx_diceroll(disp_info: DisplayInfo, dices: int) -> Generator[list[str | int
         effect.update()
         disp_info.graphic_command = effect.get_draw_commands()
         yield ["wait", "0"]
-    disp_info.graphic_command = None
+    # disp_info.graphic_command = None # ダイス結果を残せるようにコマンド初期化をOFF
     # effect = None
     return effect.total
 
@@ -59,17 +59,18 @@ def efx_physical_attack(
     #     yield ["wait", 0]
     duration = 0
     efx_index = 0
+    img_size = di.ref.efxrps.efx_img_size
     while True:
         efx_frames = effect_data[1][efx_index]
         disp_info.graphic_command = [
-            lambda: px.blt(
+            lambda i=efx_index: px.blt(
                 target.sprite.x + 8,
                 target.sprite.y + 8,
                 effect_data[0],
-                efx_index * di.ref.efxrps._efx_size,
+                i * img_size,
                 0,
-                di.ref.efxrps._efx_size,
-                di.ref.efxrps._efx_size,
+                img_size,
+                img_size,
                 colkey=px.COLOR_BLACK,
             )
         ]
@@ -79,7 +80,7 @@ def efx_physical_attack(
             if efx_index >= len(effect_data[1]):
                 break
             duration = 0
-        logger.debug(weapon_type, duration, efx_index)
+        logger.debug(f"{weapon_type} {duration} {efx_index}")
         yield ["wait", "0"]
 
     disp_info.graphic_command = None

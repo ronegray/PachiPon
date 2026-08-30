@@ -132,7 +132,11 @@ class DiceRollEffect:
         if not self.is_rolling:
             return
 
-        if is_pressed("decide", "hold") or is_pressed("cancel", "hold"):
+        if (
+            (self.elapsed >= self.roll_frames / 2)
+            and is_pressed("decide", "hold")
+            or is_pressed("cancel", "hold")
+        ):
             # self.elapsed = self.roll_frames
             # self._finish()
             self.skip()

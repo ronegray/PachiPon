@@ -51,6 +51,7 @@ class SoundID(IntEnum):
     SHOP_BUY = 13
     SAVE_GAME = 14
     LOAD_GAME = 15
+    DICE_RESULT = 16
 
     ENCOUNT = 18
     ATTACK_MISS = 19

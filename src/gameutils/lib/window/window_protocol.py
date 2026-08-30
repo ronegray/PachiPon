@@ -9,7 +9,7 @@ from enum import Enum, auto
 from typing import Literal
 
 
-WINDOW_MODE = Literal["once", "wait", "page", "menu", "sub", "hold"]
+WINDOW_MODE = Literal["once", "wait", "page", "menu", "sub", "hold", "view"]
 MENU_WINDOW_TYPE = Literal["main", "sub", "sub2", "sub3"]
 SE_CHANNEL = 7
 

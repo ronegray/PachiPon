@@ -264,6 +264,8 @@ class Window:
         if self.inputkey.decide("hold") or self.inputkey.cancel():
             # WindowSoundHandler.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
             self.update_indicator(False)
+            if self.window_mode == "view":
+                return WindowAction.DISCARD
             self.se.play(self.ui_se["DECIDE"])
             match self.window_mode:
                 # ページ送り以外では全終了

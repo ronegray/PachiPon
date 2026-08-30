@@ -159,11 +159,11 @@ CONF_DISP_SIZE: dict = {
 
 
 CONF_TEXT_SPEED: dict = {
-    4: {"label": "キー待ち", "action": "none", "args": [4, 0]},
-    3: {"label": "遅め", "action": "none", "args": [3, 0.5]},
-    2: {"label": "標準", "action": "none", "args": [2, 1]},
-    1: {"label": "速め", "action": "none", "args": [1, 4]},
-    0: {"label": "待ち無し", "action": "none", "args": [0, 9]},
+    4: {"label": "キー待ち", "action": "none", "args": [4, -99]},
+    3: {"label": "遅め", "action": "none", "args": [3, 60]},
+    2: {"label": "標準", "action": "none", "args": [2, 30]},
+    1: {"label": "速め", "action": "none", "args": [1, 15]},
+    0: {"label": "待ち無し", "action": "none", "args": [0, 0]},
 }
 
 
