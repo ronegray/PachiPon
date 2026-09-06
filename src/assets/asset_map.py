@@ -33,6 +33,8 @@ class AssetID(IntEnum):
     DATA_EVENTPOINT = auto()
     IMAGE_DICE = auto()
     DATA_PARAM = auto()
+    IMAGE_EFX_WEAPON = auto()
+    IMAGE_EFX_SKILL = auto()
 
 
 class AssetMap:
@@ -62,28 +64,24 @@ class AssetMap:
         cls._asset_map[AssetID.SYSCONFIG] = "systemconfig.json"
         cls._asset_map[AssetID.KEYCONFIG] = "keyconfig.json"
         cls._asset_map[AssetID.IMAGE_CHARA] = f"{cls._asset_path}/image/character16.bmp"
-        cls._asset_map[
-            AssetID.IMAGE_SPLASH
-        ] = f"{cls._asset_path}/image/pyxel_logo_76x32.png"
+        cls._asset_map[AssetID.IMAGE_SPLASH] = f"{cls._asset_path}/image/pyxel_logo_76x32.png"
         cls._asset_map[AssetID.IMAGE_TITLE] = f"{cls._asset_path}/image/title.bmp"
         cls._asset_map[AssetID.IMAGE_LOGO] = f"{cls._asset_path}/image/pp_logo.bmp"
         cls._asset_map[AssetID.IMAGE_NEWGAME] = f"{cls._asset_path}/image/opening.bmp"
         cls._asset_map[AssetID.IMAGE_MAP] = f"{cls._asset_path}/image/map.bmp"
         cls._asset_map[AssetID.DATA_LETTER] = f"{cls._asset_path}/data/letter.json"
-        cls._asset_map[
-            AssetID.DATA_OP_MESSAGE
-        ] = f"{cls._asset_path}/data/op_message.json"
+        cls._asset_map[AssetID.DATA_OP_MESSAGE] = f"{cls._asset_path}/data/op_message.json"
         cls._asset_map[AssetID.DATA_ITEM] = f"{cls._asset_path}/data/item_master.json"
         cls._asset_map[AssetID.DATA_SKILL] = f"{cls._asset_path}/data/skill_master.json"
         cls._asset_map[AssetID.DATA_ENEMY] = f"{cls._asset_path}/data/enemy_master.json"
         cls._asset_map[AssetID.DATA_MAP] = f"{cls._asset_path}/data/map_data.json"
         cls._asset_map[AssetID.DATA_EXPTABLE] = f"{cls._asset_path}/data/exp_table.json"
         cls._asset_map[AssetID.DATA_EVENT] = f"{cls._asset_path}/data/event_master.json"
-        cls._asset_map[
-            AssetID.DATA_EVENTPOINT
-        ] = f"{cls._asset_path}/data/eventpoints.json"
+        cls._asset_map[AssetID.DATA_EVENTPOINT] = f"{cls._asset_path}/data/eventpoints.json"
         cls._asset_map[AssetID.IMAGE_DICE] = f"{cls._asset_path}/image/dice.bmp"
         cls._asset_map[AssetID.DATA_PARAM] = f"{cls._asset_path}/data/desc_param.json"
+        cls._asset_map[AssetID.IMAGE_EFX_WEAPON] = f"{cls._asset_path}/image/efx_weapon.bmp"
+        cls._asset_map[AssetID.IMAGE_EFX_SKILL] = f"{cls._asset_path}/image/efx_skill.bmp"
 
     @classmethod
     def get_assetpath(cls, asset_id: AssetID) -> str:

@@ -51,36 +51,26 @@ class MenuSelectShopCategory(Menu):
             logger.critical(errmsg, exc_info=True)
             raise ValueError(errmsg)
 
-        logger.info(
-            f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}"
-        )
+        logger.info(f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}")
 
         result = selected_item.menu_action(*selected_item.action_args)
         return result
 
     def buy_consume(self) -> ExecResult:
         """消耗品アイテム購入"""
-        return RsltPush(
-            MenuBuyConsume, self.pt, self.message_window, self.y + self.height
-        )
+        return RsltPush(MenuBuyConsume, self.pt, self.message_window, self.y + self.height)
 
     def buy_foods(self) -> ExecResult:
         """食糧購入"""
-        return RsltPush(
-            MenuBuyFoods, self.pt, self.message_window, self.y + self.height
-        )
+        return RsltPush(MenuBuyFoods, self.pt, self.message_window, self.y + self.height)
 
     def buy_equips(self) -> ExecResult:
         """装備品アイテム購入"""
-        return RsltPush(
-            MenuBuyEquips, self.pt, self.message_window, self.y + self.height
-        )
+        return RsltPush(MenuBuyEquips, self.pt, self.message_window, self.y + self.height)
 
     def sell_item(self) -> ExecResult:
         """バッグ内アイテム売却"""
-        return RsltPush(
-            MenuSellItems, self.pt, self.message_window, self.y + self.height
-        )
+        return RsltPush(MenuSellItems, self.pt, self.message_window, self.y + self.height)
 
     def exit_shop(self) -> ExecResult:
         """ショップメニューを閉じる"""
@@ -306,9 +296,7 @@ class MenuBuyFoods(MenuItemBase):
         selected_item = self.menu_items[pos_y][pos_x]
         logger.info(selected_item)
 
-        cmd = s_cmd.PurchaseFoods(
-            self.message_window, self.pt, selected_item.action_args[0]
-        )
+        cmd = s_cmd.PurchaseFoods(self.message_window, self.pt, selected_item.action_args[0])
         di.ref.cmdmgr.push_command(cmd)
         return RsltContinue()
 
@@ -421,7 +409,7 @@ class MenuSellItems(MenuItemBase):
 
         self.inventory_count = len(filteredlist)
         if self.inventory_count <= 0:
-            self.item_list = [[[{"id": "該当なし", "action": "None", "args": [""]}]]]
+            self.item_list = [[[{"id": "該当なし", "action": "None", "args": [None, None, None]}]]]
         else:
             self.item_list = [
                 filteredlist[i : i + self._list_rows]
@@ -477,6 +465,8 @@ class MenuSellItems(MenuItemBase):
         selected_item = self.menu_items[pos_y][pos_x]
         logger.info(selected_item)
 
+        if selected_item.action_args[0] is None:
+            return RsltContinue()
         eventpoint = self.pt.get_current_point()
         match eventpoint.point_type:
             case PointPlaceType.CAPITAL_CITY:

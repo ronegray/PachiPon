@@ -51,16 +51,10 @@ class EventManager:
     _ctx: CommandContext  # |None = None
     _command_table: dict[EventControl, EventCommand] = {}
     _script: ScriptHandler | None = None  # 解析済のイベントスクリプトとラベル位置辞書
-    _current_cmd: generator_type_command | None = (
-        None  # 現在の処理対象のイベントコマンド
-    )
-    _current_cmd_draw: Callable | None = (
-        None  # 現在の処理対象のイベントコマンドの描画関数
-    )
+    _current_cmd: generator_type_command | None = None  # 現在の処理対象のイベントコマンド
+    _current_cmd_draw: Callable | None = None  # 現在の処理対象のイベントコマンドの描画関数
     _current_state: dict | None = None
-    _is_running: bool = (
-        False  # イベントコマンド実行中（複数フレームで処理するコマンド用）
-    )
+    _is_running: bool = False  # イベントコマンド実行中（複数フレームで処理するコマンド用）
     MAX_INSTANT_CHAIN = 1000  # 無限ループ検出用上限
     _script_path: str
 
@@ -120,9 +114,7 @@ class EventManager:
         chain_count = 0
         while not self._script.is_finished:
             if chain_count > self.MAX_INSTANT_CHAIN:
-                raise RuntimeError(
-                    f"即時命令チェーンの上限({self.MAX_INSTANT_CHAIN})を越えました"
-                )
+                raise RuntimeError(f"即時命令チェーンの上限({self.MAX_INSTANT_CHAIN})を越えました")
             chain_count += 1
 
             next_command_line = self._script.get_next_command()
@@ -161,9 +153,9 @@ class EventManager:
         parts = command_line.split()
         # if not parts:
         #     return None
-        command = parts[
-            0
-        ].lower()  # StrEnum.auto()の小文字に合わせる（スクリプト側の書き方に左右うされないメリットもあり
+        command = (
+            parts[0].lower()
+        )  # StrEnum.auto()の小文字に合わせる（スクリプト側の書き方に左右うされないメリットもあり
         args = parts[1:]
 
         # 制御命令の処理

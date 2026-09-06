@@ -70,9 +70,7 @@ def convert_bmp(filename: str | Path) -> bool:
     # write_bin(writepath, hash_value + compressed)
 
     # return True
-    return _data_writer(
-        sizeheader + raw_pixel_data, filepath, ".bcd"
-    )  # bmp converted data
+    return _data_writer(sizeheader + raw_pixel_data, filepath, ".bcd")  # bmp converted data
 
 
 def _data_reader(filepath: Path):

@@ -20,9 +20,7 @@ def calculate_costs():
         if p1 and p2:
             tmpdist = math.sqrt((p2[0] - p1[0]) ** 2 + (p2[1] - p1[1]) ** 2)
             dist = math.ceil(tmpdist / 50)
-            results.append(
-                f"| {route['id']} | {route['from']} | {route['to']} | {dist} |"
-            )
+            results.append(f"| {route['id']} | {route['from']} | {route['to']} | {dist} |")
         else:
             results.append(
                 f"| {route['id']} | {route['from']} | {route['to']} | Error: Point not found |"

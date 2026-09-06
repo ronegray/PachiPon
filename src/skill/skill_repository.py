@@ -49,9 +49,7 @@ class SkillRepository:
                         is_percent=details.get("is_percent", False),
                     )
                 else:
-                    print(
-                        f"Warning: EffectID.{efx_name} is not defined in EffectID enum."
-                    )
+                    print(f"Warning: EffectID.{efx_name} is not defined in EffectID enum.")
         pass
 
     @classmethod

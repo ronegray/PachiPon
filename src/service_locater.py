@@ -24,7 +24,7 @@ if TYPE_CHECKING:
     from gameutils.base import SoundManager
     from item import ItemRepository, ItemPool, StackPool
     from skill import SkillRepository
-    from effect import DiceRollEffect
+    from effect import EffectRepository, DiceRollEffect
 
 
 class ServiceKey(Enum):
@@ -35,6 +35,7 @@ class ServiceKey(Enum):
     SKILL_REPOSITORY = auto()
     ENEMY_REPOSITORY = auto()
     EVENT_REPOSITORY = auto()
+    EFFECT_REPOSITORY = auto()
 
     COMMAND_MANAGER = auto()
     SCENE_MANAGER = auto()
@@ -87,6 +88,10 @@ class _Ref:
     @property
     def map(self) -> MapGraph:
         return _service_container[ServiceKey.MAPGRAPH]
+
+    @property
+    def efxrps(self) -> EffectRepository:
+        return _service_container[ServiceKey.EFFECT_REPOSITORY]
 
     @property
     def efxdice(self) -> DiceRollEffect:

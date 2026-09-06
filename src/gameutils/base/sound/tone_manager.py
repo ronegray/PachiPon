@@ -210,9 +210,7 @@ class ToneManager:
         max_vol = (1 << sample_bits) - 1
         for vol in wavetable:
             if vol < 0 or vol > max_vol:
-                raise ValueError(
-                    "wavetableにsample_bitsの許容範囲を超えた値が指定されています"
-                )
+                raise ValueError("wavetableにsample_bitsの許容範囲を超えた値が指定されています")
 
     def edit_tone(
         self,

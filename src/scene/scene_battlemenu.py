@@ -25,9 +25,7 @@ class SceneBattleMenu(BaseScene):
         parent_scene = di.ref.scnmgr.get_now_scene()
         self.parent_draw = parent_scene.draw
         if not isinstance(parent_scene, SceneBattle):
-            errmsg = (
-                f"想定外のシーンから呼び出されました：{parent_scene.__class__.__name__}"
-            )
+            errmsg = f"想定外のシーンから呼び出されました：{parent_scene.__class__.__name__}"
             logger.critical(errmsg, exc_info=True)
             raise TypeError(errmsg)
         battle_data = parent_scene.transfer_battledata()

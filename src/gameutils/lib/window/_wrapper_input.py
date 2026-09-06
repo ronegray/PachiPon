@@ -80,17 +80,13 @@ def _make_handler(*sources: int | tuple[int, int]) -> InputHandler:
             if mode == "keep":
                 digital_hit = digital_hit or px.btn(code)
             elif mode == "hold":
-                digital_hit = digital_hit or px.btnp(
-                    code, hold=_HOLD_FRAMES, repeat=_REPEAT_FRAMES
-                )
+                digital_hit = digital_hit or px.btnp(code, hold=_HOLD_FRAMES, repeat=_REPEAT_FRAMES)
             else:  # "once"
                 digital_hit = digital_hit or px.btnp(code)
 
         # アナログ側：frame_countを自前保持しているため、
         # 短絡評価で呼び出しが飛ぶとカウンタが崩れる。必ず全ソースを評価してからany()。
-        analog_results = [
-            _check_analog(code, sign, mode) for code, sign in analog_sources
-        ]
+        analog_results = [_check_analog(code, sign, mode) for code, sign in analog_sources]
 
         return digital_hit or any(analog_results)
 

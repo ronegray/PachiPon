@@ -50,8 +50,12 @@ class MenuLevelup(Menu):
         status_lines = f"{param.name}"
         status_lines += f"\nレベル： {upper_int_format(param.level, 2)}"
         status_lines += f"\n経験値： {upper_int_format(param.exp, 6)}"
-        status_lines += f"\nＨ　Ｐ： {upper_int_format(param.hp, 3)}／{upper_int_format(param.max_hp, 3)}"
-        status_lines += f"\nＭ　Ｐ： {upper_int_format(param.mp, 3)}／{upper_int_format(param.max_mp, 3)}"
+        status_lines += (
+            f"\nＨ　Ｐ： {upper_int_format(param.hp, 3)}／{upper_int_format(param.max_hp, 3)}"
+        )
+        status_lines += (
+            f"\nＭ　Ｐ： {upper_int_format(param.mp, 3)}／{upper_int_format(param.max_mp, 3)}"
+        )
         status_lines += f"\n筋　力： {
             format_leftright(
                 upper_int_format(member.strength, 3),
@@ -101,9 +105,7 @@ class MenuLevelup(Menu):
             logger.critical(errmsg, exc_info=True)
             raise ValueError(errmsg)
 
-        logger.info(
-            f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}"
-        )
+        logger.info(f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}")
 
         result = selected_item.menu_action()
         return result
@@ -112,9 +114,7 @@ class MenuLevelup(Menu):
         """更新"""
         if self.ans["finished"]:
             if self.ans["answer"]:
-                self.target.append(
-                    self.menu_items[self.cursor_position[1]][0].action_args[0]
-                )
+                self.target.append(self.menu_items[self.cursor_position[1]][0].action_args[0])
                 return WindowAction.CLOSE
             elif self.ans["answer"] is False:
                 self.ans["answer"] = None

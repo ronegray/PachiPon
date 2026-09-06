@@ -31,9 +31,7 @@ class ItemRepository:
         ItemRepository._master_def = {}
         for type_name, item_data in json_data.items():
             item_type = ItemType[type_name]
-            is_stackable = (
-                item_type == ItemType.CONSUME
-            )  # 現状のルール: 消耗品のみスタック可
+            is_stackable = item_type == ItemType.CONSUME  # 現状のルール: 消耗品のみスタック可
 
             for item_name, details in item_data.items():
                 if hasattr(ItemID, item_name):

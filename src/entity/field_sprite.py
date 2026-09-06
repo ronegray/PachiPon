@@ -37,9 +37,7 @@ class FieldSprite(BaseSprite):
         # 停止中＝イベントポイント待機中は正面向き
         if self._is_moving is False:
             self._direction = "front"
-        self._animation_frame = (
-            px.frame_count // (APP_FPS // 2)
-        ) % 2  # FPSの半分で切替
+        self._animation_frame = (px.frame_count // (APP_FPS // 2)) % 2  # FPSの半分で切替
 
     def draw(self, x: int | None = None, y: int | None = None):
         width_offset = self.w // 2

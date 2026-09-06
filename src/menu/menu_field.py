@@ -54,6 +54,10 @@ class MenuField(Menu):
 
         return result
 
+    def custom_settings(self):
+        di.ref.scnmgr.next_scene("config")
+        return RsltDiscard()
+
     def enter_shop(self):
         """商店メニューを開く"""
 

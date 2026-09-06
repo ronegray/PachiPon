@@ -34,9 +34,7 @@ class SoundHandler(Protocol):
 
 
 class CharacterHandler(Protocol):
-    def move_character(
-        self, char_id: int, char_dir: int, move_x: int, move_y: int
-    ) -> None:
+    def move_character(self, char_id: int, char_dir: int, move_x: int, move_y: int) -> None:
         ...
 
     def face_character(self, char_id: int, char_dir: int) -> None:

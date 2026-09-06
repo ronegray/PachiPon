@@ -157,11 +157,12 @@ class EntityBase(ABC):
 
     def hitroll_offence(self) -> int:
         """命中ロール：攻撃側"""
-        return diceroll(self.bonus_str) + self.bonus_lck
+        return diceroll(max(1, self.bonus_str)) + self.bonus_lck
 
     def hitroll_defence(self) -> int:
         """命中ロール：防御側"""
-        return (self.speed + self.bonus_lck) * self.defend_rate
+        # return (self.speed + self.bonus_lck) * self.defend_rate
+        return (self.bonus_spd + self.bonus_lck + self.param.level // 3) * self.defend_rate
 
     def get_critical_rate(self, diff: int) -> int:
         """クリティカル判定後、クリティカル倍率を取得"""
@@ -174,7 +175,7 @@ class EntityBase(ABC):
 
     def damageroll_melee(self) -> tuple[int, int]:
         """近接ダメージ計算"""
-        return (self.hitdice, diceroll(self.hitdice) + self.bonus_str)
+        return (self.hitdice, diceroll(max(1, self.hitdice)) + self.bonus_str)
 
     def suppress_damage_melee(self) -> int:
         """近接ダメージの防御による相殺値"""
@@ -182,7 +183,7 @@ class EntityBase(ABC):
 
     def castroll(self, dc: int) -> bool:
         """魔法発動ロール"""
-        return (diceroll(self.bonus_arc) - (dc + self.magpenalty)) > 0
+        return (diceroll(max(1, self.bonus_arc)) - (dc + self.magpenalty)) > 0
 
     def damageroll_skill(self, skill_def: SkillDef) -> int:
         """魔法ダメージ計算（呼び出し）"""

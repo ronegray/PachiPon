@@ -12,8 +12,9 @@
     rev: v0.1.9
     hooks:
       - id: ruff
-        args: [ --fix ]         # 自動修正可能なものは直す
+        args: [ --fix, --line-length=100 ]         # 自動修正可能なものは直す
       - id: ruff-format         # コードの見た目を整える
+        args: [ --line-length=100 ]
 
   # 3. 自作のテストスクリプトを実行する (pytest)
 #  - repo: local

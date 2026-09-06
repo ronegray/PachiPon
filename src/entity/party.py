@@ -88,50 +88,52 @@ class Party:
         message_size = (px.width - (x_offset * 2), FIELD_MESSAGE_HEIGHT)
         self.pt_msg_window = Window("basic", *message_pos, *message_size, "once", 0)
 
-    # def regist_dummy_hero(self):
-    #     """ダミー主人公データの登録"""
-    #     # キャラクターの初期化
-    #     # hero_param = EntityParam(
-    #     #     name="メンバー" + str(len(self._member_list)),
-    #     #     strength=px.rndi(1, 10),
-    #     #     arcane=px.rndi(1, 10),
-    #     #     endurance=px.rndi(1, 10),
-    #     #     speed=px.rndi(1, 10),
-    #     #     luck=px.rndi(1, 10),
-    #     #     max_hp=px.rndi(1, 10),
-    #     #     max_mp=px.rndi(1, 10),
-    #     # )
-    #     # PlayerSprite は pyxel.blt同様pyxel.Imageオブジェクトを受け取り可能
-    #     charimage = px.Image.from_image("assets/image/character16.bmp")
-    #     char_x = 20  # 初期X座標
-    #     char_y = 20  # 初期Y座標
-    #     # hero_sprite = PlayerSprite(char_x, char_y, charimage)  # img=0 を明示的に指定
-    #     # hero = Character(id=0, param=hero_param, sprite=hero_sprite)  # id=1を設定
-    #     hero = Character(
-    #         id=len(self._member_list),
-    #         param=EntityParam(
-    #             name="ほげほげふーばー" + str(len(self._member_list)),
-    #             strength=px.rndi(1, 10) * 10,
-    #             arcane=px.rndi(1, 10) * 10,
-    #             endurance=px.rndi(1, 10) * 10,
-    #             speed=px.rndi(1, 10) * 10,
-    #             luck=px.rndi(1, 10) * 10,
-    #             max_hp=px.rndi(5, 10) * 10,
-    #             max_mp=px.rndi(5, 10) * 10,
-    #         ),
-    #         sprite=PlayerSprite(char_x, char_y, charimage),
-    #     )
-    #     # if len(self._member_list) == 0:
-    #     #     di.register(di.ServiceKey.HERO, hero)
-    #     #     self.add_ptmember(di.ref.hero)
-    #     # elif len(self._member_list) == 1:
-    #     #     di.register(di.ServiceKey.MEMBER1, hero)
-    #     #     self.add_ptmember(di.ref.mem1)
-    #     # elif len(self._member_list) == 2:
-    #     #     di.register(di.ServiceKey.MEMBER2, hero)
-    #     #     self.add_ptmember(di.ref.mem2)
-    #     self.add_ptmember(hero)
-    #     self.set_field_sprite()
+    def regist_dummy_hero(self):
+        """ダミー主人公データの登録"""
+        # キャラクターの初期化
+        # hero_param = EntityParam(
+        #     name="メンバー" + str(len(self._member_list)),
+        #     strength=px.rndi(3, 18),
+        #     arcane=px.rndi(3, 18),
+        #     endurance=px.rndi(3, 18),
+        #     speed=px.rndi(3, 18),
+        #     luck=px.rndi(3, 18),
+        #     max_hp=px.rndi(3, 18),
+        #     max_mp=px.rndi(3, 18),
+        # )
+        # PlayerSprite は pyxel.blt同様pyxel.Imageオブジェクトを受け取り可能
+        charimage = px.Image.from_image("assets/image/character16.bmp")
+        char_x = 20  # 初期X座標
+        char_y = 20  # 初期Y座標
+        # hero_sprite = PlayerSprite(char_x, char_y, charimage)  # img=0 を明示的に指定
+        # hero = Character(id=0, param=hero_param, sprite=hero_sprite)  # id=1を設定
+        from entity import EntityParam, PlayerSprite
+
+        hero = Character(
+            id=len(self._member_list),
+            param=EntityParam(
+                name="ほげほげふーばー" + str(len(self._member_list)),
+                strength=px.rndi(3, 18),
+                arcane=px.rndi(3, 18),
+                endurance=px.rndi(3, 18),
+                speed=px.rndi(3, 18),
+                luck=px.rndi(3, 18),
+                max_hp=px.rndi(2, 12),
+                max_mp=px.rndi(2, 12),
+            ),
+            sprite=PlayerSprite(char_x, char_y, charimage),
+        )
+        # if len(self._member_list) == 0:
+        #     di.register(di.ServiceKey.HERO, hero)
+        #     self.add_ptmember(di.ref.hero)
+        # elif len(self._member_list) == 1:
+        #     di.register(di.ServiceKey.MEMBER1, hero)
+        #     self.add_ptmember(di.ref.mem1)
+        # elif len(self._member_list) == 2:
+        #     di.register(di.ServiceKey.MEMBER2, hero)
+        #     self.add_ptmember(di.ref.mem2)
+        self.add_ptmember(hero)
+        self.set_field_sprite()
 
     def get_top_index(self) -> int:
         """生存中PTメンバーの先頭キャラのリストインデックスを取得"""
@@ -178,9 +180,7 @@ class Party:
         x, y = 0, 0  # 描画位置
         u, v = 0, 0  # イメージの取得相対位置
         w, h = 16, 16  # 取得するイメージのサイズ
-        self._field_sprite = FieldSprite(
-            x, y, self._member_list[0].sprite.img, u, v, w, h
-        )
+        self._field_sprite = FieldSprite(x, y, self._member_list[0].sprite.img, u, v, w, h)
 
     def set_sprite_direction(self, direction: str) -> None:
         """パーティのフィールドスプライトの方向設定用ラッパー"""

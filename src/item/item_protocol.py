@@ -134,6 +134,9 @@ class ItemID(IntEnum):
     HIDICE       = 0x10_1_7  # 消耗品 次に実行されるダイス処理でダイス数を２ふやす
     RATIONS      = 0x10_0_8  # 消耗品 食糧を10増やす
     HIRATIONS    = 0x10_1_8  # 消耗品 食糧を50増やす
+    NSKILLBOOK   = 0x10_0_9  # 消耗品 ノーマルスキルを習得する
+    RSKILLBOOK   = 0x10_1_9  # 消耗品 レアスキルを習得する
+    LSKILLBOOK   = 0x10_1_A  # 消耗品 レジェンドスキルを習得する
 
 class ItemTargetType(IntEnum):
     NONE    = 0b0000 # ターゲット設定不可

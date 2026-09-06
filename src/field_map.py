@@ -33,12 +33,7 @@ class Route:
         tmp_from = route_data.get("from")
         tmp_to = route_data.get("to")
         tmp_dir = route_data.get("direction")  # 'up','down','left','right'
-        if (
-            (tmp_id is None)
-            or (tmp_from is None)
-            or (tmp_to is None)
-            or (tmp_dir is None)
-        ):
+        if (tmp_id is None) or (tmp_from is None) or (tmp_to is None) or (tmp_dir is None):
             errmsg = "必須項目(ID/from/to/direction)のいずれかが未定義です"
             logger.critical(errmsg, exc_info=True)
             raise TypeError(errmsg)
@@ -90,14 +85,10 @@ class EventPoint:
             raise ValueError(errmsg)
 
         self.id: str = tmp_id
-        self.point_type: PointPlaceType = PointPlaceType[
-            point_data.get("point_type", "UNKNOWN")
-        ]
+        self.point_type: PointPlaceType = PointPlaceType[point_data.get("point_type", "UNKNOWN")]
         self.name: str = point_data.get("name", "Unknown")
         self.event_id: str = tmp_evid
-        self.event_type: EventType = EventType[
-            event_dict.get("eventpoint_type", "NORMAL")
-        ]
+        self.event_type: EventType = EventType[event_dict.get("eventpoint_type", "NORMAL")]
         self.is_ready: bool = True
         self.ready_count: int = 0
         self.x: int = point_data.get("x", 0)
@@ -117,9 +108,7 @@ class EventPoint:
                 )
                 is_first = False
             else:
-                self.event_list.event_stat[EventID[key]] = EventStat(
-                    ev_def["threshold"]
-                )
+                self.event_list.event_stat[EventID[key]] = EventStat(ev_def["threshold"])
         pass
 
     def add_route(self, route: Route) -> None:
@@ -137,9 +126,7 @@ class EventPoint:
             if event_stat.threshold > 0:
                 if event_stat.is_opened:
                     logger.debug(self.event_list.eventpoint_type, event_id)  # type: ignore
-                    event_def = di.ref.evtrps.get_event(
-                        self.event_list.eventpoint_type, event_id
-                    )
+                    event_def = di.ref.evtrps.get_event(self.event_list.eventpoint_type, event_id)
                     name = event_def.event_name  # type: ignore
                 else:
                     name = "？？？？？？？？"
@@ -245,9 +232,7 @@ class MapGraph:
         """指定IDのイベントポイントオブジェクトを取得"""
         return self.points.get(point_id)
 
-    def get_route(
-        self, current_node_id: str, direction: ROUTE_DIR | str
-    ) -> Route | None:
+    def get_route(self, current_node_id: str, direction: ROUTE_DIR | str) -> Route | None:
         """現地点から選択した方向へのルート情報を取得"""
         point = self.get_point(current_node_id)
         if not point:
@@ -258,9 +243,7 @@ class MapGraph:
                 return route
         return None
 
-    def get_connected_node(
-        self, current_node_id: str, direction: ROUTE_DIR | str
-    ) -> str | None:
+    def get_connected_node(self, current_node_id: str, direction: ROUTE_DIR | str) -> str | None:
         """現地点から移動可能なイベントポイントを取得"""
         point = self.get_point(current_node_id)
         if not point:

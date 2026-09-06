@@ -71,18 +71,12 @@ class ItemPool:
 
     def get_by_type(self, item_type: ItemType) -> dict[int, PoolEntry]:
         """指定したタイプのアイテムリストを取得する"""
-        return {
-            uqid: pe
-            for uqid, pe in self._items.items()
-            if pe.ins.param.item_type == item_type
-        }
+        return {uqid: pe for uqid, pe in self._items.items() if pe.ins.param.item_type == item_type}
 
     def get_by_category(self, item_category: ItemID) -> dict[int, PoolEntry]:
         """指定したカテゴリ（アイテム種）のアイテムリストを取得する"""
         return {
-            uqid: pe
-            for uqid, pe in self._items.items()
-            if pe.ins.param.def_id == item_category
+            uqid: pe for uqid, pe in self._items.items() if pe.ins.param.def_id == item_category
         }
 
 
@@ -124,8 +118,4 @@ class StackPool:
 
     def get_by_state(self, state: ItemState) -> dict[ItemID, int]:
         """指定した者が持つアイテムリストを取得する"""
-        return {
-            keypair[0]: cnt
-            for keypair, cnt in self._stacks.items()
-            if keypair[1] == state
-        }
+        return {keypair[0]: cnt for keypair, cnt in self._stacks.items() if keypair[1] == state}

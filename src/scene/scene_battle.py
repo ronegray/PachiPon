@@ -53,7 +53,7 @@ class SceneBattle(BaseScene):
         # 戦闘メッセージ用ウインドウの生成
         message_pos = (0, 184)
         message_size = (px.width, 72)
-        self.message_window = Window("basic", *message_pos, *message_size, "once", 0)
+        self.message_window = Window("basic", *message_pos, *message_size, "view", 0)
         self.message_window.update_row_max(self.message_window._max_msg_rows + 1)
         # 移動中ルート情報から脅威度を取得
         route: Route = di.ref.pt.get_current_route()
@@ -67,7 +67,10 @@ class SceneBattle(BaseScene):
             path = check_file("assets/image/unknown.bmp")
         enemy_image = px.Image.from_image(str(path))
         # エネミー出現数の算出
-        enemy_count = min(enemy_data["bodysize"], diceroll(1))
+        from_size = min(enemy_data["bodysize"], diceroll(1))
+        # 低脅威度で集団に襲われないよう調整
+        from_threat = min(from_size, px.ceil(threat / 1.5) + 1)
+        enemy_count = from_threat
         # エネミーインスタンスの生成
         sprite_offset = enemy_image.width // 8
         sprite_x = SceneBattle._disp_addr_center - (
@@ -112,9 +115,7 @@ class SceneBattle(BaseScene):
             # 次のスプライト描画位置を更新
             sprite_x += enemy_image.width + sprite_offset
             # インスタンスをリストに追加
-            self.enemy_list.append(
-                Enemy(base_param, enemy_param, enemy_sprite, i + ENEMY_ID_BASE)
-            )
+            self.enemy_list.append(Enemy(base_param, enemy_param, enemy_sprite, i + ENEMY_ID_BASE))
 
         # メンバーステータスウインドウの生成
         status_offset = Window._chip_size // 2
@@ -135,6 +136,11 @@ class SceneBattle(BaseScene):
                 )
             )
             status_x += SceneBattle._status_width + status_offset
+
+        # スプライトアドレスをステータスウインドウに準拠
+        for i, mem in enumerate(di.ref.pt.get_allmember()):
+            mem.sprite.x = self.status_windows[i].x
+            mem.sprite.y = self.status_windows[i].y
 
         self.load_bgm()
 
@@ -210,10 +216,14 @@ class SceneBattle(BaseScene):
             return
 
         # 生存エネミーが0匹になったら戦闘終了して前のシーンに戻る
-        if len([1 for enemy in self.enemy_list if enemy.is_alive]) == 0:
+        if len([1 for enemy in self.enemy_list if enemy.is_alive]) == 0 and di.ref.cmdmgr.is_empty:
             # 戦闘終了フラグON
             self.is_battle_over = True
             return
+
+        # パーティメンバーが全員死亡したらゲームオーバー(タイトルへ戻る)
+        if di.ref.pt.get_active_member_count() == 0:
+            di.ref.scnmgr.change_scene("title")
 
         # パーティメンバーの死亡を考慮し先頭キャラ再チェック
         di.ref.pt.update_top_index()
@@ -230,10 +240,7 @@ class SceneBattle(BaseScene):
                 self.calc_initiative()
                 # イニシアチブ値の大きいコマンドがスタック上位に来るようpush
                 initive_list = [
-                    k
-                    for k, _ in sorted(
-                        self.initiative_dict.items(), key=lambda item: item[1]
-                    )
+                    k for k, _ in sorted(self.initiative_dict.items(), key=lambda item: item[1])
                 ]
                 for member_id in initive_list:
                     di.ref.cmdmgr.push_command(self.battle_commands[member_id])

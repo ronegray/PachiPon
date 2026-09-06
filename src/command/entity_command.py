@@ -11,10 +11,10 @@ from gameutils.lib import Window, WindowAction
 from helper import diceroll, upper_int
 from entity import EntityContext, Enemy, Party, Character
 from skill import SkillTargetType
-from item import ItemTargetType, StackPool, ItemState, WeaponType
+from item import ItemTargetType, StackPool, ItemState  # , WeaponType
 import service_locater as di
 from . import CommandBaseSequence, CommandPhase
-from .effect_command import efx_diceroll
+from .effect_command import efx_diceroll, efx_physical_attack, efx_damage_shake, efx_monster_dead
 
 # ロギング設定
 logger = logging.getLogger(__name__)
@@ -79,7 +79,10 @@ class Attack(CommandBaseEntity):
         yield [f"{actor.param.name}は {target.param.name} に 襲い掛かる！", ""]
 
         # 命中ロール
-        judge = actor.hitroll_offence() - target.hitroll_defence()
+        hit = actor.hitroll_offence()
+        dodge = target.hitroll_defence()
+        judge = hit - dodge
+        logger.debug(f"actor={actor.param.name},hit={hit}, dodge={dodge}")
         if judge <= 0:
             # px.play(self.se_ch, SoundID.ATTACK_MISS, resume=True)
             di.ref.sndmgr.play_se_sustain(SoundID.ATTACK_MISS)
@@ -89,7 +92,7 @@ class Attack(CommandBaseEntity):
         # ダメージロール
         crit_rate = actor.get_critical_rate(judge)
         dice, damage = actor.damageroll_melee()
-        _ = yield from efx_diceroll(self.display_info, dice)  # type: ignore
+        yield from efx_diceroll(self.display_info, dice)  # type: ignore
         damage = (damage * crit_rate) - target.suppress_damage_melee()
         weapon_type = actor.get_weapon_type()
         if not weapon_type:
@@ -101,27 +104,37 @@ class Attack(CommandBaseEntity):
             yield [f"{target.param.name}の かたい防御に はばまれた"]
             return
 
-        match weapon_type:
-            case WeaponType.NONE | WeaponType.BASH:
-                attackse_id = SoundID.BASH
-            case WeaponType.CHOP | WeaponType.FULL:
-                attackse_id = SoundID.CHOP
-            case WeaponType.STUB:
-                attackse_id = SoundID.STUB
-        # px.play(self.se_ch, attackse_id, resume=True)
-        di.ref.sndmgr.play_se_sustain(attackse_id)
+        # match weapon_type:
+        #     case WeaponType.NONE | WeaponType.BASH:
+        #         attackse_id = SoundID.BASH
+        #     case WeaponType.CHOP | WeaponType.FULL:
+        #         attackse_id = SoundID.CHOP
+        #     case WeaponType.STUB:
+        #         attackse_id = SoundID.STUB
+        # # px.play(self.se_ch, attackse_id, resume=True)
+        # di.ref.sndmgr.play_se_sustain(attackse_id)
+        yield from efx_physical_attack(self.display_info, target, weapon_type)  # type: ignore
+        yield from efx_damage_shake(self.display_info, target)  # type: ignore
         yield [f"{target.param.name}に {upper_int(damage)} ポイントの ダメージ！"]
 
         # run_effectに相当：メッセージ表示後にダメージ適用
         # px.play(self.se_ch, SoundID.DAMAGE_GIVEN, resume=True)
-        di.ref.sndmgr.play_se_sustain(SoundID.DAMAGE_GIVEN)
+        # di.ref.sndmgr.play_se_sustain(SoundID.DAMAGE_GIVEN)
         target.decrease_hp(damage)
 
         if not target.is_alive:
             # cleanupに相当：撃破メッセージ
             # px.play(self.se_ch, SoundID.ENEMY_DEATH, resume=True)
-            di.ref.sndmgr.play_se_sustain(SoundID.ENEMY_DEATH)
-            yield [f"{target.param.name}は 力尽きて ころがった"]
+            # di.ref.sndmgr.play_se_sustain(SoundID.ENEMY_DEATH)
+            # yield [f"{target.param.name}は 力尽きて ころがった"]
+            # while True:
+            #     if di.ref.sndmgr.wait_se_fin():
+            #         break
+            #     yield [self.WAIT, "0"]
+            # yield [f"{target.param.name}は 力尽きて ころがった"]
+            if isinstance(target, Enemy):
+                yield from efx_monster_dead(self.display_info, target)  # type: ignore
+                yield [f"{target.param.name}は 力尽きて ころがった"]
 
 
 class UseSkill(CommandBaseEntity):
@@ -135,10 +148,7 @@ class UseSkill(CommandBaseEntity):
             return
 
         # ファーストメッセージ
-        yield [f"{actor.param.name}は、 防御の体勢をとっている", ""]
-
-        actor.defend()
-        yield [f"{actor.param.name}の 受けるダメージが 減少する"]
+        yield [f"{actor.param.name}は、 スキルを使いたがった", ""]
 
 
 class DefenceMode(CommandBaseEntity):
@@ -350,35 +360,40 @@ class CharacterInitialHPMP(CommandBaseEntity):
         effect.start(dices, roll_frames)
         if not di.ref.conf.is_cutin_dice:
             effect.skip()
-            self.display_info.graphic_command = effect.get_draw_commands()
+            # self.display_info.graphic_command = effect.get_draw_commands()
         while effect.is_rolling:
             effect.update()
             self.display_info.graphic_command = effect.get_draw_commands()
             yield ["wait", "0"]
-        max_hp = effect.total
+        max_hp = effect.total + self._ctx.actor.endurance
         yield [f"最大ＨＰは {max_hp} になりました"]
         self._ctx.actor.param.max_hp = max_hp
         self._ctx.actor.param.hp = max_hp
+
         self.display_info.target.update_indicator(True)
         while self.display_info.target.update() == WindowAction.CONTINUE:
             yield [self.WAIT, "0"]
+        self.display_info.target.update_indicator(False)
 
         yield ["ＭＰサイコロの数は、１＋魔力ボーナス値"]
         dices = 1 + self._ctx.actor.bonus_arc
         effect.start(dices, roll_frames)
         if not di.ref.conf.is_cutin_dice:
             effect.skip()
-            self.display_info.graphic_command = effect.get_draw_commands()
+            # self.display_info.graphic_command = effect.get_draw_commands()
         while effect.is_rolling:
             effect.update()
             self.display_info.graphic_command = effect.get_draw_commands()
             yield ["wait", "0"]
-        max_mp = effect.total
+        max_mp = effect.total + self._ctx.actor.bonus_arc
         yield [f"最大ＭＰは {max_mp} になりました"]
         self._ctx.actor.param.max_mp = max_mp
         self._ctx.actor.param.mp = max_mp
+
+        self.display_info.target.update_indicator(True)
         while self.display_info.target.update() == WindowAction.CONTINUE:
             yield [self.WAIT, "0"]
+        self.display_info.target.update_indicator(False)
 
 
 class CharacterLevelup(CommandBaseEntity):
@@ -402,12 +417,23 @@ class CharacterGainHPMP(CommandBaseEntity):
         self._ctx.actor.param.max_hp += gain
         self._ctx.actor.param.hp += gain
 
+        self.display_info.target.update_indicator(True)
+        while self.display_info.target.update() == WindowAction.CONTINUE:
+            yield [self.WAIT, "0"]
+        self.display_info.target.update_indicator(False)
+
         yield ["ＭＰの上昇値を決定します"]
         val = yield from efx_diceroll(self.display_info, 1)  # type: ignore
         yield [f"ＭＰが{val} 増えました！"]
         gain = val + self._ctx.actor.bonus_arc
         self._ctx.actor.param.max_mp += gain
         self._ctx.actor.param.mp += gain
+
+        self.display_info.target.update_indicator(True)
+        while self.display_info.target.update() == WindowAction.CONTINUE:
+            yield [self.WAIT, "0"]
+        self.display_info.target.update_indicator(False)
+
         return
 
 

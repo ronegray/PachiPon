@@ -52,9 +52,7 @@ class MenuSelectItemCategory(Menu):
             logger.critical(errmsg, exc_info=True)
             raise ValueError(errmsg)
 
-        logger.info(
-            f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}"
-        )
+        logger.info(f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}")
 
         result = selected_item.menu_action(*selected_item.action_args)
         return result
@@ -265,9 +263,7 @@ class MenuUseItem(MenuItemBase):
             logger.critical(errmsg, exc_info=True)
             raise ValueError(errmsg)
 
-        logger.info(
-            f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}"
-        )
+        logger.info(f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}")
         result = selected_item.menu_action(*selected_item.action_args)
 
         return result

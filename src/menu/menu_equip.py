@@ -46,9 +46,7 @@ class MenuSelectEquipSlot(Menu):
         self.generate_item_list()
 
         # メニュー本体は装備一覧がわ
-        super().__init__(
-            "basic", *menu_pos, menu_shape, self.item_list, equip_w, equip_h
-        )
+        super().__init__("basic", *menu_pos, menu_shape, self.item_list, equip_w, equip_h)
         self.cursor_row_offset += 2  # k8x12Sの縦長分対応
 
         self.windows["sub"] = Window("basic", pos_x, pos_y, param_w, param_h, "once")
@@ -92,8 +90,12 @@ class MenuSelectEquipSlot(Menu):
         status_lines = f"{param.name}"
         status_lines += f"\nレベル： {upper_int_format(param.level, 2)}"
         status_lines += f"\n経験値： {upper_int_format(param.exp, 6)}"
-        status_lines += f"\nＨ　Ｐ： {upper_int_format(param.hp, 3)}／{upper_int_format(param.max_hp, 3)}"
-        status_lines += f"\nＭ　Ｐ： {upper_int_format(param.mp, 3)}／{upper_int_format(param.max_mp, 3)}"
+        status_lines += (
+            f"\nＨ　Ｐ： {upper_int_format(param.hp, 3)}／{upper_int_format(param.max_hp, 3)}"
+        )
+        status_lines += (
+            f"\nＭ　Ｐ： {upper_int_format(param.mp, 3)}／{upper_int_format(param.max_mp, 3)}"
+        )
         status_lines += f"\n筋　力： {
             format_leftright(
                 upper_int_format(member.strength, 3),
@@ -143,9 +145,7 @@ class MenuSelectEquipSlot(Menu):
             logger.critical(errmsg, exc_info=True)
             raise ValueError(errmsg)
 
-        logger.info(
-            f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}"
-        )
+        logger.info(f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}")
 
         result = selected_item.menu_action(*selected_item.action_args)
         return result
@@ -283,9 +283,7 @@ class MenuEquip(Menu):
         elif self.slot_filter == ItemType.CONSUME:
             # px.play(self.se_ch, SoundID.CHANGE_EQUIP, resume=True)
             self.se.play(SoundID.CHANGE_EQUIP)
-            self.member.equipments.equip_on_consume(
-                self.slot, selected_item.action_args[0]
-            )
+            self.member.equipments.equip_on_consume(self.slot, selected_item.action_args[0])
         else:
             iid = selected_item.action_args[1]
             plent = di.ref.pl_item.get(iid)

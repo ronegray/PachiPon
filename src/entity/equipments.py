@@ -91,9 +91,7 @@ class Equips:
     def set_adjust_effect(self):
         self._effect_cache.clear()
         targets = [
-            pooled_item
-            for pooled_item in self._equipped_items.values()
-            if pooled_item is not None
+            pooled_item for pooled_item in self._equipped_items.values() if pooled_item is not None
         ]
         efx_list = [
             [plent.ins.param.effect_id, plent.ins.param.effect_value]

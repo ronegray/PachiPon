@@ -151,9 +151,7 @@ class MenuSelectBattleTarget(Menu):
         menu_pos = (ref_window["x"], ref_window["y"])
         menu_size = (ref_window["w"], ref_window["h"])
 
-        super().__init__(
-            "basic", *menu_pos, self.menu_shape, self.item_list, *menu_size
-        )
+        super().__init__("basic", *menu_pos, self.menu_shape, self.item_list, *menu_size)
         self.cursor_row_offset += 2  # k8x12Sの縦長分対応
 
     def generate_item_list(self):
@@ -250,21 +248,15 @@ class MenuSelectItem(Menu):
         plent_cons1 = actor.equipments.get_slot(EquipSlot.CONSUME_1)
         plent_cons2 = actor.equipments.get_slot(EquipSlot.CONSUME_2)
         if plent_cons1 is not None:
-            self.consume_list.append(
-                (EquipSlot.CONSUME_1, plent_cons1[0], plent_cons1[1])
-            )
+            self.consume_list.append((EquipSlot.CONSUME_1, plent_cons1[0], plent_cons1[1]))
         if plent_cons2 is not None:
-            self.consume_list.append(
-                (EquipSlot.CONSUME_2, plent_cons2[0], plent_cons2[1])
-            )
+            self.consume_list.append((EquipSlot.CONSUME_2, plent_cons2[0], plent_cons2[1]))
 
         self.generate_item_list()
 
         menu_pos = (ref_window["x"], ref_window["y"])
         menu_size = (ref_window["w"], ref_window["h"])
-        super().__init__(
-            "basic", *menu_pos, self.menu_shape, self.item_list, *menu_size
-        )
+        super().__init__("basic", *menu_pos, self.menu_shape, self.item_list, *menu_size)
         self.cursor_row_offset += 2  # k8x12Sの縦長分対応
 
         # 詳細情報ウインドウ

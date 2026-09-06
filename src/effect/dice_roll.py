@@ -66,9 +66,7 @@ class DiceRollEffect:
         x_max = DiceRollEffect.roll_x2 - DiceRollEffect.dice_size
         y_max = DiceRollEffect.roll_y2 - DiceRollEffect.dice_size
 
-        sep = (
-            DiceRollEffect.dice_size + DiceRollEffect.dice_margin
-        )  # 重なりなしに必要な最低距離
+        sep = DiceRollEffect.dice_size + DiceRollEffect.dice_margin  # 重なりなしに必要な最低距離
 
         for _ in range(count):
             placed = False
@@ -76,9 +74,7 @@ class DiceRollEffect:
                 x = float(px.rndi(x_min, x_max))
                 y = float(px.rndi(y_min, y_max))
                 # 既存のどの位置とも重ならなければ採用
-                if all(
-                    abs(x - px) >= sep or abs(y - py) >= sep for px, py in positions
-                ):
+                if all(abs(x - px) >= sep or abs(y - py) >= sep for px, py in positions):
                     positions.append([x, y])
                     placed = True
                     break
@@ -98,9 +94,7 @@ class DiceRollEffect:
         self.roll_frames = roll_frames
         # Σ FRICTION^t (t=0..roll_frames-1) = (1 - FRICTION^n) / (1 - FRICTION)
         # 初速逆算時の定数。roll_frames が変わらない限り毎回同じ値。
-        self._total_scale = (1.0 - self.friction**self.roll_frames) / (
-            1.0 - self.friction
-        )
+        self._total_scale = (1.0 - self.friction**self.roll_frames) / (1.0 - self.friction)
         self.count = count
         self.elapsed = 0
         self.flick_t = 0
@@ -138,7 +132,11 @@ class DiceRollEffect:
         if not self.is_rolling:
             return
 
-        if is_pressed("decide", "hold") or is_pressed("cancel", "hold"):
+        if (
+            (self.elapsed >= self.roll_frames / 2)
+            and is_pressed("decide", "hold")
+            or is_pressed("cancel", "hold")
+        ):
             # self.elapsed = self.roll_frames
             # self._finish()
             self.skip()

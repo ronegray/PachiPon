@@ -64,9 +64,7 @@ class MenuSelectConfigTarget(Menu):
             logger.critical(errmsg, exc_info=True)
             raise ValueError(errmsg)
 
-        logger.info(
-            f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}"
-        )
+        logger.info(f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}")
 
         result = selected_item.menu_action(*selected_item.action_args)
         return result
@@ -87,19 +85,13 @@ class MenuSelectConfigTarget(Menu):
             self.build_config_info()
 
     def set_vol_bgm(self):
-        return RsltPush(
-            MenuConfigVolume, self.cursor_x, self.cursor_y, 0, self.build_config_info
-        )
+        return RsltPush(MenuConfigVolume, self.cursor_x, self.cursor_y, 0, self.build_config_info)
 
     def set_vol_se(self):
-        return RsltPush(
-            MenuConfigVolume, self.cursor_x, self.cursor_y, 1, self.build_config_info
-        )
+        return RsltPush(MenuConfigVolume, self.cursor_x, self.cursor_y, 1, self.build_config_info)
 
     def set_dispsize(self):
-        return RsltPush(
-            MenuConfigDisplaySize, self.cursor_x, self.cursor_y, self.build_config_info
-        )
+        return RsltPush(MenuConfigDisplaySize, self.cursor_x, self.cursor_y, self.build_config_info)
 
     def set_fullscreen(self):
         # return RsltPush(MenuYesNo)
@@ -110,9 +102,7 @@ class MenuSelectConfigTarget(Menu):
         )
 
     def set_textspeed(self):
-        return RsltPush(
-            MenuConfigTextSpeed, self.cursor_x, self.cursor_y, self.build_config_info
-        )
+        return RsltPush(MenuConfigTextSpeed, self.cursor_x, self.cursor_y, self.build_config_info)
 
     def set_cursorpos(self):
         # return RsltPush(MenuYesNo)
@@ -131,9 +121,7 @@ class MenuSelectConfigTarget(Menu):
         )
 
     def assign_key(self):
-        return RsltPush(
-            MenuAssignKey, self.cursor_x, self.cursor_y, self.build_config_info
-        )
+        return RsltPush(MenuAssignKey, self.cursor_x, self.cursor_y, self.build_config_info)
 
 
 class MenuConfigVolume(Menu):
@@ -179,9 +167,7 @@ class MenuConfigVolume(Menu):
         #     logger.critical(errmsg, exc_info=True)
         #     raise ValueError(errmsg)
 
-        logger.info(
-            f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}"
-        )
+        logger.info(f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}")
 
         # result = selected_item.menu_action(*selected_item.action_args)
         # return result
@@ -192,9 +178,7 @@ class MenuConfigVolume(Menu):
                 di.ref.sndmgr.set_basegain_factor(vol_factor, BGM_CHANNELS)
             case 1:
                 di.ref.conf.vol_se = vol_conf
-                di.ref.sndmgr.set_basegain_factor(
-                    vol_factor, (SE_INSTANT_CH, SE_SUSTAIN_CH)
-                )
+                di.ref.sndmgr.set_basegain_factor(vol_factor, (SE_INSTANT_CH, SE_SUSTAIN_CH))
 
         return RsltPop([self.build_config_info])
 
@@ -233,9 +217,7 @@ class MenuConfigDisplaySize(Menu):
         selected_item = self.menu_items[pos_y][pos_x]
         logger.info(selected_item)
 
-        logger.info(
-            f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}"
-        )
+        logger.info(f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}")
 
         disp_conf, _ = selected_item.action_args
         di.ref.conf.display_size = disp_conf
@@ -277,9 +259,7 @@ class MenuConfigTextSpeed(Menu):
         selected_item = self.menu_items[pos_y][pos_x]
         logger.info(selected_item)
 
-        logger.info(
-            f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}"
-        )
+        logger.info(f"選択メニュー実行：{self.menu_items[self.cursor_position[1]][0].item_label}")
 
         text_conf, _ = selected_item.action_args
         di.ref.conf.text_speed = text_conf
@@ -312,9 +292,7 @@ class MenuAssignKey(Menu):
         # self.txtMsg     = Message(self.insMsgWnd.P_x+P_CHIP_SIZE, self.insMsgWnd.P_y+P_CHIP_SIZE*2, ["わりあてるキーをおしてください"])
         suggest_x, suggest_y = menu_pos_x, menu_pos_y + self.height
         suggest_w, suggest_h = 128, 24
-        self.suggest_window = Window(
-            "basic", suggest_x, suggest_y, suggest_w, suggest_h, "hold"
-        )
+        self.suggest_window = Window("basic", suggest_x, suggest_y, suggest_w, suggest_h, "hold")
         self.suggest_window.set_message(["割り当てるキーを押して下さい"])
         self.is_keylisten: bool = False
 
@@ -347,40 +325,24 @@ class MenuAssignKey(Menu):
 
         def _move_cursor() -> bool:
             if self.inputkey.up():
-                self.cursor_position[1] = (
-                    self.cursor_position[1] - 1
-                ) % self.menu_shape[1]
+                self.cursor_position[1] = (self.cursor_position[1] - 1) % self.menu_shape[1]
                 if self.cursor_position[1] == 0:
-                    self.cursor_position[1] = (
-                        self.cursor_position[1] - 1
-                    ) % self.menu_shape[1]
+                    self.cursor_position[1] = (self.cursor_position[1] - 1) % self.menu_shape[1]
                 return True
             if self.inputkey.left():
-                self.cursor_position[0] = (
-                    self.cursor_position[0] - 1
-                ) % self.menu_shape[0]
+                self.cursor_position[0] = (self.cursor_position[0] - 1) % self.menu_shape[0]
                 if self.cursor_position[0] == 0:
-                    self.cursor_position[0] = (
-                        self.cursor_position[0] - 1
-                    ) % self.menu_shape[0]
+                    self.cursor_position[0] = (self.cursor_position[0] - 1) % self.menu_shape[0]
                 return True
             if self.inputkey.down():
-                self.cursor_position[1] = (
-                    self.cursor_position[1] + 1
-                ) % self.menu_shape[1]
+                self.cursor_position[1] = (self.cursor_position[1] + 1) % self.menu_shape[1]
                 if self.cursor_position[1] == 0:
-                    self.cursor_position[1] = (
-                        self.cursor_position[1] + 1
-                    ) % self.menu_shape[1]
+                    self.cursor_position[1] = (self.cursor_position[1] + 1) % self.menu_shape[1]
                 return True
             if self.inputkey.right():
-                self.cursor_position[0] = (
-                    self.cursor_position[0] + 1
-                ) % self.menu_shape[0]
+                self.cursor_position[0] = (self.cursor_position[0] + 1) % self.menu_shape[0]
                 if self.cursor_position[0] == 0:
-                    self.cursor_position[0] = (
-                        self.cursor_position[0] + 1
-                    ) % self.menu_shape[0]
+                    self.cursor_position[0] = (self.cursor_position[0] + 1) % self.menu_shape[0]
                 return True
             return False
 
