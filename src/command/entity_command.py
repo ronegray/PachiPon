@@ -14,7 +14,7 @@ from skill import SkillTargetType
 from item import ItemTargetType, StackPool, ItemState  # , WeaponType
 import service_locater as di
 from . import CommandBaseSequence, CommandPhase
-from .effect_command import efx_diceroll, efx_physical_attack
+from .effect_command import efx_diceroll, efx_physical_attack, efx_damage_shake, efx_monster_dead
 
 # ロギング設定
 logger = logging.getLogger(__name__)
@@ -114,18 +114,27 @@ class Attack(CommandBaseEntity):
         # # px.play(self.se_ch, attackse_id, resume=True)
         # di.ref.sndmgr.play_se_sustain(attackse_id)
         yield from efx_physical_attack(self.display_info, target, weapon_type)  # type: ignore
+        yield from efx_damage_shake(self.display_info, target)  # type: ignore
         yield [f"{target.param.name}に {upper_int(damage)} ポイントの ダメージ！"]
 
         # run_effectに相当：メッセージ表示後にダメージ適用
         # px.play(self.se_ch, SoundID.DAMAGE_GIVEN, resume=True)
-        di.ref.sndmgr.play_se_sustain(SoundID.DAMAGE_GIVEN)
+        # di.ref.sndmgr.play_se_sustain(SoundID.DAMAGE_GIVEN)
         target.decrease_hp(damage)
 
         if not target.is_alive:
             # cleanupに相当：撃破メッセージ
             # px.play(self.se_ch, SoundID.ENEMY_DEATH, resume=True)
-            di.ref.sndmgr.play_se_sustain(SoundID.ENEMY_DEATH)
-            yield [f"{target.param.name}は 力尽きて ころがった"]
+            # di.ref.sndmgr.play_se_sustain(SoundID.ENEMY_DEATH)
+            # yield [f"{target.param.name}は 力尽きて ころがった"]
+            # while True:
+            #     if di.ref.sndmgr.wait_se_fin():
+            #         break
+            #     yield [self.WAIT, "0"]
+            # yield [f"{target.param.name}は 力尽きて ころがった"]
+            if isinstance(target, Enemy):
+                yield from efx_monster_dead(self.display_info, target)  # type: ignore
+                yield [f"{target.param.name}は 力尽きて ころがった"]
 
 
 class UseSkill(CommandBaseEntity):
@@ -351,7 +360,7 @@ class CharacterInitialHPMP(CommandBaseEntity):
         effect.start(dices, roll_frames)
         if not di.ref.conf.is_cutin_dice:
             effect.skip()
-            self.display_info.graphic_command = effect.get_draw_commands()
+            # self.display_info.graphic_command = effect.get_draw_commands()
         while effect.is_rolling:
             effect.update()
             self.display_info.graphic_command = effect.get_draw_commands()
@@ -371,7 +380,7 @@ class CharacterInitialHPMP(CommandBaseEntity):
         effect.start(dices, roll_frames)
         if not di.ref.conf.is_cutin_dice:
             effect.skip()
-            self.display_info.graphic_command = effect.get_draw_commands()
+            # self.display_info.graphic_command = effect.get_draw_commands()
         while effect.is_rolling:
             effect.update()
             self.display_info.graphic_command = effect.get_draw_commands()

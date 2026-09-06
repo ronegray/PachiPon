@@ -93,13 +93,13 @@ class Party:
         # キャラクターの初期化
         # hero_param = EntityParam(
         #     name="メンバー" + str(len(self._member_list)),
-        #     strength=px.rndi(1, 10),
-        #     arcane=px.rndi(1, 10),
-        #     endurance=px.rndi(1, 10),
-        #     speed=px.rndi(1, 10),
-        #     luck=px.rndi(1, 10),
-        #     max_hp=px.rndi(1, 10),
-        #     max_mp=px.rndi(1, 10),
+        #     strength=px.rndi(3, 18),
+        #     arcane=px.rndi(3, 18),
+        #     endurance=px.rndi(3, 18),
+        #     speed=px.rndi(3, 18),
+        #     luck=px.rndi(3, 18),
+        #     max_hp=px.rndi(3, 18),
+        #     max_mp=px.rndi(3, 18),
         # )
         # PlayerSprite は pyxel.blt同様pyxel.Imageオブジェクトを受け取り可能
         charimage = px.Image.from_image("assets/image/character16.bmp")
@@ -113,13 +113,13 @@ class Party:
             id=len(self._member_list),
             param=EntityParam(
                 name="ほげほげふーばー" + str(len(self._member_list)),
-                strength=px.rndi(1, 10) * 10,
-                arcane=px.rndi(1, 10) * 10,
-                endurance=px.rndi(1, 10) * 10,
-                speed=px.rndi(1, 10) * 10,
-                luck=px.rndi(1, 10) * 10,
-                max_hp=px.rndi(5, 10) * 10,
-                max_mp=px.rndi(5, 10) * 10,
+                strength=px.rndi(3, 18),
+                arcane=px.rndi(3, 18),
+                endurance=px.rndi(3, 18),
+                speed=px.rndi(3, 18),
+                luck=px.rndi(3, 18),
+                max_hp=px.rndi(2, 12),
+                max_mp=px.rndi(2, 12),
             ),
             sprite=PlayerSprite(char_x, char_y, charimage),
         )

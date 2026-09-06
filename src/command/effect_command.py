@@ -6,9 +6,9 @@ import logging
 
 from typing import Generator
 import pyxel as px
-from const import SoundID
+from const import SoundID, APP_FPS
 from item import WeaponType
-from entity import EntityBase
+from entity import EntityBase, Enemy
 import service_locater as di
 from . import DisplayInfo
 
@@ -28,7 +28,7 @@ def efx_diceroll(disp_info: DisplayInfo, dices: int) -> Generator[list[str | int
     di.ref.sndmgr.play_se_sustain(SoundID.DICE_RESULT)
     if not di.ref.conf.is_cutin_dice:
         effect.skip()
-        disp_info.graphic_command = effect.get_draw_commands()
+        # disp_info.graphic_command = effect.get_draw_commands()
     while effect.is_rolling:
         effect.update()
         disp_info.graphic_command = effect.get_draw_commands()
@@ -80,8 +80,51 @@ def efx_physical_attack(
             if efx_index >= len(effect_data[1]):
                 break
             duration = 0
-        logger.debug(f"{weapon_type} {duration} {efx_index}")
+        # logger.debug(f"{weapon_type} {duration} {efx_index}")
         yield ["wait", "0"]
+
+    disp_info.graphic_command = None
+    return
+
+
+def efx_damage_shake(
+    disp_info: DisplayInfo, target: EntityBase
+) -> Generator[list[str | int], None, None]:
+    di.ref.sndmgr.play_se_sustain(SoundID.DAMAGE_GIVEN)
+    tgt_sprite_addr_x = target.sprite.x
+    tgt_sprite_addr_y = target.sprite.y
+    for i in range(APP_FPS // 4):
+        offset_x = px.rndi(-4, 4)
+        offset_y = px.rndi(-4, 4)
+        if isinstance(target, Enemy):
+            target.sprite.x = tgt_sprite_addr_x + offset_x
+            target.sprite.y = tgt_sprite_addr_y + offset_y
+        else:
+            disp_info.graphic_command = [
+                lambda x=offset_x, y=offset_y: px.camera(x, y),
+                lambda: px.camera(0, 0),
+            ]
+        yield ["wait", "0"]
+    px.camera(0, 0)
+    target.sprite.x = tgt_sprite_addr_x
+    target.sprite.y = tgt_sprite_addr_y
+
+
+def efx_monster_dead(
+    disp_info: DisplayInfo, target: Enemy
+) -> Generator[list[str | int], None, None]:
+    di.ref.sndmgr.play_se_sustain(SoundID.ENEMY_DEATH)
+    dither_lvl = 1
+    while True:
+        disp_info.graphic_command = [
+            lambda lvl=dither_lvl: px.dither(lvl),
+            lambda tgt=target: tgt.sprite.draw(),
+            lambda: px.dither(1),
+        ]
+        yield ["wait", "0"]
+        dither_lvl -= 0.05
+        if dither_lvl <= 0:
+            break
 
     disp_info.graphic_command = None
     return

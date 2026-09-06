@@ -3,7 +3,7 @@
     "vol_se": 3,
     "display_size": 5,
     "is_fullscreen": false,
-    "text_speed": 4,
+    "text_speed": 1,
     "is_memory_cursor": false,
     "is_cutin_dice": true
 }
