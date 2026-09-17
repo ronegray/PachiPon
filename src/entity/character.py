@@ -1,7 +1,7 @@
 """
 キャラクター本体モジュール
 """
-
+from dataclasses import asdict
 from gameutils.base import check_file, read_json
 from assets.asset_map import AssetMap, AssetID
 from item import PooledItem, WeaponType
@@ -10,6 +10,7 @@ from . import (
     EntityBase,
     EntityParam,
     PlayerSprite,
+    PlayerSpriteType,
     Equips,
     EquipSlot,
 )
@@ -24,8 +25,15 @@ class Character(EntityBase):
 
     exp_table: list = []
 
-    def __init__(self, param: EntityParam, sprite: PlayerSprite, id: int = 0):
-        super().__init__(param, sprite, id)
+    def __init__(
+        self,
+        param: EntityParam,
+        sprite: PlayerSprite,
+        id_: int = 0,
+        sprite_type: PlayerSpriteType = PlayerSpriteType.HERO,
+    ):
+        super().__init__(param, sprite, id_)
+        self.sprite_type = sprite_type
         self.equipments: Equips = Equips(self.id)  # Equipmentsを初期化
 
         # 経験値テーブルデータが無い場合は読み込み
@@ -132,3 +140,14 @@ class Character(EntityBase):
         pooled = di.ref.pl_item.get_by_type(ItemType.GUARDER)
         pl_item = [(key, val) for key, val in pooled.items()]
         self.equipments.equip_on_pool(EquipSlot.GUARDER, pl_item[0])
+
+    def save_character(self) -> list[dict]:
+        """セーブデータに保存するパラメタを辞書形式で返す"""
+        type_dict = {"sprite_type": self.sprite_type}
+        param_dict = asdict(self.param)
+        return [type_dict, param_dict]
+
+    def load_character(self, params: list[dict]) -> None:
+        """キャラクタ単位のパラメタをロードデータから反映"""
+        self.sprite_type = params[0]["sprite_type"]
+        self.param = EntityParam(**params[1])

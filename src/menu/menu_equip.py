@@ -21,7 +21,7 @@ from gameutils.lib import (
 )
 from item import ItemState, ItemType
 from entity import EquipSlot
-from helper import upper_int_format, format_leftright
+from helper import upper_int_spaced, format_leftright
 
 
 # ロギング設定
@@ -88,46 +88,46 @@ class MenuSelectEquipSlot(Menu):
         param = member.param
 
         status_lines = f"{param.name}"
-        status_lines += f"\nレベル： {upper_int_format(param.level, 2)}"
-        status_lines += f"\n経験値： {upper_int_format(param.exp, 6)}"
+        status_lines += f"\nレベル： {upper_int_spaced(param.level, 2)}"
+        status_lines += f"\n経験値： {upper_int_spaced(param.exp, 6)}"
         status_lines += (
-            f"\nＨ　Ｐ： {upper_int_format(param.hp, 3)}／{upper_int_format(param.max_hp, 3)}"
+            f"\nＨ　Ｐ： {upper_int_spaced(param.hp, 3)}／{upper_int_spaced(param.max_hp, 3)}"
         )
         status_lines += (
-            f"\nＭ　Ｐ： {upper_int_format(param.mp, 3)}／{upper_int_format(param.max_mp, 3)}"
+            f"\nＭ　Ｐ： {upper_int_spaced(param.mp, 3)}／{upper_int_spaced(param.max_mp, 3)}"
         )
         status_lines += f"\n筋　力： {
             format_leftright(
-                upper_int_format(member.strength, 3),
-                f'（＋{upper_int_format(member.bonus_str, 1)}）',
+                upper_int_spaced(member.strength, 3),
+                f'（＋{upper_int_spaced(member.bonus_str, 1)}）',
                 18,
             )
         }"
         status_lines += f"\n魔　力： {
             format_leftright(
-                upper_int_format(member.arcane, 3),
-                f'（＋{upper_int_format(member.bonus_str, 1)}）',
+                upper_int_spaced(member.arcane, 3),
+                f'（＋{upper_int_spaced(member.bonus_str, 1)}）',
                 18,
             )
         }"
         status_lines += f"\n耐　久： {
             format_leftright(
-                upper_int_format(member.endurance, 3),
-                f'（＋{upper_int_format(member.bonus_end, 1)}）',
+                upper_int_spaced(member.endurance, 3),
+                f'（＋{upper_int_spaced(member.bonus_end, 1)}）',
                 18,
             )
         }"
         status_lines += f"\n速　度： {
             format_leftright(
-                upper_int_format(member.speed, 3),
-                f'（＋{upper_int_format(member.bonus_spd, 1)}）',
+                upper_int_spaced(member.speed, 3),
+                f'（＋{upper_int_spaced(member.bonus_spd, 1)}）',
                 18,
             )
         }"
         status_lines += f"\n幸　運： {
             format_leftright(
-                upper_int_format(member.luck, 3),
-                f'（＋{upper_int_format(member.bonus_lck, 1)}）',
+                upper_int_spaced(member.luck, 3),
+                f'（＋{upper_int_spaced(member.bonus_lck, 1)}）',
                 18,
             )
         }"
@@ -340,7 +340,7 @@ class MenuEquip(Menu):
 
     def generate_item_list_consume(self):
         """アイテムリストの生成"""
-        filteredlist = di.ref.pl_stack.get_by_state(ItemState.BAG)
+        filteredlist = di.ref.pl_stack.get_stacks(ItemState.BAG)
 
         self.inventory_count = len(filteredlist)
         if self.inventory_count <= 0:
@@ -351,7 +351,7 @@ class MenuEquip(Menu):
                     {
                         "id": format_leftright(
                             di.ref.pl_stack.get_def(key).name,  # type: ignore
-                            f"ｘ{upper_int_format(val, 2)}",
+                            f"ｘ{upper_int_spaced(val, 2)}",
                         ),
                         "action": "use_item",
                         "args": [key],
@@ -391,9 +391,9 @@ class MenuEquip(Menu):
                 return [f"{item_def.description}"]
             case ItemType.WEAPON:
                 expect_dmg = item_def.hitdice * 4
-                perf_txt = f"攻撃:{upper_int_format(expect_dmg, 2)}"
+                perf_txt = f"攻撃:{upper_int_spaced(expect_dmg, 2)}"
             case ItemType.GUARDER:
-                perf_txt = f"防御:{upper_int_format(item_def.defvalue, 2)} 魔法阻害:{upper_int_format(item_def.magpenalty, 1)}"
+                perf_txt = f"防御:{upper_int_spaced(item_def.defvalue, 2)} 魔法阻害:{upper_int_spaced(item_def.magpenalty, 1)}"
             case ItemType.ORNAMENT:
                 perf_txt = "特殊な効果をもつ飾り"
             case _:

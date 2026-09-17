@@ -12,6 +12,7 @@ SCENE_NAME = Literal[
     "config",
     "keyconfig",
     "dataload",
+    "datasave",
     "newgame",
     "nameentry",
     "charamake",

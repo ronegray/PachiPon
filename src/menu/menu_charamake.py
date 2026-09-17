@@ -6,7 +6,7 @@ import logging
 import pyxel as px
 import service_locater as di
 from const import SoundID, BONUS_POINT, BASE_PARAM, INITIAL_MAX_PARAM
-from helper import upper_int_format, format_leftright
+from helper import upper_int_spaced, format_leftright
 from gameutils.base import check_file, read_json
 from gameutils.lib import (
     Menu,
@@ -70,7 +70,7 @@ class MenuCharaMake(Menu):
     def set_bonuspoint_string(self) -> None:
         """残りボーナスポイント表示"""
         self.windows["sub"].set_message(
-            [f"残りポイント：{upper_int_format(self.bonus_max - self.assigned, 2)}"]
+            [f"残りポイント：{upper_int_spaced(self.bonus_max - self.assigned, 2)}"]
         )
 
     def set_description_string(self) -> None:
@@ -247,40 +247,40 @@ class MenuCharaMake(Menu):
                 case 0:
                     param = f"{
                         format_leftright(
-                            upper_int_format(member.strength, 2),
-                            f'（＋{upper_int_format(member.bonus_str, 1)}）',
+                            upper_int_spaced(member.strength, 2),
+                            f'（＋{upper_int_spaced(member.bonus_str, 1)}）',
                             14,
                         )
                     }"
                 case 1:
                     param = f"{
                         format_leftright(
-                            upper_int_format(member.arcane, 2),
-                            f'（＋{upper_int_format(member.bonus_arc, 1)}）',
+                            upper_int_spaced(member.arcane, 2),
+                            f'（＋{upper_int_spaced(member.bonus_arc, 1)}）',
                             14,
                         )
                     }"
                 case 2:
                     param = f"{
                         format_leftright(
-                            upper_int_format(member.endurance, 2),
-                            f'（＋{upper_int_format(member.bonus_end, 1)}）',
+                            upper_int_spaced(member.endurance, 2),
+                            f'（＋{upper_int_spaced(member.bonus_end, 1)}）',
                             14,
                         )
                     }"
                 case 3:
                     param = f"{
                         format_leftright(
-                            upper_int_format(member.speed, 2),
-                            f'（＋{upper_int_format(member.bonus_spd, 1)}）',
+                            upper_int_spaced(member.speed, 2),
+                            f'（＋{upper_int_spaced(member.bonus_spd, 1)}）',
                             14,
                         )
                     }"
                 case 4:
                     param = f"{
                         format_leftright(
-                            upper_int_format(member.luck, 2),
-                            f'（＋{upper_int_format(member.bonus_lck, 1)}）',
+                            upper_int_spaced(member.luck, 2),
+                            f'（＋{upper_int_spaced(member.bonus_lck, 1)}）',
                             14,
                         )
                     }"

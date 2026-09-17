@@ -9,8 +9,8 @@ import pyxel as px
 import unicodedata
 
 UPPER_ASCII_TABLE = str.maketrans(
-    "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
-    "０１２３４５６７８９ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ",
+    "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ/:.",
+    "０１２３４５６７８９ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ／：．",
 )
 
 
@@ -24,12 +24,19 @@ def diceroll_values(n: int) -> list[int]:
     return [px.rndi(1, 6) for _ in range(n)]
 
 
-def upper_str(char: str) -> str:
+def upper_str(chars: str) -> str:
     """半角英数字を全角に変換"""
-    if unicodedata.east_asian_width(char) not in ("F", "W", "A"):
-        return str(char).translate(UPPER_ASCII_TABLE)
-    else:
-        return char
+    # if unicodedata.east_asian_width(char) not in ("F", "W", "A"):
+    #     return str(char).translate(UPPER_ASCII_TABLE)
+    # else:
+    #     return char
+    converted = ""
+    for char in chars:
+        if unicodedata.east_asian_width(char) not in ("F", "W", "A"):
+            converted += str(char).translate(UPPER_ASCII_TABLE)
+        else:
+            converted += char
+    return converted
 
 
 def upper_int(n: int) -> str:
@@ -37,10 +44,16 @@ def upper_int(n: int) -> str:
     return str(n).translate(UPPER_ASCII_TABLE)
 
 
-def upper_int_format(n: int, w: int) -> str:
+def upper_int_spaced(n: int, w: int) -> str:
     """数値を全角数字に変換し幅w文字空白埋めにした結果を取得"""
     upper_str = upper_int(n)
     return upper_str if len(upper_str) >= w else ("　" * w + upper_str)[-w:]
+
+
+def upper_int_zeroed(n: int, w: int) -> str:
+    """数値を全角数字に変換し幅w文字0埋めにした結果を取得"""
+    upper_str = upper_int(n)
+    return upper_str if len(upper_str) >= w else ("０" * w + upper_str)[-w:]
 
 
 def format_leftright(left_str: str, right_str: str, str_len: int = 20) -> str:

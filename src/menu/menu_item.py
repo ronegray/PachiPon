@@ -8,7 +8,7 @@ from const import SoundID
 
 import service_locater as di
 from gameutils.lib import Window, Menu, ExecResult, RsltPush, RsltDiscard, RsltContinue
-from helper import upper_int_format, format_leftright
+from helper import upper_int_spaced, format_leftright
 from item import (
     ItemType,
     ItemID,
@@ -212,7 +212,7 @@ class MenuUseItem(MenuItemBase):
 
     def generate_item_list(self):
         """アイテムリストの生成"""
-        filtereddict = di.ref.pl_stack.get_by_state(ItemState.BAG)
+        filtereddict = di.ref.pl_stack.get_stacks(ItemState.BAG)
 
         self.inventory_count = len(filtereddict)
         if self.inventory_count <= 0:
@@ -223,7 +223,7 @@ class MenuUseItem(MenuItemBase):
                     {
                         "id": format_leftright(
                             di.ref.itemrps.get_def(key).name,  # type: ignore
-                            f"ｘ{upper_int_format(val, 2)}",
+                            f"ｘ{upper_int_spaced(val, 2)}",
                         ),
                         "action": "use_item",
                         "args": [key],
@@ -380,9 +380,9 @@ class MenuShowEquips(MenuItemBase):
         match item_def.item_type:
             case ItemType.WEAPON:
                 expect_dmg = item_def.hitdice * 4
-                perf_txt = f"攻撃:{upper_int_format(expect_dmg, 2)}"
+                perf_txt = f"攻撃:{upper_int_spaced(expect_dmg, 2)}"
             case ItemType.GUARDER:
-                perf_txt = f"防御:{upper_int_format(item_def.defvalue, 2)} 魔法阻害:{upper_int_format(item_def.magpenalty, 1)}"
+                perf_txt = f"防御:{upper_int_spaced(item_def.defvalue, 2)} 魔法阻害:{upper_int_spaced(item_def.magpenalty, 1)}"
             case ItemType.ORNAMENT:
                 perf_txt = "特殊な効果をもつ飾り"
             case _:

@@ -57,7 +57,7 @@ class Equips:
         # デバッグログ
         logger.debug(
             f"処理前個数：{
-                di.ref.pl_stack.count(plent.ins.param.def_id, ItemState.BAG)
+                di.ref.pl_stack.count(plent.ins.param.def_id)
             }"
         )
 
@@ -68,23 +68,23 @@ class Equips:
             # デバッグログ
             logger.debug(
                 f"処理後個数：{
-                    di.ref.pl_stack.count(plent.ins.param.def_id, ItemState.BAG)
+                    di.ref.pl_stack.count(plent.ins.param.def_id)
                 }"
             )
 
     def _convert_instance(self, def_id: ItemID) -> PooledItem:
         """スタックアイテムのインスタンス化（装備スロット定義時）"""
         # デバッグログ
-        logger.debug(f"処理前個数：{di.ref.pl_stack.count(def_id, ItemState.BAG)}")
+        logger.debug(f"処理前個数：{di.ref.pl_stack.count(def_id)}")
 
-        if di.ref.pl_stack.count(def_id, ItemState.BAG) > 0:
+        if di.ref.pl_stack.count(def_id) > 0:
             pooled = di.ref.pl_item.create(def_id, ItemState.BAG)
-            di.ref.pl_stack.remove(def_id, ItemState.BAG)
+            di.ref.pl_stack.remove(def_id)
         else:
             raise RuntimeError("インスタンス化指定アイテムが不足しています")
 
         # デバッグログ
-        logger.debug(f"処理後個数：{di.ref.pl_stack.count(def_id, ItemState.BAG)}")
+        logger.debug(f"処理後個数：{di.ref.pl_stack.count(def_id)}")
 
         return pooled
 
@@ -150,4 +150,24 @@ class Equips:
         self.equip_off(slot)
 
         # スタックから該当IDのアイテムを1つ削除
-        di.ref.pl_stack.remove(def_id, ItemState.FREE, 1)
+        # di.ref.pl_stack.remove(def_id, ItemState.FREE, 1)
+        di.ref.pl_stack.remove(def_id)
+
+    def save_equip(self) -> dict:
+        """セーブデータに保存するパラメタを辞書形式で返す"""
+        equips = {}
+        for slot, item_ in self._equipped_items.items():
+            if item_ is None:
+                equips[slot] = None
+            else:
+                equips[slot] = item_[0]
+        return equips
+
+    def load_equip(self, equips: dict) -> None:
+        """パーティ単位のパラメタをロードデータから反映"""
+        for slot, item_ in equips.items():
+            if item_ is None:
+                continue
+            ent = di.ref.pl_item.get(item_)
+            pl = (item_, ent)
+            self.equip_on_pool(slot, pl)  # type: ignore

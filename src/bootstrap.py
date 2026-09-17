@@ -142,7 +142,9 @@ def ipl():
         for _ in range(5):
             if item_def.stackable:
                 di.ref.pl_stack.add(
-                    item_def_id, ItemState.BAG, 1
+                    # item_def_id, ItemState.BAG, 1
+                    item_def_id,
+                    1,
                 )  # スタック可能な場合は1つずつ追加
             else:
                 di.ref.pl_item.create(

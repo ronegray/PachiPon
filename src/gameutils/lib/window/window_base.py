@@ -343,9 +343,9 @@ class Window:
         while len(self.message_list) > self._max_msg_rows:
             self.message_list.pop(0)
 
-    def draw_message(self):
-        pos_x = self.x + self._chip_size
-        pos_y = self.y + self._chip_size
+    def draw_message(self, offset_x: int = 0, offset_y: int = 0):
+        pos_x = self.x + self._chip_size + offset_x
+        pos_y = self.y + self._chip_size + offset_y
         if self.window_mode == "page":
             text = "" if not self.message_list else self.message_list[0]
             px.text(

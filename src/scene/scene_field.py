@@ -102,6 +102,10 @@ class SceneField(BaseScene):
 
     def update(self):
         """フィールド関連オブジェクト群の更新処理"""
+        if is_pressed("select"):
+            di.ref.scnmgr.next_scene("datasave")
+            return
+
         # コマンド実行中は更新処理停止
         if not di.ref.cmdmgr.is_empty:
             return

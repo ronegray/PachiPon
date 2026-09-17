@@ -7,7 +7,7 @@ import logging
 # import pyxel as px
 import service_locater as di
 from const import SoundID
-from helper import upper_int_format, format_leftright
+from helper import upper_int_spaced, format_leftright
 from gameutils.lib import (
     Menu,
     Window,
@@ -63,46 +63,46 @@ class MenuStatus(Menu):
 
         # メインステータス
         status_lines = f"{param.name}"
-        status_lines += f"\nレベル： {upper_int_format(param.level, 2)}"
-        status_lines += f"\n次まで： {upper_int_format(member.next_exp, 1)}"
+        status_lines += f"\nレベル： {upper_int_spaced(param.level, 2)}"
+        status_lines += f"\n次まで： {upper_int_spaced(member.next_exp, 1)}"
         status_lines += (
-            f"\nＨ　Ｐ： {upper_int_format(param.hp, 3)}／{upper_int_format(param.max_hp, 3)}"
+            f"\nＨ　Ｐ： {upper_int_spaced(param.hp, 3)}／{upper_int_spaced(param.max_hp, 3)}"
         )
         status_lines += (
-            f"\nＭ　Ｐ： {upper_int_format(param.mp, 3)}／{upper_int_format(param.max_mp, 3)}"
+            f"\nＭ　Ｐ： {upper_int_spaced(param.mp, 3)}／{upper_int_spaced(param.max_mp, 3)}"
         )
         status_lines += f"\n筋　力： {
                 format_leftright(
-                    upper_int_format(member.strength, 3),
-                    f'（＋{upper_int_format(member.bonus_str, 1)}）',
+                    upper_int_spaced(member.strength, 3),
+                    f'（＋{upper_int_spaced(member.bonus_str, 1)}）',
                     18,
                 )
             }"
         status_lines += f"\n魔　力： {
             format_leftright(
-                upper_int_format(member.arcane, 3),
-                f'（＋{upper_int_format(member.bonus_str, 1)}）',
+                upper_int_spaced(member.arcane, 3),
+                f'（＋{upper_int_spaced(member.bonus_str, 1)}）',
                 18,
             )
         }"
         status_lines += f"\n耐　久： {
             format_leftright(
-                upper_int_format(member.endurance, 3),
-                f'（＋{upper_int_format(member.bonus_end, 1)}）',
+                upper_int_spaced(member.endurance, 3),
+                f'（＋{upper_int_spaced(member.bonus_end, 1)}）',
                 18,
             )
         }"
         status_lines += f"\n速　度： {
             format_leftright(
-                upper_int_format(member.speed, 3),
-                f'（＋{upper_int_format(member.bonus_spd, 1)}）',
+                upper_int_spaced(member.speed, 3),
+                f'（＋{upper_int_spaced(member.bonus_spd, 1)}）',
                 18,
             )
         }"
         status_lines += f"\n幸　運： {
             format_leftright(
-                upper_int_format(member.luck, 3),
-                f'（＋{upper_int_format(member.bonus_lck, 1)}）',
+                upper_int_spaced(member.luck, 3),
+                f'（＋{upper_int_spaced(member.bonus_lck, 1)}）',
                 18,
             )
         }"

@@ -13,6 +13,8 @@ class AssetID(IntEnum):
     PYXRES = auto()
     SYSCONFIG = auto()
     KEYCONFIG = auto()
+    SAVEDATA_DIR = auto()
+    SAVEDATA_FILE = auto()
     IMAGE_CHARA = auto()
     IMAGE_SPLASH = auto()
     IMAGE_TITLE = auto()
@@ -82,6 +84,8 @@ class AssetMap:
         cls._asset_map[AssetID.DATA_PARAM] = f"{cls._asset_path}/data/desc_param.json"
         cls._asset_map[AssetID.IMAGE_EFX_WEAPON] = f"{cls._asset_path}/image/efx_weapon.bmp"
         cls._asset_map[AssetID.IMAGE_EFX_SKILL] = f"{cls._asset_path}/image/efx_skill.bmp"
+        cls._asset_map[AssetID.SAVEDATA_DIR] = "save/"
+        cls._asset_map[AssetID.SAVEDATA_FILE] = "savedata."
 
     @classmethod
     def get_assetpath(cls, asset_id: AssetID) -> str:
