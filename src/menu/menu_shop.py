@@ -15,7 +15,7 @@ from gameutils.lib import (
     RsltContinue,
     RsltDiscard,
 )
-from helper import upper_int_format, format_leftright
+from helper import upper_int_spaced, format_leftright
 from item import ItemType, ItemState
 from entity import Party
 from field_map import PointPlaceType
@@ -234,7 +234,7 @@ class MenuBuyConsume(MenuItemBase):
             [
                 {
                     "id": format_leftright(
-                        item_def.name, f"　{upper_int_format(item_def.price, 6)}Ｇ", 34
+                        item_def.name, f"　{upper_int_spaced(item_def.price, 6)}Ｇ", 34
                     ),
                     "action": "none",
                     "args": [item_def],
@@ -315,7 +315,7 @@ class MenuBuyEquips(MenuItemBase):
             [
                 {
                     "id": format_leftright(
-                        item_def.name, f"　{upper_int_format(item_def.price, 6)}Ｇ", 34
+                        item_def.name, f"　{upper_int_spaced(item_def.price, 6)}Ｇ", 34
                     ),
                     "action": "none",
                     "args": [item_def],
@@ -341,11 +341,11 @@ class MenuBuyEquips(MenuItemBase):
 
         match item_def.item_type:
             case ItemType.WEAPON:
-                perf_txt1 = f"攻撃:{upper_int_format(item_def.expect_damage, 2)}"
+                perf_txt1 = f"攻撃:{upper_int_spaced(item_def.expect_damage, 2)}"
                 return [f"{perf_txt1}", f"{item_def.description}"]
             case ItemType.GUARDER:
-                perf_txt1 = f"防御:{upper_int_format(item_def.defvalue, 2)}"
-                perf_txt2 = f"魔法阻害:{upper_int_format(item_def.magpenalty, 1)}"
+                perf_txt1 = f"防御:{upper_int_spaced(item_def.defvalue, 2)}"
+                perf_txt2 = f"魔法阻害:{upper_int_spaced(item_def.magpenalty, 1)}"
             case ItemType.ORNAMENT:
                 perf_txt1 = "特殊な効果を"
                 perf_txt2 = "　もつ飾り"
@@ -388,7 +388,7 @@ class MenuSellItems(MenuItemBase):
                     "id": format_leftright(
                         items_.ins.param.name,
                         f"　{
-                            upper_int_format(
+                            upper_int_spaced(
                                 di.ref.itemrps.calc_cellprice(items_.ins.param.def_id),
                                 6,
                             )
@@ -427,11 +427,11 @@ class MenuSellItems(MenuItemBase):
             return ["対象を持っていない"]
         match item_def.item_type:
             case ItemType.WEAPON:
-                perf_txt1 = f"攻撃:{upper_int_format(item_def.expect_damage, 2)}"
+                perf_txt1 = f"攻撃:{upper_int_spaced(item_def.expect_damage, 2)}"
                 return [f"{perf_txt1}", f"{item_def.description}"]
             case ItemType.GUARDER:
-                perf_txt1 = f"防御:{upper_int_format(item_def.defvalue, 2)}"
-                perf_txt2 = f"魔法阻害:{upper_int_format(item_def.magpenalty, 1)}"
+                perf_txt1 = f"防御:{upper_int_spaced(item_def.defvalue, 2)}"
+                perf_txt2 = f"魔法阻害:{upper_int_spaced(item_def.magpenalty, 1)}"
             case ItemType.ORNAMENT:
                 perf_txt1 = "特殊な効果を"
                 perf_txt2 = "　もつ飾り"
@@ -472,21 +472,21 @@ class MenuSellItems(MenuItemBase):
             case PointPlaceType.CAPITAL_CITY:
                 ask_message = [
                     f"そちらの品物ですと、評価額は{
-                        upper_int_format(selected_item.action_args[2], 6)
+                        upper_int_spaced(selected_item.action_args[2], 6)
                     }Ｇ",
                     "　といったところです",
                 ]
             case PointPlaceType.TOWN:
                 ask_message = [
                     f"そいつの買取なら、そうだな{
-                        upper_int_format(selected_item.action_args[2], 6)
+                        upper_int_spaced(selected_item.action_args[2], 6)
                     }Ｇ",
                     "　ぐらいでどうだ？",
                 ]
             case PointPlaceType.VILLAGE:
                 ask_message = [
                     f"そうじゃなあ、{
-                        upper_int_format(selected_item.action_args[2], 6)
+                        upper_int_spaced(selected_item.action_args[2], 6)
                     }Ｇ",
                     "　なら買うてやろう",
                 ]

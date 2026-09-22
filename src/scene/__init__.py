@@ -26,9 +26,12 @@ from .scene_battlemenu import SceneBattleMenu
 from .scene_levelup import SceneLevelup
 from .scene_shop import SceneShop
 
+# from .scene_save import SceneSavedata
+from .scene_savedata import SceneDataLoad, SceneDataSave
 
 register("splash", SceneSplash)
 register("title", SceneTitle)
+register("dataload", SceneDataLoad)
 register("config", SceneConfig)
 register("newgame", SceneNameEntry)
 register("charamake", SceneCharaMake)
@@ -40,3 +43,4 @@ register("battlesplash", SceneBattleSplash)
 register("battle", SceneBattle)
 register("battlemenu", SceneBattleMenu)
 register("levelup", SceneLevelup)
+# register("datasave", SceneSavedata)

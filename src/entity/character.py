@@ -1,20 +1,21 @@
 """
 キャラクター本体モジュール
 """
-
+from dataclasses import asdict
 from gameutils.base import check_file, read_json
 from assets.asset_map import AssetMap, AssetID
-from item import PooledItem, WeaponType
+from item import PooledItem, WeaponType, ItemID, ItemState
 
 from . import (
     EntityBase,
     EntityParam,
     PlayerSprite,
+    PlayerSpriteType,
     Equips,
     EquipSlot,
 )
 
-from item import ItemType
+# from item import ItemType
 from skill import SkillID
 import service_locater as di
 
@@ -24,9 +25,16 @@ class Character(EntityBase):
 
     exp_table: list = []
 
-    def __init__(self, param: EntityParam, sprite: PlayerSprite, id: int = 0):
-        super().__init__(param, sprite, id)
-        self.equipments: Equips = Equips(self.id)  # Equipmentsを初期化
+    def __init__(
+        self,
+        param: EntityParam,
+        sprite: PlayerSprite,
+        chara_id: int = 0,
+        sprite_type: PlayerSpriteType = PlayerSpriteType.HERO,
+    ):
+        super().__init__(param, sprite, chara_id)
+        self.sprite_type = sprite_type
+        self.equipments: Equips = Equips(self.chara_id)  # Equipmentsを初期化
 
         # 経験値テーブルデータが無い場合は読み込み
         if not Character.exp_table:
@@ -126,9 +134,24 @@ class Character(EntityBase):
 
     def equip_default(self) -> None:
         """キャラ作成時のデフォルト装備を設定"""
-        pooled = di.ref.pl_item.get_by_type(ItemType.WEAPON)
-        pl_item = [(key, val) for key, val in pooled.items()]
-        self.equipments.equip_on_pool(EquipSlot.WEAPON, pl_item[0])
-        pooled = di.ref.pl_item.get_by_type(ItemType.GUARDER)
-        pl_item = [(key, val) for key, val in pooled.items()]
-        self.equipments.equip_on_pool(EquipSlot.GUARDER, pl_item[0])
+        # pooled = di.ref.pl_item.get_by_type(ItemType.WEAPON)
+        # pl_item = [(key, val) for key, val in pooled.items()]
+        # self.equipments.equip_on_pool(EquipSlot.WEAPON, pl_item[0])
+        pl_item_w = di.ref.pl_item.create(def_id=ItemID.DAGGER, state=ItemState(self.chara_id))
+        self.equipments.equip_on_pool(EquipSlot.WEAPON, pl_item_w)
+        # pooled = di.ref.pl_item.get_by_type(ItemType.GUARDER)
+        # pl_item = [(key, val) for key, val in pooled.items()]
+        # self.equipments.equip_on_pool(EquipSlot.GUARDER, pl_item[0])
+        pl_item_g = di.ref.pl_item.create(def_id=ItemID.CLOTH, state=ItemState(self.chara_id))
+        self.equipments.equip_on_pool(EquipSlot.GUARDER, pl_item_g)
+
+    def save_character(self) -> list[dict]:
+        """セーブデータに保存するパラメタを辞書形式で返す"""
+        type_dict = {"sprite_type": self.sprite_type}
+        param_dict = asdict(self.param)
+        return [type_dict, param_dict]
+
+    def load_character(self, params: list[dict]) -> None:
+        """キャラクタ単位のパラメタをロードデータから反映"""
+        self.sprite_type = params[0]["sprite_type"]
+        self.param = EntityParam(**params[1])

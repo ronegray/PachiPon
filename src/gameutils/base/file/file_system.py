@@ -1,4 +1,4 @@
-"""file_system.py
+"""
 ファイル入出力関連
 
 - 形式に応じたファイルの入出力、および対象パスの確認
@@ -33,6 +33,15 @@ def check_file(filepath, chk_mode: str = "r") -> Path | None:
             return None
 
     return path
+
+
+# ファイルリストアップ
+def get_filelist(dirpath: str, filename: str = "*") -> list[Path] | None:
+    """指定ディレクトリ内のファイル一覧を取得"""
+    path = Path(dirpath)
+    if not path.exists():
+        return None
+    return [file_path for file_path in path.glob(filename)]
 
 
 # テキストファイル

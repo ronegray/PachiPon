@@ -89,8 +89,12 @@ class DiceRollEffect:
 
         return positions
 
-    def start(self, count: int, roll_frames: int = DICEROLL_FRAME) -> None:
+    def start(
+        self, count: int, roll_frames: int = DICEROLL_FRAME, final_values: list[int] | None = None
+    ) -> None:
         """指定個数のサイコロを左上から放り投げ始める"""
+        if final_values is not None and count != len(final_values):
+            raise ValueError("サイコロ数と結果リスト要素数が不一致です")
         self.roll_frames = roll_frames
         # Σ FRICTION^t (t=0..roll_frames-1) = (1 - FRICTION^n) / (1 - FRICTION)
         # 初速逆算時の定数。roll_frames が変わらない限り毎回同じ値。
@@ -100,7 +104,10 @@ class DiceRollEffect:
         self.flick_t = 0
         self.is_rolling = True
         self.values = [px.rndi(1, 6) for _ in range(count)]
-        self.final_values = [px.rndi(1, 6) for _ in range(count)]
+        if final_values is None:
+            self.final_values = [px.rndi(1, 6) for _ in range(count)]
+        else:
+            self.final_values = final_values
 
         # ① 重ならない最終位置を先に確定
         self._final_positions = self._make_final_positions(count)

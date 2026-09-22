@@ -9,6 +9,7 @@ import service_locater as di
 from gameutils.lib import WindowAction
 from const import SoundID, FOOD_UNITS
 
+# from helper import diceroll_values
 # import service_locater as di
 from field_map import EventPoint, PointPlaceType
 from item import ItemState
@@ -220,11 +221,15 @@ class KickEvent(CommandBaseSystem):
 
     def _sequence(self) -> Generator[list[str], None, None]:
         point = cast(EventPoint, self.args[0])
-        dices = point.kick_event()
+        # dices = point.kick_event()
+        # final_value = diceroll_values(dices)
+        # final_value = [1 for _ in range(dices)]
+        point.kick_event()
+        dices, final_value = point.get_event_dice_values()
         effect = di.ref.efxdice
         roll_frames = 60
         yield ["何が起こるか", "　おたのしみ！"]
-        effect.start(dices, roll_frames)
+        effect.start(dices, roll_frames, final_value)
         if not di.ref.conf.is_cutin_dice:
             effect.skip()
             self.display_info.graphic_command = effect.get_draw_commands()

@@ -4,11 +4,11 @@
 
 import logging
 import pyxel as px
-from helper import upper_int_format, format_leftright
+from helper import upper_int_spaced, format_leftright
 from gameutils.lib import Window
 from assets.asset_map import AssetID, AssetMap
 import service_locater as di
-from entity import PlayerSprite, Character, EntityContext
+from entity import PlayerSprite, PlayerSpriteType, Character, EntityContext
 from menu import MenuCharaMake
 import command.entity_command as e_cmd
 
@@ -31,9 +31,10 @@ class SceneCharaMake(BaseScene):
 
         # キャラクターのベースデータ作成
         self.param = di.ref.scnmgr.get_now_scene().param  # type: ignore
-        self.charaimage: px.Image = px.Image.from_image(AssetMap.get_assetpath(AssetID.IMAGE_CHARA))
-        self.sprite = PlayerSprite(0, 0, self.charaimage)
-        self.hero = Character(id=0, param=self.param, sprite=self.sprite)
+        # self.charaimage: px.Image = px.Image.from_image(AssetMap.get_assetpath(AssetID.IMAGE_CHARA))
+        # self.sprite = PlayerSprite(0, 0, self.charaimage)
+        self.sprite = PlayerSprite(0, 0, PlayerSpriteType.HERO)
+        self.hero = Character(chara_id=0, param=self.param, sprite=self.sprite)
 
         # メッセージ用ウインドウの生成
         message_pos = (0, 184)
@@ -64,46 +65,46 @@ class SceneCharaMake(BaseScene):
         param = member.param
 
         status_lines = f"{param.name}"
-        status_lines += f"\nレベル： {upper_int_format(param.level, 2)}"
-        status_lines += f"\n経験値： {upper_int_format(param.exp, 6)}"
+        status_lines += f"\nレベル： {upper_int_spaced(param.level, 2)}"
+        status_lines += f"\n経験値： {upper_int_spaced(param.exp, 6)}"
         status_lines += (
-            f"\nＨ　Ｐ： {upper_int_format(param.hp, 3)}／{upper_int_format(param.max_hp, 3)}"
+            f"\nＨ　Ｐ： {upper_int_spaced(param.hp, 3)}／{upper_int_spaced(param.max_hp, 3)}"
         )
         status_lines += (
-            f"\nＭ　Ｐ： {upper_int_format(param.mp, 3)}／{upper_int_format(param.max_mp, 3)}"
+            f"\nＭ　Ｐ： {upper_int_spaced(param.mp, 3)}／{upper_int_spaced(param.max_mp, 3)}"
         )
         status_lines += f"\n筋　力： {
             format_leftright(
-                upper_int_format(member.strength, 3),
-                f'（＋{upper_int_format(member.bonus_str, 1)}）',
+                upper_int_spaced(member.strength, 3),
+                f'（＋{upper_int_spaced(member.bonus_str, 1)}）',
                 18,
             )
         }"
         status_lines += f"\n魔　力： {
             format_leftright(
-                upper_int_format(member.arcane, 3),
-                f'（＋{upper_int_format(member.bonus_str, 1)}）',
+                upper_int_spaced(member.arcane, 3),
+                f'（＋{upper_int_spaced(member.bonus_str, 1)}）',
                 18,
             )
         }"
         status_lines += f"\n耐　久： {
             format_leftright(
-                upper_int_format(member.endurance, 3),
-                f'（＋{upper_int_format(member.bonus_end, 1)}）',
+                upper_int_spaced(member.endurance, 3),
+                f'（＋{upper_int_spaced(member.bonus_end, 1)}）',
                 18,
             )
         }"
         status_lines += f"\n速　度： {
             format_leftright(
-                upper_int_format(member.speed, 3),
-                f'（＋{upper_int_format(member.bonus_spd, 1)}）',
+                upper_int_spaced(member.speed, 3),
+                f'（＋{upper_int_spaced(member.bonus_spd, 1)}）',
                 18,
             )
         }"
         status_lines += f"\n幸　運： {
             format_leftright(
-                upper_int_format(member.luck, 3),
-                f'（＋{upper_int_format(member.bonus_lck, 1)}）',
+                upper_int_spaced(member.luck, 3),
+                f'（＋{upper_int_spaced(member.bonus_lck, 1)}）',
                 18,
             )
         }"
@@ -127,6 +128,7 @@ class SceneCharaMake(BaseScene):
                 self.hero.equip_default()
                 di.ref.pt.add_ptmember(self.hero)
                 di.ref.pt.set_field_sprite()
+                # 初期HPMPイベントコマンドの実行と待機後遷移
                 di.ref.cmdmgr.push_command(cmd)
                 di.ref.cmdmgr.set_on_empty(lambda: di.ref.scnmgr.change_scene("opening"))
 

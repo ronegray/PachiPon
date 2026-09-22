@@ -36,7 +36,7 @@ class SceneBattleMenu(BaseScene):
             self.bgimage,
         ) = battle_data
         # キャンセル後の再実行時を考慮して担当キャラの入力済コマンドがあれば削除
-        self.battle_commands.pop(self.context.actor.id, None)
+        self.battle_commands.pop(self.context.actor.chara_id, None)
 
         self.command_package = e_cmd.CommandPackage()
         self.wndmgr.push_stack(MenuBattle, self.context, self.command_package)
@@ -65,8 +65,8 @@ class SceneBattleMenu(BaseScene):
         match result:
             case WindowAction.CLOSE:
                 """バトルメニューキャンセル時"""
-                if self.context.actor.id > 0:
-                    self.battle_commands.pop(self.context.actor.id - 1)
+                if self.context.actor.chara_id > 0:
+                    self.battle_commands.pop(self.context.actor.chara_id - 1)
                 di.ref.scnmgr.previous_scene(False)
             case WindowAction.NOTHING:
                 """バトルメニュー決定完了時"""
@@ -75,7 +75,7 @@ class SceneBattleMenu(BaseScene):
                     logger.critical(errmsg, exc_info=True)
                     raise TypeError(errmsg)
                 cmd = self.command_package.selected_action
-                self.battle_commands[self.context.actor.id] = cmd(
+                self.battle_commands[self.context.actor.chara_id] = cmd(
                     self.context,
                     self.message_window,
                     self.command_package.selected_args,

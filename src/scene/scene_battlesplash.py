@@ -42,7 +42,7 @@ class SceneBattleSplash(BaseScene):
 
         # 決定／キャンセルキーでスキップ
         if is_pressed("decide") or is_pressed("cancel"):
-            di.ref.cmdmgr._stacks.pop()
+            di.ref.cmdmgr._commands.pop()
             self.is_skip_splash = True
             self.is_next_scene = True
 

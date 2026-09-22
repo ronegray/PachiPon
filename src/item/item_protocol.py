@@ -200,7 +200,7 @@ class ItemState(IntEnum):
 @dataclass
 class ItemInstance:
     param: ItemDef
-    enchant: int = 1
+    enchant: int = 0
 
 
 @dataclass

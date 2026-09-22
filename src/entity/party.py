@@ -38,7 +38,7 @@ class Party:
     _world_y: float
     _pt_foods: int
     _pt_golds: int
-    _pt_eventflg: dict[str, bool]
+    # _pt_eventflg: dict[str, bool]
     past_turns: int = 0
     info_window: Window
     pt_msg_window: Window
@@ -74,13 +74,13 @@ class Party:
         # パーティー単位のパラメータ
         self._pt_foods = INITIAL_FOODS
         self._pt_golds = INITIAL_GOLD
-        self._pt_eventflg = {}
+        # self._pt_eventflg = {}
 
         # 移動用ジェネレータ変数にダミーを定義
         self.move_generator = None
 
     def generate_pt_window(self) -> None:
-        # 現在表示ウインドウ
+        # 情報表示ウインドウの定義
         self.info_window = Window("small", px.width, 0, 56, 32, "once")
         # パーティーメッセージウインドウの生成
         x_offset = 4
@@ -102,15 +102,16 @@ class Party:
         #     max_mp=px.rndi(3, 18),
         # )
         # PlayerSprite は pyxel.blt同様pyxel.Imageオブジェクトを受け取り可能
-        charimage = px.Image.from_image("assets/image/character16.bmp")
-        char_x = 20  # 初期X座標
-        char_y = 20  # 初期Y座標
+        # charimage = px.Image.from_image("assets/image/character16.bmp")
+        char_x = 112  # 初期X座標(多分中央から動く事ない)
+        char_y = 112  # 初期Y座標
         # hero_sprite = PlayerSprite(char_x, char_y, charimage)  # img=0 を明示的に指定
         # hero = Character(id=0, param=hero_param, sprite=hero_sprite)  # id=1を設定
         from entity import EntityParam, PlayerSprite
 
         hero = Character(
-            id=len(self._member_list),
+            chara_id=len(self._member_list),
+            sprite_type=len(self._member_list),  # type:ignore
             param=EntityParam(
                 name="ほげほげふーばー" + str(len(self._member_list)),
                 strength=px.rndi(3, 18),
@@ -121,7 +122,7 @@ class Party:
                 max_hp=px.rndi(2, 12),
                 max_mp=px.rndi(2, 12),
             ),
-            sprite=PlayerSprite(char_x, char_y, charimage),
+            sprite=PlayerSprite(char_x, char_y, len(self._member_list)),  # type:ignore
         )
         # if len(self._member_list) == 0:
         #     di.register(di.ServiceKey.HERO, hero)
@@ -167,6 +168,14 @@ class Party:
     def get_allmember(self) -> list[Character]:
         """パーティーメンバー全員を取得"""
         return self._member_list
+
+    def reset_ptmember(self, is_discard: bool = False) -> None:
+        """パーティー所属メンバーの初期化"""
+        hero = self.get_member()
+        if is_discard:
+            self._member_list.clear()
+        else:
+            self.add_ptmember(hero)
 
     def add_ptmember(self, new_member: Character) -> None:
         """パーティーメンバーの追加"""
@@ -295,6 +304,7 @@ class Party:
         self._pt_foods -= comsume_foods
         # 減少によりフードが0以下になった場合
         if self._pt_foods <= 0:
+            self._pt_foods = 0
             cmd1 = s_cmd.FoodShortageEffect(self.pt_msg_window)
             self.cmdmgr.push_command(cmd1)
             for mem in actives:
@@ -361,3 +371,29 @@ class Party:
             ],
             px.COLOR_WHITE,
         )
+
+    def save_party(self) -> dict:
+        """セーブデータに保存するパラメタを辞書形式で返す"""
+        return {
+            "turns": self.past_turns,
+            "foods": self._pt_foods,
+            "golds": self._pt_golds,
+            "point": self._current_point.id,
+        }
+
+    def load_party(self, params: dict) -> None:
+        """パーティ単位のパラメタをロードデータから反映"""
+        self.past_turns = params.get("turns", 0)
+        self._pt_foods = params.get("foods", 0)
+        self._pt_golds = params.get("golds", 0)
+        start_point = params.get("point", "p01")
+
+        tmp_point = self.map.get_point(start_point)
+        if tmp_point is None:
+            errmsg = f"指定されたイベントポイント({start_point})は定義されていません"
+            logger.critical(errmsg, exc_info=True)
+            raise KeyError(errmsg)
+        self._current_point = tmp_point
+        self._world_x = self._current_point.x
+        self._world_y = self._current_point.y
+        # self.set_field_sprite()
