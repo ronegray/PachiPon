@@ -110,7 +110,7 @@ class Party:
         from entity import EntityParam, PlayerSprite
 
         hero = Character(
-            id_=len(self._member_list),
+            chara_id=len(self._member_list),
             sprite_type=len(self._member_list),  # type:ignore
             param=EntityParam(
                 name="ほげほげふーばー" + str(len(self._member_list)),
@@ -168,6 +168,14 @@ class Party:
     def get_allmember(self) -> list[Character]:
         """パーティーメンバー全員を取得"""
         return self._member_list
+
+    def reset_ptmember(self, is_discard: bool = False) -> None:
+        """パーティー所属メンバーの初期化"""
+        hero = self.get_member()
+        if is_discard:
+            self._member_list.clear()
+        else:
+            self.add_ptmember(hero)
 
     def add_ptmember(self, new_member: Character) -> None:
         """パーティーメンバーの追加"""
@@ -375,6 +383,7 @@ class Party:
 
     def load_party(self, params: dict) -> None:
         """パーティ単位のパラメタをロードデータから反映"""
+        self.past_turns = params.get("turns", 0)
         self._pt_foods = params.get("foods", 0)
         self._pt_golds = params.get("golds", 0)
         start_point = params.get("point", "p01")
@@ -385,3 +394,6 @@ class Party:
             logger.critical(errmsg, exc_info=True)
             raise KeyError(errmsg)
         self._current_point = tmp_point
+        self._world_x = self._current_point.x
+        self._world_y = self._current_point.y
+        # self.set_field_sprite()

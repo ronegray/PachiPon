@@ -5,6 +5,7 @@ from collections import defaultdict, deque
 import service_locater as di
 from . import (
     ItemID,
+    # ItemDef,
     ItemType,
     ItemState,
     ItemInstance,
@@ -27,12 +28,13 @@ class ItemPool:
         capacity = ItemPool._capacity if capacity == -1 else capacity
         self._free: deque[int] = deque(range(capacity))
         self._items: dict[int, PoolEntry] = {}
-        self.create_initial_items()
 
-    def create_initial_items(self) -> None:
-        """ゲーム開始時装備アイテムの作成"""
-        self.create(ItemID.DAGGER, ItemState.BAG)
-        self.create(ItemID.CLOTH, ItemState.BAG)
+    #     self.create_initial_items()
+
+    # def create_initial_items(self) -> None:
+    #     """ゲーム開始時装備アイテムの作成"""
+    #     self.create(ItemID.DAGGER, ItemState.BAG)
+    #     self.create(ItemID.CLOTH, ItemState.BAG)
 
     def get_def(self, def_id: ItemID):
         return di.ref.itemrps.get_def(def_id)
@@ -94,13 +96,21 @@ class ItemPool:
 
     def load_item(self, datas: dict) -> None:
         """インスタンスアイテムパラメタをロードデータから反映"""
+        # 現在の情報をクリア
+        self._items.clear()
         # フリーリストはロードデータから再作成
         self._free: deque[int] = deque(range(ItemPool._capacity))
 
         _items = datas
-        for i, ent in _items.items():
+        for idx, ent in _items.items():
+            i = int(idx)
             self._free.remove(i)
-            pe = PoolEntry(ins=ItemInstance(param=ent["def_id"]), stat=ent["stat"])
+            item_param = di.ref.itemrps.get_def(ent["def_id"])
+            # ent_ins = ItemInstance(item_param)
+            pe = PoolEntry(
+                ins=ItemInstance(param=item_param),  # type: ignore
+                stat=ent["stat"],
+            )
             self._items[i] = pe
 
 
@@ -168,4 +178,6 @@ class StackPool:
 
     def load_stack(self, datas: dict) -> None:
         """インスタンスアイテムパラメタをロードデータから反映"""
+        # 現在の情報をクリア
+        self._stacks.clear()
         self._stacks = datas.copy()

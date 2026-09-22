@@ -13,6 +13,7 @@ import pyxel as px
 from assets.asset_map import AssetID, AssetMap
 from gameutils.base import check_file, read_json
 import service_locater as di
+from helper import diceroll_values
 from event import EventList, EventType, EventStat, Event, EventID
 
 
@@ -91,6 +92,8 @@ class EventPoint:
         self.event_type: EventType = EventType[event_dict.get("eventpoint_type", "NORMAL")]
         self.is_ready: bool = True
         self.ready_count: int = 0
+        self.dices = EventPoint.ready_timer[self.event_type.name]
+        self.dice_values: list[int] = diceroll_values(self.dices)
         self.x: int = point_data.get("x", 0)
         self.y: int = point_data.get("y", 0)
         self.routes: list[Route] = []
@@ -137,17 +140,21 @@ class EventPoint:
 
         return result_dict
 
-    def kick_event(self) -> int:
+    def kick_event(self):  # -> int:
         """イベント開始準備
         - ポイントのイベント準備状態を更新
         - イベントタイプから発生イベント決定用ダイス値を取得
         """
         # イベントポイントの準備状態を変更
         self.is_ready = False
-        # イベントタイプからカウンタ兼ダイス数を取得
-        cnt = EventPoint.ready_timer[self.event_type.name]
-        self.ready_count = cnt
-        return cnt
+        # # イベントタイプからカウンタ兼ダイス数を取得
+        # cnt = EventPoint.ready_timer[self.event_type.name]
+        self.ready_count = self.dices
+        # return self.dices
+
+    def get_event_dice_values(self) -> tuple[int, list[int]]:
+        """イベントポイントのダイス個数／算出済ダイス値を取得"""
+        return (self.dices, self.dice_values)
 
     def rise_event(self, evt_id: EventID) -> None:
         """実行イベント定義"""
@@ -162,6 +169,8 @@ class EventPoint:
         self.ready_count = max(0, self.ready_count - 1)
         if self.ready_count == 0:
             self.is_ready = True
+            # イベントポイントが有効になった瞬間に最終値を決定
+            self.dice_values = diceroll_values(self.dices)
 
     def draw(self, offset_x: float = 0, offset_y: float = 0):
         """イベントポイント情報の描画"""
@@ -294,3 +303,30 @@ class MapGraph:
         # 点（EventPoint）の描画
         for point in draw_target_points:
             point.draw(offset_x, offset_y)
+
+    def save_event(self) -> dict:
+        """セーブデータに保存するパラメタを辞書形式で返す"""
+        return {
+            point_id: {"ready_count": eventpoint.ready_count, "dice_values": eventpoint.dice_values}
+            for point_id, eventpoint in self.points.items()
+            # if eventpoint.is_ready is False}
+        }
+
+    def load_event(self, params: dict) -> None:
+        """イベントポイント単位のパラメタをロードデータから反映"""
+        # self._pt_foods = params.get("foods", 0)
+        # self._pt_golds = params.get("golds", 0)
+        # start_point = params.get("point", "p01")
+
+        # tmp_point = self.map.get_point(start_point)
+        # if tmp_point is None:
+        #     errmsg = f"指定されたイベントポイント({start_point})は定義されていません"
+        #     logger.critical(errmsg, exc_info=True)
+        #     raise KeyError(errmsg)
+        # self._current_point = tmp_point
+
+        for key, param in params.items():
+            self.points[key].ready_count = param["ready_count"]
+            if self.points[key].ready_count != 0:
+                self.points[key].is_ready = False
+            self.points[key].dice_values = param["dice_values"]

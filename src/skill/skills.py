@@ -62,3 +62,13 @@ class Skills:
     def calc_damage(self, skill_def: SkillDef) -> int:
         """魔法ダメージ計算（実処理）"""
         return diceroll(int(skill_def.effect_value))
+
+    def save_skill(self) -> list:
+        """セーブデータに保存するパラメタをlist形式で返す
+        ※jsonはsetをdump出来ない為"""
+        skill_list = list(self._learned_skills)
+        return skill_list
+
+    # def load_skill(self, skills: set) -> None:
+    #     """取得スキルのIDをロードデータから反映"""
+    #     pass

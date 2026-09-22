@@ -122,11 +122,11 @@ class MenuStatus(Menu):
         for slot, label in slots:
             pooled_item = member.equipments.get_slot(slot)
             if pooled_item is None:
-                skill_name = "なし"
+                item_name = "なし"
             else:
                 _, plent = pooled_item
-                skill_name = plent.ins.param.name
-            equip_lines += f"　{label}： {skill_name}\n"
+                item_name = plent.ins.param.name
+            equip_lines += f"　{label}： {item_name}\n"
         self.windows["sub2"].message_list = [equip_lines]
 
         # スキル項目の構築

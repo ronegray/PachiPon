@@ -25,11 +25,11 @@ class EntityBase(ABC):
 
     _critical_threshold: int = 10  # クリティカル判定閾値
 
-    def __init__(self, param: EntityParam, sprite: BaseSprite, id: int = 0):
+    def __init__(self, param: EntityParam, sprite: BaseSprite, chara_id: int = 0):
         self.param: EntityParam = param
         self.sprite: BaseSprite = sprite
-        self.id: int = id
-        self.skills: Skills = Skills(self.id)
+        self.chara_id: int = chara_id
+        self.skills: Skills = Skills(self.chara_id)
         # ステータスボーナスの表現
         self.multiplier: list[float] = [1.0, 1.0]  # hp,mp倍率
         self.param_bonus: list[int] = [0, 0, 0, 0, 0]  # str,arc,end,spd,lck

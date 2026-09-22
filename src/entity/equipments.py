@@ -155,16 +155,16 @@ class Equips:
 
     def save_equip(self) -> dict:
         """セーブデータに保存するパラメタを辞書形式で返す"""
-        equips = {}
+        equipped = {}
         for slot, item_ in self._equipped_items.items():
             if item_ is None:
-                equips[slot] = None
+                equipped[slot] = None
             else:
-                equips[slot] = item_[0]
-        return equips
+                equipped[slot] = item_[0]
+        return equipped
 
     def load_equip(self, equips: dict) -> None:
-        """パーティ単位のパラメタをロードデータから反映"""
+        """装備単位のパラメタをロードデータから反映"""
         for slot, item_ in equips.items():
             if item_ is None:
                 continue

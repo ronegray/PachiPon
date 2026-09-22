@@ -183,7 +183,7 @@ class SceneBattle(BaseScene):
         for member in all_member:
             if member.is_alive:
                 initiative = diceroll(2) + member.bonus_spd
-                self.initiative_dict[member.id] = initiative
+                self.initiative_dict[member.chara_id] = initiative
 
     def generate_enemy_commands(self):
         """エネミーのコマンドオブジェクト生成"""
@@ -199,7 +199,7 @@ class SceneBattle(BaseScene):
                 enemy_command = SceneBattle._enemy_commands.get(action)
                 if enemy_command is None:
                     raise NameError
-                self.battle_commands[enemy.id] = enemy_command(ctx, self.message_window)
+                self.battle_commands[enemy.chara_id] = enemy_command(ctx, self.message_window)
 
     def update(self):
         """更新処理
@@ -316,7 +316,7 @@ class SceneBattle(BaseScene):
         member = [
             member
             for member in member_list
-            if member.id not in self.battle_commands.keys() and member.is_alive
+            if member.chara_id not in self.battle_commands.keys() and member.is_alive
         ]
         actor = target = member[0]
 

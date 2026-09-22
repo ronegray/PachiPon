@@ -40,9 +40,9 @@ class FlagManager:
     # def toggle(self, flag: Flag) -> None:
     #     self.set_flag(flag, not self.get_flag(flag))
 
-    def save_data(self) -> list[str]:
+    def save_flags(self) -> list[str]:
         return [flag.name for flag in self._flags]
 
-    def load_data(self, flag_names: list[str]) -> None:
+    def load_flags(self, flag_names: list[str]) -> None:
         """名前からFlagの値を引き当てる"""
         self._flags = {Flag[name] for name in flag_names if name in Flag.__members__}

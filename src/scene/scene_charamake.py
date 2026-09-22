@@ -34,7 +34,7 @@ class SceneCharaMake(BaseScene):
         # self.charaimage: px.Image = px.Image.from_image(AssetMap.get_assetpath(AssetID.IMAGE_CHARA))
         # self.sprite = PlayerSprite(0, 0, self.charaimage)
         self.sprite = PlayerSprite(0, 0, PlayerSpriteType.HERO)
-        self.hero = Character(id_=0, param=self.param, sprite=self.sprite)
+        self.hero = Character(chara_id=0, param=self.param, sprite=self.sprite)
 
         # メッセージ用ウインドウの生成
         message_pos = (0, 184)
@@ -128,6 +128,7 @@ class SceneCharaMake(BaseScene):
                 self.hero.equip_default()
                 di.ref.pt.add_ptmember(self.hero)
                 di.ref.pt.set_field_sprite()
+                # 初期HPMPイベントコマンドの実行と待機後遷移
                 di.ref.cmdmgr.push_command(cmd)
                 di.ref.cmdmgr.set_on_empty(lambda: di.ref.scnmgr.change_scene("opening"))
 
