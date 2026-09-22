@@ -1,0 +1,398 @@
+{
+  "INCREASE_HP": {
+    "SAFETY": {
+      "event_name": "綺麗な湧き水",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    },
+    "NORMAL": {
+      "event_name": "お昼寝タイム",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    },
+    "GAMBLE": {
+      "event_name": "湧き出す地脈",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "DECREASE_HP": {
+    "SAFETY": {
+      "event_name": "ギザギザ葉っぱ",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    },
+    "NORMAL": {
+      "event_name": "風にゆられて",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    },
+    "GAMBLE": {
+      "event_name": "暴れる地脈",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "INCREASE_MP": {
+    "SAFETY": {
+      "event_name": "穏やかな木陰",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    },
+    "NORMAL": {
+      "event_name": "静謐な空間",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    },
+    "GAMBLE": {
+      "event_name": "精霊の祝福",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "DECREASE_MP": {
+    "SAFETY": {
+      "event_name": "視線に気疲れ",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    },
+    "NORMAL": {
+      "event_name": "廃村の墓場",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    },
+    "GAMBLE": {
+      "event_name": "魔力の暴走",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "INCREASE_GOLD": {
+    "SAFETY": {
+      "event_name": "コインみーっけ",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    },
+    "NORMAL": {
+      "event_name": "おたから情報",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    },
+    "GAMBLE": {
+      "event_name": "埋蔵金発掘",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "DECREASE_GOLD": {
+    "SAFETY": {
+      "event_name": "お釣り間違い",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    },
+    "NORMAL": {
+      "event_name": "スリの被害",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    },
+    "GAMBLE": {
+      "event_name": "詐欺の手口",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "INCREASE_FOOD": {
+    "SAFETY": {
+      "event_name": "食べごろ果実",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    },
+    "NORMAL": {
+      "event_name": "保存食の仕込",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    },
+    "GAMBLE": {
+      "event_name": "食糧事情改善",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "DECREASE_FOOD": {
+    "SAFETY": {
+      "event_name": "虫食いリンゴ",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    },
+    "NORMAL": {
+      "event_name": "誘拐事件発生",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    },
+    "GAMBLE": {
+      "event_name": "カビのしつこさ",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "SURPRISE_BATTLE": {
+    "SAFETY": {
+      "event_name": "飛び出し注意",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    },
+    "NORMAL": {
+      "event_name": "隙を見せれば",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    },
+    "GAMBLE": {
+      "event_name": "退けない戦い",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "GET_JUNK": {
+    "SAFETY": {
+      "event_name": "残り物には福？",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "FLGEVENT1_A": {
+    "SAFETY": {
+      "event_name": "翡翠の工芸品",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "FLGEVENT1_B": {
+    "SAFETY": {
+      "event_name": "信仰の証",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "FLGEVENT1_C": {
+    "SAFETY": {
+      "event_name": "一振りの水晶",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "GET_POTION": {
+    "NORMAL": {
+      "event_name": "薬草の群生地",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "LOST_POTION": {
+    "NORMAL": {
+      "event_name": "割れた薬瓶",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "MEET_ALLY": {
+    "NORMAL": {
+      "event_name": "出会いは突然",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "FLGEVENT2_D": {
+    "NORMAL": {
+      "event_name": "古龍の亡骸",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "FLGEVENT2_E": {
+    "NORMAL": {
+      "event_name": "祀られた護符",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "FLGEVENT2_F": {
+    "NORMAL": {
+      "event_name": "聖者の墓所",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "GET_HIPOTION": {
+    "GAMBLE": {
+      "event_name": "夢枕の贈り物",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "LOST_HIPOTION": {
+    "GAMBLE": {
+      "event_name": "うっかり青兵衛",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "FLGEVENT3_G": {
+    "GAMBLE": {
+      "event_name": "神授の宝剣",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "FLGEVENT3_H": {
+    "GAMBLE": {
+      "event_name": "祝聖の護り",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "GET_ARMORY": {
+    "GAMBLE": {
+      "event_name": "屯田兵政策",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "CROWN": {
+    "BATTLE": {
+      "event_name": "宝冠の守護者",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "MIRROR": {
+    "BATTLE": {
+      "event_name": "神鏡の守護者",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "CEPTER": {
+    "BATTLE": {
+      "event_name": "王笏の守護者",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "GRAIL": {
+    "BATTLE": {
+      "event_name": "聖杯の守護者",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "SATAN": {
+    "BATTLE": {
+      "event_name": "魔を統べる者",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  },
+  "KING": {
+    "BATTLE": {
+      "event_name": "人を統べる者",
+      "messages": [
+        "仮メッセージ1",
+        "仮メッセージ2"
+      ]
+    }
+  }
+}

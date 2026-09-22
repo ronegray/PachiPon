@@ -64,6 +64,7 @@ class Event:
     event_id: EventID
     event_name: str  # イベント表示名
     event_value: int  # ダイス値や脅威度等の値
+    event_messages: list[str]  # イベントメッセージ
 
 
 @dataclass
