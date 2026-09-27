@@ -10,7 +10,7 @@ from assets.asset_map import AssetID, AssetMap
 import service_locater as di
 from entity import PlayerSprite, PlayerSpriteType, Character, EntityContext
 from menu import MenuCharaMake
-import command.entity_command as e_cmd
+import command.entity_command as en_cmd
 
 from . import BaseScene
 
@@ -124,7 +124,7 @@ class SceneCharaMake(BaseScene):
                     allies=[],
                     targets=[],
                 )
-                cmd = e_cmd.CharacterInitialHPMP(ctx, self.message_window)
+                cmd = en_cmd.CharacterInitialHPMP(ctx, self.message_window)
                 self.hero.equip_default()
                 di.ref.pt.add_ptmember(self.hero)
                 di.ref.pt.set_field_sprite()

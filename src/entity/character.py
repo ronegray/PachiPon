@@ -149,6 +149,7 @@ class Character(EntityBase):
         """セーブデータに保存するパラメタを辞書形式で返す"""
         type_dict = {"sprite_type": self.sprite_type}
         param_dict = asdict(self.param)
+
         return [type_dict, param_dict]
 
     def load_character(self, params: list[dict]) -> None:

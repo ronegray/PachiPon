@@ -292,8 +292,15 @@ class Party:
         return self._pt_golds
 
     def earn_foods(self, foods: int) -> int:
-        """獲得食糧をPTに加算し総額を取得"""
+        """獲得食糧をPTに加算し総量を取得"""
         self._pt_foods += foods
+        return self._pt_foods
+
+    def lost_foods(self, foods: int) -> int:
+        """消費食糧をPTに減算し総量を取得"""
+        self._pt_foods -= foods
+        if self._pt_foods < 0:
+            self._pt_foods = 0
         return self._pt_foods
 
     def have_food(self):

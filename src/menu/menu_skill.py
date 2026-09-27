@@ -21,7 +21,7 @@ import service_locater as di
 from helper import upper_int, format_leftright
 from entity import EntityContext
 from skill import SkillDef, SkillTargetType
-import command.entity_command as e_cmd
+import command.entity_command as en_cmd
 
 
 # ロギング設定
@@ -38,7 +38,7 @@ class MenuSelectSkillBattle(Menu):
         self,
         ctx: EntityContext,
         ref_window: dict[str, int],
-        command_package: e_cmd.CommandPackage,
+        command_package: en_cmd.CommandPackage,
     ):
         self.ctx = ctx
         self.command_package = command_package
@@ -229,7 +229,7 @@ class MenuSelectSkillBattle(Menu):
                 from menu import MenuSelectBattleTarget
 
                 # コマンドパッケージに選択内容登録
-                self.command_package.selected_action = getattr(e_cmd, skill_def.effect_func)
+                self.command_package.selected_action = getattr(en_cmd, skill_def.effect_func)
                 self.command_package.target_type = skill_def.target_type  # type: ignore
                 self.command_package.selected_args = {"skillinfo": skill_def}
 
@@ -263,7 +263,7 @@ class MenuSelectSkillField(Menu):
         self,
         ctx: EntityContext,
         ref_window: dict[str, int],
-        command_package: e_cmd.CommandPackage,
+        command_package: en_cmd.CommandPackage,
     ):
         self.ctx = ctx
         self.command_package = command_package
@@ -457,7 +457,7 @@ class MenuSelectSkillField(Menu):
         from menu import MenuSelectFieldTarget
 
         # コマンドパッケージに選択内容登録
-        self.command_package.selected_action = getattr(e_cmd, skill_def.effect_func)
+        self.command_package.selected_action = getattr(en_cmd, skill_def.effect_func)
         self.command_package.target_type = skill_def.target_type  # type: ignore
         self.command_package.selected_args = {"skillinfo": skill_def}
 

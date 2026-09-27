@@ -9,7 +9,7 @@ import logging
 from gameutils.lib import WindowAction
 import service_locater as di
 from . import BaseScene, SceneBattle
-import command.entity_command as e_cmd
+import command.entity_command as en_cmd
 from menu import MenuBattle
 
 # ロギング設定
@@ -38,7 +38,7 @@ class SceneBattleMenu(BaseScene):
         # キャンセル後の再実行時を考慮して担当キャラの入力済コマンドがあれば削除
         self.battle_commands.pop(self.context.actor.chara_id, None)
 
-        self.command_package = e_cmd.CommandPackage()
+        self.command_package = en_cmd.CommandPackage()
         self.wndmgr.push_stack(MenuBattle, self.context, self.command_package)
 
     def load_bgm(self) -> None:

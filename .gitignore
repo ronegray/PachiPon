@@ -13,3 +13,4 @@ debug*
 uv.lock
 tool/
 src/systemconfig.json
+src/systemconfig.json

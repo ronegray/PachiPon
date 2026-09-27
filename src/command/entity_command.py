@@ -11,7 +11,7 @@ from gameutils.lib import Window, WindowAction
 from helper import diceroll, upper_int
 from entity import EntityContext, Enemy, Party, Character
 from skill import SkillTargetType
-from item import ItemTargetType, StackPool, ItemState  # , WeaponType
+from item import ItemTargetType, StackPool  # , ItemState  # , WeaponType
 import service_locater as di
 from . import CommandBaseSequence, CommandPhase
 from .effect_command import efx_diceroll, efx_physical_attack, efx_damage_shake, efx_monster_dead
@@ -470,7 +470,8 @@ class heal_hp(CommandBaseEntity):
             actor.equipments.use_consume(slot)
         else:
             pl_stack = cast(StackPool, self.args[0]["pl_stack"])
-            pl_stack.remove(item_def.def_id, ItemState.BAG, 1)
+            # pl_stack.remove(item_def.def_id, ItemState.BAG, 1)
+            pl_stack.remove(item_def.def_id)
 
         # 回復ロール
         if item_def.effect_value:
@@ -521,7 +522,8 @@ class heal_mp(CommandBaseEntity):
             actor.equipments.use_consume(slot)
         else:
             pl_stack = cast(StackPool, self.args[0]["pl_stack"])
-            pl_stack.remove(item_def.def_id, ItemState.BAG, 1)
+            # pl_stack.remove(item_def.def_id, ItemState.BAG, 1)
+            pl_stack.remove(item_def.def_id)
 
         # 回復ロール
         if item_def.effect_value:

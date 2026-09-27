@@ -14,7 +14,7 @@ from assets.asset_map import AssetID, AssetMap
 from gameutils.base import check_file, read_json
 import service_locater as di
 from helper import diceroll_values
-from event import EventList, EventType, EventStat, Event, EventID
+from event import EventList, EventType, EventStat, Event, EventID, FixedEventMap
 
 
 # ルート方向指定子
@@ -79,8 +79,8 @@ class EventPoint:
             errmsg = "イベントポイントIDが未定義です"
             logger.critical(errmsg, exc_info=True)
             raise ValueError(errmsg)
-        tmp_evid = point_data.get("eventId")
-        if tmp_evid is None:
+        tmp_evkey = point_data.get("event_key")
+        if tmp_evkey is None:
             errmsg = "イベントIDが未定義です"
             logger.critical(errmsg, exc_info=True)
             raise ValueError(errmsg)
@@ -88,7 +88,7 @@ class EventPoint:
         self.id: str = tmp_id
         self.point_type: PointPlaceType = PointPlaceType[point_data.get("point_type", "UNKNOWN")]
         self.name: str = point_data.get("name", "Unknown")
-        self.event_id: str = tmp_evid
+        self.event_key: str = tmp_evkey
         self.event_type: EventType = EventType[event_dict.get("eventpoint_type", "NORMAL")]
         self.is_ready: bool = True
         self.ready_count: int = 0
@@ -105,7 +105,7 @@ class EventPoint:
         for key, ev_def in event_dict["event_stat"].items():
             if is_first:
                 self.event_list = EventList(
-                    self.event_id,
+                    self.event_key,
                     self.event_type,
                     {EventID[key]: EventStat(ev_def["threshold"])},
                 )
@@ -156,8 +156,17 @@ class EventPoint:
         """イベントポイントのダイス個数／算出済ダイス値を取得"""
         return (self.dices, self.dice_values)
 
+    def check_fixedevent(self) -> EventID | None:
+        """現在地のイベントキーとフラグから固定イベントの発生をチェック
+        固定イベント発生時はイベントID文字をリターン"""
+        fixed = getattr(FixedEventMap, self.event_key, None)
+        if fixed:
+            if di.ref.flgmgr.is_set(fixed) is False:
+                return EventID[fixed]
+        return
+
     def rise_event(self, evt_id: EventID) -> None:
-        """実行イベント定義"""
+        """これから実行するイベントを定義"""
         self.nextevent = di.ref.evtrps.get_event(self.event_type, evt_id)
 
     def flush_event(self) -> None:
@@ -228,7 +237,7 @@ class MapGraph:
 
         # 頂点を登録
         for point in data.get("points", []):
-            event_def = evdata[point["eventId"]]
+            event_def = evdata[point["event_key"]]
             self.points[point["id"]] = EventPoint(point, event_def)
 
         # 辺を登録

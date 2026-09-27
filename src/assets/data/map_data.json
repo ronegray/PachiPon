@@ -4,7 +4,7 @@
             "id": "p01",
             "point_type": "CAPITAL_CITY",
             "name": "Southern City",
-            "eventId": "ev_p01",
+            "event_key": "BIGBAD",
             "x": 516,
             "y": 638
         },
@@ -12,7 +12,7 @@
             "id": "p02",
             "point_type": "PORT",
             "name": "WestLanding",
-            "eventId": "ev_p02",
+            "event_key": "dec_mp",
             "x": 493,
             "y": 618
         },
@@ -20,7 +20,7 @@
             "id": "p03",
             "point_type": "THOROUGHFARE",
             "name": "StartingPoint",
-            "eventId": "ev_p03",
+            "event_key": "dec_fd",
             "x": 549,
             "y": 598
         },
@@ -28,7 +28,7 @@
             "id": "p04",
             "point_type": "THOROUGHFARE",
             "name": "FirstFork",
-            "eventId": "ev_p04",
+            "event_key": "dec_gp",
             "x": 496,
             "y": 575
         },
@@ -36,7 +36,7 @@
             "id": "p05",
             "point_type": "TOWN",
             "name": "Mariner Town",
-            "eventId": "ev_p05",
+            "event_key": "nrm001",
             "x": 591,
             "y": 690
         },
@@ -44,7 +44,7 @@
             "id": "p06",
             "point_type": "VILLAGE",
             "name": "Hunters",
-            "eventId": "ev_p06",
+            "event_key": "nrm002",
             "x": 592,
             "y": 585
         },
@@ -52,7 +52,7 @@
             "id": "p07",
             "point_type": "LAKE",
             "name": "MountainLake",
-            "eventId": "ev_p07",
+            "event_key": "flg1_a",
             "x": 539,
             "y": 545
         },
@@ -60,7 +60,7 @@
             "id": "p08",
             "point_type": "DUNGEON",
             "name": "Goblin's lair",
-            "eventId": "ev_p08",
+            "event_key": "nrm003",
             "x": 615,
             "y": 598
         },
@@ -68,7 +68,7 @@
             "id": "p09",
             "point_type": "REST_AREA",
             "name": "PlainsRoad",
-            "eventId": "ev_p09",
+            "event_key": "nrm004",
             "x": 425,
             "y": 576
         },
@@ -76,7 +76,7 @@
             "id": "p10",
             "point_type": "TEMPLE",
             "name": "HiddenShrine",
-            "eventId": "ev_p10",
+            "event_key": "inc_hp",
             "x": 498,
             "y": 507
         },
@@ -84,7 +84,7 @@
             "id": "p11",
             "point_type": "FRONTIER",
             "name": "Lagoon",
-            "eventId": "ev_p11",
+            "event_key": "flg1_b",
             "x": 618,
             "y": 747
         },
@@ -92,7 +92,7 @@
             "id": "p12",
             "point_type": "DUNGEON",
             "name": "Fifthlake",
-            "eventId": "ev_p12",
+            "event_key": "nrm005",
             "x": 629,
             "y": 540
         },
@@ -100,7 +100,7 @@
             "id": "p13",
             "point_type": "REST_AREA",
             "name": "Mountain Gate",
-            "eventId": "ev_p13",
+            "event_key": "dec_mp",
             "x": 395,
             "y": 537
         },
@@ -108,7 +108,7 @@
             "id": "p14",
             "point_type": "VILLAGE",
             "name": "ForestSide",
-            "eventId": "ev_p14",
+            "event_key": "flg2_e",
             "x": 675,
             "y": 579
         },
@@ -116,7 +116,7 @@
             "id": "p15",
             "point_type": "THOROUGHFARE",
             "name": "TriJunction",
-            "eventId": "ev_p15",
+            "event_key": "dec_gp",
             "x": 332,
             "y": 610
         },
@@ -124,7 +124,7 @@
             "id": "p16",
             "point_type": "FRONTIER",
             "name": "HeavensGate",
-            "eventId": "ev_p16",
+            "event_key": "flg1_c",
             "x": 600,
             "y": 808
         },
@@ -132,7 +132,7 @@
             "id": "p17",
             "point_type": "RUINS",
             "name": "Trial",
-            "eventId": "ev_p17",
+            "event_key": "inc_mp",
             "x": 715,
             "y": 641
         },
@@ -140,7 +140,7 @@
             "id": "p18",
             "point_type": "RUINS",
             "name": "Wyvern's Nest",
-            "eventId": "ev_p18",
+            "event_key": "inc_gp",
             "x": 377,
             "y": 783
         },
@@ -148,7 +148,7 @@
             "id": "p19",
             "point_type": "TOWN",
             "name": "Seagazer",
-            "eventId": "ev_p19",
+            "event_key": "flg2_f",
             "x": 317,
             "y": 674
         },
@@ -156,7 +156,7 @@
             "id": "p20",
             "point_type": "DUNGEON",
             "name": "DeepValley",
-            "eventId": "ev_p20",
+            "event_key": "inc_fd",
             "x": 394,
             "y": 456
         },
@@ -164,7 +164,7 @@
             "id": "p21",
             "point_type": "FRONTIER",
             "name": "SouthPark",
-            "eventId": "ev_p21",
+            "event_key": "dec_hp",
             "x": 730,
             "y": 698
         },
@@ -172,7 +172,7 @@
             "id": "p22",
             "point_type": "TOWN",
             "name": "SouthForest",
-            "eventId": "ev_p22",
+            "event_key": "nrm006",
             "x": 727,
             "y": 751
         },
@@ -180,7 +180,7 @@
             "id": "p23",
             "point_type": "LAKE",
             "name": "Swamp",
-            "eventId": "ev_p23",
+            "event_key": "BOSSMI",
             "x": 598,
             "y": 412
         },
@@ -188,7 +188,7 @@
             "id": "p24",
             "point_type": "DUNGEON",
             "name": "DeepForestShrine",
-            "eventId": "ev_p24",
+            "event_key": "nrm007",
             "x": 753,
             "y": 593
         },
@@ -196,7 +196,7 @@
             "id": "p25",
             "point_type": "TEMPLE",
             "name": "Sunken Temple",
-            "eventId": "ev_p25",
+            "event_key": "getpot",
             "x": 293,
             "y": 772
         },
@@ -204,7 +204,7 @@
             "id": "p26",
             "point_type": "FRONTIER",
             "name": "South Plains",
-            "eventId": "ev_p26",
+            "event_key": "battle",
             "x": 275,
             "y": 530
         },
@@ -212,7 +212,7 @@
             "id": "p27",
             "point_type": "FRONTIER",
             "name": "Arid High Plateaus",
-            "eventId": "ev_p27",
+            "event_key": "dec_gp",
             "x": 438,
             "y": 378
         },
@@ -220,7 +220,7 @@
             "id": "p28",
             "point_type": "FOREST",
             "name": "SouthForest",
-            "eventId": "ev_p28",
+            "event_key": "dec_fd",
             "x": 792,
             "y": 651
         },
@@ -228,7 +228,7 @@
             "id": "p29",
             "point_type": "THOROUGHFARE",
             "name": "LoadLakeside",
-            "eventId": "ev_p29",
+            "event_key": "flg1_a",
             "x": 238,
             "y": 588
         },
@@ -236,7 +236,7 @@
             "id": "p30",
             "point_type": "FRONTIER",
             "name": "Shadowwood Forest",
-            "eventId": "ev_p30",
+            "event_key": "dec_hp",
             "x": 733,
             "y": 454
         },
@@ -244,7 +244,7 @@
             "id": "p31",
             "point_type": "LAKE",
             "name": "Oasys",
-            "eventId": "ev_p31",
+            "event_key": "flg1_b",
             "x": 491,
             "y": 351
         },
@@ -252,7 +252,7 @@
             "id": "p32",
             "point_type": "DUNGEON",
             "name": "Delta",
-            "eventId": "ev_p32",
+            "event_key": "nrm008",
             "x": 615,
             "y": 364
         },
@@ -260,7 +260,7 @@
             "id": "p33",
             "point_type": "RUINS",
             "name": "Farthest Cape",
-            "eventId": "ev_p33",
+            "event_key": "BOSSSA",
             "x": 595,
             "y": 919
         },
@@ -268,7 +268,7 @@
             "id": "p34",
             "point_type": "RUINS",
             "name": "Forest Sanctuary",
-            "eventId": "ev_p34",
+            "event_key": "getarm",
             "x": 804,
             "y": 584
         },
@@ -276,7 +276,7 @@
             "id": "p35",
             "point_type": "REST_AREA",
             "name": "River Cave",
-            "eventId": "ev_p35",
+            "event_key": "nrm009",
             "x": 805,
             "y": 759
         },
@@ -284,7 +284,7 @@
             "id": "p36",
             "point_type": "RUINS",
             "name": "Gemini Tower",
-            "eventId": "ev_p36",
+            "event_key": "inc_hp",
             "x": 286,
             "y": 425
         },
@@ -292,7 +292,7 @@
             "id": "p37",
             "point_type": "VILLAGE",
             "name": "Forestout",
-            "eventId": "ev_p37",
+            "event_key": "nrm010",
             "x": 661,
             "y": 355
         },
@@ -300,7 +300,7 @@
             "id": "p38",
             "point_type": "VILLAGE",
             "name": "DesertRest",
-            "eventId": "ev_p38",
+            "event_key": "nrm011",
             "x": 432,
             "y": 330
         },
@@ -308,7 +308,7 @@
             "id": "p39",
             "point_type": "REST_AREA",
             "name": "Shadowwood",
-            "eventId": "ev_p39",
+            "event_key": "nrm012",
             "x": 801,
             "y": 484
         },
@@ -316,7 +316,7 @@
             "id": "p40",
             "point_type": "TEMPLE",
             "name": "Highland Temple",
-            "eventId": "ev_p40",
+            "event_key": "inc_mp",
             "x": 357,
             "y": 341
         },
@@ -324,7 +324,7 @@
             "id": "p41",
             "point_type": "FRONTIER",
             "name": "ForestEdge",
-            "eventId": "ev_p41",
+            "event_key": "dec_gp",
             "x": 721,
             "y": 365
         },
@@ -332,7 +332,7 @@
             "id": "p42",
             "point_type": "VILLAGE",
             "name": "PlainsGate",
-            "eventId": "ev_p42",
+            "event_key": "flg2_e",
             "x": 175,
             "y": 541
         },
@@ -340,7 +340,7 @@
             "id": "p43",
             "point_type": "MOUNTAIN",
             "name": "GreatCliff",
-            "eventId": "ev_p43",
+            "event_key": "dec_fd",
             "x": 853,
             "y": 783
         },
@@ -348,7 +348,7 @@
             "id": "p44",
             "point_type": "TOWN",
             "name": "riverside",
-            "eventId": "ev_p44",
+            "event_key": "nrm013",
             "x": 880,
             "y": 705
         },
@@ -356,7 +356,7 @@
             "id": "p45",
             "point_type": "DUNGEON",
             "name": "loneIsle",
-            "eventId": "ev_p45",
+            "event_key": "inc_gp",
             "x": 200,
             "y": 834
         },
@@ -364,7 +364,7 @@
             "id": "p46",
             "point_type": "THOROUGHFARE",
             "name": "ForestCorridor",
-            "eventId": "ev_p46",
+            "event_key": "flg1_c",
             "x": 881,
             "y": 562
         },
@@ -372,7 +372,7 @@
             "id": "p47",
             "point_type": "DUNGEON",
             "name": "BeastsNest",
-            "eventId": "ev_p47",
+            "event_key": "nrm014",
             "x": 827,
             "y": 432
         },
@@ -380,7 +380,7 @@
             "id": "p48",
             "point_type": "MOUNTAIN",
             "name": "Halfway",
-            "eventId": "ev_p48",
+            "event_key": "inc_hp",
             "x": 258,
             "y": 358
         },
@@ -388,7 +388,7 @@
             "id": "p49",
             "point_type": "FOREST",
             "name": "EntranceMount",
-            "eventId": "ev_p49",
+            "event_key": "dec_mp",
             "x": 181,
             "y": 448
         },
@@ -396,7 +396,7 @@
             "id": "p50",
             "point_type": "THOROUGHFARE",
             "name": "PlainsLoad",
-            "eventId": "ev_p50",
+            "event_key": "flg1_c",
             "x": 415,
             "y": 259
         },
@@ -404,7 +404,7 @@
             "id": "p51",
             "point_type": "MOUNTAIN",
             "name": "DeepMountain",
-            "eventId": "ev_p51",
+            "event_key": "nrm001",
             "x": 213,
             "y": 387
         },
@@ -412,7 +412,7 @@
             "id": "p52",
             "point_type": "FRONTIER",
             "name": "SilentShore",
-            "eventId": "ev_p52",
+            "event_key": "dec_mp",
             "x": 556,
             "y": 244
         },
@@ -420,7 +420,7 @@
             "id": "p53",
             "point_type": "MOUNTAIN",
             "name": "TopOfMount",
-            "eventId": "ev_p53",
+            "event_key": "BOSSCR",
             "x": 314,
             "y": 289
         },
@@ -428,7 +428,7 @@
             "id": "p54",
             "point_type": "RUINS",
             "name": "Gardian Statue",
-            "eventId": "ev_p54",
+            "event_key": "nrm015",
             "x": 666,
             "y": 256
         },
@@ -436,7 +436,7 @@
             "id": "p55",
             "point_type": "DUNGEON",
             "name": "GoblinsNest",
-            "eventId": "ev_p55",
+            "event_key": "flg2_d",
             "x": 932,
             "y": 621
         },
@@ -444,7 +444,7 @@
             "id": "p56",
             "point_type": "CAPITAL_CITY",
             "name": "Nothern City",
-            "eventId": "ev_p56",
+            "event_key": "getpot",
             "x": 487,
             "y": 220
         },
@@ -452,7 +452,7 @@
             "id": "p57",
             "point_type": "FOREST",
             "name": "AncientForest",
-            "eventId": "ev_p57",
+            "event_key": "dec_hp",
             "x": 801,
             "y": 328
         },
@@ -460,7 +460,7 @@
             "id": "p58",
             "point_type": "TEMPLE",
             "name": "Seaside Fort",
-            "eventId": "ev_p58",
+            "event_key": "inc_fd",
             "x": 111,
             "y": 497
         },
@@ -468,7 +468,7 @@
             "id": "p59",
             "point_type": "FOREST",
             "name": "EntranceForest",
-            "eventId": "ev_p59",
+            "event_key": "dec_mp",
             "x": 881,
             "y": 391
         },
@@ -476,7 +476,7 @@
             "id": "p60",
             "point_type": "RUINS",
             "name": "Ancient Forest",
-            "eventId": "ev_p60",
+            "event_key": "getarm",
             "x": 770,
             "y": 273
         },
@@ -484,7 +484,7 @@
             "id": "p61",
             "point_type": "REST_AREA",
             "name": "PlainsView",
-            "eventId": "ev_p61",
+            "event_key": "nrm016",
             "x": 322,
             "y": 227
         },
@@ -492,7 +492,7 @@
             "id": "p62",
             "point_type": "LAKE",
             "name": "Mythtic Lake",
-            "eventId": "ev_p62",
+            "event_key": "nrm017",
             "x": 988,
             "y": 542
         },
@@ -500,7 +500,7 @@
             "id": "p63",
             "point_type": "FOREST",
             "name": "AncientPark",
-            "eventId": "ev_p63",
+            "event_key": "battle",
             "x": 899,
             "y": 337
         },
@@ -508,7 +508,7 @@
             "id": "p64",
             "point_type": "RUINS",
             "name": "Earth Cave",
-            "eventId": "ev_p64",
+            "event_key": "getpot",
             "x": 966,
             "y": 435
         },
@@ -516,7 +516,7 @@
             "id": "p65",
             "point_type": "TEMPLE",
             "name": "Coernart",
-            "eventId": "ev_p65",
+            "event_key": "getarm",
             "x": 202,
             "y": 251
         },
@@ -524,7 +524,7 @@
             "id": "p66",
             "point_type": "FRONTIER",
             "name": "North Plains",
-            "eventId": "ev_p66",
+            "event_key": "flg1_b",
             "x": 356,
             "y": 160
         },
@@ -532,7 +532,7 @@
             "id": "p67",
             "point_type": "VILLAGE",
             "name": "Middle Aethelgard",
-            "eventId": "ev_p67",
+            "event_key": "nrm018",
             "x": 224,
             "y": 224
         },
@@ -540,7 +540,7 @@
             "id": "p68",
             "point_type": "TEMPLE",
             "name": "Farmland",
-            "eventId": "ev_p68",
+            "event_key": "nrm003",
             "x": 391,
             "y": 115
         },
@@ -548,7 +548,7 @@
             "id": "p69",
             "point_type": "REST_AREA",
             "name": "Aethelgard",
-            "eventId": "ev_p69",
+            "event_key": "nrm019",
             "x": 260,
             "y": 155
         },
@@ -556,7 +556,7 @@
             "id": "p70",
             "point_type": "FOREST",
             "name": "DeepMarsh",
-            "eventId": "ev_p70",
+            "event_key": "BOSSGR",
             "x": 1050,
             "y": 491
         },
@@ -564,7 +564,7 @@
             "id": "p71",
             "point_type": "DUNGEON",
             "name": "Nilhon",
-            "eventId": "ev_p71",
+            "event_key": "BOSSCE",
             "x": 210,
             "y": 145
         },
@@ -572,9 +572,169 @@
             "id": "p72",
             "point_type": "VILLAGE",
             "name": "Notrh seaside",
-            "eventId": "ev_p72",
+            "event_key": "flg2_d",
             "x": 399,
             "y": 51
+        },
+        {
+            "id": "p73",
+            "point_type": "FOREST",
+            "name": "OuterForest",
+            "event_key": "battle",
+            "x": 881,
+            "y": 488
+        },
+        {
+            "id": "p74",
+            "point_type": "FOREST",
+            "name": "EastCoast",
+            "event_key": "battle",
+            "x": 1050,
+            "y": 587
+        },
+        {
+            "id": "p75",
+            "point_type": "LAKE",
+            "name": "InnerBeach",
+            "event_key": "flg1_a",
+            "x": 642,
+            "y": 216
+        },
+        {
+            "id": "p76",
+            "point_type": "FOREST",
+            "name": "RiverEdge",
+            "event_key": "battle",
+            "x": 751,
+            "y": 519
+        },
+        {
+            "id": "p77",
+            "point_type": "MOUNTAIN",
+            "name": "SunkenSeaTop",
+            "event_key": "battle",
+            "x": 444,
+            "y": 775
+        },
+        {
+            "id": "p78",
+            "point_type": "MOUNTAIN",
+            "name": "HillCriff",
+            "event_key": "battle",
+            "x": 432,
+            "y": 617
+        },
+        {
+            "id": "p79",
+            "point_type": "VILLAGE",
+            "name": "TopOfCriff",
+            "event_key": "battle",
+            "x": 379,
+            "y": 638
+        },
+        {
+            "id": "p80",
+            "point_type": "FRONTIER",
+            "name": "HeatBlownField",
+            "event_key": "battle",
+            "x": 437,
+            "y": 519
+        },
+        {
+            "id": "p81",
+            "point_type": "VILLAGE",
+            "name": "wildPath",
+            "event_key": "nrm002",
+            "x": 225,
+            "y": 481
+        },
+        {
+            "id": "p82",
+            "point_type": "REST_AREA",
+            "name": "LakesideHouse",
+            "event_key": "dec_gp",
+            "x": 223,
+            "y": 637
+        },
+        {
+            "id": "p83",
+            "point_type": "FRONTIER",
+            "name": "SouthCape",
+            "event_key": "getarm",
+            "x": 153,
+            "y": 644
+        },
+        {
+            "id": "p84",
+            "point_type": "VILLAGE",
+            "name": "IslandsBeach",
+            "event_key": "inc_mp",
+            "x": 68,
+            "y": 894
+        },
+        {
+            "id": "p85",
+            "point_type": "PORT",
+            "name": "NorthCape",
+            "event_key": "flg2_f",
+            "x": 726,
+            "y": 178
+        },
+        {
+            "id": "p86",
+            "point_type": "VILLAGE",
+            "name": "",
+            "event_key": "battle",
+            "x": 568,
+            "y": 462
+        },
+        {
+            "id": "p87",
+            "point_type": "VILLAGE",
+            "name": "",
+            "event_key": "battle",
+            "x": 334,
+            "y": 547
+        },
+        {
+            "id": "p88",
+            "point_type": "VILLAGE",
+            "name": "",
+            "event_key": "battle",
+            "x": 461,
+            "y": 465
+        },
+        {
+            "id": "p89",
+            "point_type": "VILLAGE",
+            "name": "",
+            "event_key": "battle",
+            "x": 584,
+            "y": 333
+        },
+        {
+            "id": "p90",
+            "point_type": "VILLAGE",
+            "name": "",
+            "event_key": "battle",
+            "x": 678,
+            "y": 431
+        },
+        {
+            "id": "p91",
+            "point_type": "VILLAGE",
+            "name": "",
+            "event_key": "battle",
+            "x": 678,
+            "y": 499
+        },
+        {
+            "id": "p92",
+            "point_type": "VILLAGE",
+            "name": "",
+            "event_key": "battle",
+            "x": 662,
+            "y": 683
         }
     ],
     "routes": [
@@ -947,22 +1107,6 @@
             "direction": "left"
         },
         {
-            "id": "r047",
-            "from": "p12",
-            "to": "p14",
-            "cost": 2,
-            "threat": 1,
-            "direction": "right"
-        },
-        {
-            "id": "r048",
-            "from": "p14",
-            "to": "p12",
-            "cost": 2,
-            "threat": 1,
-            "direction": "left"
-        },
-        {
             "id": "r049",
             "from": "p37",
             "to": "p41",
@@ -992,24 +1136,6 @@
             "to": "p17",
             "cost": 2,
             "threat": 1,
-            "direction": "down"
-        },
-        {
-            "id": "r053",
-            "from": "p53",
-            "to": "p61",
-            "cost": 2,
-            "threat": 6,
-            "locked": true,
-            "direction": "up"
-        },
-        {
-            "id": "r054",
-            "from": "p61",
-            "to": "p53",
-            "cost": 2,
-            "threat": 5,
-            "locked": true,
             "direction": "down"
         },
         {
@@ -1203,22 +1329,6 @@
             "cost": 2,
             "threat": 0,
             "direction": "right"
-        },
-        {
-            "id": "r079",
-            "from": "p36",
-            "to": "p48",
-            "cost": 2,
-            "threat": 4,
-            "direction": "up"
-        },
-        {
-            "id": "r080",
-            "from": "p48",
-            "to": "p36",
-            "cost": 2,
-            "threat": 3,
-            "direction": "down"
         },
         {
             "id": "r081",
@@ -1781,24 +1891,6 @@
             "direction": "down"
         },
         {
-            "id": "r151",
-            "from": "p40",
-            "to": "p48",
-            "cost": 3,
-            "threat": 4,
-            "locked": true,
-            "direction": "left"
-        },
-        {
-            "id": "r152",
-            "from": "p48",
-            "to": "p40",
-            "cost": 3,
-            "threat": 4,
-            "locked": true,
-            "direction": "right"
-        },
-        {
             "id": "r153",
             "from": "p19",
             "to": "p25",
@@ -1879,43 +1971,7 @@
             "direction": "down"
         },
         {
-            "id": "r163",
-            "from": "p10",
-            "to": "p13",
-            "cost": 3,
-            "threat": 1,
-            "locked": true,
-            "direction": "left"
-        },
-        {
             "id": "r164",
-            "from": "p13",
-            "to": "p10",
-            "cost": 3,
-            "threat": 1,
-            "locked": true,
-            "direction": "right"
-        },
-        {
-            "id": "r165",
-            "from": "p36",
-            "to": "p49",
-            "cost": 3,
-            "threat": 4,
-            "locked": true,
-            "direction": "left"
-        },
-        {
-            "id": "r166",
-            "from": "p49",
-            "to": "p36",
-            "cost": 3,
-            "threat": 3,
-            "locked": true,
-            "direction": "right"
-        },
-        {
-            "id": "r167",
             "from": "p28",
             "to": "p35",
             "cost": 3,
@@ -1923,7 +1979,7 @@
             "direction": "down"
         },
         {
-            "id": "r168",
+            "id": "r163",
             "from": "p35",
             "to": "p28",
             "cost": 3,
@@ -1931,23 +1987,7 @@
             "direction": "up"
         },
         {
-            "id": "r169",
-            "from": "p08",
-            "to": "p17",
-            "cost": 3,
-            "threat": 1,
-            "direction": "right"
-        },
-        {
-            "id": "r170",
-            "from": "p17",
-            "to": "p08",
-            "cost": 3,
-            "threat": 0,
-            "direction": "left"
-        },
-        {
-            "id": "r171",
+            "id": "r048",
             "from": "p46",
             "to": "p62",
             "cost": 3,
@@ -1955,7 +1995,7 @@
             "direction": "right"
         },
         {
-            "id": "r172",
+            "id": "r047",
             "from": "p62",
             "to": "p46",
             "cost": 3,
@@ -1963,7 +2003,7 @@
             "direction": "left"
         },
         {
-            "id": "r173",
+            "id": "r080",
             "from": "p11",
             "to": "p22",
             "cost": 3,
@@ -1971,7 +2011,7 @@
             "direction": "right"
         },
         {
-            "id": "r174",
+            "id": "r079",
             "from": "p22",
             "to": "p11",
             "cost": 3,
@@ -1979,7 +2019,7 @@
             "direction": "left"
         },
         {
-            "id": "r175",
+            "id": "r152",
             "from": "p62",
             "to": "p64",
             "cost": 3,
@@ -1987,7 +2027,7 @@
             "direction": "up"
         },
         {
-            "id": "r176",
+            "id": "r151",
             "from": "p64",
             "to": "p62",
             "cost": 3,
@@ -1995,43 +2035,7 @@
             "direction": "down"
         },
         {
-            "id": "r177",
-            "from": "p52",
-            "to": "p54",
-            "cost": 3,
-            "threat": 5,
-            "locked": true,
-            "direction": "right"
-        },
-        {
-            "id": "r178",
-            "from": "p54",
-            "to": "p52",
-            "cost": 3,
-            "threat": 5,
-            "locked": true,
-            "direction": "left"
-        },
-        {
-            "id": "r179",
-            "from": "p16",
-            "to": "p33",
-            "cost": 3,
-            "threat": 3,
-            "locked": true,
-            "direction": "down"
-        },
-        {
-            "id": "r180",
-            "from": "p33",
-            "to": "p16",
-            "cost": 3,
-            "threat": 1,
-            "locked": true,
-            "direction": "up"
-        },
-        {
-            "id": "r181",
+            "id": "r166",
             "from": "p25",
             "to": "p45",
             "cost": 3,
@@ -2039,7 +2043,7 @@
             "direction": "left"
         },
         {
-            "id": "r182",
+            "id": "r165",
             "from": "p45",
             "to": "p25",
             "cost": 3,
@@ -2047,22 +2051,452 @@
             "direction": "right"
         },
         {
-            "id": "r183",
-            "from": "p20",
-            "to": "p36",
-            "cost": 3,
-            "threat": 3,
-            "locked": true,
+            "id": "r167",
+            "from": "p16",
+            "to": "p33",
+            "cost": 1,
+            "threat": 0,
+            "direction": "down"
+        },
+        {
+            "id": "r168",
+            "from": "p33",
+            "to": "p16",
+            "cost": 1,
+            "threat": 0,
+            "direction": "up"
+        },
+        {
+            "id": "r169",
+            "from": "p46",
+            "to": "p73",
+            "cost": 1,
+            "threat": 0,
+            "direction": "up"
+        },
+        {
+            "id": "r170",
+            "from": "p73",
+            "to": "p46",
+            "cost": 1,
+            "threat": 0,
+            "direction": "down"
+        },
+        {
+            "id": "r171",
+            "from": "p39",
+            "to": "p73",
+            "cost": 1,
+            "threat": 0,
+            "direction": "right"
+        },
+        {
+            "id": "r172",
+            "from": "p73",
+            "to": "p39",
+            "cost": 1,
+            "threat": 0,
             "direction": "left"
         },
         {
-            "id": "r184",
-            "from": "p36",
-            "to": "p20",
-            "cost": 3,
-            "threat": 2,
-            "locked": true,
+            "id": "r173",
+            "from": "p73",
+            "to": "p59",
+            "cost": 1,
+            "threat": 0,
+            "direction": "up"
+        },
+        {
+            "id": "r174",
+            "from": "p59",
+            "to": "p73",
+            "cost": 1,
+            "threat": 0,
+            "direction": "down"
+        },
+        {
+            "id": "r175",
+            "from": "p55",
+            "to": "p74",
+            "cost": 1,
+            "threat": 0,
             "direction": "right"
+        },
+        {
+            "id": "r176",
+            "from": "p74",
+            "to": "p55",
+            "cost": 1,
+            "threat": 0,
+            "direction": "left"
+        },
+        {
+            "id": "r177",
+            "from": "p52",
+            "to": "p75",
+            "cost": 1,
+            "threat": 0,
+            "direction": "right"
+        },
+        {
+            "id": "r178",
+            "from": "p75",
+            "to": "p52",
+            "cost": 1,
+            "threat": 0,
+            "direction": "left"
+        },
+        {
+            "id": "r179",
+            "from": "p76",
+            "to": "p24",
+            "cost": 1,
+            "threat": 0,
+            "direction": "down"
+        },
+        {
+            "id": "r180",
+            "from": "p24",
+            "to": "p76",
+            "cost": 1,
+            "threat": 0,
+            "direction": "up"
+        },
+        {
+            "id": "r181",
+            "from": "p30",
+            "to": "p76",
+            "cost": 1,
+            "threat": 0,
+            "direction": "down"
+        },
+        {
+            "id": "r182",
+            "from": "p76",
+            "to": "p30",
+            "cost": 1,
+            "threat": 0,
+            "direction": "up"
+        },
+        {
+            "id": "r183",
+            "from": "p18",
+            "to": "p77",
+            "cost": 1,
+            "threat": 0,
+            "direction": "right"
+        },
+        {
+            "id": "r184",
+            "from": "p77",
+            "to": "p18",
+            "cost": 1,
+            "threat": 0,
+            "direction": "left"
+        },
+        {
+            "id": "r185",
+            "from": "p09",
+            "to": "p78",
+            "cost": 1,
+            "threat": 0,
+            "direction": "down"
+        },
+        {
+            "id": "r186",
+            "from": "p78",
+            "to": "p09",
+            "cost": 1,
+            "threat": 0,
+            "direction": "up"
+        },
+        {
+            "id": "r187",
+            "from": "p78",
+            "to": "p79",
+            "cost": 1,
+            "threat": 0,
+            "direction": "left"
+        },
+        {
+            "id": "r188",
+            "from": "p79",
+            "to": "p78",
+            "cost": 1,
+            "threat": 0,
+            "direction": "right"
+        },
+        {
+            "id": "r189",
+            "from": "p13",
+            "to": "p80",
+            "cost": 1,
+            "threat": 0,
+            "direction": "right"
+        },
+        {
+            "id": "r190",
+            "from": "p80",
+            "to": "p13",
+            "cost": 1,
+            "threat": 0,
+            "direction": "left"
+        },
+        {
+            "id": "r191",
+            "from": "p49",
+            "to": "p81",
+            "cost": 1,
+            "threat": 0,
+            "direction": "right"
+        },
+        {
+            "id": "r192",
+            "from": "p81",
+            "to": "p49",
+            "cost": 1,
+            "threat": 0,
+            "direction": "left"
+        },
+        {
+            "id": "r193",
+            "from": "p81",
+            "to": "p26",
+            "cost": 1,
+            "threat": 0,
+            "direction": "right"
+        },
+        {
+            "id": "r194",
+            "from": "p26",
+            "to": "p81",
+            "cost": 1,
+            "threat": 0,
+            "direction": "left"
+        },
+        {
+            "id": "r195",
+            "from": "p29",
+            "to": "p82",
+            "cost": 1,
+            "threat": 0,
+            "direction": "down"
+        },
+        {
+            "id": "r196",
+            "from": "p82",
+            "to": "p29",
+            "cost": 1,
+            "threat": 0,
+            "direction": "up"
+        },
+        {
+            "id": "r197",
+            "from": "p42",
+            "to": "p83",
+            "cost": 1,
+            "threat": 0,
+            "direction": "down"
+        },
+        {
+            "id": "r198",
+            "from": "p83",
+            "to": "p42",
+            "cost": 1,
+            "threat": 0,
+            "direction": "up"
+        },
+        {
+            "id": "r199",
+            "from": "p84",
+            "to": "p45",
+            "cost": 1,
+            "threat": 0,
+            "direction": "right"
+        },
+        {
+            "id": "r200",
+            "from": "p45",
+            "to": "p84",
+            "cost": 1,
+            "threat": 0,
+            "direction": "left"
+        },
+        {
+            "id": "r201",
+            "from": "p85",
+            "to": "p54",
+            "cost": 1,
+            "threat": 0,
+            "direction": "down"
+        },
+        {
+            "id": "r202",
+            "from": "p54",
+            "to": "p85",
+            "cost": 1,
+            "threat": 0,
+            "direction": "up"
+        },
+        {
+            "id": "r203",
+            "from": "p86",
+            "to": "p23",
+            "cost": 1,
+            "threat": 0,
+            "direction": "up"
+        },
+        {
+            "id": "r204",
+            "from": "p23",
+            "to": "p86",
+            "cost": 1,
+            "threat": 0,
+            "direction": "down"
+        },
+        {
+            "id": "r205",
+            "from": "p26",
+            "to": "p87",
+            "cost": 1,
+            "threat": 0,
+            "direction": "right"
+        },
+        {
+            "id": "r206",
+            "from": "p87",
+            "to": "p26",
+            "cost": 1,
+            "threat": 0,
+            "direction": "left"
+        },
+        {
+            "id": "r207",
+            "from": "p87",
+            "to": "p13",
+            "cost": 1,
+            "threat": 0,
+            "direction": "right"
+        },
+        {
+            "id": "r208",
+            "from": "p13",
+            "to": "p87",
+            "cost": 1,
+            "threat": 0,
+            "direction": "left"
+        },
+        {
+            "id": "r209",
+            "from": "p80",
+            "to": "p88",
+            "cost": 1,
+            "threat": 0,
+            "direction": "up"
+        },
+        {
+            "id": "r210",
+            "from": "p88",
+            "to": "p80",
+            "cost": 1,
+            "threat": 0,
+            "direction": "down"
+        },
+        {
+            "id": "r211",
+            "from": "p89",
+            "to": "p32",
+            "cost": 1,
+            "threat": 0,
+            "direction": "down"
+        },
+        {
+            "id": "r212",
+            "from": "p32",
+            "to": "p89",
+            "cost": 1,
+            "threat": 0,
+            "direction": "up"
+        },
+        {
+            "id": "r213",
+            "from": "p90",
+            "to": "p30",
+            "cost": 1,
+            "threat": 0,
+            "direction": "right"
+        },
+        {
+            "id": "r214",
+            "from": "p30",
+            "to": "p90",
+            "cost": 1,
+            "threat": 0,
+            "direction": "left"
+        },
+        {
+            "id": "r215",
+            "from": "p14",
+            "to": "p91",
+            "cost": 1,
+            "threat": 0,
+            "direction": "up"
+        },
+        {
+            "id": "r216",
+            "from": "p91",
+            "to": "p14",
+            "cost": 1,
+            "threat": 0,
+            "direction": "down"
+        },
+        {
+            "id": "r054",
+            "from": "p91",
+            "to": "p90",
+            "cost": 1,
+            "threat": 0,
+            "direction": "up"
+        },
+        {
+            "id": "r053",
+            "from": "p90",
+            "to": "p91",
+            "cost": 1,
+            "threat": 0,
+            "direction": "down"
+        },
+        {
+            "id": "r217",
+            "from": "p05",
+            "to": "p92",
+            "cost": 1,
+            "threat": 0,
+            "direction": "right"
+        },
+        {
+            "id": "r218",
+            "from": "p92",
+            "to": "p05",
+            "cost": 1,
+            "threat": 0,
+            "direction": "left"
+        },
+        {
+            "id": "r219",
+            "from": "p92",
+            "to": "p21",
+            "cost": 1,
+            "threat": 0,
+            "direction": "right"
+        },
+        {
+            "id": "r220",
+            "from": "p21",
+            "to": "p92",
+            "cost": 1,
+            "threat": 0,
+            "direction": "left"
         }
     ]
 }

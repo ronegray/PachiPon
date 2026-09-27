@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from enum import IntEnum, auto
+from enum import IntEnum, auto, StrEnum
 
 
 class EventType(IntEnum):
@@ -56,6 +56,17 @@ class EventID(IntEnum):
     KING = auto()  # 人間の王
 
 
+class FixedEventMap(StrEnum):
+    """優先発動固定イベントを示すイベントキーとイベントIDの対応"""
+
+    BOSSCR = "CROWN"  # 宝冠の守護者　破魔に弱い
+    BOSSMI = "MIRROR"  # 神鏡の守護者　衝撃に弱い
+    BOSSCE = "CEPTER"  # 王笏の守護者　精神に弱い
+    BOSSGR = "GRAIL"  # 聖杯の守護者　呪毒に弱い
+    BOSSSA = "SATAN"  # 魔王
+    BIGBAD = "KING"  # 人間の王
+
+
 @dataclass
 class Event:
     """データファイルから読み込むイベント情報定義"""
@@ -80,6 +91,6 @@ class EventStat:
 class EventList:
     """イベントポイントに紐づくイベントのリスト"""
 
-    eventpoint_id: str
+    eventpoint_key: str
     eventpoint_type: EventType
     event_stat: dict[EventID, EventStat]

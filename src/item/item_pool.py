@@ -39,7 +39,7 @@ class ItemPool:
     def get_def(self, def_id: ItemID):
         return di.ref.itemrps.get_def(def_id)
 
-    def create(self, def_id: ItemID, state: ItemState) -> PooledItem:
+    def create(self, def_id: ItemID, state: ItemState = ItemState.BAG) -> PooledItem:
         """アイテムをプールに生成し、インスタンスを返す"""
         if not self._free:
             raise RuntimeError("ItemPool capacity exceeded")

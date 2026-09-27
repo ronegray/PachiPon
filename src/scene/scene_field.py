@@ -16,9 +16,11 @@ from event import EventID, EventType
 from field_map import EventPoint
 from entity import EntityContext
 from command import CommandBase
-import command.entity_command as e_cmd
+import command.entity_command as en_cmd
 from helper import format_leftright
-import command.system_command as s_cmd
+
+# import command.system_command as s_cmd
+import command.event_command as ev_cmd
 from menu import MenuField
 from . import BaseScene
 
@@ -166,7 +168,7 @@ class SceneField(BaseScene):
                 self.wndmgr.pop_stack()
             else:
                 self.ctx = self.build_context()
-                self.command_package = e_cmd.CommandPackage()
+                self.command_package = en_cmd.CommandPackage()
                 self.wndmgr.push_stack(
                     MenuField,
                     self.ctx,
@@ -199,7 +201,7 @@ class SceneField(BaseScene):
                 return
 
         if is_pressed("decide") and self.current_point.is_ready:
-            cmd = s_cmd.KickEvent(self.message_window, self.current_point)
+            cmd = ev_cmd.KickEvent(self.message_window, self.current_point)
             di.ref.cmdmgr.push_command(cmd)
             di.ref.cmdmgr.set_on_empty(self.update_eventpoint_info)
             return
@@ -259,6 +261,11 @@ class SceneField(BaseScene):
     def transfer_eventdata(self) -> tuple[EntityContext, CommandBase]:
         """サブシーンへのイベント関連データ受け渡し用"""
         ctx = self.build_context()
+
+        # # デバッグ用
+        # self.current_point.event_type = EventType.SAFETY
+        # self.current_point.rise_event(EventID.INCREASE_HP)
+
         self.current_point.nextevent.event_type.name  # type: ignore
         event_func_name = (
             EventType(self.current_point.nextevent.event_type).name  # type: ignore
@@ -266,8 +273,9 @@ class SceneField(BaseScene):
             + EventID(self.current_point.nextevent.event_id).name  # type: ignore
         )
 
-        # デバッグ用
-        event_func_name = "NORMAL_DECREASE_HP"
+        # # デバッグ用
+        # event_func_name = "NORMAL_DECREASE_HP"
+        # event_func_name = "SAFETY_INCREASE_HP"
 
-        evtcmd = getattr(s_cmd, event_func_name)
+        evtcmd = getattr(ev_cmd, event_func_name)
         return (ctx, evtcmd)
