@@ -1,9 +1,11 @@
-import sys, os, re, math, shutil  # noqa: E401 E402
-from datetime import datetime  # noqa: E402
+# pylint: skip-file
+# ruff: noqa
+import sys, os, re, math, shutil  # noqa E401 E402
+from datetime import datetime  # noqa E401 E402
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")  # noqa: E402
-import pyxel as px  # noqa: E402
-from gameutils.base import check_file, read_json, write_json  # noqa: E402
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")  # noqa E401 E402
+import pyxel as px  # noqa E401 E402
+from gameutils.base import check_file, read_json, write_json  # noqa E401 E402
 
 MAP_DATA_PATH = "../assets/data/map_data.json"
 EVENTPOINTS_PATH = "../assets/data/eventpoints.json"
@@ -89,7 +91,10 @@ try:
     from event import EventID, EventType  # ゲーム本体が実際にimportしているモジュール名
 except Exception:
     try:
-        from event_protocol import EventID, EventType  # 予備: 別名で配置されている場合
+        from event_protocol import (
+            EventID,
+            EventType,
+        )  # 予備: 別名で配置されている場合 # type ignore
     except Exception:
         EventID = None
         EventType = None
@@ -252,7 +257,7 @@ class PointDialog:
         point=None,
         pending_xy=None,
         pending_id=None,
-        default_event_id="",
+        default_event_key="",
     ):
         self.mode = mode  # "add" または "edit"
         self.point = point  # 編集対象のポイント(dict)。追加時はNone
@@ -273,7 +278,7 @@ class PointDialog:
             )
             init_type = POINT_TYPE_NAMES[0]
         init_name = point["name"] if point else ""
-        init_event_id = point["event_key"] if point else default_event_id
+        init_event_key = point["event_key"] if point else default_event_key
 
         # --- point_type: 固定語彙(POINT_TYPE_NAMES)から選ぶ<>セレクタ ---
         self.point_type_value = init_type
@@ -285,11 +290,11 @@ class PointDialog:
         # --- name: 自由入力 ---
         self.field_name = InputField(self.x + 10, self.y + 50, w - 20, 12, "name", init_name)
 
-        # --- eventId: 自由入力 + 既存テンプレートを<>で巡回できるセレクタ ---
+        # --- event_key: 自由入力 + 既存テンプレートを<>で巡回できるセレクタ ---
         event_y = self.y + 78
-        self.eventid_prev_btn = Button(self.x + 10, event_y, 14, 12, "<", px.COLOR_GRAY)
-        self.eventid_next_btn = Button(self.x + w - 24, event_y, 14, 12, ">", px.COLOR_GRAY)
-        self.field_event = InputField(self.x + 28, event_y, w - 66, 12, "", init_event_id)
+        self.event_key_prev_btn = Button(self.x + 10, event_y, 14, 12, "<", px.COLOR_GRAY)
+        self.event_key_next_btn = Button(self.x + w - 24, event_y, 14, 12, ">", px.COLOR_GRAY)
+        self.field_event = InputField(self.x + 28, event_y, w - 66, 12, "", init_event_key)
         self._event_label_y = event_y
 
         self.field_name.active = True
@@ -317,8 +322,8 @@ class PointDialog:
         )
         self.point_type_value = POINT_TYPE_NAMES[(idx + step) % len(POINT_TYPE_NAMES)]
 
-    def _cycle_event_id(self, step):
-        """既存のeventpoints.jsonのキーを順に巡回してeventIdへセットする
+    def _cycle_event_key(self, step):
+        """既存のeventpoints.jsonのキーを順に巡回してevent_keyへセットする
         (新規キーを入力したい場合はテキストとして直接編集すればよい)
         """
         keys = sorted(self.eventpoints.keys())
@@ -344,11 +349,11 @@ class PointDialog:
             if self.point_type_next_btn.contains(mx, my):
                 self._cycle_point_type(1)
                 return
-            if self.eventid_prev_btn.contains(mx, my):
-                self._cycle_event_id(-1)
+            if self.event_key_prev_btn.contains(mx, my):
+                self._cycle_event_key(-1)
                 return
-            if self.eventid_next_btn.contains(mx, my):
-                self._cycle_event_id(1)
+            if self.event_key_next_btn.contains(mx, my):
+                self._cycle_event_key(1)
                 return
 
             # 入力欄がクリックされたらそちらへフォーカスを切り替える
@@ -360,7 +365,7 @@ class PointDialog:
                     break
 
     def _event_stat_lines(self):
-        """現在のeventId入力内容に対応するevent_statのキー一覧を整形して返す"""
+        """現在のevent_key入力内容に対応するevent_statのキー一覧を整形して返す"""
         event_data = self.eventpoints.get(self.field_event.value)
         if event_data is None:
             return ["(該当するeventデータがありません)"]
@@ -385,15 +390,15 @@ class PointDialog:
         # name
         self.field_name.draw()
 
-        # eventId セレクタ + 自由入力欄
+        # event_key セレクタ + 自由入力欄
         px.text(
             self.x + 10,
             self._event_label_y - 8,
-            "eventId (< > で既存テンプレートを巡回)",
+            "event_key (< > で既存テンプレートを巡回)",
             px.COLOR_WHITE,
         )
-        self.eventid_prev_btn.draw()
-        self.eventid_next_btn.draw()
+        self.event_key_prev_btn.draw()
+        self.event_key_next_btn.draw()
         self.field_event.draw()
 
         px.text(self.x + 10, self.stats_label_y, "Event Stats:", px.COLOR_WHITE)
@@ -416,9 +421,9 @@ class EventStatDialog:
       「合計登録数が6イベント」という条件を構造的に満たす
     """
 
-    def __init__(self, screen_w, screen_h, event_id, eventpoints):
-        self.event_id = event_id
-        existing = eventpoints.get(event_id)
+    def __init__(self, screen_w, screen_h, event_key, eventpoints):
+        self.event_key = event_key
+        existing = eventpoints.get(event_key)
 
         self.eventpoint_type = existing["eventpoint_type"] if existing else EVENT_TYPES[0]
 
@@ -510,7 +515,7 @@ class EventStatDialog:
     def draw(self):
         px.rect(self.x, self.y, self.w, self.h, px.COLOR_BLACK)
         px.rectb(self.x, self.y, self.w, self.h, px.COLOR_WHITE)
-        px.text(self.x + 10, self.y + 6, f"Event Stats: {self.event_id}", px.COLOR_WHITE)
+        px.text(self.x + 10, self.y + 6, f"Event Stats: {self.event_key}", px.COLOR_WHITE)
 
         self.type_prev_btn.draw()
         self.type_next_btn.draw()
@@ -639,10 +644,10 @@ class App:
 
         # どのポイントからも十分離れている → 新規追加ダイアログを表示
         new_id = self._generate_new_id()
-        # eventIdは「新規に採番」ではなく「既存テンプレートから選ぶ」運用に変わったため、
+        # event_keyは「新規に採番」ではなく「既存テンプレートから選ぶ」運用に変わったため、
         # 既存テンプレートがあればその先頭(ソート順)をデフォルト値として提案する
         existing_keys = sorted(self.eventpoints.keys())
-        default_event_id = existing_keys[0] if existing_keys else ""
+        default_event_key = existing_keys[0] if existing_keys else ""
         self.dialog = PointDialog(
             px.width,
             px.height,
@@ -650,7 +655,7 @@ class App:
             self.eventpoints,
             pending_xy=(mx, my),
             pending_id=new_id,
-            default_event_id=default_event_id,
+            default_event_key=default_event_key,
         )
         self.mode = "dialog"
 
@@ -658,13 +663,13 @@ class App:
         d = self.dialog
         point_type = d.point_type_value
         name = d.field_name.value.strip()
-        event_id = d.field_event.value.strip()
+        event_key = d.field_event.value.strip()
 
         if d.mode == "edit":
-            # x, yは変更せず、point_type・name・eventIdのみ更新する
+            # x, yは変更せず、point_type・name・event_keyのみ更新する
             d.point["point_type"] = point_type
             d.point["name"] = name
-            d.point["event_key"] = event_id
+            d.point["event_key"] = event_key
         else:
             new_id = d.pending_id or self._generate_new_id()
             x, y = d.pending_xy
@@ -672,7 +677,7 @@ class App:
                 "id": new_id,
                 "point_type": point_type,
                 "name": name,
-                "event_key": event_id,
+                "event_key": event_key,
                 "x": x,
                 "y": y,
             }
@@ -730,11 +735,11 @@ class App:
     # Event Stats編集ダイアログ(EventStatDialog)の開始・確定・キャンセル
     # ------------------------------------------------------------------
     def _open_event_stat_dialog(self):
-        event_id = self.dialog.field_event.value.strip()
-        if not event_id:
-            print("eventIdが未入力のため、Event Statsを編集できません")
+        event_key = self.dialog.field_event.value.strip()
+        if not event_key:
+            print("event_keyが未入力のため、Event Statsを編集できません")
             return
-        self.event_dialog = EventStatDialog(px.width, px.height, event_id, self.eventpoints)
+        self.event_dialog = EventStatDialog(px.width, px.height, event_key, self.eventpoints)
         self.mode = "event_dialog"
 
     def _confirm_event_dialog(self):
@@ -746,11 +751,11 @@ class App:
             threshold = int(raw) if raw.isdigit() else 0
             event_stat[name] = {"threshold": threshold}
 
-        self.eventpoints[ed.event_id] = {
+        self.eventpoints[ed.event_key] = {
             "eventpoint_type": ed.eventpoint_type,
             "event_stat": event_stat,
         }
-        print(f"eventpoints情報を更新しました(未保存): {ed.event_id}")
+        print(f"eventpoints情報を更新しました(未保存): {ed.event_key}")
 
         self.event_dialog = None
         self.mode = "dialog"  # 呼び出し元のポイント編集ダイアログへ戻る
@@ -924,7 +929,7 @@ class App:
     # 現在の状態を俯瞰するための表示機能
     # ------------------------------------------------------------------
     def _draw_flag_markers(self, point):
-        """eventIdがflgで始まるポイントの右上に、キー名末尾の文字を表示する"""
+        """event_keyがflgで始まるポイントの右上に、キー名末尾の文字を表示する"""
         event_key = point.get("event_key", "")
         if not event_key.lower().startswith("flg"):
             return

@@ -60,9 +60,12 @@ class SceneBattle(BaseScene):
         threat = route.threat
         # 出現エネミーの決定
         candidate_list = di.ref.enmrps.get_threat_enemies(threat)
-        enemy_index = px.rndi(0, len(candidate_list) - 1)
-        enemy_data = candidate_list[enemy_index]
-        path = check_file(f"assets/image/{enemy_data['name']}.bmp")
+        # enemy_index = px.rndi(0, len(candidate_list) - 1)
+        # enemy_data = candidate_list[enemy_index]
+        enemy_id = candidate_list[px.rndi(0, len(candidate_list) - 1)]
+        enemy_data = di.ref.enmrps.get_enemy(enemy_id)
+        # path = check_file(f"assets/image/{enemy_data['name']}.bmp")
+        path = check_file(f"assets/image/{enemy_id}.bmp")
         if path is None:
             path = check_file("assets/image/unknown.bmp")
         enemy_image = px.Image.from_image(str(path))
