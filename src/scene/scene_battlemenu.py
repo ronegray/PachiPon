@@ -8,7 +8,7 @@
 import logging
 from gameutils.lib import WindowAction
 import service_locater as di
-from . import BaseScene, SceneBattle
+from . import BaseScene, SceneBattle, SceneFixedBattle
 import command.entity_command as en_cmd
 from menu import MenuBattle
 
@@ -24,7 +24,9 @@ class SceneBattleMenu(BaseScene):
         self.situation = "battle"
         parent_scene = di.ref.scnmgr.get_now_scene()
         self.parent_draw = parent_scene.draw
-        if not isinstance(parent_scene, SceneBattle):
+        if isinstance(parent_scene, SceneBattle) or isinstance(parent_scene, SceneFixedBattle):
+            pass
+        else:
             errmsg = f"想定外のシーンから呼び出されました：{parent_scene.__class__.__name__}"
             logger.critical(errmsg, exc_info=True)
             raise TypeError(errmsg)

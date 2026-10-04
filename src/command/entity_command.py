@@ -79,8 +79,8 @@ class Attack(CommandBaseEntity):
         yield [f"{actor.param.name}は {target.param.name} に 襲い掛かる！", ""]
 
         # 命中ロール
-        hit = actor.hitroll_offence()
-        dodge = target.hitroll_defence()
+        hit = actor.attackroll_offence()
+        dodge = target.attackroll_defence()
         judge = hit - dodge
         logger.debug(f"actor={actor.param.name},hit={hit}, dodge={dodge}")
         if judge <= 0:

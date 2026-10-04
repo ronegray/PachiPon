@@ -5,8 +5,10 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "bs4>=0.0.2",
     "pyinstaller>=6.20.0",
     "pyxel>=2.9.5",
+    "requests>=2.34.2",
     "ruff>=0.15.15",
 ]
 [tool.ruff.lint.per-file-ignores]

@@ -7,10 +7,11 @@
         "endurance": 2,
         "speed": 4,
         "luck": 3,
+        "level": 1,
         "exp": 1,
         "gold": 1,
         "bodysize": "S",
-        "hitdice": 1,
+        "hitdice": -1,
         "defvalue": 0,
         "magpenalty": 0,
         "guardtype": "NONE",
@@ -25,7 +26,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "BAT": {
         "threat": 0,
@@ -35,10 +37,11 @@
         "endurance": 2,
         "speed": 4,
         "luck": 3,
+        "level": 1,
         "exp": 1,
         "gold": 1,
         "bodysize": "S",
-        "hitdice": 1,
+        "hitdice": 0,
         "defvalue": 0,
         "magpenalty": 0,
         "guardtype": "NONE",
@@ -53,7 +56,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "LIZARD": {
         "threat": 1,
@@ -63,6 +67,7 @@
         "endurance": 3,
         "speed": 6,
         "luck": 3,
+        "level": 1,
         "exp": 2,
         "gold": 1,
         "bodysize": "S",
@@ -81,7 +86,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "RAVEN": {
         "threat": 1,
@@ -91,6 +97,7 @@
         "endurance": 3,
         "speed": 6,
         "luck": 3,
+        "level": 1,
         "exp": 2,
         "gold": 1,
         "bodysize": "S",
@@ -109,7 +116,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "CAT": {
         "threat": 2,
@@ -119,6 +127,7 @@
         "endurance": 4,
         "speed": 7,
         "luck": 3,
+        "level": 1,
         "exp": 4,
         "gold": 2,
         "bodysize": "S",
@@ -137,7 +146,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "KOBOLD": {
         "threat": 2,
@@ -147,6 +157,7 @@
         "endurance": 5,
         "speed": 5,
         "luck": 3,
+        "level": 1,
         "exp": 4,
         "gold": 2,
         "bodysize": "M",
@@ -165,7 +176,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "MITE": {
         "threat": 2,
@@ -175,6 +187,7 @@
         "endurance": 4,
         "speed": 6,
         "luck": 3,
+        "level": 1,
         "exp": 5,
         "gold": 2,
         "bodysize": "S",
@@ -193,7 +206,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "MONKEY": {
         "threat": 2,
@@ -203,6 +217,7 @@
         "endurance": 4,
         "speed": 7,
         "luck": 3,
+        "level": 1,
         "exp": 5,
         "gold": 2,
         "bodysize": "S",
@@ -221,7 +236,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "RAT": {
         "threat": 2,
@@ -231,6 +247,7 @@
         "endurance": 4,
         "speed": 7,
         "luck": 3,
+        "level": 1,
         "exp": 5,
         "gold": 2,
         "bodysize": "S",
@@ -249,7 +266,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "ORC": {
         "threat": 3,
@@ -259,6 +277,7 @@
         "endurance": 7,
         "speed": 5,
         "luck": 3,
+        "level": 1,
         "exp": 7,
         "gold": 3,
         "bodysize": "M",
@@ -277,7 +296,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "GOBLIN": {
         "threat": 3,
@@ -287,6 +307,7 @@
         "endurance": 6,
         "speed": 6,
         "luck": 3,
+        "level": 1,
         "exp": 7,
         "gold": 3,
         "bodysize": "S",
@@ -305,7 +326,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "SKELETON": {
         "threat": 3,
@@ -315,6 +337,7 @@
         "endurance": 7,
         "speed": 5,
         "luck": 3,
+        "level": 1,
         "exp": 8,
         "gold": 3,
         "bodysize": "M",
@@ -333,7 +356,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "DOG": {
         "threat": 3,
@@ -343,6 +367,7 @@
         "endurance": 6,
         "speed": 7,
         "luck": 3,
+        "level": 1,
         "exp": 8,
         "gold": 3,
         "bodysize": "S",
@@ -361,7 +386,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "DROW": {
         "threat": 3,
@@ -371,6 +397,7 @@
         "endurance": 7,
         "speed": 5,
         "luck": 3,
+        "level": 1,
         "exp": 9,
         "gold": 3,
         "bodysize": "M",
@@ -389,7 +416,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "MERFOLK": {
         "threat": 3,
@@ -399,6 +427,7 @@
         "endurance": 7,
         "speed": 5,
         "luck": 3,
+        "level": 1,
         "exp": 9,
         "gold": 3,
         "bodysize": "M",
@@ -417,7 +446,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "EAGLE": {
         "threat": 4,
@@ -427,6 +457,7 @@
         "endurance": 7,
         "speed": 8,
         "luck": 4,
+        "level": 1,
         "exp": 11,
         "gold": 4,
         "bodysize": "S",
@@ -445,7 +476,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "GIANT_CENTIPEDE": {
         "threat": 4,
@@ -455,6 +487,7 @@
         "endurance": 9,
         "speed": 6,
         "luck": 4,
+        "level": 1,
         "exp": 12,
         "gold": 4,
         "bodysize": "M",
@@ -473,7 +506,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "STIRGE": {
         "threat": 4,
@@ -483,6 +517,7 @@
         "endurance": 8,
         "speed": 7,
         "luck": 4,
+        "level": 1,
         "exp": 13,
         "gold": 4,
         "bodysize": "S",
@@ -501,7 +536,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "ZOMBIE": {
         "threat": 4,
@@ -511,6 +547,7 @@
         "endurance": 8,
         "speed": 6,
         "luck": 4,
+        "level": 1,
         "exp": 13,
         "gold": 4,
         "bodysize": "M",
@@ -529,7 +566,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "HOBGOBLIN": {
         "threat": 4,
@@ -539,6 +577,7 @@
         "endurance": 8,
         "speed": 6,
         "luck": 4,
+        "level": 1,
         "exp": 14,
         "gold": 4,
         "bodysize": "M",
@@ -557,7 +596,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "VIPER": {
         "threat": 4,
@@ -567,6 +607,7 @@
         "endurance": 7,
         "speed": 8,
         "luck": 4,
+        "level": 1,
         "exp": 15,
         "gold": 4,
         "bodysize": "S",
@@ -585,7 +626,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "WOLF": {
         "threat": 5,
@@ -595,6 +637,7 @@
         "endurance": 10,
         "speed": 8,
         "luck": 4,
+        "level": 1,
         "exp": 16,
         "gold": 3,
         "bodysize": "M",
@@ -613,7 +656,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "GHOUL": {
         "threat": 5,
@@ -623,6 +667,7 @@
         "endurance": 10,
         "speed": 7,
         "luck": 4,
+        "level": 1,
         "exp": 17,
         "gold": 3,
         "bodysize": "M",
@@ -641,7 +686,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "GIANT_SPIDER": {
         "threat": 5,
@@ -651,6 +697,7 @@
         "endurance": 12,
         "speed": 6,
         "luck": 4,
+        "level": 1,
         "exp": 18,
         "gold": 3,
         "bodysize": "L",
@@ -669,7 +716,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "TROGLODYTE": {
         "threat": 5,
@@ -679,6 +727,7 @@
         "endurance": 10,
         "speed": 7,
         "luck": 4,
+        "level": 1,
         "exp": 19,
         "gold": 4,
         "bodysize": "M",
@@ -697,7 +746,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "GNOLL": {
         "threat": 5,
@@ -707,6 +757,7 @@
         "endurance": 10,
         "speed": 7,
         "luck": 4,
+        "level": 1,
         "exp": 20,
         "gold": 4,
         "bodysize": "M",
@@ -725,7 +776,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "LIZARDFOLK": {
         "threat": 5,
@@ -735,6 +787,7 @@
         "endurance": 10,
         "speed": 7,
         "luck": 4,
+        "level": 1,
         "exp": 22,
         "gold": 4,
         "bodysize": "M",
@@ -753,7 +806,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "WORG": {
         "threat": 6,
@@ -763,6 +817,7 @@
         "endurance": 13,
         "speed": 9,
         "luck": 4,
+        "level": 1,
         "exp": 24,
         "gold": 4,
         "bodysize": "M",
@@ -781,7 +836,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "CROCODILE": {
         "threat": 6,
@@ -791,6 +847,7 @@
         "endurance": 14,
         "speed": 8,
         "luck": 4,
+        "level": 1,
         "exp": 26,
         "gold": 4,
         "bodysize": "L",
@@ -809,7 +866,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "SHARK": {
         "threat": 6,
@@ -819,6 +877,7 @@
         "endurance": 14,
         "speed": 8,
         "luck": 4,
+        "level": 1,
         "exp": 27,
         "gold": 5,
         "bodysize": "L",
@@ -837,7 +896,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "BUGBEAR": {
         "threat": 6,
@@ -847,6 +907,7 @@
         "endurance": 13,
         "speed": 8,
         "luck": 4,
+        "level": 1,
         "exp": 29,
         "gold": 5,
         "bodysize": "M",
@@ -865,7 +926,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "WEREWOLF": {
         "threat": 6,
@@ -875,6 +937,7 @@
         "endurance": 14,
         "speed": 8,
         "luck": 4,
+        "level": 1,
         "exp": 31,
         "gold": 5,
         "bodysize": "M",
@@ -893,7 +956,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "IMP": {
         "threat": 6,
@@ -903,6 +967,7 @@
         "endurance": 13,
         "speed": 9,
         "luck": 4,
+        "level": 1,
         "exp": 32,
         "gold": 6,
         "bodysize": "S",
@@ -921,7 +986,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "OGRE": {
         "threat": 7,
@@ -931,6 +997,7 @@
         "endurance": 20,
         "speed": 7,
         "luck": 4,
+        "level": 1,
         "exp": 34,
         "gold": 5,
         "bodysize": "L",
@@ -949,7 +1016,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "SHADOW": {
         "threat": 7,
@@ -959,6 +1027,7 @@
         "endurance": 17,
         "speed": 9,
         "luck": 4,
+        "level": 1,
         "exp": 36,
         "gold": 5,
         "bodysize": "M",
@@ -977,7 +1046,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "WIGHT": {
         "threat": 7,
@@ -987,6 +1057,7 @@
         "endurance": 17,
         "speed": 9,
         "luck": 4,
+        "level": 1,
         "exp": 39,
         "gold": 6,
         "bodysize": "M",
@@ -1005,7 +1076,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "DOPPELGANGER": {
         "threat": 7,
@@ -1015,6 +1087,7 @@
         "endurance": 17,
         "speed": 9,
         "luck": 5,
+        "level": 1,
         "exp": 41,
         "gold": 6,
         "bodysize": "M",
@@ -1033,7 +1106,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "CENTAUR": {
         "threat": 7,
@@ -1043,6 +1117,7 @@
         "endurance": 18,
         "speed": 8,
         "luck": 5,
+        "level": 1,
         "exp": 44,
         "gold": 7,
         "bodysize": "L",
@@ -1061,7 +1136,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "DIRE_WOLF": {
         "threat": 7,
@@ -1071,6 +1147,7 @@
         "endurance": 17,
         "speed": 9,
         "luck": 5,
+        "level": 1,
         "exp": 46,
         "gold": 7,
         "bodysize": "L",
@@ -1089,7 +1166,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "OWLBEAR": {
         "threat": 8,
@@ -1099,6 +1177,7 @@
         "endurance": 22,
         "speed": 9,
         "luck": 5,
+        "level": 1,
         "exp": 48,
         "gold": 6,
         "bodysize": "L",
@@ -1117,7 +1196,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "GARGOYLE": {
         "threat": 8,
@@ -1127,6 +1207,7 @@
         "endurance": 21,
         "speed": 9,
         "luck": 5,
+        "level": 1,
         "exp": 51,
         "gold": 6,
         "bodysize": "M",
@@ -1145,7 +1226,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "GRIFFON": {
         "threat": 8,
@@ -1155,6 +1237,7 @@
         "endurance": 22,
         "speed": 9,
         "luck": 5,
+        "level": 1,
         "exp": 55,
         "gold": 7,
         "bodysize": "L",
@@ -1173,7 +1256,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "MINOTAUR": {
         "threat": 8,
@@ -1183,6 +1267,7 @@
         "endurance": 21,
         "speed": 9,
         "luck": 5,
+        "level": 1,
         "exp": 58,
         "gold": 7,
         "bodysize": "L",
@@ -1201,7 +1286,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "MIMIC": {
         "threat": 8,
@@ -1211,6 +1297,7 @@
         "endurance": 21,
         "speed": 9,
         "luck": 5,
+        "level": 1,
         "exp": 61,
         "gold": 8,
         "bodysize": "M",
@@ -1229,7 +1316,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "TIGER": {
         "threat": 8,
@@ -1239,6 +1327,7 @@
         "endurance": 20,
         "speed": 11,
         "luck": 5,
+        "level": 1,
         "exp": 65,
         "gold": 8,
         "bodysize": "L",
@@ -1257,7 +1346,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "TROLL": {
         "threat": 9,
@@ -1267,6 +1357,7 @@
         "endurance": 29,
         "speed": 8,
         "luck": 4,
+        "level": 1,
         "exp": 66,
         "gold": 8,
         "bodysize": "L",
@@ -1285,7 +1376,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "NIGHTMARE": {
         "threat": 9,
@@ -1295,6 +1387,7 @@
         "endurance": 25,
         "speed": 10,
         "luck": 6,
+        "level": 1,
         "exp": 71,
         "gold": 9,
         "bodysize": "L",
@@ -1313,7 +1406,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "BASILISK": {
         "threat": 9,
@@ -1323,6 +1417,7 @@
         "endurance": 25,
         "speed": 12,
         "luck": 5,
+        "level": 1,
         "exp": 75,
         "gold": 9,
         "bodysize": "M",
@@ -1341,7 +1436,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "MANTICORE": {
         "threat": 9,
@@ -1351,6 +1447,7 @@
         "endurance": 26,
         "speed": 11,
         "luck": 5,
+        "level": 1,
         "exp": 80,
         "gold": 10,
         "bodysize": "L",
@@ -1369,7 +1466,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "MUMMY": {
         "threat": 9,
@@ -1379,6 +1477,7 @@
         "endurance": 24,
         "speed": 10,
         "luck": 4,
+        "level": 1,
         "exp": 84,
         "gold": 11,
         "bodysize": "M",
@@ -1397,7 +1496,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "CYCLOPS": {
         "threat": 9,
@@ -1407,6 +1507,7 @@
         "endurance": 29,
         "speed": 8,
         "luck": 4,
+        "level": 1,
         "exp": 89,
         "gold": 11,
         "bodysize": "L",
@@ -1425,7 +1526,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "ETTIN": {
         "threat": 10,
@@ -1435,6 +1537,7 @@
         "endurance": 33,
         "speed": 9,
         "luck": 5,
+        "level": 1,
         "exp": 88,
         "gold": 10,
         "bodysize": "L",
@@ -1453,7 +1556,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "SALAMANDER": {
         "threat": 10,
@@ -1463,6 +1567,7 @@
         "endurance": 28,
         "speed": 12,
         "luck": 7,
+        "level": 1,
         "exp": 94,
         "gold": 11,
         "bodysize": "M",
@@ -1481,7 +1586,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "SHAMBLING_MOUND": {
         "threat": 10,
@@ -1491,6 +1597,7 @@
         "endurance": 39,
         "speed": 6,
         "luck": 5,
+        "level": 1,
         "exp": 100,
         "gold": 12,
         "bodysize": "L",
@@ -1509,7 +1616,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "LAMIA": {
         "threat": 10,
@@ -1519,6 +1627,7 @@
         "endurance": 29,
         "speed": 11,
         "luck": 6,
+        "level": 1,
         "exp": 106,
         "gold": 12,
         "bodysize": "L",
@@ -1537,7 +1646,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "WYVERN": {
         "threat": 10,
@@ -1547,6 +1657,7 @@
         "endurance": 33,
         "speed": 10,
         "luck": 7,
+        "level": 1,
         "exp": 113,
         "gold": 13,
         "bodysize": "L",
@@ -1565,7 +1676,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "WHITE_DRAGON_YOUNG": {
         "threat": 10,
@@ -1575,6 +1687,7 @@
         "endurance": 33,
         "speed": 10,
         "luck": 7,
+        "level": 1,
         "exp": 119,
         "gold": 14,
         "bodysize": "L",
@@ -1593,7 +1706,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "ABOLETH": {
         "threat": 11,
@@ -1603,6 +1717,7 @@
         "endurance": 36,
         "speed": 10,
         "luck": 6,
+        "level": 1,
         "exp": 115,
         "gold": 13,
         "bodysize": "XL",
@@ -1621,7 +1736,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "CHIMERA": {
         "threat": 11,
@@ -1631,6 +1747,7 @@
         "endurance": 35,
         "speed": 13,
         "luck": 6,
+        "level": 1,
         "exp": 123,
         "gold": 14,
         "bodysize": "L",
@@ -1649,7 +1766,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "GHOST": {
         "threat": 11,
@@ -1659,6 +1777,7 @@
         "endurance": 33,
         "speed": 12,
         "luck": 5,
+        "level": 1,
         "exp": 131,
         "gold": 15,
         "bodysize": "M",
@@ -1677,7 +1796,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "SUCCUBUS": {
         "threat": 11,
@@ -1687,6 +1807,7 @@
         "endurance": 34,
         "speed": 13,
         "luck": 7,
+        "level": 1,
         "exp": 139,
         "gold": 16,
         "bodysize": "M",
@@ -1705,7 +1826,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "HILL_GIANT": {
         "threat": 11,
@@ -1715,6 +1837,7 @@
         "endurance": 38,
         "speed": 10,
         "luck": 5,
+        "level": 1,
         "exp": 147,
         "gold": 17,
         "bodysize": "L",
@@ -1733,7 +1856,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "MEDUSA": {
         "threat": 11,
@@ -1743,6 +1867,7 @@
         "endurance": 33,
         "speed": 13,
         "luck": 6,
+        "level": 1,
         "exp": 155,
         "gold": 18,
         "bodysize": "M",
@@ -1761,7 +1886,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "EFREETI": {
         "threat": 12,
@@ -1771,6 +1897,7 @@
         "endurance": 39,
         "speed": 13,
         "luck": 7,
+        "level": 1,
         "exp": 148,
         "gold": 16,
         "bodysize": "L",
@@ -1789,7 +1916,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "OGRE_MAGE": {
         "threat": 12,
@@ -1799,6 +1927,7 @@
         "endurance": 44,
         "speed": 11,
         "luck": 5,
+        "level": 1,
         "exp": 158,
         "gold": 17,
         "bodysize": "L",
@@ -1817,7 +1946,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "GREEN_DRAGON_YOUNG": {
         "threat": 12,
@@ -1827,6 +1957,7 @@
         "endurance": 44,
         "speed": 12,
         "luck": 7,
+        "level": 1,
         "exp": 169,
         "gold": 19,
         "bodysize": "L",
@@ -1845,7 +1976,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "GORGON": {
         "threat": 12,
@@ -1855,6 +1987,7 @@
         "endurance": 41,
         "speed": 14,
         "luck": 6,
+        "level": 1,
         "exp": 179,
         "gold": 20,
         "bodysize": "L",
@@ -1873,7 +2006,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "STONE_GIANT": {
         "threat": 12,
@@ -1883,6 +2017,7 @@
         "endurance": 44,
         "speed": 11,
         "luck": 5,
+        "level": 1,
         "exp": 189,
         "gold": 21,
         "bodysize": "L",
@@ -1901,7 +2036,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "TRICERATOPS": {
         "threat": 12,
@@ -1911,6 +2047,7 @@
         "endurance": 38,
         "speed": 14,
         "luck": 6,
+        "level": 1,
         "exp": 200,
         "gold": 22,
         "bodysize": "XL",
@@ -1929,7 +2066,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "VAMPIRE": {
         "threat": 13,
@@ -1939,6 +2077,7 @@
         "endurance": 43,
         "speed": 14,
         "luck": 6,
+        "level": 1,
         "exp": 188,
         "gold": 20,
         "bodysize": "M",
@@ -1957,7 +2096,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "VROCK": {
         "threat": 13,
@@ -1967,6 +2107,7 @@
         "endurance": 46,
         "speed": 14,
         "luck": 8,
+        "level": 1,
         "exp": 201,
         "gold": 22,
         "bodysize": "L",
@@ -1985,7 +2126,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "TYRANNOSAURUS": {
         "threat": 13,
@@ -1995,6 +2137,7 @@
         "endurance": 43,
         "speed": 15,
         "luck": 7,
+        "level": 1,
         "exp": 214,
         "gold": 23,
         "bodysize": "XL",
@@ -2013,7 +2156,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "DRAGON_TURTLE": {
         "threat": 13,
@@ -2023,6 +2167,7 @@
         "endurance": 51,
         "speed": 12,
         "luck": 8,
+        "level": 1,
         "exp": 227,
         "gold": 25,
         "bodysize": "XL",
@@ -2041,7 +2186,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "NIGHT_HAG": {
         "threat": 13,
@@ -2051,6 +2197,7 @@
         "endurance": 43,
         "speed": 15,
         "luck": 8,
+        "level": 1,
         "exp": 241,
         "gold": 26,
         "bodysize": "M",
@@ -2069,7 +2216,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "FROST_GIANT": {
         "threat": 13,
@@ -2079,6 +2227,7 @@
         "endurance": 50,
         "speed": 12,
         "luck": 6,
+        "level": 1,
         "exp": 254,
         "gold": 28,
         "bodysize": "L",
@@ -2097,7 +2246,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "GUARDIAN_NAGA": {
         "threat": 14,
@@ -2107,6 +2257,7 @@
         "endurance": 53,
         "speed": 16,
         "luck": 7,
+        "level": 1,
         "exp": 235,
         "gold": 25,
         "bodysize": "L",
@@ -2125,7 +2276,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "CLAY_GOLEM": {
         "threat": 14,
@@ -2135,6 +2287,7 @@
         "endurance": 67,
         "speed": 12,
         "luck": 6,
+        "level": 1,
         "exp": 251,
         "gold": 27,
         "bodysize": "L",
@@ -2153,7 +2306,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "COUATL": {
         "threat": 14,
@@ -2163,6 +2317,7 @@
         "endurance": 53,
         "speed": 16,
         "luck": 8,
+        "level": 1,
         "exp": 268,
         "gold": 29,
         "bodysize": "L",
@@ -2181,7 +2336,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "SILVER_DRAGON_YOUNG": {
         "threat": 14,
@@ -2191,6 +2347,7 @@
         "endurance": 57,
         "speed": 14,
         "luck": 8,
+        "level": 1,
         "exp": 284,
         "gold": 31,
         "bodysize": "L",
@@ -2209,7 +2366,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "FIRE_GIANT": {
         "threat": 14,
@@ -2219,6 +2377,7 @@
         "endurance": 57,
         "speed": 13,
         "luck": 6,
+        "level": 1,
         "exp": 301,
         "gold": 33,
         "bodysize": "L",
@@ -2237,7 +2396,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "RED_DRAGON_YOUNG": {
         "threat": 14,
@@ -2247,6 +2407,7 @@
         "endurance": 57,
         "speed": 14,
         "luck": 8,
+        "level": 1,
         "exp": 317,
         "gold": 35,
         "bodysize": "L",
@@ -2265,7 +2426,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "CLOUD_GIANT": {
         "threat": 15,
@@ -2275,6 +2437,7 @@
         "endurance": 66,
         "speed": 12,
         "luck": 6,
+        "level": 1,
         "exp": 290,
         "gold": 31,
         "bodysize": "XL",
@@ -2293,7 +2456,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "GOLD_DRAGON_YOUNG": {
         "threat": 15,
@@ -2303,6 +2467,7 @@
         "endurance": 65,
         "speed": 15,
         "luck": 8,
+        "level": 1,
         "exp": 310,
         "gold": 33,
         "bodysize": "L",
@@ -2321,7 +2486,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "STONE_GOLEM": {
         "threat": 15,
@@ -2331,6 +2497,7 @@
         "endurance": 75,
         "speed": 13,
         "luck": 6,
+        "level": 1,
         "exp": 331,
         "gold": 36,
         "bodysize": "L",
@@ -2349,7 +2516,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "DEVOURER": {
         "threat": 15,
@@ -2359,6 +2527,7 @@
         "endurance": 56,
         "speed": 16,
         "luck": 6,
+        "level": 1,
         "exp": 351,
         "gold": 38,
         "bodysize": "M",
@@ -2377,7 +2546,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "HEZROU": {
         "threat": 15,
@@ -2387,6 +2557,7 @@
         "endurance": 59,
         "speed": 16,
         "luck": 8,
+        "level": 1,
         "exp": 371,
         "gold": 41,
         "bodysize": "L",
@@ -2405,7 +2576,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "RETRIEVER": {
         "threat": 15,
@@ -2415,6 +2587,7 @@
         "endurance": 76,
         "speed": 12,
         "luck": 6,
+        "level": 1,
         "exp": 392,
         "gold": 43,
         "bodysize": "XL",
@@ -2433,7 +2606,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "COPPER_DRAGON_ADULT": {
         "threat": 16,
@@ -2443,6 +2617,7 @@
         "endurance": 73,
         "speed": 16,
         "luck": 9,
+        "level": 1,
         "exp": 355,
         "gold": 38,
         "bodysize": "L",
@@ -2461,7 +2636,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "GREEN_DRAGON_ADULT": {
         "threat": 16,
@@ -2471,6 +2647,7 @@
         "endurance": 73,
         "speed": 16,
         "luck": 9,
+        "level": 1,
         "exp": 380,
         "gold": 41,
         "bodysize": "L",
@@ -2489,7 +2666,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "SEA_SERPENT": {
         "threat": 16,
@@ -2499,6 +2677,7 @@
         "endurance": 74,
         "speed": 15,
         "luck": 9,
+        "level": 1,
         "exp": 405,
         "gold": 44,
         "bodysize": "XL",
@@ -2517,7 +2696,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "PURPLE_WORM": {
         "threat": 16,
@@ -2527,6 +2707,7 @@
         "endurance": 68,
         "speed": 17,
         "luck": 7,
+        "level": 1,
         "exp": 430,
         "gold": 47,
         "bodysize": "XL",
@@ -2545,7 +2726,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "LICH": {
         "threat": 16,
@@ -2555,6 +2737,7 @@
         "endurance": 63,
         "speed": 17,
         "luck": 7,
+        "level": 1,
         "exp": 454,
         "gold": 50,
         "bodysize": "M",
@@ -2573,7 +2756,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "ROPER": {
         "threat": 16,
@@ -2583,6 +2767,7 @@
         "endurance": 67,
         "speed": 15,
         "luck": 8,
+        "level": 1,
         "exp": 479,
         "gold": 53,
         "bodysize": "L",
@@ -2601,7 +2786,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "IRON_GOLEM": {
         "threat": 17,
@@ -2611,6 +2797,7 @@
         "endurance": 95,
         "speed": 14,
         "luck": 6,
+        "level": 1,
         "exp": 430,
         "gold": 46,
         "bodysize": "L",
@@ -2629,7 +2816,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "ICE_DEVIL": {
         "threat": 17,
@@ -2639,6 +2827,7 @@
         "endurance": 75,
         "speed": 18,
         "luck": 9,
+        "level": 1,
         "exp": 460,
         "gold": 50,
         "bodysize": "L",
@@ -2657,7 +2846,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "GLABREZU": {
         "threat": 17,
@@ -2667,6 +2857,7 @@
         "endurance": 76,
         "speed": 17,
         "luck": 9,
+        "level": 1,
         "exp": 490,
         "gold": 53,
         "bodysize": "XL",
@@ -2685,7 +2876,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "STORM_GIANT": {
         "threat": 17,
@@ -2695,6 +2887,7 @@
         "endurance": 82,
         "speed": 14,
         "luck": 7,
+        "level": 1,
         "exp": 520,
         "gold": 57,
         "bodysize": "XL",
@@ -2713,7 +2906,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "BLUE_DRAGON_ADULT": {
         "threat": 17,
@@ -2723,6 +2917,7 @@
         "endurance": 82,
         "speed": 16,
         "luck": 9,
+        "level": 1,
         "exp": 550,
         "gold": 61,
         "bodysize": "XL",
@@ -2741,7 +2936,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "FROGHEMOTH": {
         "threat": 17,
@@ -2751,6 +2947,7 @@
         "endurance": 76,
         "speed": 15,
         "luck": 8,
+        "level": 1,
         "exp": 580,
         "gold": 64,
         "bodysize": "XL",
@@ -2769,7 +2966,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "ASTRAL_DEVA": {
         "threat": 18,
@@ -2779,6 +2977,7 @@
         "endurance": 82,
         "speed": 21,
         "luck": 10,
+        "level": 1,
         "exp": 520,
         "gold": 56,
         "bodysize": "M",
@@ -2797,7 +2996,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "CRAG_LINNORM": {
         "threat": 18,
@@ -2807,6 +3007,7 @@
         "endurance": 92,
         "speed": 17,
         "luck": 9,
+        "level": 1,
         "exp": 556,
         "gold": 60,
         "bodysize": "XL",
@@ -2825,7 +3026,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "SILVER_DRAGON_ADULT": {
         "threat": 18,
@@ -2835,6 +3037,7 @@
         "endurance": 92,
         "speed": 17,
         "luck": 9,
+        "level": 1,
         "exp": 593,
         "gold": 65,
         "bodysize": "XL",
@@ -2853,7 +3056,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "TRUMPET_ARCHON": {
         "threat": 18,
@@ -2863,6 +3067,7 @@
         "endurance": 83,
         "speed": 20,
         "luck": 10,
+        "level": 1,
         "exp": 629,
         "gold": 69,
         "bodysize": "L",
@@ -2881,7 +3086,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "NALFESHNEE": {
         "threat": 18,
@@ -2891,6 +3097,7 @@
         "endurance": 83,
         "speed": 19,
         "luck": 9,
+        "level": 1,
         "exp": 666,
         "gold": 74,
         "bodysize": "L",
@@ -2909,7 +3116,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "RED_DRAGON_ADULT": {
         "threat": 18,
@@ -2919,6 +3127,7 @@
         "endurance": 92,
         "speed": 17,
         "luck": 9,
+        "level": 1,
         "exp": 702,
         "gold": 78,
         "bodysize": "XL",
@@ -2937,7 +3146,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "GOLD_DRAGON_ADULT": {
         "threat": 19,
@@ -2947,6 +3157,7 @@
         "endurance": 103,
         "speed": 18,
         "luck": 10,
+        "level": 1,
         "exp": 625,
         "gold": 68,
         "bodysize": "XL",
@@ -2965,7 +3176,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "NEOTHELID": {
         "threat": 19,
@@ -2975,6 +3187,7 @@
         "endurance": 94,
         "speed": 17,
         "luck": 9,
+        "level": 1,
         "exp": 669,
         "gold": 73,
         "bodysize": "XL",
@@ -2993,7 +3206,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "PHOENIX": {
         "threat": 19,
@@ -3003,6 +3217,7 @@
         "endurance": 93,
         "speed": 21,
         "luck": 9,
+        "level": 1,
         "exp": 713,
         "gold": 79,
         "bodysize": "L",
@@ -3021,7 +3236,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "WHITE_DRAGON_ANCIENT": {
         "threat": 19,
@@ -3031,6 +3247,7 @@
         "endurance": 103,
         "speed": 18,
         "luck": 10,
+        "level": 1,
         "exp": 756,
         "gold": 84,
         "bodysize": "XL",
@@ -3049,7 +3266,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "BRASS_DRAGON_ANCIENT": {
         "threat": 20,
@@ -3059,6 +3277,7 @@
         "endurance": 114,
         "speed": 19,
         "luck": 10,
+        "level": 1,
         "exp": 745,
         "gold": 82,
         "bodysize": "XL",
@@ -3077,7 +3296,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "BLACK_DRAGON_ANCIENT": {
         "threat": 20,
@@ -3087,6 +3307,7 @@
         "endurance": 114,
         "speed": 19,
         "luck": 10,
+        "level": 1,
         "exp": 797,
         "gold": 89,
         "bodysize": "XL",
@@ -3105,7 +3326,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "PLANETAR": {
         "threat": 20,
@@ -3115,6 +3337,7 @@
         "endurance": 103,
         "speed": 22,
         "luck": 11,
+        "level": 1,
         "exp": 849,
         "gold": 95,
         "bodysize": "L",
@@ -3133,7 +3356,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "HORNED_DEVIL": {
         "threat": 20,
@@ -3143,6 +3367,7 @@
         "endurance": 103,
         "speed": 21,
         "luck": 10,
+        "level": 1,
         "exp": 901,
         "gold": 102,
         "bodysize": "L",
@@ -3161,7 +3386,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "ICE_LINNORM": {
         "threat": 21,
@@ -3171,6 +3397,7 @@
         "endurance": 126,
         "speed": 20,
         "luck": 10,
+        "level": 1,
         "exp": 885,
         "gold": 98,
         "bodysize": "XL",
@@ -3189,7 +3416,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "COPPER_DRAGON_ANCIENT": {
         "threat": 21,
@@ -3199,6 +3427,7 @@
         "endurance": 126,
         "speed": 20,
         "luck": 10,
+        "level": 1,
         "exp": 947,
         "gold": 106,
         "bodysize": "XL",
@@ -3217,7 +3446,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "GREEN_DRAGON_ANCIENT": {
         "threat": 21,
@@ -3227,6 +3457,7 @@
         "endurance": 126,
         "speed": 20,
         "luck": 10,
+        "level": 1,
         "exp": 1009,
         "gold": 114,
         "bodysize": "XL",
@@ -3245,7 +3476,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "MARILITH": {
         "threat": 21,
@@ -3255,6 +3487,7 @@
         "endurance": 114,
         "speed": 22,
         "luck": 10,
+        "level": 1,
         "exp": 1071,
         "gold": 122,
         "bodysize": "L",
@@ -3273,7 +3506,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "KRAKEN": {
         "threat": 22,
@@ -3283,6 +3517,7 @@
         "endurance": 127,
         "speed": 23,
         "luck": 10,
+        "level": 1,
         "exp": 1050,
         "gold": 118,
         "bodysize": "XL",
@@ -3301,7 +3536,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "BLUE_DRAGON_ANCIENT": {
         "threat": 22,
@@ -3311,6 +3547,7 @@
         "endurance": 139,
         "speed": 21,
         "luck": 11,
+        "level": 1,
         "exp": 1124,
         "gold": 127,
         "bodysize": "XL",
@@ -3329,7 +3566,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "BRONZE_DRAGON_ANCIENT": {
         "threat": 22,
@@ -3339,6 +3577,7 @@
         "endurance": 139,
         "speed": 21,
         "luck": 11,
+        "level": 1,
         "exp": 1197,
         "gold": 137,
         "bodysize": "XL",
@@ -3357,7 +3596,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "SHOGGOTH": {
         "threat": 23,
@@ -3367,6 +3607,7 @@
         "endurance": 141,
         "speed": 20,
         "luck": 10,
+        "level": 1,
         "exp": 1240,
         "gold": 140,
         "bodysize": "XL",
@@ -3385,7 +3626,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "SILVER_DRAGON_ANCIENT": {
         "threat": 23,
@@ -3395,6 +3637,7 @@
         "endurance": 153,
         "speed": 22,
         "luck": 11,
+        "level": 1,
         "exp": 1327,
         "gold": 151,
         "bodysize": "XL",
@@ -3413,7 +3656,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "RED_DRAGON_ANCIENT": {
         "threat": 23,
@@ -3423,6 +3667,7 @@
         "endurance": 153,
         "speed": 22,
         "luck": 11,
+        "level": 1,
         "exp": 1414,
         "gold": 162,
         "bodysize": "XL",
@@ -3441,7 +3686,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "GOLD_DRAGON_ANCIENT": {
         "threat": 24,
@@ -3451,6 +3697,7 @@
         "endurance": 169,
         "speed": 23,
         "luck": 11,
+        "level": 1,
         "exp": 1460,
         "gold": 168,
         "bodysize": "XL",
@@ -3469,7 +3716,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "TARN_LINNORM": {
         "threat": 24,
@@ -3479,6 +3727,7 @@
         "endurance": 169,
         "speed": 23,
         "luck": 11,
+        "level": 1,
         "exp": 1562,
         "gold": 181,
         "bodysize": "XL",
@@ -3497,7 +3746,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "BALOR": {
         "threat": 24,
@@ -3507,6 +3757,7 @@
         "endurance": 155,
         "speed": 24,
         "luck": 11,
+        "level": 1,
         "exp": 1664,
         "gold": 195,
         "bodysize": "XL",
@@ -3525,7 +3776,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "PIT_FIEND": {
         "threat": 24,
@@ -3535,6 +3787,7 @@
         "endurance": 154,
         "speed": 25,
         "luck": 11,
+        "level": 1,
         "exp": 1767,
         "gold": 208,
         "bodysize": "L",
@@ -3553,7 +3806,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "SOLAR": {
         "threat": 25,
@@ -3563,6 +3817,7 @@
         "endurance": 200,
         "speed": 28,
         "luck": 13,
+        "level": 1,
         "exp": 2400,
         "gold": 280,
         "bodysize": "XL",
@@ -3581,7 +3836,8 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     },
     "TARRASQUE": {
         "threat": 26,
@@ -3591,6 +3847,7 @@
         "endurance": 227,
         "speed": 35,
         "luck": 12,
+        "level": 1,
         "exp": 3800,
         "gold": 450,
         "bodysize": "XL",
@@ -3609,6 +3866,7 @@
         ],
         "skills": [
             ""
-        ]
+        ],
+        "description": ""
     }
 }

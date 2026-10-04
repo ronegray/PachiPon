@@ -130,7 +130,10 @@ class StackPool:
     #     self._stacks[(def_id, state)] += count
     def add(self, def_id: ItemID, count: int = 1) -> None:
         """スタックへのアイテム追加・数量加算"""
-        self._stacks[def_id] += count
+        if self._stacks.get(def_id):
+            self._stacks[def_id] += count
+        else:
+            self._stacks[def_id] = count
 
     # def remove(self, def_id: ItemID, owner_id: ItemState, count: int = 1) -> bool:
     #     """スタックアイテムの数量減算・削除"""

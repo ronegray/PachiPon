@@ -807,7 +807,7 @@ class BATTLE_GRAIL(CommandBaseSequence):  # 聖杯の守護者　呪毒に弱い
             yield [self.WAIT, "0"]
         self.display_info.target.update_indicator(False)
 
-        di.ref.scnmgr.next_scene("battlesplash")
+        di.ref.scnmgr.next_scene("fixedbattle", 1, "GOLD_DRAGON_ANCIENT")
 
 
 class BATTLE_SATAN(CommandBaseSequence):  # 魔王

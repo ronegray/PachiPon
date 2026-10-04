@@ -155,11 +155,11 @@ class EntityBase(ABC):
         """MP消費可能チェック"""
         return self.param.mp >= cost
 
-    def hitroll_offence(self) -> int:
+    def attackroll_offence(self) -> int:
         """命中ロール：攻撃側"""
         return diceroll(max(1, self.bonus_str)) + self.bonus_lck
 
-    def hitroll_defence(self) -> int:
+    def attackroll_defence(self) -> int:
         """命中ロール：防御側"""
         # return (self.speed + self.bonus_lck) * self.defend_rate
         return (self.bonus_spd + self.bonus_lck + self.param.level // 3) * self.defend_rate
@@ -175,7 +175,9 @@ class EntityBase(ABC):
 
     def damageroll_melee(self) -> tuple[int, int]:
         """近接ダメージ計算"""
-        return (self.hitdice, diceroll(max(1, self.hitdice)) + self.bonus_str)
+        # return (self.hitdice, diceroll(max(1, self.hitdice)) + self.bonus_str)
+        dice = max(1, self.hitdice)
+        return (dice, diceroll(dice) + self.bonus_str)
 
     def suppress_damage_melee(self) -> int:
         """近接ダメージの防御による相殺値"""

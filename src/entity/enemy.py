@@ -37,6 +37,11 @@ class Enemy(EntityBase):
         """敵用パラメタ：魔法弱点"""
         return self.eparam.weaktype
 
+    def damageroll_melee(self) -> tuple[int, int]:
+        """近接ダメージ計算"""
+        dice, damage = super().damageroll_melee()
+        return (dice, damage + self.hitdice)
+
     def calc_guard_rate(self, attack_type: int = -1) -> float:
         """近接ダメージ相性率率計算"""
         try:
