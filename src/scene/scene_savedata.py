@@ -221,8 +221,7 @@ class SceneDataLoad(SceneBaseSavedata):
         # write_json(path, savedatas)
 
         di.ref.cmdmgr.clear_commands()
-
-        di.ref.pl_stack.load_stack(savedata["pl_stack"])
+        di.ref.pl_stack.load_stack(savedata["pl_stack"], savedata.get("ver", 0))
         print(di.ref.pl_stack._stacks)
         di.ref.pl_item.load_item(savedata["pl_item"])
         print(di.ref.pl_item._items)
@@ -278,6 +277,7 @@ class SceneDataSave(SceneBaseSavedata):
     def manupilate_data(self, slot_no: int = 0):
         """データセーブ"""
         savedatas = {}
+        savedatas["ver"] = 1
         savedatas["savetime"] = datetime.now().strftime("%Y/%m/%d %H:%M:%S.%f")[:-4]
         # savedatas["flags"] = di.ref.
         savedatas["events"] = di.ref.map.save_event()

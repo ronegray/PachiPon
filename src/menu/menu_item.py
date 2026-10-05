@@ -215,6 +215,9 @@ class MenuUseItem(MenuItemBase):
         filtereddict = di.ref.pl_stack.get_stacks(ItemState.BAG)
 
         self.inventory_count = len(filtereddict)
+        for key, val in filtereddict.items():
+            if val > 0:
+                print(key, val)
         if self.inventory_count <= 0:
             self.item_list = [[[{"id": "該当なし", "action": "None", "args": [""]}]]]
         else:

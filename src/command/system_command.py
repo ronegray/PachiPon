@@ -58,11 +58,11 @@ class ShopPurchase(CommandBaseSystem):
         else:
             match eventpoint.point_type:
                 case PointPlaceType.CAPITAL_CITY:
-                    not_enough_message = "お客様\n当店の割引券をお持ちなのですか？"
+                    not_enough_message = "当店では値引交渉はお受けしておりません"
                 case PointPlaceType.TOWN:
-                    not_enough_message = "ちょっと待ちなよ\nあんたの手持ちじゃ足りねえみてえだぜ"
+                    not_enough_message = "あんたの手持ちじゃ足りねえみてえだぜ"
                 case PointPlaceType.VILLAGE:
-                    not_enough_message = "どれどれ、ひぃふぅみぃ・・・\nこれじゃ売ってやれんのう"
+                    not_enough_message = "どれどれ・・・これじゃ売ってやれんのう"
             yield [not_enough_message]  # type: ignore
 
         self.display_info.target.update_indicator(True)
@@ -108,11 +108,11 @@ class PurchaseFoods(CommandBaseSystem):
         else:
             match eventpoint.point_type:
                 case PointPlaceType.CAPITAL_CITY:
-                    not_enough_message = "お客様\n当店の割引券をお持ちなのですか？"
+                    not_enough_message = "当店では値引交渉はお受けしておりません"
                 case PointPlaceType.TOWN:
-                    not_enough_message = "ちょっと待ちなよ\nあんたの手持ちじゃ足りねえみてえだぜ"
+                    not_enough_message = "あんたの手持ちじゃ足りねえみてえだぜ"
                 case PointPlaceType.VILLAGE:
-                    not_enough_message = "どれどれ、ひぃふぅみぃ・・・\nこれじゃ売ってやれんのう"
+                    not_enough_message = "どれどれ・・・これじゃ売ってやれんのう"
             yield [not_enough_message]  # type: ignore
 
         self.display_info.target.update_indicator(True)

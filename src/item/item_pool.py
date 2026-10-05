@@ -175,12 +175,21 @@ class StackPool:
         """スタックアイテムリストを取得する"""
         return {key: cnt for key, cnt in self._stacks.items()}
 
-    def save_stack(self) -> dict:
-        """セーブデータに保存するパラメタを辞書形式で返す"""
-        return self._stacks
+    # def save_stack(self) -> dict:
+    #     """セーブデータに保存するパラメタを辞書形式で返す"""
+    #     # return self._stacks
+    #     return {str(ItemID(key)): val for key, val in self._stacks.items()}
+    def save_stack(self) -> list:
+        """セーブデータに保存するパラメタをリスト形式で返す"""
+        # return self._stacks
+        return [[(int(key)), val] for key, val in self._stacks.items()]
 
-    def load_stack(self, datas: dict) -> None:
+    def load_stack(self, datas: dict, ver: int) -> None:
         """インスタンスアイテムパラメタをロードデータから反映"""
         # 現在の情報をクリア
         self._stacks.clear()
-        self._stacks = datas.copy()
+        # self._stacks = datas.copy()
+        if ver == 0:
+            self._stacks.update({ItemID(int(key)): val for key, val in datas.items()})
+        else:
+            self._stacks.update({ItemID(key): val for key, val in datas})
