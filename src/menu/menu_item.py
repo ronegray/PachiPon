@@ -16,7 +16,9 @@ from item import (
     ItemTargetType,
 )
 from entity import EntityContext
-import command.entity_command as en_cmd
+
+# import command.entity_command as en_cmd
+import command.item_command as itm_cmd
 
 
 # ロギング設定
@@ -31,7 +33,7 @@ class MenuSelectItemCategory(Menu):
         menu_pos_x: int,
         menu_pos_y: int,
         ctx: EntityContext,
-        command_package: en_cmd.CommandPackage,
+        command_package: itm_cmd.CommandPackage,
     ) -> None:
         menu_pos = (menu_pos_x, menu_pos_y)
         menu_shape = [1, 3]
@@ -201,7 +203,7 @@ class MenuUseItem(MenuItemBase):
     def __init__(
         self,
         ctx: EntityContext,
-        command_package: en_cmd.CommandPackage,
+        command_package: itm_cmd.CommandPackage,
     ):
         """データ取得と表示ウインドウの再定義"""
         self.inventory_count: int = 0
@@ -282,7 +284,7 @@ class MenuUseItem(MenuItemBase):
         from menu import MenuSelectFieldTarget
 
         # コマンドパッケージに選択内容登録
-        self.command_package.selected_action = getattr(en_cmd, item_def.effect_id)
+        self.command_package.selected_action = getattr(itm_cmd, item_def.effect_id)
         self.command_package.target_type = ItemTargetType(item_def.target_type)
         self.command_package.selected_args = {
             "item_def": item_def,

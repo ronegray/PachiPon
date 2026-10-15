@@ -58,11 +58,11 @@ class SkillID(IntEnum):
     DICE_BONUS       = 0xA_1_0_5
     GAIN_MAXHP       = 0xA_2_0_1
     GAIN_MAXMP       = 0xA_2_0_2
-    BONUS_STR        = 0xA_2_0_3
-    BONUS_ARC        = 0xA_2_0_4
-    BONUS_END        = 0xA_2_0_5
-    BONUS_SPD        = 0xA_2_0_6
-    BONUS_LCK        = 0xA_2_0_7
+    GAIN_STR         = 0xA_2_0_3
+    GAIN_ARC         = 0xA_2_0_4
+    GAIN_END         = 0xA_2_0_5
+    GAIN_SPD         = 0xA_2_0_6
+    GAIN_LCK         = 0xA_2_0_7
     HEAL_HP          = 0x1_2_0_1 # 消耗品　HP回復(レベルd6)
     HEAL_MP          = 0x1_2_0_2 # 消耗品　MP回復(レベルd6/2※切り上げ)
     TORCHLIGHT       = 0xA_3_0_1 # 消耗品　イベント：ダンジョン時に１消費

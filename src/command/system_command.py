@@ -28,6 +28,19 @@ class CommandBaseSystem(CommandBaseSequence):
     pass
 
 
+class CommonFieldMessage(CommandBaseSystem):
+    """汎用メッセージ表示処理"""
+
+    def _sequence(self) -> Generator[list[str], None, None]:
+        message_list = self.args[0]
+        for msg in message_list:
+            yield [msg]
+
+        self.display_info.target.update_indicator(True)
+        while self.display_info.target.update() == WindowAction.CONTINUE:
+            yield [self.WAIT, "0"]
+
+
 class ShopPurchase(CommandBaseSystem):
     """ショップ購入対応（スタック／インスタンス共用）"""
 

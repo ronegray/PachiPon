@@ -30,6 +30,7 @@ class SceneManager:
         if is_load_bgm:
             self._stacks[-1].load_bgm()
 
+    # def get_now_scene(self) -> BaseScene:
     def get_now_scene(self) -> BaseScene:
         """現在のシーンを返す"""
         return self._stacks[-1]

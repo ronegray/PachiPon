@@ -14,10 +14,13 @@ from gameutils.lib import (
     RsltPush,
     RsltDiscard,
 )
+
+# import service_locater as di
 from entity import EntityContext, EntityBase, Character, EquipSlot
 from skill import SkillTargetType
+from item import ItemTargetType
 import command.entity_command as en_cmd
-
+import command.item_command as itm_cmd
 
 # ロギング設定
 logger = logging.getLogger(__name__)
@@ -371,16 +374,31 @@ class MenuSelectItem(Menu):
 
         eq_slot, item_iid, plent = self.target_item[0]["args"]
         func_name = plent.ins.param.effect_id  # type: ignore
+        item_def = plent.ins.param  # type: ignore
 
         from menu import MenuSelectBattleTarget
 
         # コマンドパッケージに選択内容登録
-        self.command_package.selected_action = getattr(en_cmd, func_name)
-        self.command_package.target_type = SkillTargetType.ALLY  # type: ignore
+        self.command_package.selected_action = getattr(itm_cmd, func_name)
+        # if func_name == "escape_battle":
+        #     self.command_package.target_type = SkillTargetType.ALL  # type: ignore
+        # else:
+        #     self.command_package.target_type = SkillTargetType.ALLY  # type: ignore
+        # self.command_package.selected_args = {
+        #     "item_def": plent.ins.param,  # type: ignore
+        #     "slot": eq_slot,
+        # }
+
+        # コマンドパッケージに選択内容登録
+        self.command_package.selected_action = getattr(itm_cmd, item_def.effect_id)
+        self.command_package.target_type = ItemTargetType(item_def.target_type)
         self.command_package.selected_args = {
-            "item_def": plent.ins.param,  # type: ignore
+            "item_def": item_def,
             "slot": eq_slot,
         }
+        if self.command_package.target_type == ItemTargetType.NONE:
+            # ターゲットがない場合は抜けてそのまま処理実行
+            return RsltDiscard()
 
         return RsltPush(
             MenuSelectBattleTarget,

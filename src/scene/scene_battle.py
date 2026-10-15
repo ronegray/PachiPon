@@ -213,6 +213,12 @@ class SceneBattle(BaseScene):
           - ない場合は生存PTメンバー分のコマンド生成をループ実行
           - コマンド数が揃ったらエネミー側コマンドと行動順を決定してコマンドスタック追加
         """
+        if di.ref.pt.get_pt_efx("escape_battle"):
+            # 煙幕弾使用状態だと戦闘を抜ける
+            di.ref.pt.remove_pt_efx("escape_battle")
+            di.ref.scnmgr.previous_scene()
+            return
+
         if self.is_battle_over:
             # 入力制御の復旧
             # WindowInputHandler.load_default_input()

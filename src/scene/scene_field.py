@@ -13,10 +13,11 @@ from const import FIELD_MESSAGE_HEIGHT, APP_WIDTH, APP_HEIGHT
 from gameutils.base import is_pressed
 from gameutils.lib import Window, WindowAction
 from event import EventID, EventType
-from field_map import EventPoint
+from field_map import EventPoint, PointPlaceType
 from entity import EntityContext
 from command import CommandBase
 import command.entity_command as en_cmd
+import command.system_command as s_cmd
 from helper import format_leftright
 
 # import command.system_command as s_cmd
@@ -70,7 +71,9 @@ class SceneField(BaseScene):
     def update_eventpoint_info(self):
         """イベントポイントウインドウの内容更新"""
         self.eventpoint_info_window.clear_message()
-        self.eventpoint_info_window.add_message(self.current_point.name)
+        self.eventpoint_info_window.add_message(
+            (self.current_point.name + PointPlaceType(self.current_point.point_type).name)
+        )
         if self.current_point.is_ready:
             self.eventpoint_state_window.set_message(
                 ["イベント実行準備が完了しています（決定ボタンで実行）"]
@@ -201,6 +204,27 @@ class SceneField(BaseScene):
                 return
 
         if is_pressed("decide") and self.current_point.is_ready:
+            # ダンジョンではたいまつが必要
+            if self.current_point.point_type == PointPlaceType.DUNGEON:
+                if di.ref.pt.get_pt_efx("torchlight"):
+                    di.ref.pt.remove_pt_efx("torchlight")
+                else:
+                    cmd = s_cmd.CommonFieldMessage(
+                        self.message_window,
+                        ["ダンジョンの探索に向かうのならば", "松明を照らしておかなければ・・・"],
+                    )
+                    di.ref.cmdmgr.push_command(cmd)
+                    return
+            # テンプルと廃墟では鍵が必要
+            elif self.current_point.point_type in (PointPlaceType.RUINS, PointPlaceType.TEMPLE):
+                if di.ref.pt.get_pt_efx("unlock_key"):
+                    di.ref.pt.remove_pt_efx("unlock_key")
+                else:
+                    cmd = s_cmd.CommonFieldMessage(
+                        self.message_window, ["どうやら、鍵がかかっているようだ"]
+                    )
+                    di.ref.cmdmgr.push_command(cmd)
+                    return
             cmd = ev_cmd.KickEvent(self.message_window, self.current_point)
             di.ref.cmdmgr.push_command(cmd)
             di.ref.cmdmgr.set_on_empty(self.update_eventpoint_info)

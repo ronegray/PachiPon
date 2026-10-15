@@ -241,7 +241,7 @@
       "name": "打撃のリング",
       "rank": "NORMAL",
       "price": 1000,
-      "effect_type": "attack_bonus",
+      "effect_id": "attack_bonus",
       "effect_value": 1,
       "is_percent": false,
       "description": "武器攻撃ダメージのダイス数が１つ増える"
@@ -250,7 +250,7 @@
       "name": "軽業のリング",
       "rank": "NORMAL",
       "price": 1000,
-      "effect_type": "speed_bonus",
+      "effect_id": "speed_bonus",
       "effect_value": 1,
       "is_percent": false,
       "description": "イニチアチブ判定値が１増え、命中ロールのダイス数が１つ増える"
@@ -259,7 +259,7 @@
       "name": "忍耐のリング",
       "rank": "NORMAL",
       "price": 1000,
-      "effect_type": "reduce_weapon",
+      "effect_id": "reduce_weapon",
       "effect_value": 1,
       "is_percent": false,
       "description": "敵の武器攻撃のダメージダイスが１つ減る"
@@ -268,7 +268,7 @@
       "name": "抵抗のリング",
       "rank": "NORMAL",
       "price": 1000,
-      "effect_type": "recuce_spell",
+      "effect_id": "recuce_spell",
       "effect_value": 1,
       "is_percent": false,
       "description": "敵の魔法効果ロールのダイスが１つ減る"
@@ -277,7 +277,7 @@
       "name": "超打撃のリング",
       "rank": "LEGEND",
       "price": 30000,
-      "effect_type": "attack_bonus",
+      "effect_id": "attack_bonus",
       "effect_value": 3,
       "is_percent": false,
       "description": "武器攻撃ダメージのダイス数が３つ増える"
@@ -286,7 +286,7 @@
       "name": "超軽業のリング",
       "rank": "LEGEND",
       "price": 30000,
-      "effect_type": "speed_bonus",
+      "effect_id": "speed_bonus",
       "effect_value": 3,
       "is_percent": false,
       "description": "イニチアチブ判定値が３増え、命中ロールのダイス数が３つ増える"
@@ -295,7 +295,7 @@
       "name": "超忍耐のリング",
       "rank": "LEGEND",
       "price": 30000,
-      "effect_type": "reduce_weapon",
+      "effect_id": "reduce_weapon",
       "effect_value": 3,
       "is_percent": false,
       "description": "敵の武器攻撃のダメージダイスが３つ減る"
@@ -304,7 +304,7 @@
       "name": "超抵抗のリング",
       "rank": "LEGEND",
       "price": 30000,
-      "effect_type": "recuce_spell",
+      "effect_id": "recuce_spell",
       "effect_value": 3,
       "is_percent": false,
       "description": "敵の魔法効果ロールのダイスが３つ減る"
@@ -313,7 +313,7 @@
       "name": "頑健のベルト",
       "rank": "NORMAL",
       "price": 2000,
-      "effect_type": "gain_maxhp",
+      "effect_id": "gain_maxhp",
       "effect_value": 1.5,
       "is_percent": false,
       "description": "最大ＨＰが１．５倍になる"
@@ -322,7 +322,7 @@
       "name": "精神のベルト",
       "rank": "NORMAL",
       "price": 2000,
-      "effect_type": "gain_maxmp",
+      "effect_id": "gain_maxmp",
       "effect_value": 1.5,
       "is_percent": false,
       "description": "最大ＭＰが１．５倍になる"
@@ -331,7 +331,7 @@
       "name": "超頑健のベルト",
       "rank": "LEGEND",
       "price": 50000,
-      "effect_type": "gain_maxhp",
+      "effect_id": "gain_maxhp",
       "effect_value": 3,
       "is_percent": false,
       "description": "最大ＨＰが３倍になる"
@@ -340,7 +340,7 @@
       "name": "超精神のベルト",
       "rank": "LEGEND",
       "price": 50000,
-      "effect_type": "gain_maxmp",
+      "effect_id": "gain_maxmp",
       "effect_value": 3,
       "is_percent": false,
       "description": "最大ＭＰが３倍になる"
@@ -349,7 +349,7 @@
       "name": "不正のダイス",
       "rank": "LEGEND",
       "price": 50000,
-      "effect_type": "dice_bonus",
+      "effect_id": "dice_bonus",
       "effect_value": 1,
       "is_percent": false,
       "description": "自身の行動によるダイスの出目が１増える"
@@ -358,7 +358,7 @@
       "name": "神のダイス",
       "rank": "LEGEND",
       "price": 999999,
-      "effect_type": "dice_bonus",
+      "effect_id": "dice_bonus",
       "effect_value": 3,
       "is_percent": false,
       "description": "自身の行動によるダイスの出目が３増える"
@@ -367,7 +367,7 @@
       "name": "筋のアミュレット",
       "rank": "RARE",
       "price": 3000,
-      "effect_type": "bonus_str",
+      "effect_id": "gain_str",
       "effect_value": 3,
       "is_percent": false,
       "description": "筋力が３増え、ボーナスが再判定される"
@@ -376,7 +376,7 @@
       "name": "魔のアミュレット",
       "rank": "RARE",
       "price": 3000,
-      "effect_type": "bonus_arc",
+      "effect_id": "gain_arc",
       "effect_value": 3,
       "is_percent": false,
       "description": "魔力が３増え、ボーナスが再判定される"
@@ -385,7 +385,7 @@
       "name": "耐のアミュレット",
       "rank": "RARE",
       "price": 3000,
-      "effect_type": "bonus_end",
+      "effect_id": "gain_end",
       "effect_value": 3,
       "is_percent": false,
       "description": "耐久が３増え、ボーナスが再判定される"
@@ -394,7 +394,7 @@
       "name": "速のアミュレット",
       "rank": "RARE",
       "price": 3000,
-      "effect_type": "bonus_spd",
+      "effect_id": "gain_spd",
       "effect_value": 3,
       "is_percent": false,
       "description": "速度が３増え、ボーナスが再判定される"
@@ -403,7 +403,7 @@
       "name": "運のアミュレット",
       "rank": "RARE",
       "price": 3000,
-      "effect_type": "bonus_lck",
+      "effect_id": "gain_lck",
       "effect_value": 3,
       "is_percent": false,
       "description": "幸運が３増え、ボーナスが再判定される"
@@ -412,7 +412,7 @@
       "name": "超筋アミュレット",
       "rank": "LEGEND",
       "price": 65535,
-      "effect_type": "bonus_str",
+      "effect_id": "gain_str",
       "effect_value": 6,
       "is_percent": false,
       "description": "筋力が６増え、ボーナスが再判定される"
@@ -421,7 +421,7 @@
       "name": "超魔アミュレット",
       "rank": "LEGEND",
       "price": 65535,
-      "effect_type": "bonus_arc",
+      "effect_id": "gain_arc",
       "effect_value": 6,
       "is_percent": false,
       "description": "魔力が６増え、ボーナスが再判定される"
@@ -430,7 +430,7 @@
       "name": "超耐アミュレット",
       "rank": "LEGEND",
       "price": 65535,
-      "effect_type": "bonus_end",
+      "effect_id": "gain_end",
       "effect_value": 6,
       "is_percent": false,
       "description": "耐久が６増え、ボーナスが再判定される"
@@ -439,7 +439,7 @@
       "name": "超速アミュレット",
       "rank": "LEGEND",
       "price": 65535,
-      "effect_type": "bonus_spd",
+      "effect_id": "gain_spd",
       "effect_value": 6,
       "is_percent": false,
       "description": "速度が６増え、ボーナスが再判定される"
@@ -448,7 +448,7 @@
       "name": "超運アミュレット",
       "rank": "LEGEND",
       "price": 65535,
-      "effect_type": "bonus_lck",
+      "effect_id": "gain_lck",
       "effect_value": 6,
       "is_percent": false,
       "description": "幸運が６増え、ボーナスが再判定される"
@@ -460,17 +460,17 @@
       "rank": "JUNK",
       "target_type": "ALLY",
       "price": 100,
-      "effect_type": "heal_hp",
+      "effect_id": "heal_hp",
       "effect_value": 0,
       "is_percent": false,
-      "description": "レベル数だけダイスを振った値の分だけＨＰが回復"
+      "description": "レベル数だけダイスを振った値の分、ＨＰが回復"
     },
     "HIHEALPOT": {
       "name": "超回復薬",
       "target_type": "ALLY",
       "rank": "RARE",
       "price": 10000,
-      "effect_type": "heal_hp",
+      "effect_id": "heal_hp",
       "effect_value": 1,
       "is_percent": false,
       "description": "ＨＰが全回復"
@@ -480,17 +480,17 @@
       "target_type": "ALLY",
       "rank": "NORMAL",
       "price": 1000,
-      "effect_type": "heal_mp",
+      "effect_id": "heal_mp",
       "effect_value": 0,
       "is_percent": false,
-      "description": "レベル数だけダイスを振った値の半分だけＭＰが回復"
+      "description": "レベル数だけダイスを振った値の半分、ＭＰが回復"
     },
     "HIMAGICPOT": {
       "name": "超魔力薬",
       "target_type": "ALLY",
       "rank": "RARE",
       "price": 99999,
-      "effect_type": "heal_mp",
+      "effect_id": "heal_mp",
       "effect_value": 1,
       "is_percent": false,
       "description": "ＭＰが全回復"
@@ -499,7 +499,7 @@
       "name": "たいまつ",
       "rank": "JUNK",
       "price": 10,
-      "effect_type": "torchlight",
+      "effect_id": "torchlight",
       "effect_value": 0,
       "is_percent": false,
       "description": "ダンジョン探索が可能になる"
@@ -508,16 +508,16 @@
       "name": "万能鍵",
       "rank": "JUNK",
       "price": 100,
-      "effect_type": "unlock_key",
+      "effect_id": "unlock_key",
       "effect_value": 0,
       "is_percent": false,
-      "description": "宝箱の鍵を開けられる"
+      "description": "廃墟や寺院の鍵を開けられる"
     },
     "SMOKE": {
       "name": "煙幕弾",
       "rank": "JUNK",
       "price": 100,
-      "effect_type": "escape_battle",
+      "effect_id": "escape_battle",
       "effect_value": 0,
       "is_percent": false,
       "description": "使用直後の戦闘発生を回避／現在の戦闘から即座に離脱"
@@ -525,76 +525,82 @@
     "HORSESHOE": {
       "name": "蹄鉄の護符",
       "rank": "RARE",
-      "price": 10000,
-      "effect_type": "reduce_negative",
+      "price": 5000,
+      "effect_id": "reduce_negative",
       "effect_value": 1,
       "is_percent": false,
-      "description": "次のランダムイベントからマイナス選択肢を１つ減らす"
+      "description": "次のランダムイベントでマイナス選択肢を１つ減らす"
     },
     "CLOVER": {
       "name": "四つ葉の護符",
       "rank": "LEGEND",
-      "price": 99999,
-      "effect_type": "reduce_negative",
+      "price": 20000,
+      "effect_id": "reduce_negative",
       "effect_value": 2,
       "is_percent": false,
-      "description": "次のランダムイベントからマイナス選択肢を２つ減らす"
+      "description": "次のランダムイベントでマイナス選択肢を２つ減らす"
     },
     "DICE": {
       "name": "追加ダイス",
       "rank": "RARE",
       "price": 10000,
-      "effect_type": "dice_plus",
+      "effect_id": "dice_plus",
       "effect_value": 1,
       "is_percent": false,
-      "description": "次に実行されるダイス処理でダイス数を１ふやす"
+      "description": "次のダイス処理でダイス数を１ふやす"
     },
     "HIDICE": {
       "name": "超追加ダイス",
       "rank": "LEGEND",
       "price": 99999,
-      "effect_type": "dice_plus",
+      "effect_id": "dice_plus",
       "effect_value": 2,
       "is_percent": false,
-      "description": "次に実行されるダイス処理でダイス数を２ふやす"
+      "description": "次のダイス処理でダイス数を２ふやす"
     },
     "RATIONS": {
       "name": "高栄養保存食",
       "rank": "NORMAL",
       "price": 100,
-      "effect_type": "food_plus",
-      "effect_value": 10,
+      "effect_id": "food_plus",
+      "effect_value": 250,
       "is_percent": false,
-      "description": "食糧を10増やす"
+      "description": "食糧を250増やす"
     },
     "HIRATIONS": {
       "name": "超栄養保存食",
       "rank": "RARE",
       "price": 1000,
-      "effect_type": "food_plus",
-      "effect_value": 100,
+      "effect_id": "food_plus",
+      "effect_value": 5000,
       "is_percent": false,
-      "description": "食糧を50増やす"
+      "description": "食糧を5000増やす"
     },
     "NSKILLBOOK": {
       "name": "一般技術書",
+      "target_type": "ALLY",
       "rank": "JUNK",
       "price": 50,
-      "effect_type": "learn_junk",
+      "effect_id": "learn_skill",
+      "effect_value": 1,
       "description": "簡単なスキルを取得出来る"
     },
     "RSKILLBOOK": {
       "name": "専門技術書",
+      "target_type": "ALLY",
       "rank": "NORMAL",
       "price": 1000,
-      "effect_type": "learn_normal",
+      "effect_id": "learn_skill",
+      "effect_value": 2,
       "description": "上級のスキルを取得出来る"
     },
     "LSKILLBOOK": {
       "name": "隠匿秘伝書",
+      "target_type": "ALLY",
       "rank": "RARE",
       "price": 30000,
-      "effect_type": "learn_rare",
+      "effect_id": "learn_skill",
+      "effect_value": 3,
       "description": "最上級のスキルを取得出来る"
     }
   }

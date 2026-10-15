@@ -46,16 +46,17 @@ class Character(EntityBase):
             Character.exp_table = data
 
     def update_bonus(self) -> None:
+        """能力値に影響する装備ボーナス値の更新"""
         self.multiplier = [
             max(1, self.equipments.get_adjust_effect(SkillID.GAIN_MAXHP)),
             max(1, self.equipments.get_adjust_effect(SkillID.GAIN_MAXMP)),
         ]
         self.param_bonus = [
-            int(self.equipments.get_adjust_effect(SkillID.BONUS_STR)),
-            int(self.equipments.get_adjust_effect(SkillID.BONUS_ARC)),
-            int(self.equipments.get_adjust_effect(SkillID.BONUS_END)),
-            int(self.equipments.get_adjust_effect(SkillID.BONUS_SPD)),
-            int(self.equipments.get_adjust_effect(SkillID.BONUS_LCK)),
+            int(self.equipments.get_adjust_effect(SkillID.GAIN_STR)),
+            int(self.equipments.get_adjust_effect(SkillID.GAIN_ARC)),
+            int(self.equipments.get_adjust_effect(SkillID.GAIN_END)),
+            int(self.equipments.get_adjust_effect(SkillID.GAIN_SPD)),
+            int(self.equipments.get_adjust_effect(SkillID.GAIN_LCK)),
         ]
 
     @property

@@ -56,3 +56,16 @@ class SkillRepository:
     def get_def(cls, def_id: SkillID) -> SkillDef | None:
         """指定されたIDのスキル定義を取得する"""
         return cls._master_def.get(def_id)
+
+    @classmethod
+    def get_def_by_rank(cls, rank: int) -> dict[SkillID, SkillDef]:
+        """指定されたIDのスキル定義を取得する"""
+        result = {}
+        # rankの範囲は1~3
+        if not (1 <= rank <= 3):
+            return result
+        # マスタ情報から対象ランクのリポジトリデータを返す
+        for skill_id, skill_def in SkillRepository._master_def.items():
+            if (skill_id & 0xF000) == 0x1000 and (skill_id & 0xF) == rank:
+                result[skill_id] = skill_def
+        return result

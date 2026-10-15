@@ -8,10 +8,12 @@ from dataclasses import dataclass
 import pyxel as px
 from const import SoundID
 from gameutils.lib import Window, WindowAction
-from helper import diceroll, upper_int
-from entity import EntityContext, Enemy, Party, Character
+
+# from helper import diceroll, upper_int
+from helper import upper_int
+from entity import EntityContext, Enemy, Party  # , Character
 from skill import SkillTargetType
-from item import ItemTargetType, StackPool  # , ItemState  # , WeaponType
+from item import ItemTargetType  # , StackPool  # , ItemState  # , WeaponType
 import service_locater as di
 from . import CommandBaseSequence, CommandPhase
 from .effect_command import efx_diceroll, efx_physical_attack, efx_damage_shake, efx_monster_dead
@@ -330,7 +332,7 @@ class GrantReward(CommandBaseEntity):
         di.ref.sndmgr.play_se_sustain(SoundID.BATTLE_VICTORY)
         yield ["敵との戦闘に　勝利した！！"]
         yield [""]
-        yield [self.WAIT, "1"]  # 勝利SEの長さを文字で返す
+        # yield [self.WAIT, "1"]  # 勝利SEの長さを文字で返す
 
         # お金
         reward_gold = sum([enemy.eparam.gold for enemy in enemy_list])
@@ -437,105 +439,105 @@ class CharacterGainHPMP(CommandBaseEntity):
         return
 
 
-class heal_hp(CommandBaseEntity):
-    """HP回復アイテム"""
+# class heal_hp(CommandBaseEntity):
+#     """HP回復アイテム"""
 
-    def _sequence(self) -> Generator[list[str], None, None]:
-        # 最初に必ず生死チェック
-        if self._check_actor_alive():
-            actor = cast(Character, self._ctx.actor)
-        else:
-            return
+#     def _sequence(self) -> Generator[list[str], None, None]:
+#         # 最初に必ず生死チェック
+#         if self._check_actor_alive():
+#             actor = cast(Character, self._ctx.actor)
+#         else:
+#             return
 
-        # 生存ターゲットチェック
-        living_targets = self._check_living_targets()
-        if not living_targets:
-            return
-        # 現在のターゲットが生存していればそれを使う、そうでなければリストの先頭を使う
-        current = self._ctx.target
-        target = current if current.is_alive else living_targets[0]
+#         # 生存ターゲットチェック
+#         living_targets = self._check_living_targets()
+#         if not living_targets:
+#             return
+#         # 現在のターゲットが生存していればそれを使う、そうでなければリストの先頭を使う
+#         current = self._ctx.target
+#         target = current if current.is_alive else living_targets[0]
 
-        # コマンドパッケージから取得するスキル情報
-        item_def = self.args[0]["item_def"]
+#         # コマンドパッケージから取得するスキル情報
+#         item_def = self.args[0]["item_def"]
 
-        # ファーストメッセージ
-        yield [
-            f"{actor.param.name}は　{target.param.name}に",
-            f"　{item_def.name} を 使用した",
-        ]
+#         # ファーストメッセージ
+#         yield [
+#             f"{actor.param.name}は　{target.param.name}に",
+#             f"　{item_def.name} を 使用した",
+#         ]
 
-        # アイテム消費
-        if self._ctx.situation == "battle":
-            slot = self.args[0]["slot"]
-            actor.equipments.use_consume(slot)
-        else:
-            pl_stack = cast(StackPool, self.args[0]["pl_stack"])
-            # pl_stack.remove(item_def.def_id, ItemState.BAG, 1)
-            pl_stack.remove(item_def.def_id)
+#         # アイテム消費
+#         if self._ctx.situation == "battle":
+#             slot = self.args[0]["slot"]
+#             actor.equipments.use_consume(slot)
+#         else:
+#             pl_stack = cast(StackPool, self.args[0]["pl_stack"])
+#             # pl_stack.remove(item_def.def_id, ItemState.BAG, 1)
+#             pl_stack.remove(item_def.def_id)
 
-        # 回復ロール
-        if item_def.effect_value:
-            healing = target.param.max_hp
-        else:
-            healing = diceroll(actor.param.level)
+#         # 回復ロール
+#         if item_def.effect_value:
+#             healing = target.param.max_hp
+#         else:
+#             healing = diceroll(actor.param.level)
 
-        if self._ctx.situation == "battle":
-            yield [""]
+#         if self._ctx.situation == "battle":
+#             yield [""]
 
-        # run_effectに相当：メッセージ表示後にダメージ適用
-        real_heal = target.increase_hp(healing)
-        # px.play(self.se_ch, SoundID.RECOVER, resume=True)
-        di.ref.sndmgr.play_se_sustain(SoundID.RECOVER)
-        yield [f"{target.param.name}は {upper_int(real_heal)} のＨＰが　回復した"]
+#         # run_effectに相当：メッセージ表示後にダメージ適用
+#         real_heal = target.increase_hp(healing)
+#         # px.play(self.se_ch, SoundID.RECOVER, resume=True)
+#         di.ref.sndmgr.play_se_sustain(SoundID.RECOVER)
+#         yield [f"{target.param.name}は {upper_int(real_heal)} のＨＰが　回復した"]
 
 
-class heal_mp(CommandBaseEntity):
-    """MP回復アイテム"""
+# class heal_mp(CommandBaseEntity):
+#     """MP回復アイテム"""
 
-    def _sequence(self) -> Generator[list[str], None, None]:
-        # 最初に必ず生死チェック
-        if self._check_actor_alive():
-            actor = cast(Character, self._ctx.actor)
-        else:
-            return
+#     def _sequence(self) -> Generator[list[str], None, None]:
+#         # 最初に必ず生死チェック
+#         if self._check_actor_alive():
+#             actor = cast(Character, self._ctx.actor)
+#         else:
+#             return
 
-        # 生存ターゲットチェック
-        living_targets = self._check_living_targets()
-        if not living_targets:
-            return
-        # 現在のターゲットが生存していればそれを使う、そうでなければリストの先頭を使う
-        current = self._ctx.target
-        target = current if current.is_alive else living_targets[0]
+#         # 生存ターゲットチェック
+#         living_targets = self._check_living_targets()
+#         if not living_targets:
+#             return
+#         # 現在のターゲットが生存していればそれを使う、そうでなければリストの先頭を使う
+#         current = self._ctx.target
+#         target = current if current.is_alive else living_targets[0]
 
-        # コマンドパッケージから取得するスキル情報
-        item_def = self.args[0]["item_def"]
+#         # コマンドパッケージから取得するスキル情報
+#         item_def = self.args[0]["item_def"]
 
-        # ファーストメッセージ
-        yield [
-            f"{actor.param.name}は　{target.param.name}に",
-            f"　{item_def.name} を 使用した",
-        ]
+#         # ファーストメッセージ
+#         yield [
+#             f"{actor.param.name}は　{target.param.name}に",
+#             f"　{item_def.name} を 使用した",
+#         ]
 
-        # アイテム消費
-        if self._ctx.situation == "battle":
-            slot = self.args[0]["slot"]
-            actor.equipments.use_consume(slot)
-        else:
-            pl_stack = cast(StackPool, self.args[0]["pl_stack"])
-            # pl_stack.remove(item_def.def_id, ItemState.BAG, 1)
-            pl_stack.remove(item_def.def_id)
+#         # アイテム消費
+#         if self._ctx.situation == "battle":
+#             slot = self.args[0]["slot"]
+#             actor.equipments.use_consume(slot)
+#         else:
+#             pl_stack = cast(StackPool, self.args[0]["pl_stack"])
+#             # pl_stack.remove(item_def.def_id, ItemState.BAG, 1)
+#             pl_stack.remove(item_def.def_id)
 
-        # 回復ロール
-        if item_def.effect_value:
-            healing = target.param.max_hp
-        else:
-            healing = diceroll(actor.param.level)
+#         # 回復ロール
+#         if item_def.effect_value:
+#             healing = target.param.max_hp
+#         else:
+#             healing = diceroll(actor.param.level)
 
-        if self._ctx.situation == "battle":
-            yield [""]
+#         if self._ctx.situation == "battle":
+#             yield [""]
 
-        # run_effectに相当：メッセージ表示後にダメージ適用
-        real_heal = target.increase_mp(healing)
-        # px.play(self.se_ch, SoundID.RECOVER, resume=True)
-        di.ref.sndmgr.play_se_sustain(SoundID.RECOVER)
-        yield [f"{target.param.name}は {upper_int(real_heal)} のＭＰが　回復した"]
+#         # run_effectに相当：メッセージ表示後にダメージ適用
+#         real_heal = target.increase_mp(healing)
+#         # px.play(self.se_ch, SoundID.RECOVER, resume=True)
+#         di.ref.sndmgr.play_se_sustain(SoundID.RECOVER)
+#         yield [f"{target.param.name}は {upper_int(real_heal)} のＭＰが　回復した"]
