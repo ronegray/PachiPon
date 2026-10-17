@@ -444,6 +444,7 @@ class Party:
             "foods": self._pt_foods,
             "golds": self._pt_golds,
             "point": self._current_point.id,
+            "ptefx": list(self._pt_efx_cache),
         }
 
     def load_party(self, params: dict) -> None:
@@ -452,6 +453,7 @@ class Party:
         self._pt_foods = params.get("foods", 0)
         self._pt_golds = params.get("golds", 0)
         start_point = params.get("point", "p01")
+        self._pt_efx_cache = set(params.get("ptefx", ""))
 
         tmp_point = self.map.get_point(start_point)
         if tmp_point is None:

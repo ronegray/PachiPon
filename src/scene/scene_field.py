@@ -160,6 +160,11 @@ class SceneField(BaseScene):
                 self.current_point = di.ref.pt.get_current_point()
                 self.update_eventpoint_info()
                 self.last_visited_node = self.current_point.id
+                # オートセーブ処理
+                from scene.scene_savedata import SceneDataSave
+
+                save = SceneDataSave()
+                save.manupilate_data(0)
             return
 
         # ウインドウ抑止判定

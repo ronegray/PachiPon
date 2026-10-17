@@ -17,7 +17,8 @@ from gameutils.lib import (
     RsltDiscard,
 )
 from const import SoundID
-import service_locater as di
+
+# import service_locater as di
 from helper import upper_int, format_leftright
 from entity import EntityContext
 from skill import SkillDef, SkillTargetType
@@ -132,7 +133,7 @@ class MenuSelectSkillBattle(Menu):
     def change_target_item(self):
         """選択アイテムを示す内部情報の変更"""
 
-        self.target_item = self.skill_list[self.cursor_position[1]]
+        self.target_item = self.skill_list[self.cursor_position[1]][self.cursor_position[0]]
         self.set_description_string()
 
     def remap_itemlist(self):
@@ -191,12 +192,17 @@ class MenuSelectSkillBattle(Menu):
         return result
 
     def get_item_desc(self) -> list[str]:
-        # return [self.target_item[self.cursor_position[0]]["args"][0].description]  # type: ignore
-        target_item = di.ref.itemrps.get_def(self.target_item[0]["args"][0])  # type: ignore
-        if target_item is None:
-            desc = "対象を持っていない"
+        # # return [self.target_item[self.cursor_position[0]]["args"][0].description]  # type: ignore
+        # target_item = di.ref.itemrps.get_def(self.target_item[0]["args"][0])  # type: ignore
+        # if target_item is None:
+        #     desc = ""
+        # else:
+        #     desc = target_item.description
+        # return [desc]
+        if isinstance(self.target_item["args"][0], SkillDef):
+            desc = self.target_item["args"][0].description  # type: ignore
         else:
-            desc = target_item.description
+            desc = self.target_item["args"][0]
         return [desc]
 
     def exec_menu(self) -> ExecResult:

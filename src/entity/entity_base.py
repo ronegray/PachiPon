@@ -11,7 +11,7 @@
 import logging
 from abc import ABC, abstractmethod
 from helper import diceroll
-from skill import Skills, SkillDef
+from skill import Skills, SkillDef, SkillType
 from item import WeaponType
 from . import EntityParam, BaseSprite
 
@@ -206,7 +206,7 @@ class EntityBase(ABC):
         """近接ダメージ相性率率計算 ※エネミー用シグネチャ"""
         return 1.0
 
-    def calc_weak_rate(self, skill_id: int = -1) -> float:
+    def calc_weak_rate(self, skill_type: SkillType = SkillType.NONE) -> float:
         """呪文ダメージ相性率率計算 ※エネミー用シグネチャ"""
         return 1.0
 

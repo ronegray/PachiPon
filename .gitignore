@@ -16,3 +16,4 @@ src/systemconfig.json
 src/assets/data/enemy_master_20*
 *.json.*
 *.csv
+save/

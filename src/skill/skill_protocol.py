@@ -9,8 +9,18 @@ from dataclasses import dataclass
 # fmt: off
 class SkillType(IntEnum):
     """効果の属性"""
-    ACTIVE  = 0x1_0_0_0
-    PASSIVE = 0xA_0_0_0
+    # ACTIVE  = 0x1_0_0_0
+    # PASSIVE = 0xA_0_0_0
+    NONE   = 0b0000_0000
+    SACRED = 0b0000_0001
+    CURSE  = 0b0000_0010
+    FIRE   = 0b0000_0100
+    ICE    = 0b0000_1000
+    BOLT   = 0b0001_0000
+    MIND   = 0b0010_0000
+    SHOCK  = 0b0100_0000
+    LIGHT  = 0b1000_0000
+
 
 class SkillID(IntEnum):
     """効果識別子"""
