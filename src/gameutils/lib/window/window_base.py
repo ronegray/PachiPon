@@ -572,8 +572,8 @@ class Menu:
     def update(self) -> WindowAction:
         """更新"""
         self.individual_update()
-        RC = self.key_check()
-        return RC
+        rc = self.key_check()
+        return rc
 
     def key_check(self) -> WindowAction:
         """キー入力の確認と応答"""

@@ -29,30 +29,47 @@ class SkillRepository:
             raise FileNotFoundError(errmsg)
 
         SkillRepository._master_def = {}
-        for type_name, efx_data in json_data.items():
-            efx_type = SkillType[type_name]
+        # for type_name, efx_data in json_data.items():
+        #     efx_type = SkillType[type_name]
 
-            for efx_name, details in efx_data.items():
-                if hasattr(SkillID, efx_name):
-                    def_id = SkillID[efx_name]
-                    self._master_def[def_id] = SkillDef(
-                        def_id=def_id,
-                        name=details.get("name", "Unknown"),
-                        skill_type=efx_type,
-                        target_type=SkillTargetType[details.get("target_type", "NONE")],
-                        price=details.get("price", 0),
-                        description=details.get("description", ""),
-                        dc=details.get("dc", 0),
-                        cost=details.get("cost", 0),
-                        effect_func=details.get("effect_func"),
-                        effect_value=details.get("effect_value", 0.0),
-                        is_percent=details.get("is_percent", False),
-                    )
-                else:
-                    print(f"Warning: EffectID.{efx_name} is not defined in EffectID enum.")
+        #     for efx_name, details in efx_data.items():
+        for efx_name, details in json_data.items():
+            if hasattr(SkillID, efx_name):
+                def_id = SkillID[efx_name]
+                shiftbit = ((def_id & 0x00F0) >> 4) - 1
+                efx_type = SkillType(0b1 << shiftbit)
+
+                self._master_def[def_id] = SkillDef(
+                    def_id=def_id,
+                    name=details.get("name", "Unknown"),
+                    skill_type=efx_type,
+                    target_type=SkillTargetType[details.get("target_type", "NONE")],
+                    price=details.get("price", 0),
+                    description=details.get("description", ""),
+                    dc=details.get("dc", 0),
+                    cost=details.get("cost", 0),
+                    effect_func=details.get("effect_func"),
+                    effect_value=details.get("effect_value", 0.0),
+                    is_percent=details.get("is_percent", False),
+                )
+            else:
+                print(f"Warning: EffectID.{efx_name} is not defined in EffectID enum.")
         pass
 
     @classmethod
     def get_def(cls, def_id: SkillID) -> SkillDef | None:
         """指定されたIDのスキル定義を取得する"""
         return cls._master_def.get(def_id)
+
+    @classmethod
+    def get_def_by_rank(cls, rank: int) -> dict[SkillID, SkillDef]:
+        """指定されたIDのスキル定義を取得する"""
+        result = {}
+        # rankの範囲は1~3
+        if not (1 <= rank <= 3):
+            return result
+        # マスタ情報から対象ランクのリポジトリデータを返す
+        for skill_id, skill_def in SkillRepository._master_def.items():
+            if (skill_id & 0xF000) == 0x1000 and (skill_id & 0xF) == rank:
+                result[skill_id] = skill_def
+        return result

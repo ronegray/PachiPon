@@ -185,6 +185,7 @@ class DiceRollEffect:
         self._finish()
 
     def _finish(self) -> None:
+        di.ref.sndmgr.stop_se_sustain()
         self.values = self.final_values
         self.positions = [list(fp) for fp in self._final_positions]
         self.rotations = [0.0] * self.count

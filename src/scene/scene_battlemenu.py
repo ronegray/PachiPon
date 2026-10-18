@@ -8,8 +8,8 @@
 import logging
 from gameutils.lib import WindowAction
 import service_locater as di
-from . import BaseScene, SceneBattle
-import command.entity_command as e_cmd
+from . import BaseScene, SceneBattle, SceneFixedBattle
+import command.entity_command as en_cmd
 from menu import MenuBattle
 
 # ロギング設定
@@ -24,7 +24,9 @@ class SceneBattleMenu(BaseScene):
         self.situation = "battle"
         parent_scene = di.ref.scnmgr.get_now_scene()
         self.parent_draw = parent_scene.draw
-        if not isinstance(parent_scene, SceneBattle):
+        if isinstance(parent_scene, SceneBattle) or isinstance(parent_scene, SceneFixedBattle):
+            pass
+        else:
             errmsg = f"想定外のシーンから呼び出されました：{parent_scene.__class__.__name__}"
             logger.critical(errmsg, exc_info=True)
             raise TypeError(errmsg)
@@ -38,7 +40,7 @@ class SceneBattleMenu(BaseScene):
         # キャンセル後の再実行時を考慮して担当キャラの入力済コマンドがあれば削除
         self.battle_commands.pop(self.context.actor.chara_id, None)
 
-        self.command_package = e_cmd.CommandPackage()
+        self.command_package = en_cmd.CommandPackage()
         self.wndmgr.push_stack(MenuBattle, self.context, self.command_package)
 
     def load_bgm(self) -> None:

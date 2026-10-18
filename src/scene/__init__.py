@@ -6,9 +6,12 @@ sceneパッケージ
 """
 
 # 管理系モジュール
-from .scene_protocol import SCENE_NAME
+# from .scene_protocol import SCENE_NAME
+from .scene_protocol import SCENE_NAME, SITUATION
 from .scene_dictionary import register, get_scene, SCENE_NAME
-from .scene_base import BaseScene, SITUATION
+
+# from .scene_base import BaseScene, SITUATION
+from .scene_base import BaseScene
 from .scene_manager import SceneManager
 
 # 個別シーン用モジュール
@@ -21,7 +24,7 @@ from .scene_opening import SceneOpening
 from .scene_field import SceneField
 from .scene_fieldevent import SceneFieldEvent
 from .scene_battlesplash import SceneBattleSplash
-from .scene_battle import SceneBattle
+from .scene_battle import SceneBattle, SceneFixedBattle
 from .scene_battlemenu import SceneBattleMenu
 from .scene_levelup import SceneLevelup
 from .scene_shop import SceneShop
@@ -41,6 +44,7 @@ register("mapevent", SceneFieldEvent)
 register("shop", SceneShop)
 register("battlesplash", SceneBattleSplash)
 register("battle", SceneBattle)
+register("fixedbattle", SceneFixedBattle)
 register("battlemenu", SceneBattleMenu)
 register("levelup", SceneLevelup)
 # register("datasave", SceneSavedata)

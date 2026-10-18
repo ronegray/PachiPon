@@ -11,7 +11,7 @@
 import logging
 from abc import ABC, abstractmethod
 from helper import diceroll
-from skill import Skills, SkillDef
+from skill import Skills, SkillDef, SkillType, DebuffType
 from item import WeaponType
 from . import EntityParam, BaseSprite
 
@@ -36,6 +36,7 @@ class EntityBase(ABC):
         # 状態フラグ・パラメタ
         self.defend_rate: int = 1  # 防御時は2として防御体勢を表現する係数
         self.critical_rate: int = 2  # クリティカルダメージの倍率
+        self.debuff_list: dict[DebuffType, int]  # デバフ, 解除ロール目標値
 
     # パラメータ類
     @property
@@ -155,11 +156,11 @@ class EntityBase(ABC):
         """MP消費可能チェック"""
         return self.param.mp >= cost
 
-    def hitroll_offence(self) -> int:
+    def attackroll_offence(self) -> int:
         """命中ロール：攻撃側"""
         return diceroll(max(1, self.bonus_str)) + self.bonus_lck
 
-    def hitroll_defence(self) -> int:
+    def attackroll_defence(self) -> int:
         """命中ロール：防御側"""
         # return (self.speed + self.bonus_lck) * self.defend_rate
         return (self.bonus_spd + self.bonus_lck + self.param.level // 3) * self.defend_rate
@@ -175,7 +176,9 @@ class EntityBase(ABC):
 
     def damageroll_melee(self) -> tuple[int, int]:
         """近接ダメージ計算"""
-        return (self.hitdice, diceroll(max(1, self.hitdice)) + self.bonus_str)
+        # return (self.hitdice, diceroll(max(1, self.hitdice)) + self.bonus_str)
+        dice = max(1, self.hitdice)
+        return (dice, diceroll(dice) + self.bonus_str)
 
     def suppress_damage_melee(self) -> int:
         """近接ダメージの防御による相殺値"""
@@ -184,6 +187,40 @@ class EntityBase(ABC):
     def castroll(self, dc: int) -> bool:
         """魔法発動ロール"""
         return (diceroll(max(1, self.bonus_arc)) - (dc + self.magpenalty)) > 0
+
+    def registroll(self, debuff_id: DebuffType, dc: int) -> bool:
+        """効果抵抗ロール"""
+        match debuff_id:
+            # 魔力ロール
+            case DebuffType.REDUCE_DICEVALUE | DebuffType.DISTURB_MIND | DebuffType.CHARM_PERSON:
+                dice = diceroll(self.bonus_arc)
+            # 頑健ロール
+            case DebuffType.POISON_DAMAGE | DebuffType.FALL_ASLEEP | DebuffType.INITIATIVE_ZERO:
+                dice = diceroll(self.bonus_end)
+            # 幸運ロール
+            case DebuffType.STONE_HOLD:
+                dice = diceroll(self.bonus_lck)
+
+        return dice >= dc
+
+    def recoverroll(self) -> list[DebuffType]:
+        """デバフからの回復ロール"""
+        result = []
+        for debuff_id, dc in self.debuff_list.items():
+            # イニシアチブは自動回復
+            if debuff_id == DebuffType.INITIATIVE_ZERO:
+                result.append(debuff_id)
+                continue
+            # 毒と石化は自動回復しない
+            elif debuff_id in (DebuffType.POISON_DAMAGE, DebuffType.STONE_HOLD):
+                continue
+            elif self.registroll(debuff_id, dc):
+                result.append(debuff_id)
+        return result
+
+    def clear_debuff(self) -> None:
+        """デバフは戦闘終了で回復"""
+        self.debuff_list.clear()
 
     def damageroll_skill(self, skill_def: SkillDef) -> int:
         """魔法ダメージ計算（呼び出し）"""
@@ -204,7 +241,7 @@ class EntityBase(ABC):
         """近接ダメージ相性率率計算 ※エネミー用シグネチャ"""
         return 1.0
 
-    def calc_weak_rate(self, skill_id: int = -1) -> float:
+    def calc_weak_rate(self, skill_type: SkillType = SkillType.NONE) -> float:
         """呪文ダメージ相性率率計算 ※エネミー用シグネチャ"""
         return 1.0
 

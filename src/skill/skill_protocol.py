@@ -9,8 +9,18 @@ from dataclasses import dataclass
 # fmt: off
 class SkillType(IntEnum):
     """効果の属性"""
-    ACTIVE  = 0x1_0_0_0
-    PASSIVE = 0xA_0_0_0
+    # ACTIVE  = 0x1_0_0_0
+    # PASSIVE = 0xA_0_0_0
+    NONE   = 0b0000_0000
+    SACRED = 0b0000_0001
+    CURSE  = 0b0000_0010
+    FIRE   = 0b0000_0100
+    ICE    = 0b0000_1000
+    BOLT   = 0b0001_0000
+    MIND   = 0b0010_0000
+    SHOCK  = 0b0100_0000
+    LIGHT  = 0b1000_0000
+
 
 class SkillID(IntEnum):
     """効果識別子"""
@@ -58,11 +68,11 @@ class SkillID(IntEnum):
     DICE_BONUS       = 0xA_1_0_5
     GAIN_MAXHP       = 0xA_2_0_1
     GAIN_MAXMP       = 0xA_2_0_2
-    BONUS_STR        = 0xA_2_0_3
-    BONUS_ARC        = 0xA_2_0_4
-    BONUS_END        = 0xA_2_0_5
-    BONUS_SPD        = 0xA_2_0_6
-    BONUS_LCK        = 0xA_2_0_7
+    GAIN_STR         = 0xA_2_0_3
+    GAIN_ARC         = 0xA_2_0_4
+    GAIN_END         = 0xA_2_0_5
+    GAIN_SPD         = 0xA_2_0_6
+    GAIN_LCK         = 0xA_2_0_7
     HEAL_HP          = 0x1_2_0_1 # 消耗品　HP回復(レベルd6)
     HEAL_MP          = 0x1_2_0_2 # 消耗品　MP回復(レベルd6/2※切り上げ)
     TORCHLIGHT       = 0xA_3_0_1 # 消耗品　イベント：ダンジョン時に１消費
@@ -85,6 +95,16 @@ class SkillTargetType(IntEnum):
     ENEMIES = 0b0101 # 敵全体
     ALL     = 0b0111 # 敵味方全体
     SELF    = 0b1000 # 自身のみ
+
+
+class DebuffType(IntEnum):
+    REDUCE_DICEVALUE = 0 # 魔力抵抗
+    POISON_DAMAGE    = 1 # 頑健抵抗
+    STONE_HOLD       = 2 # 幸運抵抗
+    FALL_ASLEEP      = 3 # 頑健抵抗
+    DISTURB_MIND     = 4 # 魔力抵抗
+    CHARM_PERSON     = 5 # 魔力抵抗
+    INITIATIVE_ZERO  = 6 # 頑健抵抗
 # fmt: on
 
 

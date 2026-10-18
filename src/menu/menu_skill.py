@@ -17,11 +17,12 @@ from gameutils.lib import (
     RsltDiscard,
 )
 from const import SoundID
-import service_locater as di
+
+# import service_locater as di
 from helper import upper_int, format_leftright
 from entity import EntityContext
 from skill import SkillDef, SkillTargetType
-import command.entity_command as e_cmd
+import command.entity_command as en_cmd
 
 
 # ロギング設定
@@ -38,7 +39,7 @@ class MenuSelectSkillBattle(Menu):
         self,
         ctx: EntityContext,
         ref_window: dict[str, int],
-        command_package: e_cmd.CommandPackage,
+        command_package: en_cmd.CommandPackage,
     ):
         self.ctx = ctx
         self.command_package = command_package
@@ -132,7 +133,7 @@ class MenuSelectSkillBattle(Menu):
     def change_target_item(self):
         """選択アイテムを示す内部情報の変更"""
 
-        self.target_item = self.skill_list[self.cursor_position[1]]
+        self.target_item = self.skill_list[self.cursor_position[1]][self.cursor_position[0]]
         self.set_description_string()
 
     def remap_itemlist(self):
@@ -191,12 +192,17 @@ class MenuSelectSkillBattle(Menu):
         return result
 
     def get_item_desc(self) -> list[str]:
-        # return [self.target_item[self.cursor_position[0]]["args"][0].description]  # type: ignore
-        target_item = di.ref.itemrps.get_def(self.target_item[0]["args"][0])  # type: ignore
-        if target_item is None:
-            desc = "対象を持っていない"
+        # # return [self.target_item[self.cursor_position[0]]["args"][0].description]  # type: ignore
+        # target_item = di.ref.itemrps.get_def(self.target_item[0]["args"][0])  # type: ignore
+        # if target_item is None:
+        #     desc = ""
+        # else:
+        #     desc = target_item.description
+        # return [desc]
+        if isinstance(self.target_item["args"][0], SkillDef):
+            desc = self.target_item["args"][0].description  # type: ignore
         else:
-            desc = target_item.description
+            desc = self.target_item["args"][0]
         return [desc]
 
     def exec_menu(self) -> ExecResult:
@@ -229,7 +235,7 @@ class MenuSelectSkillBattle(Menu):
                 from menu import MenuSelectBattleTarget
 
                 # コマンドパッケージに選択内容登録
-                self.command_package.selected_action = getattr(e_cmd, skill_def.effect_func)
+                self.command_package.selected_action = getattr(en_cmd, skill_def.effect_func)
                 self.command_package.target_type = skill_def.target_type  # type: ignore
                 self.command_package.selected_args = {"skillinfo": skill_def}
 
@@ -263,7 +269,7 @@ class MenuSelectSkillField(Menu):
         self,
         ctx: EntityContext,
         ref_window: dict[str, int],
-        command_package: e_cmd.CommandPackage,
+        command_package: en_cmd.CommandPackage,
     ):
         self.ctx = ctx
         self.command_package = command_package
@@ -457,7 +463,7 @@ class MenuSelectSkillField(Menu):
         from menu import MenuSelectFieldTarget
 
         # コマンドパッケージに選択内容登録
-        self.command_package.selected_action = getattr(e_cmd, skill_def.effect_func)
+        self.command_package.selected_action = getattr(en_cmd, skill_def.effect_func)
         self.command_package.target_type = skill_def.target_type  # type: ignore
         self.command_package.selected_args = {"skillinfo": skill_def}
 

@@ -5,7 +5,7 @@
 import logging
 import pyxel as px
 import service_locater as di
-import command.entity_command as e_cmd
+import command.entity_command as en_cmd
 from menu import MenuLevelup
 from . import BaseScene, SceneBattle
 
@@ -29,7 +29,7 @@ class SceneLevelup(BaseScene):
             self.bgimage,
         ) = parent_scene.transfer_battledata()
 
-        di.ref.cmdmgr.push_command(e_cmd.GrantReward(self.ctx, self.message_window, di.ref.pt))
+        di.ref.cmdmgr.push_command(en_cmd.GrantReward(self.ctx, self.message_window, di.ref.pt))
         self.target_param: list[str] = []
 
     def check_levelup(self) -> bool:
@@ -39,7 +39,7 @@ class SceneLevelup(BaseScene):
             if member.check_levelup() > 0:
                 member.param.level += 1
                 self.ctx.actor = member
-                di.ref.cmdmgr.push_command(e_cmd.CharacterLevelup(self.ctx, self.message_window))
+                di.ref.cmdmgr.push_command(en_cmd.CharacterLevelup(self.ctx, self.message_window))
                 self.wndmgr.push_stack(MenuLevelup, member, self.target_param)
                 result = True
                 break
@@ -52,7 +52,7 @@ class SceneLevelup(BaseScene):
                 if self.target_param:
                     self.ctx.actor.gain_parameter(self.target_param[0])
                     di.ref.cmdmgr.push_command(
-                        e_cmd.CharacterGainHPMP(self.ctx, self.message_window)
+                        en_cmd.CharacterGainHPMP(self.ctx, self.message_window)
                     )
                     self.target_param.clear()
             else:

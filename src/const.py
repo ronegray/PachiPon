@@ -12,7 +12,7 @@ APP_TITLE = "PachiPon"
 APP_VERSION = "0.0.1"
 
 
-SE_CH = 3  # 効果音用チャンネル番号
+# SE_CH = 3  # 効果音用チャンネル番号
 FOOD_UNITS = 10  # １ゴールドあたりの獲得食糧
 CELL_PRICE_MULTIPLIER = 0.1  # 売却時の価格倍率
 
@@ -28,6 +28,7 @@ FIELD_MESSAGE_HEIGHT = 56
 
 ENCOUNT_THRESHOLD = 12  # エンカウント率の閾値（3d6の期待値）
 ENEMY_ID_BASE = 10  # エネミーのIDは10～の連番
+WEAK_SKILL_RATE = 4.0  # 弱点属性スキルの効果倍率
 
 COMMAND_STEPWAIT_FRAME = APP_FPS  # コマンドマネージャの処理待ち間隔（メッセージ表示等）
 DICEROLL_FRAME = int(APP_FPS * 0.6)  # ダイスロールの表示フレーム数

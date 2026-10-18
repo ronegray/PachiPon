@@ -14,7 +14,7 @@ from item import (
 )
 from skill import SkillID
 import service_locater as di
-
+from const import SoundID
 
 # ロギング設定
 logger = logging.getLogger(__name__)
@@ -89,6 +89,7 @@ class Equips:
         return pooled
 
     def set_adjust_effect(self):
+        """装備変更時の補正エフェクト適用"""
         self._effect_cache.clear()
         targets = [
             pooled_item for pooled_item in self._equipped_items.values() if pooled_item is not None
@@ -122,10 +123,25 @@ class Equips:
         # 補正効果キャッシュを更新
         self.set_adjust_effect()
 
-    def equip_on_consume(self, slot: EquipSlot, def_id: ItemID):
+    def equip_on_consume(self, slot: EquipSlot, def_id: ItemID) -> bool:
         """スタックプールのアイテム（消耗品）を装備"""
+        if def_id in (
+            ItemID.TORCH,
+            ItemID.KEY,
+            ItemID.HORSESHOE,
+            ItemID.CLOVER,
+            ItemID.RATIONS,
+            ItemID.HIRATIONS,
+            ItemID.NSKILLBOOK,
+            ItemID.RSKILLBOOK,
+            ItemID.LSKILLBOOK,
+        ):
+            # 装備不可アイテム
+            di.ref.sndmgr.play_se_instant(SoundID.ERROR)
+            return False
         pooled_item = self._convert_instance(def_id)
         self.equip_on_pool(slot, pooled_item)
+        return True
 
     def equip_off(self, slot: EquipSlot):
         """アイテムの装備解除（消耗品の場合はスタック変換）"""

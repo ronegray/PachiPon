@@ -17,22 +17,22 @@ class CommandPhase(IntEnum):
     """Commandの大まかな実行状態。ConcreteCommand固有の詳細状態は個別実装する事"""
 
     SYN = auto()
-    SYNACK = auto()
+    # SYNACK = auto()
     ACK = auto()
-    FINACK = auto()
+    # FINACK = auto()
     FIN = auto()
 
 
-class CommandType(IntEnum):
-    """コマンドの種類"""
+# class CommandType(IntEnum):
+#     """コマンドの種類"""
 
-    SYSTEM = auto()
-    ATTACK = auto()
-    SPELL = auto()
-    ITEM = auto()
-    ESCAPE = auto()
-    ENEMY_ATTACK = auto()
-    ENEMY_SKILL = auto()
+#     SYSTEM = auto()
+#     ATTACK = auto()
+#     SPELL = auto()
+#     ITEM = auto()
+#     ESCAPE = auto()
+#     ENEMY_ATTACK = auto()
+#     ENEMY_SKILL = auto()
 
 
 @dataclass(slots=True)

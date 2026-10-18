@@ -18,33 +18,51 @@ class EventRepository:
 
     def __init__(self) -> None:
         """JSONファイルを読み込んでイベント定義を初期化する"""
+        # イベント定義
         path_check = AssetMap.get_assetpath(AssetID.DATA_EVENT)
         json_path = check_file(path_check)
         if json_path:
-            json_data = read_json(json_path)
+            event_data = read_json(json_path)
         else:
             errmsg = "イベント定義データファイルが見つかりません"
             logger.critical(errmsg, exc_info=True)
             raise FileNotFoundError(errmsg)
+        # イベントメッセージ
+        path_check = AssetMap.get_assetpath(AssetID.DATA_EVENT_MESSAGE)
+        json_path = check_file(path_check)
+        if json_path:
+            event_message = read_json(json_path)
+        else:
+            errmsg = "イベントメッセージ定義データファイルが見つかりません"
+            logger.critical(errmsg, exc_info=True)
+            raise FileNotFoundError(errmsg)
 
+        # イベントリポジトリ構築
         EventRepository._master_def = {}
-
-        for item in json_data:
-            type_str = item.get("event_type")
-            id_str = item.get("event_id")
+        for event in event_data:
+            type_str = event.get("event_type")
+            id_str = event.get("event_id")
 
             if hasattr(EventType, type_str) and hasattr(EventID, id_str):
                 event_type = EventType[type_str]
                 event_id = EventID[id_str]
 
-                event = Event(
+                # データ不備時の救済措置
+                event_text = event_message.get(id_str, {}).get(type_str)
+                if event_text is None:
+                    logger.warning(
+                        f"キー[{event_type,event_id}]に該当するメッセージデータがありません"
+                    )
+                    event_text = {}
+                event_obj = Event(
                     event_type=event_type,
                     event_id=event_id,
-                    event_name=item.get("event_name", "Unknown"),
-                    event_value=item.get("event_value", 0),
+                    event_value=event.get("event_value", 0),
+                    event_name=event_text.get("event_name", "Unknown"),
+                    event_messages=event_text.get("messages", ["Undefined"]),
                 )
 
-                EventRepository._master_def[(event_type, event_id)] = event
+                EventRepository._master_def[(event_type, event_id)] = event_obj
             else:
                 if not hasattr(EventType, type_str):
                     logger.warning(f"Warning: EventType.{type_str} is not defined.")

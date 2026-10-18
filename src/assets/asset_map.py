@@ -32,6 +32,7 @@ class AssetID(IntEnum):
     DATA_ENEMY = auto()
     DATA_EXPTABLE = auto()
     DATA_EVENT = auto()
+    DATA_EVENT_MESSAGE = auto()
     DATA_EVENTPOINT = auto()
     IMAGE_DICE = auto()
     DATA_PARAM = auto()
@@ -79,6 +80,7 @@ class AssetMap:
         cls._asset_map[AssetID.DATA_MAP] = f"{cls._asset_path}/data/map_data.json"
         cls._asset_map[AssetID.DATA_EXPTABLE] = f"{cls._asset_path}/data/exp_table.json"
         cls._asset_map[AssetID.DATA_EVENT] = f"{cls._asset_path}/data/event_master.json"
+        cls._asset_map[AssetID.DATA_EVENT_MESSAGE] = f"{cls._asset_path}/data/event_message.json"
         cls._asset_map[AssetID.DATA_EVENTPOINT] = f"{cls._asset_path}/data/eventpoints.json"
         cls._asset_map[AssetID.IMAGE_DICE] = f"{cls._asset_path}/image/dice.bmp"
         cls._asset_map[AssetID.DATA_PARAM] = f"{cls._asset_path}/data/desc_param.json"

@@ -16,6 +16,7 @@ logger = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
     from config import ApplicationConfig
+    from flag import FlagManager
     from command import CommandManager
     from scene import SceneManager
     from event import EventRepository
@@ -38,6 +39,7 @@ class ServiceKey(Enum):
     EFFECT_REPOSITORY = auto()
 
     COMMAND_MANAGER = auto()
+    FLAG_MANAGER = auto()
     SCENE_MANAGER = auto()
     SOUND_MANAGER = auto()
 
@@ -76,6 +78,10 @@ class _Ref:
     @property
     def cmdmgr(self) -> CommandManager:
         return _service_container[ServiceKey.COMMAND_MANAGER]
+
+    @property
+    def flgmgr(self) -> FlagManager:
+        return _service_container[ServiceKey.FLAG_MANAGER]
 
     @property
     def scnmgr(self) -> SceneManager:

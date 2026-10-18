@@ -5,6 +5,8 @@
 """
 from typing import Literal
 
+SITUATION = Literal["field", "battle", "system"]
+
 # sceneクラス辞書
 SCENE_NAME = Literal[
     "splash",
@@ -21,6 +23,7 @@ SCENE_NAME = Literal[
     "mapevent",
     "battlesplash",
     "battle",
+    "fixedbattle",
     "battlemenu",
     "levelup",
     "shop",

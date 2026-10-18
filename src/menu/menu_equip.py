@@ -281,9 +281,25 @@ class MenuEquip(Menu):
         if self.inventory_count <= 0:
             return RsltContinue()
         elif self.slot_filter == ItemType.CONSUME:
-            # px.play(self.se_ch, SoundID.CHANGE_EQUIP, resume=True)
-            self.se.play(SoundID.CHANGE_EQUIP)
-            self.member.equipments.equip_on_consume(self.slot, selected_item.action_args[0])
+            # # px.play(self.se_ch, SoundID.CHANGE_EQUIP, resume=True)
+            # self.se.play(SoundID.CHANGE_EQUIP)
+            result = self.member.equipments.equip_on_consume(
+                self.slot, selected_item.action_args[0]
+            )
+            if result is False:
+                # フィールドメッセージウインドウの情報を元に同サイズのウインドウを生成
+                scn = di.ref.scnmgr.get_now_scene()
+                wnd = scn.message_window  # type: ignore
+                message_pos = (wnd.x, wnd.y)
+                message_size = (wnd.width, wnd.height)
+                self.windows["sub2"] = Window("basic", *message_pos, *message_size, "once", 0)
+
+                self.windows["sub2"].set_message(["装備できないアイテムです"])
+                self.windows["sub2"].update_indicator(True)
+                return RsltContinue()
+            else:
+                self.se.play(SoundID.CHANGE_EQUIP)
+
         else:
             iid = selected_item.action_args[1]
             plent = di.ref.pl_item.get(iid)
@@ -420,6 +436,15 @@ class MenuEquip(Menu):
             # 最後の残りを結合
             message_list.append(desc_string[start_row:i])  # type:ignore
         self.windows["sub"].set_message(message_list)
+
+    def update(self) -> WindowAction:
+        """装備不能メッセージ対策"""
+        if self.windows.get("sub2"):
+            if self.windows["sub2"].update() == WindowAction.DISCARD:
+                self.windows.pop("sub2")
+            return WindowAction.CONTINUE
+        rc = super().update()
+        return rc
 
     def individual_update(self):
         """クラス固有の更新処理"""

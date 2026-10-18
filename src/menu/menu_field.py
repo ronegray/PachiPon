@@ -14,7 +14,7 @@ from gameutils.lib import (
 import service_locater as di
 from entity import EntityContext
 from item import ItemPool, StackPool
-import command.entity_command as e_cmd
+import command.entity_command as en_cmd
 
 
 # ロギング設定
@@ -25,7 +25,7 @@ class MenuField(Menu):
     def __init__(
         self,
         ctx: EntityContext,
-        command_package: e_cmd.CommandPackage,
+        command_package: en_cmd.CommandPackage,
         pool_item: ItemPool,
         pool_stack: StackPool,
     ):

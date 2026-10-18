@@ -75,6 +75,7 @@ class Party:
         self._pt_foods = INITIAL_FOODS
         self._pt_golds = INITIAL_GOLD
         # self._pt_eventflg = {}
+        self._pt_efx_cache: set = set()  # ItemID
 
         # 移動用ジェネレータ変数にダミーを定義
         self.move_generator = None
@@ -274,12 +275,60 @@ class Party:
             return True
         return False
 
-    def set_moving_status(self, status: bool):
+    def update_moving_status(self, status: bool):
+        """移動中状態ステータスの更新"""
         self._pt_is_moving = status
 
     def get_pt_world_address(self) -> tuple[float, float]:
         """パーティのワールド座標を取得"""
         return self._world_x, self._world_y
+
+    def get_pt_efx(self, effect_type: str) -> bool:
+        """パーティ単位の効果キャッシュに指定値があるかを取得"""
+        return effect_type in self._pt_efx_cache
+
+    def get_pt_efx_list(self) -> list:
+        """パーティ単位の効果キャッシュの一覧を取得"""
+        return list(self._pt_efx_cache)
+
+    def set_pt_efx(self, effect_type: str) -> set:
+        """パーティ単位の効果キャッシュの設定"""
+        self._pt_efx_cache.add(effect_type)
+        return self._pt_efx_cache
+
+    def remove_pt_efx(self, effect_type: str) -> set:
+        """パーティ単位の効果キャッシュの削除"""
+        self._pt_efx_cache.remove(effect_type)
+        return self._pt_efx_cache
+
+    def pt_dice_plus(self) -> int:
+        """パーティー単位のダイス追加効果"""
+        dices = 0
+        if self.get_pt_efx("dice_plus1"):
+            di.ref.pt.remove_pt_efx("dice_plus1")
+            dices = 1
+        if self.get_pt_efx("dice_plus2"):
+            di.ref.pt.remove_pt_efx("dice_plus2")
+            dices = 2
+        return dices
+
+    def pt_reduce_negative(self, negative_list: list) -> list:
+        """パーティー単位の抑止対象マイナス効果"""
+        reduce_negative = []
+        targets = 0
+        if self.get_pt_efx("reduce_negative1"):
+            di.ref.pt.remove_pt_efx("reduce_negative1")
+            targets = 1
+        if self.get_pt_efx("reduce_negative2"):
+            di.ref.pt.remove_pt_efx("reduce_negative2")
+            targets = min(2, len(negative_list))
+        idx = [i for i in range(len(negative_list))]
+        while targets > 0:
+            target = px.rndi(0, len(idx) - 1)
+            idx.pop(target)
+            reduce_negative.append(negative_list.pop(target))
+            targets -= 1
+        return reduce_negative
 
     def earn_gold(self, gold: int) -> int:
         """獲得ゴールドをPTに加算し総額を取得"""
@@ -292,8 +341,15 @@ class Party:
         return self._pt_golds
 
     def earn_foods(self, foods: int) -> int:
-        """獲得食糧をPTに加算し総額を取得"""
+        """獲得食糧をPTに加算し総量を取得"""
         self._pt_foods += foods
+        return self._pt_foods
+
+    def lost_foods(self, foods: int) -> int:
+        """消費食糧をPTに減算し総量を取得"""
+        self._pt_foods -= foods
+        if self._pt_foods < 0:
+            self._pt_foods = 0
         return self._pt_foods
 
     def have_food(self):
@@ -322,7 +378,16 @@ class Party:
                 next(self.move_generator)  # type:ignore
                 # 戦闘開始
                 if self._pt_is_encount and self.cmdmgr.is_empty:
-                    self.scnmgr.next_scene("battlesplash")
+                    # self.scnmgr.next_scene("battlesplash")
+                    if self.get_pt_efx("escape_battle"):
+                        cmd = s_cmd.CommonFieldMessage(
+                            self.pt_msg_window,
+                            ["煙幕で姿を隠しておいたお陰で", "敵をやり過ごせたようだ・・・"],
+                        )
+                        di.ref.cmdmgr.push_command(cmd)
+                        self.remove_pt_efx("escape_battle")
+                    else:
+                        self.scnmgr.next_scene("battlesplash")
                     self._pt_is_encount = False
             except StopIteration:
                 pass
@@ -338,23 +403,79 @@ class Party:
             route_list = self._current_point.get_reachable_routes()
             for route in route_list:
                 match route.direction:
+                    # case "up":
+                    #     info_x, info_y = 108, 84
+                    # case "left":
+                    #     info_x, info_y = 60, 120
+                    # case "right":
+                    #     info_x, info_y = 156, 120
+                    # case "down":
+                    #     info_x, info_y = 108, 152
                     case "up":
-                        info_x, info_y = 108, 84
+                        info_x, info_y = 112, 63
                     case "left":
-                        info_x, info_y = 60, 120
+                        info_x, info_y = 56, 115
                     case "right":
-                        info_x, info_y = 156, 120
+                        info_x, info_y = 168, 115
                     case "down":
-                        info_x, info_y = 108, 152
-                px.dither(0.5)
-                px.rect(info_x, info_y, 40, 16, px.COLOR_GRAY)
-                px.dither(1)
-                px.rectb(info_x, info_y, 40, 16, px.COLOR_RED)
-                px.text(
-                    info_x + 2,
-                    info_y + 2,
-                    f"cost:{route.cost}\nthreat:{route.threat}",
-                    px.COLOR_BLACK,
+                        info_x, info_y = 112, 168
+                # px.dither(0.5)
+                # px.rect(info_x, info_y, 40, 16, px.COLOR_GRAY)
+                # px.dither(1)
+                # px.rectb(info_x, info_y, 40, 16, px.COLOR_RED)
+                px.blt(info_x, info_y, 0, 0, 24, 32, 25)  # , colkey=px.COLOR_BLACK)
+                # px.text(
+                #     info_x + 2,
+                #     info_y + 2,
+                #     f"cost:{route.cost}\nthreat:{route.threat}",
+                #     px.COLOR_BLACK,
+                # )
+                upper = route.cost // 10
+                lower = route.cost % 10
+                pad = Window._chip_size
+                px.blt(
+                    info_x + pad + 3 + 1,
+                    info_y + 3 + 1,
+                    0,
+                    upper * pad,
+                    0,
+                    pad,
+                    pad,
+                    colkey=px.COLOR_BLACK,
+                )
+                px.blt(
+                    info_x + pad * 2 + 3 + 1,
+                    info_y + 3 + 1,
+                    0,
+                    lower * pad,
+                    0,
+                    pad,
+                    pad,
+                    colkey=px.COLOR_BLACK,
+                )
+
+                upper = route.threat // 10
+                lower = route.threat % 10
+                pad = Window._chip_size
+                px.blt(
+                    info_x + pad + 3 + 1,
+                    info_y + 3 + 1 + pad + 1,
+                    0,
+                    upper * pad,
+                    0,
+                    pad,
+                    pad,
+                    colkey=px.COLOR_BLACK,
+                )
+                px.blt(
+                    info_x + pad * 2 + 3 + 1,
+                    info_y + 3 + 1 + pad + 1,
+                    0,
+                    lower * pad,
+                    0,
+                    pad,
+                    pad,
+                    colkey=px.COLOR_BLACK,
                 )
 
     def draw_ptinfo(self):
@@ -379,6 +500,7 @@ class Party:
             "foods": self._pt_foods,
             "golds": self._pt_golds,
             "point": self._current_point.id,
+            "ptefx": list(self._pt_efx_cache),
         }
 
     def load_party(self, params: dict) -> None:
@@ -387,6 +509,7 @@ class Party:
         self._pt_foods = params.get("foods", 0)
         self._pt_golds = params.get("golds", 0)
         start_point = params.get("point", "p01")
+        self._pt_efx_cache = set(params.get("ptefx", ""))
 
         tmp_point = self.map.get_point(start_point)
         if tmp_point is None:

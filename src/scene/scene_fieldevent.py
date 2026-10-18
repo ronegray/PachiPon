@@ -40,8 +40,10 @@ class SceneFieldEvent(BaseScene):
         cmd = evtcmd(
             self.message_window,
             ctx,
-            parent_scene.current_point.nextevent.event_type,  # type: ignore
-            parent_scene.current_point.nextevent.event_value,  # type: ignore
+            # parent_scene.current_point.nextevent.event_type,  # type: ignore
+            # parent_scene.current_point.nextevent.event_value,  # type: ignore
+            parent_scene.current_point.nextevent,
+            di.ref.pt,
         )
         di.ref.cmdmgr.push_command(cmd)
         parent_scene.current_point.flush_event()

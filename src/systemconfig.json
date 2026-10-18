@@ -1,9 +1,9 @@
 {
     "vol_bgm": 3,
-    "vol_se": 3,
+    "vol_se": 4,
     "display_size": 5,
     "is_fullscreen": false,
-    "text_speed": 1,
+    "text_speed": 2,
     "is_memory_cursor": false,
     "is_cutin_dice": true
 }

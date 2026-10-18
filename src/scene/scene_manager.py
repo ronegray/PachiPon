@@ -18,9 +18,9 @@ class SceneManager:
         """初期化"""
         SceneManager._stacks = []
 
-    def next_scene(self, scene_name: SCENE_NAME):
+    def next_scene(self, scene_name: SCENE_NAME, *args):
         """次のシーンへ進む"""
-        instance = get_scene(scene_name)()
+        instance = get_scene(scene_name)(*args)
         self._stacks.append(instance)
 
     def previous_scene(self, is_load_bgm: bool = True, step: int = 1):
@@ -30,6 +30,7 @@ class SceneManager:
         if is_load_bgm:
             self._stacks[-1].load_bgm()
 
+    # def get_now_scene(self) -> BaseScene:
     def get_now_scene(self) -> BaseScene:
         """現在のシーンを返す"""
         return self._stacks[-1]

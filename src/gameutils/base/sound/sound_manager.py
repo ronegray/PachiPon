@@ -323,8 +323,8 @@ class SoundManager:
     # def stop_se_instant(self):
     #     px.stop(SE_INSTANT_CH)
 
-    # def stop_se_sustain(self):
-    #     px.stop(SE_SUSTAIN_CH)
+    def stop_se_sustain(self):
+        px.stop(SE_SUSTAIN_CH)
 
     def stop_all(self):
         px.stop()

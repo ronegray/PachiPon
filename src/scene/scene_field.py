@@ -13,12 +13,15 @@ from const import FIELD_MESSAGE_HEIGHT, APP_WIDTH, APP_HEIGHT
 from gameutils.base import is_pressed
 from gameutils.lib import Window, WindowAction
 from event import EventID, EventType
-from field_map import EventPoint
+from field_map import EventPoint, PointPlaceType
 from entity import EntityContext
 from command import CommandBase
-import command.entity_command as e_cmd
-from helper import format_leftright
+import command.entity_command as en_cmd
 import command.system_command as s_cmd
+from helper import format_leftright
+
+# import command.system_command as s_cmd
+import command.event_command as ev_cmd
 from menu import MenuField
 from . import BaseScene
 
@@ -68,7 +71,9 @@ class SceneField(BaseScene):
     def update_eventpoint_info(self):
         """イベントポイントウインドウの内容更新"""
         self.eventpoint_info_window.clear_message()
-        self.eventpoint_info_window.add_message(self.current_point.name)
+        self.eventpoint_info_window.add_message(
+            (self.current_point.name + PointPlaceType(self.current_point.point_type).name)
+        )
         if self.current_point.is_ready:
             self.eventpoint_state_window.set_message(
                 ["イベント実行準備が完了しています（決定ボタンで実行）"]
@@ -155,6 +160,11 @@ class SceneField(BaseScene):
                 self.current_point = di.ref.pt.get_current_point()
                 self.update_eventpoint_info()
                 self.last_visited_node = self.current_point.id
+                # オートセーブ処理
+                from scene.scene_savedata import SceneDataSave
+
+                save = SceneDataSave()
+                save.manupilate_data(0)
             return
 
         # ウインドウ抑止判定
@@ -166,7 +176,7 @@ class SceneField(BaseScene):
                 self.wndmgr.pop_stack()
             else:
                 self.ctx = self.build_context()
-                self.command_package = e_cmd.CommandPackage()
+                self.command_package = en_cmd.CommandPackage()
                 self.wndmgr.push_stack(
                     MenuField,
                     self.ctx,
@@ -199,7 +209,28 @@ class SceneField(BaseScene):
                 return
 
         if is_pressed("decide") and self.current_point.is_ready:
-            cmd = s_cmd.KickEvent(self.message_window, self.current_point)
+            # ダンジョンではたいまつが必要
+            if self.current_point.point_type == PointPlaceType.DUNGEON:
+                if di.ref.pt.get_pt_efx("torchlight"):
+                    di.ref.pt.remove_pt_efx("torchlight")
+                else:
+                    cmd = s_cmd.CommonFieldMessage(
+                        self.message_window,
+                        ["ダンジョンの探索に向かうのならば", "松明を照らしておかなければ・・・"],
+                    )
+                    di.ref.cmdmgr.push_command(cmd)
+                    return
+            # テンプルと廃墟では鍵が必要
+            elif self.current_point.point_type in (PointPlaceType.RUINS, PointPlaceType.TEMPLE):
+                if di.ref.pt.get_pt_efx("unlock_key"):
+                    di.ref.pt.remove_pt_efx("unlock_key")
+                else:
+                    cmd = s_cmd.CommonFieldMessage(
+                        self.message_window, ["どうやら、鍵がかかっているようだ"]
+                    )
+                    di.ref.cmdmgr.push_command(cmd)
+                    return
+            cmd = ev_cmd.KickEvent(self.message_window, self.current_point)
             di.ref.cmdmgr.push_command(cmd)
             di.ref.cmdmgr.set_on_empty(self.update_eventpoint_info)
             return
@@ -228,6 +259,8 @@ class SceneField(BaseScene):
 
         # マップ描画（地図・ノード・ルート　オフセット適用)
         di.ref.map.draw(ox, oy)
+        px.line(0, 0, 255, 255, px.COLOR_BLACK)
+        px.line(0, 255, 255, 0, px.COLOR_BLACK)
 
         # イベントポイント情報表示（移動中は非表示）
         if not di.ref.pt._pt_is_moving:
@@ -259,6 +292,11 @@ class SceneField(BaseScene):
     def transfer_eventdata(self) -> tuple[EntityContext, CommandBase]:
         """サブシーンへのイベント関連データ受け渡し用"""
         ctx = self.build_context()
+
+        # # デバッグ用
+        # self.current_point.event_type = EventType.SAFETY
+        # self.current_point.rise_event(EventID.INCREASE_HP)
+
         self.current_point.nextevent.event_type.name  # type: ignore
         event_func_name = (
             EventType(self.current_point.nextevent.event_type).name  # type: ignore
@@ -266,8 +304,9 @@ class SceneField(BaseScene):
             + EventID(self.current_point.nextevent.event_id).name  # type: ignore
         )
 
-        # デバッグ用
-        event_func_name = "NORMAL_DECREASE_HP"
+        # # デバッグ用
+        # event_func_name = "NORMAL_DECREASE_HP"
+        # event_func_name = "SAFETY_INCREASE_HP"
 
-        evtcmd = getattr(s_cmd, event_func_name)
+        evtcmd = getattr(ev_cmd, event_func_name)
         return (ctx, evtcmd)
