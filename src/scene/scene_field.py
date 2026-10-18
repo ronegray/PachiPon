@@ -259,6 +259,8 @@ class SceneField(BaseScene):
 
         # マップ描画（地図・ノード・ルート　オフセット適用)
         di.ref.map.draw(ox, oy)
+        px.line(0, 0, 255, 255, px.COLOR_BLACK)
+        px.line(0, 255, 255, 0, px.COLOR_BLACK)
 
         # イベントポイント情報表示（移動中は非表示）
         if not di.ref.pt._pt_is_moving:

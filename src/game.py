@@ -63,7 +63,7 @@ class GameApp:
 
         from assets.asset_map import AssetMap, AssetID
 
-        px.load(AssetMap.get_assetpath(AssetID.PYXRES))
+        px.load(AssetMap.get_assetpath(AssetID.PYXRES), exclude_tilemaps=True, exclude_musics=True)
 
     def update(self):
         """pyxel updateフレーム処理"""

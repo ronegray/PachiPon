@@ -50,6 +50,19 @@ class SceneBattle(BaseScene):
         self.bgimage: px.Image = px.Image(px.width, px.height)
         bgpointer = self.bgimage.data_ptr()
         bgpointer[:] = px.screen.data_ptr()
+        # HP/MPバー
+        self.baraddress = (0, 16)
+        self.barsize = (70, 8)
+        self.baroffset = (5, (17, 25))
+        self.gaugeoffset = (
+            self.baroffset[0] + 3,
+            (self.baroffset[1][0] + 1, self.baroffset[1][1] + 1),
+        )
+        self.gaugesize = (64, 5)
+        self.gaugecolor = {"hp": px.COLOR_LIME, "mp": px.COLOR_DARK_BLUE}
+        # デバフアイコン
+        self.debufficonaddress = (0, 8)
+        self.debufficonoffset = (6, 35)
         # 戦闘メッセージ用ウインドウの生成
         message_pos = (0, 184)
         message_size = (px.width, 72)
@@ -269,36 +282,105 @@ class SceneBattle(BaseScene):
         px.dither(0.3)
         px.blt(0, 0, self.bgimage, 0, 0, self.bgimage.width, self.bgimage.height)
         px.dither(1)
+        # ステータスウインドウ
         self.wndmgr.draw()
+        # ステータスウインドウ内容
         for i, wnd in enumerate(self.status_windows):
             wnd.draw()
-            barwidth = wnd.width - (Window._chip_size * 2)
+            self.barwidth = wnd.width - (Window._chip_size * 2)
             member = di.ref.pt.get_member(i)
             wnd.set_message([f"{member.param.name}"])
             state = [[text, px.COLOR_WHITE] for text in wnd.message_list]
             wnd.drawText(wnd.x + 6, wnd.y + 4, state)
-            gauge_hp = member.param.hp / member.max_hp * barwidth
-            px.rect(wnd.x + 8, wnd.y + 17, barwidth, 7, px.COLOR_RED)
-            px.rect(wnd.x + 8, wnd.y + 17, gauge_hp, 7, px.COLOR_LIME)
-            px.text(wnd.x + 10, wnd.y + 18, f"HP:{member.param.hp}", px.COLOR_BLACK)
-            px.rectb(wnd.x + 8, wnd.y + 17, barwidth, 7, px.COLOR_WHITE)
-            px.rectb(wnd.x + 7, wnd.y + 18, 1, 5, px.COLOR_WHITE)
-            px.rectb(wnd.x + 6, wnd.y + 19, 1, 3, px.COLOR_WHITE)
-            px.rectb(wnd.x + 7 + barwidth + 1, wnd.y + 18, 1, 5, px.COLOR_WHITE)
-            px.rectb(wnd.x + 7 + barwidth + 2, wnd.y + 19, 1, 3, px.COLOR_WHITE)
+            gauge_hp = member.param.hp / member.max_hp * self.gaugesize[0]
+            # px.rect(wnd.x + 8, wnd.y + 17, self.barwidth, 7, px.COLOR_RED)
+            px.blt(
+                wnd.x + self.baroffset[0],
+                wnd.y + self.baroffset[1][0],
+                0,
+                *self.baraddress,
+                *self.barsize,
+                colkey=px.COLOR_BLACK,
+            )
+            # px.rect(wnd.x + 8, wnd.y + 17, gauge_hp, 7, px.COLOR_LIME)
+            px.rect(
+                wnd.x + self.gaugeoffset[0],
+                wnd.y + self.gaugeoffset[1][0],
+                gauge_hp,
+                self.gaugesize[1],
+                self.gaugecolor["hp"],
+            )
+            # px.text(wnd.x + 10, wnd.y + 18, f"HP:{member.param.hp}", px.COLOR_BLACK)
+            px.text(
+                wnd.x + self.gaugeoffset[0] + 1,
+                wnd.y + self.gaugeoffset[1][0],
+                f"HP:{member.param.hp}",
+                px.COLOR_BLACK,
+            )
+            # px.rectb(wnd.x + 8, wnd.y + 17, self.barwidth, 7, px.COLOR_WHITE)
+            # px.rectb(wnd.x + 7, wnd.y + 18, 1, 5, px.COLOR_WHITE)
+            # px.rectb(wnd.x + 6, wnd.y + 19, 1, 3, px.COLOR_WHITE)
+            # px.rectb(wnd.x + 7 + self.barwidth + 1, wnd.y + 18, 1, 5, px.COLOR_WHITE)
+            # px.rectb(wnd.x + 7 + self.barwidth + 2, wnd.y + 19, 1, 3, px.COLOR_WHITE)
 
-            gauge_mp = member.param.mp / member.max_mp * barwidth
-            px.rect(wnd.x + 8, wnd.y + 25, barwidth, 7, px.COLOR_RED)
-            px.rect(wnd.x + 8, wnd.y + 25, gauge_mp, 7, px.COLOR_DARK_BLUE)
-            px.text(wnd.x + 10, wnd.y + 26, f"MP:{member.param.mp}", px.COLOR_BLACK)
-            px.rectb(wnd.x + 8, wnd.y + 25, barwidth, 7, px.COLOR_WHITE)
-            px.rectb(wnd.x + 7, wnd.y + 26, 1, 5, px.COLOR_WHITE)
-            px.rectb(wnd.x + 6, wnd.y + 27, 1, 3, px.COLOR_WHITE)
-            px.rectb(wnd.x + 7 + barwidth + 1, wnd.y + 26, 1, 5, px.COLOR_WHITE)
-            px.rectb(wnd.x + 7 + barwidth + 2, wnd.y + 27, 1, 3, px.COLOR_WHITE)
+            gauge_mp = member.param.mp / member.max_mp * self.gaugesize[0]
+            # px.rect(wnd.x + 8, wnd.y + 25, self.barsize, 7, px.COLOR_RED)
+            px.blt(
+                wnd.x + self.baroffset[0],
+                wnd.y + self.baroffset[1][1],
+                0,
+                *self.baraddress,
+                *self.barsize,
+                colkey=px.COLOR_BLACK,
+            )
+            # px.rect(wnd.x + 8, wnd.y + 25, gauge_mp, 7, px.COLOR_DARK_BLUE)
+            px.rect(
+                wnd.x + self.gaugeoffset[0],
+                wnd.y + self.gaugeoffset[1][1],
+                gauge_mp,
+                self.gaugesize[1],
+                self.gaugecolor["mp"],
+            )
+            # px.text(wnd.x + 10, wnd.y + 26, f"MP:{member.param.mp}", px.COLOR_BLACK)
+            px.text(
+                wnd.x + self.gaugeoffset[0] + 1,
+                wnd.y + self.gaugeoffset[1][1],
+                f"MP:{member.param.mp}",
+                px.COLOR_BLACK,
+            )
+            # px.rectb(wnd.x + 8, wnd.y + 25, self.barsize, 7, px.COLOR_WHITE)
+            # px.rectb(wnd.x + 7, wnd.y + 26, 1, 5, px.COLOR_WHITE)
+            # px.rectb(wnd.x + 6, wnd.y + 27, 1, 3, px.COLOR_WHITE)
+            # px.rectb(wnd.x + 7 + self.barsize + 1, wnd.y + 26, 1, 5, px.COLOR_WHITE)
+            # px.rectb(wnd.x + 7 + self.barsize + 2, wnd.y + 27, 1, 3, px.COLOR_WHITE)
 
-            px.rect(wnd.x + 6, wnd.y + 35, 8, 8, px.COLOR_GREEN)
+            # デバフアイコンテスト用
+            from skill import DebuffType
 
+            member.debuff_list = {
+                DebuffType.REDUCE_DICEVALUE: 99,
+                DebuffType.CHARM_PERSON: 99,
+                DebuffType.DISTURB_MIND: 99,
+                DebuffType.FALL_ASLEEP: 99,
+                DebuffType.INITIATIVE_ZERO: 99,
+                DebuffType.POISON_DAMAGE: 99,
+                DebuffType.STONE_HOLD: 99,
+            }
+            # px.rect(wnd.x + 6, wnd.y + 35, 8, 8, px.COLOR_GREEN)
+            icon_x, icon_y = self.debufficonoffset
+            for dbf_id in member.debuff_list:
+                px.blt(
+                    wnd.x + icon_x + Window._chip_size * dbf_id,
+                    wnd.y + icon_y,
+                    0,
+                    self.debufficonaddress[0] + Window._chip_size * dbf_id,
+                    self.debufficonaddress[1],
+                    Window._chip_size,
+                    Window._chip_size,
+                    colkey=px.COLOR_BLACK,
+                )
+
+        # エネミー
         for enemy in self.enemy_list:
             if enemy.is_alive:
                 enemy.sprite.draw()
@@ -581,14 +663,14 @@ class SceneFixedBattle(BaseScene):
             state = [[text, px.COLOR_WHITE] for text in wnd.message_list]
             wnd.drawText(wnd.x + 6, wnd.y + 4, state)
             gauge_hp = member.param.hp / member.max_hp * barwidth
-            px.rect(wnd.x + 8, wnd.y + 17, barwidth, 7, px.COLOR_RED)
+            # px.rect(wnd.x + 8, wnd.y + 17, barwidth, 7, px.COLOR_RED)
             px.rect(wnd.x + 8, wnd.y + 17, gauge_hp, 7, px.COLOR_LIME)
             px.text(wnd.x + 10, wnd.y + 18, f"HP:{member.param.hp}", px.COLOR_BLACK)
-            px.rectb(wnd.x + 8, wnd.y + 17, barwidth, 7, px.COLOR_WHITE)
-            px.rectb(wnd.x + 7, wnd.y + 18, 1, 5, px.COLOR_WHITE)
-            px.rectb(wnd.x + 6, wnd.y + 19, 1, 3, px.COLOR_WHITE)
-            px.rectb(wnd.x + 7 + barwidth + 1, wnd.y + 18, 1, 5, px.COLOR_WHITE)
-            px.rectb(wnd.x + 7 + barwidth + 2, wnd.y + 19, 1, 3, px.COLOR_WHITE)
+            # px.rectb(wnd.x + 8, wnd.y + 17, barwidth, 7, px.COLOR_WHITE)
+            # px.rectb(wnd.x + 7, wnd.y + 18, 1, 5, px.COLOR_WHITE)
+            # px.rectb(wnd.x + 6, wnd.y + 19, 1, 3, px.COLOR_WHITE)
+            # px.rectb(wnd.x + 7 + barwidth + 1, wnd.y + 18, 1, 5, px.COLOR_WHITE)
+            # px.rectb(wnd.x + 7 + barwidth + 2, wnd.y + 19, 1, 3, px.COLOR_WHITE)
 
             gauge_mp = member.param.mp / member.max_mp * barwidth
             px.rect(wnd.x + 8, wnd.y + 25, barwidth, 7, px.COLOR_RED)

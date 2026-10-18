@@ -403,23 +403,79 @@ class Party:
             route_list = self._current_point.get_reachable_routes()
             for route in route_list:
                 match route.direction:
+                    # case "up":
+                    #     info_x, info_y = 108, 84
+                    # case "left":
+                    #     info_x, info_y = 60, 120
+                    # case "right":
+                    #     info_x, info_y = 156, 120
+                    # case "down":
+                    #     info_x, info_y = 108, 152
                     case "up":
-                        info_x, info_y = 108, 84
+                        info_x, info_y = 112, 63
                     case "left":
-                        info_x, info_y = 60, 120
+                        info_x, info_y = 56, 115
                     case "right":
-                        info_x, info_y = 156, 120
+                        info_x, info_y = 168, 115
                     case "down":
-                        info_x, info_y = 108, 152
-                px.dither(0.5)
-                px.rect(info_x, info_y, 40, 16, px.COLOR_GRAY)
-                px.dither(1)
-                px.rectb(info_x, info_y, 40, 16, px.COLOR_RED)
-                px.text(
-                    info_x + 2,
-                    info_y + 2,
-                    f"cost:{route.cost}\nthreat:{route.threat}",
-                    px.COLOR_BLACK,
+                        info_x, info_y = 112, 168
+                # px.dither(0.5)
+                # px.rect(info_x, info_y, 40, 16, px.COLOR_GRAY)
+                # px.dither(1)
+                # px.rectb(info_x, info_y, 40, 16, px.COLOR_RED)
+                px.blt(info_x, info_y, 0, 0, 24, 32, 25)  # , colkey=px.COLOR_BLACK)
+                # px.text(
+                #     info_x + 2,
+                #     info_y + 2,
+                #     f"cost:{route.cost}\nthreat:{route.threat}",
+                #     px.COLOR_BLACK,
+                # )
+                upper = route.cost // 10
+                lower = route.cost % 10
+                pad = Window._chip_size
+                px.blt(
+                    info_x + pad + 3 + 1,
+                    info_y + 3 + 1,
+                    0,
+                    upper * pad,
+                    0,
+                    pad,
+                    pad,
+                    colkey=px.COLOR_BLACK,
+                )
+                px.blt(
+                    info_x + pad * 2 + 3 + 1,
+                    info_y + 3 + 1,
+                    0,
+                    lower * pad,
+                    0,
+                    pad,
+                    pad,
+                    colkey=px.COLOR_BLACK,
+                )
+
+                upper = route.threat // 10
+                lower = route.threat % 10
+                pad = Window._chip_size
+                px.blt(
+                    info_x + pad + 3 + 1,
+                    info_y + 3 + 1 + pad + 1,
+                    0,
+                    upper * pad,
+                    0,
+                    pad,
+                    pad,
+                    colkey=px.COLOR_BLACK,
+                )
+                px.blt(
+                    info_x + pad * 2 + 3 + 1,
+                    info_y + 3 + 1 + pad + 1,
+                    0,
+                    lower * pad,
+                    0,
+                    pad,
+                    pad,
+                    colkey=px.COLOR_BLACK,
                 )
 
     def draw_ptinfo(self):

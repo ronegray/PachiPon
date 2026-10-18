@@ -1,19 +1,19 @@
 {
     "ver": 1,
-    "savetime": "2026/10/17 12:47:24.67",
+    "savetime": "2026/10/18 11:12:40.01",
     "events": {
         "p01": {
-            "ready_count": 5,
+            "ready_count": 0,
             "dice_values": [
                 2,
-                2,
-                3,
+                5,
+                4,
                 5,
                 3,
-                6,
-                6,
-                6,
-                5
+                4,
+                2,
+                3,
+                3
             ]
         },
         "p02": {
@@ -351,8 +351,8 @@
         "p42": {
             "ready_count": 0,
             "dice_values": [
-                4,
-                3,
+                5,
+                6,
                 6
             ]
         },
@@ -756,10 +756,10 @@
         }
     },
     "pt": {
-        "turns": 4,
-        "foods": 96,
-        "golds": 56,
-        "point": "p04",
+        "turns": 24,
+        "foods": 51,
+        "golds": 254,
+        "point": "p26",
         "ptefx": []
     },
     "chars": {
@@ -769,17 +769,17 @@
             },
             {
                 "name": "\u307b\u3052\u307b\u3052\u3075\u30fc\u3070\u30fc0",
-                "strength": 10,
+                "strength": 17,
                 "arcane": 15,
                 "endurance": 4,
                 "speed": 7,
                 "luck": 4,
-                "max_hp": 7,
-                "max_mp": 12,
-                "level": 2,
-                "exp": 2,
-                "hp": 7,
-                "mp": 12
+                "max_hp": 23,
+                "max_mp": 52,
+                "level": 9,
+                "exp": 67,
+                "hp": 23,
+                "mp": 52
             }
         ],
         "1": [
@@ -788,17 +788,17 @@
             },
             {
                 "name": "\u307b\u3052\u307b\u3052\u3075\u30fc\u3070\u30fc1",
-                "strength": 14,
+                "strength": 21,
                 "arcane": 11,
                 "endurance": 17,
                 "speed": 12,
                 "luck": 9,
-                "max_hp": 7,
-                "max_mp": 14,
-                "level": 2,
-                "exp": 2,
-                "hp": 7,
-                "mp": 9
+                "max_hp": 56,
+                "max_mp": 42,
+                "level": 9,
+                "exp": 67,
+                "hp": 56,
+                "mp": 42
             }
         ],
         "2": [
@@ -807,17 +807,17 @@
             },
             {
                 "name": "\u307b\u3052\u307b\u3052\u3075\u30fc\u3070\u30fc2",
-                "strength": 17,
+                "strength": 24,
                 "arcane": 7,
                 "endurance": 6,
                 "speed": 8,
                 "luck": 17,
-                "max_hp": 18,
-                "max_mp": 4,
-                "level": 2,
-                "exp": 2,
-                "hp": 18,
-                "mp": 4
+                "max_hp": 45,
+                "max_mp": 39,
+                "level": 9,
+                "exp": 67,
+                "hp": 45,
+                "mp": 39
             }
         ]
     },
@@ -2058,7 +2058,7 @@
         ],
         [
             4101,
-            5
+            4
         ],
         [
             4102,

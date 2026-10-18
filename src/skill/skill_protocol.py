@@ -95,6 +95,16 @@ class SkillTargetType(IntEnum):
     ENEMIES = 0b0101 # 敵全体
     ALL     = 0b0111 # 敵味方全体
     SELF    = 0b1000 # 自身のみ
+
+
+class DebuffType(IntEnum):
+    REDUCE_DICEVALUE = 0 # 魔力抵抗
+    POISON_DAMAGE    = 1 # 頑健抵抗
+    STONE_HOLD       = 2 # 幸運抵抗
+    FALL_ASLEEP      = 3 # 頑健抵抗
+    DISTURB_MIND     = 4 # 魔力抵抗
+    CHARM_PERSON     = 5 # 魔力抵抗
+    INITIATIVE_ZERO  = 6 # 頑健抵抗
 # fmt: on
 
 
