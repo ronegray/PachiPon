@@ -23,13 +23,10 @@ from . import CommandBase, DisplayInfo, CommandPhase
 
 
 def _render(display_info: DisplayInfo) -> None:
-    """DisplayInfoを実際に画面へ出す処理。
-    実プロジェクトではここを pyxel の px.rect()/px.text() 等の呼び出しに
-    置き換える。サンプルでは標準出力で代替する。
-    """
-
+    """DisplayInfoを実際に画面へ出す処理"""
+    display_info.target.draw()
     if display_info.message:
-        display_info.target.draw()
+        # display_info.target.draw()
         if display_info.is_change:
             if isinstance(display_info.message, list):
                 for message in display_info.message:

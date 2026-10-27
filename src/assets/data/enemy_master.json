@@ -11,11 +11,13 @@
         "exp": 1,
         "gold": 1,
         "bodysize": "S",
-        "hitdice": -1,
+        "hitdice": 1,
         "defvalue": 0,
         "magpenalty": 0,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -41,11 +43,13 @@
         "exp": 1,
         "gold": 1,
         "bodysize": "S",
-        "hitdice": 0,
+        "hitdice": 1,
         "defvalue": 0,
         "magpenalty": 0,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -75,7 +79,9 @@
         "defvalue": 0,
         "magpenalty": 0,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -105,7 +111,9 @@
         "defvalue": 0,
         "magpenalty": 0,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -135,7 +143,9 @@
         "defvalue": 1,
         "magpenalty": 0,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -165,7 +175,9 @@
         "defvalue": 1,
         "magpenalty": 0,
         "guardtype": "BASH",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -195,7 +207,9 @@
         "defvalue": 1,
         "magpenalty": 0,
         "guardtype": "BASH",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -225,7 +239,9 @@
         "defvalue": 1,
         "magpenalty": 0,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -255,7 +271,9 @@
         "defvalue": 1,
         "magpenalty": 0,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -285,7 +303,9 @@
         "defvalue": 1,
         "magpenalty": 0,
         "guardtype": "BASH",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -315,7 +335,9 @@
         "defvalue": 1,
         "magpenalty": 0,
         "guardtype": "BASH",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -345,7 +367,10 @@
         "defvalue": 1,
         "magpenalty": 1,
         "guardtype": "STUB",
-        "weaktype": "SACRED",
+        "weaktype": [
+            "SACRED",
+            "LIGHT"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -375,7 +400,9 @@
         "defvalue": 1,
         "magpenalty": 0,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -405,7 +432,9 @@
         "defvalue": 1,
         "magpenalty": 0,
         "guardtype": "BASH",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -435,7 +464,9 @@
         "defvalue": 1,
         "magpenalty": 0,
         "guardtype": "STUB",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -465,7 +496,9 @@
         "defvalue": 2,
         "magpenalty": 0,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -495,7 +528,9 @@
         "defvalue": 2,
         "magpenalty": 0,
         "guardtype": "CHOP",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -525,7 +560,9 @@
         "defvalue": 2,
         "magpenalty": 0,
         "guardtype": "CHOP",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -555,7 +592,9 @@
         "defvalue": 2,
         "magpenalty": 1,
         "guardtype": "STUB",
-        "weaktype": "SACRED",
+        "weaktype": [
+            "SACRED"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -585,7 +624,9 @@
         "defvalue": 2,
         "magpenalty": 0,
         "guardtype": "BASH",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -615,7 +656,9 @@
         "defvalue": 2,
         "magpenalty": 0,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -645,7 +688,9 @@
         "defvalue": 2,
         "magpenalty": 0,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -675,7 +720,9 @@
         "defvalue": 2,
         "magpenalty": 1,
         "guardtype": "STUB",
-        "weaktype": "SACRED",
+        "weaktype": [
+            "SACRED"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -705,7 +752,9 @@
         "defvalue": 3,
         "magpenalty": 0,
         "guardtype": "CHOP",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -735,7 +784,9 @@
         "defvalue": 2,
         "magpenalty": 0,
         "guardtype": "BASH",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -765,7 +816,9 @@
         "defvalue": 2,
         "magpenalty": 0,
         "guardtype": "BASH",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -795,7 +848,9 @@
         "defvalue": 2,
         "magpenalty": 0,
         "guardtype": "BASH",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -825,7 +880,9 @@
         "defvalue": 3,
         "magpenalty": 0,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -855,7 +912,9 @@
         "defvalue": 4,
         "magpenalty": 0,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -885,7 +944,9 @@
         "defvalue": 4,
         "magpenalty": 0,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -915,7 +976,9 @@
         "defvalue": 3,
         "magpenalty": 0,
         "guardtype": "BASH",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -945,7 +1008,9 @@
         "defvalue": 3,
         "magpenalty": 0,
         "guardtype": "STUB",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -975,7 +1040,9 @@
         "defvalue": 3,
         "magpenalty": 1,
         "guardtype": "FULL",
-        "weaktype": "SACRED",
+        "weaktype": [
+            "SACRED"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -1005,7 +1072,9 @@
         "defvalue": 5,
         "magpenalty": 1,
         "guardtype": "CHOP",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -1035,7 +1104,9 @@
         "defvalue": 3,
         "magpenalty": 2,
         "guardtype": "FULL",
-        "weaktype": "SACRED",
+        "weaktype": [
+            "SACRED"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -1065,7 +1136,9 @@
         "defvalue": 3,
         "magpenalty": 2,
         "guardtype": "STUB",
-        "weaktype": "SACRED",
+        "weaktype": [
+            "SACRED"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -1095,7 +1168,9 @@
         "defvalue": 3,
         "magpenalty": 1,
         "guardtype": "STUB",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -1125,7 +1200,9 @@
         "defvalue": 4,
         "magpenalty": 1,
         "guardtype": "STUB",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -1155,7 +1232,9 @@
         "defvalue": 4,
         "magpenalty": 1,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -1185,7 +1264,9 @@
         "defvalue": 5,
         "magpenalty": 2,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -1215,7 +1296,9 @@
         "defvalue": 4,
         "magpenalty": 2,
         "guardtype": "STUB",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -1245,7 +1328,9 @@
         "defvalue": 5,
         "magpenalty": 2,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -1275,7 +1360,9 @@
         "defvalue": 5,
         "magpenalty": 1,
         "guardtype": "STUB",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -1305,7 +1392,9 @@
         "defvalue": 4,
         "magpenalty": 2,
         "guardtype": "STUB",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -1335,7 +1424,9 @@
         "defvalue": 5,
         "magpenalty": 1,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -1365,7 +1456,9 @@
         "defvalue": 6,
         "magpenalty": 1,
         "guardtype": "CHOP",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -1395,7 +1488,9 @@
         "defvalue": 5,
         "magpenalty": 2,
         "guardtype": "STUB",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -1425,7 +1520,9 @@
         "defvalue": 4,
         "magpenalty": 2,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -1455,7 +1552,9 @@
         "defvalue": 5,
         "magpenalty": 2,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -1485,7 +1584,9 @@
         "defvalue": 4,
         "magpenalty": 2,
         "guardtype": "STUB",
-        "weaktype": "SACRED",
+        "weaktype": [
+            "SACRED"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -1515,7 +1616,9 @@
         "defvalue": 6,
         "magpenalty": 1,
         "guardtype": "CHOP",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -1545,7 +1648,9 @@
         "defvalue": 7,
         "magpenalty": 1,
         "guardtype": "CHOP",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -1575,7 +1680,9 @@
         "defvalue": 5,
         "magpenalty": 2,
         "guardtype": "STUB",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -1605,7 +1712,9 @@
         "defvalue": 7,
         "magpenalty": 1,
         "guardtype": "BASH",
-        "weaktype": "FIRE",
+        "weaktype": [
+            "FIRE"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -1635,7 +1744,9 @@
         "defvalue": 6,
         "magpenalty": 1,
         "guardtype": "STUB",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -1665,7 +1776,9 @@
         "defvalue": 7,
         "magpenalty": 3,
         "guardtype": "FULL",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -1695,7 +1808,9 @@
         "defvalue": 7,
         "magpenalty": 3,
         "guardtype": "FULL",
-        "weaktype": "FIRE",
+        "weaktype": [
+            "FIRE"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -1725,7 +1840,9 @@
         "defvalue": 7,
         "magpenalty": 3,
         "guardtype": "STUB",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -1755,7 +1872,9 @@
         "defvalue": 6,
         "magpenalty": 3,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -1785,7 +1904,9 @@
         "defvalue": 5,
         "magpenalty": 3,
         "guardtype": "FULL",
-        "weaktype": "SACRED",
+        "weaktype": [
+            "SACRED"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -1815,7 +1936,9 @@
         "defvalue": 5,
         "magpenalty": 3,
         "guardtype": "FULL",
-        "weaktype": "SACRED",
+        "weaktype": [
+            "SACRED"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -1845,7 +1968,9 @@
         "defvalue": 7,
         "magpenalty": 2,
         "guardtype": "CHOP",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -1875,7 +2000,9 @@
         "defvalue": 5,
         "magpenalty": 2,
         "guardtype": "STUB",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -1905,7 +2032,9 @@
         "defvalue": 7,
         "magpenalty": 3,
         "guardtype": "STUB",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -1935,7 +2064,9 @@
         "defvalue": 8,
         "magpenalty": 2,
         "guardtype": "CHOP",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -1965,7 +2096,9 @@
         "defvalue": 8,
         "magpenalty": 4,
         "guardtype": "FULL",
-        "weaktype": "CURCE",
+        "weaktype": [
+            "CURCE"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -1995,7 +2128,9 @@
         "defvalue": 7,
         "magpenalty": 3,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -2025,7 +2160,9 @@
         "defvalue": 8,
         "magpenalty": 2,
         "guardtype": "CHOP",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -2055,7 +2192,9 @@
         "defvalue": 8,
         "magpenalty": 2,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -2085,7 +2224,9 @@
         "defvalue": 6,
         "magpenalty": 3,
         "guardtype": "STUB",
-        "weaktype": "SACRED",
+        "weaktype": [
+            "SACRED"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -2115,7 +2256,9 @@
         "defvalue": 7,
         "magpenalty": 3,
         "guardtype": "FULL",
-        "weaktype": "SACRED",
+        "weaktype": [
+            "SACRED"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -2145,7 +2288,9 @@
         "defvalue": 8,
         "magpenalty": 2,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -2175,7 +2320,9 @@
         "defvalue": 9,
         "magpenalty": 4,
         "guardtype": "FULL",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -2205,7 +2352,9 @@
         "defvalue": 6,
         "magpenalty": 3,
         "guardtype": "STUB",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -2235,7 +2384,9 @@
         "defvalue": 8,
         "magpenalty": 2,
         "guardtype": "CHOP",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -2265,7 +2416,9 @@
         "defvalue": 8,
         "magpenalty": 3,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -2295,7 +2448,9 @@
         "defvalue": 9,
         "magpenalty": 4,
         "guardtype": "FULL",
-        "weaktype": "NONE",
+        "weaktype": [
+            "NONE"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -2325,7 +2480,9 @@
         "defvalue": 8,
         "magpenalty": 3,
         "guardtype": "FULL",
-        "weaktype": "CURCE",
+        "weaktype": [
+            "CURCE"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -2355,7 +2512,9 @@
         "defvalue": 9,
         "magpenalty": 4,
         "guardtype": "FULL",
-        "weaktype": "FIRE",
+        "weaktype": [
+            "FIRE"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -2385,7 +2544,9 @@
         "defvalue": 9,
         "magpenalty": 2,
         "guardtype": "CHOP",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -2415,7 +2576,9 @@
         "defvalue": 9,
         "magpenalty": 4,
         "guardtype": "FULL",
-        "weaktype": "ICE",
+        "weaktype": [
+            "ICE"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -2445,7 +2608,9 @@
         "defvalue": 10,
         "magpenalty": 3,
         "guardtype": "CHOP",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -2475,7 +2640,9 @@
         "defvalue": 9,
         "magpenalty": 5,
         "guardtype": "FULL",
-        "weaktype": "ICE",
+        "weaktype": [
+            "ICE"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -2505,7 +2672,9 @@
         "defvalue": 9,
         "magpenalty": 5,
         "guardtype": "FULL",
-        "weaktype": "NONE",
+        "weaktype": [
+            "NONE"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -2535,7 +2704,9 @@
         "defvalue": 7,
         "magpenalty": 4,
         "guardtype": "STUB",
-        "weaktype": "SACRED",
+        "weaktype": [
+            "SACRED"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -2565,7 +2736,9 @@
         "defvalue": 8,
         "magpenalty": 4,
         "guardtype": "FULL",
-        "weaktype": "SACRED",
+        "weaktype": [
+            "SACRED"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -2595,7 +2768,9 @@
         "defvalue": 10,
         "magpenalty": 5,
         "guardtype": "FULL",
-        "weaktype": "NONE",
+        "weaktype": [
+            "NONE"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -2625,7 +2800,9 @@
         "defvalue": 10,
         "magpenalty": 5,
         "guardtype": "FULL",
-        "weaktype": "SHOCK",
+        "weaktype": [
+            "SHOCK"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -2655,7 +2832,9 @@
         "defvalue": 10,
         "magpenalty": 5,
         "guardtype": "FULL",
-        "weaktype": "CURCE",
+        "weaktype": [
+            "CURCE"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -2685,7 +2864,9 @@
         "defvalue": 11,
         "magpenalty": 5,
         "guardtype": "FULL",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -2715,7 +2896,9 @@
         "defvalue": 10,
         "magpenalty": 3,
         "guardtype": "CHOP",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -2745,7 +2928,9 @@
         "defvalue": 8,
         "magpenalty": 4,
         "guardtype": "STUB",
-        "weaktype": "SACRED",
+        "weaktype": [
+            "SACRED"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -2775,7 +2960,9 @@
         "defvalue": 9,
         "magpenalty": 4,
         "guardtype": "STUB",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -2805,7 +2992,9 @@
         "defvalue": 10,
         "magpenalty": 5,
         "guardtype": "FULL",
-        "weaktype": "NONE",
+        "weaktype": [
+            "NONE"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -2835,7 +3024,9 @@
         "defvalue": 9,
         "magpenalty": 4,
         "guardtype": "FULL",
-        "weaktype": "SACRED",
+        "weaktype": [
+            "SACRED"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -2865,7 +3056,9 @@
         "defvalue": 10,
         "magpenalty": 4,
         "guardtype": "FULL",
-        "weaktype": "SACRED",
+        "weaktype": [
+            "SACRED"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -2895,7 +3088,9 @@
         "defvalue": 11,
         "magpenalty": 3,
         "guardtype": "CHOP",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -2925,7 +3120,9 @@
         "defvalue": 11,
         "magpenalty": 5,
         "guardtype": "FULL",
-        "weaktype": "ICE",
+        "weaktype": [
+            "ICE"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -2955,7 +3152,9 @@
         "defvalue": 10,
         "magpenalty": 4,
         "guardtype": "STUB",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -2985,7 +3184,9 @@
         "defvalue": 9,
         "magpenalty": 4,
         "guardtype": "FULL",
-        "weaktype": "CURCE",
+        "weaktype": [
+            "CURCE"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -3015,7 +3216,9 @@
         "defvalue": 12,
         "magpenalty": 5,
         "guardtype": "FULL",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -3045,7 +3248,9 @@
         "defvalue": 12,
         "magpenalty": 5,
         "guardtype": "FULL",
-        "weaktype": "FIRE",
+        "weaktype": [
+            "FIRE"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -3075,7 +3280,9 @@
         "defvalue": 10,
         "magpenalty": 4,
         "guardtype": "FULL",
-        "weaktype": "CURCE",
+        "weaktype": [
+            "CURCE"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -3105,7 +3312,9 @@
         "defvalue": 10,
         "magpenalty": 4,
         "guardtype": "FULL",
-        "weaktype": "SACRED",
+        "weaktype": [
+            "SACRED"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -3135,7 +3344,9 @@
         "defvalue": 12,
         "magpenalty": 5,
         "guardtype": "FULL",
-        "weaktype": "ICE",
+        "weaktype": [
+            "ICE"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -3165,7 +3376,9 @@
         "defvalue": 12,
         "magpenalty": 6,
         "guardtype": "FULL",
-        "weaktype": "ICE",
+        "weaktype": [
+            "ICE"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -3195,7 +3408,9 @@
         "defvalue": 11,
         "magpenalty": 5,
         "guardtype": "STUB",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -3225,7 +3440,9 @@
         "defvalue": 10,
         "magpenalty": 5,
         "guardtype": "NONE",
-        "weaktype": "ICE",
+        "weaktype": [
+            "ICE"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -3255,7 +3472,9 @@
         "defvalue": 12,
         "magpenalty": 6,
         "guardtype": "FULL",
-        "weaktype": "FIRE",
+        "weaktype": [
+            "FIRE"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -3285,7 +3504,9 @@
         "defvalue": 13,
         "magpenalty": 6,
         "guardtype": "FULL",
-        "weaktype": "ICE",
+        "weaktype": [
+            "ICE"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -3315,7 +3536,9 @@
         "defvalue": 13,
         "magpenalty": 6,
         "guardtype": "FULL",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -3345,7 +3568,9 @@
         "defvalue": 11,
         "magpenalty": 5,
         "guardtype": "FULL",
-        "weaktype": "CURCE",
+        "weaktype": [
+            "CURCE"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -3375,7 +3600,9 @@
         "defvalue": 11,
         "magpenalty": 5,
         "guardtype": "FULL",
-        "weaktype": "SACRED",
+        "weaktype": [
+            "SACRED"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -3405,7 +3632,9 @@
         "defvalue": 13,
         "magpenalty": 6,
         "guardtype": "FULL",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -3435,7 +3664,9 @@
         "defvalue": 13,
         "magpenalty": 6,
         "guardtype": "FULL",
-        "weaktype": "SHOCK",
+        "weaktype": [
+            "SHOCK"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -3465,7 +3696,9 @@
         "defvalue": 13,
         "magpenalty": 6,
         "guardtype": "FULL",
-        "weaktype": "CURCE",
+        "weaktype": [
+            "CURCE"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -3495,7 +3728,9 @@
         "defvalue": 11,
         "magpenalty": 5,
         "guardtype": "FULL",
-        "weaktype": "SACRED",
+        "weaktype": [
+            "SACRED"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -3525,7 +3760,9 @@
         "defvalue": 13,
         "magpenalty": 5,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -3555,7 +3792,9 @@
         "defvalue": 14,
         "magpenalty": 6,
         "guardtype": "FULL",
-        "weaktype": "ICE",
+        "weaktype": [
+            "ICE"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -3585,7 +3824,9 @@
         "defvalue": 14,
         "magpenalty": 6,
         "guardtype": "FULL",
-        "weaktype": "ICE",
+        "weaktype": [
+            "ICE"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -3615,7 +3856,9 @@
         "defvalue": 13,
         "magpenalty": 6,
         "guardtype": "STUB",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -3645,7 +3888,9 @@
         "defvalue": 14,
         "magpenalty": 7,
         "guardtype": "FULL",
-        "weaktype": "FIRE",
+        "weaktype": [
+            "FIRE"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -3675,7 +3920,9 @@
         "defvalue": 14,
         "magpenalty": 7,
         "guardtype": "FULL",
-        "weaktype": "ICE",
+        "weaktype": [
+            "ICE"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -3705,7 +3952,9 @@
         "defvalue": 15,
         "magpenalty": 7,
         "guardtype": "FULL",
-        "weaktype": "ICE",
+        "weaktype": [
+            "ICE"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -3735,7 +3984,9 @@
         "defvalue": 15,
         "magpenalty": 7,
         "guardtype": "FULL",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "defend",
             "defend",
@@ -3765,7 +4016,9 @@
         "defvalue": 14,
         "magpenalty": 6,
         "guardtype": "FULL",
-        "weaktype": "SACRED",
+        "weaktype": [
+            "SACRED"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -3795,7 +4048,9 @@
         "defvalue": 13,
         "magpenalty": 6,
         "guardtype": "FULL",
-        "weaktype": "SACRED",
+        "weaktype": [
+            "SACRED"
+        ],
         "action_pattern": [
             "attack",
             "attack",
@@ -3825,7 +4080,9 @@
         "defvalue": 16,
         "magpenalty": 6,
         "guardtype": "FULL",
-        "weaktype": "CURCE",
+        "weaktype": [
+            "CURCE"
+        ],
         "action_pattern": [
             "defend",
             "attack",
@@ -3855,7 +4112,9 @@
         "defvalue": 18,
         "magpenalty": 6,
         "guardtype": "NONE",
-        "weaktype": "ALL",
+        "weaktype": [
+            "ALL"
+        ],
         "action_pattern": [
             "attack",
             "attack",

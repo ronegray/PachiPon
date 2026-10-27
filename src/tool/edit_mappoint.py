@@ -13,6 +13,14 @@ EVENTPOINTS_PATH = "../assets/data/eventpoints.json"
 CIRCLE_RADIUS = 6  # 既存ポイントの円描画半径（クリック・ドラッグ判定にも使用）
 NEAR_THRESHOLD = 30  # これより近い場合は「近すぎる」として新規追加を拒否する距離
 
+# routeのパラメタ関連
+# ロック状態のキー名はfield_map.Routeが読むキー("locked")に合わせている(ダイアログ上の表示はis_lock)
+ROUTE_LOCK_KEY = "locked"
+ROUTE_DEFAULT_COST = 1  # 距離ベースの既定値を求められない場合のcost(field_map.Routeの既定値と同じ)
+ROUTE_DEFAULT_THREAT = 0  # threat欄が空のまま確定された場合の値(同上)
+# costの既定値(表示用)は、この2点間の距離を1として算出する
+COST_BASE_POINT_IDS = ("p01", "p02")
+
 # ---------------------------------------------------------------------------
 # ダイアログでのテキスト入力用: pyxelのキー定数と入力文字の対応表を作成
 # ---------------------------------------------------------------------------
@@ -241,6 +249,142 @@ class ConfirmDialog:
         px.rectb(self.x, self.y, self.w, self.h, px.COLOR_WHITE)
         for i, line in enumerate(self.message_lines):
             px.text(self.x + 10, self.y + 10 + i * 10, line, px.COLOR_WHITE)
+        self.btn_ok.draw()
+        self.btn_cancel.draw()
+
+
+class RouteParamEditor:
+    """routeの1方向分(cost / threat / label / is_lock)を編集する入力部品一式"""
+
+    def __init__(self, x, y, w, header, route=None, default_cost=None):
+        self.x, self.y, self.w = x, y, w
+        self.header = header
+        # 距離に応じたcostの既定値(算出できない場合はNone)。
+        # 新規作成時の初期値と、cost欄が空で確定された場合の値に使う。
+        # 既存routeの編集時は保存済みの値を表示し、既定値は見出し横の参考表示のみ(データは変えない)
+        self.default_cost = default_cost if default_cost is not None else ROUTE_DEFAULT_COST
+
+        init_cost = route.get("cost", self.default_cost) if route else self.default_cost
+        init_threat = route.get("threat", ROUTE_DEFAULT_THREAT) if route else ROUTE_DEFAULT_THREAT
+        init_label = route.get("label", "") if route else ""
+        self.locked = bool(route.get(ROUTE_LOCK_KEY, False)) if route else False
+
+        row_a_y = y + 18
+        row_b_y = y + 44
+        cost_label = "cost" if default_cost is None else f"cost (def {default_cost})"
+        self.field_cost = InputField(
+            x, row_a_y, 56, 12, cost_label, str(init_cost), numeric_only=True
+        )
+        self.field_threat = InputField(
+            x + 70, row_a_y, 56, 12, "threat", str(init_threat), numeric_only=True
+        )
+        self.field_label = InputField(x, row_b_y, w, 12, "label", str(init_label))
+        self.lock_x = x + 146
+        self.lock_y = row_a_y
+
+    def fields(self):
+        return (self.field_cost, self.field_threat, self.field_label)
+
+    def contains_lock(self, mx, my):
+        return self.lock_x <= mx <= self.lock_x + 12 and self.lock_y <= my <= self.lock_y + 12
+
+    def values(self):
+        """入力内容をrouteのパラメタ(dict)として返す。cost/threatが空欄なら既定値を使う"""
+        raw_cost = self.field_cost.value.strip()
+        raw_threat = self.field_threat.value.strip()
+        return {
+            "cost": int(raw_cost) if raw_cost.isdigit() else self.default_cost,
+            "threat": int(raw_threat) if raw_threat.isdigit() else ROUTE_DEFAULT_THREAT,
+            "label": self.field_label.value.strip(),
+            ROUTE_LOCK_KEY: self.locked,
+        }
+
+    def draw(self):
+        px.text(self.x, self.y, self.header, px.COLOR_YELLOW)
+        for f in self.fields():
+            f.draw()
+
+        px.text(self.lock_x, self.lock_y - 8, "is_lock", px.COLOR_WHITE)
+        px.rect(self.lock_x, self.lock_y, 12, 12, px.COLOR_NAVY)
+        px.rectb(self.lock_x, self.lock_y, 12, 12, px.COLOR_WHITE)
+        if self.locked:
+            px.text(self.lock_x + 4, self.lock_y + 3, "X", px.COLOR_YELLOW)
+
+
+class RouteDialog:
+    """routeのパラメタを往路・復路それぞれ指定するダイアログ(新規作成・既存route編集の共用)
+
+    往路と復路でthreat等が異なるデータが実在するため、両方向を同時に編集できるようにしている。
+    """
+
+    def __init__(
+        self,
+        screen_w,
+        screen_h,
+        mode,
+        from_point,
+        to_point,
+        forward_header,
+        backward_header,
+        forward_route=None,
+        backward_route=None,
+        default_cost=None,
+    ):
+        self.mode = mode  # "add" または "edit"
+        self.from_point = from_point  # ドラッグ開始側のポイント(往路の起点)
+        self.to_point = to_point  # ドラッグ終了側のポイント(往路の終点)
+        self.forward_route = forward_route  # 編集対象の往路(dict)。新規時はNone
+        self.backward_route = backward_route  # 編集対象の復路(dict)。新規時はNone
+
+        w, h = 260, 170
+        self.x = (screen_w - w) // 2
+        self.y = (screen_h - h) // 2
+        self.w, self.h = w, h
+
+        self.forward = RouteParamEditor(
+            self.x + 10, self.y + 20, w - 20, forward_header, forward_route, default_cost
+        )
+        self.backward = RouteParamEditor(
+            self.x + 10, self.y + 86, w - 20, backward_header, backward_route, default_cost
+        )
+        self.forward.field_cost.active = True
+
+        btn_y = self.y + h - 22
+        self.btn_ok = Button(self.x + 10, btn_y, 70, 14, "OK", px.COLOR_DARK_BLUE)
+        self.btn_cancel = Button(self.x + w - 80, btn_y, 70, 14, "Cancel", px.COLOR_RED)
+
+    def fields(self):
+        return self.forward.fields() + self.backward.fields()
+
+    def update(self):
+        for f in self.fields():
+            f.handle_key()
+
+        if px.btnp(px.MOUSE_BUTTON_LEFT):
+            mx, my = px.mouse_x, px.mouse_y
+
+            for side in (self.forward, self.backward):
+                if side.contains_lock(mx, my):
+                    side.locked = not side.locked
+                    return
+
+            # 入力欄がクリックされたらそちらへフォーカスを切り替える
+            for f in self.fields():
+                if f.contains(mx, my):
+                    for other in self.fields():
+                        other.active = False
+                    f.active = True
+                    break
+
+    def draw(self):
+        px.rect(self.x, self.y, self.w, self.h, px.COLOR_BLACK)
+        px.rectb(self.x, self.y, self.w, self.h, px.COLOR_WHITE)
+        title = "Edit Route" if self.mode == "edit" else "Add Route"
+        px.text(self.x + 10, self.y + 6, title, px.COLOR_WHITE)
+
+        self.forward.draw()
+        self.backward.draw()
+
         self.btn_ok.draw()
         self.btn_cancel.draw()
 
@@ -560,9 +704,11 @@ class App:
         self.mapimage: px.Image = px.Image.from_image("../assets/image/map.bmp")
         px.mouse(True)
 
-        self.mode = "normal"  # "normal" / "dialog" / "event_dialog" / "confirm_delete_point"
+        # "normal" / "dialog" / "event_dialog" / "confirm_delete_point" / "route_dialog"
+        self.mode = "normal"
         self.dialog = None  # PointDialog インスタンス
         self.event_dialog = None  # EventStatDialog インスタンス
+        self.route_dialog = None  # RouteDialog インスタンス(routeのパラメタ指定・編集)
 
         # Shift+左クリックによるポイント削除確認用の状態
         self.confirm_dialog = None  # ConfirmDialog インスタンス
@@ -793,25 +939,63 @@ class App:
         """
         return any(r["from"] == point_id and r["direction"] == direction for r in self.routes)
 
-    def _try_create_route(self, from_point, to_point):
+    def _calc_default_cost(self, from_point, to_point):
+        """2点間の距離に応じたcostの既定値を返す(ダイアログでの表示用)。
+
+        COST_BASE_POINT_IDS(p01,p02)間の距離を1とし、2点間の距離がそれ以下なら1、
+        超える場合は「距離 / 基準距離」を切り上げた値とする。
+        基準となるポイントが存在しない、または基準距離が0の場合はNone(=算出不可)を返す。
+        """
+        points = {p["id"]: p for p in self.points}
+        base_a = points.get(COST_BASE_POINT_IDS[0])
+        base_b = points.get(COST_BASE_POINT_IDS[1])
+        if base_a is None or base_b is None:
+            return None
+        base_dist = math.hypot(base_a["x"] - base_b["x"], base_a["y"] - base_b["y"])
+        if base_dist == 0:
+            return None
+
+        dist = math.hypot(from_point["x"] - to_point["x"], from_point["y"] - to_point["y"])
+        # 浮動小数点の誤差で、ちょうど整数倍の距離が1つ上に切り上がらないよう微小値を引く
+        return max(1, math.ceil(dist / base_dist - 1e-9))
+
+    def _start_route_dialog(self, from_point, to_point):
+        """Ctrl+左ドラッグ完了時の処理。パラメタ指定ダイアログを開く。
+        - 2点間に既にrouteがあれば、そのパラメタを編集するダイアログ(Edit Route)
+        - 無ければ、新規作成用のダイアログ(Add Route)
+        """
         from_id = from_point["id"]
         to_id = to_point["id"]
+        forward, backward = self._find_route_pair(from_id, to_id)
 
-        # 既に(from,to)のセットを行き・帰りどちらかの向きで保有していれば何もしない
-        exists = any(
-            (r["from"] == from_id and r["to"] == to_id)
-            or (r["from"] == to_id and r["to"] == from_id)
-            for r in self.routes
-        )
-        if exists:
-            print(f"route情報は既に存在するため作成しません: {from_id} - {to_id}")
+        if forward is not None or backward is not None:
+            if forward is None or backward is None:
+                print(
+                    f"往路・復路が揃っていないため編集できません: {from_id} - {to_id} "
+                    "(一度route(Ctrl+右ドラッグ)を削除してから作り直してください)"
+                )
+                return
+
+            self.route_dialog = RouteDialog(
+                px.width,
+                px.height,
+                "edit",
+                from_point,
+                to_point,
+                forward_header=f"{forward['id']}: {from_id} -> {to_id}  {forward['direction']}",
+                backward_header=f"{backward['id']}: {to_id} -> {from_id}  {backward['direction']}",
+                forward_route=forward,
+                backward_route=backward,
+                default_cost=self._calc_default_cost(from_point, to_point),
+            )
+            self.mode = "route_dialog"
             return
 
         forward_direction = self._calc_direction(from_point, to_point)
         backward_direction = self._calc_direction(to_point, from_point)
 
         # 起点(from_id)側に、これから作ろうとしている方向(forward_direction)と
-        # 同じ方向のrouteが既にある場合は作成しない
+        # 同じ方向のrouteが既にある場合は作成しない(パラメタ入力前に弾く)
         if self._has_direction_conflict(from_id, forward_direction):
             print(
                 f"route作成をスキップしました: {from_id}には既に{forward_direction}方向の"
@@ -827,34 +1011,82 @@ class App:
             )
             return
 
+        self.route_dialog = RouteDialog(
+            px.width,
+            px.height,
+            "add",
+            from_point,
+            to_point,
+            forward_header=f"{from_id} -> {to_id}  {forward_direction}",
+            backward_header=f"{to_id} -> {from_id}  {backward_direction}",
+            default_cost=self._calc_default_cost(from_point, to_point),
+        )
+        self.mode = "route_dialog"
+
+    def _build_route(self, route_id, from_id, to_id, direction, values):
+        return {
+            "id": route_id,
+            "from": from_id,
+            "to": to_id,
+            "cost": values["cost"],
+            "threat": values["threat"],
+            "direction": direction,
+            "label": values["label"],
+            ROUTE_LOCK_KEY: values[ROUTE_LOCK_KEY],
+        }
+
+    def _create_route_pair(self, from_point, to_point, forward_values, backward_values):
+        """往路(from->to)と復路(to->from)をセットで作成する"""
+        from_id = from_point["id"]
+        to_id = to_point["id"]
+
         forward_id = self._generate_next_route_id()
         self.routes.append(
-            {
-                "id": forward_id,
-                "from": from_id,
-                "to": to_id,
-                "cost": 1,
-                "threat": 0,
-                "direction": forward_direction,
-            }
+            self._build_route(
+                forward_id,
+                from_id,
+                to_id,
+                self._calc_direction(from_point, to_point),
+                forward_values,
+            )
         )
 
-        # 復路(to -> from)をセットで作成する
         backward_id = self._generate_next_route_id()
         self.routes.append(
-            {
-                "id": backward_id,
-                "from": to_id,
-                "to": from_id,
-                "cost": 1,
-                "threat": 0,
-                "direction": backward_direction,
-            }
+            self._build_route(
+                backward_id,
+                to_id,
+                from_id,
+                self._calc_direction(to_point, from_point),
+                backward_values,
+            )
         )
 
         print(
             f"route情報を作成しました: {forward_id}({from_id}->{to_id}), {backward_id}({to_id}->{from_id})"
         )
+
+    def _confirm_route_dialog(self):
+        d = self.route_dialog
+        forward_values = d.forward.values()
+        backward_values = d.backward.values()
+
+        if d.mode == "edit":
+            # 端点・direction・idは変えず、パラメタのみ更新する
+            d.forward_route.update(forward_values)
+            d.backward_route.update(backward_values)
+            print(
+                f"route情報を更新しました(未保存): {d.forward_route['id']}, {d.backward_route['id']}"
+            )
+        else:
+            self._create_route_pair(d.from_point, d.to_point, forward_values, backward_values)
+
+        self.route_dialog = None
+        self.mode = "normal"
+
+    def _cancel_route_dialog(self):
+        self.route_dialog = None
+        self.mode = "normal"
 
     # ------------------------------------------------------------------
     # 2点間の往路・復路routeを検索する
@@ -1020,6 +1252,17 @@ class App:
 
     # ------------------------------------------------------------------
     def update(self):
+        if self.mode == "route_dialog":
+            self.route_dialog.update()
+
+            if px.btnp(px.MOUSE_BUTTON_LEFT):
+                mx, my = px.mouse_x, px.mouse_y
+                if self.route_dialog.btn_ok.contains(mx, my):
+                    self._confirm_route_dialog()
+                elif self.route_dialog.btn_cancel.contains(mx, my):
+                    self._cancel_route_dialog()
+            return
+
         if self.mode == "confirm_delete_point":
             if px.btnp(px.MOUSE_BUTTON_LEFT):
                 mx, my = px.mouse_x, px.mouse_y
@@ -1083,7 +1326,7 @@ class App:
                     self.drag_mode = "delete"
                     self.drag_start_point = nearest
 
-            # 左ボタンを離した → route作成を確定
+            # 左ボタンを離した → routeのパラメタ指定(既存routeがあれば編集)ダイアログを開く
             if self.dragging and self.drag_mode == "create" and px.btnr(px.MOUSE_BUTTON_LEFT):
                 nearest, dist = self._find_nearest_point(px.mouse_x, px.mouse_y)
                 if (
@@ -1091,7 +1334,7 @@ class App:
                     and dist <= CIRCLE_RADIUS
                     and nearest["id"] != self.drag_start_point["id"]
                 ):
-                    self._try_create_route(self.drag_start_point, nearest)
+                    self._start_route_dialog(self.drag_start_point, nearest)
                 self._reset_drag()
 
             # 右ボタンを離した → route削除を確定
@@ -1137,7 +1380,7 @@ class App:
             ]
             # ロック状態に関わらず全てのrouteを表示する。
             # 色分けはfield_map.pyのMapGraph.draw()と同じ配色(ロック中はグレー)に合わせている
-            line_color = px.COLOR_GRAY if route.get("locked", False) else px.COLOR_WHITE
+            line_color = px.COLOR_GRAY if route.get(ROUTE_LOCK_KEY, False) else px.COLOR_WHITE
             px.line(*from_addr[0], *to_addr[0], line_color)
 
         for point in self.points:
@@ -1182,6 +1425,8 @@ class App:
             self.event_dialog.draw()
         if self.confirm_dialog is not None:
             self.confirm_dialog.draw()
+        if self.route_dialog is not None:
+            self.route_dialog.draw()
 
 
 App()

@@ -36,7 +36,7 @@ class EntityBase(ABC):
         # 状態フラグ・パラメタ
         self.defend_rate: int = 1  # 防御時は2として防御体勢を表現する係数
         self.critical_rate: int = 2  # クリティカルダメージの倍率
-        self.debuff_list: dict[DebuffType, int]  # デバフ, 解除ロール目標値
+        self.debuff_list: dict[DebuffType, int] = {}  # デバフ, 解除ロール目標値
 
     # パラメータ類
     @property
@@ -134,6 +134,10 @@ class EntityBase(ABC):
         real_val = min(val, self.param.hp)
         self.param.hp -= real_val
 
+    def instant_kill(self) -> None:
+        """即死"""
+        self.param.hp = 0
+
     def increase_mp(self, val: int) -> int:
         """MP加算"""
         real_val = min(val, self.max_mp - self.param.mp)
@@ -198,10 +202,17 @@ class EntityBase(ABC):
             case DebuffType.POISON_DAMAGE | DebuffType.FALL_ASLEEP | DebuffType.INITIATIVE_ZERO:
                 dice = diceroll(self.bonus_end)
             # 幸運ロール
-            case DebuffType.STONE_HOLD:
+            case DebuffType.STONE_HOLD | DebuffType.DISRUPT_UNDEAD:
                 dice = diceroll(self.bonus_lck)
-
         return dice >= dc
+
+    def activate_debuff(self, debuff_id: DebuffType, target: int) -> None:
+        """デバフ効果の設定"""
+        self.debuff_list[debuff_id] = target
+
+    def deactivate_debuff(self, debuff_id: DebuffType) -> None:
+        """デバフ効果の解除"""
+        self.debuff_list.pop(debuff_id)
 
     def recoverroll(self) -> list[DebuffType]:
         """デバフからの回復ロール"""
@@ -216,11 +227,23 @@ class EntityBase(ABC):
                 continue
             elif self.registroll(debuff_id, dc):
                 result.append(debuff_id)
+        if len(result) > 0:
+            for debuff_id in result:
+                self.deactivate_debuff(debuff_id)
         return result
 
-    def clear_debuff(self) -> None:
-        """デバフは戦闘終了で回復"""
+    def clear_all_debuff(self) -> None:
+        """デバフ全解除"""
         self.debuff_list.clear()
+
+    def clear_battle_debuff(self) -> None:
+        """一部デバフは戦闘終了で回復"""
+        # self.debuff_list.clear()
+        self.debuff_list.pop(DebuffType.REDUCE_DICEVALUE, None)
+        self.debuff_list.pop(DebuffType.FALL_ASLEEP, None)
+        self.debuff_list.pop(DebuffType.DISTURB_MIND, None)
+        self.debuff_list.pop(DebuffType.CHARM_PERSON, None)
+        self.debuff_list.pop(DebuffType.INITIATIVE_ZERO, None)
 
     def damageroll_skill(self, skill_def: SkillDef) -> int:
         """魔法ダメージ計算（呼び出し）"""

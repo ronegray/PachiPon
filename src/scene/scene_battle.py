@@ -158,6 +158,8 @@ class SceneBattle(BaseScene):
         for i, mem in enumerate(di.ref.pt.get_allmember()):
             mem.sprite.x = self.status_windows[i].x
             mem.sprite.y = self.status_windows[i].y
+            mem.sprite.w = self.status_windows[i].width
+            mem.sprite.h = self.status_windows[i].height
 
         self.load_bgm()
 
@@ -168,6 +170,10 @@ class SceneBattle(BaseScene):
         #     px.btnp(px.KEY_Z, _hold_frames, _repeat_frames)
         #     or px.btnp(px.GAMEPAD1_BUTTON_A, _hold_frames, _repeat_frames)
         # )
+
+        # デバフテスト用
+        u1 = di.ref.pt.get_active_member()[0]
+        u1.debuff_list = {0: 4, 1: 5, 3: 2}  # type: ignore
 
     def load_bgm(self) -> None:
         """シーン切替時のBGMロード"""
@@ -235,6 +241,7 @@ class SceneBattle(BaseScene):
         if self.is_battle_over:
             # 入力制御の復旧
             # WindowInputHandler.load_default_input()
+            [member.clear_battle_debuff() for member in di.ref.pt.get_active_member()]
             di.ref.scnmgr.next_scene("levelup")
             return
 
@@ -262,10 +269,23 @@ class SceneBattle(BaseScene):
                 # イニシアチブ値の計算
                 self.calc_initiative()
                 # イニシアチブ値の大きいコマンドがスタック上位に来るようpush
-                initive_list = [
+                initiative_list = [
                     k for k, _ in sorted(self.initiative_dict.items(), key=lambda item: item[1])
                 ]
-                for member_id in initive_list:
+                # ターンの最後（＝コマンドスタックリストの戦闘）にデバフ抵抗ロールを実行
+                di.ref.cmdmgr.push_command(
+                    en_cmd.DebuffRecoverCheck(
+                        self.build_context(
+                            di.ref.pt.get_active_member()[0],
+                            di.ref.pt.get_active_member()[0],
+                            di.ref.pt.get_active_member(),
+                            di.ref.pt.get_active_member(),
+                        ),
+                        self.message_window,
+                    )
+                )
+                # バトルコマンドの定義
+                for member_id in initiative_list:
                     di.ref.cmdmgr.push_command(self.battle_commands[member_id])
                 self.battle_commands.clear()
         else:
@@ -354,18 +374,18 @@ class SceneBattle(BaseScene):
             # px.rectb(wnd.x + 7 + self.barsize + 1, wnd.y + 26, 1, 5, px.COLOR_WHITE)
             # px.rectb(wnd.x + 7 + self.barsize + 2, wnd.y + 27, 1, 3, px.COLOR_WHITE)
 
-            # デバフアイコンテスト用
-            from skill import DebuffType
+            # # デバフアイコンテスト用
+            # from skill import DebuffType
 
-            member.debuff_list = {
-                DebuffType.REDUCE_DICEVALUE: 99,
-                DebuffType.CHARM_PERSON: 99,
-                DebuffType.DISTURB_MIND: 99,
-                DebuffType.FALL_ASLEEP: 99,
-                DebuffType.INITIATIVE_ZERO: 99,
-                DebuffType.POISON_DAMAGE: 99,
-                DebuffType.STONE_HOLD: 99,
-            }
+            # member.debuff_list = {
+            #     DebuffType.REDUCE_DICEVALUE: 99,
+            #     DebuffType.CHARM_PERSON: 99,
+            #     DebuffType.DISTURB_MIND: 99,
+            #     DebuffType.FALL_ASLEEP: 99,
+            #     DebuffType.INITIATIVE_ZERO: 99,
+            #     DebuffType.POISON_DAMAGE: 99,
+            #     DebuffType.STONE_HOLD: 99,
+            # }
             # px.rect(wnd.x + 6, wnd.y + 35, 8, 8, px.COLOR_GREEN)
             icon_x, icon_y = self.debufficonoffset
             for dbf_id in member.debuff_list:
@@ -536,6 +556,8 @@ class SceneFixedBattle(BaseScene):
         for i, mem in enumerate(di.ref.pt.get_allmember()):
             mem.sprite.x = self.status_windows[i].x
             mem.sprite.y = self.status_windows[i].y
+            mem.sprite.w = self.status_windows[i].width
+            mem.sprite.h = self.status_windows[i].height
 
         self.load_bgm()
 
@@ -637,6 +659,19 @@ class SceneFixedBattle(BaseScene):
                 initive_list = [
                     k for k, _ in sorted(self.initiative_dict.items(), key=lambda item: item[1])
                 ]
+                # ターンの最後（＝コマンドスタックリストの戦闘）にデバフ抵抗ロールを実行
+                di.ref.cmdmgr.push_command(
+                    en_cmd.DebuffRecoverCheck(
+                        self.build_context(
+                            di.ref.pt.get_active_member()[0],
+                            di.ref.pt.get_active_member()[0],
+                            di.ref.pt.get_active_member(),
+                            di.ref.pt.get_active_member(),
+                        ),
+                        self.message_window,
+                    )
+                )
+                # バトルコマンドの定義
                 for member_id in initive_list:
                     di.ref.cmdmgr.push_command(self.battle_commands[member_id])
                 self.battle_commands.clear()

@@ -53,8 +53,8 @@ class CommandBaseSequence(CommandBase):
             case CommandPhase.SYN:
                 self.display_info.target.message_list.clear()
                 self._gen = self._sequence()
-                self._advance()
                 self.phase = CommandPhase.ACK
+                self._advance()
             case CommandPhase.ACK:
                 if (
                     self.display_info.target.update() == WindowAction.DISCARD

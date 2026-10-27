@@ -69,6 +69,9 @@ class EnemyRepository:
                 EnemyRepository._threat_group[threat_base] = threat_list
                 threat_base = threat
                 threat_list = []
+            weaktype_overlap = 0b0
+            for weaktype in params.get("weaktype", "NONE"):
+                weaktype_overlap |= getattr(WeakType, weaktype)
             EnemyRepository._master_def[key] = {
                 "threat": threat,
                 "name": params.get("name", "Unknown"),
@@ -85,7 +88,8 @@ class EnemyRepository:
                 "defvalue": params.get("defvalue", 0),
                 "magpenalty": params.get("magpenalty", 0),
                 "guardtype": getattr(GuardType, params.get("guardtype", "NONE")),
-                "weaktype": getattr(WeakType, params.get("weaktype", "NONE")),
+                # "weaktype": getattr(WeakType, params.get("weaktype", "NONE")),
+                "weaktype": weaktype_overlap,
                 "action_pattern": [
                     getattr(ActionPattern, str(action).upper())
                     for action in params.get("action_pattern", [])

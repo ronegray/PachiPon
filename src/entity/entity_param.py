@@ -5,7 +5,7 @@
 """
 
 from dataclasses import dataclass, field
-from enum import IntEnum
+from enum import IntEnum, IntFlag
 
 
 @dataclass
@@ -49,7 +49,8 @@ class GuardType(IntEnum):
     FULL = 3 # 全
 
 
-class WeakType(IntEnum):
+# class WeakType(IntEnum):
+class WeakType(IntFlag):
     """魔法弱点"""
 
     NONE   = 0b0000_0000 # 無
@@ -60,7 +61,7 @@ class WeakType(IntEnum):
     BOLT   = 0b0001_0000 # 雷電
     MIND   = 0b0010_0000 # 精神
     SHOCK  = 0b0100_0000 # 衝撃
-    LIGHT  = 0b1000_0000 # 霊光
+    LIGHT  = 0b1000_0000 # 霊光 #アンデッドの弱点
     ALL    = 0b1111_1111 # 全
 
 
@@ -84,5 +85,5 @@ class EnemyParam:
     defvalue: int = 0
     magpenalty: int = 0
     guardtype: int = 0b0000
-    weaktype: int = 0b0000_0000
+    weaktype: int = 0b0000_0000  # WeakType型だと状態を重ねられない
     action_pattern: list[ActionPattern] = field(default_factory=list)
