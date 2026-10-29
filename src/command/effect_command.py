@@ -155,7 +155,11 @@ def efx_damage_shake(
     disp_info: DisplayInfo, target: EntityBase
 ) -> Generator[list[str | int], None, None]:
     """被ダメージ時の振動"""
-    di.ref.sndmgr.play_se_sustain(SoundID.DAMAGE_GIVEN)
+    # エフェクト音も敵味方で異なる
+    if isinstance(target, Enemy):
+        di.ref.sndmgr.play_se_sustain(SoundID.DAMAGE_GIVEN)
+    else:
+        di.ref.sndmgr.play_se_sustain(SoundID.DAMAGE_TAKEN)
     tgt_sprite_addr_x = target.sprite.x
     tgt_sprite_addr_y = target.sprite.y
     for i in range(APP_FPS // 4):

@@ -16,7 +16,8 @@ from helper import diceroll
 from field_map import Route
 from entity import Enemy, EntityParam, EnemyParam, BaseSprite, ActionPattern, Character
 from . import BaseScene
-import command.entity_command as en_cmd
+import command.entity_command as e_cmd
+import command.entity_battle_command as en_cmd
 from entity import EntityBase, EntityContext
 
 
@@ -173,7 +174,7 @@ class SceneBattle(BaseScene):
 
         # デバフテスト用
         u1 = di.ref.pt.get_active_member()[0]
-        u1.debuff_list = {0: 4, 1: 5, 3: 2}  # type: ignore
+        u1.debuff_list = {0: 4, 1: 9, 5: 5, 6: 1}  # type: ignore
 
     def load_bgm(self) -> None:
         """シーン切替時のBGMロード"""
@@ -239,9 +240,9 @@ class SceneBattle(BaseScene):
             return
 
         if self.is_battle_over:
-            # 入力制御の復旧
-            # WindowInputHandler.load_default_input()
+            # 戦闘限定デバフの解除
             [member.clear_battle_debuff() for member in di.ref.pt.get_active_member()]
+            # 経験値取得＆レベルアップ処理シーンへ遷移
             di.ref.scnmgr.next_scene("levelup")
             return
 
@@ -274,7 +275,7 @@ class SceneBattle(BaseScene):
                 ]
                 # ターンの最後（＝コマンドスタックリストの戦闘）にデバフ抵抗ロールを実行
                 di.ref.cmdmgr.push_command(
-                    en_cmd.DebuffRecoverCheck(
+                    e_cmd.DebuffRecoverCheck(
                         self.build_context(
                             di.ref.pt.get_active_member()[0],
                             di.ref.pt.get_active_member()[0],

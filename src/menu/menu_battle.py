@@ -19,7 +19,9 @@ from gameutils.lib import (
 from entity import EntityContext, EntityBase, Character, EquipSlot
 from skill import SkillTargetType
 from item import ItemTargetType
-import command.entity_command as en_cmd
+
+# import command.entity_command as e_cmd
+import command.entity_battle_command as en_cmd
 import command.item_command as itm_cmd
 
 # ロギング設定
