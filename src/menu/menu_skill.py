@@ -22,7 +22,9 @@ from const import SoundID
 from helper import upper_int, format_leftright
 from entity import EntityContext
 from skill import SkillDef, SkillTargetType
-import command.entity_command as en_cmd
+
+# import command.entity_command as en_cmd
+import command.entity_battle_command as en_cmd
 
 
 # ロギング設定

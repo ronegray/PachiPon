@@ -27,7 +27,6 @@
             "escape"
         ],
         "skills": [
-            ""
         ],
         "description": ""
     },
@@ -59,7 +58,6 @@
             "escape"
         ],
         "skills": [
-            ""
         ],
         "description": ""
     },
@@ -368,8 +366,7 @@
         "magpenalty": 1,
         "guardtype": "STUB",
         "weaktype": [
-            "SACRED",
-            "LIGHT"
+            "SACRED"
         ],
         "action_pattern": [
             "defend",

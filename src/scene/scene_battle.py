@@ -7,6 +7,7 @@
 """
 
 import logging
+from random import choice
 import pyxel as px
 from gameutils.base import check_file
 from gameutils.lib import Window  # , WindowInputHandler
@@ -15,9 +16,10 @@ import service_locater as di
 from helper import diceroll
 from field_map import Route
 from entity import Enemy, EntityParam, EnemyParam, BaseSprite, ActionPattern, Character
+from skill import SkillID, DebuffType, SkillTargetType
 from . import BaseScene
-import command.entity_command as e_cmd
-import command.entity_battle_command as en_cmd
+import command.entity_command as ent_cmd
+import command.entity_battle_command as btl_cmd
 from entity import EntityBase, EntityContext
 
 
@@ -33,12 +35,12 @@ class SceneBattle(BaseScene):
     _status_width: int = 80
     _status_height: int = 48
     _enemy_name_suffix: list = ["Ａ", "Ｂ", "Ｃ", "Ｄ", "Ｅ", "Ｆ"]
-    _enemy_commands: dict[ActionPattern, type[en_cmd.CommandBaseEntity]] = {
-        ActionPattern.ATTACK: en_cmd.Attack,
-        ActionPattern.ESCAPE: en_cmd.EnemyEscape,
-        ActionPattern.SKILL: en_cmd.UseSkill,
-        ActionPattern.SPECIAL: en_cmd.EnemySpecial,
-        ActionPattern.DEFEND: en_cmd.DefenceMode,
+    _enemy_commands: dict[ActionPattern, type[btl_cmd.CommandBaseEntity]] = {
+        ActionPattern.ATTACK: btl_cmd.Attack,
+        ActionPattern.ESCAPE: btl_cmd.EnemyEscape,
+        ActionPattern.SKILL: btl_cmd.EnemySpecial,
+        ActionPattern.SPECIAL: btl_cmd.EnemySpecial,
+        ActionPattern.DEFEND: btl_cmd.DefenceMode,
     }
 
     def __init__(self):
@@ -133,7 +135,11 @@ class SceneBattle(BaseScene):
             sprite_x += enemy_image.width + sprite_offset
             # インスタンスをリストに追加
             self.enemy_list.append(Enemy(base_param, enemy_param, enemy_sprite, i + ENEMY_ID_BASE))
-            self.enemy_list[-1].skills._learned_skills = enemy_data["skills"]
+            # スキル定義
+            # self.enemy_list[-1].skills._learned_skills = enemy_data["skills"]
+            for skill_name in enemy_data["skills"]:
+                skill_id = SkillID[skill_name]
+                self.enemy_list[-1].skills.learn_skill(skill_id)
 
         # メンバーステータスウインドウの生成
         status_offset = Window._chip_size // 2
@@ -193,12 +199,17 @@ class SceneBattle(BaseScene):
         #     ch.play(mml, loop=True)
         di.ref.sndmgr.request_bgm("battle")
 
-    def select_enemy_target(self) -> tuple[int, list[Character]]:
+    # # def select_enemy_target(self) -> tuple[int, list[Character]]:
+    # #     """エネミーエンティティの敵対ターゲット決定"""
+    # #     target_list = di.ref.pt.get_active_member()
+    # #     target_index = px.rndi(0, len(target_list) - 1)
+    # #     # return [target_list[target_index]]
+    # #     return target_index, target_list
+    def select_enemy_target(self) -> tuple[Character, list[Character]]:
         """エネミーエンティティの敵対ターゲット決定"""
         target_list = di.ref.pt.get_active_member()
-        target_index = px.rndi(0, len(target_list) - 1)
-        # return [target_list[target_index]]
-        return target_index, target_list
+        target = choice(target_list)
+        return target, target_list
 
     def calc_initiative(self):
         """全員のイニシアチブ値を算出してリスト化"""
@@ -206,8 +217,38 @@ class SceneBattle(BaseScene):
         all_member = di.ref.pt.get_allmember() + self.enemy_list
         for member in all_member:
             if member.is_alive:
-                initiative = diceroll(2) + member.bonus_spd
+                # イニシアチブデバフが掛かってる時は強制的に0値
+                initiative = (
+                    0
+                    if member.debuff_list.get(DebuffType.INITIATIVE_ZERO, None)
+                    else diceroll(2) + member.bonus_spd
+                )
                 self.initiative_dict[member.chara_id] = initiative
+
+    def command_enemy_basic(self, enemy: Enemy, action: ActionPattern) -> btl_cmd.CommandBaseEntity:
+        """エネミー物理系コマンドの生成"""
+        target, target_list = self.select_enemy_target()
+        ctx = self.build_context(enemy, target, self.enemy_list, target_list)
+        enemy_command = SceneBattle._enemy_commands.get(action)
+        if enemy_command is None:
+            raise NameError
+        return enemy_command(ctx, self.message_window)
+
+    def command_enemy_skill(self, enemy: Enemy, action: ActionPattern) -> btl_cmd.CommandBaseEntity:
+        """エネミー技系コマンドの生成"""
+
+        skill_id = choice(list(enemy.skills.get_learned_skill_id()))
+        skill_def = di.ref.sklrps.get_def(skill_id)
+        if skill_def.target_type in (SkillTargetType.ALLY, SkillTargetType.ALLIES):  # type: ignore
+            target = choice(self.enemy_list)
+            target_list = self.enemy_list
+        else:
+            target, target_list = self.select_enemy_target()
+        ctx = self.build_context(enemy, target, self.enemy_list, target_list)
+        enemy_command = getattr(btl_cmd, skill_def.effect_func)  # type: ignore
+        if enemy_command is None:
+            raise NameError
+        return enemy_command(ctx, self.message_window, {"skillinfo": skill_def})
 
     def generate_enemy_commands(self):
         """エネミーのコマンドオブジェクト生成"""
@@ -215,15 +256,19 @@ class SceneBattle(BaseScene):
             if enemy.is_alive:
                 action_index = diceroll(1) - 1
                 action = enemy.eparam.action_pattern[action_index]
-
-                target_index, target_list = self.select_enemy_target()
-                ctx = self.build_context(
-                    enemy, target_list[target_index], self.enemy_list, target_list
-                )
-                enemy_command = SceneBattle._enemy_commands.get(action)
-                if enemy_command is None:
-                    raise NameError
-                self.battle_commands[enemy.chara_id] = enemy_command(ctx, self.message_window)
+                # target, target_list = self.select_enemy_target()
+                # ctx = self.build_context(
+                #     enemy, target, self.enemy_list, target_list
+                # )
+                # enemy_command = SceneBattle._enemy_commands.get(action)
+                # if enemy_command is None:
+                #     raise NameError
+                # self.battle_commands[enemy.chara_id] = enemy_command(ctx, self.message_window)
+                if action in (ActionPattern.SKILL, ActionPattern.SPECIAL):
+                    cmd = self.command_enemy_skill(enemy, action)
+                else:
+                    cmd = self.command_enemy_basic(enemy, action)
+                self.battle_commands[enemy.chara_id] = cmd
 
     def update(self):
         """更新処理
@@ -275,7 +320,7 @@ class SceneBattle(BaseScene):
                 ]
                 # ターンの最後（＝コマンドスタックリストの戦闘）にデバフ抵抗ロールを実行
                 di.ref.cmdmgr.push_command(
-                    e_cmd.DebuffRecoverCheck(
+                    ent_cmd.DebuffRecoverCheck(
                         self.build_context(
                             di.ref.pt.get_active_member()[0],
                             di.ref.pt.get_active_member()[0],
@@ -375,19 +420,7 @@ class SceneBattle(BaseScene):
             # px.rectb(wnd.x + 7 + self.barsize + 1, wnd.y + 26, 1, 5, px.COLOR_WHITE)
             # px.rectb(wnd.x + 7 + self.barsize + 2, wnd.y + 27, 1, 3, px.COLOR_WHITE)
 
-            # # デバフアイコンテスト用
-            # from skill import DebuffType
-
-            # member.debuff_list = {
-            #     DebuffType.REDUCE_DICEVALUE: 99,
-            #     DebuffType.CHARM_PERSON: 99,
-            #     DebuffType.DISTURB_MIND: 99,
-            #     DebuffType.FALL_ASLEEP: 99,
-            #     DebuffType.INITIATIVE_ZERO: 99,
-            #     DebuffType.POISON_DAMAGE: 99,
-            #     DebuffType.STONE_HOLD: 99,
-            # }
-            # px.rect(wnd.x + 6, wnd.y + 35, 8, 8, px.COLOR_GREEN)
+            # デバフアイコン
             icon_x, icon_y = self.debufficonoffset
             for dbf_id in member.debuff_list:
                 px.blt(
@@ -446,12 +479,12 @@ class SceneFixedBattle(BaseScene):
     _status_width: int = 80
     _status_height: int = 48
     _enemy_name_suffix: list = ["Ａ", "Ｂ", "Ｃ", "Ｄ", "Ｅ", "Ｆ"]
-    _enemy_commands: dict[ActionPattern, type[en_cmd.CommandBaseEntity]] = {
-        ActionPattern.ATTACK: en_cmd.Attack,
-        ActionPattern.ESCAPE: en_cmd.EnemyEscape,
-        ActionPattern.SKILL: en_cmd.UseSkill,
-        ActionPattern.SPECIAL: en_cmd.EnemySpecial,
-        ActionPattern.DEFEND: en_cmd.DefenceMode,
+    _enemy_commands: dict[ActionPattern, type[btl_cmd.CommandBaseEntity]] = {
+        ActionPattern.ATTACK: btl_cmd.Attack,
+        ActionPattern.ESCAPE: btl_cmd.EnemyEscape,
+        ActionPattern.SKILL: btl_cmd.EnemySpecial,
+        ActionPattern.SPECIAL: btl_cmd.EnemySpecial,
+        ActionPattern.DEFEND: btl_cmd.DefenceMode,
     }
 
     def __init__(self, enemy_count: int, enemy_id: str):
@@ -662,7 +695,7 @@ class SceneFixedBattle(BaseScene):
                 ]
                 # ターンの最後（＝コマンドスタックリストの戦闘）にデバフ抵抗ロールを実行
                 di.ref.cmdmgr.push_command(
-                    en_cmd.DebuffRecoverCheck(
+                    ent_cmd.DebuffRecoverCheck(
                         self.build_context(
                             di.ref.pt.get_active_member()[0],
                             di.ref.pt.get_active_member()[0],

@@ -1179,9 +1179,9 @@ class CharacterInitialHPMP(CommandBaseEntity):
     def _sequence(self) -> Generator[list[str], None, None]:
         effect = di.ref.efxdice
         roll_frames = 60
-        yield ["初期ＨＰとＭＰを決めるため", "サイコロを２回転がします"]
-        yield ["ＨＰサイコロの数は、１＋耐久ボーナス値"]
-        dices = 1 + self._ctx.actor.bonus_end
+        yield ["初期ＨＰとＭＰを決めるため", "サイコロを ２回 転がします"]
+        yield ["ＨＰサイコロの数は、２＋耐久ボーナス値"]
+        dices = 2 + self._ctx.actor.bonus_end
         effect.start(dices, roll_frames)
         if not di.ref.conf.is_cutin_dice:
             effect.skip()

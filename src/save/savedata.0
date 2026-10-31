@@ -1,6 +1,6 @@
 {
     "ver": 1,
-    "savetime": "2026/10/29 09:01:16.98",
+    "savetime": "2026/10/30 21:06:26.51",
     "events": {
         "p01": {
             "ready_count": 0,
@@ -746,10 +746,10 @@
         }
     },
     "pt": {
-        "turns": 31,
-        "foods": 61,
+        "turns": 33,
+        "foods": 57,
         "golds": 151,
-        "point": "p03",
+        "point": "p01",
         "ptefx": []
     },
     "chars": {
@@ -768,7 +768,7 @@
                 "max_mp": 31,
                 "level": 6,
                 "exp": 24,
-                "hp": 24,
+                "hp": 32,
                 "mp": 31
             }
         ],

@@ -149,6 +149,12 @@ class Party:
             DebuffType.STONE_HOLD: 9,
         }
 
+    def get_party_speed(self) -> float:
+        """パーティ全体の速度感"""
+        members = self.get_active_member_count()
+        speeds = [mem.speed for mem in self.get_active_member()]
+        return sum(speeds) / members
+
     def get_top_index(self) -> int:
         """生存中PTメンバーの先頭キャラのリストインデックスを取得"""
         return self._top_index

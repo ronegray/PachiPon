@@ -21,7 +21,7 @@ from skill import SkillTargetType
 from item import ItemTargetType
 
 # import command.entity_command as e_cmd
-import command.entity_battle_command as en_cmd
+import command.entity_battle_command as btl_cmd
 import command.item_command as itm_cmd
 
 # ロギング設定
@@ -32,7 +32,7 @@ class MenuBattle(Menu):
     def __init__(
         self,
         ctx: EntityContext,
-        command_package: en_cmd.CommandPackage,
+        command_package: btl_cmd.CommandPackage,
     ):
         menu_pos = (0, 192)
         menu_shape = [1, 4]
@@ -85,7 +85,7 @@ class MenuBattle(Menu):
         """ユーザ行動コマンド：攻撃する／ターゲットの選択メニューへ"""
 
         # コマンドパッケージに選択内容登録
-        self.command_package.selected_action = en_cmd.Attack
+        self.command_package.selected_action = btl_cmd.Attack
         self.command_package.target_type = SkillTargetType.ENEMY
 
         return RsltPush(
@@ -133,7 +133,7 @@ class MenuBattle(Menu):
     def defence_mode(self):
         """ユーザ行動コマンド：防御体勢"""
         # コマンドパッケージに選択内容登録
-        self.command_package.selected_action = en_cmd.DefenceMode
+        self.command_package.selected_action = btl_cmd.DefenceMode
         self.command_package.target_type = SkillTargetType.SELF
 
         return RsltDiscard()
@@ -240,7 +240,7 @@ class MenuSelectItem(Menu):
         self,
         ctx: EntityContext,
         ref_window: dict[str, int],
-        command_package: en_cmd.CommandPackage,
+        command_package: btl_cmd.CommandPackage,
     ):
         self.ctx = ctx
         self.command_package = command_package

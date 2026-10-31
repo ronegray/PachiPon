@@ -33,6 +33,7 @@ class EntityBase(ABC):
         # ステータスボーナスの表現
         self.multiplier: list[float] = [1.0, 1.0]  # hp,mp倍率
         self.param_bonus: list[int] = [0, 0, 0, 0, 0]  # str,arc,end,spd,lck
+        self.reduce_dice: int = 0  # ダイスマイナスデバフの効果
         # 状態フラグ・パラメタ
         self.defend_rate: int = 1  # 防御時は2として防御体勢を表現する係数
         self.critical_rate: int = 2  # クリティカルダメージの倍率
@@ -162,7 +163,7 @@ class EntityBase(ABC):
 
     def attackroll_offence(self) -> int:
         """命中ロール：攻撃側"""
-        return diceroll(max(1, self.bonus_str)) + self.bonus_lck
+        return diceroll(max(1, self.bonus_str)) + self.bonus_lck - self.reduce_dice
 
     def attackroll_defence(self) -> int:
         """命中ロール：防御側"""
@@ -173,7 +174,7 @@ class EntityBase(ABC):
         """クリティカル判定後、クリティカル倍率を取得"""
         cnt = diff // 6
         while cnt > 0:
-            if diceroll(2) > EntityBase._critical_threshold:
+            if (diceroll(2) - self.reduce_dice) > EntityBase._critical_threshold:
                 return self.critical_rate
             cnt -= 1
         return 1
@@ -182,7 +183,7 @@ class EntityBase(ABC):
         """近接ダメージ計算"""
         # return (self.hitdice, diceroll(max(1, self.hitdice)) + self.bonus_str)
         dice = max(1, self.hitdice)
-        return (dice, diceroll(dice) + self.bonus_str)
+        return (dice, diceroll(dice) + self.bonus_str - self.reduce_dice)
 
     def suppress_damage_melee(self) -> int:
         """近接ダメージの防御による相殺値"""
@@ -190,7 +191,13 @@ class EntityBase(ABC):
 
     def castroll(self, dc: int) -> bool:
         """魔法発動ロール"""
-        return (diceroll(max(1, self.bonus_arc)) - (dc + self.magpenalty)) > 0
+        disturb_mind = 3 if self.debuff_list.get(DebuffType.DISTURB_MIND, None) else 0
+        return (
+            diceroll(max(1, self.bonus_arc))
+            - (dc + self.magpenalty)
+            - disturb_mind
+            - self.reduce_dice
+        ) > 0
 
     def registroll(self, debuff_id: DebuffType, dc: int) -> bool:
         """効果抵抗ロール"""
@@ -204,15 +211,17 @@ class EntityBase(ABC):
             # 幸運ロール
             case DebuffType.STONE_HOLD | DebuffType.DISRUPT_UNDEAD:
                 dice = diceroll(self.bonus_lck)
-        return dice >= dc
+        return (dice - self.reduce_dice) >= dc
 
     def activate_debuff(self, debuff_id: DebuffType, target: int) -> None:
         """デバフ効果の設定"""
         self.debuff_list[debuff_id] = target
+        self.reduce_dice = 1 if debuff_id == DebuffType.REDUCE_DICEVALUE else self.reduce_dice
 
     def deactivate_debuff(self, debuff_id: DebuffType) -> None:
         """デバフ効果の解除"""
         self.debuff_list.pop(debuff_id)
+        self.reduce_dice = 0 if debuff_id == DebuffType.REDUCE_DICEVALUE else self.reduce_dice
 
     def recoverroll(self) -> list[DebuffType]:
         """デバフからの回復ロール"""
@@ -247,7 +256,7 @@ class EntityBase(ABC):
 
     def damageroll_skill(self, skill_def: SkillDef) -> int:
         """魔法ダメージ計算（呼び出し）"""
-        return self.skills.calc_damage(skill_def)
+        return self.skills.calc_damage(skill_def) - self.reduce_dice
 
     def suppress_damage_skill(self) -> int:
         """魔法ダメージの防御による相殺値"""
