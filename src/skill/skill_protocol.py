@@ -105,6 +105,7 @@ class DebuffType(IntEnum):
     DISTURB_MIND     = 4 # 魔力抵抗
     CHARM_PERSON     = 5 # 魔力抵抗
     INITIATIVE_ZERO  = 6 # 頑健抵抗
+    DISRUPT_UNDEAD   = 7 # 幸運抵抗
 # fmt: on
 
 

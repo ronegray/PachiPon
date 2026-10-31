@@ -85,6 +85,7 @@ class SoundID(IntEnum):
     CHARM = 46
     ENEMY_ESCAPE = 47
     BOSS_DEATH = 48
+    POISON_DAMAGE = 49
 
     EVENT_MINUS = 54
     EVENT_PLUS = 55

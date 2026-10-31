@@ -136,6 +136,24 @@ class Party:
         #     self.add_ptmember(di.ref.mem2)
         self.add_ptmember(hero)
         self.set_field_sprite()
+        # デバフアイコンテスト用
+        from skill import DebuffType
+
+        hero.debuff_list = {
+            DebuffType.REDUCE_DICEVALUE: 9,
+            DebuffType.CHARM_PERSON: 9,
+            DebuffType.DISTURB_MIND: 9,
+            DebuffType.FALL_ASLEEP: 9,
+            DebuffType.INITIATIVE_ZERO: 9,
+            DebuffType.POISON_DAMAGE: 9,
+            DebuffType.STONE_HOLD: 9,
+        }
+
+    def get_party_speed(self) -> float:
+        """パーティ全体の速度感"""
+        members = self.get_active_member_count()
+        speeds = [mem.speed for mem in self.get_active_member()]
+        return sum(speeds) / members
 
     def get_top_index(self) -> int:
         """生存中PTメンバーの先頭キャラのリストインデックスを取得"""
@@ -196,6 +214,18 @@ class Party:
         """パーティのフィールドスプライトの方向設定用ラッパー"""
         self._field_sprite.set_direction(direction)
 
+    def turn_progression(self) -> int:
+        """ターン経過処理"""
+        # ターン経過インクリメント
+        self.past_turns += 1
+        self.memver_recoverroll_debuff()
+        return self.past_turns
+
+    def memver_recoverroll_debuff(self) -> None:
+        """PTメンバー全員デバフ復帰ロールチャレンジ"""
+        for mem in self._member_list:
+            mem.recoverroll()
+
     def _update_move_route(self, target_point: EventPoint, to_route: Route):
         """移動中の現在位置および描画位置の更新"""
         target_x, target_y = target_point.x, target_point.y
@@ -212,7 +242,8 @@ class Party:
             distance = hypot(dx, dy)
 
             if encount_interval <= current_count:
-                self.past_turns += 1
+                # self.past_turns += 1
+                self.turn_progression()
                 if self.encount_check(encounts):
                     encounts += 1
                     self._pt_is_encount = True
@@ -398,85 +429,51 @@ class Party:
         # パーティ先頭キャラの描画
         self._field_sprite.draw(screen_x // 2, screen_y // 2)
 
-        # ルート情報の表示
-        if not self._pt_is_moving:
-            route_list = self._current_point.get_reachable_routes()
-            for route in route_list:
-                match route.direction:
-                    # case "up":
-                    #     info_x, info_y = 108, 84
-                    # case "left":
-                    #     info_x, info_y = 60, 120
-                    # case "right":
-                    #     info_x, info_y = 156, 120
-                    # case "down":
-                    #     info_x, info_y = 108, 152
-                    case "up":
-                        info_x, info_y = 112, 63
-                    case "left":
-                        info_x, info_y = 56, 115
-                    case "right":
-                        info_x, info_y = 168, 115
-                    case "down":
-                        info_x, info_y = 112, 168
-                # px.dither(0.5)
-                # px.rect(info_x, info_y, 40, 16, px.COLOR_GRAY)
-                # px.dither(1)
-                # px.rectb(info_x, info_y, 40, 16, px.COLOR_RED)
-                px.blt(info_x, info_y, 0, 0, 24, 32, 25)  # , colkey=px.COLOR_BLACK)
-                # px.text(
-                #     info_x + 2,
-                #     info_y + 2,
-                #     f"cost:{route.cost}\nthreat:{route.threat}",
-                #     px.COLOR_BLACK,
-                # )
-                upper = route.cost // 10
-                lower = route.cost % 10
-                pad = Window._chip_size
-                px.blt(
-                    info_x + pad + 3 + 1,
-                    info_y + 3 + 1,
-                    0,
-                    upper * pad,
-                    0,
-                    pad,
-                    pad,
-                    colkey=px.COLOR_BLACK,
-                )
-                px.blt(
-                    info_x + pad * 2 + 3 + 1,
-                    info_y + 3 + 1,
-                    0,
-                    lower * pad,
-                    0,
-                    pad,
-                    pad,
-                    colkey=px.COLOR_BLACK,
-                )
+        # # ルート情報の表示
+        # if not self._pt_is_moving:
+        #     route_list = self._current_point.get_reachable_routes()
+        #     for route in route_list:
+        #         match route.direction:
+        #             # case "up":
+        #             #     info_x, info_y = 108, 84
+        #             # case "left":
+        #             #     info_x, info_y = 60, 120
+        #             # case "right":
+        #             #     info_x, info_y = 156, 120
+        #             # case "down":
+        #             #     info_x, info_y = 108, 152
+        #             case "up":
+        #                 info_x, info_y = 112, 63
+        #             case "left":
+        #                 info_x, info_y = 56, 115
+        #             case "right":
+        #                 info_x, info_y = 168, 115
+        #             case "down":
+        #                 info_x, info_y = 112, 168
+        #         # px.dither(0.5)
+        #         # px.rect(info_x, info_y, 40, 16, px.COLOR_GRAY)
+        #         # px.dither(1)
+        #         # px.rectb(info_x, info_y, 40, 16, px.COLOR_RED)
+        #         px.blt(info_x, info_y, 0, 0, 24, 32, 25)  # , colkey=px.COLOR_BLACK)
+        #         # px.text(
+        #         #     info_x + 2,
+        #         #     info_y + 2,
+        #         #     f"cost:{route.cost}\nthreat:{route.threat}",
+        #         #     px.COLOR_BLACK,
+        #         # )
+        #         upper = route.cost // 10
+        #         lower = route.cost % 10
+        #         pad = Window._chip_size
+        #         info_x += (3 + 1) # 枠幅＋余白
+        #         info_y += (3 + 1)
+        #         px.blt(info_x + pad, info_y, 0, upper * pad, 0, pad,pad, colkey=px.COLOR_BLACK)
+        #         px.blt(info_x + pad * 2, info_y, 0, lower * pad, 0, pad, pad, colkey=px.COLOR_BLACK)
 
-                upper = route.threat // 10
-                lower = route.threat % 10
-                pad = Window._chip_size
-                px.blt(
-                    info_x + pad + 3 + 1,
-                    info_y + 3 + 1 + pad + 1,
-                    0,
-                    upper * pad,
-                    0,
-                    pad,
-                    pad,
-                    colkey=px.COLOR_BLACK,
-                )
-                px.blt(
-                    info_x + pad * 2 + 3 + 1,
-                    info_y + 3 + 1 + pad + 1,
-                    0,
-                    lower * pad,
-                    0,
-                    pad,
-                    pad,
-                    colkey=px.COLOR_BLACK,
-                )
+        #         upper = route.threat // 10
+        #         lower = route.threat % 10
+        #         pad = Window._chip_size
+        #         px.blt(info_x + pad, info_y + pad + 1, 0, upper * pad, 0, pad, pad, colkey=px.COLOR_BLACK)
+        #         px.blt(info_x + pad * 2, info_y + pad + 1, 0, lower * pad, 0, pad, pad, colkey=px.COLOR_BLACK)
 
     def draw_ptinfo(self):
         # パーティー情報ウインドウの描画

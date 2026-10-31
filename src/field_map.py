@@ -188,6 +188,47 @@ class EventPoint:
         px.circ(self.x + offset_x, self.y + offset_y, 2, pointcolor)
         px.circb(self.x + offset_x, self.y + offset_y, 2, px.COLOR_WHITE)
 
+    def draw_route_info(self):
+        """現在イベントポイントに接続するルート情報の描画"""
+        route_list = self.get_reachable_routes()
+        pad = 8
+        for route in route_list:
+            match route.direction:
+                case "up":
+                    info_x, info_y = 112, 63
+                case "left":
+                    info_x, info_y = 56, 115
+                case "right":
+                    info_x, info_y = 168, 115
+                case "down":
+                    info_x, info_y = 112, 168
+            # 情報領域枠描画
+            px.blt(info_x, info_y, 0, 0, 24, 32, 25)
+
+            info_x += 3 + 1  # 枠幅＋余白
+            info_y += 3 + 1
+            # コスト
+            upper = route.cost // 10
+            lower = route.cost % 10
+            px.blt(info_x + pad, info_y, 0, upper * pad, 0, pad, pad, colkey=px.COLOR_BLACK)
+            px.blt(info_x + pad * 2, info_y, 0, lower * pad, 0, pad, pad, colkey=px.COLOR_BLACK)
+            # 脅威度
+            upper = route.threat // 10
+            lower = route.threat % 10
+            px.blt(
+                info_x + pad, info_y + pad + 1, 0, upper * pad, 0, pad, pad, colkey=px.COLOR_BLACK
+            )
+            px.blt(
+                info_x + pad * 2,
+                info_y + pad + 1,
+                0,
+                lower * pad,
+                0,
+                pad,
+                pad,
+                colkey=px.COLOR_BLACK,
+            )
+
 
 class MapGraph:
     """マップ情報（イベントポイント、ルート、画像）の管理クラス"""
@@ -271,6 +312,39 @@ class MapGraph:
             if route.direction == direction:
                 return route.to_id
         return None
+
+    def draw_direction_icon(self, current_node_id: str, offset_x: float, offset_y: float) -> None:
+        """現地点からのルート上に移動方向キーアイコンを描画"""
+        point = self.get_point(current_node_id)
+        # dir_address: dict[ROUTE_DIR, list[float]] = {}
+        if not point:
+            errmsg = "イベントポイント情報が異常です"
+            logger.critical(errmsg, exc_info=True)
+            raise ValueError(errmsg)
+
+        for route in point.get_reachable_routes():
+            target = self.get_point(route.to_id)
+            if not target:
+                errmsg = "イベントポイント情報が異常です"
+                logger.critical(errmsg, exc_info=True)
+                raise ValueError(errmsg)
+            vx = target.x - point.x
+            vy = target.y - point.y
+            icon_size = 8
+            multipliyer = 0.3 if px.sqrt(vx**2 + vy**2) > icon_size * 5 else 0.5
+            icon_x = point.x + multipliyer * vx - (icon_size // 2) + offset_x
+            icon_y = point.y + multipliyer * vy - (icon_size // 2) + offset_y
+            # dir_address[route.direction] = [icon_x, icon_y]
+            match route.direction:
+                case "up":
+                    icon_addr = (96, 0)
+                case "right":
+                    icon_addr = (104, 0)
+                case "down":
+                    icon_addr = (112, 0)
+                case "left":
+                    icon_addr = (120, 0)
+            px.blt(icon_x, icon_y, 0, *icon_addr, icon_size, icon_size, colkey=px.COLOR_BLACK)
 
     def draw(self, offset_x: float = 0, offset_y: float = 0):
         """マップデータ（画像・イベントポイント・ルート）の描画"""

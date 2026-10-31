@@ -56,7 +56,7 @@
         "description": "呪毒の視線で対象を石のように硬直させ、行動不能にする",
         "dc": 3,
         "cost": 15,
-        "effect_func": "DebuffInstantKill",
+        "effect_func": "DebuffStoneStatue",
         "effect_value": 1
     },
     "FIRE_BOLT": {
@@ -166,7 +166,7 @@
         "description": "精神を撹乱し、対象の魔法発動ロールに３のペナルティを与える",
         "dc": 2,
         "cost": 10,
-        "effect_func": "DebuffCastSpell",
+        "effect_func": "DebuffCastPenalty",
         "effect_value": 3
     },
     "CHARM_ILLUSION": {

@@ -259,8 +259,8 @@ class SceneField(BaseScene):
 
         # マップ描画（地図・ノード・ルート　オフセット適用)
         di.ref.map.draw(ox, oy)
-        px.line(0, 0, 255, 255, px.COLOR_BLACK)
-        px.line(0, 255, 255, 0, px.COLOR_BLACK)
+        # px.line(0, 0, 255, 255, px.COLOR_BLACK)
+        # px.line(0, 255, 255, 0, px.COLOR_BLACK)
 
         # イベントポイント情報表示（移動中は非表示）
         if not di.ref.pt._pt_is_moving:
@@ -269,6 +269,11 @@ class SceneField(BaseScene):
                 self.eventpoint_info_window.draw_message()
                 self.eventpoint_state_window.draw()
                 self.eventpoint_state_window.draw_message()
+
+        # ルート情報・移動方向補助アイコンの表示
+        if not di.ref.pt._pt_is_moving:
+            self.current_point.draw_route_info()
+            di.ref.map.draw_direction_icon(self.current_point.id, ox, oy)
 
         # プレイヤーキャラの描画 (常に画面中央)
         di.ref.pt.draw(px.width, px.height)

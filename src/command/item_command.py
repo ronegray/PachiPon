@@ -361,6 +361,9 @@ class learn_skill(CommandBaseItem):
         wnd_skill_info = Window("basic", *info_pos, *info_size, "sub")
         # self.change_target_item(menu_select_learn_skill, wnd_skill_info)
 
+        # キー待ち時の入力を一回捨てる
+        yield [self.WAIT, "0"]
+
         # スタックに追加せずメニュー動作
         rc = menu_select_learn_skill.update()
         while rc == WindowAction.CONTINUE:
