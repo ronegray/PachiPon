@@ -67,11 +67,6 @@ class GameApp:
 
     def update(self):
         """pyxel updateフレーム処理"""
-        if px.btnp(px.GAMEPAD1_BUTTON_LEFTSTICK):
-            from scene.scene_savedata import SceneDataSave
-
-            a = SceneDataSave()
-            a.manupilate_data(len(a.savedatas))
         di.ref.scnmgr.update()
         di.ref.cmdmgr.update()
         di.ref.sndmgr.update()

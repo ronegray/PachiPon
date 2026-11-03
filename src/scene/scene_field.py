@@ -47,6 +47,10 @@ class SceneField(BaseScene):
         evstate_pos = (0, 232)
         evstate_size = (APP_WIDTH, 8 + 8 + 8)  # 下枠+文字サイズ+上枠
         self.eventpoint_state_window = Window("basic", *evstate_pos, *evstate_size, "once")
+        # オートセーブ用オブジェクト
+        from . import SceneDataSave
+
+        self.autosave: SceneDataSave = SceneDataSave()
         # ウインドウ表示抑止フラグ
         self.is_close_window: bool = False
 
@@ -108,17 +112,19 @@ class SceneField(BaseScene):
     def update(self):
         """フィールド関連オブジェクト群の更新処理"""
         if is_pressed("select"):
-            # di.ref.scnmgr.next_scene("datasave")
-            # return
-            from scene.scene_savedata import SceneDataSave
+            # # di.ref.scnmgr.next_scene("datasave")
+            # # return
+            # from scene.scene_savedata import SceneDataSave
 
-            a = SceneDataSave()
-            idx = 0
-            for data in a.savedatas:
-                if data["str_line"][1] == "　データなし":
-                    break
-                idx += 1
-            a.manupilate_data(idx)
+            # a = SceneDataSave()
+            # idx = 0
+            # for data in a.savedatas:
+            #     if data["str_line"][1] == "　データなし":
+            #         break
+            #     idx += 1
+            # a.manupilate_data(idx)
+            di.ref.scnmgr.next_scene("datasave")
+            return
 
         # コマンド実行中は更新処理停止
         if not di.ref.cmdmgr.is_empty:
@@ -161,10 +167,10 @@ class SceneField(BaseScene):
                 self.update_eventpoint_info()
                 self.last_visited_node = self.current_point.id
                 # オートセーブ処理
-                from scene.scene_savedata import SceneDataSave
-
-                save = SceneDataSave()
-                save.manupilate_data(0)
+                # from scene.scene_savedata import SceneDataSave
+                # save = SceneDataSave()
+                # save.manupilate_data(0)
+                self.autosave.manupilate_data(0)
             return
 
         # ウインドウ抑止判定
@@ -208,6 +214,7 @@ class SceneField(BaseScene):
                     di.ref.pt.move_route(to_route)
                 return
 
+        # 決定キーでのイベント発動
         if is_pressed("decide") and self.current_point.is_ready:
             # ダンジョンではたいまつが必要
             if self.current_point.point_type == PointPlaceType.DUNGEON:
