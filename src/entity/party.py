@@ -150,7 +150,7 @@ class Party:
         }
 
     def get_party_speed(self) -> float:
-        """パーティ全体の速度感"""
+        """パーティ全体の行動速度"""
         members = self.get_active_member_count()
         speeds = [mem.speed for mem in self.get_active_member()]
         return sum(speeds) / members
@@ -218,13 +218,18 @@ class Party:
         """ターン経過処理"""
         # ターン経過インクリメント
         self.past_turns += 1
-        self.memver_recoverroll_debuff()
+        self.member_recoverroll_debuff()
         return self.past_turns
 
-    def memver_recoverroll_debuff(self) -> None:
+    def member_recoverroll_debuff(self) -> None:
         """PTメンバー全員デバフ復帰ロールチャレンジ"""
         for mem in self._member_list:
             mem.recoverroll()
+
+    def pt_fullrecovery(self) -> None:
+        """PT全員全快"""
+        for mem in self._member_list:
+            mem.fullrecover()
 
     def _update_move_route(self, target_point: EventPoint, to_route: Route):
         """移動中の現在位置および描画位置の更新"""
@@ -273,6 +278,17 @@ class Party:
             self._world_y += direction_y * self._move_speed
 
             yield
+
+    def set_current_point(self, target_point_id: str) -> None:
+        """現在地の変更"""
+        tmp_point = self.map.get_point(target_point_id)
+        if tmp_point is None:
+            errmsg = f"指定されたイベントポイント({target_point_id})は定義されていません"
+            logger.critical(errmsg, exc_info=True)
+            raise KeyError(errmsg)
+        self._current_point = tmp_point
+        self._world_x = self._current_point.x
+        self._world_y = self._current_point.y
 
     def get_current_point(self) -> EventPoint:
         """現在のパーティー所在地イベントポイントを取得
@@ -429,52 +445,6 @@ class Party:
         # パーティ先頭キャラの描画
         self._field_sprite.draw(screen_x // 2, screen_y // 2)
 
-        # # ルート情報の表示
-        # if not self._pt_is_moving:
-        #     route_list = self._current_point.get_reachable_routes()
-        #     for route in route_list:
-        #         match route.direction:
-        #             # case "up":
-        #             #     info_x, info_y = 108, 84
-        #             # case "left":
-        #             #     info_x, info_y = 60, 120
-        #             # case "right":
-        #             #     info_x, info_y = 156, 120
-        #             # case "down":
-        #             #     info_x, info_y = 108, 152
-        #             case "up":
-        #                 info_x, info_y = 112, 63
-        #             case "left":
-        #                 info_x, info_y = 56, 115
-        #             case "right":
-        #                 info_x, info_y = 168, 115
-        #             case "down":
-        #                 info_x, info_y = 112, 168
-        #         # px.dither(0.5)
-        #         # px.rect(info_x, info_y, 40, 16, px.COLOR_GRAY)
-        #         # px.dither(1)
-        #         # px.rectb(info_x, info_y, 40, 16, px.COLOR_RED)
-        #         px.blt(info_x, info_y, 0, 0, 24, 32, 25)  # , colkey=px.COLOR_BLACK)
-        #         # px.text(
-        #         #     info_x + 2,
-        #         #     info_y + 2,
-        #         #     f"cost:{route.cost}\nthreat:{route.threat}",
-        #         #     px.COLOR_BLACK,
-        #         # )
-        #         upper = route.cost // 10
-        #         lower = route.cost % 10
-        #         pad = Window._chip_size
-        #         info_x += (3 + 1) # 枠幅＋余白
-        #         info_y += (3 + 1)
-        #         px.blt(info_x + pad, info_y, 0, upper * pad, 0, pad,pad, colkey=px.COLOR_BLACK)
-        #         px.blt(info_x + pad * 2, info_y, 0, lower * pad, 0, pad, pad, colkey=px.COLOR_BLACK)
-
-        #         upper = route.threat // 10
-        #         lower = route.threat % 10
-        #         pad = Window._chip_size
-        #         px.blt(info_x + pad, info_y + pad + 1, 0, upper * pad, 0, pad, pad, colkey=px.COLOR_BLACK)
-        #         px.blt(info_x + pad * 2, info_y + pad + 1, 0, lower * pad, 0, pad, pad, colkey=px.COLOR_BLACK)
-
     def draw_ptinfo(self):
         # パーティー情報ウインドウの描画
         self.info_window.draw()
@@ -508,12 +478,12 @@ class Party:
         start_point = params.get("point", "p01")
         self._pt_efx_cache = set(params.get("ptefx", ""))
 
-        tmp_point = self.map.get_point(start_point)
-        if tmp_point is None:
-            errmsg = f"指定されたイベントポイント({start_point})は定義されていません"
-            logger.critical(errmsg, exc_info=True)
-            raise KeyError(errmsg)
-        self._current_point = tmp_point
-        self._world_x = self._current_point.x
-        self._world_y = self._current_point.y
-        # self.set_field_sprite()
+        # tmp_point = self.map.get_point(start_point)
+        # if tmp_point is None:
+        #     errmsg = f"指定されたイベントポイント({start_point})は定義されていません"
+        #     logger.critical(errmsg, exc_info=True)
+        #     raise KeyError(errmsg)
+        # self._current_point = tmp_point
+        # self._world_x = self._current_point.x
+        # self._world_y = self._current_point.y
+        self.set_current_point(start_point)

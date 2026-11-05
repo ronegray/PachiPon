@@ -307,6 +307,10 @@ class SoundManager:
             target_factor=0.0, duration_frames=fade_frames, on_complete=on_complete
         )
 
+    def get_fade_state(self) -> bool:
+        """フェード中判定"""
+        return self._bgm_fade.state is not FadeState.NONE
+
     # ---------- 効果音（固定ch・上書き方式） ----------
     def play_se_instant(self, sound_id: int | px.Sound):
         px.channels[SE_INSTANT_CH].gain = self._ch_base_gain[SE_INSTANT_CH]

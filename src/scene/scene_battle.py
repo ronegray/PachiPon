@@ -49,10 +49,10 @@ class SceneBattle(BaseScene):
         self.initiative_dict: dict = {}  # イニシアチブ値格納辞書
         self.battle_commands: dict = {}  # 行動コマンド格納辞書
         self.is_battle_over: bool = False  # 戦闘終了フラグ
-        # 背景用に直前画面のスクリーンポインタからイメージ生成
+        # 背景用に直前画面からディザ済イメージ生成
         self.bgimage: px.Image = px.Image(px.width, px.height)
-        bgpointer = self.bgimage.data_ptr()
-        bgpointer[:] = px.screen.data_ptr()
+        self.bgimage.dither(0.3)
+        self.bgimage.blt(0, 0, px.screen, 0, 0, px.width, px.height)
         # HP/MPバー
         self.baraddress = (0, 16)
         self.barsize = (70, 8)
@@ -160,6 +160,7 @@ class SceneBattle(BaseScene):
                 )
             )
             status_x += SceneBattle._status_width + status_offset
+        self.barwidth = self.status_windows[0].width - (Window._chip_size * 2)
 
         # スプライトアドレスをステータスウインドウに準拠
         for i, mem in enumerate(di.ref.pt.get_allmember()):
@@ -170,41 +171,10 @@ class SceneBattle(BaseScene):
 
         self.load_bgm()
 
-        # # バトルシーンでは決定キーの入力を連打状態に更新する
-        # # バトルシーンから抜ける際に復旧関数で元に戻す
-        # _hold_frames, _repeat_frames = 4, 2
-        # WindowInputHandler._wrapper.decide = lambda: (
-        #     px.btnp(px.KEY_Z, _hold_frames, _repeat_frames)
-        #     or px.btnp(px.GAMEPAD1_BUTTON_A, _hold_frames, _repeat_frames)
-        # )
-
-        # デバフテスト用
-        u1 = di.ref.pt.get_active_member()[0]
-        u1.debuff_list = {0: 4, 1: 9, 5: 5, 6: 1}  # type: ignore
-
     def load_bgm(self) -> None:
         """シーン切替時のBGMロード"""
-        # """暫定処理：BGMロード"""
-        # path = check_file("assets/sound/battle.txt")
-        # if path is not None:
-        #     score_data = read_string(path)
-        # else:
-        #     raise FileNotFoundError("ファイルがない！")
-
-        # px.stop()
-        # for i, ch in enumerate(px.channels):
-        #     mml = "R"
-        #     if i < len(score_data):
-        #         mml = score_data[i]
-        #     ch.play(mml, loop=True)
         di.ref.sndmgr.request_bgm("battle")
 
-    # # def select_enemy_target(self) -> tuple[int, list[Character]]:
-    # #     """エネミーエンティティの敵対ターゲット決定"""
-    # #     target_list = di.ref.pt.get_active_member()
-    # #     target_index = px.rndi(0, len(target_list) - 1)
-    # #     # return [target_list[target_index]]
-    # #     return target_index, target_list
     def select_enemy_target(self) -> tuple[Character, list[Character]]:
         """エネミーエンティティの敵対ターゲット決定"""
         target_list = di.ref.pt.get_active_member()
@@ -256,14 +226,6 @@ class SceneBattle(BaseScene):
             if enemy.is_alive:
                 action_index = diceroll(1) - 1
                 action = enemy.eparam.action_pattern[action_index]
-                # target, target_list = self.select_enemy_target()
-                # ctx = self.build_context(
-                #     enemy, target, self.enemy_list, target_list
-                # )
-                # enemy_command = SceneBattle._enemy_commands.get(action)
-                # if enemy_command is None:
-                #     raise NameError
-                # self.battle_commands[enemy.chara_id] = enemy_command(ctx, self.message_window)
                 if action in (ActionPattern.SKILL, ActionPattern.SPECIAL):
                     cmd = self.command_enemy_skill(enemy, action)
                 else:
@@ -288,7 +250,7 @@ class SceneBattle(BaseScene):
             # 戦闘限定デバフの解除
             [member.clear_battle_debuff() for member in di.ref.pt.get_active_member()]
             # 経験値取得＆レベルアップ処理シーンへ遷移
-            di.ref.scnmgr.next_scene("levelup")
+            di.ref.scnmgr.next_scene("afterbattle")
             return
 
         # 生存エネミーが0匹になったら戦闘終了して前のシーンに戻る
@@ -297,9 +259,15 @@ class SceneBattle(BaseScene):
             self.is_battle_over = True
             return
 
-        # パーティメンバーが全員死亡したらゲームオーバー(タイトルへ戻る)
-        if di.ref.pt.get_active_member_count() == 0:
-            di.ref.scnmgr.change_scene("title")
+        # パーティメンバーが全員死亡したら初期ポイントへ連行
+        if di.ref.pt.get_active_member_count() < 1:
+            # di.ref.scnmgr.change_scene("title")
+            # di.ref.scnmgr.previous_scene()
+            # if di.ref.cmdmgr.is_empty:　#デバッグ用
+            di.ref.cmdmgr.push_command(
+                ent_cmd.PartyDefeated(self.message_window, self.bgimage, self.enemy_list)
+            )
+            return
 
         # パーティメンバーの死亡を考慮し先頭キャラ再チェック
         di.ref.pt.update_top_index()
@@ -345,21 +313,18 @@ class SceneBattle(BaseScene):
         - エネミー
         """
         # 背景描画
-        px.dither(0.3)
+        # px.dither(0.3)
         px.blt(0, 0, self.bgimage, 0, 0, self.bgimage.width, self.bgimage.height)
-        px.dither(1)
+        # px.dither(1)
         # ステータスウインドウ
-        self.wndmgr.draw()
-        # ステータスウインドウ内容
         for i, wnd in enumerate(self.status_windows):
             wnd.draw()
-            self.barwidth = wnd.width - (Window._chip_size * 2)
             member = di.ref.pt.get_member(i)
             wnd.set_message([f"{member.param.name}"])
             state = [[text, px.COLOR_WHITE] for text in wnd.message_list]
             wnd.drawText(wnd.x + 6, wnd.y + 4, state)
+            # HPゲージ
             gauge_hp = member.param.hp / member.max_hp * self.gaugesize[0]
-            # px.rect(wnd.x + 8, wnd.y + 17, self.barwidth, 7, px.COLOR_RED)
             px.blt(
                 wnd.x + self.baroffset[0],
                 wnd.y + self.baroffset[1][0],
@@ -368,7 +333,6 @@ class SceneBattle(BaseScene):
                 *self.barsize,
                 colkey=px.COLOR_BLACK,
             )
-            # px.rect(wnd.x + 8, wnd.y + 17, gauge_hp, 7, px.COLOR_LIME)
             px.rect(
                 wnd.x + self.gaugeoffset[0],
                 wnd.y + self.gaugeoffset[1][0],
@@ -376,21 +340,14 @@ class SceneBattle(BaseScene):
                 self.gaugesize[1],
                 self.gaugecolor["hp"],
             )
-            # px.text(wnd.x + 10, wnd.y + 18, f"HP:{member.param.hp}", px.COLOR_BLACK)
             px.text(
                 wnd.x + self.gaugeoffset[0] + 1,
                 wnd.y + self.gaugeoffset[1][0],
                 f"HP:{member.param.hp}",
                 px.COLOR_BLACK,
             )
-            # px.rectb(wnd.x + 8, wnd.y + 17, self.barwidth, 7, px.COLOR_WHITE)
-            # px.rectb(wnd.x + 7, wnd.y + 18, 1, 5, px.COLOR_WHITE)
-            # px.rectb(wnd.x + 6, wnd.y + 19, 1, 3, px.COLOR_WHITE)
-            # px.rectb(wnd.x + 7 + self.barwidth + 1, wnd.y + 18, 1, 5, px.COLOR_WHITE)
-            # px.rectb(wnd.x + 7 + self.barwidth + 2, wnd.y + 19, 1, 3, px.COLOR_WHITE)
 
             gauge_mp = member.param.mp / member.max_mp * self.gaugesize[0]
-            # px.rect(wnd.x + 8, wnd.y + 25, self.barsize, 7, px.COLOR_RED)
             px.blt(
                 wnd.x + self.baroffset[0],
                 wnd.y + self.baroffset[1][1],
@@ -399,7 +356,6 @@ class SceneBattle(BaseScene):
                 *self.barsize,
                 colkey=px.COLOR_BLACK,
             )
-            # px.rect(wnd.x + 8, wnd.y + 25, gauge_mp, 7, px.COLOR_DARK_BLUE)
             px.rect(
                 wnd.x + self.gaugeoffset[0],
                 wnd.y + self.gaugeoffset[1][1],
@@ -407,18 +363,12 @@ class SceneBattle(BaseScene):
                 self.gaugesize[1],
                 self.gaugecolor["mp"],
             )
-            # px.text(wnd.x + 10, wnd.y + 26, f"MP:{member.param.mp}", px.COLOR_BLACK)
             px.text(
                 wnd.x + self.gaugeoffset[0] + 1,
                 wnd.y + self.gaugeoffset[1][1],
                 f"MP:{member.param.mp}",
                 px.COLOR_BLACK,
             )
-            # px.rectb(wnd.x + 8, wnd.y + 25, self.barsize, 7, px.COLOR_WHITE)
-            # px.rectb(wnd.x + 7, wnd.y + 26, 1, 5, px.COLOR_WHITE)
-            # px.rectb(wnd.x + 6, wnd.y + 27, 1, 3, px.COLOR_WHITE)
-            # px.rectb(wnd.x + 7 + self.barsize + 1, wnd.y + 26, 1, 5, px.COLOR_WHITE)
-            # px.rectb(wnd.x + 7 + self.barsize + 2, wnd.y + 27, 1, 3, px.COLOR_WHITE)
 
             # デバフアイコン
             icon_x, icon_y = self.debufficonoffset
@@ -663,7 +613,7 @@ class SceneFixedBattle(BaseScene):
         if self.is_battle_over:
             # 入力制御の復旧
             # WindowInputHandler.load_default_input()
-            di.ref.scnmgr.next_scene("levelup")
+            di.ref.scnmgr.next_scene("afterbattle")
             return
 
         # 生存エネミーが0匹になったら戦闘終了して前のシーンに戻る

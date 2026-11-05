@@ -241,6 +241,12 @@ class EntityBase(ABC):
                 self.deactivate_debuff(debuff_id)
         return result
 
+    def fullrecover(self) -> None:
+        """全快"""
+        self.param.hp = self.max_hp
+        self.param.mp = self.max_mp
+        self.clear_all_debuff()
+
     def clear_all_debuff(self) -> None:
         """デバフ全解除"""
         self.debuff_list.clear()

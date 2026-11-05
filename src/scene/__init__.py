@@ -26,7 +26,7 @@ from .scene_fieldevent import SceneFieldEvent
 from .scene_battlesplash import SceneBattleSplash
 from .scene_battle import SceneBattle, SceneFixedBattle
 from .scene_battlemenu import SceneBattleMenu
-from .scene_levelup import SceneLevelup
+from .scene_afterbattle import SceneAfterBattle
 from .scene_shop import SceneShop
 from .scene_savedata import SceneDataLoad, SceneDataSave
 
@@ -44,5 +44,5 @@ register("battlesplash", SceneBattleSplash)
 register("battle", SceneBattle)
 register("fixedbattle", SceneFixedBattle)
 register("battlemenu", SceneBattleMenu)
-register("levelup", SceneLevelup)
+register("afterbattle", SceneAfterBattle)
 register("datasave", SceneDataSave)

@@ -49,7 +49,6 @@
         [{"id": "拒　否", "action": "none", "args": [false]}]
     ],
     "MenuSelectShopCategory": [
-
         [
             {"id": "消耗品", "action": "buy_consume"},
             {"id": "装備品", "action": "buy_equips"},
