@@ -6,7 +6,8 @@ import logging
 from typing import Generator, cast
 from dataclasses import dataclass
 import pyxel as px
-from const import SoundID
+from const import SoundID, APP_FPS
+from gameutils.base import is_pressed
 from gameutils.lib import Window, WindowAction
 
 # from helper import diceroll, upper_int
@@ -1142,6 +1143,78 @@ class CommandPackage:
 #         yield [f"{actor.param.name}の 特殊攻撃！", ""]
 
 
+class PartyDefeated(CommandBaseSequence):
+    """パーティー全滅時処理"""
+
+    def _sequence(self) -> Generator[list[str], None, None]:
+        # フェード用背景画像コピー
+        bg = self.args[0]
+        w, h = px.width, px.height
+        fade_bgimage = px.Image(w, h)
+        fade_bgimage.blt(0, 0, bg, 0, 0, w, h)
+        # 背景&BGMフェード
+        i = 1
+        di.ref.sndmgr.stop_music_fadeout(APP_FPS * 5)
+        while True:
+            self.display_info.graphic_command = [
+                lambda alpha=i: bg.dither(alpha),
+                lambda: bg.cls(0),
+                lambda: bg.blt(0, 0, fade_bgimage, 0, 0, px.width, px.height),
+            ]
+            i -= 0.015
+            if i < 0:
+                if di.ref.sndmgr.get_fade_state():
+                    # エネミーリストのクリア
+                    self.args[1].clear()
+                    break
+            yield ["wait", "0"]
+        # 全滅BGM再生
+        di.ref.sndmgr.request_bgm("defeat")
+        messages = [
+            ["やられたョ！", "　　♰ 全員　死亡 ♰ "],
+            ["wait", "3"],
+            ["", "・・・慌てる事はありません"],
+            ["wait", "2"],
+            ["", "あなたに再び立ち上がり、戦う力を与えましょう"],
+            ["wait", "2"],
+            ["", "啓示を得た者がそこを訪れ、王城へと連れ帰ってくれます"],
+            ["wait", "2"],
+            ["", "彼の地でゆっくり傷を癒やすとよいでしょう"],
+            [""],
+            [""],
+            [""],
+            ["wait", "2"],
+            ["これだけの業を振るったのです"],
+            ["wait", "3"],
+            ["", "少しの供物を頂いておきますよ？"],
+        ]
+        for msg in messages:
+            if is_pressed("cancel"):
+                break
+            yield msg
+
+        di.ref.sndmgr.play_se_instant(SoundID.ITEM_LOST)
+        offering_foods = di.ref.pt._pt_foods // 2
+        di.ref.pt.lost_foods(offering_foods)
+        offering_golds = int(di.ref.pt._pt_golds * 0.1)
+        di.ref.pt.spend_gold(offering_golds)
+
+        self.display_info.target.update_indicator(True)
+        while self.display_info.target.update() == WindowAction.CONTINUE:
+            yield [self.WAIT, "0"]
+        self.display_info.target.update_indicator(False)
+
+        # スタート地点へ戻る
+        di.ref.pt.set_current_point("p01")
+        di.ref.pt._pt_is_moving = False
+        di.ref.pt.set_current_route()
+        di.ref.pt._field_sprite._is_moving = False
+
+        di.ref.scnmgr.change_scene("map")
+
+        return
+
+
 class GrantReward(CommandBaseEntity):
     """戦闘報酬獲得イベント（エンティティ関連）"""
 
@@ -1170,7 +1243,10 @@ class GrantReward(CommandBaseEntity):
             member.gain_exp(getexp)
             yield [f"{member.param.name}は　経験値{upper_int(getexp)}　を稼いだ！"]
 
-        return
+        self.display_info.target.update_indicator(True)
+        while self.display_info.target.update() == WindowAction.CONTINUE:
+            yield [self.WAIT, "0"]
+        self.display_info.target.update_indicator(False)
 
 
 class CharacterInitialHPMP(CommandBaseEntity):
