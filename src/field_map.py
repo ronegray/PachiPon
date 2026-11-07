@@ -145,12 +145,8 @@ class EventPoint:
         - ポイントのイベント準備状態を更新
         - イベントタイプから発生イベント決定用ダイス値を取得
         """
-        # イベントポイントの準備状態を変更
         self.is_ready = False
-        # # イベントタイプからカウンタ兼ダイス数を取得
-        # cnt = EventPoint.ready_timer[self.event_type.name]
         self.ready_count = self.dices
-        # return self.dices
 
     def get_event_dice_values(self) -> tuple[int, list[int]]:
         """イベントポイントのダイス個数／算出済ダイス値を取得"""
@@ -397,17 +393,6 @@ class MapGraph:
 
     def load_event(self, params: dict) -> None:
         """イベントポイント単位のパラメタをロードデータから反映"""
-        # self._pt_foods = params.get("foods", 0)
-        # self._pt_golds = params.get("golds", 0)
-        # start_point = params.get("point", "p01")
-
-        # tmp_point = self.map.get_point(start_point)
-        # if tmp_point is None:
-        #     errmsg = f"指定されたイベントポイント({start_point})は定義されていません"
-        #     logger.critical(errmsg, exc_info=True)
-        #     raise KeyError(errmsg)
-        # self._current_point = tmp_point
-
         for key, param in params.items():
             self.points[key].ready_count = param["ready_count"]
             if self.points[key].ready_count != 0:

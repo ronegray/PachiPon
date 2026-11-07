@@ -1,9 +1,9 @@
 {
     "ver": 1,
-    "savetime": "2026/11/05 08:40:58.05",
+    "savetime": "2026/11/08 00:19:12.10",
     "events": {
         "p01": {
-            "ready_count": 0,
+            "ready_count": 7,
             "dice_values": [
                 6,
                 6,
@@ -45,9 +45,9 @@
         "p06": {
             "ready_count": 0,
             "dice_values": [
-                2,
-                2,
-                4
+                5,
+                3,
+                5
             ]
         },
         "p07": {
@@ -607,77 +607,77 @@
         "p73": {
             "ready_count": 0,
             "dice_values": [
-                6
+                1
             ]
         },
         "p74": {
             "ready_count": 0,
             "dice_values": [
-                2
+                5
             ]
         },
         "p75": {
             "ready_count": 0,
             "dice_values": [
-                6
+                1
             ]
         },
         "p76": {
             "ready_count": 0,
             "dice_values": [
-                3
+                6
             ]
         },
         "p77": {
             "ready_count": 0,
             "dice_values": [
-                5
+                6
             ]
         },
         "p78": {
             "ready_count": 0,
             "dice_values": [
-                3
+                6
             ]
         },
         "p79": {
             "ready_count": 0,
             "dice_values": [
-                1
+                6
             ]
         },
         "p80": {
             "ready_count": 0,
             "dice_values": [
-                5
+                4
             ]
         },
         "p81": {
             "ready_count": 0,
             "dice_values": [
-                5,
-                3,
-                1
+                2,
+                2,
+                6
             ]
         },
         "p82": {
             "ready_count": 0,
             "dice_values": [
-                1
+                5
             ]
         },
         "p83": {
             "ready_count": 0,
             "dice_values": [
+                2,
                 6,
+                5,
                 2,
-                2,
-                3,
-                3,
-                2,
-                1,
+                6,
                 4,
-                2
+                3,
+                5,
+                1
             ]
         },
         "p84": {
@@ -685,39 +685,39 @@
             "dice_values": [
                 6,
                 2,
-                5,
+                4,
                 6,
-                6,
+                1,
                 2,
-                3,
-                6,
-                4
+                2,
+                4,
+                1
             ]
         },
         "p85": {
             "ready_count": 0,
             "dice_values": [
-                2,
-                3,
-                2
+                4,
+                5,
+                3
             ]
         },
         "p86": {
             "ready_count": 0,
             "dice_values": [
-                6
+                2
             ]
         },
         "p87": {
             "ready_count": 0,
             "dice_values": [
-                6
+                1
             ]
         },
         "p88": {
             "ready_count": 0,
             "dice_values": [
-                5
+                6
             ]
         },
         "p89": {
@@ -729,7 +729,7 @@
         "p90": {
             "ready_count": 0,
             "dice_values": [
-                3
+                6
             ]
         },
         "p91": {
@@ -741,15 +741,15 @@
         "p92": {
             "ready_count": 0,
             "dice_values": [
-                6
+                4
             ]
         }
     },
     "pt": {
-        "turns": 26,
-        "foods": 67,
-        "golds": 110,
-        "point": "p06",
+        "turns": 28,
+        "foods": 63,
+        "golds": 114,
+        "point": "p03",
         "ptefx": []
     },
     "chars": {
@@ -759,17 +759,17 @@
             },
             {
                 "name": "\u307b\u3052\u307b\u3052\u3075\u30fc\u3070\u30fc0",
-                "strength": 15,
+                "strength": 16,
                 "arcane": 6,
                 "endurance": 8,
                 "speed": 5,
                 "luck": 5,
-                "max_hp": 28,
-                "max_mp": 29,
-                "level": 5,
-                "exp": 17,
-                "hp": 28,
-                "mp": 29
+                "max_hp": 33,
+                "max_mp": 33,
+                "level": 6,
+                "exp": 19,
+                "hp": 33,
+                "mp": 33
             }
         ],
         "1": [
@@ -778,17 +778,17 @@
             },
             {
                 "name": "\u307b\u3052\u307b\u3052\u3075\u30fc\u3070\u30fc1",
-                "strength": 8,
+                "strength": 9,
                 "arcane": 7,
                 "endurance": 8,
                 "speed": 15,
                 "luck": 5,
-                "max_hp": 27,
-                "max_mp": 33,
-                "level": 5,
-                "exp": 17,
-                "hp": 27,
-                "mp": 33
+                "max_hp": 33,
+                "max_mp": 36,
+                "level": 6,
+                "exp": 19,
+                "hp": 33,
+                "mp": 36
             }
         ],
         "2": [
@@ -797,17 +797,17 @@
             },
             {
                 "name": "\u307b\u3052\u307b\u3052\u3075\u30fc\u3070\u30fc2",
-                "strength": 10,
+                "strength": 11,
                 "arcane": 15,
                 "endurance": 12,
                 "speed": 5,
                 "luck": 8,
-                "max_hp": 30,
-                "max_mp": 35,
-                "level": 5,
-                "exp": 17,
-                "hp": 30,
-                "mp": 35
+                "max_hp": 33,
+                "max_mp": 42,
+                "level": 6,
+                "exp": 19,
+                "hp": 33,
+                "mp": 42
             }
         ]
     },
@@ -842,7 +842,10 @@
             4369,
             4481
         ],
-        "1": [],
+        "1": [
+            4385,
+            4466
+        ],
         "2": []
     },
     "pl_item": {
@@ -2074,11 +2077,11 @@
         ],
         [
             4105,
-            5
+            4
         ],
         [
             4121,
-            5
+            4
         ],
         [
             4122,

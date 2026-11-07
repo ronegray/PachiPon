@@ -44,8 +44,8 @@ class SceneField(BaseScene):
         self.eventpoint_info_window = Window("basic", *evinfo_pos, *evinfo_size, "once")
         self.eventpoint_info_window.update_row_max(8)
         # イベント状態ウインドウの生成
-        evstate_pos = (0, 232)
-        evstate_size = (APP_WIDTH, 8 + 8 + 8)  # 下枠+文字サイズ+上枠
+        evstate_pos = (0, 216)
+        evstate_size = (APP_WIDTH, 8 + 16 + 8)  # 下枠+文字サイズ+上枠
         self.eventpoint_state_window = Window("basic", *evstate_pos, *evstate_size, "once")
         # オートセーブ用オブジェクト
         from . import SceneDataSave
@@ -76,15 +76,24 @@ class SceneField(BaseScene):
         """イベントポイントウインドウの内容更新"""
         self.eventpoint_info_window.clear_message()
         self.eventpoint_info_window.add_message(
-            (self.current_point.name + PointPlaceType(self.current_point.point_type).name)
+            (
+                self.current_point.name  # + PointPlaceType(self.current_point.point_type).name)
+            )
+        )
+        self.eventpoint_state_window.set_message(
+            [f"イベントタイプ：{PointPlaceType(self.current_point.point_type).name}"]
         )
         if self.current_point.is_ready:
-            self.eventpoint_state_window.set_message(
-                ["イベント実行準備が完了しています（決定ボタンで実行）"]
+            # self.eventpoint_state_window.set_message(
+            #     ["イベント実行準備が完了しています（決定ボタンで実行）"]
+            self.eventpoint_state_window.add_message(
+                "イベント実行準備が完了しています（決定ボタンで実行）"
             )
         else:
-            self.eventpoint_state_window.set_message(
-                [f"イベント実行準備中です（あと{self.current_point.ready_count}ターン）"]
+            # self.eventpoint_state_window.set_message(
+            #     [f"イベント実行準備中です（あと{self.current_point.ready_count}ターン）"]
+            self.eventpoint_state_window.add_message(
+                f"イベント実行準備中です（あと{self.current_point.ready_count}ターン）"
             )
         for _, val in self.current_point.get_eventpoint_info().items():
             self.eventpoint_info_window.add_message(
@@ -94,38 +103,11 @@ class SceneField(BaseScene):
         return
 
     def load_bgm(self) -> None:
-        """暫定処理：BGMロード"""
-        # path = check_file("assets/sound/field.txt")
-        # if path is not None:
-        #     score_data = read_string(path)
-        # else:
-        #     raise FileNotFoundError("ファイルがない！")
-
-        # px.stop()
-        # for i, ch in enumerate(px.channels):
-        #     mml = "R"
-        #     if i < len(score_data):
-        #         mml = score_data[i]
-        #     ch.play(mml, loop=True)
+        """BGMロード"""
         di.ref.sndmgr.request_bgm("field")
 
     def update(self):
         """フィールド関連オブジェクト群の更新処理"""
-        if is_pressed("select"):
-            # # di.ref.scnmgr.next_scene("datasave")
-            # # return
-            # from scene.scene_savedata import SceneDataSave
-
-            # a = SceneDataSave()
-            # idx = 0
-            # for data in a.savedatas:
-            #     if data["str_line"][1] == "　データなし":
-            #         break
-            #     idx += 1
-            # a.manupilate_data(idx)
-            di.ref.scnmgr.next_scene("datasave")
-            return
-
         # コマンド実行中は更新処理停止
         if not di.ref.cmdmgr.is_empty:
             return
@@ -167,14 +149,16 @@ class SceneField(BaseScene):
                 self.update_eventpoint_info()
                 self.last_visited_node = self.current_point.id
                 # オートセーブ処理
-                # from scene.scene_savedata import SceneDataSave
-                # save = SceneDataSave()
-                # save.manupilate_data(0)
                 self.autosave.manupilate_data(0)
             return
 
         # ウインドウ抑止判定
         self.is_close_window = is_pressed("cancel", "keep")
+
+        # セーブ画面
+        if is_pressed("select"):
+            di.ref.scnmgr.next_scene("datasave")
+            return
 
         # メニューキー判定
         if is_pressed("menu"):
@@ -237,6 +221,7 @@ class SceneField(BaseScene):
                     )
                     di.ref.cmdmgr.push_command(cmd)
                     return
+            # イベント起動
             cmd = ev_cmd.KickEvent(self.message_window, self.current_point)
             di.ref.cmdmgr.push_command(cmd)
             di.ref.cmdmgr.set_on_empty(self.update_eventpoint_info)
@@ -249,11 +234,9 @@ class SceneField(BaseScene):
         self.camera_x = px.width // 2 - di.ref.pt._field_sprite.x
         self.camera_y = px.height // 2 - di.ref.pt._field_sprite.y
 
-        # # カメラのクランプ (ワールドマップの端が画面外に出ないように調整)
-        # self.camera_x = max(px.width - di.ref.map.map_img_width, min(0, self.camera_x))
-        # self.camera_y = max(
-        #     px.height - di.ref.map.map_img_height, min(0, self.camera_y)
-        # )
+        # カメラのクランプ (ワールドマップの端が画面外に出ないように調整)
+        self.camera_x = max(px.width - di.ref.map.map_img_width, min(0, self.camera_x))
+        self.camera_y = max(px.height - di.ref.map.map_img_height, min(0, self.camera_y))
         # 多分マップ端までキャラ位置が移動する事はないので、一旦塩漬け
 
     def draw(self):
@@ -266,8 +249,6 @@ class SceneField(BaseScene):
 
         # マップ描画（地図・ノード・ルート　オフセット適用)
         di.ref.map.draw(ox, oy)
-        # px.line(0, 0, 255, 255, px.COLOR_BLACK)
-        # px.line(0, 255, 255, 0, px.COLOR_BLACK)
 
         # イベントポイント情報表示（移動中は非表示）
         if not di.ref.pt._pt_is_moving:
@@ -275,7 +256,7 @@ class SceneField(BaseScene):
                 self.eventpoint_info_window.draw()
                 self.eventpoint_info_window.draw_message()
                 self.eventpoint_state_window.draw()
-                self.eventpoint_state_window.draw_message()
+                self.eventpoint_state_window.draw_message(offset_y=-4)
 
         # ルート情報・移動方向補助アイコンの表示
         if not di.ref.pt._pt_is_moving:
@@ -305,11 +286,6 @@ class SceneField(BaseScene):
         """サブシーンへのイベント関連データ受け渡し用"""
         ctx = self.build_context()
 
-        # # デバッグ用
-        # self.current_point.event_type = EventType.SAFETY
-        # self.current_point.rise_event(EventID.INCREASE_HP)
-
-        self.current_point.nextevent.event_type.name  # type: ignore
         event_func_name = (
             EventType(self.current_point.nextevent.event_type).name  # type: ignore
             + "_"
@@ -319,6 +295,7 @@ class SceneField(BaseScene):
         # # デバッグ用
         # event_func_name = "NORMAL_DECREASE_HP"
         # event_func_name = "SAFETY_INCREASE_HP"
+        event_func_name = "NORMAL_MEET_ALLY"
 
         evtcmd = getattr(ev_cmd, event_func_name)
         return (ctx, evtcmd)

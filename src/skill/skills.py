@@ -31,6 +31,11 @@ class Skills:
             raise ValueError(errmsg)
         self._learned_skills.add(skill_id)
 
+    def inherit_skill(self, skill_ids: set[SkillID]) -> set[SkillID]:
+        """スキルの継承"""
+        self._learned_skills = skill_ids
+        return self._learned_skills
+
     def get_skills(self, skill_id: SkillID) -> SkillDef | None:
         """指定したIDのスキル情報を取得"""
         if skill_id not in self._learned_skills:

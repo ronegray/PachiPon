@@ -23,7 +23,7 @@ import service_locater as di
 class Character(EntityBase):
     """ユーザキャラクタークラス"""
 
-    exp_table: list = []
+    _exp_table: list = []
 
     def __init__(
         self,
@@ -37,13 +37,13 @@ class Character(EntityBase):
         self.equipments: Equips = Equips(self.chara_id)  # Equipmentsを初期化
 
         # 経験値テーブルデータが無い場合は読み込み
-        if not Character.exp_table:
+        if not Character._exp_table:
             path = check_file(AssetMap.get_assetpath(AssetID.DATA_EXPTABLE))
             if path:
                 data = read_json(path)
             else:
                 data = [0, 1, 2]
-            Character.exp_table = data
+            Character._exp_table = data
 
     def update_bonus(self) -> None:
         """能力値に影響する装備ボーナス値の更新"""
@@ -61,7 +61,7 @@ class Character(EntityBase):
 
     @property
     def next_exp(self) -> int:
-        return int(self.exp_table[self.param.level] - self.param.exp)
+        return int(self._exp_table[self.param.level] - self.param.exp)
 
     def get_equip(self, slot: EquipSlot) -> PooledItem | None:
         """装備中のアイテムを取得"""
@@ -119,7 +119,7 @@ class Character(EntityBase):
     def check_levelup(self) -> int:
         """レベルアップ判定ロジック"""
         up_count = 0
-        for nextexp in self.exp_table[self.param.level :]:
+        for nextexp in self._exp_table[self.param.level :]:
             if self.param.exp >= nextexp:
                 up_count += 1
             else:

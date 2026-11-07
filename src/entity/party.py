@@ -4,8 +4,11 @@
 
 import logging
 from math import hypot
+from random import choice
 import pyxel as px
-from const import ENCOUNT_THRESHOLD, FIELD_MESSAGE_HEIGHT, INITIAL_FOODS, INITIAL_GOLD
+from const import ENCOUNT_THRESHOLD, FIELD_MESSAGE_HEIGHT, INITIAL_FOODS, INITIAL_GOLD, BONUS_POINT
+from assets.asset_map import AssetID, AssetMap
+from gameutils.base import check_file, read_json
 from gameutils.lib import Window
 import service_locater as di
 from field_map import EventPoint, Route
@@ -196,12 +199,102 @@ class Party:
         else:
             self.add_ptmember(hero)
 
-    def add_ptmember(self, new_member: Character) -> None:
+    def generate_ptmember(self) -> Character:
+        """ランダムメンバーの生成"""
+        char_x = char_y = 112
+        from entity import EntityParam, PlayerSprite, PlayerSpriteType
+
+        # ID生成
+        candidate_id_list = list(range(1, 10))
+        member_id_list = set([mem.chara_id for mem in self._member_list])
+        newbie_char_id = max(
+            char_id for char_id in candidate_id_list if char_id not in member_id_list
+        )
+        # スプライトタイプ選択
+        newbie_sprite_type = choice(list(PlayerSpriteType))
+        if newbie_sprite_type == PlayerSpriteType.HERO:
+            newbie_sprite_type = PlayerSpriteType.KNIGHT
+        # 名前選択
+        path = check_file(AssetMap.get_assetpath(AssetID.DATA_ALLYNAME))
+        if path:
+            candidate_name_list = read_json(path)
+            newbie_name = choice(candidate_name_list[newbie_sprite_type.name])
+        else:
+            newbie_name = "Ｊ・ｄｏｅ"
+        # キャラクタレベル
+        average_lv = px.ceil(
+            sum([mem.param.level for mem in self._member_list]) / len(self._member_list)
+        )
+        newbie_lv = average_lv + choice(
+            [-1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2]
+        )
+        # パラメータ設定
+        bp = BONUS_POINT + newbie_lv - 1
+        half_bp = bp // 2
+        setparam = half_bp // 2
+        newbie_params = {"str": 3, "arc": 3, "end": 3, "spd": 3, "lck": 3}
+        match newbie_sprite_type:
+            case PlayerSpriteType.KNIGHT:
+                newbie_params["str"] += setparam
+                newbie_params["end"] += setparam
+            case PlayerSpriteType.WIZARD:
+                newbie_params["arc"] += setparam + setparam
+            case PlayerSpriteType.RANGER:
+                newbie_params["str"] += setparam
+                newbie_params["spd"] += setparam
+            case PlayerSpriteType.PRIEST:
+                newbie_params["arc"] += setparam
+                newbie_params["lck"] += setparam
+        bp -= setparam + setparam
+        newbie_hpmax = diceroll(2 + newbie_params["end"] // 6)
+        newbie_mpmax = diceroll(1 + newbie_params["arc"] // 6)
+        while bp > 0:
+            target = choice(list(newbie_params))
+            newbie_params[target] += 1
+            bp -= 1
+        for _ in range(1, newbie_lv):
+            newbie_hpmax += diceroll(1) + (newbie_params["end"] // 6)
+            newbie_mpmax += diceroll(1) + (newbie_params["arc"] // 6)
+
+        # キャラクタインスタンス生成
+        newbie = Character(
+            chara_id=newbie_char_id,
+            sprite_type=newbie_sprite_type,
+            param=EntityParam(
+                name=newbie_name,
+                strength=newbie_params["str"],
+                arcane=newbie_params["arc"],
+                endurance=newbie_params["end"],
+                speed=newbie_params["spd"],
+                luck=newbie_params["lck"],
+                max_hp=newbie_hpmax,
+                max_mp=newbie_mpmax,
+            ),
+            sprite=PlayerSprite(char_x, char_y, len(self._member_list)),  # type:ignore
+        )
+        newbie.param.level = newbie_lv
+        newbie.param.exp = newbie._exp_table[newbie_lv - 1]
+        # キャラデフォルト装備
+        newbie.equip_default()
+
+        return newbie
+
+    def add_ptmember(self, new_member: Character) -> bool:
         """パーティーメンバーの追加"""
         if len(self._member_list) >= self._max_members:
-            #!!!! ここでメンバー交代の選択処理（メニュー
-            return
+            return False
         self._member_list.append(new_member)
+        return True
+
+    def remove_ptmember(self, chara_id: int) -> None:
+        """パーティーメンバーの削除"""
+        if len(self._member_list) == 1 or chara_id == 0:
+            return
+
+        for i, mem in enumerate(self._member_list):
+            if mem.chara_id == chara_id:
+                break
+        self._member_list.pop(i)  # type: ignore
 
     def set_field_sprite(self):
         """先頭キャラのスプライトイメージをフィールド描画用として設定"""
