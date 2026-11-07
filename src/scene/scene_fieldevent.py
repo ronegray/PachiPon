@@ -23,9 +23,9 @@ class SceneFieldEvent(BaseScene):
         super().__init__()
         self.situation = "system"
 
-        parent_scene = di.ref.scnmgr.get_now_scene()
-        if not isinstance(parent_scene, SceneField):
-            errmsg = f"想定外のシーンから呼び出されました：{parent_scene.__class__.__name__}"
+        self.parent_scene = di.ref.scnmgr.get_now_scene()
+        if not isinstance(self.parent_scene, SceneField):
+            errmsg = f"想定外のシーンから呼び出されました：{self.parent_scene.__class__.__name__}"
             logger.critical(errmsg, exc_info=True)
             raise TypeError(errmsg)
 
@@ -36,17 +36,16 @@ class SceneFieldEvent(BaseScene):
         self.message_window.update_row_max(6)
 
         # フィールドシーンからイベント情報を取得
-        ctx, evtcmd = parent_scene.transfer_eventdata()
+        ctx, evtcmd = self.parent_scene.transfer_eventdata()
         cmd = evtcmd(
             self.message_window,
             ctx,
-            # parent_scene.current_point.nextevent.event_type,  # type: ignore
-            # parent_scene.current_point.nextevent.event_value,  # type: ignore
-            parent_scene.current_point.nextevent,
+            self.parent_scene.current_point.nextevent,
+            # self.parent_scene,
             di.ref.pt,
-        )
+        )  # type: ignore
         di.ref.cmdmgr.push_command(cmd)
-        parent_scene.current_point.flush_event()
+        # parent_scene.current_point.flush_event()
 
         # イベント画像の取得
         self.eventimage: px.Image = px.Image.from_image("assets/image/event01.bmp")
@@ -58,18 +57,6 @@ class SceneFieldEvent(BaseScene):
 
     def load_bgm(self) -> None:
         """シーン切替時のBGMロード"""
-        # """暫定処理：BGMロード"""
-        # path = check_file("assets/sound/event_slow.txt")
-        # if path is not None:
-        #     score_data = read_string(path)
-        # else:
-        #     raise FileNotFoundError("ファイルがない！")
-        # px.stop()
-        # for i, ch in enumerate(px.channels):
-        #     mml = "R"
-        #     if i < len(score_data):
-        #         mml = score_data[i]
-        #     ch.play(mml, loop=True)
         di.ref.sndmgr.request_bgm("event_slow")
 
     def update(self):
@@ -82,6 +69,7 @@ class SceneFieldEvent(BaseScene):
         """
 
         if di.ref.cmdmgr.is_empty:
+            self.parent_scene.current_point.flush_event()  # type: ignore
             di.ref.scnmgr.previous_scene()
 
     def draw(self):

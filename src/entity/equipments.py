@@ -157,6 +157,14 @@ class Equips:
         # 補正効果キャッシュを更新
         self.set_adjust_effect()
 
+    def inherit_equips(self, target_chara) -> None:
+        """装備品を他のキャラへ継承（プールの所有者書換）"""
+        for slot, pooled_item in self._equipped_items.items():
+            if pooled_item is None:
+                continue
+            di.ref.pl_item.transfer(pooled_item[0], ItemState.BAG)
+            target_chara.equipments.equip_on_pool(slot, pooled_item)
+
     def use_consume(self, slot: EquipSlot):
         """装備中の消耗品を消費"""
         target = self.get_slot(slot)

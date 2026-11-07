@@ -1255,7 +1255,7 @@ class CharacterInitialHPMP(CommandBaseEntity):
     def _sequence(self) -> Generator[list[str], None, None]:
         effect = di.ref.efxdice
         roll_frames = 60
-        yield ["初期ＨＰとＭＰを決めるため", "サイコロを ２回 転がします"]
+        yield ["初期ＨＰとＭＰの最大値を決定します"]
         yield ["ＨＰサイコロの数は、２＋耐久ボーナス値"]
         dices = 2 + self._ctx.actor.bonus_end
         effect.start(dices, roll_frames)
@@ -1313,20 +1313,20 @@ class CharacterGainHPMP(CommandBaseEntity):
     def _sequence(self) -> Generator[list[str], None, None]:
         yield ["ＨＰの上昇値を決定します", "Ｌｅｔ’ｓ　ｄｉｃｅｒｏｌｌ！"]
         val = yield from efx_diceroll(self.display_info, 1)  # type: ignore
-        yield [f"ＨＰが{val} 増えました！"]
         gain = val + self._ctx.actor.bonus_end
+        yield [f"ＨＰが{gain} 増えました！"]
         self._ctx.actor.param.max_hp += gain
         self._ctx.actor.param.hp += gain
 
-        self.display_info.target.update_indicator(True)
-        while self.display_info.target.update() == WindowAction.CONTINUE:
-            yield [self.WAIT, "0"]
-        self.display_info.target.update_indicator(False)
+        # self.display_info.target.update_indicator(True)
+        # while self.display_info.target.update() == WindowAction.CONTINUE:
+        #     yield [self.WAIT, "0"]
+        # self.display_info.target.update_indicator(False)
 
         yield ["ＭＰの上昇値を決定します"]
         val = yield from efx_diceroll(self.display_info, 1)  # type: ignore
-        yield [f"ＭＰが{val} 増えました！"]
         gain = val + self._ctx.actor.bonus_arc
+        yield [f"ＭＰが{gain} 増えました！"]
         self._ctx.actor.param.max_mp += gain
         self._ctx.actor.param.mp += gain
 

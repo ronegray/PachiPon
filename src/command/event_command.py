@@ -6,9 +6,9 @@ import logging
 from typing import Generator, cast
 import pyxel as px
 import service_locater as di
-from gameutils.lib import WindowAction
+from gameutils.lib import WindowAction, Menu, Window, MENU_WINDOW_TYPE
 from const import SoundID
-from helper import diceroll
+from helper import diceroll, upper_int_spaced, format_leftright
 
 # from helper import diceroll_values
 # import service_locater as di
@@ -22,7 +22,19 @@ from . import CommandBaseSequence
 logger = logging.getLogger(__name__)
 
 
-class KickEvent(CommandBaseSequence):
+class CommandBaseEvent(CommandBaseSequence):
+    """イベントシーン専用コマンドの基底クラス"""
+
+    def _wait_finish(self) -> Generator[list[str], None, None]:
+        """イベント終了時のキー待ち処理"""
+        self.display_info.target.update_indicator(True)
+        while self.display_info.target.update() == WindowAction.CONTINUE:
+            yield [self.WAIT, "0"]
+        self.display_info.target.update_indicator(False)
+        return
+
+
+class KickEvent(CommandBaseEvent):
     """フィールドイベント起動処理"""
 
     def _sequence(self) -> Generator[list[str], None, None]:
@@ -102,7 +114,7 @@ class KickEvent(CommandBaseSequence):
     # good
 
 
-class SAFETY_INCREASE_HP(CommandBaseSequence):
+class SAFETY_INCREASE_HP(CommandBaseEvent):
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -125,7 +137,7 @@ class SAFETY_INCREASE_HP(CommandBaseSequence):
         self.display_info.target.update_indicator(False)
 
 
-class NORMAL_INCREASE_HP(CommandBaseSequence):  # HP増
+class NORMAL_INCREASE_HP(CommandBaseEvent):  # HP増
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -138,7 +150,7 @@ class NORMAL_INCREASE_HP(CommandBaseSequence):  # HP増
         self.display_info.target.update_indicator(False)
 
 
-class GAMBLE_INCREASE_HP(CommandBaseSequence):  # HP増
+class GAMBLE_INCREASE_HP(CommandBaseEvent):  # HP増
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -151,7 +163,7 @@ class GAMBLE_INCREASE_HP(CommandBaseSequence):  # HP増
         self.display_info.target.update_indicator(False)
 
 
-class SAFETY_INCREASE_MP(CommandBaseSequence):  # MP増
+class SAFETY_INCREASE_MP(CommandBaseEvent):  # MP増
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -174,7 +186,7 @@ class SAFETY_INCREASE_MP(CommandBaseSequence):  # MP増
         self.display_info.target.update_indicator(False)
 
 
-class NORMAL_INCREASE_MP(CommandBaseSequence):  # MP増
+class NORMAL_INCREASE_MP(CommandBaseEvent):  # MP増
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -187,7 +199,7 @@ class NORMAL_INCREASE_MP(CommandBaseSequence):  # MP増
         self.display_info.target.update_indicator(False)
 
 
-class GAMBLE_INCREASE_MP(CommandBaseSequence):  # MP増
+class GAMBLE_INCREASE_MP(CommandBaseEvent):  # MP増
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -200,7 +212,7 @@ class GAMBLE_INCREASE_MP(CommandBaseSequence):  # MP増
         self.display_info.target.update_indicator(False)
 
 
-class SAFETY_INCREASE_GOLD(CommandBaseSequence):  # おかね増
+class SAFETY_INCREASE_GOLD(CommandBaseEvent):  # おかね増
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -223,7 +235,7 @@ class SAFETY_INCREASE_GOLD(CommandBaseSequence):  # おかね増
         self.display_info.target.update_indicator(False)
 
 
-class NORMAL_INCREASE_GOLD(CommandBaseSequence):  # おかね増
+class NORMAL_INCREASE_GOLD(CommandBaseEvent):  # おかね増
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -236,7 +248,7 @@ class NORMAL_INCREASE_GOLD(CommandBaseSequence):  # おかね増
         self.display_info.target.update_indicator(False)
 
 
-class GAMBLE_INCREASE_GOLD(CommandBaseSequence):  # おかね増
+class GAMBLE_INCREASE_GOLD(CommandBaseEvent):  # おかね増
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -249,7 +261,7 @@ class GAMBLE_INCREASE_GOLD(CommandBaseSequence):  # おかね増
         self.display_info.target.update_indicator(False)
 
 
-class SAFETY_INCREASE_FOOD(CommandBaseSequence):  # 食糧増
+class SAFETY_INCREASE_FOOD(CommandBaseEvent):  # 食糧増
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -272,7 +284,7 @@ class SAFETY_INCREASE_FOOD(CommandBaseSequence):  # 食糧増
         self.display_info.target.update_indicator(False)
 
 
-class NORMAL_INCREASE_FOOD(CommandBaseSequence):  # 食糧増
+class NORMAL_INCREASE_FOOD(CommandBaseEvent):  # 食糧増
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -285,7 +297,7 @@ class NORMAL_INCREASE_FOOD(CommandBaseSequence):  # 食糧増
         self.display_info.target.update_indicator(False)
 
 
-class GAMBLE_INCREASE_FOOD(CommandBaseSequence):  # 食糧増
+class GAMBLE_INCREASE_FOOD(CommandBaseEvent):  # 食糧増
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -298,7 +310,7 @@ class GAMBLE_INCREASE_FOOD(CommandBaseSequence):  # 食糧増
         self.display_info.target.update_indicator(False)
 
 
-class SAFETY_FLGEVENT1_A(CommandBaseSequence):  # フラグイベントStep1
+class SAFETY_FLGEVENT1_A(CommandBaseEvent):  # フラグイベントStep1
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -320,7 +332,7 @@ class SAFETY_FLGEVENT1_A(CommandBaseSequence):  # フラグイベントStep1
         self.display_info.target.update_indicator(False)
 
 
-class SAFETY_FLGEVENT1_B(CommandBaseSequence):  # フラグイベントStep1
+class SAFETY_FLGEVENT1_B(CommandBaseEvent):  # フラグイベントStep1
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -342,7 +354,7 @@ class SAFETY_FLGEVENT1_B(CommandBaseSequence):  # フラグイベントStep1
         self.display_info.target.update_indicator(False)
 
 
-class SAFETY_FLGEVENT1_C(CommandBaseSequence):  # フラグイベントStep1
+class SAFETY_FLGEVENT1_C(CommandBaseEvent):  # フラグイベントStep1
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -364,7 +376,7 @@ class SAFETY_FLGEVENT1_C(CommandBaseSequence):  # フラグイベントStep1
         self.display_info.target.update_indicator(False)
 
 
-class NORMAL_GET_POTION(CommandBaseSequence):  # 低級消耗品増
+class NORMAL_GET_POTION(CommandBaseEvent):  # 低級消耗品増
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -377,7 +389,157 @@ class NORMAL_GET_POTION(CommandBaseSequence):  # 低級消耗品増
         self.display_info.target.update_indicator(False)
 
 
-class NORMAL_MEET_ALLY(CommandBaseSequence):  # 仲間ゲット
+class NORMAL_MEET_ALLY(CommandBaseEvent):  # 仲間ゲット
+    def _sequence(self) -> Generator[list[str], None, None]:
+        event = cast(Event, self.args[1])
+        for i, msg in enumerate(event.event_messages):
+            yield [msg]
+            match i:
+                case 6:
+                    di.ref.sndmgr.play_se_instant(SoundID.EVENT_PLUS)
+
+        # 新キャラクターインスタンス生成
+        newbie = di.ref.pt.generate_ptmember()
+
+        # メンバー上限を超える場合は除外メンバーを選択
+        if di.ref.pt.add_ptmember(newbie):
+            yield ["これから、よろしく！"]
+            return
+
+        yield [
+            "見送る場合はキャンセル",
+            "交代する場合は離脱キャラを選択",
+            "※装備とスキルは継承されます",
+        ]
+
+        # 選択メニュー用情報の生成
+        self.menu_shape = [1, 2]
+        self.allies = di.ref.pt.get_allmember()[1:]
+        self.target_list = [
+            [
+                {
+                    "id": mem.param.name,
+                    "action": "None",
+                    "args": [mem.chara_id],
+                }
+            ]
+            for mem in self.allies
+        ]
+
+        # さよならメンバー選択メニュー
+        pos_x, pos_y = 128, 136
+        menu_width = 104
+        menu_select_ally = Menu(
+            "basic", pos_x, pos_y, self.menu_shape, self.target_list, menu_width
+        )
+        menu_select_ally.cursor_row_offset = 2
+        # サブウインドウ生成
+        self.build_subwindow()
+        self.build_status(newbie, self.windows["main"])
+        target_member = self.allies[menu_select_ally.cursor_position[1]]
+        self.build_status(target_member, self.windows["sub"])
+
+        # キー待ち時の入力を一回捨てる
+        yield [self.WAIT, "0"]
+
+        # スタックに追加せずメニュー動作
+        rc = menu_select_ally.update()
+        while rc == WindowAction.CONTINUE:
+            cursor_y = menu_select_ally.cursor_position[1]
+            rc = menu_select_ally.update()
+            if cursor_y != menu_select_ally.cursor_position[1]:
+                target_member = self.allies[menu_select_ally.cursor_position[1]]
+                self.build_status(target_member, self.windows["sub"])
+
+            self.display_info.graphic_command = [
+                lambda menu=menu_select_ally: menu.draw(),
+                lambda window=self.windows["main"]: window.draw(),
+                lambda window=self.windows["main"]: window.draw_message(),
+                lambda window=self.windows["sub"]: window.draw(),
+                lambda window=self.windows["sub"]: window.draw_message(),
+            ]
+            yield [self.WAIT, "0"]
+
+        if rc == WindowAction.EXECUTE:
+            self.display_info.graphic_command = None
+            yield [self.WAIT, "0"]
+            yield ["それでは、お元気で・・・"]
+            # スキルの継承
+            newbie.skills.inherit_skill(target_member.skills.get_learned_skill_id())
+            # 装備の継承
+            target_member.equipments.inherit_equips(newbie)
+
+            di.ref.pt.remove_ptmember(target_member.chara_id)
+            di.ref.pt.add_ptmember(newbie)
+
+        yield from self._wait_finish()
+
+    def build_subwindow(self) -> None:
+        # 情報表示ウインドウのサイズ
+        param_w, param_h = 128, 136  # ステータス
+        padding = 2
+        pos_x, pos_y = 0, 0
+
+        self.windows: dict[MENU_WINDOW_TYPE, Window] = {}
+        self.windows["main"] = Window("basic", pos_x, pos_y, param_w, param_h, "once")
+        self.windows["sub"] = Window(
+            "basic", pos_x + self.windows["main"].width + padding, pos_y, param_w, param_h, "once"
+        )
+
+    def build_status(self, member, target) -> None:
+        """ステータス表示内容の構築（装備含む）"""
+        param = member.param
+
+        # メインステータス
+        status_lines = f"{param.name}"
+        status_lines += f"\nレベル： {upper_int_spaced(param.level, 2)}"
+        status_lines += f"\n次まで： {upper_int_spaced(member.next_exp, 1)}"
+        status_lines += (
+            f"\nＨ　Ｐ： {upper_int_spaced(param.hp, 3)}／{upper_int_spaced(param.max_hp, 3)}"
+        )
+        status_lines += (
+            f"\nＭ　Ｐ： {upper_int_spaced(param.mp, 3)}／{upper_int_spaced(param.max_mp, 3)}"
+        )
+        status_lines += f"\n筋　力： {
+                format_leftright(
+                    upper_int_spaced(member.strength, 3),
+                    f'（＋{upper_int_spaced(member.bonus_str, 1)}）',
+                    18,
+                )
+            }"
+        status_lines += f"\n魔　力： {
+            format_leftright(
+                upper_int_spaced(member.arcane, 3),
+                f'（＋{upper_int_spaced(member.bonus_arc, 1)}）',
+                18,
+            )
+        }"
+        status_lines += f"\n耐　久： {
+            format_leftright(
+                upper_int_spaced(member.endurance, 3),
+                f'（＋{upper_int_spaced(member.bonus_end, 1)}）',
+                18,
+            )
+        }"
+        status_lines += f"\n速　度： {
+            format_leftright(
+                upper_int_spaced(member.speed, 3),
+                f'（＋{upper_int_spaced(member.bonus_spd, 1)}）',
+                18,
+            )
+        }"
+        status_lines += f"\n幸　運： {
+            format_leftright(
+                upper_int_spaced(member.luck, 3),
+                f'（＋{upper_int_spaced(member.bonus_lck, 1)}）',
+                18,
+            )
+        }"
+
+        target.message_list = [status_lines]
+
+
+class NORMAL_FLGEVENT2_D(CommandBaseEvent):  # フラグイベントStep2
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -390,7 +552,7 @@ class NORMAL_MEET_ALLY(CommandBaseSequence):  # 仲間ゲット
         self.display_info.target.update_indicator(False)
 
 
-class NORMAL_FLGEVENT2_D(CommandBaseSequence):  # フラグイベントStep2
+class NORMAL_FLGEVENT2_E(CommandBaseEvent):  # フラグイベントStep2
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -403,7 +565,7 @@ class NORMAL_FLGEVENT2_D(CommandBaseSequence):  # フラグイベントStep2
         self.display_info.target.update_indicator(False)
 
 
-class NORMAL_FLGEVENT2_E(CommandBaseSequence):  # フラグイベントStep2
+class NORMAL_FLGEVENT2_F(CommandBaseEvent):  # フラグイベントStep2
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -416,7 +578,7 @@ class NORMAL_FLGEVENT2_E(CommandBaseSequence):  # フラグイベントStep2
         self.display_info.target.update_indicator(False)
 
 
-class NORMAL_FLGEVENT2_F(CommandBaseSequence):  # フラグイベントStep2
+class GAMBLE_GET_HIPOTION(CommandBaseEvent):  # 高級消耗品増
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -429,7 +591,7 @@ class NORMAL_FLGEVENT2_F(CommandBaseSequence):  # フラグイベントStep2
         self.display_info.target.update_indicator(False)
 
 
-class GAMBLE_GET_HIPOTION(CommandBaseSequence):  # 高級消耗品増
+class GAMBLE_FLGEVENT3_G(CommandBaseEvent):  # フラグイベントStep3
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -442,7 +604,7 @@ class GAMBLE_GET_HIPOTION(CommandBaseSequence):  # 高級消耗品増
         self.display_info.target.update_indicator(False)
 
 
-class GAMBLE_FLGEVENT3_G(CommandBaseSequence):  # フラグイベントStep3
+class GAMBLE_FLGEVENT3_H(CommandBaseEvent):  # フラグイベントStep3
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -455,20 +617,7 @@ class GAMBLE_FLGEVENT3_G(CommandBaseSequence):  # フラグイベントStep3
         self.display_info.target.update_indicator(False)
 
 
-class GAMBLE_FLGEVENT3_H(CommandBaseSequence):  # フラグイベントStep3
-    def _sequence(self) -> Generator[list[str], None, None]:
-        _cntx = self.args[0]
-        event = cast(Event, self.args[1])
-        for i, msg in enumerate(event.event_messages):
-            yield [msg]
-
-        self.display_info.target.update_indicator(True)
-        while self.display_info.target.update() == WindowAction.CONTINUE:
-            yield [self.WAIT, "0"]
-        self.display_info.target.update_indicator(False)
-
-
-class SAFETY_GET_JUNK(CommandBaseSequence):  # 最低装備品ゲット
+class SAFETY_GET_JUNK(CommandBaseEvent):  # 最低装備品ゲット
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -500,7 +649,7 @@ class SAFETY_GET_JUNK(CommandBaseSequence):  # 最低装備品ゲット
         self.display_info.target.update_indicator(False)
 
 
-class GAMBLE_GET_ARMORY(CommandBaseSequence):  # 装備品ゲット
+class GAMBLE_GET_ARMORY(CommandBaseEvent):  # 装備品ゲット
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -515,7 +664,7 @@ class GAMBLE_GET_ARMORY(CommandBaseSequence):  # 装備品ゲット
     # bad
 
 
-class SAFETY_DECREASE_HP(CommandBaseSequence):  # HP減
+class SAFETY_DECREASE_HP(CommandBaseEvent):  # HP減
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -539,7 +688,7 @@ class SAFETY_DECREASE_HP(CommandBaseSequence):  # HP減
         self.display_info.target.update_indicator(False)
 
 
-class NORMAL_DECREASE_HP(CommandBaseSequence):  # HP減
+class NORMAL_DECREASE_HP(CommandBaseEvent):  # HP減
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -552,7 +701,7 @@ class NORMAL_DECREASE_HP(CommandBaseSequence):  # HP減
         self.display_info.target.update_indicator(False)
 
 
-class GAMBLE_DECREASE_HP(CommandBaseSequence):  # HP減
+class GAMBLE_DECREASE_HP(CommandBaseEvent):  # HP減
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -565,7 +714,7 @@ class GAMBLE_DECREASE_HP(CommandBaseSequence):  # HP減
         self.display_info.target.update_indicator(False)
 
 
-class SAFETY_DECREASE_MP(CommandBaseSequence):  # MP減
+class SAFETY_DECREASE_MP(CommandBaseEvent):  # MP減
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -589,7 +738,7 @@ class SAFETY_DECREASE_MP(CommandBaseSequence):  # MP減
         self.display_info.target.update_indicator(False)
 
 
-class NORMAL_DECREASE_MP(CommandBaseSequence):  # MP減
+class NORMAL_DECREASE_MP(CommandBaseEvent):  # MP減
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -602,7 +751,7 @@ class NORMAL_DECREASE_MP(CommandBaseSequence):  # MP減
         self.display_info.target.update_indicator(False)
 
 
-class GAMBLE_DECREASE_MP(CommandBaseSequence):  # MP減
+class GAMBLE_DECREASE_MP(CommandBaseEvent):  # MP減
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -615,7 +764,7 @@ class GAMBLE_DECREASE_MP(CommandBaseSequence):  # MP減
         self.display_info.target.update_indicator(False)
 
 
-class SAFETY_DECREASE_GOLD(CommandBaseSequence):  # おかね減
+class SAFETY_DECREASE_GOLD(CommandBaseEvent):  # おかね減
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -638,7 +787,7 @@ class SAFETY_DECREASE_GOLD(CommandBaseSequence):  # おかね減
         self.display_info.target.update_indicator(False)
 
 
-class NORMAL_DECREASE_GOLD(CommandBaseSequence):  # おかね減
+class NORMAL_DECREASE_GOLD(CommandBaseEvent):  # おかね減
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -651,7 +800,7 @@ class NORMAL_DECREASE_GOLD(CommandBaseSequence):  # おかね減
         self.display_info.target.update_indicator(False)
 
 
-class GAMBLE_DECREASE_GOLD(CommandBaseSequence):  # おかね減
+class GAMBLE_DECREASE_GOLD(CommandBaseEvent):  # おかね減
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -664,7 +813,7 @@ class GAMBLE_DECREASE_GOLD(CommandBaseSequence):  # おかね減
         self.display_info.target.update_indicator(False)
 
 
-class SAFETY_DECREASE_FOOD(CommandBaseSequence):  # 食糧減
+class SAFETY_DECREASE_FOOD(CommandBaseEvent):  # 食糧減
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -687,7 +836,7 @@ class SAFETY_DECREASE_FOOD(CommandBaseSequence):  # 食糧減
         self.display_info.target.update_indicator(False)
 
 
-class NORMAL_DECREASE_FOOD(CommandBaseSequence):  # 食糧減
+class NORMAL_DECREASE_FOOD(CommandBaseEvent):  # 食糧減
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -700,7 +849,7 @@ class NORMAL_DECREASE_FOOD(CommandBaseSequence):  # 食糧減
         self.display_info.target.update_indicator(False)
 
 
-class GAMBLE_DECREASE_FOOD(CommandBaseSequence):  # 食糧減
+class GAMBLE_DECREASE_FOOD(CommandBaseEvent):  # 食糧減
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -713,7 +862,7 @@ class GAMBLE_DECREASE_FOOD(CommandBaseSequence):  # 食糧減
         self.display_info.target.update_indicator(False)
 
 
-class NORMAL_LOST_POTION(CommandBaseSequence):  # 低級消耗品減
+class NORMAL_LOST_POTION(CommandBaseEvent):  # 低級消耗品減
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -726,7 +875,7 @@ class NORMAL_LOST_POTION(CommandBaseSequence):  # 低級消耗品減
         self.display_info.target.update_indicator(False)
 
 
-class SAFETY_SURPRISE_BATTLE(CommandBaseSequence):  # 強制戦闘
+class SAFETY_SURPRISE_BATTLE(CommandBaseEvent):  # 強制戦闘
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -746,7 +895,19 @@ class SAFETY_SURPRISE_BATTLE(CommandBaseSequence):  # 強制戦闘
         di.ref.scnmgr.next_scene("battlesplash")
 
 
-class NORMAL_SURPRISE_BATTLE(CommandBaseSequence):  # 強制戦闘
+class NORMAL_SURPRISE_BATTLE(CommandBaseEvent):  # 強制戦闘
+    def _sequence(self) -> Generator[list[str], None, None]:
+        _cntx = self.args[0]
+        event = cast(Event, self.args[1].current_point.nextevent)
+        for i, msg in enumerate(event.event_messages):
+            yield [msg]
+
+        yield from self._wait_finish()
+
+        di.ref.scnmgr.next_scene("fixedbattle", 1, "GOLD_DRAGON_ANCIENT")
+
+
+class GAMBLE_SURPRISE_BATTLE(CommandBaseEvent):  # 強制戦闘
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -759,20 +920,7 @@ class NORMAL_SURPRISE_BATTLE(CommandBaseSequence):  # 強制戦闘
         self.display_info.target.update_indicator(False)
 
 
-class GAMBLE_SURPRISE_BATTLE(CommandBaseSequence):  # 強制戦闘
-    def _sequence(self) -> Generator[list[str], None, None]:
-        _cntx = self.args[0]
-        event = cast(Event, self.args[1])
-        for i, msg in enumerate(event.event_messages):
-            yield [msg]
-
-        self.display_info.target.update_indicator(True)
-        while self.display_info.target.update() == WindowAction.CONTINUE:
-            yield [self.WAIT, "0"]
-        self.display_info.target.update_indicator(False)
-
-
-class GAMBLE_LOST_HIPOTION(CommandBaseSequence):  # 高級消耗品減
+class GAMBLE_LOST_HIPOTION(CommandBaseEvent):  # 高級消耗品減
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -787,7 +935,7 @@ class GAMBLE_LOST_HIPOTION(CommandBaseSequence):  # 高級消耗品減
     # boss
 
 
-class BATTLE_CROWN(CommandBaseSequence):  # 宝冠の守護者　破魔に弱い
+class BATTLE_CROWN(CommandBaseEvent):  # 宝冠の守護者　破魔に弱い
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -800,7 +948,7 @@ class BATTLE_CROWN(CommandBaseSequence):  # 宝冠の守護者　破魔に弱い
         self.display_info.target.update_indicator(False)
 
 
-class BATTLE_MIRROR(CommandBaseSequence):  # 神鏡の守護者　衝撃に弱い
+class BATTLE_MIRROR(CommandBaseEvent):  # 神鏡の守護者　衝撃に弱い
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -813,7 +961,7 @@ class BATTLE_MIRROR(CommandBaseSequence):  # 神鏡の守護者　衝撃に弱�
         self.display_info.target.update_indicator(False)
 
 
-class BATTLE_CEPTER(CommandBaseSequence):  # 王笏の守護者　精神に弱い
+class BATTLE_CEPTER(CommandBaseEvent):  # 王笏の守護者　精神に弱い
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -826,7 +974,7 @@ class BATTLE_CEPTER(CommandBaseSequence):  # 王笏の守護者　精神に弱�
         self.display_info.target.update_indicator(False)
 
 
-class BATTLE_GRAIL(CommandBaseSequence):  # 聖杯の守護者　呪毒に弱い
+class BATTLE_GRAIL(CommandBaseEvent):  # 聖杯の守護者　呪毒に弱い
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -838,15 +986,16 @@ class BATTLE_GRAIL(CommandBaseSequence):  # 聖杯の守護者　呪毒に弱い
                 case 5:
                     di.ref.sndmgr.play_se_instant(SoundID.ENCOUNT)
 
-        self.display_info.target.update_indicator(True)
-        while self.display_info.target.update() == WindowAction.CONTINUE:
-            yield [self.WAIT, "0"]
-        self.display_info.target.update_indicator(False)
+        # self.display_info.target.update_indicator(True)
+        # while self.display_info.target.update() == WindowAction.CONTINUE:
+        #     yield [self.WAIT, "0"]
+        # self.display_info.target.update_indicator(False)
+        yield from self._wait_finish()
 
         di.ref.scnmgr.next_scene("fixedbattle", 1, "GOLD_DRAGON_ANCIENT")
 
 
-class BATTLE_SATAN(CommandBaseSequence):  # 魔王
+class BATTLE_SATAN(CommandBaseEvent):  # 魔王
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])
@@ -859,7 +1008,7 @@ class BATTLE_SATAN(CommandBaseSequence):  # 魔王
         self.display_info.target.update_indicator(False)
 
 
-class GAMBLE_KING(CommandBaseSequence):  # 人間の王
+class GAMBLE_KING(CommandBaseEvent):  # 人間の王
     def _sequence(self) -> Generator[list[str], None, None]:
         _cntx = self.args[0]
         event = cast(Event, self.args[1])

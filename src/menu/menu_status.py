@@ -26,7 +26,7 @@ class MenuStatus(Menu):
         # 情報表示ウインドウのサイズ
         param_w, param_h = 128, 136  # ステータス
         equip_w, equip_h = 128, 88  # 装備
-        skill_w, skill_h = 104, 144  # 習得スキル
+        skill_w, skill_h = 80, 144  # 習得スキル
         padding = 2
         pos_x = parent.x + Window._chip_size
         pos_y = parent.y + Window._chip_size
@@ -81,7 +81,7 @@ class MenuStatus(Menu):
         status_lines += f"\n魔　力： {
             format_leftright(
                 upper_int_spaced(member.arcane, 3),
-                f'（＋{upper_int_spaced(member.bonus_str, 1)}）',
+                f'（＋{upper_int_spaced(member.bonus_arc, 1)}）',
                 18,
             )
         }"
