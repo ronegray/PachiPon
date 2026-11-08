@@ -12,9 +12,10 @@ from helper import diceroll, upper_int_spaced, format_leftright
 
 # from helper import diceroll_values
 # import service_locater as di
+from flag import FlagID
 from item import ItemID
 from entity import Party
-from event import Event, EventID
+from event import Event, EventID, EventType
 from field_map import EventPoint
 from . import CommandBaseSequence
 
@@ -312,68 +313,68 @@ class GAMBLE_INCREASE_FOOD(CommandBaseEvent):  # 食糧増
 
 class SAFETY_FLGEVENT1_A(CommandBaseEvent):  # フラグイベントStep1
     def _sequence(self) -> Generator[list[str], None, None]:
-        _cntx = self.args[0]
-        event = cast(Event, self.args[1])
-        for i, msg in enumerate(event.event_messages):
-            yield [msg]
-            match i:
-                case 4:
-                    di.ref.sndmgr.play_se_instant(SoundID.EVENT_PLUS)
-                case 9:
-                    di.ref.sndmgr.play_se_instant(SoundID.ITEM_GET)
+        if di.ref.flgmgr.is_set(FlagID.JADEEYE):
+            yield ["もうここには　なにもない"]
+        else:
+            event = cast(Event, self.args[1])
+            for i, msg in enumerate(event.event_messages):
+                yield [msg]
+                match i:
+                    case 4:
+                        di.ref.sndmgr.play_se_instant(SoundID.EVENT_PLUS)
+                    case 9:
+                        di.ref.sndmgr.play_se_instant(SoundID.ITEM_GET)
 
-        pl_item = di.ref.pl_item.create(ItemID.JADEEYE)
-        item_def = di.ref.itemrps.get_def(pl_item[1].ins.param.def_id)
-        yield [f"{item_def.name}を手に入れた"]  # type: ignore
+            pl_item = di.ref.pl_item.create(ItemID.JADEEYE)
+            item_def = di.ref.itemrps.get_def(pl_item[1].ins.param.def_id)
+            di.ref.flgmgr.set_flag(FlagID.JADEEYE)
+            yield [f"{item_def.name}を手に入れた"]  # type: ignore
 
-        self.display_info.target.update_indicator(True)
-        while self.display_info.target.update() == WindowAction.CONTINUE:
-            yield [self.WAIT, "0"]
-        self.display_info.target.update_indicator(False)
+        yield from self._wait_finish()
 
 
 class SAFETY_FLGEVENT1_B(CommandBaseEvent):  # フラグイベントStep1
     def _sequence(self) -> Generator[list[str], None, None]:
-        _cntx = self.args[0]
-        event = cast(Event, self.args[1])
-        for i, msg in enumerate(event.event_messages):
-            yield [msg]
-            match i:
-                case 4:
-                    di.ref.sndmgr.play_se_instant(SoundID.EVENT_PLUS)
-                case 9:
-                    di.ref.sndmgr.play_se_instant(SoundID.ITEM_GET)
+        if di.ref.flgmgr.is_set(FlagID.CROSS):
+            yield ["もうここには　なにもない"]
+        else:
+            event = cast(Event, self.args[1])
+            for i, msg in enumerate(event.event_messages):
+                yield [msg]
+                match i:
+                    case 4:
+                        di.ref.sndmgr.play_se_instant(SoundID.EVENT_PLUS)
+                    case 9:
+                        di.ref.sndmgr.play_se_instant(SoundID.ITEM_GET)
 
-        pl_item = di.ref.pl_item.create(ItemID.CROSS)
-        item_def = di.ref.itemrps.get_def(pl_item[1].ins.param.def_id)
-        yield [f"{item_def.name}を手に入れた"]  # type: ignore
+            pl_item = di.ref.pl_item.create(ItemID.CROSS)
+            item_def = di.ref.itemrps.get_def(pl_item[1].ins.param.def_id)
+            di.ref.flgmgr.set_flag(FlagID.CROSS)
+            yield [f"{item_def.name}を手に入れた"]  # type: ignore
 
-        self.display_info.target.update_indicator(True)
-        while self.display_info.target.update() == WindowAction.CONTINUE:
-            yield [self.WAIT, "0"]
-        self.display_info.target.update_indicator(False)
+        yield from self._wait_finish()
 
 
 class SAFETY_FLGEVENT1_C(CommandBaseEvent):  # フラグイベントStep1
     def _sequence(self) -> Generator[list[str], None, None]:
-        _cntx = self.args[0]
-        event = cast(Event, self.args[1])
-        for i, msg in enumerate(event.event_messages):
-            yield [msg]
-            match i:
-                case 4:
-                    di.ref.sndmgr.play_se_instant(SoundID.EVENT_PLUS)
-                case 9:
-                    di.ref.sndmgr.play_se_instant(SoundID.ITEM_GET)
+        if di.ref.flgmgr.is_set(FlagID.CRYSTALROD):
+            yield ["もうここには　なにもない"]
+        else:
+            event = cast(Event, self.args[1])
+            for i, msg in enumerate(event.event_messages):
+                yield [msg]
+                match i:
+                    case 4:
+                        di.ref.sndmgr.play_se_instant(SoundID.EVENT_PLUS)
+                    case 9:
+                        di.ref.sndmgr.play_se_instant(SoundID.ITEM_GET)
 
-        pl_item = di.ref.pl_item.create(ItemID.CRYSTALROD)
-        item_def = di.ref.itemrps.get_def(pl_item[1].ins.param.def_id)
-        yield [f"{item_def.name}を手に入れた"]  # type: ignore
+            pl_item = di.ref.pl_item.create(ItemID.CRYSTALROD)
+            item_def = di.ref.itemrps.get_def(pl_item[1].ins.param.def_id)
+            di.ref.flgmgr.set_flag(FlagID.CRYSTALROD)
+            yield [f"{item_def.name}を手に入れた"]  # type: ignore
 
-        self.display_info.target.update_indicator(True)
-        while self.display_info.target.update() == WindowAction.CONTINUE:
-            yield [self.WAIT, "0"]
-        self.display_info.target.update_indicator(False)
+        yield from self._wait_finish()
 
 
 class NORMAL_GET_POTION(CommandBaseEvent):  # 低級消耗品増
@@ -383,10 +384,7 @@ class NORMAL_GET_POTION(CommandBaseEvent):  # 低級消耗品増
         for i, msg in enumerate(event.event_messages):
             yield [msg]
 
-        self.display_info.target.update_indicator(True)
-        while self.display_info.target.update() == WindowAction.CONTINUE:
-            yield [self.WAIT, "0"]
-        self.display_info.target.update_indicator(False)
+        yield from self._wait_finish()
 
 
 class NORMAL_MEET_ALLY(CommandBaseEvent):  # 仲間ゲット
@@ -541,41 +539,78 @@ class NORMAL_MEET_ALLY(CommandBaseEvent):  # 仲間ゲット
 
 class NORMAL_FLGEVENT2_D(CommandBaseEvent):  # フラグイベントStep2
     def _sequence(self) -> Generator[list[str], None, None]:
-        _cntx = self.args[0]
-        event = cast(Event, self.args[1])
-        for i, msg in enumerate(event.event_messages):
-            yield [msg]
+        if di.ref.flgmgr.is_set(FlagID.DRAGONFANG):
+            yield ["もうここには　なにもない"]
+        elif di.ref.flgmgr.check_all(set([FlagID.JADEEYE, FlagID.CROSS])):
+            event = cast(Event, self.args[1])
+            for i, msg in enumerate(event.event_messages):
+                yield [msg]
+                match i:
+                    case 4:
+                        di.ref.sndmgr.play_se_instant(SoundID.EVENT_PLUS)
+                    case 9:
+                        di.ref.sndmgr.play_se_instant(SoundID.ITEM_GET)
 
-        self.display_info.target.update_indicator(True)
-        while self.display_info.target.update() == WindowAction.CONTINUE:
-            yield [self.WAIT, "0"]
-        self.display_info.target.update_indicator(False)
+            pl_item = di.ref.pl_item.create(ItemID.DRAGONFANG)
+            item_def = di.ref.itemrps.get_def(pl_item[1].ins.param.def_id)
+            di.ref.flgmgr.set_flag(FlagID.DRAGONFANG)
+            yield [f"{item_def.name}を手に入れた"]  # type: ignore
+        else:
+            item1 = di.ref.itemrps.get_def(ItemID.JADEEYE)
+            item2 = di.ref.itemrps.get_def(ItemID.CROSS)
+            yield [f"{item1.name}と{item2.name}を手に入れたのち、再び訪れるがよい"]  # type: ignore
+
+        yield from self._wait_finish()
 
 
 class NORMAL_FLGEVENT2_E(CommandBaseEvent):  # フラグイベントStep2
     def _sequence(self) -> Generator[list[str], None, None]:
-        _cntx = self.args[0]
-        event = cast(Event, self.args[1])
-        for i, msg in enumerate(event.event_messages):
-            yield [msg]
+        if di.ref.flgmgr.is_set(FlagID.TARISMAN):
+            yield ["もうここには　なにもない"]
+        elif di.ref.flgmgr.check_all(set([FlagID.CRYSTALROD, FlagID.CROSS])):
+            event = cast(Event, self.args[1])
+            for i, msg in enumerate(event.event_messages):
+                yield [msg]
+                match i:
+                    case 4:
+                        di.ref.sndmgr.play_se_instant(SoundID.EVENT_PLUS)
+                    case 9:
+                        di.ref.sndmgr.play_se_instant(SoundID.ITEM_GET)
 
-        self.display_info.target.update_indicator(True)
-        while self.display_info.target.update() == WindowAction.CONTINUE:
-            yield [self.WAIT, "0"]
-        self.display_info.target.update_indicator(False)
+            pl_item = di.ref.pl_item.create(ItemID.TARISMAN)
+            item_def = di.ref.itemrps.get_def(pl_item[1].ins.param.def_id)
+            di.ref.flgmgr.set_flag(FlagID.TARISMAN)
+            yield [f"{item_def.name}を手に入れた"]  # type: ignore
+        else:
+            item1 = di.ref.itemrps.get_def(ItemID.CRYSTALROD)
+            item2 = di.ref.itemrps.get_def(ItemID.CROSS)
+            yield [f"{item1.name}と{item2.name}を手に入れたのち、再び訪れるがよい"]  # type: ignore
+
+        yield from self._wait_finish()
 
 
 class NORMAL_FLGEVENT2_F(CommandBaseEvent):  # フラグイベントStep2
     def _sequence(self) -> Generator[list[str], None, None]:
-        _cntx = self.args[0]
-        event = cast(Event, self.args[1])
-        for i, msg in enumerate(event.event_messages):
-            yield [msg]
+        if di.ref.flgmgr.is_set(FlagID.HOLYSHROUD):
+            yield ["もうここには　なにもない"]
+        elif di.ref.flgmgr.check_all(set([FlagID.CRYSTALROD, FlagID.JADEEYE])):
+            event = cast(Event, self.args[1])
+            for i, msg in enumerate(event.event_messages):
+                yield [msg]
+                match i:
+                    case 4:
+                        di.ref.sndmgr.play_se_instant(SoundID.EVENT_PLUS)
+                    case 9:
+                        di.ref.sndmgr.play_se_instant(SoundID.ITEM_GET)
 
-        self.display_info.target.update_indicator(True)
-        while self.display_info.target.update() == WindowAction.CONTINUE:
-            yield [self.WAIT, "0"]
-        self.display_info.target.update_indicator(False)
+            pl_item = di.ref.pl_item.create(ItemID.HOLYSHROUD)
+            item_def = di.ref.itemrps.get_def(pl_item[1].ins.param.def_id)
+            di.ref.flgmgr.set_flag(FlagID.HOLYSHROUD)
+            yield [f"{item_def.name}を手に入れた"]  # type: ignore
+        else:
+            item1 = di.ref.itemrps.get_def(ItemID.CRYSTALROD)
+            item2 = di.ref.itemrps.get_def(ItemID.JADEEYE)
+            yield [f"{item1.name}と{item2.name}を手に入れたのち、再び訪れるがよい"]  # type: ignore
 
 
 class GAMBLE_GET_HIPOTION(CommandBaseEvent):  # 高級消耗品増
@@ -593,28 +628,64 @@ class GAMBLE_GET_HIPOTION(CommandBaseEvent):  # 高級消耗品増
 
 class GAMBLE_FLGEVENT3_G(CommandBaseEvent):  # フラグイベントStep3
     def _sequence(self) -> Generator[list[str], None, None]:
-        _cntx = self.args[0]
-        event = cast(Event, self.args[1])
-        for i, msg in enumerate(event.event_messages):
-            yield [msg]
+        if di.ref.flgmgr.is_set(FlagID.SACREDWEAPON):
+            _cntx = self.args[0]
+            yield ["穏やか気配に　満ちた空間だ"]
+            for mem in _cntx.allies:
+                mem.increase_mp(mem.max_mp)
+            di.ref.sndmgr.play_se_instant(SoundID.RECOVER)
+            yield ["全員の魔力が　全快した"]
+        elif di.ref.flgmgr.check_all(set([FlagID.DRAGONFANG, FlagID.TARISMAN])):
+            event = cast(Event, self.args[1])
+            for i, msg in enumerate(event.event_messages):
+                yield [msg]
+                match i:
+                    case 4:
+                        di.ref.sndmgr.play_se_instant(SoundID.EVENT_PLUS)
+                    case 9:
+                        di.ref.sndmgr.play_se_instant(SoundID.ITEM_GET)
 
-        self.display_info.target.update_indicator(True)
-        while self.display_info.target.update() == WindowAction.CONTINUE:
-            yield [self.WAIT, "0"]
-        self.display_info.target.update_indicator(False)
+            pl_item = di.ref.pl_item.create(ItemID.SACREDWEAPON)
+            item_def = di.ref.itemrps.get_def(pl_item[1].ins.param.def_id)
+            di.ref.flgmgr.set_flag(FlagID.SACREDWEAPON)
+            yield [f"{item_def.name}を手に入れた"]  # type: ignore
+        else:
+            item1 = di.ref.itemrps.get_def(ItemID.DRAGONFANG)
+            item2 = di.ref.itemrps.get_def(ItemID.TARISMAN)
+            yield [f"{item1.name}と{item2.name}を手に入れたのち、再び訪れるがよい"]  # type: ignore
+
+        yield from self._wait_finish()
 
 
 class GAMBLE_FLGEVENT3_H(CommandBaseEvent):  # フラグイベントStep3
     def _sequence(self) -> Generator[list[str], None, None]:
-        _cntx = self.args[0]
-        event = cast(Event, self.args[1])
-        for i, msg in enumerate(event.event_messages):
-            yield [msg]
+        if di.ref.flgmgr.is_set(FlagID.HOLYGUARD):
+            _cntx = self.args[0]
+            yield ["厳かな気配に　満ちた空間だ"]
+            for mem in _cntx.allies:
+                mem.increase_hp(mem.max_hp)
+            di.ref.sndmgr.play_se_instant(SoundID.RECOVER)
+            yield ["全員の体力が　全快した"]
+        elif di.ref.flgmgr.check_all(set([FlagID.HOLYSHROUD, FlagID.TARISMAN])):
+            event = cast(Event, self.args[1])
+            for i, msg in enumerate(event.event_messages):
+                yield [msg]
+                match i:
+                    case 4:
+                        di.ref.sndmgr.play_se_instant(SoundID.EVENT_PLUS)
+                    case 9:
+                        di.ref.sndmgr.play_se_instant(SoundID.ITEM_GET)
 
-        self.display_info.target.update_indicator(True)
-        while self.display_info.target.update() == WindowAction.CONTINUE:
-            yield [self.WAIT, "0"]
-        self.display_info.target.update_indicator(False)
+            pl_item = di.ref.pl_item.create(ItemID.HOLYGUARD)
+            item_def = di.ref.itemrps.get_def(pl_item[1].ins.param.def_id)
+            di.ref.flgmgr.set_flag(FlagID.HOLYGUARD)
+            yield [f"{item_def.name}を手に入れた"]  # type: ignore
+        else:
+            item1 = di.ref.itemrps.get_def(ItemID.HOLYSHROUD)
+            item2 = di.ref.itemrps.get_def(ItemID.TARISMAN)
+            yield [f"{item1.name}と{item2.name}を手に入れたのち、再び訪れるがよい"]  # type: ignore
+
+        yield from self._wait_finish()
 
 
 class SAFETY_GET_JUNK(CommandBaseEvent):  # 最低装備品ゲット
@@ -992,7 +1063,22 @@ class BATTLE_GRAIL(CommandBaseEvent):  # 聖杯の守護者　呪毒に弱い
         # self.display_info.target.update_indicator(False)
         yield from self._wait_finish()
 
-        di.ref.scnmgr.next_scene("fixedbattle", 1, "GOLD_DRAGON_ANCIENT")
+        di.ref.scnmgr.next_scene("fixedbattle", 1, "GOLD_DRAGON_ANCIENT", GET_GRAIL)
+
+
+class GET_GRAIL(CommandBaseEvent):
+    def _sequence(self) -> Generator[list[str], None, None]:
+        _cntx = self.args[0]
+        event = di.ref.evtrps.get_event(EventType.SAFETY, EventID.GRAIL)
+        for i, msg in enumerate(event.event_messages):  # type: ignore
+            yield [msg]
+            match i:
+                case 3:
+                    di.ref.sndmgr.play_se_instant(SoundID.EVENT_PLUS)
+                case 5:
+                    di.ref.sndmgr.play_se_instant(SoundID.FANFALE)
+
+        yield from self._wait_finish()
 
 
 class BATTLE_SATAN(CommandBaseEvent):  # 魔王

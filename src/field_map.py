@@ -156,10 +156,17 @@ class EventPoint:
         """現在地のイベントキーとフラグから固定イベントの発生をチェック
         固定イベント発生時はイベントID文字をリターン"""
         fixed = getattr(FixedEventMap, self.event_key, None)
-        if fixed:
-            if di.ref.flgmgr.is_set(fixed) is False:
+        # if fixed:
+        #     if di.ref.flgmgr.is_set(fixed) is False:
+        #         return EventID[fixed]
+        if fixed is None:
+            return None
+        if fixed == FixedEventMap.BIGBAD:
+            if di.ref.flgmgr.is_set(fixed):  # type: ignore
                 return EventID[fixed]
-        return
+        elif di.ref.flgmgr.is_set(fixed) is False:
+            return EventID[fixed]
+        return None
 
     def rise_event(self, evt_id: EventID) -> None:
         """これから実行するイベントを定義"""
@@ -168,6 +175,12 @@ class EventPoint:
     def flush_event(self) -> None:
         """実行イベント定義のクリア"""
         self.nextevent = None
+
+    def defeated_penalty(self, penalty_turns: int) -> None:
+        """全滅時ペナルティ処理"""
+        self.is_ready = False
+        self.ready_count -= penalty_turns
+        self.flush_event()
 
     def update(self):
         """イベント準備状態の更新"""
@@ -297,6 +310,11 @@ class MapGraph:
             if route.direction == direction:
                 return route
         return None
+
+    def defeated_penalty(self, penalty_turns: int) -> None:
+        """全滅時は全イベントポイントが待機中になる"""
+        for point in self.points.values():
+            point.defeated_penalty(penalty_turns)
 
     def get_connected_node(self, current_node_id: str, direction: ROUTE_DIR | str) -> str | None:
         """現地点から移動可能なイベントポイントを取得"""

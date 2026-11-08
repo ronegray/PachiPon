@@ -163,7 +163,11 @@ class EntityBase(ABC):
 
     def attackroll_offence(self) -> int:
         """命中ロール：攻撃側"""
-        return diceroll(max(1, self.bonus_str)) + self.bonus_lck - self.reduce_dice
+        return (
+            diceroll(max(max(self.bonus_str, self.bonus_spd), 1))
+            + self.bonus_lck
+            - self.reduce_dice
+        )
 
     def attackroll_defence(self) -> int:
         """命中ロール：防御側"""
@@ -183,7 +187,8 @@ class EntityBase(ABC):
         """近接ダメージ計算"""
         # return (self.hitdice, diceroll(max(1, self.hitdice)) + self.bonus_str)
         dice = max(1, self.hitdice)
-        return (dice, diceroll(dice) + self.bonus_str - self.reduce_dice)
+        # return (dice, diceroll(dice) + self.bonus_str - self.reduce_dice)
+        return (dice, diceroll(dice) + self.strength - self.reduce_dice)
 
     def suppress_damage_melee(self) -> int:
         """近接ダメージの防御による相殺値"""

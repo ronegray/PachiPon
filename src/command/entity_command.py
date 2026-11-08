@@ -1167,25 +1167,25 @@ class PartyDefeated(CommandBaseSequence):
                     # エネミーリストのクリア
                     self.args[1].clear()
                     break
-            yield ["wait", "0"]
+            yield [self.WAIT, "0"]
         # 全滅BGM再生
         di.ref.sndmgr.request_bgm("defeat")
         messages = [
             ["やられたョ！", "　　♰ 全員　死亡 ♰ "],
-            ["wait", "3"],
+            [self.WAIT, "3"],
             ["", "・・・慌てる事はありません"],
-            ["wait", "2"],
+            [self.WAIT, "2"],
             ["", "あなたに再び立ち上がり、戦う力を与えましょう"],
-            ["wait", "2"],
+            [self.WAIT, "2"],
             ["", "啓示を得た者がそこを訪れ、王城へと連れ帰ってくれます"],
-            ["wait", "2"],
+            [self.WAIT, "2"],
             ["", "彼の地でゆっくり傷を癒やすとよいでしょう"],
             [""],
             [""],
             [""],
-            ["wait", "2"],
+            [self.WAIT, "2"],
             ["これだけの業を振るったのです"],
-            ["wait", "3"],
+            [self.WAIT, "3"],
             ["", "少しの供物を頂いておきますよ？"],
         ]
         for msg in messages:
@@ -1193,11 +1193,16 @@ class PartyDefeated(CommandBaseSequence):
                 break
             yield msg
 
+        # お供え物
         di.ref.sndmgr.play_se_instant(SoundID.ITEM_LOST)
         offering_foods = di.ref.pt._pt_foods // 2
         di.ref.pt.lost_foods(offering_foods)
         offering_golds = int(di.ref.pt._pt_golds * 0.1)
         di.ref.pt.spend_gold(offering_golds)
+
+        # イベントポイントの待機化
+        penalty_turns = min(1, int(di.ref.pt.average_level // 10))
+        di.ref.map.defeated_penalty(penalty_turns)
 
         self.display_info.target.update_indicator(True)
         while self.display_info.target.update() == WindowAction.CONTINUE:

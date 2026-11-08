@@ -10,6 +10,7 @@ import pyxel as px
 from const import APP_WIDTH, APP_HEIGHT
 from gameutils.lib import Window
 import service_locater as di
+from event import EventType
 from . import BaseScene, SceneField
 
 # ロギング設定
@@ -28,6 +29,7 @@ class SceneFieldEvent(BaseScene):
             errmsg = f"想定外のシーンから呼び出されました：{self.parent_scene.__class__.__name__}"
             logger.critical(errmsg, exc_info=True)
             raise TypeError(errmsg)
+        self.event = self.parent_scene.current_point.nextevent
 
         # イベントメッセージウインドウの生成
         self.message_window = Window(
@@ -40,8 +42,9 @@ class SceneFieldEvent(BaseScene):
         cmd = evtcmd(
             self.message_window,
             ctx,
-            self.parent_scene.current_point.nextevent,
-            # self.parent_scene,
+            # self.parent_scene.current_point.nextevent,
+            # # self.parent_scene,
+            self.event,
             di.ref.pt,
         )  # type: ignore
         di.ref.cmdmgr.push_command(cmd)
@@ -57,7 +60,17 @@ class SceneFieldEvent(BaseScene):
 
     def load_bgm(self) -> None:
         """シーン切替時のBGMロード"""
-        di.ref.sndmgr.request_bgm("event_slow")
+        # di.ref.sndmgr.request_bgm("event_slow")
+        match self.event.event_type:  # type: ignore
+            case EventType.SAFETY:
+                bgm_name = "event_slow"
+            case EventType.NORMAL:
+                bgm_name = "event_slow"
+            case EventType.GAMBLE:
+                bgm_name = "event_slow"
+            case EventType.BATTLE:
+                bgm_name = "event_slow"
+        di.ref.sndmgr.request_bgm(bgm_name)
 
     def update(self):
         """更新処理

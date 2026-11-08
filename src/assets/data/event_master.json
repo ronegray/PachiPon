@@ -64,6 +64,36 @@
     "event_id": "FLGEVENT1_C",
     "event_value": 1
   },
+  {
+    "event_type": "SAFETY",
+    "event_id": "CROWN",
+    "event_value": 0
+  },
+  {
+    "event_type": "SAFETY",
+    "event_id": "MIRROR",
+    "event_value": 0
+  },
+  {
+    "event_type": "SAFETY",
+    "event_id": "CEPTER",
+    "event_value": 0
+  },
+  {
+    "event_type": "SAFETY",
+    "event_id": "GRAIL",
+    "event_value": 0
+  },
+  {
+    "event_type": "SAFETY",
+    "event_id": "SATAN",
+    "event_value": 0
+  },
+  {
+    "event_type": "SAFETY",
+    "event_id": "KING",
+    "event_value": 0
+  },
 
   {
     "event_type": "NORMAL",

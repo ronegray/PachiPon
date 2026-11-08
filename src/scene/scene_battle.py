@@ -18,7 +18,11 @@ from field_map import Route
 from entity import Enemy, EntityParam, EnemyParam, BaseSprite, ActionPattern, Character
 from skill import SkillID, DebuffType, SkillTargetType
 from . import BaseScene
+
+# from event import Event, EventID
 import command.entity_command as ent_cmd
+
+# import command.event_command as evt_cmd
 import command.entity_battle_command as btl_cmd
 from entity import EntityBase, EntityContext
 
@@ -99,8 +103,11 @@ class SceneBattle(BaseScene):
         self.enemy_list: list[Enemy] = []
         for i in range(enemy_count):
             # ベースパラメータ
+            suffix = ""
+            if len(self.enemy_list) > 1:
+                suffix = SceneBattle._enemy_name_suffix[i]
             base_param = EntityParam(
-                name=enemy_data["name"] + SceneBattle._enemy_name_suffix[i],
+                name=enemy_data["name"] + suffix,
                 strength=enemy_data["strength"],
                 arcane=enemy_data["arcane"],
                 endurance=enemy_data["endurance"],
@@ -261,9 +268,6 @@ class SceneBattle(BaseScene):
 
         # パーティメンバーが全員死亡したら初期ポイントへ連行
         if di.ref.pt.get_active_member_count() < 1:
-            # di.ref.scnmgr.change_scene("title")
-            # di.ref.scnmgr.previous_scene()
-            # if di.ref.cmdmgr.is_empty:　#デバッグ用
             di.ref.cmdmgr.push_command(
                 ent_cmd.PartyDefeated(self.message_window, self.bgimage, self.enemy_list)
             )
@@ -437,16 +441,34 @@ class SceneFixedBattle(BaseScene):
         ActionPattern.DEFEND: btl_cmd.DefenceMode,
     }
 
-    def __init__(self, enemy_count: int, enemy_id: str):
+    def __init__(self, enemy_count: int, enemy_id: str, victory_event_class=None):
         super().__init__()
         self.situation = "battle"
         self.initiative_dict: dict = {}  # イニシアチブ値格納辞書
         self.battle_commands: dict = {}  # 行動コマンド格納辞書
         self.is_battle_over: bool = False  # 戦闘終了フラグ
-        # 背景用に直前画面のスクリーンポインタからイメージ生成
+        self.victory_evt_cmd = victory_event_class
+        # # 背景用に直前画面のスクリーンポインタからイメージ生成
+        # self.bgimage: px.Image = px.Image(px.width, px.height)
+        # bgpointer = self.bgimage.data_ptr()
+        # bgpointer[:] = px.screen.data_ptr()
+        # 背景用に直前画面からディザ済イメージ生成
         self.bgimage: px.Image = px.Image(px.width, px.height)
-        bgpointer = self.bgimage.data_ptr()
-        bgpointer[:] = px.screen.data_ptr()
+        self.bgimage.dither(0.3)
+        self.bgimage.blt(0, 0, px.screen, 0, 0, px.width, px.height)
+        # HP/MPバー
+        self.baraddress = (0, 16)
+        self.barsize = (70, 8)
+        self.baroffset = (5, (17, 25))
+        self.gaugeoffset = (
+            self.baroffset[0] + 3,
+            (self.baroffset[1][0] + 1, self.baroffset[1][1] + 1),
+        )
+        self.gaugesize = (64, 5)
+        self.gaugecolor = {"hp": px.COLOR_LIME, "mp": px.COLOR_DARK_BLUE}
+        # デバフアイコン
+        self.debufficonaddress = (0, 8)
+        self.debufficonoffset = (6, 35)
         # 戦闘メッセージ用ウインドウの生成
         message_pos = (0, 184)
         message_size = (px.width, 72)
@@ -459,6 +481,7 @@ class SceneFixedBattle(BaseScene):
         # candidate_list = di.ref.enmrps.get_threat_enemies(threat)
         # enemy_index = px.rndi(0, len(candidate_list) - 1)
         # enemy_data = candidate_list[enemy_index]
+        # 引数からエネミー決定
         enemy_data = di.ref.enmrps.get_enemy(enemy_id)
         path = check_file(f"assets/image/{enemy_id}.bmp")
         if path is None:
@@ -478,8 +501,11 @@ class SceneFixedBattle(BaseScene):
         self.enemy_list: list[Enemy] = []
         for i in range(enemy_count):
             # ベースパラメータ
+            suffix = ""
+            if len(self.enemy_list) > 1:
+                suffix = SceneBattle._enemy_name_suffix[i]
             base_param = EntityParam(
-                name=enemy_data["name"] + SceneBattle._enemy_name_suffix[i],
+                name=enemy_data["name"] + suffix,
                 strength=enemy_data["strength"],
                 arcane=enemy_data["arcane"],
                 endurance=enemy_data["endurance"],
@@ -514,7 +540,11 @@ class SceneFixedBattle(BaseScene):
             sprite_x += enemy_image.width + sprite_offset
             # インスタンスをリストに追加
             self.enemy_list.append(Enemy(base_param, enemy_param, enemy_sprite, i + ENEMY_ID_BASE))
-            self.enemy_list[-1].skills._learned_skills = enemy_data["skills"]
+            # スキル定義
+            # self.enemy_list[-1].skills._learned_skills = enemy_data["skills"]
+            for skill_name in enemy_data["skills"]:
+                skill_id = SkillID[skill_name]
+                self.enemy_list[-1].skills.learn_skill(skill_id)
 
         # メンバーステータスウインドウの生成
         status_offset = Window._chip_size // 2
@@ -555,36 +585,81 @@ class SceneFixedBattle(BaseScene):
 
     def load_bgm(self) -> None:
         """シーン切替時のBGMロード"""
-        # """暫定処理：BGMロード"""
-        # path = check_file("assets/sound/battle.txt")
-        # if path is not None:
-        #     score_data = read_string(path)
-        # else:
-        #     raise FileNotFoundError("ファイルがない！")
-
-        # px.stop()
-        # for i, ch in enumerate(px.channels):
-        #     mml = "R"
-        #     if i < len(score_data):
-        #         mml = score_data[i]
-        #     ch.play(mml, loop=True)
         di.ref.sndmgr.request_bgm("battle")
 
-    def select_enemy_target(self) -> tuple[int, list[Character]]:
+    # def select_enemy_target(self) -> tuple[int, list[Character]]:
+    #     """エネミーエンティティの敵対ターゲット決定"""
+    #     target_list = di.ref.pt.get_active_member()
+    #     target_index = px.rndi(0, len(target_list) - 1)
+    #     # return [target_list[target_index]]
+    #     return target_index, target_list
+    def select_enemy_target(self) -> tuple[Character, list[Character]]:
         """エネミーエンティティの敵対ターゲット決定"""
         target_list = di.ref.pt.get_active_member()
-        target_index = px.rndi(0, len(target_list) - 1)
-        # return [target_list[target_index]]
-        return target_index, target_list
+        target = choice(target_list)
+        return target, target_list
 
+    # def calc_initiative(self):
+    #     """全員のイニシアチブ値を算出してリスト化"""
+    #     self.initiative_dict = {}
+    #     all_member = di.ref.pt.get_allmember() + self.enemy_list
+    #     for member in all_member:
+    #         if member.is_alive:
+    #             initiative = diceroll(2) + member.bonus_spd
+    #             self.initiative_dict[member.chara_id] = initiative
     def calc_initiative(self):
         """全員のイニシアチブ値を算出してリスト化"""
         self.initiative_dict = {}
         all_member = di.ref.pt.get_allmember() + self.enemy_list
         for member in all_member:
             if member.is_alive:
-                initiative = diceroll(2) + member.bonus_spd
+                # イニシアチブデバフが掛かってる時は強制的に0値
+                initiative = (
+                    0
+                    if member.debuff_list.get(DebuffType.INITIATIVE_ZERO, None)
+                    else diceroll(2) + member.bonus_spd
+                )
                 self.initiative_dict[member.chara_id] = initiative
+
+    # def generate_enemy_commands(self):
+    #     """エネミーのコマンドオブジェクト生成"""
+    #     for enemy in self.enemy_list:
+    #         if enemy.is_alive:
+    #             action_index = diceroll(1) - 1
+    #             action = enemy.eparam.action_pattern[action_index]
+
+    #             target_index, target_list = self.select_enemy_target()
+    #             ctx = self.build_context(
+    #                 enemy, target_list[target_index], self.enemy_list, target_list
+    #             )
+    #             enemy_command = SceneBattle._enemy_commands.get(action)
+    #             if enemy_command is None:
+    #                 raise NameError
+    #             self.battle_commands[enemy.chara_id] = enemy_command(ctx, self.message_window)
+    def command_enemy_basic(self, enemy: Enemy, action: ActionPattern) -> btl_cmd.CommandBaseEntity:
+        """エネミー物理系コマンドの生成"""
+        target, target_list = self.select_enemy_target()
+        ctx = self.build_context(enemy, target, self.enemy_list, target_list)
+        enemy_command = SceneBattle._enemy_commands.get(action)
+        if enemy_command is None:
+            raise NameError
+        return enemy_command(ctx, self.message_window)
+
+    def command_enemy_skill(self, enemy: Enemy, action: ActionPattern) -> btl_cmd.CommandBaseEntity:
+        """エネミー技系コマンドの生成"""
+
+        skill_id = choice(list(enemy.skills.get_learned_skill_id()))
+        skill_def = di.ref.sklrps.get_def(skill_id)
+        if skill_def.target_type in (SkillTargetType.ALLY, SkillTargetType.ALLIES):  # type: ignore
+            target = choice(self.enemy_list)
+            target_list = self.enemy_list
+        else:
+            target, target_list = self.select_enemy_target()
+        ctx = self.build_context(enemy, target, self.enemy_list, target_list)
+        enemy_command = getattr(btl_cmd, skill_def.effect_func)  # type: ignore
+        if enemy_command is None:
+            raise NameError
+        return enemy_command(ctx, self.message_window, {"skillinfo": skill_def})
 
     def generate_enemy_commands(self):
         """エネミーのコマンドオブジェクト生成"""
@@ -592,15 +667,11 @@ class SceneFixedBattle(BaseScene):
             if enemy.is_alive:
                 action_index = diceroll(1) - 1
                 action = enemy.eparam.action_pattern[action_index]
-
-                target_index, target_list = self.select_enemy_target()
-                ctx = self.build_context(
-                    enemy, target_list[target_index], self.enemy_list, target_list
-                )
-                enemy_command = SceneBattle._enemy_commands.get(action)
-                if enemy_command is None:
-                    raise NameError
-                self.battle_commands[enemy.chara_id] = enemy_command(ctx, self.message_window)
+                if action in (ActionPattern.SKILL, ActionPattern.SPECIAL):
+                    cmd = self.command_enemy_skill(enemy, action)
+                else:
+                    cmd = self.command_enemy_basic(enemy, action)
+                self.battle_commands[enemy.chara_id] = cmd
 
     def update(self):
         """更新処理
@@ -609,11 +680,20 @@ class SceneFixedBattle(BaseScene):
         - コマンドスタックがある場合はコマンド処理へ抜ける
           - ない場合は生存PTメンバー分のコマンド生成をループ実行
           - コマンド数が揃ったらエネミー側コマンドと行動順を決定してコマンドスタック追加
+          - 固定バトルは退却不能
         """
         if self.is_battle_over:
-            # 入力制御の復旧
-            # WindowInputHandler.load_default_input()
-            di.ref.scnmgr.next_scene("afterbattle")
+            # 戦闘限定デバフの解除
+            [member.clear_battle_debuff() for member in di.ref.pt.get_active_member()]
+            # 指定イベントがある場合は勝利後イベントへ
+            if self.victory_evt_cmd:
+                di.ref.cmdmgr.push_command(
+                    self.victory_evt_cmd(self.message_window, self.bgimage, self.enemy_list)
+                )
+                # 経験値取得＆レベルアップ処理シーンへ遷移
+                di.ref.cmdmgr.set_on_empty(di.ref.scnmgr.next_scene("afterbattle"))
+            else:
+                di.ref.scnmgr.next_scene("afterbattle")
             return
 
         # 生存エネミーが0匹になったら戦闘終了して前のシーンに戻る
@@ -622,9 +702,12 @@ class SceneFixedBattle(BaseScene):
             self.is_battle_over = True
             return
 
-        # パーティメンバーが全員死亡したらゲームオーバー(タイトルへ戻る)
-        if di.ref.pt.get_active_member_count() == 0:
-            di.ref.scnmgr.change_scene("title")
+        # パーティメンバーが全員死亡したら初期ポイントへ連行
+        if di.ref.pt.get_active_member_count() < 1:
+            di.ref.cmdmgr.push_command(
+                ent_cmd.PartyDefeated(self.message_window, self.bgimage, self.enemy_list)
+            )
+            return
 
         # パーティメンバーの死亡を考慮し先頭キャラ再チェック
         di.ref.pt.update_top_index()
@@ -659,6 +742,7 @@ class SceneFixedBattle(BaseScene):
                 for member_id in initive_list:
                     di.ref.cmdmgr.push_command(self.battle_commands[member_id])
                 self.battle_commands.clear()
+                self.enemy_list[0].param.hp = 0
         else:
             return None
 
@@ -670,39 +754,78 @@ class SceneFixedBattle(BaseScene):
         - エネミー
         """
         # 背景描画
-        px.dither(0.3)
+        # px.dither(0.3)
         px.blt(0, 0, self.bgimage, 0, 0, self.bgimage.width, self.bgimage.height)
-        px.dither(1)
-        self.wndmgr.draw()
+        # px.dither(1)
+        # ステータスウインドウ
         for i, wnd in enumerate(self.status_windows):
             wnd.draw()
-            barwidth = wnd.width - (Window._chip_size * 2)
             member = di.ref.pt.get_member(i)
             wnd.set_message([f"{member.param.name}"])
             state = [[text, px.COLOR_WHITE] for text in wnd.message_list]
             wnd.drawText(wnd.x + 6, wnd.y + 4, state)
-            gauge_hp = member.param.hp / member.max_hp * barwidth
-            # px.rect(wnd.x + 8, wnd.y + 17, barwidth, 7, px.COLOR_RED)
-            px.rect(wnd.x + 8, wnd.y + 17, gauge_hp, 7, px.COLOR_LIME)
-            px.text(wnd.x + 10, wnd.y + 18, f"HP:{member.param.hp}", px.COLOR_BLACK)
-            # px.rectb(wnd.x + 8, wnd.y + 17, barwidth, 7, px.COLOR_WHITE)
-            # px.rectb(wnd.x + 7, wnd.y + 18, 1, 5, px.COLOR_WHITE)
-            # px.rectb(wnd.x + 6, wnd.y + 19, 1, 3, px.COLOR_WHITE)
-            # px.rectb(wnd.x + 7 + barwidth + 1, wnd.y + 18, 1, 5, px.COLOR_WHITE)
-            # px.rectb(wnd.x + 7 + barwidth + 2, wnd.y + 19, 1, 3, px.COLOR_WHITE)
+            # HPゲージ
+            gauge_hp = member.param.hp / member.max_hp * self.gaugesize[0]
+            px.blt(
+                wnd.x + self.baroffset[0],
+                wnd.y + self.baroffset[1][0],
+                0,
+                *self.baraddress,
+                *self.barsize,
+                colkey=px.COLOR_BLACK,
+            )
+            px.rect(
+                wnd.x + self.gaugeoffset[0],
+                wnd.y + self.gaugeoffset[1][0],
+                gauge_hp,
+                self.gaugesize[1],
+                self.gaugecolor["hp"],
+            )
+            px.text(
+                wnd.x + self.gaugeoffset[0] + 1,
+                wnd.y + self.gaugeoffset[1][0],
+                f"HP:{member.param.hp}",
+                px.COLOR_BLACK,
+            )
 
-            gauge_mp = member.param.mp / member.max_mp * barwidth
-            px.rect(wnd.x + 8, wnd.y + 25, barwidth, 7, px.COLOR_RED)
-            px.rect(wnd.x + 8, wnd.y + 25, gauge_mp, 7, px.COLOR_DARK_BLUE)
-            px.text(wnd.x + 10, wnd.y + 26, f"MP:{member.param.mp}", px.COLOR_BLACK)
-            px.rectb(wnd.x + 8, wnd.y + 25, barwidth, 7, px.COLOR_WHITE)
-            px.rectb(wnd.x + 7, wnd.y + 26, 1, 5, px.COLOR_WHITE)
-            px.rectb(wnd.x + 6, wnd.y + 27, 1, 3, px.COLOR_WHITE)
-            px.rectb(wnd.x + 7 + barwidth + 1, wnd.y + 26, 1, 5, px.COLOR_WHITE)
-            px.rectb(wnd.x + 7 + barwidth + 2, wnd.y + 27, 1, 3, px.COLOR_WHITE)
+            gauge_mp = member.param.mp / member.max_mp * self.gaugesize[0]
+            px.blt(
+                wnd.x + self.baroffset[0],
+                wnd.y + self.baroffset[1][1],
+                0,
+                *self.baraddress,
+                *self.barsize,
+                colkey=px.COLOR_BLACK,
+            )
+            px.rect(
+                wnd.x + self.gaugeoffset[0],
+                wnd.y + self.gaugeoffset[1][1],
+                gauge_mp,
+                self.gaugesize[1],
+                self.gaugecolor["mp"],
+            )
+            px.text(
+                wnd.x + self.gaugeoffset[0] + 1,
+                wnd.y + self.gaugeoffset[1][1],
+                f"MP:{member.param.mp}",
+                px.COLOR_BLACK,
+            )
 
-            px.rect(wnd.x + 6, wnd.y + 35, 8, 8, px.COLOR_GREEN)
+            # デバフアイコン
+            icon_x, icon_y = self.debufficonoffset
+            for dbf_id in member.debuff_list:
+                px.blt(
+                    wnd.x + icon_x + Window._chip_size * dbf_id,
+                    wnd.y + icon_y,
+                    0,
+                    self.debufficonaddress[0] + Window._chip_size * dbf_id,
+                    self.debufficonaddress[1],
+                    Window._chip_size,
+                    Window._chip_size,
+                    colkey=px.COLOR_BLACK,
+                )
 
+        # エネミー
         for enemy in self.enemy_list:
             if enemy.is_alive:
                 enemy.sprite.draw()

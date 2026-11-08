@@ -10,7 +10,7 @@ from gameutils.lib import MenuYesNo
 import service_locater as di
 import command.entity_command as en_cmd
 from menu import MenuLevelup
-from . import BaseScene, SceneBattle
+from . import BaseScene, SceneBattle, SceneFixedBattle
 
 # ロギング設定
 logger = logging.getLogger(__name__)
@@ -27,7 +27,9 @@ class SceneAfterBattle(BaseScene):
         super().__init__()
         self.situation = "system"
         parent_scene = di.ref.scnmgr.get_now_scene()
-        if not isinstance(parent_scene, SceneBattle):
+        if not (
+            isinstance(parent_scene, SceneBattle) or isinstance(parent_scene, SceneFixedBattle)
+        ):
             errmsg = f"想定外のシーンから呼び出されました：{parent_scene.__class__.__name__}"
             logger.critical(errmsg, exc_info=True)
             raise TypeError(errmsg)

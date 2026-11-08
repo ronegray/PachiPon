@@ -152,6 +152,12 @@ class Party:
             DebuffType.STONE_HOLD: 9,
         }
 
+    @property
+    def average_level(self) -> float:
+        members = self.get_active_member_count()
+        levels = [mem.param.level for mem in self.get_allmember()]
+        return sum(levels) / members
+
     def get_party_speed(self) -> float:
         """パーティ全体の行動速度"""
         members = self.get_active_member_count()
@@ -222,9 +228,7 @@ class Party:
         else:
             newbie_name = "Ｊ・ｄｏｅ"
         # キャラクタレベル
-        average_lv = px.ceil(
-            sum([mem.param.level for mem in self._member_list]) / len(self._member_list)
-        )
+        average_lv = px.ceil(self.average_level)
         newbie_lv = average_lv + choice(
             [-1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2]
         )

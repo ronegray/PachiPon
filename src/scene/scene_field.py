@@ -44,7 +44,7 @@ class SceneField(BaseScene):
         self.eventpoint_info_window = Window("basic", *evinfo_pos, *evinfo_size, "once")
         self.eventpoint_info_window.update_row_max(8)
         # イベント状態ウインドウの生成
-        evstate_pos = (0, 216)
+        evstate_pos = (0, 224)
         evstate_size = (APP_WIDTH, 8 + 16 + 8)  # 下枠+文字サイズ+上枠
         self.eventpoint_state_window = Window("basic", *evstate_pos, *evstate_size, "once")
         # オートセーブ用オブジェクト
@@ -295,7 +295,7 @@ class SceneField(BaseScene):
         # # デバッグ用
         # event_func_name = "NORMAL_DECREASE_HP"
         # event_func_name = "SAFETY_INCREASE_HP"
-        event_func_name = "NORMAL_MEET_ALLY"
+        # event_func_name = "NORMAL_MEET_ALLY"
 
         evtcmd = getattr(ev_cmd, event_func_name)
         return (ctx, evtcmd)
