@@ -742,7 +742,6 @@ class SceneFixedBattle(BaseScene):
                 for member_id in initive_list:
                     di.ref.cmdmgr.push_command(self.battle_commands[member_id])
                 self.battle_commands.clear()
-                self.enemy_list[0].param.hp = 0
         else:
             return None
 

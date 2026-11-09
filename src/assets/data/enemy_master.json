@@ -509,9 +509,9 @@
         ],
         "description": ""
     },
-    "GIANT_CENTIPEDE": {
+    "SCORPION": {
         "threat": 4,
-        "name": "ジャイアント・センチピード",
+        "name": "スコーピオン",
         "strength": 7,
         "arcane": 2,
         "endurance": 9,

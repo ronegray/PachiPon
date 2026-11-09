@@ -1063,7 +1063,7 @@ class BATTLE_GRAIL(CommandBaseEvent):  # 聖杯の守護者　呪毒に弱い
         # self.display_info.target.update_indicator(False)
         yield from self._wait_finish()
 
-        di.ref.scnmgr.next_scene("fixedbattle", 1, "GOLD_DRAGON_ANCIENT", GET_GRAIL)
+        di.ref.scnmgr.next_scene("fixedbattle", 1, "SCORPION", GET_GRAIL)
 
 
 class GET_GRAIL(CommandBaseEvent):
