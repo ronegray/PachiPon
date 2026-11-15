@@ -13,7 +13,10 @@ from gameutils.lib import Window
 import service_locater as di
 from field_map import EventPoint, Route
 from helper import diceroll
-import command.system_command as s_cmd
+
+# import command.system_command as s_cmd
+# from command.effect_command import CommonEffectWrapper, efx_damage_shake, efx_screen_flash
+from command.system_command import FoodShortageMessage, FoodShortageEffect, CommonFieldMessage
 from field_map import MapGraph
 from . import Character, FieldSprite
 
@@ -505,14 +508,16 @@ class Party:
         # 減少によりフードが0以下になった場合
         if self._pt_foods <= 0:
             self._pt_foods = 0
-            cmd1 = s_cmd.FoodShortageEffect(self.pt_msg_window)
+            # cmd1 = s_cmd.FoodShortageEffect(self.pt_msg_window)
+            dummy = Window("basic", 0, 0, 0, 0, "hold")
+            cmd1 = FoodShortageEffect(dummy)
             self.cmdmgr.push_command(cmd1)
             for mem in actives:
                 mem.decrease_hp(mem.param.hp // 10)
                 mem.decrease_mp(mem.param.mp // 10)
             if is_foods:
                 # 0以下になった初回だけメッセージ表示
-                cmd2 = s_cmd.FoodShortageMessage(self.pt_msg_window)
+                cmd2 = FoodShortageMessage(self.pt_msg_window)
                 self.cmdmgr.push_command(cmd2)
 
     def update(self):
@@ -524,7 +529,8 @@ class Party:
                 if self._pt_is_encount and self.cmdmgr.is_empty:
                     # self.scnmgr.next_scene("battlesplash")
                     if self.get_pt_efx("escape_battle"):
-                        cmd = s_cmd.CommonFieldMessage(
+                        # cmd = s_cmd.CommonFieldMessage(
+                        cmd = CommonFieldMessage(
                             self.pt_msg_window,
                             ["煙幕で姿を隠しておいたお陰で", "敵をやり過ごせたようだ・・・"],
                         )

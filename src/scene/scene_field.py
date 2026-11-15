@@ -15,7 +15,7 @@ from gameutils.lib import Window, WindowAction
 from event import EventID, EventType
 from field_map import EventPoint, PointPlaceType
 from entity import EntityContext
-from command import CommandBase
+from command import CommandProtocol
 import command.entity_command as en_cmd
 import command.system_command as s_cmd
 from helper import format_leftright
@@ -282,7 +282,7 @@ class SceneField(BaseScene):
         )
         return ctx
 
-    def transfer_eventdata(self) -> tuple[EntityContext, CommandBase]:
+    def transfer_eventdata(self) -> tuple[EntityContext, CommandProtocol]:
         """サブシーンへのイベント関連データ受け渡し用"""
         ctx = self.build_context()
 

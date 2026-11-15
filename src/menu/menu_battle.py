@@ -374,22 +374,23 @@ class MenuSelectItem(Menu):
     def select_target(self, *args) -> ExecResult:
         """味方メンバーターゲット選択メニューを呼び出し"""
 
-        eq_slot, item_iid, plent = self.target_item[0]["args"]
-        func_name = plent.ins.param.effect_id  # type: ignore
+        # eq_slot, item_iid, plent = self.target_item[0]["args"]
+        eq_slot, _, plent = self.target_item[0]["args"]
+        # func_name = plent.ins.param.effect_id  # type: ignore
         item_def = plent.ins.param  # type: ignore
 
         from menu import MenuSelectBattleTarget
 
-        # コマンドパッケージに選択内容登録
-        self.command_package.selected_action = getattr(itm_cmd, func_name)
-        # if func_name == "escape_battle":
-        #     self.command_package.target_type = SkillTargetType.ALL  # type: ignore
-        # else:
-        #     self.command_package.target_type = SkillTargetType.ALLY  # type: ignore
-        # self.command_package.selected_args = {
-        #     "item_def": plent.ins.param,  # type: ignore
-        #     "slot": eq_slot,
-        # }
+        # # コマンドパッケージに選択内容登録
+        # self.command_package.selected_action = getattr(itm_cmd, func_name)
+        # # if func_name == "escape_battle":
+        # #     self.command_package.target_type = SkillTargetType.ALL  # type: ignore
+        # # else:
+        # #     self.command_package.target_type = SkillTargetType.ALLY  # type: ignore
+        # # self.command_package.selected_args = {
+        # #     "item_def": plent.ins.param,  # type: ignore
+        # #     "slot": eq_slot,
+        # # }
 
         # コマンドパッケージに選択内容登録
         self.command_package.selected_action = getattr(itm_cmd, item_def.effect_id)

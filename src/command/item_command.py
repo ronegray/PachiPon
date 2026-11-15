@@ -10,24 +10,25 @@ from dataclasses import dataclass
 from const import SoundID
 from gameutils.lib import Menu, Window, WindowAction
 from helper import diceroll, upper_int
-from entity import EntityContext, Character  # , Enemy, Party, Character
+from entity import Character  # ,EntityContext, # , Enemy, Party, Character
 from skill import SkillTargetType, SkillDef
 from item import ItemTargetType, StackPool, ItemDef  # , ItemState  # , WeaponType
 import service_locater as di
-from . import CommandBaseSequence, CommandPhase
+from . import CommandPhase, SeqSubCmd
+from .entity_command import CommandBaseEntity
 # from .effect_command import efx_diceroll, efx_physical_attack, efx_damage_shake, efx_monster_dead
 
 # ロギング設定
 logger = logging.getLogger(__name__)
 
 
-class CommandBaseItem(CommandBaseSequence):
+class CommandBaseItem(CommandBaseEntity):
     """エンティティが実行者となるコマンドの基底クラス"""
 
-    def __init__(self, ctx: EntityContext, wnd: Window, *args, **kwargs) -> None:
-        """初期化：コンテキストの引継"""
-        super().__init__(wnd, *args, **kwargs)
-        self._ctx: EntityContext = ctx
+    # def __init__(self, ctx: EntityContext, wnd: Window, *args, **kwargs) -> None:
+    #     """初期化：コンテキストの引継"""
+    #     super().__init__(wnd, *args, **kwargs)
+    #     self._ctx: EntityContext = ctx
 
     def _check_actor_alive(self) -> bool:
         """行動前の行動可否チェック"""
@@ -61,7 +62,7 @@ class CommandPackage:
 class heal_hp(CommandBaseItem):
     """HP回復アイテム"""
 
-    def _sequence(self) -> Generator[list[str], None, None]:
+    def _sequence(self) -> Generator[list, None, None]:
         # 最初に必ず生死チェック
         if self._check_actor_alive():
             actor = cast(Character, self._ctx.actor)
@@ -106,14 +107,15 @@ class heal_hp(CommandBaseItem):
         # run_effectに相当：メッセージ表示後にダメージ適用
         real_heal = target.increase_hp(healing)
         # px.play(self.se_ch, SoundID.RECOVER, resume=True)
-        di.ref.sndmgr.play_se_sustain(SoundID.RECOVER)
+        # di.ref.sndmgr.play_se_sustain(SoundID.RECOVER)
+        yield [SeqSubCmd.SE_SUSTAIN, SoundID.RECOVER]
         yield [f"{target.param.name}は {upper_int(real_heal)} のＨＰが　回復した"]
 
 
 class heal_mp(CommandBaseItem):
     """MP回復アイテム"""
 
-    def _sequence(self) -> Generator[list[str], None, None]:
+    def _sequence(self) -> Generator[list, None, None]:
         # 最初に必ず生死チェック
         if self._check_actor_alive():
             actor = cast(Character, self._ctx.actor)
@@ -148,9 +150,9 @@ class heal_mp(CommandBaseItem):
 
         # 回復ロール
         if item_def.effect_value:
-            healing = target.param.max_hp
+            healing = target.param.max_mp
         else:
-            healing = diceroll(actor.param.level)
+            healing = diceroll(actor.param.level) // 2
 
         if self._ctx.situation == "battle":
             yield [""]
@@ -158,14 +160,15 @@ class heal_mp(CommandBaseItem):
         # run_effectに相当：メッセージ表示後にダメージ適用
         real_heal = target.increase_mp(healing)
         # px.play(self.se_ch, SoundID.RECOVER, resume=True)
-        di.ref.sndmgr.play_se_sustain(SoundID.RECOVER)
+        # di.ref.sndmgr.play_se_sustain(SoundID.RECOVER)
+        yield [SeqSubCmd.SE_SUSTAIN, SoundID.RECOVER]
         yield [f"{target.param.name}は {upper_int(real_heal)} のＭＰが　回復した"]
 
 
 class torchlight(CommandBaseItem):
     """たいまつ"""
 
-    def _sequence(self) -> Generator[list[str], None, None]:
+    def _sequence(self) -> Generator[list, None, None]:
         # コマンドパッケージから取得するスキル情報
         item_def = cast(ItemDef, self.args[0]["item_def"])
 
@@ -178,7 +181,8 @@ class torchlight(CommandBaseItem):
 
         # PT単位効果付与
         di.ref.pt.set_pt_efx(item_def.effect_id)
-        di.ref.sndmgr.play_se_sustain(SoundID.USEITEM)
+        # di.ref.sndmgr.play_se_sustain(SoundID.USEITEM)
+        yield [SeqSubCmd.SE_SUSTAIN, SoundID.USEITEM]
         yield [
             "パーティはダンジョン探索が可能になった",
             "ダンジョンのイベントポイントでイベント実行できます",
@@ -186,16 +190,13 @@ class torchlight(CommandBaseItem):
         ]
 
         # キー待ち
-        self.display_info.target.update_indicator(True)
-        while self.display_info.target.update() == WindowAction.CONTINUE:
-            yield [self.WAIT, "0"]
-        self.display_info.target.update_indicator(False)
+        yield from self._wait_finish()
 
 
 class escape_battle(CommandBaseItem):
     """戦闘離脱"""
 
-    def _sequence(self) -> Generator[list[str], None, None]:
+    def _sequence(self) -> Generator[list, None, None]:
         # 最初に必ず生死チェック
         if self._check_actor_alive():
             actor = cast(Character, self._ctx.actor)
@@ -219,7 +220,8 @@ class escape_battle(CommandBaseItem):
 
         # PT単位効果付与
         di.ref.pt.set_pt_efx(item_def.effect_id)
-        di.ref.sndmgr.play_se_sustain(SoundID.USEITEM)
+        # di.ref.sndmgr.play_se_sustain(SoundID.USEITEM)
+        yield [SeqSubCmd.SE_SUSTAIN, SoundID.USEITEM]
         if self._ctx.situation == "battle":
             yield ["ドロン！戦闘から離脱した！"]
             return
@@ -237,16 +239,13 @@ class escape_battle(CommandBaseItem):
         # yield [f"{target.param.name}は {upper_int(real_heal)} のＭＰが　回復した"]
 
         # キー待ち
-        self.display_info.target.update_indicator(True)
-        while self.display_info.target.update() == WindowAction.CONTINUE:
-            yield [self.WAIT, "0"]
-        self.display_info.target.update_indicator(False)
+        yield from self._wait_finish()
 
 
 class reduce_negative(CommandBaseItem):
     """マイナス選択肢でダイス振り直し"""
 
-    def _sequence(self) -> Generator[list[str], None, None]:
+    def _sequence(self) -> Generator[list, None, None]:
         # コマンドパッケージから取得するスキル情報
         item_def = cast(ItemDef, self.args[0]["item_def"])
 
@@ -259,7 +258,8 @@ class reduce_negative(CommandBaseItem):
 
         # PT単位効果付与
         di.ref.pt.set_pt_efx(item_def.effect_id + str(item_def.effect_value))
-        di.ref.sndmgr.play_se_sustain(SoundID.USEITEM)
+        # di.ref.sndmgr.play_se_sustain(SoundID.USEITEM)
+        yield [SeqSubCmd.SE_SUSTAIN, SoundID.USEITEM]
         yield [
             "次に発生するランダムイベントの候補から",
             f"{upper_int(int(item_def.effect_value))}個のマイナス選択肢を除外します",
@@ -267,16 +267,13 @@ class reduce_negative(CommandBaseItem):
         ]
 
         # キー待ち
-        self.display_info.target.update_indicator(True)
-        while self.display_info.target.update() == WindowAction.CONTINUE:
-            yield [self.WAIT, "0"]
-        self.display_info.target.update_indicator(False)
+        yield from self._wait_finish()
 
 
 class dice_plus(CommandBaseItem):
     """ダイスロール時のダイスをプラス"""
 
-    def _sequence(self) -> Generator[list[str], None, None]:
+    def _sequence(self) -> Generator[list, None, None]:
         # コマンドパッケージから取得するスキル情報
         item_def = cast(ItemDef, self.args[0]["item_def"])
 
@@ -289,7 +286,8 @@ class dice_plus(CommandBaseItem):
 
         # PT単位効果付与
         di.ref.pt.set_pt_efx(item_def.effect_id + str(item_def.effect_value))
-        di.ref.sndmgr.play_se_sustain(SoundID.USEITEM)
+        # di.ref.sndmgr.play_se_sustain(SoundID.USEITEM)
+        yield [SeqSubCmd.SE_SUSTAIN, SoundID.USEITEM]
         yield [
             "次に行うダイスロール時に、一度だけ",
             f"ダイスを{upper_int(int(item_def.effect_value))}個追加します",
@@ -297,16 +295,13 @@ class dice_plus(CommandBaseItem):
         ]
 
         # キー待ち
-        self.display_info.target.update_indicator(True)
-        while self.display_info.target.update() == WindowAction.CONTINUE:
-            yield [self.WAIT, "0"]
-        self.display_info.target.update_indicator(False)
+        yield from self._wait_finish()
 
 
 class food_plus(CommandBaseItem):
     """食糧を追加"""
 
-    def _sequence(self) -> Generator[list[str], None, None]:
+    def _sequence(self) -> Generator[list, None, None]:
         # コマンドパッケージから取得するスキル情報
         item_def = cast(ItemDef, self.args[0]["item_def"])
 
@@ -320,20 +315,18 @@ class food_plus(CommandBaseItem):
         # PT単位効果付与
         val = int(item_def.effect_value)
         di.ref.pt.earn_foods(val)
-        di.ref.sndmgr.play_se_sustain(SoundID.USEITEM)
+        # di.ref.sndmgr.play_se_sustain(SoundID.USEITEM)
+        yield [SeqSubCmd.SE_SUSTAIN, SoundID.USEITEM]
         yield [f"食糧が{val}増えた！"]
 
         # キー待ち
-        self.display_info.target.update_indicator(True)
-        while self.display_info.target.update() == WindowAction.CONTINUE:
-            yield [self.WAIT, "0"]
-        self.display_info.target.update_indicator(False)
+        yield from self._wait_finish()
 
 
 class learn_skill(CommandBaseItem):
     """スキルを取得"""
 
-    def _sequence(self) -> Generator[list[str], None, None]:
+    def _sequence(self) -> Generator[list, None, None]:
         # コマンドパッケージから取得するスキル情報
         item_def = cast(ItemDef, self.args[0]["item_def"])
 
@@ -362,7 +355,7 @@ class learn_skill(CommandBaseItem):
         # self.change_target_item(menu_select_learn_skill, wnd_skill_info)
 
         # キー待ち時の入力を一回捨てる
-        yield [self.WAIT, "0"]
+        yield [SeqSubCmd.WAIT, 0]
 
         # スタックに追加せずメニュー動作
         rc = menu_select_learn_skill.update()
@@ -373,12 +366,13 @@ class learn_skill(CommandBaseItem):
                 lambda window=wnd_skill_info: window.draw(),
                 lambda window=wnd_skill_info: window.draw_message(),
             ]
-            yield [self.WAIT, "0"]
+            yield [SeqSubCmd.WAIT, 0]
             rc = menu_select_learn_skill.update()
 
         if rc == WindowAction.EXECUTE:
             self.display_info.graphic_command = None
-            di.ref.sndmgr.play_se_sustain(SoundID.USEITEM)
+            # di.ref.sndmgr.play_se_sustain(SoundID.USEITEM)
+            yield [SeqSubCmd.SE_SUSTAIN, SoundID.USEITEM]
             pos_x, pos_y = menu_select_learn_skill.cursor_position
             selected_item = menu_select_learn_skill.menu_items[pos_y][pos_x]
             self._ctx.target.skills.learn_skill(selected_item.action_args[1])
@@ -388,10 +382,7 @@ class learn_skill(CommandBaseItem):
             pl_stack.remove(item_def.def_id)
 
         # キー待ち
-        self.display_info.target.update_indicator(True)
-        while self.display_info.target.update() == WindowAction.CONTINUE:
-            yield [self.WAIT, "0"]
-        self.display_info.target.update_indicator(False)
+        yield from self._wait_finish()
 
     def generate_item_list(self, rank: int):
         """メニュー項目リストの生成：スキル"""

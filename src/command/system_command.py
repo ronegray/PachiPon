@@ -6,7 +6,8 @@ import logging
 from typing import Generator  # , cast
 import pyxel as px
 import service_locater as di
-from gameutils.lib import WindowAction
+
+# from gameutils.lib import WindowAction
 from const import SoundID, FOOD_UNITS
 # from helper import diceroll
 
@@ -16,35 +17,27 @@ from const import SoundID, FOOD_UNITS
 # from event import Event
 from field_map import PointPlaceType  # , EventPoint,
 from item import ItemState
-from . import CommandBaseSequence
+from . import CommandBaseSequence, SeqSubCmd, effect_command as efx_cmd
 
 # ロギング設定
 logger = logging.getLogger(__name__)
 
 
-class CommandBaseSystem(CommandBaseSequence):
-    """システムに対するユーザ操作を表すコマンドの基底クラス"""
-
-    pass
-
-
-class CommonFieldMessage(CommandBaseSystem):
+class CommonFieldMessage(CommandBaseSequence):
     """汎用メッセージ表示処理"""
 
-    def _sequence(self) -> Generator[list[str], None, None]:
+    def _sequence(self) -> Generator[list, None, None]:
         message_list = self.args[0]
         for msg in message_list:
             yield [msg]
 
-        self.display_info.target.update_indicator(True)
-        while self.display_info.target.update() == WindowAction.CONTINUE:
-            yield [self.WAIT, "0"]
+        yield from self._wait_finish()
 
 
-class ShopPurchase(CommandBaseSystem):
+class ShopPurchase(CommandBaseSequence):
     """ショップ購入対応（スタック／インスタンス共用）"""
 
-    def _sequence(self) -> Generator[list[str], None, None]:
+    def _sequence(self) -> Generator[list, None, None]:
         pt = self.args[0]
         item_def = self.args[1]
         func_add_pool = self.args[2]
@@ -61,7 +54,8 @@ class ShopPurchase(CommandBaseSystem):
                 case PointPlaceType.VILLAGE:
                     buy_message = "どうもおおきにのう～"
             # px.play(self.se_ch, SoundID.SHOP_BUY, resume=True)
-            di.ref.sndmgr.play_se_instant(SoundID.SHOP_BUY)
+            # di.ref.sndmgr.play_se_instant(SoundID.SHOP_BUY)
+            yield [SeqSubCmd.SE_INSTANT, SoundID.SHOP_BUY]
             yield [buy_message]  # type: ignore
 
             # 購入処理
@@ -78,10 +72,11 @@ class ShopPurchase(CommandBaseSystem):
                     not_enough_message = "どれどれ・・・これじゃ売ってやれんのう"
             yield [not_enough_message]  # type: ignore
 
-        self.display_info.target.update_indicator(True)
-        while self.display_info.target.update() == WindowAction.CONTINUE:
-            yield [self.WAIT, "0"]
-        # self.display_info.target.update_indicator(False)
+        # self.display_info.target.update_indicator(True)
+        # while self.display_info.target.update() == WindowAction.CONTINUE:
+        #     yield [SeqSubCmd.WAIT, 0]
+        # # self.display_info.target.update_indicator(False)
+        yield from self._wait_finish()
 
         match eventpoint.point_type:
             case PointPlaceType.CAPITAL_CITY:
@@ -91,12 +86,13 @@ class ShopPurchase(CommandBaseSystem):
             case PointPlaceType.VILLAGE:
                 next_message = "そっちのもどうじゃろか？"
         yield [next_message]  # type: ignore
+        yield from self._wait_finish()
 
 
-class PurchaseFoods(CommandBaseSystem):
+class PurchaseFoods(CommandBaseSequence):
     """ショップ購入対応（食料品）"""
 
-    def _sequence(self) -> Generator[list[str], None, None]:
+    def _sequence(self) -> Generator[list, None, None]:
         pt = self.args[0]
         price = self.args[1]
 
@@ -110,8 +106,9 @@ class PurchaseFoods(CommandBaseSystem):
                     buy_message = "うちのを食ったら他のは食えねえぜ！"
                 case PointPlaceType.VILLAGE:
                     buy_message = "ばあさんの手作りじゃぞい"
-            # px.play(self.se_ch, SoundID.SHOP_BUY, resume=True)
-            di.ref.sndmgr.play_se_instant(SoundID.SHOP_BUY)
+            # # px.play(self.se_ch, SoundID.SHOP_BUY, resume=True)
+            # di.ref.sndmgr.play_se_instant(SoundID.SHOP_BUY)
+            yield [SeqSubCmd.SE_INSTANT, SoundID.SHOP_BUY]
             yield [buy_message]  # type: ignore
 
             # 購入処理
@@ -128,10 +125,11 @@ class PurchaseFoods(CommandBaseSystem):
                     not_enough_message = "どれどれ・・・これじゃ売ってやれんのう"
             yield [not_enough_message]  # type: ignore
 
-        self.display_info.target.update_indicator(True)
-        while self.display_info.target.update() == WindowAction.CONTINUE:
-            yield [self.WAIT, "0"]
-        # self.display_info.target.update_indicator(False)
+        # self.display_info.target.update_indicator(True)
+        # while self.display_info.target.update() == WindowAction.CONTINUE:
+        #     yield [SeqSubCmd.WAIT, 0]
+        # # self.display_info.target.update_indicator(False)
+        yield from self._wait_finish()
 
         match eventpoint.point_type:
             case PointPlaceType.CAPITAL_CITY:
@@ -141,12 +139,13 @@ class PurchaseFoods(CommandBaseSystem):
             case PointPlaceType.VILLAGE:
                 next_message = "そっちのもどうじゃろか？"
         yield [next_message]  # type: ignore
+        yield from self._wait_finish()
 
 
-class SellEquip(CommandBaseSystem):
+class SellEquip(CommandBaseSequence):
     """装備下取り"""
 
-    def _sequence(self) -> Generator[list[str], None, None]:
+    def _sequence(self) -> Generator[list, None, None]:
         pt = self.args[0]
         item_iid, item_def, sellprice = self.args[1]
         pool_item = self.args[2]
@@ -160,19 +159,21 @@ class SellEquip(CommandBaseSystem):
                 sell_message = "んじゃこいつだ！確かめてくんな！"
             case PointPlaceType.VILLAGE:
                 sell_message = "足りるかの・・・おお、あったあった"
-        # px.play(self.se_ch, SoundID.SHOP_BUY, resume=True)
-        di.ref.sndmgr.play_se_instant(SoundID.SHOP_BUY)
+        # # px.play(self.se_ch, SoundID.SHOP_BUY, resume=True)
+        # di.ref.sndmgr.play_se_instant(SoundID.SHOP_BUY)
+        yield [SeqSubCmd.SE_INSTANT, SoundID.SHOP_BUY]
         yield [sell_message]  # type: ignore
 
         # 売却処理
         pt.earn_gold(sellprice)
         pool_item.destroy(item_iid)
-        print(f"sell={item_iid}")
+        logger.debug(f"sell={item_iid}")
 
-        self.display_info.target.update_indicator(True)
-        while self.display_info.target.update() == WindowAction.CONTINUE:
-            yield [self.WAIT, "0"]
-        # self.display_info.target.update_indicator(False)
+        # # self.display_info.target.update_indicator(True)
+        # # while self.display_info.target.update() == WindowAction.CONTINUE:
+        # #     yield [SeqSubCmd.WAIT, 0]
+        # # # self.display_info.target.update_indicator(False)
+        # yield from self._wait_finish()
 
         match eventpoint.point_type:
             case PointPlaceType.CAPITAL_CITY:
@@ -181,52 +182,60 @@ class SellEquip(CommandBaseSystem):
                 next_message = "またいいもん持ってきてくれよ！"
             case PointPlaceType.VILLAGE:
                 next_message = "さて、いくらで売れるかの・・・"
-        self.display_info.target.update_indicator(True)
-        yield [next_message]  # type: ignore
+        # self.display_info.target.update_indicator(True)
+        yield ["", next_message]  # type: ignore
         # self.display_info.target.update_indicator(False)
+        yield from self._wait_finish()
 
 
-class BattleStartEffect(CommandBaseSystem):
-    """戦闘開始エフェクト"""
+# class BattleStartEffect(CommandBaseSequence):
+#     """戦闘開始エフェクト"""
 
-    def _sequence(self) -> Generator[list[str], None, None]:
-        circle_size = 1
-        circle_center = (px.width // 2, px.height // 2)
-        circle_max = px.sqrt(circle_center[0] ** 2 + circle_center[1] ** 2)
+#     def _sequence(self) -> Generator[list, None, None]:
+#         circle_size = 1
+#         circle_center = (px.width // 2, px.height // 2)
+#         circle_max = px.sqrt(circle_center[0] ** 2 + circle_center[1] ** 2)
 
-        while circle_size < circle_max:
-            self.display_info.graphic_command = [
-                lambda: px.dither(circle_size / circle_max),
-                lambda: px.circ(*circle_center, circle_size, px.COLOR_BLACK),
-                lambda: px.dither(1),
-            ]
-            circle_size += 6
-            yield [self.WAIT, "0"]
-        return
+#         while circle_size < circle_max:
+#             self.display_info.graphic_command = [
+#                 lambda: px.dither(circle_size / circle_max),
+#                 lambda: px.circ(*circle_center, circle_size, px.COLOR_BLACK),
+#                 lambda: px.dither(1),
+#             ]
+#             circle_size += 6
+#             yield [SeqSubCmd.WAIT, 0]
+#         return
 
 
-class FoodShortageMessage(CommandBaseSystem):
+class FoodShortageMessage(CommandBaseSequence):
     """フードが消費量に満たない場合の警告"""
 
-    def _sequence(self) -> Generator[list[str], None, None]:
+    def _sequence(self) -> Generator[list, None, None]:
+        yield ["食糧が　足りなくなった"]
         yield [
-            "食糧が　足りなくなった",
             "ターン経過毎に ＨＰとＭＰが５％ずつ",
             "減少してしまう・・・",
         ]
-        while self.display_info.target.update() == WindowAction.CONTINUE:
-            yield [self.WAIT, "0"]
+        # while self.display_info.target.update() == WindowAction.CONTINUE:
+        #     yield [SeqSubCmd.WAIT, 0]
+        yield from self._wait_finish()
 
 
-class FoodShortageEffect(CommandBaseSystem):
+class FoodShortageEffect(CommandBaseSequence):
     """フードが消費量に満たない場合の画面エフェクト"""
 
-    def _sequence(self) -> Generator[list[str], None, None]:
-        self.display_info.graphic_command = [
-            lambda: px.dither(0.5),
-            lambda: px.rect(0, 0, px.width, px.height, px.COLOR_RED),
-            lambda: px.dither(1),
-        ]
-        # px.play(self.se_ch, SoundID.TURN_DAMAGE, resume=True)
-        di.ref.sndmgr.play_se_instant(SoundID.TURN_DAMAGE)
-        yield [self.WAIT, "0"]
+    def _sequence(self) -> Generator[list, None, None]:
+        # self.display_info.graphic_command = [
+        #     lambda: px.dither(0.5),
+        #     lambda: px.rect(0, 0, px.width, px.height, px.COLOR_RED),
+        #     lambda: px.dither(1),
+        # ]
+        # # # px.play(self.se_ch, SoundID.TURN_DAMAGE, resume=True)
+        # # di.ref.sndmgr.play_se_instant(SoundID.TURN_DAMAGE)
+        # # yield [SeqSubCmd.WAIT, 0]
+        # yield [SeqSubCmd.SE_SUSTAIN, SoundID.TURN_DAMAGE]
+
+        yield [SeqSubCmd.SE_SUSTAIN, SoundID.TURN_DAMAGE]
+        yield from efx_cmd.efx_screen_flash(self.display_info, px.COLOR_RED)
+        yield from efx_cmd.efx_damage_shake(self.display_info, di.ref.pt.get_member())
+        # yield from efx_cmd.efx_screen_flash(self.display_info, px.COLOR_RED)
