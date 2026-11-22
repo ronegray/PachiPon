@@ -30,7 +30,7 @@ class SceneBattleSplash(BaseScene):
 
         dummy = Window("basic", 0, 0, 0, 0, "hold")
         # di.ref.cmdmgr.push_command(BattleStartEffect(dummy))
-        di.ref.cmdmgr.push_command(CommonEffectWrapper(dummy, efx_encount_splash))
+        di.ref.cmdmgr.push_command(CommonEffectWrapper(dummy, func=efx_encount_splash, parms=None))
         self.is_skip_splash: bool = False
         self.is_next_scene: bool = False
         """このシーンではbgmは無し SEのみ"""

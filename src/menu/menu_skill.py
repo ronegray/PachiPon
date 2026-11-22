@@ -25,6 +25,7 @@ from skill import SkillDef, SkillTargetType
 
 # import command.entity_command as en_cmd
 import command.entity_battle_command as en_cmd
+from command import CommandPackage
 
 
 # ロギング設定
@@ -41,7 +42,8 @@ class MenuSelectSkillBattle(Menu):
         self,
         ctx: EntityContext,
         ref_window: dict[str, int],
-        command_package: en_cmd.CommandPackage,
+        # command_package: en_cmd.CommandPackage,
+        command_package: CommandPackage,
     ):
         self.ctx = ctx
         self.command_package = command_package
@@ -271,7 +273,8 @@ class MenuSelectSkillField(Menu):
         self,
         ctx: EntityContext,
         ref_window: dict[str, int],
-        command_package: en_cmd.CommandPackage,
+        # command_package: en_cmd.CommandPackage,
+        command_package: CommandPackage,
     ):
         self.ctx = ctx
         self.command_package = command_package

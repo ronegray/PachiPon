@@ -15,8 +15,9 @@ from gameutils.lib import Window, WindowAction
 from event import EventID, EventType
 from field_map import EventPoint, PointPlaceType
 from entity import EntityContext
-from command import CommandProtocol
-import command.entity_command as en_cmd
+from command import CommandProtocol, CommandPackage
+
+# import command.entity_command as en_cmd
 import command.system_command as s_cmd
 from helper import format_leftright
 
@@ -128,7 +129,7 @@ class SceneField(BaseScene):
                     cmd(
                         self.ctx,
                         self.message_window,
-                        self.command_package.selected_args,
+                        sel_cmd_dict=self.command_package.selected_args,
                     )
                 )
             return
@@ -166,7 +167,8 @@ class SceneField(BaseScene):
                 self.wndmgr.pop_stack()
             else:
                 self.ctx = self.build_context()
-                self.command_package = en_cmd.CommandPackage()
+                # self.command_package = en_cmd.CommandPackage()
+                self.command_package = CommandPackage()
                 self.wndmgr.push_stack(
                     MenuField,
                     self.ctx,
@@ -207,7 +209,10 @@ class SceneField(BaseScene):
                 else:
                     cmd = s_cmd.CommonFieldMessage(
                         self.message_window,
-                        ["ダンジョンの探索に向かうのならば", "松明を照らしておかなければ・・・"],
+                        msg_list=[
+                            "ダンジョンの探索に向かうのならば",
+                            "松明を照らしておかなければ・・・",
+                        ],
                     )
                     di.ref.cmdmgr.push_command(cmd)
                     return
@@ -217,12 +222,12 @@ class SceneField(BaseScene):
                     di.ref.pt.remove_pt_efx("unlock_key")
                 else:
                     cmd = s_cmd.CommonFieldMessage(
-                        self.message_window, ["どうやら、鍵がかかっているようだ"]
+                        self.message_window, msg_list=["どうやら、鍵がかかっているようだ"]
                     )
                     di.ref.cmdmgr.push_command(cmd)
                     return
             # イベント起動
-            cmd = ev_cmd.KickEvent(self.message_window, self.current_point)
+            cmd = ev_cmd.KickEvent(self.message_window, current_point=self.current_point)
             di.ref.cmdmgr.push_command(cmd)
             di.ref.cmdmgr.set_on_empty(self.update_eventpoint_info)
             return

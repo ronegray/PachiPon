@@ -270,9 +270,9 @@ class MenuBuyConsume(MenuItemBase):
 
         cmd = s_cmd.ShopPurchase(
             self.message_window,
-            self.pt,
-            selected_item.action_args[0],
-            di.ref.pl_stack.add,
+            party=self.pt,
+            item_def=selected_item.action_args[0],
+            func_add_pool=di.ref.pl_stack.add,
         )
         di.ref.cmdmgr.push_command(cmd)
         return RsltContinue()
@@ -296,7 +296,9 @@ class MenuBuyFoods(MenuItemBase):
         selected_item = self.menu_items[pos_y][pos_x]
         logger.info(selected_item)
 
-        cmd = s_cmd.PurchaseFoods(self.message_window, self.pt, selected_item.action_args[0])
+        cmd = s_cmd.PurchaseFoods(
+            self.message_window, party=self.pt, price=selected_item.action_args[0]
+        )
         di.ref.cmdmgr.push_command(cmd)
         return RsltContinue()
 
@@ -361,9 +363,9 @@ class MenuBuyEquips(MenuItemBase):
 
         cmd = s_cmd.ShopPurchase(
             self.message_window,
-            self.pt,
-            selected_item.action_args[0],
-            di.ref.pl_item.create,
+            party=self.pt,
+            item_def=selected_item.action_args[0],
+            func_add_pool=di.ref.pl_item.create,
         )
         di.ref.cmdmgr.push_command(cmd)
         return RsltContinue()
@@ -452,7 +454,10 @@ class MenuSellItems(MenuItemBase):
             pos_x, pos_y = self.cursor_position
             selected_item = self.menu_items[pos_y][pos_x]
             cmd = s_cmd.SellEquip(
-                self.message_window, self.pt, selected_item.action_args, di.ref.pl_item
+                self.message_window,
+                party=self.pt,
+                item_info=selected_item.action_args,
+                pool_item=di.ref.pl_item,
             )
             di.ref.cmdmgr.push_command(cmd)
             di.ref.cmdmgr.set_on_empty(self.update_menu)

@@ -1,5 +1,5 @@
 """
-エフェクトコマンドモジュール
+エフェクト用ヘルパーコマンドモジュール
 """
 
 import logging
@@ -25,16 +25,18 @@ class CommonEffectWrapper(CommandBaseSequence):
     """汎用描画エフェクト呼び出しラッパー"""
 
     def _sequence(self) -> Generator[list, None, None]:
-        func = self.args[0]
+        # func = self.args[0]
+        func = self.kwargs["func"]
+        params = self.kwargs.get("params", ())
         if func:
-            yield from func(self.display_info, *self.args[1:])
+            yield from func(self.display_info, *params)
 
 
 def efx_diceroll(disp_info: DisplayInfo, dices: int) -> Generator[list[str | int], None, int]:
     """コマンドジェネレータからダイスロールを実行する為のヘルパー関数"""
     effect = di.ref.efxdice
+
     effect.start(dices)
-    # di.ref.sndmgr.play_se_sustain(SoundID.DICE_RESULT)
     yield [SeqSubCmd.SE_SUSTAIN, SoundID.DICE_RESULT]
     if not di.ref.conf.is_cutin_dice:
         effect.skip()
@@ -43,7 +45,6 @@ def efx_diceroll(disp_info: DisplayInfo, dices: int) -> Generator[list[str | int
         disp_info.graphic_command = effect.get_draw_commands()
         yield [SeqSubCmd.WAIT, 0]
 
-    disp_info.graphic_command = None
     return effect.total
 
 
@@ -249,14 +250,18 @@ def efx_encount_splash(disp_info: DisplayInfo) -> Generator[list, None, None]:
     return
 
 
-def efx_screen_flash(disp_info: DisplayInfo, flash_color: int) -> Generator[list, None, None]:
+def efx_screen_flash(
+    disp_info: DisplayInfo, flash_color: int, flash_frames: int = 1
+) -> Generator[list, None, None]:
     """画面のフラッシュ"""
     disp_info.graphic_command = [
         lambda: px.dither(0.6),
         lambda: px.rect(0, 0, px.width, px.height, flash_color),
         lambda: px.dither(1),
     ]
-    yield [SeqSubCmd.WAIT, 0]
+    while flash_frames > 0:
+        yield [SeqSubCmd.WAIT, 0]
+        flash_frames -= 1
 
     disp_info.graphic_command = None
     return

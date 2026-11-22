@@ -39,20 +39,21 @@ class KickEvent(CommandBaseSequence):
     """フィールドイベント起動処理"""
 
     def _sequence(self) -> Generator[list, None, None]:
-        point = cast(EventPoint, self.args[0])
+        # point = cast(EventPoint, self.args[0])
         # dices = point.kick_event()
         # final_value = diceroll_values(dices)
         # final_value = [1 for _ in range(dices)]
-        point.kick_event()
+        current_point: EventPoint = self.kwargs["current_point"]
+        current_point.kick_event()
 
         # 固定イベントポイントの場合
-        fixed = point.check_fixedevent()
+        fixed = current_point.check_fixedevent()
         if fixed:
-            point.rise_event(fixed)
+            current_point.rise_event(fixed)
             return
 
         # 算出済ダイス値の取得
-        dices, final_value = point.get_event_dice_values()
+        dices, final_value = current_point.get_event_dice_values()
         # アイテムボーナス（ダイス数追加）
         dice_plus = di.ref.pt.pt_dice_plus()
         dices += dice_plus
@@ -76,7 +77,7 @@ class KickEvent(CommandBaseSequence):
         # イベントが全てオープンになるまで、同じイベントは再実行されない
         eventlist = {
             event_id: event_stat
-            for event_id, event_stat in point.event_list.event_stat.items()
+            for event_id, event_stat in current_point.event_list.event_stat.items()
             if event_stat.is_opened is False
         }
         # マイナスイベント抑止時
@@ -100,13 +101,13 @@ class KickEvent(CommandBaseSequence):
                 eventlist.pop(event_id)
         # 対象が一つもなくなったら全ランダム
         if len(eventlist) < 1:
-            eventlist = point.event_list.event_stat
+            eventlist = current_point.event_list.event_stat
         # 候補内の閾値超えイベントが実際の発生対象
         # for event_id, event_stat in point.event_list.event_stat.items():
         for event_id, event_stat in eventlist.items():
             if effect.total >= event_stat.threshold:
                 event_stat.is_opened = True
-                point.rise_event(event_id)
+                current_point.rise_event(event_id)
                 break
 
     # good

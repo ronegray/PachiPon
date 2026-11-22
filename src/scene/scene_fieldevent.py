@@ -44,8 +44,8 @@ class SceneFieldEvent(BaseScene):
             ctx,
             # self.parent_scene.current_point.nextevent,
             # # self.parent_scene,
-            self.event,
-            di.ref.pt,
+            event=self.event,
+            party=di.ref.pt,
         )  # type: ignore
         di.ref.cmdmgr.push_command(cmd)
         # parent_scene.current_point.flush_event()

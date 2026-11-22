@@ -73,8 +73,8 @@ class SkillID(IntEnum):
     GAIN_END         = 0xA_2_0_5
     GAIN_SPD         = 0xA_2_0_6
     GAIN_LCK         = 0xA_2_0_7
-    HEAL_HP          = 0x1_2_0_1 # 消耗品　HP回復(レベルd6)
-    HEAL_MP          = 0x1_2_0_2 # 消耗品　MP回復(レベルd6/2※切り上げ)
+    POTION_HP        = 0x1_2_0_1 # 消耗品　HP回復(レベルd6)
+    POTION_MP        = 0x1_2_0_2 # 消耗品　MP回復(レベルd6/2※切り上げ)
     TORCHLIGHT       = 0xA_3_0_1 # 消耗品　イベント：ダンジョン時に１消費
     UNLOCK_KEY       = 0xA_3_0_2 # 消耗品　イベント：宝箱時に１消費
     ESCAPE_BATTLE    = 0xA_3_0_3 # 消耗品　使用直後の戦闘発生を回避／現在の戦闘から即座に離脱（敗北扱い）

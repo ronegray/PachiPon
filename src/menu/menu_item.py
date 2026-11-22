@@ -3,6 +3,7 @@
 """
 
 import logging
+from typing import Generator  # , cast
 import pyxel as px
 from const import SoundID
 
@@ -12,13 +13,16 @@ from helper import upper_int_spaced, format_leftright
 from item import (
     ItemType,
     ItemID,
+    ItemDef,
     ItemState,
     ItemTargetType,
+    StackPool,
 )
 from entity import EntityContext
 
 # import command.entity_command as en_cmd
-import command.item_command as itm_cmd
+import command.action_command as act_cmd
+from command import CommandPackage, CommandBaseAction
 
 
 # ロギング設定
@@ -33,7 +37,8 @@ class MenuSelectItemCategory(Menu):
         menu_pos_x: int,
         menu_pos_y: int,
         ctx: EntityContext,
-        command_package: itm_cmd.CommandPackage,
+        # command_package: itm_cmd.CommandPackage,
+        command_package: CommandPackage,
     ) -> None:
         menu_pos = (menu_pos_x, menu_pos_y)
         menu_shape = [1, 3]
@@ -203,7 +208,8 @@ class MenuUseItem(MenuItemBase):
     def __init__(
         self,
         ctx: EntityContext,
-        command_package: itm_cmd.CommandPackage,
+        # command_package: itm_cmd.CommandPackage,
+        command_package: CommandPackage,
     ):
         """データ取得と表示ウインドウの再定義"""
         self.inventory_count: int = 0
@@ -283,12 +289,15 @@ class MenuUseItem(MenuItemBase):
 
         from menu import MenuSelectFieldTarget
 
-        # コマンドパッケージに選択内容登録
-        self.command_package.selected_action = getattr(itm_cmd, item_def.effect_id)
+        # # コマンドパッケージに選択内容登録
+        if item_def.effect_id == "learn_skill":
+            self.command_package.selected_action = getattr(act_cmd, item_def.effect_id)
+        else:
+            self.command_package.selected_action = UseItemField
         self.command_package.target_type = ItemTargetType(item_def.target_type)
         self.command_package.selected_args = {
             "item_def": item_def,
-            "pl_stack": di.ref.pl_stack,
+            "source": di.ref.pl_stack,
         }
         if self.command_package.target_type == ItemTargetType.NONE:
             # ターゲットがない場合は抜けてそのまま処理実行
@@ -298,6 +307,44 @@ class MenuUseItem(MenuItemBase):
             self.ctx,
             self.command_package.target_type,
         )
+
+
+class UseItemField(CommandBaseAction):
+    """消費アイテム用フィールドシーン向け共通クラス"""
+
+    def _sequence_action(self) -> Generator[list, None, None]:
+        """アイテム利用の殻"""
+        # # # 引き回されたアイテムデータの取得
+        # # # self.item_def = cast(ItemDef, self.args[0]["item_def"])
+        # # self.item_def = cast(ItemDef, self.args[0]["item_def"])
+        # self.pl_stack = cast(StackPool, self.args[0]["pl_stack"])
+
+        # self.pl_stack.remove(self.item_def.def_id)
+
+        # from command import item_
+        # yield from item_.potion_hp(self)
+        # # yield []
+        # return
+
+        # self.item_def = self.args[0]["item_def"]
+        # pl_stack = cast(StackPool, self.args[0]["pl_stack"])
+        self.item_def: ItemDef = self.kwargs["sel_cmd_dict"]["item_def"]
+        pl_stack: StackPool = self.kwargs["sel_cmd_dict"]["source"]
+
+        from command.item_ import item_info_package, use_item
+        from command.effect_command import efx_screen_flash
+
+        yield from use_item(
+            item_info_package(
+                command=self,
+                item_def=self.item_def,
+                consume=lambda: pl_stack.remove(self.item_def.def_id),
+                after_effects=[lambda dsp=self.display_info: efx_screen_flash(dsp, px.COLOR_WHITE)],
+            )
+        )
+
+        # yield []
+        return
 
 
 class MenuShowKeyItem(MenuItemBase):

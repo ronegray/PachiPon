@@ -22,7 +22,9 @@ from item import ItemTargetType
 
 # import command.entity_command as e_cmd
 import command.entity_battle_command as btl_cmd
-import command.item_command as itm_cmd
+
+# import command.action_command as en_cmd
+from command import CommandPackage
 
 # ロギング設定
 logger = logging.getLogger(__name__)
@@ -32,7 +34,8 @@ class MenuBattle(Menu):
     def __init__(
         self,
         ctx: EntityContext,
-        command_package: btl_cmd.CommandPackage,
+        # command_package: btl_cmd.CommandPackage,
+        command_package: CommandPackage,
     ):
         menu_pos = (0, 192)
         menu_shape = [1, 4]
@@ -240,7 +243,8 @@ class MenuSelectItem(Menu):
         self,
         ctx: EntityContext,
         ref_window: dict[str, int],
-        command_package: btl_cmd.CommandPackage,
+        # command_package: btl_cmd.CommandPackage,
+        command_package: CommandPackage,
     ):
         self.ctx = ctx
         self.command_package = command_package
@@ -393,11 +397,14 @@ class MenuSelectItem(Menu):
         # # }
 
         # コマンドパッケージに選択内容登録
-        self.command_package.selected_action = getattr(itm_cmd, item_def.effect_id)
+        # self.command_package.selected_action = getattr(itm_cmd, item_def.effect_id)
+        from command.entity_battle_command import UseItemBattle
+
+        self.command_package.selected_action = UseItemBattle
         self.command_package.target_type = ItemTargetType(item_def.target_type)
         self.command_package.selected_args = {
             "item_def": item_def,
-            "slot": eq_slot,
+            "source": eq_slot,
         }
         if self.command_package.target_type == ItemTargetType.NONE:
             # ターゲットがない場合は抜けてそのまま処理実行

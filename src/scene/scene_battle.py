@@ -21,6 +21,7 @@ from . import BaseScene
 
 # from event import Event, EventID
 import command.entity_command as ent_cmd
+from command.system_command import PartyDefeated
 
 # import command.event_command as evt_cmd
 import command.entity_battle_command as btl_cmd
@@ -39,7 +40,8 @@ class SceneBattle(BaseScene):
     _status_width: int = 80
     _status_height: int = 48
     _enemy_name_suffix: list = ["Ａ", "Ｂ", "Ｃ", "Ｄ", "Ｅ", "Ｆ"]
-    _enemy_commands: dict[ActionPattern, type[btl_cmd.CommandBaseEntity]] = {
+    # _enemy_commands: dict[ActionPattern, type[btl_cmd.CommandBaseEntity]] = {
+    _enemy_commands: dict[ActionPattern, type[btl_cmd.CommandBaseBattle]] = {
         ActionPattern.ATTACK: btl_cmd.Attack,
         ActionPattern.ESCAPE: btl_cmd.EnemyEscape,
         ActionPattern.SKILL: btl_cmd.EnemySpecial,
@@ -202,7 +204,8 @@ class SceneBattle(BaseScene):
                 )
                 self.initiative_dict[member.chara_id] = initiative
 
-    def command_enemy_basic(self, enemy: Enemy, action: ActionPattern) -> btl_cmd.CommandBaseEntity:
+    # def command_enemy_basic(self, enemy: Enemy, action: ActionPattern) -> btl_cmd.CommandBaseEntity:
+    def command_enemy_basic(self, enemy: Enemy, action: ActionPattern) -> btl_cmd.CommandBaseBattle:
         """エネミー物理系コマンドの生成"""
         target, target_list = self.select_enemy_target()
         ctx = self.build_context(enemy, target, self.enemy_list, target_list)
@@ -211,7 +214,8 @@ class SceneBattle(BaseScene):
             raise NameError
         return enemy_command(ctx, self.message_window)
 
-    def command_enemy_skill(self, enemy: Enemy, action: ActionPattern) -> btl_cmd.CommandBaseEntity:
+    # def command_enemy_skill(self, enemy: Enemy, action: ActionPattern) -> btl_cmd.CommandBaseEntity:
+    def command_enemy_skill(self, enemy: Enemy, action: ActionPattern) -> btl_cmd.CommandBaseBattle:
         """エネミー技系コマンドの生成"""
 
         skill_id = choice(list(enemy.skills.get_learned_skill_id()))
@@ -269,7 +273,8 @@ class SceneBattle(BaseScene):
         # パーティメンバーが全員死亡したら初期ポイントへ連行
         if di.ref.pt.get_active_member_count() < 1:
             di.ref.cmdmgr.push_command(
-                ent_cmd.PartyDefeated(self.message_window, self.bgimage, self.enemy_list)
+                # ent_cmd.PartyDefeated(self.message_window, self.bgimage, self.enemy_list)
+                PartyDefeated(self.message_window, bgimage=self.bgimage, enemies=self.enemy_list)
             )
             return
 
@@ -433,7 +438,8 @@ class SceneFixedBattle(BaseScene):
     _status_width: int = 80
     _status_height: int = 48
     _enemy_name_suffix: list = ["Ａ", "Ｂ", "Ｃ", "Ｄ", "Ｅ", "Ｆ"]
-    _enemy_commands: dict[ActionPattern, type[btl_cmd.CommandBaseEntity]] = {
+    # _enemy_commands: dict[ActionPattern, type[btl_cmd.CommandBaseEntity]] = {
+    _enemy_commands: dict[ActionPattern, type[btl_cmd.CommandBaseBattle]] = {
         ActionPattern.ATTACK: btl_cmd.Attack,
         ActionPattern.ESCAPE: btl_cmd.EnemyEscape,
         ActionPattern.SKILL: btl_cmd.EnemySpecial,
@@ -636,7 +642,7 @@ class SceneFixedBattle(BaseScene):
     #             if enemy_command is None:
     #                 raise NameError
     #             self.battle_commands[enemy.chara_id] = enemy_command(ctx, self.message_window)
-    def command_enemy_basic(self, enemy: Enemy, action: ActionPattern) -> btl_cmd.CommandBaseEntity:
+    def command_enemy_basic(self, enemy: Enemy, action: ActionPattern) -> btl_cmd.CommandBaseBattle:
         """エネミー物理系コマンドの生成"""
         target, target_list = self.select_enemy_target()
         ctx = self.build_context(enemy, target, self.enemy_list, target_list)
@@ -645,7 +651,7 @@ class SceneFixedBattle(BaseScene):
             raise NameError
         return enemy_command(ctx, self.message_window)
 
-    def command_enemy_skill(self, enemy: Enemy, action: ActionPattern) -> btl_cmd.CommandBaseEntity:
+    def command_enemy_skill(self, enemy: Enemy, action: ActionPattern) -> btl_cmd.CommandBaseBattle:
         """エネミー技系コマンドの生成"""
 
         skill_id = choice(list(enemy.skills.get_learned_skill_id()))
@@ -705,7 +711,7 @@ class SceneFixedBattle(BaseScene):
         # パーティメンバーが全員死亡したら初期ポイントへ連行
         if di.ref.pt.get_active_member_count() < 1:
             di.ref.cmdmgr.push_command(
-                ent_cmd.PartyDefeated(self.message_window, self.bgimage, self.enemy_list)
+                PartyDefeated(self.message_window, bgimage=self.bgimage, enemies=self.enemy_list)
             )
             return
 

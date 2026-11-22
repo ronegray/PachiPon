@@ -532,7 +532,10 @@ class Party:
                         # cmd = s_cmd.CommonFieldMessage(
                         cmd = CommonFieldMessage(
                             self.pt_msg_window,
-                            ["煙幕で姿を隠しておいたお陰で", "敵をやり過ごせたようだ・・・"],
+                            msg_list=[
+                                "煙幕で姿を隠しておいたお陰で",
+                                "敵をやり過ごせたようだ・・・",
+                            ],
                         )
                         di.ref.cmdmgr.push_command(cmd)
                         self.remove_pt_efx("escape_battle")

@@ -40,7 +40,9 @@ class SceneAfterBattle(BaseScene):
             self.bgimage,
         ) = parent_scene.transfer_battledata()
 
-        di.ref.cmdmgr.push_command(en_cmd.GrantReward(self.ctx, self.message_window, di.ref.pt))
+        di.ref.cmdmgr.push_command(
+            en_cmd.GrantReward(self.ctx, self.message_window, party=di.ref.pt)
+        )
         self.target_param: list[str] = []
 
         self.phase: LocalPhase = LocalPhase.REWARD

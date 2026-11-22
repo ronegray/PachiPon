@@ -1,5 +1,7 @@
 """
 システムコマンドモジュール
+CommandProtocol
+└CommandBaseSequenceを継承する、最も基礎的な構成のコマンド
 """
 
 import logging
@@ -7,8 +9,10 @@ from typing import Generator  # , cast
 import pyxel as px
 import service_locater as di
 
+from gameutils.base import is_pressed
+
 # from gameutils.lib import WindowAction
-from const import SoundID, FOOD_UNITS
+from const import SoundID, FOOD_UNITS, APP_FPS
 # from helper import diceroll
 
 # from helper import diceroll_values
@@ -27,20 +31,100 @@ class CommonFieldMessage(CommandBaseSequence):
     """汎用メッセージ表示処理"""
 
     def _sequence(self) -> Generator[list, None, None]:
-        message_list = self.args[0]
-        for msg in message_list:
+        # message_list = self.args[0]
+        # for msg in message_list:
+        for msg in self.kwargs["msg_list"]:
             yield [msg]
 
         yield from self._wait_finish()
+
+
+class PartyDefeated(CommandBaseSequence):
+    """パーティー全滅時処理"""
+
+    def _sequence(self) -> Generator[list, None, None]:
+        # フェード用背景画像コピー
+        bg: px.Image = self.kwargs["bgimage"]
+        w, h = px.width, px.height
+        fade_bgimage = px.Image(w, h)
+        fade_bgimage.blt(0, 0, bg, 0, 0, w, h)
+        # 背景&BGMフェード
+        i = 1
+        di.ref.sndmgr.stop_music_fadeout(APP_FPS * 5)
+        while True:
+            self.display_info.graphic_command = [
+                lambda alpha=i: bg.dither(alpha),
+                lambda: bg.cls(0),
+                lambda: bg.blt(0, 0, fade_bgimage, 0, 0, px.width, px.height),
+            ]
+            i -= 0.015
+            if i < 0:
+                if di.ref.sndmgr.get_fade_state():
+                    # 全滅後のエネミー行動キャンセルの為、データクリア
+                    # self.args[1].clear()
+                    self.kwargs["enemies"].clear()
+                    break
+            yield [SeqSubCmd.WAIT, 0]
+        # 全滅BGM再生
+        di.ref.sndmgr.request_bgm("defeat")
+        messages = [
+            ["やられたョ！", "　　♰ 全員　死亡 ♰ "],
+            [SeqSubCmd.WAIT, 3],
+            ["", "・・・慌てる事はありません"],
+            [SeqSubCmd.WAIT, 2],
+            ["", "あなたに再び立ち上がり、戦う力を与えましょう"],
+            [SeqSubCmd.WAIT, 2],
+            ["", "啓示を得た者がそこを訪れ、王城へと連れ帰ってくれます"],
+            [SeqSubCmd.WAIT, 2],
+            ["", "彼の地でゆっくり傷を癒やすとよいでしょう"],
+            [""],
+            [""],
+            [""],
+            [SeqSubCmd.WAIT, 2],
+            ["これだけの業を振るったのです"],
+            [SeqSubCmd.WAIT, 3],
+            ["", "少しの供物を頂いておきますよ？"],
+        ]
+        for msg in messages:
+            if is_pressed("cancel"):
+                break
+            yield msg
+
+        # お供え物
+        # di.ref.sndmgr.play_se_instant(SoundID.ITEM_LOST)
+        yield [SeqSubCmd.SE_INSTANT, SoundID.ITEM_LOST]
+        offering_foods = di.ref.pt._pt_foods // 2
+        di.ref.pt.lost_foods(offering_foods)
+        offering_golds = int(di.ref.pt._pt_golds * 0.1)
+        di.ref.pt.spend_gold(offering_golds)
+
+        # イベントポイントの待機化
+        penalty_turns = max(1, int(di.ref.pt.average_level // 10))
+        di.ref.map.defeated_penalty(penalty_turns)
+
+        yield from self._wait_finish()
+
+        # スタート地点へ戻る
+        di.ref.pt.set_current_point("p01")
+        di.ref.pt._pt_is_moving = False
+        di.ref.pt.set_current_route()
+        di.ref.pt._field_sprite._is_moving = False
+
+        di.ref.scnmgr.change_scene("map")
+
+        return
 
 
 class ShopPurchase(CommandBaseSequence):
     """ショップ購入対応（スタック／インスタンス共用）"""
 
     def _sequence(self) -> Generator[list, None, None]:
-        pt = self.args[0]
-        item_def = self.args[1]
-        func_add_pool = self.args[2]
+        # pt = self.args[0]
+        # item_def = self.args[1]
+        # func_add_pool = self.args[2]
+        pt = self.kwargs["party"]
+        item_def = self.kwargs["item_def"]
+        func_add_pool = self.kwargs["func_add_pool"]
 
         eventpoint = pt.get_current_point()
         # pt._pt_golds = 99999
@@ -93,8 +177,10 @@ class PurchaseFoods(CommandBaseSequence):
     """ショップ購入対応（食料品）"""
 
     def _sequence(self) -> Generator[list, None, None]:
-        pt = self.args[0]
-        price = self.args[1]
+        # pt = self.args[0]
+        # price = self.args[1]
+        pt = self.kwargs["party"]
+        price = self.kwargs["price"]
 
         eventpoint = pt.get_current_point()
         # 所持金チェック
@@ -146,9 +232,12 @@ class SellEquip(CommandBaseSequence):
     """装備下取り"""
 
     def _sequence(self) -> Generator[list, None, None]:
-        pt = self.args[0]
-        item_iid, item_def, sellprice = self.args[1]
-        pool_item = self.args[2]
+        # pt = self.args[0]
+        # item_iid, item_def, sellprice = self.args[1]
+        # pool_item = self.args[2]
+        pt = self.kwargs["party"]
+        item_iid, _, sellprice = self.kwargs["item_info"]
+        pool_item = self.kwargs["pool_item"]
 
         eventpoint = pt.get_current_point()
         # 所持金チェック
