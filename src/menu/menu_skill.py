@@ -6,6 +6,7 @@
 """
 
 import logging
+from typing import Generator
 import pyxel as px
 from gameutils.lib import (
     Menu,
@@ -24,8 +25,8 @@ from entity import EntityContext
 from skill import SkillDef, SkillTargetType
 
 # import command.entity_command as en_cmd
-import command.entity_battle_command as en_cmd
-from command import CommandPackage
+# import command.entity_battle_command as en_cmd
+from command import CommandPackage, CommandBaseAction
 
 
 # ロギング設定
@@ -136,9 +137,11 @@ class MenuSelectSkillBattle(Menu):
 
     def change_target_item(self):
         """選択アイテムを示す内部情報の変更"""
-
-        self.target_item = self.skill_list[self.cursor_position[1]][self.cursor_position[0]]
-        self.set_description_string()
+        try:
+            self.target_item = self.skill_list[self.cursor_position[1]][self.cursor_position[0]]
+            self.set_description_string()
+        except IndexError:
+            pass
 
     def remap_itemlist(self):
         self.build_menu_items(self.skill_list)
@@ -212,7 +215,10 @@ class MenuSelectSkillBattle(Menu):
     def exec_menu(self) -> ExecResult:
         """選択メニュー項目の処理を実行"""
         pos_x, pos_y = self.cursor_position
-        selected_item = self.menu_items[pos_y][pos_x]
+        try:
+            selected_item = self.menu_items[pos_y][pos_x]
+        except IndexError:
+            return RsltContinue()
         logger.info(selected_item)
 
         if self.item_count == 0:
@@ -239,7 +245,10 @@ class MenuSelectSkillBattle(Menu):
                 from menu import MenuSelectBattleTarget
 
                 # コマンドパッケージに選択内容登録
-                self.command_package.selected_action = getattr(en_cmd, skill_def.effect_func)
+                # self.command_package.selected_action = getattr(en_cmd, skill_def.effect_func)
+                from command.entity_battle_command import CastSpellBattle
+
+                self.command_package.selected_action = CastSpellBattle
                 self.command_package.target_type = skill_def.target_type  # type: ignore
                 self.command_package.selected_args = {"skillinfo": skill_def}
 
@@ -468,7 +477,8 @@ class MenuSelectSkillField(Menu):
         from menu import MenuSelectFieldTarget
 
         # コマンドパッケージに選択内容登録
-        self.command_package.selected_action = getattr(en_cmd, skill_def.effect_func)
+        # self.command_package.selected_action = getattr(en_cmd, skill_def.effect_func)
+        self.command_package.selected_action = CastSpellField
         self.command_package.target_type = skill_def.target_type  # type: ignore
         self.command_package.selected_args = {"skillinfo": skill_def}
 
@@ -480,3 +490,25 @@ class MenuSelectSkillField(Menu):
             self.ctx,
             self.command_package.target_type,
         )
+
+
+class CastSpellField(CommandBaseAction):
+    """消費アイテム用フィールドシーン向け共通クラス"""
+
+    def _sequence_action(self) -> Generator[list, None, None]:
+        """アイテム利用の殻"""
+        # self.skill_def: SkillDef = self.kwargs["sel_cmd_dict"]["skillinfo"]
+        self.skill_def: SkillDef = self.kwargs["sel_cmd_dict"]["skillinfo"]
+
+        from command.skill_ import skill_info_package, use_skill
+
+        yield from use_skill(
+            skill_info_package(
+                command=self,
+                skill_def=self.skill_def,
+                # consume=lambda: equip.use_consume(self.args[0]["slot"]),
+                # consume=lambda: equip.use_consume(slot),
+                # pre_effects=[self.send_blank],
+            )
+        )
+        return

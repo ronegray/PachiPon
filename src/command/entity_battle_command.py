@@ -293,19 +293,23 @@ class CastSpellBattle(CommandBaseBattle):
 
     def _sequence_action(self) -> Generator[list, None, None]:
         """バトル内スキル利用の殻。効果関数へのフックを持つ。"""
-        # 引き回されたアイテムデータの取得
-        # self.item_def = cast(ItemDef, self.args[0]["item_def"])
-        self._parse_args_spell()
+        # # 引き回されたアイテムデータの取得
+        # # self.item_def = cast(ItemDef, self.args[0]["item_def"])
+        # self._parse_args_spell()
+        self.skill_def: SkillDef = self.kwargs["sel_cmd_dict"]["skillinfo"]
 
-        from . import item_
+        from .skill_ import skill_info_package, use_skill
 
-        yield from item_.potion_hp(self)
-        # yield []
+        yield from use_skill(
+            skill_info_package(
+                command=self,
+                skill_def=self.skill_def,
+                # consume=lambda: equip.use_consume(self.args[0]["slot"]),
+                # consume=lambda: equip.use_consume(slot),
+                # pre_effects=[self.send_blank],
+            )
+        )
         return
-
-    def _parse_args_spell(self) -> None:
-        """引数からのスキル情報の紐解き"""
-        self.skill_def = self.args[0]["skillinfo"]
 
     def cast_spell(self, skill_def: SkillDef) -> Generator[list, None, bool]:
         actor = self.ctx.actor

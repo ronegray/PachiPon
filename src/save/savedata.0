@@ -1,25 +1,25 @@
 {
     "ver": 1,
-    "savetime": "2026/11/17 22:06:05.58",
+    "savetime": "2026/11/23 11:23:12.25",
     "events": {
         "p01": {
             "ready_count": 0,
             "dice_values": [
-                6,
-                6,
-                6,
-                3,
-                2,
                 4,
                 5,
-                2,
+                5,
+                5,
+                5,
+                5,
+                4,
+                1,
                 1
             ]
         },
         "p02": {
             "ready_count": 0,
             "dice_values": [
-                1
+                3
             ]
         },
         "p03": {
@@ -31,73 +31,73 @@
         "p04": {
             "ready_count": 0,
             "dice_values": [
-                1
+                5
             ]
         },
         "p05": {
             "ready_count": 0,
             "dice_values": [
-                5,
-                6,
-                5
+                1,
+                2,
+                3
             ]
         },
         "p06": {
             "ready_count": 0,
             "dice_values": [
-                4,
-                6,
-                4
+                2,
+                1,
+                2
             ]
         },
         "p07": {
             "ready_count": 0,
             "dice_values": [
-                4
+                5
             ]
         },
         "p08": {
             "ready_count": 0,
             "dice_values": [
-                6,
+                5,
                 1,
-                4
+                5
             ]
         },
         "p09": {
             "ready_count": 0,
             "dice_values": [
                 1,
-                2,
-                3
+                4,
+                2
             ]
         },
         "p10": {
             "ready_count": 0,
             "dice_values": [
-                3,
-                4,
-                3,
                 1,
                 3,
-                6,
+                5,
+                5,
                 1,
+                5,
                 6,
-                6
+                3,
+                3
             ]
         },
         "p11": {
             "ready_count": 0,
             "dice_values": [
-                1
+                5
             ]
         },
         "p12": {
             "ready_count": 0,
             "dice_values": [
-                4,
-                2,
-                3
+                5,
+                6,
+                1
             ]
         },
         "p13": {
@@ -109,9 +109,9 @@
         "p14": {
             "ready_count": 0,
             "dice_values": [
-                2,
+                3,
                 5,
-                2
+                1
             ]
         },
         "p15": {
@@ -123,111 +123,111 @@
         "p16": {
             "ready_count": 0,
             "dice_values": [
-                2
+                5
             ]
         },
         "p17": {
             "ready_count": 0,
             "dice_values": [
-                5,
-                1,
-                5,
-                1,
-                5,
+                4,
                 6,
+                3,
+                5,
+                3,
+                4,
                 2,
-                2,
-                1
+                3,
+                6
             ]
         },
         "p18": {
             "ready_count": 0,
             "dice_values": [
-                2,
-                2,
+                4,
                 1,
-                6,
-                1,
+                5,
+                2,
+                4,
                 1,
                 2,
-                3,
-                4
+                4,
+                3
             ]
         },
         "p19": {
             "ready_count": 0,
             "dice_values": [
-                1,
-                1,
-                5
+                5,
+                2,
+                6
             ]
         },
         "p20": {
             "ready_count": 0,
             "dice_values": [
+                1,
+                3,
                 5,
                 1,
-                6,
-                6,
-                5,
-                6,
-                5,
-                2,
-                1
+                3,
+                1,
+                3,
+                1,
+                5
             ]
         },
         "p21": {
             "ready_count": 0,
             "dice_values": [
-                1
+                5
             ]
         },
         "p22": {
             "ready_count": 0,
             "dice_values": [
-                4,
-                4,
-                2
+                5,
+                1,
+                5
             ]
         },
         "p23": {
             "ready_count": 0,
             "dice_values": [
-                3
+                4
             ]
         },
         "p24": {
             "ready_count": 0,
             "dice_values": [
+                5,
                 6,
-                2,
                 2
             ]
         },
         "p25": {
             "ready_count": 0,
             "dice_values": [
-                5,
                 4,
-                4,
-                2,
-                6,
                 1,
-                2,
+                6,
+                6,
+                6,
+                4,
                 3,
+                2,
                 2
             ]
         },
         "p26": {
             "ready_count": 0,
             "dice_values": [
-                2
+                5
             ]
         },
         "p27": {
             "ready_count": 0,
             "dice_values": [
-                5
+                6
             ]
         },
         "p28": {
@@ -245,21 +245,21 @@
         "p30": {
             "ready_count": 0,
             "dice_values": [
-                4
+                2
             ]
         },
         "p31": {
             "ready_count": 0,
             "dice_values": [
-                4
+                6
             ]
         },
         "p32": {
             "ready_count": 0,
             "dice_values": [
                 2,
-                5,
-                5
+                3,
+                3
             ]
         },
         "p33": {
@@ -271,103 +271,103 @@
         "p34": {
             "ready_count": 0,
             "dice_values": [
+                1,
+                3,
+                6,
+                3,
+                3,
                 6,
                 1,
-                2,
-                6,
-                2,
-                2,
-                2,
-                3,
-                6
+                1,
+                5
             ]
         },
         "p35": {
             "ready_count": 0,
             "dice_values": [
-                3,
+                1,
                 4,
-                2
+                6
             ]
         },
         "p36": {
             "ready_count": 0,
             "dice_values": [
-                3,
                 2,
-                2,
-                6,
-                6,
                 4,
-                2,
-                1,
-                5
+                4,
+                5,
+                4,
+                5,
+                5,
+                3,
+                2
             ]
         },
         "p37": {
             "ready_count": 0,
             "dice_values": [
-                1,
-                2,
-                5
+                5,
+                6,
+                1
             ]
         },
         "p38": {
             "ready_count": 0,
             "dice_values": [
+                1,
                 3,
-                6,
-                6
+                1
             ]
         },
         "p39": {
             "ready_count": 0,
             "dice_values": [
-                6,
-                5,
+                4,
+                1,
                 3
             ]
         },
         "p40": {
             "ready_count": 0,
             "dice_values": [
-                5,
                 4,
-                2,
+                1,
+                6,
+                6,
                 3,
                 6,
                 3,
                 2,
-                5,
-                6
+                3
             ]
         },
         "p41": {
             "ready_count": 0,
             "dice_values": [
-                1
+                5
             ]
         },
         "p42": {
             "ready_count": 0,
             "dice_values": [
-                1,
-                3,
+                5,
+                4,
                 3
             ]
         },
         "p43": {
             "ready_count": 0,
             "dice_values": [
-                1
+                5
             ]
         },
         "p44": {
             "ready_count": 0,
             "dice_values": [
                 5,
-                5,
-                1
+                3,
+                6
             ]
         },
         "p45": {
@@ -375,39 +375,39 @@
             "dice_values": [
                 5,
                 3,
-                1,
                 4,
+                2,
                 1,
-                1,
-                5,
                 3,
-                1
+                3,
+                3,
+                3
             ]
         },
         "p46": {
             "ready_count": 0,
             "dice_values": [
-                1
+                6
             ]
         },
         "p47": {
             "ready_count": 0,
             "dice_values": [
-                6,
-                1,
+                5,
+                3,
                 6
             ]
         },
         "p48": {
             "ready_count": 0,
             "dice_values": [
-                4
+                6
             ]
         },
         "p49": {
             "ready_count": 0,
             "dice_values": [
-                5
+                6
             ]
         },
         "p50": {
@@ -419,7 +419,7 @@
         "p51": {
             "ready_count": 0,
             "dice_values": [
-                3
+                4
             ]
         },
         "p52": {
@@ -431,23 +431,23 @@
         "p53": {
             "ready_count": 0,
             "dice_values": [
-                3
+                5
             ]
         },
         "p54": {
             "ready_count": 0,
             "dice_values": [
                 1,
-                6,
-                4
+                4,
+                1
             ]
         },
         "p55": {
             "ready_count": 0,
             "dice_values": [
-                2,
                 5,
-                3
+                3,
+                6
             ]
         },
         "p56": {
@@ -455,19 +455,19 @@
             "dice_values": [
                 3,
                 5,
-                1,
+                5,
                 3,
-                6,
+                5,
+                1,
+                1,
                 2,
-                4,
-                6,
-                2
+                6
             ]
         },
         "p57": {
             "ready_count": 0,
             "dice_values": [
-                1
+                6
             ]
         },
         "p58": {
@@ -475,92 +475,100 @@
             "dice_values": [
                 5,
                 3,
-                5,
                 4,
-                2,
-                2,
-                6,
                 5,
-                4
+                5,
+                1,
+                2,
+                5,
+                1
             ]
         },
         "p59": {
             "ready_count": 0,
             "dice_values": [
-                5
+                1
             ]
         },
         "p60": {
             "ready_count": 0,
             "dice_values": [
-                5,
-                1,
-                5,
-                3,
-                5,
                 2,
+                2,
+                4,
+                4,
                 6,
-                2,
-                1
+                3,
+                3,
+                4,
+                4
             ]
         },
         "p61": {
             "ready_count": 0,
             "dice_values": [
+                1,
                 6,
-                5,
-                6
+                3
             ]
         },
         "p62": {
             "ready_count": 0,
             "dice_values": [
-                2,
-                5,
-                4
+                3,
+                1,
+                1
             ]
         },
         "p63": {
             "ready_count": 0,
             "dice_values": [
-                5
+                3
             ]
         },
         "p64": {
             "ready_count": 0,
             "dice_values": [
-                5,
                 6,
-                3,
+                2,
+                1,
                 2,
                 2,
-                2,
-                4,
-                5,
-                2
+                1,
+                1,
+                6,
+                4
             ]
         },
         "p65": {
             "ready_count": 0,
             "dice_values": [
-                6,
                 3,
                 6,
-                3,
                 1,
-                4,
+                6,
                 3,
-                2,
+                4,
+                1,
+                5,
                 2
             ]
         },
         "p66": {
             "ready_count": 0,
             "dice_values": [
-                3
+                5
             ]
         },
         "p67": {
+            "ready_count": 0,
+            "dice_values": [
+                3,
+                1,
+                1
+            ]
+        },
+        "p68": {
             "ready_count": 0,
             "dice_values": [
                 5,
@@ -568,39 +576,31 @@
                 5
             ]
         },
-        "p68": {
-            "ready_count": 0,
-            "dice_values": [
-                1,
-                6,
-                4
-            ]
-        },
         "p69": {
             "ready_count": 0,
             "dice_values": [
-                1,
-                2,
-                5
+                3,
+                5,
+                1
             ]
         },
         "p70": {
             "ready_count": 0,
             "dice_values": [
-                6
+                3
             ]
         },
         "p71": {
             "ready_count": 0,
             "dice_values": [
-                6
+                1
             ]
         },
         "p72": {
             "ready_count": 0,
             "dice_values": [
                 2,
-                4,
+                3,
                 4
             ]
         },
@@ -613,93 +613,93 @@
         "p74": {
             "ready_count": 0,
             "dice_values": [
-                5
+                1
             ]
         },
         "p75": {
             "ready_count": 0,
             "dice_values": [
-                6
+                5
             ]
         },
         "p76": {
             "ready_count": 0,
             "dice_values": [
-                4
+                3
             ]
         },
         "p77": {
             "ready_count": 0,
             "dice_values": [
-                2
+                4
             ]
         },
         "p78": {
             "ready_count": 0,
             "dice_values": [
-                4
+                2
             ]
         },
         "p79": {
             "ready_count": 0,
             "dice_values": [
-                2
+                4
             ]
         },
         "p80": {
             "ready_count": 0,
             "dice_values": [
-                3
+                4
             ]
         },
         "p81": {
             "ready_count": 0,
             "dice_values": [
                 5,
-                6,
-                3
+                4,
+                1
             ]
         },
         "p82": {
             "ready_count": 0,
             "dice_values": [
-                5
+                4
             ]
         },
         "p83": {
             "ready_count": 0,
             "dice_values": [
-                2,
-                1,
-                1,
+                5,
+                3,
+                6,
                 4,
-                6,
+                5,
+                3,
                 2,
-                6,
-                1,
+                5,
                 4
             ]
         },
         "p84": {
             "ready_count": 0,
             "dice_values": [
-                4,
                 1,
-                1,
-                2,
                 4,
-                2,
                 6,
+                3,
+                2,
+                2,
                 5,
-                4
+                6,
+                6
             ]
         },
         "p85": {
             "ready_count": 0,
             "dice_values": [
-                3,
                 6,
-                5
+                1,
+                2
             ]
         },
         "p86": {
@@ -711,19 +711,19 @@
         "p87": {
             "ready_count": 0,
             "dice_values": [
-                3
+                1
             ]
         },
         "p88": {
             "ready_count": 0,
             "dice_values": [
-                5
+                4
             ]
         },
         "p89": {
             "ready_count": 0,
             "dice_values": [
-                3
+                6
             ]
         },
         "p90": {
@@ -735,21 +735,21 @@
         "p91": {
             "ready_count": 0,
             "dice_values": [
-                3
+                4
             ]
         },
         "p92": {
             "ready_count": 0,
             "dice_values": [
-                1
+                2
             ]
         }
     },
     "pt": {
-        "turns": 74,
-        "foods": 0,
-        "golds": 987,
-        "point": "p70",
+        "turns": 10,
+        "foods": 88,
+        "golds": 83,
+        "point": "p04",
         "ptefx": []
     },
     "chars": {
@@ -759,17 +759,17 @@
             },
             {
                 "name": "\u307b\u3052\u307b\u3052\u3075\u30fc\u3070\u30fc0",
-                "strength": 22,
-                "arcane": 6,
-                "endurance": 10,
-                "speed": 6,
-                "luck": 6,
-                "max_hp": 84,
-                "max_mp": 76,
-                "level": 16,
-                "exp": 429,
-                "hp": 69,
-                "mp": 63
+                "strength": 9,
+                "arcane": 18,
+                "endurance": 17,
+                "speed": 3,
+                "luck": 5,
+                "max_hp": 15,
+                "max_mp": 26,
+                "level": 4,
+                "exp": 10,
+                "hp": 15,
+                "mp": 16
             }
         ],
         "1": [
@@ -778,17 +778,17 @@
             },
             {
                 "name": "\u307b\u3052\u307b\u3052\u3075\u30fc\u3070\u30fc1",
-                "strength": 16,
-                "arcane": 7,
-                "endurance": 8,
-                "speed": 17,
-                "luck": 6,
-                "max_hp": 76,
-                "max_mp": 75,
-                "level": 16,
-                "exp": 429,
-                "hp": 63,
-                "mp": 62
+                "strength": 19,
+                "arcane": 8,
+                "endurance": 6,
+                "speed": 15,
+                "luck": 13,
+                "max_hp": 26,
+                "max_mp": 26,
+                "level": 4,
+                "exp": 10,
+                "hp": 26,
+                "mp": 6
             }
         ],
         "2": [
@@ -797,17 +797,17 @@
             },
             {
                 "name": "\u307b\u3052\u307b\u3052\u3075\u30fc\u3070\u30fc2",
-                "strength": 18,
-                "arcane": 17,
-                "endurance": 12,
-                "speed": 6,
-                "luck": 8,
-                "max_hp": 88,
-                "max_mp": 100,
-                "level": 16,
-                "exp": 429,
-                "hp": 72,
-                "mp": 81
+                "strength": 7,
+                "arcane": 6,
+                "endurance": 14,
+                "speed": 10,
+                "luck": 17,
+                "max_hp": 32,
+                "max_mp": 26,
+                "level": 4,
+                "exp": 10,
+                "hp": 32,
+                "mp": 1
             }
         ]
     },
@@ -817,7 +817,7 @@
             "1": 164,
             "2": 279,
             "3": 284,
-            "4": 285,
+            "4": null,
             "5": 286
         },
         "1": {
@@ -825,7 +825,7 @@
             "1": 164,
             "2": 279,
             "3": 284,
-            "4": 287,
+            "4": null,
             "5": 288
         },
         "2": {
@@ -839,11 +839,18 @@
     },
     "skills": {
         "0": [
+            4417,
             4369,
             4481
         ],
-        "1": [],
-        "2": []
+        "1": [
+            4370
+        ],
+        "2": [
+            4433,
+            4482,
+            4403
+        ]
     },
     "pl_item": {
         "0": {
@@ -1986,17 +1993,9 @@
             "def_id": 2844,
             "stat": 2
         },
-        "285": {
-            "def_id": 4097,
-            "stat": 0
-        },
         "286": {
             "def_id": 4098,
             "stat": 0
-        },
-        "287": {
-            "def_id": 4097,
-            "stat": 1
         },
         "288": {
             "def_id": 4098,
@@ -2017,16 +2016,12 @@
         "292": {
             "def_id": 1793,
             "stat": 0
-        },
-        "293": {
-            "def_id": 3847,
-            "stat": 9
         }
     },
     "pl_stack": [
         [
             4097,
-            2
+            18
         ],
         [
             4113,
@@ -2078,15 +2073,15 @@
         ],
         [
             4105,
-            5
+            3
         ],
         [
             4121,
-            5
+            3
         ],
         [
             4122,
-            5
+            4
         ]
     ]
 }

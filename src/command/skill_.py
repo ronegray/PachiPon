@@ -1,21 +1,84 @@
 """
 スキル用ヘルパーコマンドモジュール
 """
-from typing import Generator  # , cast, TYPE_CHECKING
+import sys
+from typing import Generator, Callable  # , cast, TYPE_CHECKING
+from dataclasses import dataclass, field
 from const import SoundID
-from entity import Enemy, WeakType
-from skill import DebuffType
-
-# from .entity_battle_command import SeqSubCmd
+from entity import Enemy, WeakType, EntityBase
+from skill import SkillDef, DebuffType
+from helper import upper_int
+from .entity_battle_command import CastSpellBattle
 from . import SeqSubCmd, CommandBaseAction
 from .effect_command import efx_skill_attack
 
 
 # #class attack_spell_single(CastSpellBattle):
 #     """単体攻撃魔法"""
+@dataclass
+class skill_info_package:
+    """スペル利用時の情報引き渡しパッケージ"""
+
+    command: CommandBaseAction
+    skill_def: SkillDef
+    # consume: Callable  # [[], None]
+    pre_effects: list[Callable[[], Generator[list, None, None]]] = field(
+        default_factory=list
+    )  # yield を伴う後処理
+    after_effects: list[Callable[[], Generator[list, None, None]]] = field(
+        default_factory=list
+    )  # yield を伴う後処理
 
 
-def attack_spell_single(cmd: CommandBaseAction) -> Generator[list, None, None]:
+def use_skill(pkg: skill_info_package) -> Generator[list, None, None]:
+    """アイテム使用共通処理"""
+    effect_func = getattr(sys.modules[__name__], pkg.skill_def.effect_func)
+
+    yield from effect_func(pkg.command)
+
+    if pkg.after_effects:
+        for efx in pkg.after_effects:
+            yield from efx()
+    return
+
+
+def cast_spell(self, skill_def: SkillDef) -> Generator[list, None, bool]:
+    actor = self.ctx.actor
+
+    # ファーストメッセージ
+    yield [f"{actor.param.name}は {skill_def.name} を 詠唱する", "　　・・・・・"]
+    yield [""]
+
+    # 戦闘中のＭＰ減少による使用の可否チェック
+    if not actor.use_mp(skill_def.cost):
+        yield ["しかし　ＭＰが不足している・・・"]
+        return False
+
+    # 詠唱ロール
+    if self.ctx.situation == "battle" and not actor.castroll(skill_def.dc):
+        # di.ref.sndmgr.play_se_sustain(SoundID.MAGIC_FAIL)
+        yield [SeqSubCmd.SE_INSTANT, SoundID.MAGIC_FAIL]
+        yield ["呪文は　失敗に終わった・・・"]
+        return False
+
+    return True
+
+
+def recover_spell(
+    self, actor: EntityBase, skill_def: SkillDef, target: EntityBase
+) -> Generator[list, None, None]:
+    """スペル回復関連共通処理"""
+    healing = actor.damageroll_skill(skill_def)
+
+    yield from efx_skill_attack(self.display_info, target, skill_def.def_id)  # type: ignore
+
+    real_heal = target.increase_hp(healing)
+    # di.ref.sndmgr.play_se_instant(SoundID.RECOVER)
+    yield [SeqSubCmd.SE_INSTANT, SoundID.RECOVER]
+    yield [f"{target.param.name}は {upper_int(real_heal)} のＨＰが　回復した"]
+
+
+def attack_spell_single(cmd: CastSpellBattle) -> Generator[list, None, None]:
     """単体攻撃魔法"""
     # self._ctx.actor = self._ctx.self._ctx.actor
     cmd.resolve_singletarget(cmd.local_targets)
@@ -37,7 +100,7 @@ def attack_spell_single(cmd: CommandBaseAction) -> Generator[list, None, None]:
 """全体攻撃魔法"""
 
 
-def attack_spell_area(cmd: CommandBaseAction) -> Generator[list, None, None]:
+def attack_spell_area(cmd: CastSpellBattle) -> Generator[list, None, None]:
     """全体攻撃魔法"""
     # self._ctx.actor = self._ctx.self._ctx.actor
 
@@ -61,19 +124,22 @@ def attack_spell_area(cmd: CommandBaseAction) -> Generator[list, None, None]:
 def recover_spell_single(cmd: CommandBaseAction) -> Generator[list, None, None]:
     """単体回復呪文"""
     # self._ctx.actor = self._ctx.self._ctx.actor
-    cmd.resolve_singletarget(cmd.local_allies)
+    try:
+        cmd.resolve_singletarget(cmd.local_allies)
+    except AttributeError:
+        pass
     target = cmd.local_target
 
     # # コマンドパッケージから取得するスキル情報
     # self.skill_def = self.args[0]["skillinfo"]
 
     # スキル共通処理
-    result = yield from cmd.cast_spell(cmd.skill_def)
+    result = yield from cast_spell(cmd, cmd.skill_def)
     if result is False:
         return
 
     # 回復ロール
-    yield from cmd.recover_spell(cmd.ctx.actor, cmd.skill_def, target)
+    yield from recover_spell(cmd, cmd.ctx.actor, cmd.skill_def, target)
 
 
 # class recover_spell_area(CastSpellBattle):
@@ -100,7 +166,7 @@ def recover_spell_area(cmd: CommandBaseAction) -> Generator[list, None, None]:
 
 
 # #class attack_disrupt_undead(CastSpellBattle):
-def attack_disrupt_undead(cmd: CommandBaseAction) -> Generator[list, None, None]:
+def attack_disrupt_undead(cmd: CastSpellBattle) -> Generator[list, None, None]:
     """ターンアンデッド＋ダメージ"""
     # self._ctx.actor = self._ctx.self._ctx.actor
 
