@@ -510,9 +510,7 @@ class Menu:
         framesize = Window._chip_size * 2  # 左右または上下の枠サイズ合計
         # --- 幅(X座標)の計算と保持 ---
         offset_cursor = Window._chip_size + (Window._chip_size // 4)  # カーソルサイズ、文字との余白
-        offset_sepalete_col = (
-            2 if self.font is None else self.font.text_width(" ") // 2
-        )  # 項目間余白
+        offset_sepalete_col = 2 if self.font is None else self.font.text_width(" ") // 2  # 項目間余白
 
         # 文字列／カーソル表示用のpixelアドレスキャッシュ初期化
         self.column_x_pos = []
@@ -632,9 +630,7 @@ class Menu:
         # try:
         for row_idx, row in enumerate(self.menu_items):
             for col_idx, item in enumerate(row):
-                text_x = (
-                    self.windows["main"].x + self.column_x_pos[col_idx] + Window._chip_size
-                )  # カーソルの右隣
+                text_x = self.windows["main"].x + self.column_x_pos[col_idx] + Window._chip_size  # カーソルの右隣
                 text_y = self.windows["main"].y + self.row_y_pos[row_idx]
                 px.text(text_x, text_y, item.item_label, px.COLOR_WHITE, self.font)
         self.draw_cursor()
@@ -702,10 +698,7 @@ class MenuYesNo(Menu):
         # 戻り値搬送用
         self.ans: dict[str, bool] = ans
         # メッセージ用ウインドウの生成
-        msg_h = (
-            int((px.ceil(len(msg) * FontManager.get_fontdata("basic").height / 8)) * 8)
-            + Window._chip_size * 2
-        )
+        msg_h = int((px.ceil(len(msg) * FontManager.get_fontdata("basic").height / 8)) * 8) + Window._chip_size * 2
         message_pos = (0, px.height // 2 - msg_h // 2)
         message_size = (px.width, msg_h)
         self.message_window = Window("basic", *message_pos, *message_size, "once")

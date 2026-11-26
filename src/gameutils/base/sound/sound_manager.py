@@ -59,9 +59,7 @@ class FadeController:
         on_complete: Callable | None = None,
     ):
         """現在値(current_factor)を起点に新しいフェードを開始する"""
-        self.state = (
-            FadeState.FADE_IN if target_factor > self.current_factor else FadeState.FADE_OUT
-        )
+        self.state = FadeState.FADE_IN if target_factor > self.current_factor else FadeState.FADE_OUT
         self.start_factor = self.current_factor
         self.target_factor = target_factor
         self.duration_frames = max(duration_frames, 1)
@@ -193,9 +191,7 @@ class SoundManager:
         # px.channels[SE_SUSTAIN_CH].gain = self._ch_base_gain[SE_SUSTAIN_CH]
         """音量コンフィグ定義値factor_level(1.0~0.0)をベースに音量係数を設定"""
         if factor_level < 0.0 or factor_level > 1.0:
-            print(
-                f"範囲外のfactor_level({factor_level})が指定された為、デフォルト値0.7を設定します"
-            )
+            print(f"範囲外のfactor_level({factor_level})が指定された為、デフォルト値0.7を設定します")
             factor_level = 0.7
         factor = factor_level**2  # 小さい音量程変化幅が小さくなる
 
@@ -303,9 +299,7 @@ class SoundManager:
     def stop_music_fadeout(self, fade_frames: int, on_complete: Callable | None = None):
         if self._bgm_fade.state != FadeState.NONE:
             return  # フェード中の重複要求は無視
-        self._bgm_fade.begin(
-            target_factor=0.0, duration_frames=fade_frames, on_complete=on_complete
-        )
+        self._bgm_fade.begin(target_factor=0.0, duration_frames=fade_frames, on_complete=on_complete)
 
     def get_fade_state(self) -> bool:
         """フェード中判定"""

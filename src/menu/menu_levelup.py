@@ -50,12 +50,8 @@ class MenuLevelup(Menu):
         status_lines = f"{param.name}"
         status_lines += f"\nレベル： {upper_int_spaced(param.level, 2)}"
         status_lines += f"\n経験値： {upper_int_spaced(param.exp, 6)}"
-        status_lines += (
-            f"\nＨ　Ｐ： {upper_int_spaced(param.hp, 3)}／{upper_int_spaced(param.max_hp, 3)}"
-        )
-        status_lines += (
-            f"\nＭ　Ｐ： {upper_int_spaced(param.mp, 3)}／{upper_int_spaced(param.max_mp, 3)}"
-        )
+        status_lines += f"\nＨ　Ｐ： {upper_int_spaced(param.hp, 3)}／{upper_int_spaced(param.max_hp, 3)}"
+        status_lines += f"\nＭ　Ｐ： {upper_int_spaced(param.mp, 3)}／{upper_int_spaced(param.max_mp, 3)}"
         status_lines += f"\n筋　力： {
             format_leftright(
                 upper_int_spaced(member.strength, 3),
@@ -128,9 +124,7 @@ class MenuLevelup(Menu):
         return RsltPush(
             MenuYesNo,
             self.ans,
-            [
-                f"成長させるパラメータは『{self.menu_items[self.cursor_position[1]][0].item_label}』でよろしいですか？"
-            ],
+            [f"成長させるパラメータは『{self.menu_items[self.cursor_position[1]][0].item_label}』でよろしいですか？"],
         )
 
     def key_check(self) -> WindowAction:

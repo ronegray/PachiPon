@@ -22,9 +22,7 @@ def calculate_costs():
             dist = math.ceil(tmpdist / 50)
             results.append(f"| {route['id']} | {route['from']} | {route['to']} | {dist} |")
         else:
-            results.append(
-                f"| {route['id']} | {route['from']} | {route['to']} | Error: Point not found |"
-            )
+            results.append(f"| {route['id']} | {route['from']} | {route['to']} | Error: Point not found |")
 
     with open("route_cost.md", "w", encoding="utf-8") as f:
         f.write("\n".join(results))

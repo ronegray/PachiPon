@@ -83,9 +83,7 @@ class ItemPool:
 
     def get_by_category(self, item_category: ItemID) -> dict[int, PoolEntry]:
         """指定したカテゴリ（アイテム種）のアイテムリストを取得する"""
-        return {
-            uqid: pe for uqid, pe in self._items.items() if pe.ins.param.def_id == item_category
-        }
+        return {uqid: pe for uqid, pe in self._items.items() if pe.ins.param.def_id == item_category}
 
     def save_item(self) -> dict:
         """セーブデータに保存するパラメタを辞書形式で返す"""
@@ -166,13 +164,14 @@ class StackPool:
     # def count(self, def_id: ItemID, owner_id: ItemState) -> int:
     #     return self._stacks.get((def_id, owner_id), 0)
     def count(self, def_id: ItemID) -> int:
+        """指定アイテムの所持個数を取得"""
         return self._stacks.get(def_id, 0)
 
     # def get_by_state(self, state: ItemState) -> dict[ItemID, int]:
     #     """指定した者が持つアイテムリストを取得する"""
     #     return {keypair[0]: cnt for keypair, cnt in self._stacks.items() if keypair[1] == state}
     def get_stacks(self, state: ItemState) -> dict[ItemID, int]:
-        """スタックアイテムリストを取得する"""
+        """スタックアイテムリストを取得"""
         return {key: cnt for key, cnt in self._stacks.items()}
 
     # def save_stack(self) -> dict:

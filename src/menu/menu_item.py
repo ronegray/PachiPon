@@ -244,8 +244,7 @@ class MenuUseItem(MenuItemBase):
                 if val > 0
             ]
             self.item_list = [
-                tmp_item_list[i : i + self._list_rows]
-                for i in range(0, self.inventory_count, self._list_rows)
+                tmp_item_list[i : i + self._list_rows] for i in range(0, self.inventory_count, self._list_rows)
             ]
 
         # ページインデックスが範囲外にならないよう補正
@@ -371,13 +370,10 @@ class MenuShowKeyItem(MenuItemBase):
 
         self.inventory_count = len(filteredlist)
         if self.inventory_count <= 0:
-            self.item_list = [
-                [[{"id": "該当なし", "action": "None", "args": "対象を持っていない"}]]
-            ]
+            self.item_list = [[[{"id": "該当なし", "action": "None", "args": "対象を持っていない"}]]]
         else:
             self.item_list = [
-                filteredlist[i : i + self._list_rows]
-                for i in range(0, self.inventory_count, self._list_rows)
+                filteredlist[i : i + self._list_rows] for i in range(0, self.inventory_count, self._list_rows)
             ]
 
         # ページインデックスが範囲外にならないよう補正
@@ -416,8 +412,7 @@ class MenuShowEquips(MenuItemBase):
             self.item_list = [[[{"id": "該当なし", "action": "None", "args": [""]}]]]
         else:
             self.item_list = [
-                filteredlist[i : i + self._list_rows]
-                for i in range(0, self.inventory_count, self._list_rows)
+                filteredlist[i : i + self._list_rows] for i in range(0, self.inventory_count, self._list_rows)
             ]
 
         # ページインデックスが範囲外にならないよう補正
@@ -434,7 +429,9 @@ class MenuShowEquips(MenuItemBase):
                 expect_dmg = item_def.hitdice * 4
                 perf_txt = f"攻撃:{upper_int_spaced(expect_dmg, 2)}"
             case ItemType.GUARDER:
-                perf_txt = f"防御:{upper_int_spaced(item_def.defvalue, 2)} 魔法阻害:{upper_int_spaced(item_def.magpenalty, 1)}"
+                perf_txt = (
+                    f"防御:{upper_int_spaced(item_def.defvalue, 2)} 魔法阻害:{upper_int_spaced(item_def.magpenalty, 1)}"
+                )
             case ItemType.ORNAMENT:
                 perf_txt = "特殊な効果をもつ飾り"
             case _:

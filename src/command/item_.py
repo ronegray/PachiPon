@@ -22,12 +22,8 @@ class item_info_package:
     command: CommandBaseAction
     item_def: ItemDef
     consume: Callable  # [[], None]
-    pre_effects: list[Callable[[], Generator[list, None, None]]] = field(
-        default_factory=list
-    )  # yield を伴う後処理
-    after_effects: list[Callable[[], Generator[list, None, None]]] = field(
-        default_factory=list
-    )  # yield を伴う後処理
+    pre_effects: list[Callable[[], Generator[list, None, None]]] = field(default_factory=list)  # yield を伴う後処理
+    after_effects: list[Callable[[], Generator[list, None, None]]] = field(default_factory=list)  # yield を伴う後処理
 
 
 def use_item(pkg: item_info_package) -> Generator[list, None, None]:
@@ -116,7 +112,7 @@ def torchlight(cmd: CommandBaseAction) -> Generator[list, None, None]:
     ]
 
     # キー待ち
-    yield from cmd._wait_finish()
+    yield from cmd.wait_finish()
 
 
 def unlock_key(cmd: CommandBaseAction) -> Generator[list, None, None]:
@@ -141,7 +137,7 @@ def unlock_key(cmd: CommandBaseAction) -> Generator[list, None, None]:
     ]
 
     # キー待ち
-    yield from cmd._wait_finish()
+    yield from cmd.wait_finish()
 
 
 # class escape_battle(CommandBaseItem):
@@ -180,7 +176,7 @@ def escape_battle(cmd: CommandBaseAction) -> Generator[list, None, None]:
     # yield [f"{target.param.name}は {upper_int(real_heal)} のＭＰが　回復した"]
 
     # キー待ち
-    yield from cmd._wait_finish()
+    yield from cmd.wait_finish()
 
 
 # class reduce_negative(CommandBaseItem):
@@ -208,7 +204,7 @@ def reduce_negative(cmd: CommandBaseAction) -> Generator[list, None, None]:
     ]
 
     # キー待ち
-    yield from cmd._wait_finish()
+    yield from cmd.wait_finish()
 
 
 # class dice_plus(CommandBaseItem):
@@ -236,7 +232,7 @@ def dice_plus(cmd: CommandBaseAction) -> Generator[list, None, None]:
     ]
 
     # キー待ち
-    yield from cmd._wait_finish()
+    yield from cmd.wait_finish()
 
 
 # class food_plus(CommandBaseItem):
@@ -261,4 +257,4 @@ def food_plus(cmd: CommandBaseAction) -> Generator[list, None, None]:
     yield [f"食糧が{val}増えた！"]
 
     # キー待ち
-    yield from cmd._wait_finish()
+    yield from cmd.wait_finish()

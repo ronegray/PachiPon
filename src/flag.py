@@ -15,6 +15,7 @@ class FlagID(IntEnum):
     HOLYSHROUD   = auto() # イベントF C+Aで発生 防具イベントの条件
     SACREDWEAPON = auto() # イベントG D+Eで発生 武器イベント
     HOLYGUARD    = auto() # イベントH E+Fで発生 防具イベント
+    SLAY_SATAN   = auto() # 魔王討伐
     BIGBAD       = auto() # 裏ボスルート開通
 # fmt: on
 

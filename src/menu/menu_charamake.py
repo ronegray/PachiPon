@@ -59,9 +59,7 @@ class MenuCharaMake(Menu):
 
         # パラメータ項目説明ウインドウ
         param_w = 104
-        self.windows["sub2"] = Window(
-            "basic", self.x + self.width + offset, self.y, param_w, self.height, "once"
-        )
+        self.windows["sub2"] = Window("basic", self.x + self.width + offset, self.y, param_w, self.height, "once")
         self.set_description_string()
 
         # YesNoダイアログ応答内容
@@ -69,9 +67,7 @@ class MenuCharaMake(Menu):
 
     def set_bonuspoint_string(self) -> None:
         """残りボーナスポイント表示"""
-        self.windows["sub"].set_message(
-            [f"残りポイント：{upper_int_spaced(self.bonus_max - self.assigned, 2)}"]
-        )
+        self.windows["sub"].set_message([f"残りポイント：{upper_int_spaced(self.bonus_max - self.assigned, 2)}"])
 
     def set_description_string(self) -> None:
         """詳細ウインドウに表示する文字列を設定"""

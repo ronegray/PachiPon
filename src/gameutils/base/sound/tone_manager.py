@@ -260,9 +260,7 @@ class ToneManager:
 
         target = ToneManager._tone_params.get(tone_index, None)
         if target is None:
-            ToneManager._tone_params[tone_index] = ToneParam(
-                MODE_WAVETABLE, GAIN_WAVES, BITS_WAVES, [0]
-            )
+            ToneManager._tone_params[tone_index] = ToneParam(MODE_WAVETABLE, GAIN_WAVES, BITS_WAVES, [0])
             target = ToneManager._tone_params[tone_index]
         self._validate_wavetable(target.sample_bits, target.wavetable)
         target.mode = tone_param.get("mode", MODE_WAVETABLE)

@@ -54,9 +54,7 @@ class MenuSelectSkillBattle(Menu):
         self.generate_item_list()
 
         menu_pos = (ref_window["x"], ref_window["y"])
-        menu_size = (
-            (ref_window["w"], ref_window["h"]) if self.ctx.situation == "battle" else (104, 144)
-        )
+        menu_size = (ref_window["w"], ref_window["h"]) if self.ctx.situation == "battle" else (104, 144)
         super().__init__("basic", *menu_pos, self.menu_shape, self.skill_list, *menu_size)
         self.cursor_row_offset += 2  # k8x12Sの縦長分対応
         # """使用するスキルを選択データ取得と表示ウインドウの再定義"""
@@ -110,9 +108,7 @@ class MenuSelectSkillBattle(Menu):
                 for skill_def in tmplist
             ]
             if len(tmp_item_list) <= 0:
-                self.skill_list = [
-                    [{"id": "該当なし", "action": "None", "args": ["習得していない"]}]
-                ]
+                self.skill_list = [[{"id": "該当なし", "action": "None", "args": ["習得していない"]}]]
             else:
                 if menu_cols > 1:
                     self.item_list_multicol(menu_cols, tmp_item_list)

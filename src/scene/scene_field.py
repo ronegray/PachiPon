@@ -12,17 +12,18 @@ import service_locater as di
 from const import FIELD_MESSAGE_HEIGHT, APP_WIDTH, APP_HEIGHT
 from gameutils.base import is_pressed
 from gameutils.lib import Window, WindowAction
-from event import EventID, EventType
+
+# from event import EventID, EventType, Event
 from field_map import EventPoint, PointPlaceType
 from entity import EntityContext
-from command import CommandProtocol, CommandPackage
+from command import CommandPackage  # , CommandBaseSequence,
 
 # import command.entity_command as en_cmd
 import command.system_command as s_cmd
 from helper import format_leftright
 
 # import command.system_command as s_cmd
-import command.event_command as ev_cmd
+# import command.event_command as ev_cmd
 from menu import MenuField
 from . import BaseScene
 
@@ -87,9 +88,7 @@ class SceneField(BaseScene):
         if self.current_point.is_ready:
             # self.eventpoint_state_window.set_message(
             #     ["イベント実行準備が完了しています（決定ボタンで実行）"]
-            self.eventpoint_state_window.add_message(
-                "イベント実行準備が完了しています（決定ボタンで実行）"
-            )
+            self.eventpoint_state_window.add_message("イベント実行準備が完了しています（決定ボタンで実行）")
         else:
             # self.eventpoint_state_window.set_message(
             #     [f"イベント実行準備中です（あと{self.current_point.ready_count}ターン）"]
@@ -97,9 +96,7 @@ class SceneField(BaseScene):
                 f"イベント実行準備中です（あと{self.current_point.ready_count}ターン）"
             )
         for _, val in self.current_point.get_eventpoint_info().items():
-            self.eventpoint_info_window.add_message(
-                format_leftright(val["name"], f"[{val['threshold']:>2}]", 21)
-            )
+            self.eventpoint_info_window.add_message(format_leftright(val["name"], f"[{val['threshold']:>2}]", 21))
         logger.debug(self.eventpoint_info_window.message_list)
         return
 
@@ -116,7 +113,7 @@ class SceneField(BaseScene):
         # 現在地点に次のイベントが定義されていた場合、イベントを実行
         if self.current_point.nextevent:
             self.is_close_window = True
-            di.ref.scnmgr.next_scene("mapevent")
+            di.ref.scnmgr.next_scene("mapevent", self.build_context(), self.current_point)
             return
 
         # WindowManagerにスタックがある場合はメニュー操作を優先
@@ -221,13 +218,11 @@ class SceneField(BaseScene):
                 if di.ref.pt.get_pt_efx("unlock_key"):
                     di.ref.pt.remove_pt_efx("unlock_key")
                 else:
-                    cmd = s_cmd.CommonFieldMessage(
-                        self.message_window, msg_list=["どうやら、鍵がかかっているようだ"]
-                    )
+                    cmd = s_cmd.CommonFieldMessage(self.message_window, msg_list=["どうやら、鍵がかかっているようだ"])
                     di.ref.cmdmgr.push_command(cmd)
                     return
             # イベント起動
-            cmd = ev_cmd.KickEvent(self.message_window, current_point=self.current_point)
+            cmd = s_cmd.KickEvent(self.message_window, current_point=self.current_point)
             di.ref.cmdmgr.push_command(cmd)
             di.ref.cmdmgr.set_on_empty(self.update_eventpoint_info)
             return
@@ -287,20 +282,20 @@ class SceneField(BaseScene):
         )
         return ctx
 
-    def transfer_eventdata(self) -> tuple[EntityContext, CommandProtocol]:
-        """サブシーンへのイベント関連データ受け渡し用"""
-        ctx = self.build_context()
+    # def transfer_eventdata(self) -> tuple[EntityContext, CommandBaseSequence]:
+    #     """サブシーンへのイベント関連データ受け渡し用"""
+    #     ctx = self.build_context()
 
-        event_func_name = (
-            EventType(self.current_point.nextevent.event_type).name  # type: ignore
-            + "_"
-            + EventID(self.current_point.nextevent.event_id).name  # type: ignore
-        )
+    #     event_func_name = (
+    #         EventType(self.current_point.nextevent.event_type).name  # type: ignore
+    #         + "_"
+    #         + EventID(self.current_point.nextevent.event_id).name  # type: ignore
+    #     )
 
-        # # デバッグ用
-        # event_func_name = "NORMAL_DECREASE_HP"
-        # event_func_name = "SAFETY_INCREASE_HP"
-        # event_func_name = "NORMAL_MEET_ALLY"
+    #     # # デバッグ用
+    #     # event_func_name = "NORMAL_DECREASE_HP"
+    #     # event_func_name = "SAFETY_INCREASE_HP"
+    #     # event_func_name = "NORMAL_MEET_ALLY"
 
-        evtcmd = getattr(ev_cmd, event_func_name)
-        return (ctx, evtcmd)
+    #     evtcmd = getattr(ev_cmd, event_func_name)
+    #     return (ctx, evtcmd)

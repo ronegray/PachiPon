@@ -72,7 +72,7 @@ class CommandBaseSequence(CommandProtocol):
         ...
         # """サブクラスが実装すべき処理シーケンス"""
 
-    def _wait_finish(self) -> Generator[list, None, None]:
+    def wait_finish(self) -> Generator[list, None, None]:
         """イベント終了時のキー待ち処理"""
         self.display_info.target.update_indicator(True)
         while self.display_info.target.update() == WindowAction.CONTINUE:
@@ -89,10 +89,7 @@ class CommandBaseSequence(CommandProtocol):
                 self.phase = CommandPhase.ACK
                 self._advance()
             case CommandPhase.ACK:
-                if (
-                    self.display_info.target.update() == WindowAction.DISCARD
-                    or self.step_wait == -1
-                ):
+                if self.display_info.target.update() == WindowAction.DISCARD or self.step_wait == -1:
                     self._advance()
                 self.step_wait -= 1
         return self.phase

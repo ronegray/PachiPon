@@ -124,9 +124,7 @@ class SceneBaseSavedata(BaseScene):
         # y_offset = 0
         for i in range(self._max_draw_datas):
             # ウインドウインスタンス生成＆イメージ用変数
-            self.data_windows.append(
-                Window("basic", datwnd_x, datwnd_y + datwnd_h * i, datwnd_w, datwnd_h, "view")
-            )
+            self.data_windows.append(Window("basic", datwnd_x, datwnd_y + datwnd_h * i, datwnd_w, datwnd_h, "view"))
         self.set_datawindow()
 
     def set_datawindow(self) -> None:
@@ -323,23 +321,15 @@ class SceneDataSave(SceneBaseSavedata):
         # savedatas["flags"] = di.ref.
         savedatas["events"] = di.ref.map.save_event()
         savedatas["pt"] = di.ref.pt.save_party()
-        savedatas["chars"] = {
-            str(mem.chara_id): mem.save_character() for mem in di.ref.pt.get_allmember()
-        }
-        savedatas["equips"] = {
-            str(mem.chara_id): mem.equipments.save_equip() for mem in di.ref.pt.get_allmember()
-        }
-        savedatas["skills"] = {
-            str(mem.chara_id): mem.skills.save_skill() for mem in di.ref.pt.get_allmember()
-        }
+        savedatas["chars"] = {str(mem.chara_id): mem.save_character() for mem in di.ref.pt.get_allmember()}
+        savedatas["equips"] = {str(mem.chara_id): mem.equipments.save_equip() for mem in di.ref.pt.get_allmember()}
+        savedatas["skills"] = {str(mem.chara_id): mem.skills.save_skill() for mem in di.ref.pt.get_allmember()}
         savedatas["pl_item"] = di.ref.pl_item.save_item()
         savedatas["pl_stack"] = di.ref.pl_stack.save_stack()
 
         # 情報作成時＝データ内容変更時と捉えて、データ内容をファイルに出力
         savefilename = (
-            AssetMap.get_assetpath(AssetID.SAVEDATA_DIR)
-            + AssetMap.get_assetpath(AssetID.SAVEDATA_FILE)
-            + str(slot_no)
+            AssetMap.get_assetpath(AssetID.SAVEDATA_DIR) + AssetMap.get_assetpath(AssetID.SAVEDATA_FILE) + str(slot_no)
         )
         path = check_file(savefilename, "w")
         if path is None:

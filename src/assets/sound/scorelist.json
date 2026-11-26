@@ -4,5 +4,6 @@
     "battle": "assets/sound/battle.txt",
     "defeat": "assets/sound/defeat.txt",
     "shop": "assets/sound/shop.txt",
-    "event_slow": "assets/sound/event_slow.txt"
+    "event_slow": "assets/sound/event_slow.txt",
+    "event_normal": "assets/sound/event_normal.txt"
 }

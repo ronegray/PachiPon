@@ -91,9 +91,7 @@ class Equips:
     def set_adjust_effect(self):
         """装備変更時の補正エフェクト適用"""
         self._effect_cache.clear()
-        targets = [
-            pooled_item for pooled_item in self._equipped_items.values() if pooled_item is not None
-        ]
+        targets = [pooled_item for pooled_item in self._equipped_items.values() if pooled_item is not None]
         efx_list = [
             [plent.ins.param.effect_id, plent.ins.param.effect_value]
             for _, plent in targets
@@ -176,6 +174,17 @@ class Equips:
         # スタックから該当IDのアイテムを1つ削除
         # di.ref.pl_stack.remove(def_id, ItemState.FREE, 1)
         di.ref.pl_stack.remove(def_id)
+
+    def check_sacredweapon(self) -> bool:
+        """神聖武器の装備確認※魔王討伐時の次フラグチェック用"""
+        try:
+            pl_weapon = self._equipped_items[EquipSlot.WEAPON]
+            if pl_weapon[1].ins.param.def_id == ItemID.SACREDWEAPON:  # type: ignore
+                return True
+            else:
+                return False
+        except ValueError | IndexError:
+            return False
 
     def save_equip(self) -> dict:
         """セーブデータに保存するパラメタを辞書形式で返す"""

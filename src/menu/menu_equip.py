@@ -90,12 +90,8 @@ class MenuSelectEquipSlot(Menu):
         status_lines = f"{param.name}"
         status_lines += f"\nレベル： {upper_int_spaced(param.level, 2)}"
         status_lines += f"\n経験値： {upper_int_spaced(param.exp, 6)}"
-        status_lines += (
-            f"\nＨ　Ｐ： {upper_int_spaced(param.hp, 3)}／{upper_int_spaced(param.max_hp, 3)}"
-        )
-        status_lines += (
-            f"\nＭ　Ｐ： {upper_int_spaced(param.mp, 3)}／{upper_int_spaced(param.max_mp, 3)}"
-        )
+        status_lines += f"\nＨ　Ｐ： {upper_int_spaced(param.hp, 3)}／{upper_int_spaced(param.max_hp, 3)}"
+        status_lines += f"\nＭ　Ｐ： {upper_int_spaced(param.mp, 3)}／{upper_int_spaced(param.max_mp, 3)}"
         status_lines += f"\n筋　力： {
             format_leftright(
                 upper_int_spaced(member.strength, 3),
@@ -283,9 +279,7 @@ class MenuEquip(Menu):
         elif self.slot_filter == ItemType.CONSUME:
             # # px.play(self.se_ch, SoundID.CHANGE_EQUIP, resume=True)
             # self.se.play(SoundID.CHANGE_EQUIP)
-            result = self.member.equipments.equip_on_consume(
-                self.slot, selected_item.action_args[0]
-            )
+            result = self.member.equipments.equip_on_consume(self.slot, selected_item.action_args[0])
             if result is False:
                 # フィールドメッセージウインドウの情報を元に同サイズのウインドウを生成
                 scn = di.ref.scnmgr.get_now_scene()
@@ -345,8 +339,7 @@ class MenuEquip(Menu):
             self.item_list = [[[{"id": "該当なし", "action": "None", "args": [""]}]]]
         else:
             self.item_list = [
-                filteredlist[i : i + self._list_rows]
-                for i in range(0, self.inventory_count, self._list_rows)
+                filteredlist[i : i + self._list_rows] for i in range(0, self.inventory_count, self._list_rows)
             ]
 
         # ページインデックスが範囲外にならないよう補正
@@ -377,8 +370,7 @@ class MenuEquip(Menu):
                 if val > 0
             ]
             self.item_list = [
-                tmp_item_list[i : i + self._list_rows]
-                for i in range(0, self.inventory_count, self._list_rows)
+                tmp_item_list[i : i + self._list_rows] for i in range(0, self.inventory_count, self._list_rows)
             ]
 
         # ページインデックスが範囲外にならないよう補正
@@ -409,7 +401,9 @@ class MenuEquip(Menu):
                 expect_dmg = item_def.hitdice * 4
                 perf_txt = f"攻撃:{upper_int_spaced(expect_dmg, 2)}"
             case ItemType.GUARDER:
-                perf_txt = f"防御:{upper_int_spaced(item_def.defvalue, 2)} 魔法阻害:{upper_int_spaced(item_def.magpenalty, 1)}"
+                perf_txt = (
+                    f"防御:{upper_int_spaced(item_def.defvalue, 2)} 魔法阻害:{upper_int_spaced(item_def.magpenalty, 1)}"
+                )
             case ItemType.ORNAMENT:
                 perf_txt = "特殊な効果をもつ飾り"
             case _:

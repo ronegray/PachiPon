@@ -163,11 +163,7 @@ class EntityBase(ABC):
 
     def attackroll_offence(self) -> int:
         """命中ロール：攻撃側"""
-        return (
-            diceroll(max(max(self.bonus_str, self.bonus_spd), 1))
-            + self.bonus_lck
-            - self.reduce_dice
-        )
+        return diceroll(max(max(self.bonus_str, self.bonus_spd), 1)) + self.bonus_lck - self.reduce_dice
 
     def attackroll_defence(self) -> int:
         """命中ロール：防御側"""
@@ -197,12 +193,7 @@ class EntityBase(ABC):
     def castroll(self, dc: int) -> bool:
         """魔法発動ロール"""
         disturb_mind = 3 if self.debuff_list.get(DebuffType.DISTURB_MIND, None) else 0
-        return (
-            diceroll(max(1, self.bonus_arc))
-            - (dc + self.magpenalty)
-            - disturb_mind
-            - self.reduce_dice
-        ) > 0
+        return (diceroll(max(1, self.bonus_arc)) - (dc + self.magpenalty) - disturb_mind - self.reduce_dice) > 0
 
     def registroll(self, debuff_id: DebuffType, dc: int) -> bool:
         """効果抵抗ロール"""

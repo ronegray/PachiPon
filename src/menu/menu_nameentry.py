@@ -60,10 +60,7 @@ class MenuNameEntry(Menu):
 
     def individual_update(self) -> None:
         # 名前文字列を更新
-        if (
-            px.frame_count % APP_FPS < APP_FPS // 2
-            or len(self.input_name_string) == self.max_name_length
-        ):
+        if px.frame_count % APP_FPS < APP_FPS // 2 or len(self.input_name_string) == self.max_name_length:
             self.windows["sub"].set_message([self.name_string])
         else:
             self.windows["sub"].set_message([self.name_string + "＿"])
@@ -149,9 +146,7 @@ class MenuNameEntry(Menu):
         )
         if self.warning_counter > 0:
             msglen = (
-                0
-                if self.warning_fontdata.font is None
-                else self.warning_fontdata.font.text_width(self.warning_message)
+                0 if self.warning_fontdata.font is None else self.warning_fontdata.font.text_width(self.warning_message)
             )
             msg_pos_x = (px.width - msglen) / 2
             msg_pos_y = px.height - (self.warning_fontdata.height * 3)

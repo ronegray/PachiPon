@@ -156,9 +156,7 @@ def efx_skill_attack(
     return
 
 
-def efx_damage_shake(
-    disp_info: DisplayInfo, target: "EntityBase"
-) -> Generator[list[str | int], None, None]:
+def efx_damage_shake(disp_info: DisplayInfo, target: "EntityBase") -> Generator[list[str | int], None, None]:
     """被ダメージ時の振動"""
     is_player = True if target.chara_id < 10 else False
 
@@ -250,9 +248,7 @@ def efx_encount_splash(disp_info: DisplayInfo) -> Generator[list, None, None]:
     return
 
 
-def efx_screen_flash(
-    disp_info: DisplayInfo, flash_color: int, flash_frames: int = 1
-) -> Generator[list, None, None]:
+def efx_screen_flash(disp_info: DisplayInfo, flash_color: int, flash_frames: int = 1) -> Generator[list, None, None]:
     """画面のフラッシュ"""
     disp_info.graphic_command = [
         lambda: px.dither(0.6),

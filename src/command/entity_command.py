@@ -73,7 +73,7 @@ class GrantReward(CommandBaseEntity):
         # while self.display_info.target.update() == WindowAction.CONTINUE:
         #     yield [SeqSubCmd.WAIT, 0]
         # self.display_info.target.update_indicator(False)
-        yield from self._wait_finish()
+        yield from self.wait_finish()
 
 
 class CharacterInitialHPMP(CommandBaseEntity):
@@ -123,7 +123,7 @@ class CharacterInitialHPMP(CommandBaseEntity):
         # while self.display_info.target.update() == WindowAction.CONTINUE:
         #     yield [SeqSubCmd.WAIT, 0]
         # self.display_info.target.update_indicator(False)
-        yield from self._wait_finish()
+        yield from self.wait_finish()
 
 
 class CharacterLevelup(CommandBaseEntity):
@@ -164,7 +164,7 @@ class CharacterGainHPMP(CommandBaseEntity):
         # while self.display_info.target.update() == WindowAction.CONTINUE:
         #     yield [SeqSubCmd.WAIT, 0]
         # self.display_info.target.update_indicator(False)
-        yield from self._wait_finish()
+        yield from self.wait_finish()
 
         return
 
@@ -190,5 +190,5 @@ class DebuffRecoverCheck(CommandBaseEntity):
                 for debuff_id in recover:
                     yield [f"{member.param.name}は {debuff_name[debuff_id]}状態から回復した"]
                 self.display_info.target.update_indicator(True)
-                yield from self._wait_finish()
+                yield from self.wait_finish()
         return

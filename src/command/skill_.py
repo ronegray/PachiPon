@@ -22,12 +22,8 @@ class skill_info_package:
     command: CommandBaseAction
     skill_def: SkillDef
     # consume: Callable  # [[], None]
-    pre_effects: list[Callable[[], Generator[list, None, None]]] = field(
-        default_factory=list
-    )  # yield を伴う後処理
-    after_effects: list[Callable[[], Generator[list, None, None]]] = field(
-        default_factory=list
-    )  # yield を伴う後処理
+    pre_effects: list[Callable[[], Generator[list, None, None]]] = field(default_factory=list)  # yield を伴う後処理
+    after_effects: list[Callable[[], Generator[list, None, None]]] = field(default_factory=list)  # yield を伴う後処理
 
 
 def use_skill(pkg: skill_info_package) -> Generator[list, None, None]:
@@ -64,9 +60,7 @@ def cast_spell(self, skill_def: SkillDef) -> Generator[list, None, bool]:
     return True
 
 
-def recover_spell(
-    self, actor: EntityBase, skill_def: SkillDef, target: EntityBase
-) -> Generator[list, None, None]:
+def recover_spell(self, actor: EntityBase, skill_def: SkillDef, target: EntityBase) -> Generator[list, None, None]:
     """スペル回復関連共通処理"""
     healing = actor.damageroll_skill(skill_def)
 
@@ -212,14 +206,9 @@ def debuff_dice_value(cmd: CommandBaseAction) -> Generator[list, None, None]:
     # 抵抗ロール（弱点属性の場合は必中）
     if (
         target.calc_weak_rate(cmd.skill_def.skill_type) > 1.0
-        or target.registroll(
-            DebuffType.REDUCE_DICEVALUE, cmd.skill_def.dc + cmd.ctx.actor.bonus_arc
-        )
-        is False
+        or target.registroll(DebuffType.REDUCE_DICEVALUE, cmd.skill_def.dc + cmd.ctx.actor.bonus_arc) is False
     ):
-        target.activate_debuff(
-            DebuffType.REDUCE_DICEVALUE, cmd.skill_def.dc + cmd.ctx.actor.bonus_arc
-        )
+        target.activate_debuff(DebuffType.REDUCE_DICEVALUE, cmd.skill_def.dc + cmd.ctx.actor.bonus_arc)
         yield [f"{target.param.name}は　苦痛の呪いを受けた・・・"]
     else:
         # di.ref.sndmgr.play_se_sustain(SoundID.MAGIC_FAIL)
@@ -245,14 +234,9 @@ def debuff_continual_damage(cmd: CommandBaseAction) -> Generator[list, None, Non
         # 抵抗ロール（弱点属性の場合は必中）
         if (
             target.calc_weak_rate(cmd.skill_def.skill_type) > 1.0
-            or target.registroll(
-                DebuffType.POISON_DAMAGE, cmd.skill_def.dc + cmd.ctx.actor.bonus_arc
-            )
-            is False
+            or target.registroll(DebuffType.POISON_DAMAGE, cmd.skill_def.dc + cmd.ctx.actor.bonus_arc) is False
         ):
-            target.activate_debuff(
-                DebuffType.POISON_DAMAGE, cmd.skill_def.dc + cmd.ctx.actor.bonus_arc
-            )
+            target.activate_debuff(DebuffType.POISON_DAMAGE, cmd.skill_def.dc + cmd.ctx.actor.bonus_arc)
             yield [f"{target.param.name}は　毒を浴びてしまった・・・"]
         else:
             # di.ref.sndmgr.play_se_sustain(SoundID.MAGIC_FAIL)
@@ -279,8 +263,7 @@ def debuff_stone_statue(cmd: CommandBaseAction) -> Generator[list, None, None]:
     # 抵抗ロール（弱点属性の場合は必中）
     if (
         target.calc_weak_rate(cmd.skill_def.skill_type) > 1.0
-        or target.registroll(DebuffType.STONE_HOLD, cmd.skill_def.dc + cmd.ctx.actor.bonus_arc)
-        is False
+        or target.registroll(DebuffType.STONE_HOLD, cmd.skill_def.dc + cmd.ctx.actor.bonus_arc) is False
     ):
         target.activate_debuff(DebuffType.STONE_HOLD, cmd.skill_def.dc + cmd.ctx.actor.bonus_arc)
         yield [f"{target.param.name}は　石の像になった・・・"]
@@ -308,12 +291,9 @@ def debuff_sleep(cmd: CommandBaseAction) -> Generator[list, None, None]:
         # 抵抗ロール（弱点属性の場合は必中）
         if (
             target.calc_weak_rate(cmd.skill_def.skill_type) > 1.0
-            or target.registroll(DebuffType.FALL_ASLEEP, cmd.skill_def.dc + cmd.ctx.actor.bonus_arc)
-            is False
+            or target.registroll(DebuffType.FALL_ASLEEP, cmd.skill_def.dc + cmd.ctx.actor.bonus_arc) is False
         ):
-            target.activate_debuff(
-                DebuffType.FALL_ASLEEP, cmd.skill_def.dc + cmd.ctx.actor.bonus_arc
-            )
+            target.activate_debuff(DebuffType.FALL_ASLEEP, cmd.skill_def.dc + cmd.ctx.actor.bonus_arc)
             yield [f"{target.param.name}は　眠りにおちた・・・"]
         else:
             # di.ref.sndmgr.play_se_sustain(SoundID.MAGIC_FAIL)
@@ -341,8 +321,7 @@ def debuff_cast_penalty(cmd: CommandBaseAction) -> Generator[list, None, None]:
     # 抵抗ロール（弱点属性の場合は必中）
     if (
         target.calc_weak_rate(cmd.skill_def.skill_type) > 1.0
-        or target.registroll(DebuffType.DISTURB_MIND, cmd.skill_def.dc + cmd.ctx.actor.bonus_arc)
-        is False
+        or target.registroll(DebuffType.DISTURB_MIND, cmd.skill_def.dc + cmd.ctx.actor.bonus_arc) is False
     ):
         target.activate_debuff(DebuffType.DISTURB_MIND, cmd.skill_def.dc + cmd.ctx.actor.bonus_arc)
         yield [f"{target.param.name}は　集中を乱された・・・"]
@@ -372,8 +351,7 @@ def debuff_charm(cmd: CommandBaseAction) -> Generator[list, None, None]:
     # 抵抗ロール（弱点属性の場合は必中）
     if (
         target.calc_weak_rate(cmd.skill_def.skill_type) > 1.0
-        or target.registroll(DebuffType.CHARM_PERSON, cmd.skill_def.dc + cmd.ctx.actor.bonus_arc)
-        is False
+        or target.registroll(DebuffType.CHARM_PERSON, cmd.skill_def.dc + cmd.ctx.actor.bonus_arc) is False
     ):
         target.activate_debuff(DebuffType.CHARM_PERSON, cmd.skill_def.dc + cmd.ctx.actor.bonus_arc)
         yield [f"{target.param.name}は　魅了された・・・"]
@@ -404,14 +382,9 @@ def attack_initiative_zero(cmd: CommandBaseAction) -> Generator[list, None, None
         # 抵抗ロール（弱点属性の場合は必中）
         if (
             target.calc_weak_rate(cmd.skill_def.skill_type) > 1.0
-            or target.registroll(
-                DebuffType.INITIATIVE_ZERO, cmd.skill_def.dc + cmd.ctx.actor.bonus_arc
-            )
-            is False
+            or target.registroll(DebuffType.INITIATIVE_ZERO, cmd.skill_def.dc + cmd.ctx.actor.bonus_arc) is False
         ):
-            target.activate_debuff(
-                DebuffType.INITIATIVE_ZERO, cmd.skill_def.dc + cmd.ctx.actor.bonus_arc
-            )
+            target.activate_debuff(DebuffType.INITIATIVE_ZERO, cmd.skill_def.dc + cmd.ctx.actor.bonus_arc)
             yield [f"{target.param.name}は　吹っ飛ばされた！"]
 
 

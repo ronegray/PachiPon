@@ -243,9 +243,7 @@ _bindings_pad: dict[str, list[KeyBinding]] = {}
 _bindings_kbd: dict[str, list[KeyBinding]] = {}
 
 
-def _resolve_bind_map(
-    bind_target: TARGET_DEVICE, loaded_data: dict | None
-) -> dict[ACTION_NAME, list]:
+def _resolve_bind_map(bind_target: TARGET_DEVICE, loaded_data: dict | None) -> dict[ACTION_NAME, list]:
     """デフォルト値とロード済みJSON(あれば)をマージした定義データを返す
 
     loaded_data が None の場合は素のデフォルト定義を返す。
@@ -300,9 +298,7 @@ def keybind(
 
     # target_actmap[action_name] = _generate_handler(key_code, input_sign)
     # target_assign[action_name] = {"code": key_code, "input_sign": input_sign}
-    target_bindings.setdefault(action_name, []).append(
-        KeyBinding(code=key_code, input_sign=input_sign)
-    )
+    target_bindings.setdefault(action_name, []).append(KeyBinding(code=key_code, input_sign=input_sign))
     return True
 
 

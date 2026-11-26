@@ -355,9 +355,7 @@ class learn_skill(CommandBaseAction):
         # スキル選択メニュー
         pos_x, pos_y = 128, 16
         menu_width = 104
-        menu_select_learn_skill = Menu(
-            "basic", pos_x, pos_y, self.menu_shape, self.skill_list, menu_width
-        )
+        menu_select_learn_skill = Menu("basic", pos_x, pos_y, self.menu_shape, self.skill_list, menu_width)
         # スキル詳細ウインドウ
         info_height = 8 + (16 * 3) + 8  # 上枠＋フォント分16px + 下枠
         info_pos = (
@@ -397,7 +395,7 @@ class learn_skill(CommandBaseAction):
             pl_stack.remove(item_def.def_id)
 
         # キー待ち
-        yield from self._wait_finish()
+        yield from self.wait_finish()
 
     def generate_item_list(self, rank: int):
         """メニュー項目リストの生成：スキル"""
@@ -406,9 +404,7 @@ class learn_skill(CommandBaseAction):
 
         self.item_count = len(tmplist)
         if self.item_count <= 0:
-            self.skill_list = [
-                [{"id": "該当なし", "action": "None", "args": ["習得可能なスキルがない"]}]
-            ]
+            self.skill_list = [[{"id": "該当なし", "action": "None", "args": ["習得可能なスキルがない"]}]]
         else:
             tmp_item_list = [
                 [
@@ -423,9 +419,7 @@ class learn_skill(CommandBaseAction):
                 if skill_id not in target.skills.get_learned_skill_id()
             ]
             if len(tmp_item_list) <= 0:
-                self.skill_list = [
-                    [{"id": "該当なし", "action": "None", "args": ["習得可能なスキルがない"]}]
-                ]
+                self.skill_list = [[{"id": "該当なし", "action": "None", "args": ["習得可能なスキルがない"]}]]
             else:
                 self.skill_list = tmp_item_list.copy()
 

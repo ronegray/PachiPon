@@ -224,9 +224,7 @@ class EventPoint:
             # 脅威度
             upper = route.threat // 10
             lower = route.threat % 10
-            px.blt(
-                info_x + pad, info_y + pad + 1, 0, upper * pad, 0, pad, pad, colkey=px.COLOR_BLACK
-            )
+            px.blt(info_x + pad, info_y + pad + 1, 0, upper * pad, 0, pad, pad, colkey=px.COLOR_BLACK)
             px.blt(
                 info_x + pad * 2,
                 info_y + pad + 1,
@@ -377,10 +375,7 @@ class MapGraph:
         draw_target_points = []
         for point in self.points.values():
             # 描画範囲にあるポイントに対してのみ描画処理を実行
-            if (
-                offset_x <= point.x <= self.map_img_width
-                and offset_y <= point.y <= self.map_img_height
-            ):
+            if offset_x <= point.x <= self.map_img_width and offset_y <= point.y <= self.map_img_height:
                 # 線（Route）の描画
                 for route in point.routes:
                     target_point = self.get_point(route.to_id)

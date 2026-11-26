@@ -332,9 +332,7 @@ class CastSpellBattle(CommandBaseBattle):
 
         return True
 
-    def damage_spell(
-        self, actor: EntityBase, skill_def: SkillDef, target: EntityBase
-    ) -> Generator[list, None, bool]:
+    def damage_spell(self, actor: EntityBase, skill_def: SkillDef, target: EntityBase) -> Generator[list, None, bool]:
         """スペルダメージ関連共通処理"""
         damage = int(
             (actor.damageroll_skill(skill_def) - target.suppress_damage_skill())
@@ -351,9 +349,7 @@ class CastSpellBattle(CommandBaseBattle):
         yield from self.apply_damage(target, damage)
         return True
 
-    def recover_spell(
-        self, actor: EntityBase, skill_def: SkillDef, target: EntityBase
-    ) -> Generator[list, None, None]:
+    def recover_spell(self, actor: EntityBase, skill_def: SkillDef, target: EntityBase) -> Generator[list, None, None]:
         """スペル回復関連共通処理"""
         healing = actor.damageroll_skill(skill_def)
 

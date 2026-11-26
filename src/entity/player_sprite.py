@@ -61,9 +61,7 @@ class PlayerSprite(BaseSprite):
             self._direction = direction
 
     def update(self):
-        self._animation_frame = (
-            px.frame_count // (APP_FPS // 4)
-        ) % 2  # pyxel.frame_rate の代わりに60を使用
+        self._animation_frame = (px.frame_count // (APP_FPS // 4)) % 2  # pyxel.frame_rate の代わりに60を使用
 
     def draw(self, x: int | None = None, y: int | None = None):
         draw_x = self.x if x is None else x

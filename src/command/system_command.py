@@ -13,13 +13,13 @@ from gameutils.base import is_pressed
 
 # from gameutils.lib import WindowAction
 from const import SoundID, FOOD_UNITS, APP_FPS
-# from helper import diceroll
+from helper import diceroll
 
 # from helper import diceroll_values
 # import service_locater as di
 # from entity import Party
-# from event import Event
-from field_map import PointPlaceType  # , EventPoint,
+from event import EventID
+from field_map import PointPlaceType, EventPoint
 from item import ItemState
 from . import CommandBaseSequence, SeqSubCmd, effect_command as efx_cmd
 
@@ -36,7 +36,81 @@ class CommonFieldMessage(CommandBaseSequence):
         for msg in self.kwargs["msg_list"]:
             yield [msg]
 
-        yield from self._wait_finish()
+        yield from self.wait_finish()
+
+
+class KickEvent(CommandBaseSequence):
+    """フィールドイベント起動処理"""
+
+    def _sequence(self) -> Generator[list, None, None]:
+        current_point: EventPoint = self.kwargs["current_point"]
+        current_point.kick_event()
+
+        # 固定イベントポイントの場合
+        fixed = current_point.check_fixedevent()
+        if fixed:
+            current_point.rise_event(fixed)
+            return
+
+        # 算出済ダイス値の取得
+        dices, final_value = current_point.get_event_dice_values()
+        # アイテムボーナス（ダイス数追加）
+        dice_plus = di.ref.pt.pt_dice_plus()
+        dices += dice_plus
+        final_value += [diceroll(1) for _ in range(dice_plus)]
+
+        effect = di.ref.efxdice
+        roll_frames = 60
+        yield ["何が起こるか", "　おたのしみ！"]
+        effect.start(dices, roll_frames, final_value)
+        if not di.ref.conf.is_cutin_dice:
+            effect.skip()
+            self.display_info.graphic_command = effect.get_draw_commands()
+        while effect.is_rolling:
+            effect.update()
+            self.display_info.graphic_command = effect.get_draw_commands()
+            yield [SeqSubCmd.WAIT, 0]
+        yield [f"出た目は・・・　{effect.total}"]
+
+        yield from self.wait_finish()
+
+        # イベントが全てオープンになるまで、同じイベントは再実行されない
+        eventlist = {
+            event_id: event_stat
+            for event_id, event_stat in current_point.event_list.event_stat.items()
+            if event_stat.is_opened is False
+        }
+        # マイナスイベント抑止時
+        if di.ref.pt.get_pt_efx("reduce_negative1") or di.ref.pt.get_pt_efx("reduce_negative2"):
+            negative_list = [
+                event_id
+                for event_id in eventlist
+                if event_id
+                in (
+                    EventID.DECREASE_HP,  # HP減
+                    EventID.DECREASE_MP,  # MP減
+                    EventID.DECREASE_GOLD,  # おかね減
+                    EventID.DECREASE_FOOD,  # 食糧減
+                    EventID.LOST_POTION,  # 低級消耗品減
+                    EventID.SURPRISE_BATTLE,  # 強制戦闘
+                    EventID.LOST_HIPOTION,  # 高級消耗品減
+                )
+            ]
+            reduce_negative = di.ref.pt.pt_reduce_negative(negative_list)
+            for event_id in reduce_negative:
+                eventlist.pop(event_id)
+        # 対象が一つもなくなったら全ランダム
+        if len(eventlist) < 1:
+            eventlist = current_point.event_list.event_stat
+        # 候補内の閾値超えイベントが実際の発生対象
+        # for event_id, event_stat in point.event_list.event_stat.items():
+        for event_id, event_stat in eventlist.items():
+            if effect.total >= event_stat.threshold:
+                event_stat.is_opened = True
+                current_point.rise_event(event_id)
+                break
+
+    # good
 
 
 class PartyDefeated(CommandBaseSequence):
@@ -102,7 +176,7 @@ class PartyDefeated(CommandBaseSequence):
         penalty_turns = max(1, int(di.ref.pt.average_level // 10))
         di.ref.map.defeated_penalty(penalty_turns)
 
-        yield from self._wait_finish()
+        yield from self.wait_finish()
 
         # スタート地点へ戻る
         di.ref.pt.set_current_point("p01")
@@ -160,7 +234,7 @@ class ShopPurchase(CommandBaseSequence):
         # while self.display_info.target.update() == WindowAction.CONTINUE:
         #     yield [SeqSubCmd.WAIT, 0]
         # # self.display_info.target.update_indicator(False)
-        yield from self._wait_finish()
+        yield from self.wait_finish()
 
         match eventpoint.point_type:
             case PointPlaceType.CAPITAL_CITY:
@@ -170,7 +244,7 @@ class ShopPurchase(CommandBaseSequence):
             case PointPlaceType.VILLAGE:
                 next_message = "そっちのもどうじゃろか？"
         yield [next_message]  # type: ignore
-        yield from self._wait_finish()
+        yield from self.wait_finish()
 
 
 class PurchaseFoods(CommandBaseSequence):
@@ -215,7 +289,7 @@ class PurchaseFoods(CommandBaseSequence):
         # while self.display_info.target.update() == WindowAction.CONTINUE:
         #     yield [SeqSubCmd.WAIT, 0]
         # # self.display_info.target.update_indicator(False)
-        yield from self._wait_finish()
+        yield from self.wait_finish()
 
         match eventpoint.point_type:
             case PointPlaceType.CAPITAL_CITY:
@@ -225,7 +299,7 @@ class PurchaseFoods(CommandBaseSequence):
             case PointPlaceType.VILLAGE:
                 next_message = "そっちのもどうじゃろか？"
         yield [next_message]  # type: ignore
-        yield from self._wait_finish()
+        yield from self.wait_finish()
 
 
 class SellEquip(CommandBaseSequence):
@@ -274,7 +348,7 @@ class SellEquip(CommandBaseSequence):
         # self.display_info.target.update_indicator(True)
         yield ["", next_message]  # type: ignore
         # self.display_info.target.update_indicator(False)
-        yield from self._wait_finish()
+        yield from self.wait_finish()
 
 
 # class BattleStartEffect(CommandBaseSequence):
@@ -307,7 +381,7 @@ class FoodShortageMessage(CommandBaseSequence):
         ]
         # while self.display_info.target.update() == WindowAction.CONTINUE:
         #     yield [SeqSubCmd.WAIT, 0]
-        yield from self._wait_finish()
+        yield from self.wait_finish()
 
 
 class FoodShortageEffect(CommandBaseSequence):

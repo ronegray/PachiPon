@@ -233,9 +233,7 @@ class MenuBuyConsume(MenuItemBase):
         tmp_item_list = [
             [
                 {
-                    "id": format_leftright(
-                        item_def.name, f"　{upper_int_spaced(item_def.price, 6)}Ｇ", 34
-                    ),
+                    "id": format_leftright(item_def.name, f"　{upper_int_spaced(item_def.price, 6)}Ｇ", 34),
                     "action": "none",
                     "args": [item_def],
                 }
@@ -245,8 +243,7 @@ class MenuBuyConsume(MenuItemBase):
         ]
         self.inventory_count = len(tmp_item_list)
         self.item_list = [
-            tmp_item_list[i : i + self._list_rows]
-            for i in range(0, self.inventory_count, self._list_rows)
+            tmp_item_list[i : i + self._list_rows] for i in range(0, self.inventory_count, self._list_rows)
         ]
 
         # ページインデックスが範囲外にならないよう補正
@@ -296,9 +293,7 @@ class MenuBuyFoods(MenuItemBase):
         selected_item = self.menu_items[pos_y][pos_x]
         logger.info(selected_item)
 
-        cmd = s_cmd.PurchaseFoods(
-            self.message_window, party=self.pt, price=selected_item.action_args[0]
-        )
+        cmd = s_cmd.PurchaseFoods(self.message_window, party=self.pt, price=selected_item.action_args[0])
         di.ref.cmdmgr.push_command(cmd)
         return RsltContinue()
 
@@ -316,9 +311,7 @@ class MenuBuyEquips(MenuItemBase):
         tmp_item_list = [
             [
                 {
-                    "id": format_leftright(
-                        item_def.name, f"　{upper_int_spaced(item_def.price, 6)}Ｇ", 34
-                    ),
+                    "id": format_leftright(item_def.name, f"　{upper_int_spaced(item_def.price, 6)}Ｇ", 34),
                     "action": "none",
                     "args": [item_def],
                 }
@@ -329,8 +322,7 @@ class MenuBuyEquips(MenuItemBase):
 
         self.inventory_count = len(tmp_item_list)
         self.item_list = [
-            tmp_item_list[i : i + self._list_rows]
-            for i in range(0, self.inventory_count, self._list_rows)
+            tmp_item_list[i : i + self._list_rows] for i in range(0, self.inventory_count, self._list_rows)
         ]
 
         # ページインデックスが範囲外にならないよう補正
@@ -414,8 +406,7 @@ class MenuSellItems(MenuItemBase):
             self.item_list = [[[{"id": "該当なし", "action": "None", "args": [None, None, None]}]]]
         else:
             self.item_list = [
-                filteredlist[i : i + self._list_rows]
-                for i in range(0, self.inventory_count, self._list_rows)
+                filteredlist[i : i + self._list_rows] for i in range(0, self.inventory_count, self._list_rows)
             ]
 
         # ページインデックスが範囲外にならないよう補正

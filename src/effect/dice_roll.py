@@ -89,9 +89,7 @@ class DiceRollEffect:
 
         return positions
 
-    def start(
-        self, count: int, roll_frames: int = DICEROLL_FRAME, final_values: list[int] | None = None
-    ) -> None:
+    def start(self, count: int, roll_frames: int = DICEROLL_FRAME, final_values: list[int] | None = None) -> None:
         """指定個数のサイコロを左上から放り投げ始める"""
         if final_values is not None and count != len(final_values):
             raise ValueError("サイコロ数と結果リスト要素数が不一致です")
@@ -139,11 +137,7 @@ class DiceRollEffect:
         if not self.is_rolling:
             return
 
-        if (
-            (self.elapsed >= self.roll_frames / 2)
-            and is_pressed("decide", "hold")
-            or is_pressed("cancel", "hold")
-        ):
+        if (self.elapsed >= self.roll_frames / 2) and is_pressed("decide", "hold") or is_pressed("cancel", "hold"):
             # self.elapsed = self.roll_frames
             # self._finish()
             self.skip()

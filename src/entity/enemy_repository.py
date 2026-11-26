@@ -91,8 +91,7 @@ class EnemyRepository:
                 # "weaktype": getattr(WeakType, params.get("weaktype", "NONE")),
                 "weaktype": weaktype_overlap,
                 "action_pattern": [
-                    getattr(ActionPattern, str(action).upper())
-                    for action in params.get("action_pattern", [])
+                    getattr(ActionPattern, str(action).upper()) for action in params.get("action_pattern", [])
                 ],
                 "skills": params.get("skills", []),
             }

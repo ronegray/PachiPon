@@ -123,9 +123,7 @@ def main():
     with open(path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    print(
-        f"Cleaning existing routes and re-generating for {len(data['points'])} points with collision avoidance..."
-    )
+    print(f"Cleaning existing routes and re-generating for {len(data['points'])} points with collision avoidance...")
     data["routes"] = generate_routes(data)
     print(f"Generated {len(data['routes'])} routes.")
 
@@ -146,22 +144,16 @@ def main():
                 route_id = parts[1].strip()
                 cost_str = parts[4].strip()
                 try:
-                    route_costs[route_id] = (
-                        int(float(cost_str)) if "." in cost_str else int(cost_str)
-                    )
+                    route_costs[route_id] = int(float(cost_str)) if "." in cost_str else int(cost_str)
                 except ValueError:
-                    print(
-                        f"Warning: Could not convert cost '{cost_str}' for route {route_id} to int. Skipping."
-                    )
+                    print(f"Warning: Could not convert cost '{cost_str}' for route {route_id} to int. Skipping.")
 
     # map_data.json の routes の cost を更新
     for route in data["routes"]:
         if route["id"] in route_costs:
             route["cost"] = route_costs[route["id"]]
         else:
-            print(
-                f"Warning: Cost for route {route['id']} not found in route_cost.md. Keeping default cost."
-            )
+            print(f"Warning: Cost for route {route['id']} not found in route_cost.md. Keeping default cost.")
 
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4, ensure_ascii=False)

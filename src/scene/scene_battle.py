@@ -198,9 +198,7 @@ class SceneBattle(BaseScene):
             if member.is_alive:
                 # イニシアチブデバフが掛かってる時は強制的に0値
                 initiative = (
-                    0
-                    if member.debuff_list.get(DebuffType.INITIATIVE_ZERO, None)
-                    else diceroll(2) + member.bonus_spd
+                    0 if member.debuff_list.get(DebuffType.INITIATIVE_ZERO, None) else diceroll(2) + member.bonus_spd
                 )
                 self.initiative_dict[member.chara_id] = initiative
 
@@ -292,9 +290,7 @@ class SceneBattle(BaseScene):
                 # イニシアチブ値の計算
                 self.calc_initiative()
                 # イニシアチブ値の大きいコマンドがスタック上位に来るようpush
-                initiative_list = [
-                    k for k, _ in sorted(self.initiative_dict.items(), key=lambda item: item[1])
-                ]
+                initiative_list = [k for k, _ in sorted(self.initiative_dict.items(), key=lambda item: item[1])]
                 # ターンの最後（＝コマンドスタックリストの戦闘）にデバフ抵抗ロールを実行
                 di.ref.cmdmgr.push_command(
                     ent_cmd.DebuffRecoverCheck(
@@ -419,9 +415,7 @@ class SceneBattle(BaseScene):
         """サブシーンへの戦闘関連データ受け渡し用"""
         member_list = di.ref.pt.get_allmember()
         member = [
-            member
-            for member in member_list
-            if member.chara_id not in self.battle_commands.keys() and member.is_alive
+            member for member in member_list if member.chara_id not in self.battle_commands.keys() and member.is_alive
         ]
         actor = target = member[0]
 
@@ -447,13 +441,13 @@ class SceneFixedBattle(BaseScene):
         ActionPattern.DEFEND: btl_cmd.DefenceMode,
     }
 
-    def __init__(self, enemy_count: int, enemy_id: str, victory_event_class=None):
+    def __init__(self, enemy_count: int, enemy_id: str, after_event_class=None):
         super().__init__()
         self.situation = "battle"
         self.initiative_dict: dict = {}  # イニシアチブ値格納辞書
         self.battle_commands: dict = {}  # 行動コマンド格納辞書
         self.is_battle_over: bool = False  # 戦闘終了フラグ
-        self.victory_evt_cmd = victory_event_class
+        self.afterbattle_evt_cmd = after_event_class
         # # 背景用に直前画面のスクリーンポインタからイメージ生成
         # self.bgimage: px.Image = px.Image(px.width, px.height)
         # bgpointer = self.bgimage.data_ptr()
@@ -621,9 +615,7 @@ class SceneFixedBattle(BaseScene):
             if member.is_alive:
                 # イニシアチブデバフが掛かってる時は強制的に0値
                 initiative = (
-                    0
-                    if member.debuff_list.get(DebuffType.INITIATIVE_ZERO, None)
-                    else diceroll(2) + member.bonus_spd
+                    0 if member.debuff_list.get(DebuffType.INITIATIVE_ZERO, None) else diceroll(2) + member.bonus_spd
                 )
                 self.initiative_dict[member.chara_id] = initiative
 
@@ -692,9 +684,16 @@ class SceneFixedBattle(BaseScene):
             # 戦闘限定デバフの解除
             [member.clear_battle_debuff() for member in di.ref.pt.get_active_member()]
             # 指定イベントがある場合は勝利後イベントへ
-            if self.victory_evt_cmd:
+            if self.afterbattle_evt_cmd:
                 di.ref.cmdmgr.push_command(
-                    self.victory_evt_cmd(self.message_window, self.bgimage, self.enemy_list)
+                    self.afterbattle_evt_cmd(
+                        self.build_context(
+                            di.ref.pt.get_member(), self.enemy_list[0], di.ref.pt.get_allmember(), self.enemy_list
+                        ),
+                        self.message_window,
+                        bgimage=self.bgimage,
+                        enemy_list=self.enemy_list,
+                    )
                 )
                 # 経験値取得＆レベルアップ処理シーンへ遷移
                 di.ref.cmdmgr.set_on_empty(di.ref.scnmgr.next_scene("afterbattle"))
@@ -708,18 +707,24 @@ class SceneFixedBattle(BaseScene):
             self.is_battle_over = True
             return
 
-        # パーティメンバーが全員死亡したら初期ポイントへ連行
-        if di.ref.pt.get_active_member_count() < 1:
-            di.ref.cmdmgr.push_command(
-                PartyDefeated(self.message_window, bgimage=self.bgimage, enemies=self.enemy_list)
-            )
-            return
+        # # パーティメンバーが全員死亡したら初期ポイントへ連行
+        # if di.ref.pt.get_active_member_count() < 1:
+        #     di.ref.cmdmgr.push_command(
+        #         PartyDefeated(self.message_window, bgimage=self.bgimage, enemies=self.enemy_list)
+        #     )
+        #     return
 
         # パーティメンバーの死亡を考慮し先頭キャラ再チェック
         di.ref.pt.update_top_index()
 
         # コマンドスタックが存在する場合はシーンを抜けてコマンド処理へ
         if di.ref.cmdmgr.is_empty:
+            # パーティメンバーが全員死亡したら初期ポイントへ連行
+            if di.ref.pt.get_active_member_count() < 1:
+                di.ref.cmdmgr.push_command(
+                    PartyDefeated(self.message_window, bgimage=self.bgimage, enemies=self.enemy_list)
+                )
+                return
             # コマンドリストにアクティブメンバー数のコマンドが揃うまでループ
             if len(self.battle_commands.keys()) < di.ref.pt.get_active_member_count():
                 di.ref.scnmgr.next_scene("battlemenu")
@@ -729,9 +734,7 @@ class SceneFixedBattle(BaseScene):
                 # イニシアチブ値の計算
                 self.calc_initiative()
                 # イニシアチブ値の大きいコマンドがスタック上位に来るようpush
-                initive_list = [
-                    k for k, _ in sorted(self.initiative_dict.items(), key=lambda item: item[1])
-                ]
+                initive_list = [k for k, _ in sorted(self.initiative_dict.items(), key=lambda item: item[1])]
                 # ターンの最後（＝コマンドスタックリストの戦闘）にデバフ抵抗ロールを実行
                 di.ref.cmdmgr.push_command(
                     ent_cmd.DebuffRecoverCheck(
@@ -856,9 +859,7 @@ class SceneFixedBattle(BaseScene):
         """サブシーンへの戦闘関連データ受け渡し用"""
         member_list = di.ref.pt.get_allmember()
         member = [
-            member
-            for member in member_list
-            if member.chara_id not in self.battle_commands.keys() and member.is_alive
+            member for member in member_list if member.chara_id not in self.battle_commands.keys() and member.is_alive
         ]
         actor = target = member[0]
 

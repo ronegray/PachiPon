@@ -10,8 +10,11 @@ import pyxel as px
 from const import APP_WIDTH, APP_HEIGHT
 from gameutils.lib import Window
 import service_locater as di
-from event import EventType
-from . import BaseScene, SceneField
+from event import EventType, EventID
+from field_map import EventPoint
+from command.event_command import PlayEvent, MeetAlly
+from entity import EntityContext
+from . import BaseScene  # , SceneField
 
 # ロギング設定
 logger = logging.getLogger(__name__)
@@ -20,35 +23,45 @@ logger = logging.getLogger(__name__)
 class SceneFieldEvent(BaseScene):
     """イベントシーン"""
 
-    def __init__(self) -> None:
+    def __init__(self, ctx: EntityContext, event_point: EventPoint) -> None:
         super().__init__()
         self.situation = "system"
 
-        self.parent_scene = di.ref.scnmgr.get_now_scene()
-        if not isinstance(self.parent_scene, SceneField):
-            errmsg = f"想定外のシーンから呼び出されました：{self.parent_scene.__class__.__name__}"
-            logger.critical(errmsg, exc_info=True)
-            raise TypeError(errmsg)
-        self.event = self.parent_scene.current_point.nextevent
+        # self.parent_scene = di.ref.scnmgr.get_now_scene()
+        # if not isinstance(self.parent_scene, SceneField):
+        #     errmsg = f"想定外のシーンから呼び出されました：{self.parent_scene.__class__.__name__}"
+        #     logger.critical(errmsg, exc_info=True)
+        #     raise TypeError(errmsg)
+        # event = self.parent_scene.current_point.nextevent
+        self.event_point = event_point
+        event = event_point.nextevent
+        self.event_type = event.event_type  # type: ignore
 
         # イベントメッセージウインドウの生成
-        self.message_window = Window(
-            "large", 4, APP_HEIGHT // 2 - 4, APP_WIDTH - 8, APP_HEIGHT // 2, "once"
-        )
+        self.message_window = Window("large", 4, APP_HEIGHT // 2 - 4, APP_WIDTH - 8, APP_HEIGHT // 2, "once")
         self.message_window.update_row_max(6)
 
         # フィールドシーンからイベント情報を取得
-        ctx, evtcmd = self.parent_scene.transfer_eventdata()
-        cmd = evtcmd(
-            self.message_window,
-            ctx,
-            # self.parent_scene.current_point.nextevent,
-            # # self.parent_scene,
-            event=self.event,
-            party=di.ref.pt,
-        )  # type: ignore
+        # # ctx, evtcmd = self.parent_scene.transfer_eventdata()
+        # cmd = evtcmd(
+        #     self.message_window,
+        #     ctx=ctx,
+        #     # self.parent_scene.current_point.nextevent,
+        #     # # self.parent_scene,
+        #     event=event,
+        #     party=di.ref.pt,
+        # )  # type: ignore
+        # di.ref.cmdmgr.push_command(cmd)
+        # # parent_scene.current_point.flush_event()
+        if event.event_id == EventID.MEET_ALLY:  # type: ignore
+            cmd = MeetAlly(
+                self.message_window,
+                # ctx=ctx,
+                event=event,
+            )
+        else:
+            cmd = PlayEvent(ctx, self.message_window, event_point=event_point)
         di.ref.cmdmgr.push_command(cmd)
-        # parent_scene.current_point.flush_event()
 
         # イベント画像の取得
         self.eventimage: px.Image = px.Image.from_image("assets/image/event01.bmp")
@@ -61,11 +74,11 @@ class SceneFieldEvent(BaseScene):
     def load_bgm(self) -> None:
         """シーン切替時のBGMロード"""
         # di.ref.sndmgr.request_bgm("event_slow")
-        match self.event.event_type:  # type: ignore
+        match self.event_type:  # type: ignore
             case EventType.SAFETY:
                 bgm_name = "event_slow"
             case EventType.NORMAL:
-                bgm_name = "event_slow"
+                bgm_name = "event_normal"
             case EventType.GAMBLE:
                 bgm_name = "event_slow"
             case EventType.BATTLE:
@@ -73,16 +86,11 @@ class SceneFieldEvent(BaseScene):
         di.ref.sndmgr.request_bgm(bgm_name)
 
     def update(self):
-        """更新処理
-        - 戦闘終了フラグ時は戦闘報酬コマンド発行
-        - 生存エネミーが0の場合に戦闘終了フラグON
-        - コマンドスタックがある場合はコマンド処理へ抜ける
-          - ない場合は生存PTメンバー分のコマンド生成をループ実行
-          - コマンド数が揃ったらエネミー側コマンドと行動順を決定してコマンドスタック追加
-        """
+        """更新処理"""
 
         if di.ref.cmdmgr.is_empty:
-            self.parent_scene.current_point.flush_event()  # type: ignore
+            """イベントコマンド終了後処理"""
+            self.event_point.flush_event()
             di.ref.scnmgr.previous_scene()
 
     def draw(self):

@@ -13,6 +13,7 @@ from gameutils.lib import Window
 import service_locater as di
 from field_map import EventPoint, Route
 from helper import diceroll
+from item import ItemID, ItemDef, ItemType
 
 # import command.system_command as s_cmd
 # from command.effect_command import CommonEffectWrapper, efx_damage_shake, efx_screen_flash
@@ -157,7 +158,7 @@ class Party:
 
     @property
     def average_level(self) -> float:
-        members = self.get_active_member_count()
+        members = max(1, self.get_active_member_count())
         levels = [mem.param.level for mem in self.get_allmember()]
         return sum(levels) / members
 
@@ -216,9 +217,7 @@ class Party:
         # ID生成
         candidate_id_list = list(range(1, 10))
         member_id_list = set([mem.chara_id for mem in self._member_list])
-        newbie_char_id = max(
-            char_id for char_id in candidate_id_list if char_id not in member_id_list
-        )
+        newbie_char_id = max(char_id for char_id in candidate_id_list if char_id not in member_id_list)
         # スプライトタイプ選択
         newbie_sprite_type = choice(list(PlayerSpriteType))
         if newbie_sprite_type == PlayerSpriteType.HERO:
@@ -232,9 +231,7 @@ class Party:
             newbie_name = "Ｊ・ｄｏｅ"
         # キャラクタレベル
         average_lv = px.ceil(self.average_level)
-        newbie_lv = average_lv + choice(
-            [-1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2]
-        )
+        newbie_lv = average_lv + choice([-1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2])
         # パラメータ設定
         bp = BONUS_POINT + newbie_lv - 1
         half_bp = bp // 2
@@ -519,6 +516,26 @@ class Party:
                 # 0以下になった初回だけメッセージ表示
                 cmd2 = FoodShortageMessage(self.pt_msg_window)
                 self.cmdmgr.push_command(cmd2)
+
+    def get_item(self, item_id: ItemID) -> ItemDef:
+        """アイテム獲得"""
+        item_def = di.ref.itemrps.get_def(item_id)
+        if item_def.item_type == ItemType.CONSUME:
+            di.ref.pl_stack.add(item_id)
+        else:
+            di.ref.pl_item.create(item_id)
+
+        return item_def
+
+    def lost_item(self, item_id: ItemID) -> ItemDef:
+        """アイテム遺失"""
+        item_def = di.ref.itemrps.get_def(item_id)
+        if item_def.item_type == ItemType.CONSUME:
+            di.ref.pl_stack.remove(item_id)
+        else:
+            di.ref.pl_item.destroy(item_id)
+
+        return item_def
 
     def update(self):
         """移動時のジェネレータとスプライト描画内容を更新"""
