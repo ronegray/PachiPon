@@ -13,6 +13,8 @@ dependencies = [
 ]
 [tool.ruff]
 line-length = 120
+[tool.ruff.lint]
+ignore = ["RUF012","I001"]
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401","F811"]
 [tool.pyright]
