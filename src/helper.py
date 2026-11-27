@@ -26,10 +26,7 @@ def diceroll_values(n: int) -> list[int]:
 
 def upper_str(chars: str) -> str:
     """半角英数字を全角に変換"""
-    # if unicodedata.east_asian_width(char) not in ("F", "W", "A"):
-    #     return str(char).translate(UPPER_ASCII_TABLE)
-    # else:
-    #     return char
+
     converted = ""
     for char in chars:
         if unicodedata.east_asian_width(char) not in ("F", "W", "A"):

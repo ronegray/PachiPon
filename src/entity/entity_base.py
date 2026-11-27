@@ -167,7 +167,6 @@ class EntityBase(ABC):
 
     def attackroll_defence(self) -> int:
         """命中ロール：防御側"""
-        # return (self.speed + self.bonus_lck) * self.defend_rate
         return (self.bonus_spd + self.bonus_lck + self.param.level // 3) * self.defend_rate
 
     def get_critical_rate(self, diff: int) -> int:
@@ -181,9 +180,7 @@ class EntityBase(ABC):
 
     def damageroll_melee(self) -> tuple[int, int]:
         """近接ダメージ計算"""
-        # return (self.hitdice, diceroll(max(1, self.hitdice)) + self.bonus_str)
         dice = max(1, self.hitdice)
-        # return (dice, diceroll(dice) + self.bonus_str - self.reduce_dice)
         return (dice, diceroll(dice) + self.strength - self.reduce_dice)
 
     def suppress_damage_melee(self) -> int:
@@ -249,7 +246,6 @@ class EntityBase(ABC):
 
     def clear_battle_debuff(self) -> None:
         """一部デバフは戦闘終了で回復"""
-        # self.debuff_list.clear()
         self.debuff_list.pop(DebuffType.REDUCE_DICEVALUE, None)
         self.debuff_list.pop(DebuffType.FALL_ASLEEP, None)
         self.debuff_list.pop(DebuffType.DISTURB_MIND, None)

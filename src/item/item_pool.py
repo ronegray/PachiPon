@@ -1,11 +1,8 @@
 import logging
 from collections import defaultdict, deque
-
-# from dataclasses import asdict
 import service_locater as di
 from . import (
     ItemID,
-    # ItemDef,
     ItemType,
     ItemState,
     ItemInstance,
@@ -23,18 +20,10 @@ class ItemPool:
 
     _capacity = 4096
 
-    # def __init__(self, capacity: int = 4096):
     def __init__(self, capacity: int = -1):
         capacity = ItemPool._capacity if capacity == -1 else capacity
         self._free: deque[int] = deque(range(capacity))
         self._items: dict[int, PoolEntry] = {}
-
-    #     self.create_initial_items()
-
-    # def create_initial_items(self) -> None:
-    #     """ゲーム開始時装備アイテムの作成"""
-    #     self.create(ItemID.DAGGER, ItemState.BAG)
-    #     self.create(ItemID.CLOTH, ItemState.BAG)
 
     def get_def(self, def_id: ItemID):
         return di.ref.itemrps.get_def(def_id)
@@ -104,7 +93,6 @@ class ItemPool:
             i = int(idx)
             self._free.remove(i)
             item_param = di.ref.itemrps.get_def(ent["def_id"])
-            # ent_ins = ItemInstance(item_param)
             pe = PoolEntry(
                 ins=ItemInstance(param=item_param),  # type: ignore
                 stat=ent["stat"],
@@ -117,15 +105,11 @@ class StackPool:
     """(def_id, owner_id) → 数量 のシンプル管理"""
 
     def __init__(self):
-        # self._stacks: dict[tuple[ItemID, ItemState], int] = defaultdict(int)
         self._stacks: dict[ItemID, int] = defaultdict(int)
 
     def get_def(self, def_id: ItemID):
         return di.ref.itemrps.get_def(def_id)
 
-    # def add(self, def_id: ItemID, state: ItemState, count: int = 1) -> None:
-    #     """スタックへのアイテム追加・数量加算"""
-    #     self._stacks[(def_id, state)] += count
     def add(self, def_id: ItemID, count: int = 1) -> None:
         """スタックへのアイテム追加・数量加算"""
         if self._stacks.get(def_id):
@@ -133,18 +117,8 @@ class StackPool:
         else:
             self._stacks[def_id] = count
 
-    # def remove(self, def_id: ItemID, owner_id: ItemState, count: int = 1) -> bool:
-    #     """スタックアイテムの数量減算・削除"""
-    #     key = (def_id, owner_id)
-    #     if self._stacks[key] < count:
-    #         return False  # 所持数不足
-    #     self._stacks[key] -= count
-    #     if self._stacks[key] == 0:
-    #         del self._stacks[key]
-    #     return True
     def remove(self, def_id: ItemID, count: int = 1) -> bool:
         """スタックアイテムの数量減算・削除"""
-        # key = (def_id, owner_id)
         if self._stacks[def_id] < count:
             return False  # 所持数不足
         self._stacks[def_id] -= count
@@ -152,42 +126,22 @@ class StackPool:
             del self._stacks[def_id]
         return True
 
-    # def transfer(
-    #     self, def_id: ItemID, from_owner: ItemState, to_owner: ItemState, count: int = 1
-    # ) -> bool:
-    #     """スタックアイテムの移動（BAG⇔FREEの行き来を想定）"""
-    #     if self.remove(def_id, from_owner, count):
-    #         self.add(def_id, to_owner, count)
-    #         return True
-    #     return False
-
-    # def count(self, def_id: ItemID, owner_id: ItemState) -> int:
-    #     return self._stacks.get((def_id, owner_id), 0)
     def count(self, def_id: ItemID) -> int:
         """指定アイテムの所持個数を取得"""
         return self._stacks.get(def_id, 0)
 
-    # def get_by_state(self, state: ItemState) -> dict[ItemID, int]:
-    #     """指定した者が持つアイテムリストを取得する"""
-    #     return {keypair[0]: cnt for keypair, cnt in self._stacks.items() if keypair[1] == state}
     def get_stacks(self, state: ItemState) -> dict[ItemID, int]:
         """スタックアイテムリストを取得"""
         return {key: cnt for key, cnt in self._stacks.items()}
 
-    # def save_stack(self) -> dict:
-    #     """セーブデータに保存するパラメタを辞書形式で返す"""
-    #     # return self._stacks
-    #     return {str(ItemID(key)): val for key, val in self._stacks.items()}
     def save_stack(self) -> list:
         """セーブデータに保存するパラメタをリスト形式で返す"""
-        # return self._stacks
         return [[(int(key)), val] for key, val in self._stacks.items()]
 
     def load_stack(self, datas: dict, ver: int) -> None:
         """インスタンスアイテムパラメタをロードデータから反映"""
         # 現在の情報をクリア
         self._stacks.clear()
-        # self._stacks = datas.copy()
         if ver == 0:
             self._stacks.update({ItemID(int(key)): val for key, val in datas.items()})
         else:

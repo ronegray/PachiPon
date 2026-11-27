@@ -5,13 +5,9 @@
 
 import pyxel as px
 import service_locater as di
-
-# from const import SoundID
 from . import BaseScene
 from gameutils.base import is_pressed
 from gameutils.lib import Window
-
-# from command.system_command import BattleStartEffect
 from command.effect_command import CommonEffectWrapper, efx_encount_splash
 
 
@@ -29,14 +25,10 @@ class SceneBattleSplash(BaseScene):
         bgpointer[:] = px.screen.data_ptr()
 
         dummy = Window("basic", 0, 0, 0, 0, "hold")
-        # di.ref.cmdmgr.push_command(BattleStartEffect(dummy))
         di.ref.cmdmgr.push_command(CommonEffectWrapper(dummy, func=efx_encount_splash, parms=None))
         self.is_skip_splash: bool = False
         self.is_next_scene: bool = False
         """このシーンではbgmは無し SEのみ"""
-        # se_ch = 3
-        # px.play(se_ch, SoundID.ENCOUNT, resume=True)
-        # di.ref.sndmgr.play_se_sustain(SoundID.ENCOUNT)
 
     def update(self) -> None:
         """更新ループ"""

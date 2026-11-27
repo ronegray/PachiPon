@@ -172,7 +172,6 @@ class Equips:
         self.equip_off(slot)
 
         # スタックから該当IDのアイテムを1つ削除
-        # di.ref.pl_stack.remove(def_id, ItemState.FREE, 1)
         di.ref.pl_stack.remove(def_id)
 
     def check_sacredweapon(self) -> bool:

@@ -31,8 +31,7 @@ class SceneCharaMake(BaseScene):
 
         # キャラクターのベースデータ作成
         self.param = di.ref.scnmgr.get_now_scene().param  # type: ignore
-        # self.charaimage: px.Image = px.Image.from_image(AssetMap.get_assetpath(AssetID.IMAGE_CHARA))
-        # self.sprite = PlayerSprite(0, 0, self.charaimage)
+
         self.sprite = PlayerSprite(0, 0, PlayerSpriteType.HERO)
         self.hero = Character(chara_id=0, param=self.param, sprite=self.sprite)
 

@@ -14,16 +14,10 @@ from gameutils.lib import (
     RsltPush,
     RsltDiscard,
 )
-
-# import service_locater as di
 from entity import EntityContext, EntityBase, Character, EquipSlot
 from skill import SkillTargetType
 from item import ItemTargetType
-
-# import command.entity_command as e_cmd
 import command.entity_battle_command as btl_cmd
-
-# import command.action_command as en_cmd
 from command import CommandPackage
 
 # ロギング設定
@@ -34,7 +28,6 @@ class MenuBattle(Menu):
     def __init__(
         self,
         ctx: EntityContext,
-        # command_package: btl_cmd.CommandPackage,
         command_package: CommandPackage,
     ):
         menu_pos = (0, 192)
@@ -243,7 +236,6 @@ class MenuSelectItem(Menu):
         self,
         ctx: EntityContext,
         ref_window: dict[str, int],
-        # command_package: btl_cmd.CommandPackage,
         command_package: CommandPackage,
     ):
         self.ctx = ctx
@@ -378,26 +370,12 @@ class MenuSelectItem(Menu):
     def select_target(self, *args) -> ExecResult:
         """味方メンバーターゲット選択メニューを呼び出し"""
 
-        # eq_slot, item_iid, plent = self.target_item[0]["args"]
         eq_slot, _, plent = self.target_item[0]["args"]
-        # func_name = plent.ins.param.effect_id  # type: ignore
         item_def = plent.ins.param  # type: ignore
 
         from menu import MenuSelectBattleTarget
 
-        # # コマンドパッケージに選択内容登録
-        # self.command_package.selected_action = getattr(itm_cmd, func_name)
-        # # if func_name == "escape_battle":
-        # #     self.command_package.target_type = SkillTargetType.ALL  # type: ignore
-        # # else:
-        # #     self.command_package.target_type = SkillTargetType.ALLY  # type: ignore
-        # # self.command_package.selected_args = {
-        # #     "item_def": plent.ins.param,  # type: ignore
-        # #     "slot": eq_slot,
-        # # }
-
         # コマンドパッケージに選択内容登録
-        # self.command_package.selected_action = getattr(itm_cmd, item_def.effect_id)
         from command.entity_battle_command import UseItemBattle
 
         self.command_package.selected_action = UseItemBattle

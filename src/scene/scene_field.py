@@ -12,18 +12,11 @@ import service_locater as di
 from const import FIELD_MESSAGE_HEIGHT, APP_WIDTH, APP_HEIGHT
 from gameutils.base import is_pressed
 from gameutils.lib import Window, WindowAction
-
-# from event import EventID, EventType, Event
 from field_map import EventPoint, PointPlaceType
 from entity import EntityContext
-from command import CommandPackage  # , CommandBaseSequence,
-
-# import command.entity_command as en_cmd
+from command import CommandPackage
 import command.system_command as s_cmd
 from helper import format_leftright
-
-# import command.system_command as s_cmd
-# import command.event_command as ev_cmd
 from menu import MenuField
 from . import BaseScene
 
@@ -79,19 +72,15 @@ class SceneField(BaseScene):
         self.eventpoint_info_window.clear_message()
         self.eventpoint_info_window.add_message(
             (
-                self.current_point.name  # + PointPlaceType(self.current_point.point_type).name)
+                self.current_point.name
             )
         )
         self.eventpoint_state_window.set_message(
             [f"イベントタイプ：{PointPlaceType(self.current_point.point_type).name}"]
         )
         if self.current_point.is_ready:
-            # self.eventpoint_state_window.set_message(
-            #     ["イベント実行準備が完了しています（決定ボタンで実行）"]
             self.eventpoint_state_window.add_message("イベント実行準備が完了しています（決定ボタンで実行）")
         else:
-            # self.eventpoint_state_window.set_message(
-            #     [f"イベント実行準備中です（あと{self.current_point.ready_count}ターン）"]
             self.eventpoint_state_window.add_message(
                 f"イベント実行準備中です（あと{self.current_point.ready_count}ターン）"
             )
@@ -164,7 +153,6 @@ class SceneField(BaseScene):
                 self.wndmgr.pop_stack()
             else:
                 self.ctx = self.build_context()
-                # self.command_package = en_cmd.CommandPackage()
                 self.command_package = CommandPackage()
                 self.wndmgr.push_stack(
                     MenuField,
@@ -281,21 +269,3 @@ class SceneField(BaseScene):
             targets=list(di.ref.pt.get_allmember()),
         )
         return ctx
-
-    # def transfer_eventdata(self) -> tuple[EntityContext, CommandBaseSequence]:
-    #     """サブシーンへのイベント関連データ受け渡し用"""
-    #     ctx = self.build_context()
-
-    #     event_func_name = (
-    #         EventType(self.current_point.nextevent.event_type).name  # type: ignore
-    #         + "_"
-    #         + EventID(self.current_point.nextevent.event_id).name  # type: ignore
-    #     )
-
-    #     # # デバッグ用
-    #     # event_func_name = "NORMAL_DECREASE_HP"
-    #     # event_func_name = "SAFETY_INCREASE_HP"
-    #     # event_func_name = "NORMAL_MEET_ALLY"
-
-    #     evtcmd = getattr(ev_cmd, event_func_name)
-    #     return (ctx, evtcmd)

@@ -117,9 +117,6 @@ class MenuLevelup(Menu):
         RC = self.key_check()
         return RC
 
-    # def individual_update(self):
-    #     """MenuYesNoからの戻り値に応じた処理"""
-
     def ask_confirm(self) -> RsltPush:
         return RsltPush(
             MenuYesNo,
@@ -130,10 +127,8 @@ class MenuLevelup(Menu):
     def key_check(self) -> WindowAction:
         """キー入力の確認と応答"""
         if self.move_cursor():
-            # px.play(self.se_ch, self.ui_se["CURSOR_VERTICAL"], resume=True)
             self.se.play(self.ui_se["CURSOR_VERTICAL"])
         elif self.inputkey.decide():
-            # px.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
             self.se.play(self.ui_se["DECIDE"])
             return WindowAction.EXECUTE
         return WindowAction.CONTINUE

@@ -3,7 +3,7 @@
 """
 
 import logging
-from typing import Generator  # , cast
+from typing import Generator
 import pyxel as px
 from const import SoundID
 
@@ -19,8 +19,6 @@ from item import (
     StackPool,
 )
 from entity import EntityContext
-
-# import command.entity_command as en_cmd
 import command.action_command as act_cmd
 from command import CommandPackage, CommandBaseAction
 
@@ -37,7 +35,6 @@ class MenuSelectItemCategory(Menu):
         menu_pos_x: int,
         menu_pos_y: int,
         ctx: EntityContext,
-        # command_package: itm_cmd.CommandPackage,
         command_package: CommandPackage,
     ) -> None:
         menu_pos = (menu_pos_x, menu_pos_y)
@@ -155,18 +152,14 @@ class MenuItemBase(Menu):
         """クラス固有の更新処理"""
         # 左右キーでのリスト内容切替
         if len(self.item_list) > 1:
-            # if self.inputkey.left():
             if self.inputkey.LS():
-                # px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
                 self.se.play(SoundID.PAGE_ARROW)
                 self.itemlist_index = (self.itemlist_index - 1) % len(self.item_list)
                 self.remap_itemlist()
                 self.change_target_item()
                 self.is_push_left = 1
                 return
-            # if self.inputkey.right():
             if self.inputkey.RS():
-                # px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
                 self.se.play(SoundID.PAGE_ARROW)
                 self.itemlist_index = (self.itemlist_index + 1) % len(self.item_list)
                 self.remap_itemlist()
@@ -177,7 +170,6 @@ class MenuItemBase(Menu):
         """カーソル移動時に詳細ウインドウの内容を書き換える"""
         result = super().move_cursor()
         if result:
-            # px.play(self.se_ch, SoundID.CURSOR_VERTICAL, resume=True)
             self.se.play(SoundID.CURSOR_VERTICAL)
             self.change_target_item()
         return result
@@ -208,7 +200,6 @@ class MenuUseItem(MenuItemBase):
     def __init__(
         self,
         ctx: EntityContext,
-        # command_package: itm_cmd.CommandPackage,
         command_package: CommandPackage,
     ):
         """データ取得と表示ウインドウの再定義"""
@@ -288,7 +279,7 @@ class MenuUseItem(MenuItemBase):
 
         from menu import MenuSelectFieldTarget
 
-        # # コマンドパッケージに選択内容登録
+        # コマンドパッケージに選択内容登録
         if item_def.effect_id == "learn_skill":
             self.command_package.selected_action = getattr(act_cmd, item_def.effect_id)
         else:
@@ -313,20 +304,7 @@ class UseItemField(CommandBaseAction):
 
     def _sequence_action(self) -> Generator[list, None, None]:
         """アイテム利用の殻"""
-        # # # 引き回されたアイテムデータの取得
-        # # # self.item_def = cast(ItemDef, self.args[0]["item_def"])
-        # # self.item_def = cast(ItemDef, self.args[0]["item_def"])
-        # self.pl_stack = cast(StackPool, self.args[0]["pl_stack"])
-
-        # self.pl_stack.remove(self.item_def.def_id)
-
-        # from command import item_
-        # yield from item_.potion_hp(self)
-        # # yield []
-        # return
-
-        # self.item_def = self.args[0]["item_def"]
-        # pl_stack = cast(StackPool, self.args[0]["pl_stack"])
+        # 引き回されたアイテムデータの取得
         self.item_def: ItemDef = self.kwargs["sel_cmd_dict"]["item_def"]
         pl_stack: StackPool = self.kwargs["sel_cmd_dict"]["source"]
 
@@ -341,8 +319,6 @@ class UseItemField(CommandBaseAction):
                 after_effects=[lambda dsp=self.display_info: efx_screen_flash(dsp, px.COLOR_WHITE)],
             )
         )
-
-        # yield []
         return
 
 

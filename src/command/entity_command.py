@@ -9,31 +9,13 @@ import logging
 from typing import Generator, cast
 
 import pyxel as px
-from const import SoundID  # , APP_FPS
-# from gameutils.base import is_pressed
-# from gameutils.lib import Window, WindowAction
-# from gameutils.lib import WindowAction
-
-# from helper import diceroll, upper_int
+from const import SoundID
 from helper import upper_int
-
-# from entity import EntityContext, Enemy, Party  # , WeakType  # , Character
-# from skill import SkillTargetType, DebuffType  # , SkillID
-from entity import Enemy, Party  # , WeakType  # , Character
-from skill import DebuffType  # , SkillID
-
-# from item import ItemTargetType  # , StackPool  # , ItemState  # , WeaponType
+from entity import Enemy, Party
+from skill import DebuffType
 import service_locater as di
-
-# from . import CommandBaseSequence, SeqSubCmd  # , CommandPhase
-from . import CommandBaseEntity, SeqSubCmd  # , CommandPhase
-from .effect_command import (
-    efx_diceroll,
-    # efx_physical_attack,
-    # efx_damage_shake,
-    # efx_monster_dead,
-    # efx_skill_attack,
-)
+from . import CommandBaseEntity, SeqSubCmd
+from .effect_command import efx_diceroll
 
 
 # ロギング設定
@@ -49,12 +31,9 @@ class GrantReward(CommandBaseEntity):
 
         # ここで勝利SEとBGMロード
         px.stop()
-        # px.play(self.se_ch, SoundID.BATTLE_VICTORY, resume=True)
-        # di.ref.sndmgr.play_se_sustain(SoundID.BATTLE_VICTORY)
         yield [SeqSubCmd.SE_SUSTAIN, SoundID.BATTLE_VICTORY]
         yield ["敵との戦闘に　勝利した！！"]
         yield [""]
-        # yield [SeqSubCmd.WAIT, "1"]  # 勝利SEの長さを文字で返す
 
         # お金
         reward_gold = sum([enemy.eparam.gold for enemy in enemy_list])
@@ -69,10 +48,6 @@ class GrantReward(CommandBaseEntity):
             member.gain_exp(getexp)
             yield [f"{member.param.name}は　経験値{upper_int(getexp)}　を稼いだ！"]
 
-        # self.display_info.target.update_indicator(True)
-        # while self.display_info.target.update() == WindowAction.CONTINUE:
-        #     yield [SeqSubCmd.WAIT, 0]
-        # self.display_info.target.update_indicator(False)
         yield from self.wait_finish()
 
 
@@ -82,14 +57,11 @@ class CharacterInitialHPMP(CommandBaseEntity):
     def _sequence(self) -> Generator[list, None, None]:
         effect = di.ref.efxdice
         roll_frames = 60
-        # yield ["初期ＨＰとＭＰの最大値を決定します"]
-        # yield ["ＨＰサイコロの数は、２＋耐久ボーナス値"]
         yield ["初期ＨＰとＭＰの最大値を決定します", "ＨＰサイコロの数は、２＋耐久ボーナス値"]
         dices = 2 + self.ctx.actor.bonus_end
         effect.start(dices, roll_frames)
         if not di.ref.conf.is_cutin_dice:
             effect.skip()
-            # self.display_info.graphic_command = effect.get_draw_commands()
         while effect.is_rolling:
             effect.update()
             self.display_info.graphic_command = effect.get_draw_commands()
@@ -99,17 +71,11 @@ class CharacterInitialHPMP(CommandBaseEntity):
         self.ctx.actor.param.max_hp = max_hp
         self.ctx.actor.param.hp = max_hp
 
-        # self.display_info.target.update_indicator(True)
-        # while self.display_info.target.update() == WindowAction.CONTINUE:
-        #     yield [SeqSubCmd.WAIT, 0]
-        # self.display_info.target.update_indicator(False)
-
         yield ["", "ＭＰサイコロの数は、１＋魔力ボーナス値"]
         dices = 1 + self.ctx.actor.bonus_arc
         effect.start(dices, roll_frames)
         if not di.ref.conf.is_cutin_dice:
             effect.skip()
-            # self.display_info.graphic_command = effect.get_draw_commands()
         while effect.is_rolling:
             effect.update()
             self.display_info.graphic_command = effect.get_draw_commands()
@@ -119,10 +85,6 @@ class CharacterInitialHPMP(CommandBaseEntity):
         self.ctx.actor.param.max_mp = max_mp
         self.ctx.actor.param.mp = max_mp
 
-        # self.display_info.target.update_indicator(True)
-        # while self.display_info.target.update() == WindowAction.CONTINUE:
-        #     yield [SeqSubCmd.WAIT, 0]
-        # self.display_info.target.update_indicator(False)
         yield from self.wait_finish()
 
 
@@ -130,8 +92,6 @@ class CharacterLevelup(CommandBaseEntity):
     """レベルアップメッセージと効果音"""
 
     def _sequence(self) -> Generator[list, None, None]:
-        # px.play(self.se_ch, SoundID.LEVEL_UP, resume=True)
-        # di.ref.sndmgr.play_se_sustain(SoundID.LEVEL_UP)
         yield [SeqSubCmd.SE_INSTANT, SoundID.LEVEL_UP]
         yield [f"{self.ctx.actor.param.name}は　レベルアップ！！", ""]
         return
@@ -148,11 +108,6 @@ class CharacterGainHPMP(CommandBaseEntity):
         self.ctx.actor.param.max_hp += gain
         self.ctx.actor.param.hp += gain
 
-        # self.display_info.target.update_indicator(True)
-        # while self.display_info.target.update() == WindowAction.CONTINUE:
-        #     yield [SeqSubCmd.WAIT, 0]
-        # self.display_info.target.update_indicator(False)
-
         yield ["", "ＭＰの上昇値を決定します"]
         val = yield from efx_diceroll(self.display_info, 1)  # type: ignore
         gain = val + self.ctx.actor.bonus_arc
@@ -160,10 +115,6 @@ class CharacterGainHPMP(CommandBaseEntity):
         self.ctx.actor.param.max_mp += gain
         self.ctx.actor.param.mp += gain
 
-        # self.display_info.target.update_indicator(True)
-        # while self.display_info.target.update() == WindowAction.CONTINUE:
-        #     yield [SeqSubCmd.WAIT, 0]
-        # self.display_info.target.update_indicator(False)
         yield from self.wait_finish()
 
         return

@@ -9,8 +9,6 @@ import logging
 from gameutils.lib import WindowAction
 import service_locater as di
 from . import BaseScene, SceneBattle, SceneFixedBattle
-
-# import command.entity_command as en_cmd
 from command import CommandPackage
 from menu import MenuBattle
 
@@ -42,7 +40,6 @@ class SceneBattleMenu(BaseScene):
         # キャンセル後の再実行時を考慮して担当キャラの入力済コマンドがあれば削除
         self.battle_commands.pop(self.ctx.actor.chara_id, None)
 
-        # self.command_package = en_cmd.CommandPackage()
         self.command_package = CommandPackage()
         self.wndmgr.push_stack(MenuBattle, self.ctx, self.command_package)
 

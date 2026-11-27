@@ -8,20 +8,9 @@ CommandProtocol
 """
 
 import logging
-from typing import Generator  # , cast
-# from dataclasses import dataclass
-
-# import pyxel as px
+from typing import Generator
 from const import SoundID
 from gameutils.lib import Menu, Window, WindowAction
-# from helper import diceroll, upper_int
-# from entity import Character  # ,EntityContext, # , Enemy, Party, Character
-# from skill import SkillTargetType, SkillDef
-# from item import ItemTargetType, StackPool, ItemDef  # , ItemState  # , WeaponType
-# import service_locater as di
-# from . import CommandPhase, SeqSubCmd, CommandBaseAction
-# # from .entity_command import CommandBaseEntity
-# # from .effect_command import efx_diceroll, efx_physical_attack, efx_damage_shake, efx_monster_dead
 
 from skill import SkillDef
 from item import StackPool, ItemDef
@@ -33,315 +22,11 @@ from . import SeqSubCmd, CommandBaseAction
 logger = logging.getLogger(__name__)
 
 
-# class CommandBaseItem(CommandBaseAction):
-#     """エンティティが実行者となるコマンドの基底クラス"""
-
-#     # def __init__(self, ctx: EntityContext, wnd: Window, *args, **kwargs) -> None:
-#     #     """初期化：コンテキストの引継"""
-#     #     super().__init__(wnd, *args, **kwargs)
-#     #     self._ctx: EntityContext = ctx
-
-#     def _check_actor_alive(self) -> bool:
-#         """行動前の行動可否チェック"""
-#         if self._ctx.actor.is_alive:
-#             return True
-#         else:
-#             self.step_wait = 0
-#             return False
-
-#     def _check_living_targets(self) -> list:
-#         """行動前の対象生存チェック"""
-#         # 生存しているターゲットだけをリストアップ
-#         living_targets = [t for t in self._ctx.targets if t.is_alive]
-#         # ターゲットが全て生存していない場合は終了
-#         if not living_targets:
-#             self.phase = CommandPhase.FIN
-#             self.step_wait = 0
-#             return []
-#         return living_targets
-
-
-# @dataclass
-# class CommandPackage:
-#     """Command選択結果のメニュー⇔シーン間受け渡し用パッケージ"""
-
-#     selected_action: type[CommandBaseItem] | None = None
-#     target_type: SkillTargetType | ItemTargetType | None = None
-#     selected_args: dict | None = None
-
-
-# class potion_hp(CommandBaseItem):
-#     """HP回復アイテム"""
-
-#     def _sequence(self) -> Generator[list, None, None]:
-#         # 最初に必ず生死チェック
-#         if self._check_actor_alive():
-#             actor = cast(Character, self._ctx.actor)
-#         else:
-#             return
-
-#         # 生存ターゲットチェック
-#         living_targets = self._check_living_targets()
-#         if not living_targets:
-#             return
-#         # 現在のターゲットが生存していればそれを使う、そうでなければリストの先頭を使う
-#         current = self._ctx.target
-#         target = current if current.is_alive else living_targets[0]
-
-#         # コマンドパッケージから取得するスキル情報
-#         item_def = cast(ItemDef, self.args[0]["item_def"])
-
-#         # ファーストメッセージ
-#         yield [
-#             f"{actor.param.name}は　{target.param.name}に",
-#             f"　{item_def.name} を 使用した",
-#         ]
-
-#         # アイテム消費
-#         if self._ctx.situation == "battle":
-#             slot = self.args[0]["slot"]
-#             actor.equipments.use_consume(slot)
-#         else:
-#             pl_stack = cast(StackPool, self.args[0]["pl_stack"])
-#             # pl_stack.remove(item_def.def_id, ItemState.BAG, 1)
-#             pl_stack.remove(item_def.def_id)
-
-#         # 回復ロール
-#         if item_def.effect_value:
-#             healing = target.param.max_hp
-#         else:
-#             healing = diceroll(actor.param.level)
-
-#         if self._ctx.situation == "battle":
-#             yield [""]
-
-#         # run_effectに相当：メッセージ表示後にダメージ適用
-#         real_heal = target.increase_hp(healing)
-#         # px.play(self.se_ch, SoundID.RECOVER, resume=True)
-#         # di.ref.sndmgr.play_se_sustain(SoundID.RECOVER)
-#         yield [SeqSubCmd.SE_SUSTAIN, SoundID.RECOVER]
-#         yield [f"{target.param.name}は {upper_int(real_heal)} のＨＰが　回復した"]
-
-
-# class potion_mp(CommandBaseItem):
-#     """MP回復アイテム"""
-
-#     def _sequence(self) -> Generator[list, None, None]:
-#         # 最初に必ず生死チェック
-#         if self._check_actor_alive():
-#             actor = cast(Character, self._ctx.actor)
-#         else:
-#             return
-
-#         # 生存ターゲットチェック
-#         living_targets = self._check_living_targets()
-#         if not living_targets:
-#             return
-#         # 現在のターゲットが生存していればそれを使う、そうでなければリストの先頭を使う
-#         current = self._ctx.target
-#         target = current if current.is_alive else living_targets[0]
-
-#         # コマンドパッケージから取得するスキル情報
-#         item_def = cast(ItemDef, self.args[0]["item_def"])
-
-#         # ファーストメッセージ
-#         yield [
-#             f"{actor.param.name}は　{target.param.name}に",
-#             f"　{item_def.name} を 使用した",
-#         ]
-
-#         # アイテム消費
-#         if self._ctx.situation == "battle":
-#             slot = self.args[0]["slot"]
-#             actor.equipments.use_consume(slot)
-#         else:
-#             pl_stack = cast(StackPool, self.args[0]["pl_stack"])
-#             # pl_stack.remove(item_def.def_id, ItemState.BAG, 1)
-#             pl_stack.remove(item_def.def_id)
-
-#         # 回復ロール
-#         if item_def.effect_value:
-#             healing = target.param.max_mp
-#         else:
-#             healing = diceroll(actor.param.level) // 2
-
-#         if self._ctx.situation == "battle":
-#             yield [""]
-
-#         # run_effectに相当：メッセージ表示後にダメージ適用
-#         real_heal = target.increase_mp(healing)
-#         # px.play(self.se_ch, SoundID.RECOVER, resume=True)
-#         # di.ref.sndmgr.play_se_sustain(SoundID.RECOVER)
-#         yield [SeqSubCmd.SE_SUSTAIN, SoundID.RECOVER]
-#         yield [f"{target.param.name}は {upper_int(real_heal)} のＭＰが　回復した"]
-
-
-# class torchlight(CommandBaseItem):
-#     """たいまつ"""
-
-#     def _sequence(self) -> Generator[list, None, None]:
-#         # コマンドパッケージから取得するスキル情報
-#         item_def = cast(ItemDef, self.args[0]["item_def"])
-
-#         # ファーストメッセージ
-#         yield [f"{item_def.name} を 使用した", " "]
-
-#         # アイテム消費
-#         pl_stack = cast(StackPool, self.args[0]["pl_stack"])
-#         pl_stack.remove(item_def.def_id)
-
-#         # PT単位効果付与
-#         di.ref.pt.set_pt_efx(item_def.effect_id)
-#         # di.ref.sndmgr.play_se_sustain(SoundID.USEITEM)
-#         yield [SeqSubCmd.SE_SUSTAIN, SoundID.USEITEM]
-#         yield [
-#             "パーティはダンジョン探索が可能になった",
-#             "ダンジョンのイベントポイントでイベント実行できます",
-#             f"一度実行すると{item_def.name}の効果は消失します",
-#         ]
-
-#         # キー待ち
-#         yield from self._wait_finish()
-
-
-# class escape_battle(CommandBaseItem):
-#     """戦闘離脱"""
-
-#     def _sequence(self) -> Generator[list, None, None]:
-#         # 最初に必ず生死チェック
-#         if self._check_actor_alive():
-#             actor = cast(Character, self._ctx.actor)
-#         else:
-#             return
-
-#         # コマンドパッケージから取得するスキル情報
-#         item_def = cast(ItemDef, self.args[0]["item_def"])
-
-#         # ファーストメッセージ
-#         yield [f"{item_def.name} を 使用した", " "]
-
-#         # アイテム消費
-#         if self._ctx.situation == "battle":
-#             slot = self.args[0]["slot"]
-#             actor.equipments.use_consume(slot)
-#         else:
-#             pl_stack = cast(StackPool, self.args[0]["pl_stack"])
-#             # pl_stack.remove(item_def.def_id, ItemState.BAG, 1)
-#             pl_stack.remove(item_def.def_id)
-
-#         # PT単位効果付与
-#         di.ref.pt.set_pt_efx(item_def.effect_id)
-#         # di.ref.sndmgr.play_se_sustain(SoundID.USEITEM)
-#         yield [SeqSubCmd.SE_SUSTAIN, SoundID.USEITEM]
-#         if self._ctx.situation == "battle":
-#             yield ["ドロン！戦闘から離脱した！"]
-#             return
-#         else:
-#             yield [
-#                 "パーティは次のエンカウント時に",
-#                 f"{item_def.name}の効果で戦闘を回避します",
-#                 f"一度エンカウントすると{item_def.name}の効果は消失します",
-#             ]
-
-#         # # run_effectに相当：メッセージ表示後にダメージ適用
-#         # real_heal = target.increase_mp(healing)
-#         # # px.play(self.se_ch, SoundID.RECOVER, resume=True)
-#         # di.ref.sndmgr.play_se_sustain(SoundID.RECOVER)
-#         # yield [f"{target.param.name}は {upper_int(real_heal)} のＭＰが　回復した"]
-
-#         # キー待ち
-#         yield from self._wait_finish()
-
-
-# class reduce_negative(CommandBaseItem):
-#     """マイナス選択肢でダイス振り直し"""
-
-#     def _sequence(self) -> Generator[list, None, None]:
-#         # コマンドパッケージから取得するスキル情報
-#         item_def = cast(ItemDef, self.args[0]["item_def"])
-
-#         # ファーストメッセージ
-#         yield [f"{item_def.name} を 使用した", " "]
-
-#         # アイテム消費
-#         pl_stack = cast(StackPool, self.args[0]["pl_stack"])
-#         pl_stack.remove(item_def.def_id)
-
-#         # PT単位効果付与
-#         di.ref.pt.set_pt_efx(item_def.effect_id + str(item_def.effect_value))
-#         # di.ref.sndmgr.play_se_sustain(SoundID.USEITEM)
-#         yield [SeqSubCmd.SE_SUSTAIN, SoundID.USEITEM]
-#         yield [
-#             "次に発生するランダムイベントの候補から",
-#             f"{upper_int(int(item_def.effect_value))}個のマイナス選択肢を除外します",
-#             f"一度実行すると{item_def.name}の効果は消失します",
-#         ]
-
-#         # キー待ち
-#         yield from self._wait_finish()
-
-
-# class dice_plus(CommandBaseItem):
-#     """ダイスロール時のダイスをプラス"""
-
-#     def _sequence(self) -> Generator[list, None, None]:
-#         # コマンドパッケージから取得するスキル情報
-#         item_def = cast(ItemDef, self.args[0]["item_def"])
-
-#         # ファーストメッセージ
-#         yield [f"{item_def.name} を 使用した", " "]
-
-#         # アイテム消費
-#         pl_stack = cast(StackPool, self.args[0]["pl_stack"])
-#         pl_stack.remove(item_def.def_id)
-
-#         # PT単位効果付与
-#         di.ref.pt.set_pt_efx(item_def.effect_id + str(item_def.effect_value))
-#         # di.ref.sndmgr.play_se_sustain(SoundID.USEITEM)
-#         yield [SeqSubCmd.SE_SUSTAIN, SoundID.USEITEM]
-#         yield [
-#             "次に行うダイスロール時に、一度だけ",
-#             f"ダイスを{upper_int(int(item_def.effect_value))}個追加します",
-#             f"一度実行すると{item_def.name}の効果は消失します",
-#         ]
-
-#         # キー待ち
-#         yield from self._wait_finish()
-
-
-# class food_plus(CommandBaseItem):
-#     """食糧を追加"""
-
-#     def _sequence(self) -> Generator[list, None, None]:
-#         # コマンドパッケージから取得するスキル情報
-#         item_def = cast(ItemDef, self.args[0]["item_def"])
-
-#         # ファーストメッセージ
-#         yield [f"{item_def.name} を 使用した", " "]
-
-#         # アイテム消費
-#         pl_stack = cast(StackPool, self.args[0]["pl_stack"])
-#         pl_stack.remove(item_def.def_id)
-
-#         # PT単位効果付与
-#         val = int(item_def.effect_value)
-#         di.ref.pt.earn_foods(val)
-#         # di.ref.sndmgr.play_se_sustain(SoundID.USEITEM)
-#         yield [SeqSubCmd.SE_SUSTAIN, SoundID.USEITEM]
-#         yield [f"食糧が{val}増えた！"]
-
-#         # キー待ち
-#         yield from self._wait_finish()
-
-
-# class learn_skill(CommandBaseItem):
 class learn_skill(CommandBaseAction):
     """スキルを取得"""
 
-    # def _sequence(self) -> Generator[list, None, None]:
     def _sequence_action(self) -> Generator[list, None, None]:
         # コマンドパッケージから取得するスキル情報
-        # item_def = cast(ItemDef, self.args[0]["item_def"])
         item_def: ItemDef = self.kwargs["sel_cmd_dict"]["item_def"]
 
         # ファーストメッセージ
@@ -364,7 +49,6 @@ class learn_skill(CommandBaseAction):
         )
         info_size = (menu_select_learn_skill.width, info_height)
         wnd_skill_info = Window("basic", *info_pos, *info_size, "sub")
-        # self.change_target_item(menu_select_learn_skill, wnd_skill_info)
 
         # キー待ち時の入力を一回捨てる
         yield [SeqSubCmd.WAIT, 0]
@@ -383,14 +67,12 @@ class learn_skill(CommandBaseAction):
 
         if rc == WindowAction.EXECUTE:
             self.display_info.graphic_command = None
-            # di.ref.sndmgr.play_se_sustain(SoundID.USEITEM)
             yield [SeqSubCmd.SE_SUSTAIN, SoundID.USEITEM]
             pos_x, pos_y = menu_select_learn_skill.cursor_position
             selected_item = menu_select_learn_skill.menu_items[pos_y][pos_x]
             self.ctx.target.skills.learn_skill(selected_item.action_args[1])
             yield [f"{self.ctx.target.param.name}は　スキルを習得した"]
             # アイテム消費（キャンセルの場合を考慮）
-            # pl_stack = cast(StackPool, self.args[0]["pl_stack"])
             pl_stack: StackPool = self.kwargs["sel_cmd_dict"]["source"]
             pl_stack.remove(item_def.def_id)
 

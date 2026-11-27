@@ -6,18 +6,7 @@
 - 設定の保存・呼び出し
 """
 from dataclasses import dataclass, field
-
 import pyxel as px
-
-# from ...libconfig import ResourcePath
-# from ..file import check_file, write_json, read_json
-# from ...input_protocol import (
-#     INPUT_MODE,
-#     TARGET_DEVICE,
-#     ACTION_NAME,
-#     is_action_name,
-#     InputHandler,
-# )
 from gameutils import (
     ResourcePath,
     INPUT_MODE,
@@ -283,21 +272,13 @@ def keybind(
             if key_code < px.GAMEPAD1_AXIS_LEFTX:
                 print(f"Warning: {action_name} to {key_code} is not a valid Pad code.")
                 return False
-            # target_actmap = _action_keymap_pad
-            # target_assign = _key_assign_map_pad
             target_bindings = _bindings_pad
         case "kbd":
             if key_code >= px.MOUSE_POS_X:
                 print(f"Warning: {action_name} to {key_code} is not a valid keyboard code.")
                 return False
-            # target_actmap = _action_keymap_kbd
-            # target_assign = _key_assign_map_kbd
             target_bindings = _bindings_kbd
-        # case _:
-        #     return False
 
-    # target_actmap[action_name] = _generate_handler(key_code, input_sign)
-    # target_assign[action_name] = {"code": key_code, "input_sign": input_sign}
     target_bindings.setdefault(action_name, []).append(KeyBinding(code=key_code, input_sign=input_sign))
     return True
 
@@ -348,14 +329,9 @@ def is_pressed(action_name: ACTION_NAME, mode: INPUT_MODE = "once") -> bool:
         errmsg = f"未定義のアクション名です: {action_name}"
         raise ValueError(errmsg)
     # パッド
-    # func_pad = _action_keymap_pad.get(action_name)
-    # is_pad = func_pad(mode) if func_pad else False
     result_pad = [b.handler(mode) for b in _bindings_pad.get(action_name, [])]
     # キーボード
-    # func_kbd = _action_keymap_kbd.get(action_name)
-    # is_kbd = func_kbd(mode) if func_kbd else False
     result_kbd = [b.handler(mode) for b in _bindings_kbd.get(action_name, [])]
-    # return is_pad or is_kbd
     return any(result_pad) or any(result_kbd)
 
 
@@ -363,13 +339,9 @@ def get_keymap(target: TARGET_DEVICE) -> dict[str, list[dict[str, int]]]:
     """本モジュール利用側へキーマップ情報を提供"""
     match target:
         case "pad":
-            # keymap = _key_assign_map_pad
             bindings = _bindings_pad
         case "kbd":
-            # keymap = _key_assign_map_kbd
             bindings = _bindings_kbd
-
-    # return keymap
     return {
         action: [{"code": binds.code, "input_sign": binds.input_sign} for binds in binding_list]
         for action, binding_list in bindings.items()
@@ -380,25 +352,13 @@ def _bind_all_actions(bind_target: TARGET_DEVICE, key_assign_map: dict | None = 
     """定義済データの一括反映"""
     # 定義済データ未指定の場合はデフォルト定義をベースとする
     if key_assign_map is None:
-        # if bind_target == "pad":
-        #     key_assign_map = _DEFAULT_BINDS_PAD.copy()
-        # elif bind_target == "kbd":
-        #     key_assign_map = _DEFAULT_BINDS_KBD.copy()
         key_assign_map = _resolve_bind_map(bind_target, None)
     if bind_target == "pad":
         _bindings_pad.clear()
     else:
         _bindings_kbd.clear()
 
-    # for action, key in key_assign_map.items():
     for action, keys in key_assign_map.items():
-        # if isinstance(key, dict):
-        #     sign = key["input_sign"]
-        #     keycode = key["code"]
-        # else:
-        #     sign = 1
-        #     keycode = key
-        # keybind(action, keycode, sign, bind_target)
         key_list = keys if isinstance(keys, list) else [keys]
         for key in key_list:
             if isinstance(key, dict):
@@ -500,7 +460,6 @@ def _generate_handler(key_code: int, input_sign: int = 1) -> InputHandler:
 
 def save_config():
     """jsonファイルとして設定を保存"""
-    # key_config_data = {"pad": _key_assign_map_pad, "kbd": _key_assign_map_kbd}
     key_config_data = {"pad": get_keymap("pad"), "kbd": get_keymap("kbd")}
     path = check_file(ResourcePath.CONFIG_KEYS, "w")
     if path is not None:
@@ -516,26 +475,6 @@ def load_keyconfig():
 
     try:
         loaded_data = read_json(path)
-
-        #     # デフォルト値をベースに、JSONにある設定だけを上書き（安全なマージ）
-        #     key_assign_map = {}
-        #     for action in _DEFAULT_BINDS_PAD.keys():
-        #         # JSONにキーがあればその値を、無ければデフォルト値を取得
-        #         key_assign_map[action] = loaded_data["pad"].get(
-        #             action, _DEFAULT_BINDS_PAD[action]
-        #         )
-        #     # アクション：[キーコード、入力正負]の辞書データから入力判定関数と保存用データを再生成
-        #     _bind_all_actions("pad", key_assign_map)
-
-        #     for action in _DEFAULT_BINDS_KBD.keys():
-        #         # JSONにキーがあればその値を、無ければデフォルト値を取得
-        #         key_assign_map[action] = loaded_data["kbd"].get(
-        #             action, _DEFAULT_BINDS_KBD[action]
-        #         )
-        #     _bind_all_actions("kbd", key_assign_map)
-        # except Exception:
-        #     # ファイルが壊れていた場合はデフォルト設定のまま進行
-        #     print("設定ファイルが破損しているため、デフォルト値を使用します。")
         for target in ("pad", "kbd"):
             _bind_all_actions(target, _resolve_bind_map(target, loaded_data))
     except Exception:

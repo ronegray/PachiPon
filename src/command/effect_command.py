@@ -9,8 +9,6 @@ import pyxel as px
 from const import SoundID, APP_FPS
 from item import WeaponType
 from skill import SkillID, SkillType
-
-# from entity import EntityBase, Enemy
 import service_locater as di
 from . import DisplayInfo, CommandBaseSequence, SeqSubCmd
 
@@ -25,7 +23,6 @@ class CommonEffectWrapper(CommandBaseSequence):
     """汎用描画エフェクト呼び出しラッパー"""
 
     def _sequence(self) -> Generator[list, None, None]:
-        # func = self.args[0]
         func = self.kwargs["func"]
         params = self.kwargs.get("params", ())
         if func:
@@ -62,7 +59,6 @@ def efx_physical_attack(
     effect = di.ref.efxrps
     effect_data = effect.get_efx(weapon_type)
 
-    # di.ref.sndmgr.play_se_sustain(attackse_id)
     yield [SeqSubCmd.SE_SUSTAIN, attackse_id]
     yield []
     duration = 0
@@ -123,7 +119,6 @@ def efx_skill_attack(
     effect = di.ref.efxrps
     effect_data = effect.get_efx(skill_id)
 
-    # di.ref.sndmgr.play_se_sustain(se_id)
     yield [SeqSubCmd.SE_SUSTAIN, se_id]
     effect_data = di.ref.efxrps.get_efx(skill_id)
 
@@ -161,12 +156,6 @@ def efx_damage_shake(disp_info: DisplayInfo, target: "EntityBase") -> Generator[
     is_player = True if target.chara_id < 10 else False
 
     # エフェクト音も敵味方で異なる
-    # if isinstance(target, Enemy):
-    #     # di.ref.sndmgr.play_se_sustain(SoundID.DAMAGE_GIVEN)
-    #     yield [SeqSubCmd.SE_SUSTAIN, SoundID.DAMAGE_GIVEN]
-    # else:
-    #     # di.ref.sndmgr.play_se_sustain(SoundID.DAMAGE_TAKEN)
-    #     yield [SeqSubCmd.SE_SUSTAIN, SoundID.DAMAGE_TAKEN]
     if is_player:
         yield [SeqSubCmd.SE_INSTANT, SoundID.DAMAGE_TAKEN]
     else:
@@ -176,18 +165,9 @@ def efx_damage_shake(disp_info: DisplayInfo, target: "EntityBase") -> Generator[
     for i in range(APP_FPS // 4):
         offset_x = px.rndi(-4, 4)
         offset_y = px.rndi(-4, 4)
-        # if isinstance(target, Enemy):
-        #     target.sprite.x = tgt_sprite_addr_x + offset_x
-        #     target.sprite.y = tgt_sprite_addr_y + offset_y
-        # else:
-        #     disp_info.graphic_command = [
-        #         lambda x=offset_x, y=offset_y: px.camera(x, y),
-        #         lambda: px.camera(0, 0),
-        #     ]
         if is_player:
             disp_info.graphic_command = [
                 lambda x=offset_x, y=offset_y: px.camera(x, y),
-                # lambda: px.camera(0, 0),
             ]
         else:
             target.sprite.x = tgt_sprite_addr_x + offset_x
@@ -202,12 +182,10 @@ def efx_damage_shake(disp_info: DisplayInfo, target: "EntityBase") -> Generator[
 
 
 def efx_monster_dead(
-    # disp_info: DisplayInfo, target: Enemy
     disp_info: DisplayInfo,
     target: "EntityBase",
 ) -> Generator[list[str | int], None, None]:
     """死亡モンスターグラフィックの消滅処理"""
-    # di.ref.sndmgr.play_se_sustain(SoundID.ENEMY_DEATH)
     yield [SeqSubCmd.SE_SUSTAIN, SoundID.ENEMY_DEATH]
     dither_lvl = 1
     while True:
@@ -231,7 +209,6 @@ def efx_encount_splash(disp_info: DisplayInfo) -> Generator[list, None, None]:
     circle_center = (px.width // 2, px.height // 2)
     circle_max = px.sqrt(circle_center[0] ** 2 + circle_center[1] ** 2)
 
-    # di.ref.sndmgr.play_se_sustain(SoundID.ENCOUNT)
     yield [SeqSubCmd.SE_SUSTAIN, SoundID.ENCOUNT]
     while True:
         disp_info.graphic_command = [

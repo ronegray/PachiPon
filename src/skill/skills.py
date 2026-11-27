@@ -74,6 +74,4 @@ class Skills:
         skill_list = list(self._learned_skills)
         return skill_list
 
-    # def load_skill(self, skills: set) -> None:
-    #     """取得スキルのIDをロードデータから反映"""
-    #     pass
+    """スキルデータロードはlearn_skillで行う為ロード用関数は無し"""

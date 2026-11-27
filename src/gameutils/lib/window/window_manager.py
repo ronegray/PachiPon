@@ -8,7 +8,6 @@
   - ウインドウとメニューのキー操作を外部から上書き可能(自作inputモジュールを想定)
 """
 
-# from __future__ import annotations
 from . import (
     Window,
     Menu,

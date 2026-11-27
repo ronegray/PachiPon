@@ -24,22 +24,6 @@ from gameutils import INPUT_MODE, ACTION_NAME, InputHandler
 from gameutils.lib import WindowInputHandler
 from gameutils.base import is_pressed
 
-# # Menu側のアクション名 → input_system側のACTION_NAMEの対応表
-# _ACTION_NAME_MAP: dict[str, ACTION_NAME] = {
-#     "up": "up",
-#     "down": "down",
-#     "left": "left",
-#     "right": "right",
-#     "decide": "decide",
-#     "cancel": "cancel",
-#     "action": "action",
-#     "menu": "menu",
-#     "start": "start",
-#     "select": "select",
-#     "LS": "LS",
-#     "RS": "RS",
-# }
-
 
 def _adapt(action_name: ACTION_NAME) -> InputHandler:
     """is_pressedをmode透過のまま呼び出す薄いクロージャを生成する
@@ -48,7 +32,7 @@ def _adapt(action_name: ACTION_NAME) -> InputHandler:
     is_pressed() 経由で最新の _bindings_pad / _bindings_kbd を参照するため、
     リバインド後の再配線が不要になる。
     """
-    # input_system_action = _ACTION_NAME_MAP[menu_action_name]
+
     action_default_mode = "hold" if action_name in ("up", "down", "left", "right") else "once"
 
     def handler(mode: INPUT_MODE = action_default_mode) -> bool:

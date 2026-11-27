@@ -130,7 +130,6 @@ class DiceRollEffect:
             self.rotations.append(float(px.rndi(0, 359)))
             speed0 = (vx**2 + vy**2) ** 0.5
             self.rot_speeds.append(speed0 * self.rot_scale)
-        # px.play(SE_CH, SoundID.DICE_ROLL, resume=True)
         di.ref.sndmgr.play_se_sustain(SoundID.DICE_ROLL)
 
     def update(self) -> None:
@@ -138,8 +137,6 @@ class DiceRollEffect:
             return
 
         if (self.elapsed >= self.roll_frames / 2) and is_pressed("decide", "hold") or is_pressed("cancel", "hold"):
-            # self.elapsed = self.roll_frames
-            # self._finish()
             self.skip()
 
         self.elapsed += 1

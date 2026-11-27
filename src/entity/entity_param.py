@@ -49,7 +49,6 @@ class GuardType(IntEnum):
     FULL = 3 # 全
 
 
-# class WeakType(IntEnum):
 class WeakType(IntFlag):
     """魔法弱点"""
 

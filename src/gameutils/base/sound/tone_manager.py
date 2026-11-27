@@ -63,30 +63,6 @@ class ToneManager:
     def __init__(self):
         ToneManager._tone_params = {}
         # Pyxelデフォルトのtone設定を取得
-        # ToneManager._tone_params[ToneName.TRIANGLE] = ToneParam(
-        #     mode=WAVETABLE,
-        #     gain=GAIN_WAVES,
-        #     sample_bits=BITS_WAVES,
-        #     wavetable=[8,9,10,11,12,13,14,15,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0,0,1,2,3,4,5,6,7]
-        # )
-        # ToneManager._tone_params[ToneName.SQUARE] = ToneParam(
-        #     mode=WAVETABLE,
-        #     gain=GAIN_ONOFF,
-        #     sample_bits=BITS_ONOFF,
-        #     wavetable=[1,0]
-        # )
-        # ToneManager._tone_params[ToneName.PULSE] = ToneParam(
-        #     mode=WAVETABLE,
-        #     gain=GAIN_ONOFF,
-        #     sample_bits=BITS_ONOFF,
-        #     wavetable=[1,0,0,0]
-        # )
-        # ToneManager._tone_params[ToneName.NOISE] = ToneParam(
-        #     mode=NOISE_LONG,
-        #     gain=GAIN_NOISE,
-        #     sample_bits=BITS_NOISE,
-        #     wavetable=[]
-        # )
         tone = px.tones[ToneNameIndex.TRIANGLE]
         ToneManager._tone_params[ToneNameIndex.TRIANGLE] = ToneParam(
             mode=tone.mode,
@@ -182,7 +158,6 @@ class ToneManager:
 
     def expand_tone(self, tone_max: int = 4) -> int:
         """pyxel.tonesの拡張"""
-        # px.tones[:] = [px.Tone() for _ in range(tone_max)]
         tone_list = []
         # 既存のtoneは触らない
         for tone_index in range(tone_max + 1):
@@ -221,16 +196,9 @@ class ToneManager:
         wavetable: list[int],
     ) -> None:
         """カスタムパラメタtoneの定義追加/修正"""
-        # if (tone_index < ToneNameIndex.TRIANGLE
-        #         or tone_index > ToneNameIndex.CUSTOM3):
-        #     raise IndexError("tone_indexの指定値が許容範囲外です")
         self._check_index(tone_index)
 
         # wavetableのデータチェック
-        # max_vol = (1 << sample_bits) - 1
-        # for vol in wavetable:
-        #     if vol > max_vol:
-        #         raise ValueError("wavetableにsample_bitsの許容範囲を超えた値が指定されています")
         self._validate_wavetable(sample_bits, wavetable)
         # # gainのデータチェック
         # if gain > GAIN_MAX:
@@ -250,9 +218,6 @@ class ToneManager:
 
         self._check_index(tone_index)
 
-        # with open(filename, "r", encoding = "UTF-8") as f:
-        #     data = json.load(f)
-        # return data
         path = check_file(filename)
         if path is None:
             raise FileNotFoundError(f"ファイルが見つかりません：{filename}")

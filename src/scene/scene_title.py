@@ -11,7 +11,6 @@ import service_locater as di
 from .scene_base import BaseScene
 from menu import MenuTitle
 from assets.asset_map import AssetID, AssetMap
-# from gameutils.base import check_file, read_string
 
 
 class SceneTitle(BaseScene):
@@ -41,18 +40,6 @@ class SceneTitle(BaseScene):
 
     def load_bgm(self) -> None:
         """シーン切替時のBGMロード"""
-        # """暫定処理：BGMロード"""
-        # path = check_file("assets/sound/title.txt")
-        # if path is not None:
-        #     score_data = read_string(path)
-        # else:
-        #     raise FileNotFoundError("ファイルがない！")
-        # px.stop()
-        # for i, ch in enumerate(px.channels):
-        #     mml = "R"
-        #     if i < len(score_data):
-        #         mml = score_data[i]
-        #     ch.play(mml, loop=True)
         di.ref.sndmgr.request_bgm("title")
 
     def update(self) -> None:

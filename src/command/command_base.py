@@ -52,14 +52,11 @@ class SeqSubCmd(StrEnum):
 class CommandBaseSequence(CommandProtocol):
     """_sequenceジェネレータを持つコマンドの共通実装"""
 
-    # def __init__(self, wnd: Window, *args, **kwargs) -> None:
     def __init__(self, wnd: Window, **kwargs) -> None:
         """初期化：コンテキストの引継"""
         self.display_info: DisplayInfo = DisplayInfo(wnd)
         self._local_waitframe = CONF_TEXT_SPEED[di.ref.conf.text_speed]["args"][1]
         self.step_wait = self._local_waitframe  # メッセージ待ち間隔
-        # self.se_ch = 3  # サウンドエフェクトのチャンネル番号
-        # self.args = args
         self.kwargs = kwargs
         self.phase = CommandPhase.SYN
         self.se_cmd = {
@@ -126,13 +123,9 @@ class CommandBaseSequence(CommandProtocol):
 class CommandBaseEntity(CommandBaseSequence):
     """エンティティが実行者となるコマンドの基底クラス"""
 
-    # def __init__(self, ctx: EntityContext, wnd: Window, *args, **kwargs) -> None:
-    #     """初期化：コンテキストの引継"""
-    #     super().__init__(wnd, *args, **kwargs)
     def __init__(self, ctx: EntityContext, wnd: Window, **kwargs) -> None:
         """初期化：コンテキストの引継"""
         super().__init__(wnd, **kwargs)
-        # self._ctx: EntityContext = ctx
         # コンテキスト情報の保持
         self._bind_ctx_for_local(ctx)
 
@@ -161,5 +154,4 @@ class CommandPackage:
 
     selected_action: type[CommandBaseAction] | None = None
     target_type: SkillTargetType | ItemTargetType | None = None
-    # selected_args: dict | None = None
     selected_args: dict = field(default_factory=dict)

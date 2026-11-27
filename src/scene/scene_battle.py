@@ -10,7 +10,7 @@ import logging
 from random import choice
 import pyxel as px
 from gameutils.base import check_file
-from gameutils.lib import Window  # , WindowInputHandler
+from gameutils.lib import Window
 from const import ENEMY_ID_BASE
 import service_locater as di
 from helper import diceroll
@@ -18,12 +18,8 @@ from field_map import Route
 from entity import Enemy, EntityParam, EnemyParam, BaseSprite, ActionPattern, Character
 from skill import SkillID, DebuffType, SkillTargetType
 from . import BaseScene
-
-# from event import Event, EventID
 import command.entity_command as ent_cmd
 from command.system_command import PartyDefeated
-
-# import command.event_command as evt_cmd
 import command.entity_battle_command as btl_cmd
 from entity import EntityBase, EntityContext
 
@@ -40,7 +36,6 @@ class SceneBattle(BaseScene):
     _status_width: int = 80
     _status_height: int = 48
     _enemy_name_suffix: list = ["Ａ", "Ｂ", "Ｃ", "Ｄ", "Ｅ", "Ｆ"]
-    # _enemy_commands: dict[ActionPattern, type[btl_cmd.CommandBaseEntity]] = {
     _enemy_commands: dict[ActionPattern, type[btl_cmd.CommandBaseBattle]] = {
         ActionPattern.ATTACK: btl_cmd.Attack,
         ActionPattern.ESCAPE: btl_cmd.EnemyEscape,
@@ -82,11 +77,8 @@ class SceneBattle(BaseScene):
         threat = route.threat
         # 出現エネミーの決定
         candidate_list = di.ref.enmrps.get_threat_enemies(threat)
-        # enemy_index = px.rndi(0, len(candidate_list) - 1)
-        # enemy_data = candidate_list[enemy_index]
         enemy_id = candidate_list[px.rndi(0, len(candidate_list) - 1)]
         enemy_data = di.ref.enmrps.get_enemy(enemy_id)
-        # path = check_file(f"assets/image/{enemy_data['name']}.bmp")
         path = check_file(f"assets/image/{enemy_id}.bmp")
         if path is None:
             path = check_file("assets/image/unknown.bmp")
@@ -145,7 +137,6 @@ class SceneBattle(BaseScene):
             # インスタンスをリストに追加
             self.enemy_list.append(Enemy(base_param, enemy_param, enemy_sprite, i + ENEMY_ID_BASE))
             # スキル定義
-            # self.enemy_list[-1].skills._learned_skills = enemy_data["skills"]
             for skill_name in enemy_data["skills"]:
                 skill_id = SkillID[skill_name]
                 self.enemy_list[-1].skills.learn_skill(skill_id)
@@ -202,7 +193,6 @@ class SceneBattle(BaseScene):
                 )
                 self.initiative_dict[member.chara_id] = initiative
 
-    # def command_enemy_basic(self, enemy: Enemy, action: ActionPattern) -> btl_cmd.CommandBaseEntity:
     def command_enemy_basic(self, enemy: Enemy, action: ActionPattern) -> btl_cmd.CommandBaseBattle:
         """エネミー物理系コマンドの生成"""
         target, target_list = self.select_enemy_target()
@@ -212,7 +202,6 @@ class SceneBattle(BaseScene):
             raise NameError
         return enemy_command(ctx, self.message_window)
 
-    # def command_enemy_skill(self, enemy: Enemy, action: ActionPattern) -> btl_cmd.CommandBaseEntity:
     def command_enemy_skill(self, enemy: Enemy, action: ActionPattern) -> btl_cmd.CommandBaseBattle:
         """エネミー技系コマンドの生成"""
 
@@ -271,7 +260,6 @@ class SceneBattle(BaseScene):
         # パーティメンバーが全員死亡したら初期ポイントへ連行
         if di.ref.pt.get_active_member_count() < 1:
             di.ref.cmdmgr.push_command(
-                # ent_cmd.PartyDefeated(self.message_window, self.bgimage, self.enemy_list)
                 PartyDefeated(self.message_window, bgimage=self.bgimage, enemies=self.enemy_list)
             )
             return
@@ -318,9 +306,7 @@ class SceneBattle(BaseScene):
         - エネミー
         """
         # 背景描画
-        # px.dither(0.3)
         px.blt(0, 0, self.bgimage, 0, 0, self.bgimage.width, self.bgimage.height)
-        # px.dither(1)
         # ステータスウインドウ
         for i, wnd in enumerate(self.status_windows):
             wnd.draw()

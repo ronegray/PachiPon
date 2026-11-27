@@ -4,7 +4,7 @@
 from const import WEAK_SKILL_RATE
 from . import EntityBase, BaseSprite, EntityParam, EnemyParam, GuardType
 from item import WeaponType
-from skill import SkillType  # ,SkillID,
+from skill import SkillType
 
 
 class Enemy(EntityBase):
@@ -66,20 +66,6 @@ class Enemy(EntityBase):
             rate = rate_cbs[self.guard_type]
         return rate
 
-    # def calc_weak_rate(self, skill_id: int = -1) -> float:
-    #     """呪文ダメージ相性率率計算"""
-    # try:
-    #     real_skill_id = SkillID(skill_id)
-    # except TypeError:
-    #     return 1.0
-    # # spell 0x1_1_x_0 のxの値が1~8ある
-    # spell_type = (real_skill_id >> 4) - 1
-    # # 0b0000_0000 右端から順にspell種別の弱点bitがon
-    # is_weak = (self.weak_type >> spell_type) & 0b1
-    # if is_weak:
-    #     return 2.0
-    # else:
-    #     return 1.0
     def calc_weak_rate(self, skill_type: SkillType = SkillType.NONE) -> float:
         """呪文ダメージ相性率率計算"""
         is_weak = (self.weak_type & skill_type) > 0

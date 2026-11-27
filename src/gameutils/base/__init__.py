@@ -2,7 +2,6 @@
 gameutilsライブラリ内でも使用される共通基本機能
 """
 
-# from .asset import AssetID, AssetManager
 from .file import (
     check_file,
     get_filelist,

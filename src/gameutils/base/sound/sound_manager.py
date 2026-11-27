@@ -2,8 +2,6 @@
 サウンド機能関連
 """
 import pyxel as px
-
-# import json
 from dataclasses import dataclass
 from enum import Enum, auto
 from typing import Callable
@@ -15,14 +13,7 @@ NUM_CHANNELS = 8
 BGM_CHANNELS = tuple(range(6))  # 0-5: BGM用
 SE_INSTANT_CH = 6  # 瞬間SE用（上書き方式・固定ch）
 SE_SUSTAIN_CH = 7  # 持続SE用（上書き方式・固定ch）
-
-# # BGM用に予約するpyxel資源スロット（常に「現在再生中の曲」専用として使い回す）
-# BGM_SOUND_SLOTS = tuple(range(len(BGM_CHANNELS)))  # sounds[0]〜sounds[5]
-# BGM_MUSIC_SLOT = 0                                  # musics[0]を「現在のBGM」専用に固定使用
-
 TARGET_TOTAL_GAIN = 0.98  # 全ch同時最大振幅時の合計上限（1.0未満に収める）
-
-# VOLUME_LEVEL_FACTORS = (1.0, 0.5, 0.25, 0.125, 0.0625, 0.0)  # -6dBずつ + ミュート
 
 
 def compute_base_gain(num_channels: int, target_total: float = TARGET_TOTAL_GAIN) -> float:
@@ -96,15 +87,10 @@ class MusicScoreLibrary:
 
     def __init__(self):
         self._score_list: dict[str, str] = {}  # score_name -> 曲データファイルパス
-        # self._track_cache: dict[int, list[str]] = {}  # index -> list[各トラックのMMLテキスト]
         self._score_book: dict[str, list[str]] = {}  # score_name -> [ch別MML譜面]
-        # self.load_scorelist()
 
-    def load_scorelist(self) -> bool:  # , master_json_path: str):
+    def load_scorelist(self) -> bool:
         """譜面一覧を読み込み、譜面"""
-        # with open(master_json_path, encoding="utf-8") as f:
-        #     raw = json.load(f)
-        # self._master = {int(k): v for k, v in raw.items()}
         path = check_file(ResourcePath.SCORE_LIST)
         if path is None:
             print("譜面ファイル一覧が見つからない為、BGMは再生されません")
@@ -129,32 +115,11 @@ class MusicScoreLibrary:
         for score_name in self._score_list:
             self.load_score(score_name)
 
-    # def get_tracks(self, index: int) -> list[str]:
-    #     """指定indexの各トラックMMLテキストのリストを返す（未ロードなら遅延ロード）"""
-    #     if index not in self._track_cache:
-    #         self._load_tracks(index)
-    #     return self._track_cache[index]
-
     def get_tracks(self, score_name: str) -> list[str]:
         """指定indexの各トラックMMLテキストのリストを返す（未ロードなら遅延ロード）"""
         if score_name not in self._score_book:
             self.load_score(score_name)
         return self._score_book[score_name]
-
-    # def preload_all(self):
-    #     """起動時などにまとめて全曲を読み込みたい場合に使用"""
-    #     for index in self._score_list:
-    #         self.get_tracks(index)
-
-    # def _load_tracks(self, index: int):
-    #     file_path = self._score_list.get(index)
-    #     if file_path is None:
-    #         raise KeyError(f"music index {index} が master に見つかりません")
-    #     # 曲データファイルは {"tracks": ["<MMLテキスト0>", "<MMLテキスト1>", ...]} を想定
-    #     # （実際のフォーマットに合わせて調整してください）
-    #     with open(file_path, encoding="utf-8") as f:
-    #         data = json.load(f)
-    #     self._track_cache[index] = data["tracks"]
 
 
 # ===================== SoundManager =====================
@@ -167,28 +132,16 @@ class SoundManager:
         self.sounds = [px.Sound() for _ in range(NUM_CHANNELS)]  # 各チャンネル用サウンドデータ
 
         self._gain_factor: float = 1.0
-        # self._base_gain_value: float = computebase_gain(NUM_CHANNELS)
         self._ch_base_gain: dict[int, float] = {}
-        # self._update_basegain_cache()
-        # self._apply_base_gain_all()
         for ch in range(NUM_CHANNELS):
             self._update_basegain_cache(ch)
             self._apply_base_gain(ch)
 
         self._bgm_fade = FadeController()  # current_factor=1.0からスタート
-        # self._current_music_index: int = -1 # 負を未設定としたint確定のパラメタとする
         self._lib_music_score = MusicScoreLibrary()
 
     # ---------- config反映 ----------
     def set_basegain_factor(self, factor_level: float = 0.7, seq_ch: tuple = BGM_CHANNELS):
-        # if factor > 1.0:
-        #     print(f"[SoundManager] gain_factor={factor} は1.0を超えています。1.0にクランプします。")
-        #     factor = 1.0
-        # self._gain_factor = factor
-        # self._recalculate_base_gain()
-        # self._apply_bgm_gain()
-        # px.channels[SE_INSTANT_CH].gain = self._ch_base_gain[SE_INSTANT_CH]
-        # px.channels[SE_SUSTAIN_CH].gain = self._ch_base_gain[SE_SUSTAIN_CH]
         """音量コンフィグ定義値factor_level(1.0~0.0)をベースに音量係数を設定"""
         if factor_level < 0.0 or factor_level > 1.0:
             print(f"範囲外のfactor_level({factor_level})が指定された為、デフォルト値0.7を設定します")
@@ -196,8 +149,6 @@ class SoundManager:
         factor = factor_level**2  # 小さい音量程変化幅が小さくなる
 
         self._gain_factor = factor
-        # self._update_basegain_cache()
-        # self._apply_base_gain_all()
         for ch in seq_ch:
             self._update_basegain_cache(ch)
             self._apply_base_gain(ch)
@@ -211,29 +162,7 @@ class SoundManager:
         """チャンネルの音量値をキャッシュから設定"""
         px.channels[ch].gain = self._ch_base_gain.get(ch, self._base_gain / 10)
 
-    # def _update_basegain_cache(self):
-    #     """全チャンネルのデフォルト音量値キャッシュを更新"""
-    #     gain = self._base_gain * self._gain_factor
-    #     self._ch_base_gain = {ch: gain for ch in range(NUM_CHANNELS)}
-
-    # def _apply_base_gain_all(self):
-    #     # for ch, gain in self._ch_base_gain.items():
-    #     #     px.channels[ch].gain = gain
-    #     """全チャンネルの音量値をキャッシュから設定
-    #     チャンネル側を軸として定義をおこなう"""
-    #     # for ch, gain in self._ch_base_gain.items():
-    #     #     px.channels[ch].gain = gain
-    #     for i, ch in enumerate(px.channels):
-    #         ch.gain = self._ch_base_gain.get(i, self._base_gain / 10)
-
     # ---------- リソースロード ----------
-    # def load_assets(self, resource_path: str):
-    #     """.pyxres等、画像・SE定義を含むリソースファイルの読み込み"""
-    #     px.load(resource_path)
-
-    # def load_music_master(self, master_json_path: str):
-    #     """楽曲マスタ一覧(index→ファイルパス)の読み込み"""
-    #     # self._lib_music_score.load_scorelist(master_json_path)
     def load_music_master(self) -> None:
         self._lib_music_score.load_scorelist()
 
@@ -247,7 +176,6 @@ class SoundManager:
         """
         tracks = self._lib_music_score.get_tracks(score_name)
         self._build_bgm(tracks)
-        # self._current_music_index = index
 
         def playbgm(factor: float):
             self._bgm_fade.set_immediate(factor)
@@ -256,29 +184,11 @@ class SoundManager:
                 px.channels[ch_no].play(self.sounds[ch_no], loop=True)
 
         if fade_in_frames > 0:
-            # self._bgm_fade.set_immediate(0.0)
-            # self._apply_bgm_gain()
-            # # px.playm(BGM_MUSIC_SLOT, loop=True)
             playbgm(0.0)
             self._bgm_fade.begin(target_factor=1.0, duration_frames=fade_in_frames)
         else:
-            # self._bgm_fade.set_immediate(1.0)
-            # self._apply_bgm_gain()
-            # # px.playm(BGM_MUSIC_SLOT, loop=True)
             playbgm(1.0)
 
-    # def _build_bgm_resources(self, tracks: list[str]):
-    #     # """トラックMMLテキストを、予約済みのpyxel Sound/Musicスロットへ書き込む"""
-    #     # px.stop(*BGM_CHANNELS)
-    #     # seqs = []
-    #     # for i, _ch in enumerate(BGM_CHANNELS):
-    #     #     sound_slot = BGM_SOUND_SLOTS[i]
-    #     #     if i < len(tracks):
-    #     #         px.sounds[sound_slot].mml(tracks[i])
-    #     #         seqs.append([sound_slot])
-    #     #     else:
-    #     #         seqs.append([])  # このトラックは使用しない
-    #     # px.musics[BGM_MUSIC_SLOT].set(*seqs)
     def _build_bgm(self, tracks: list[str]):
         """楽曲を構成するMMLトラックデータを再生用独自Soundオブジェクトに割り付け"""
         for i, ch_idx in enumerate(BGM_CHANNELS):
@@ -289,12 +199,9 @@ class SoundManager:
 
     # ---------- BGM停止 ----------
     def stop_music(self):
-        # # px.stop(*BGM_CHANNELS) #<-複数チャンネルの停止はエラーになる
-        # px.stop()
         for ch in BGM_CHANNELS:
             px.channels[ch].stop()
         self._bgm_fade.set_immediate(1.0)  # 次回再生に備えて基準へ戻す
-        # self._current_music_index = None
 
     def stop_music_fadeout(self, fade_frames: int, on_complete: Callable | None = None):
         if self._bgm_fade.state != FadeState.NONE:
@@ -317,9 +224,6 @@ class SoundManager:
     def wait_se_fin(self) -> bool:
         """SEの鳴り終わりを検出"""
         return px.play_pos(SE_SUSTAIN_CH) is None
-
-    # def stop_se_instant(self):
-    #     px.stop(SE_INSTANT_CH)
 
     def stop_se_sustain(self):
         px.stop(SE_SUSTAIN_CH)

@@ -156,9 +156,6 @@ class EventPoint:
         """現在地のイベントキーとフラグから固定イベントの発生をチェック
         固定イベント発生時はイベントID文字をリターン"""
         fixed = getattr(FixedEventMap, self.event_key, None)
-        # if fixed:
-        #     if di.ref.flgmgr.is_set(fixed) is False:
-        #         return EventID[fixed]
         if fixed is None:
             return None
         if fixed == FixedEventMap.BIGBAD:
@@ -328,7 +325,6 @@ class MapGraph:
     def draw_direction_icon(self, current_node_id: str, offset_x: float, offset_y: float) -> None:
         """現地点からのルート上に移動方向キーアイコンを描画"""
         point = self.get_point(current_node_id)
-        # dir_address: dict[ROUTE_DIR, list[float]] = {}
         if not point:
             errmsg = "イベントポイント情報が異常です"
             logger.critical(errmsg, exc_info=True)
@@ -346,7 +342,6 @@ class MapGraph:
             multipliyer = 0.3 if px.sqrt(vx**2 + vy**2) > icon_size * 5 else 0.5
             icon_x = point.x + multipliyer * vx - (icon_size // 2) + offset_x
             icon_y = point.y + multipliyer * vy - (icon_size // 2) + offset_y
-            # dir_address[route.direction] = [icon_x, icon_y]
             match route.direction:
                 case "up":
                     icon_addr = (96, 0)
@@ -401,7 +396,6 @@ class MapGraph:
         return {
             point_id: {"ready_count": eventpoint.ready_count, "dice_values": eventpoint.dice_values}
             for point_id, eventpoint in self.points.items()
-            # if eventpoint.is_ready is False}
         }
 
     def load_event(self, params: dict) -> None:

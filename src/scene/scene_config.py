@@ -12,8 +12,6 @@ import pyxel as px
 from assets.asset_map import AssetID, AssetMap
 from gameutils.base import get_keymap, check_file, write_json
 from gameutils.lib import Window, WindowAction
-
-# from helper import upper_str
 import service_locater as di
 from menu import MenuSelectConfigTarget
 from config import (
@@ -105,13 +103,11 @@ class SceneConfig(BaseScene):
             ["アクション", "パッド", "キー"],
         ]
         keymap_pad = {
-            # action_name: self.key_names.get(
             action_name: KEYNAME_MAP.get(keymaps[0]["code"], f"Unknown({keymaps[0]["code"]})")
             for action_name, keymaps in get_keymap("pad").items()
             if action_name in ASSIGNABLE_KEY_ACTIONS
         }
         keymap_kbd = {
-            # action_name: self.key_names.get(
             action_name: KEYNAME_MAP.get(keymaps[0]["code"], f"Unknown({keymaps[0]["code"]})")
             for action_name, keymaps in get_keymap("kbd").items()
             if action_name in ASSIGNABLE_KEY_ACTIONS

@@ -91,8 +91,8 @@ class SceneAfterBattle(BaseScene):
                         di.ref.scnmgr.change_scene("map")
                 else:
                     if di.ref.pt._pt_is_moving:
-                        distance = di.ref.pt.move_generator.gi_frame.f_locals["distance"]
-                        interval = di.ref.pt.move_generator.gi_frame.f_locals["encount_interval"]
+                        distance = di.ref.pt.move_generator.gi_frame.f_locals["distance"] # type: ignore
+                        interval = di.ref.pt.move_generator.gi_frame.f_locals["encount_interval"] # type: ignore
                         remain = px.ceil(interval / di.ref.pt._move_speed) * di.ref.pt._move_speed
                         if distance > remain:
                             self.wndmgr.push_stack(
@@ -103,7 +103,6 @@ class SceneAfterBattle(BaseScene):
                                     "（拒否の場合は、移動前の場所へ引き返します）",
                                 ],
                             )
-                    # else:
                     di.ref.scnmgr.previous_scene(step=2)
 
     def draw(self):

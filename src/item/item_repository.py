@@ -35,7 +35,6 @@ class ItemRepository:
 
             for item_name, details in item_data.items():
                 if hasattr(ItemID, item_name):
-                    # def_id = ItemID[item_name].value
                     def_id = ItemID[item_name]
                     ItemRepository._master_def[def_id] = ItemDef(
                         def_id=def_id,

@@ -110,36 +110,7 @@ KEYNAME_MAP: dict = {
     px.GAMEPAD1_BUTTON_LEFTSHOULDER: "L:Sholdr",
     px.GAMEPAD1_BUTTON_RIGHTSHOULDER: "R:Sholdr",
 }
-# menu_structure.jsonから移植
-# "MenuVolume": [
-#     [{"label": "5", "action": "none", "args": ["最大",1]}],
-#     [{"label": "4", "action": "none", "args": ["大きめ", 0.5]}],
-#     [{"label": "3", "action": "none", "args": ["標準", 0.25]}],
-#     [{"label": "2", "action": "none", "args": ["小さめ", 0.125]}],
-#     [{"label": "1", "action": "none", "args": ["極小", 0.0625]}],
-#     [{"label": "0", "action": "none", "args": ["無音", 0.0]}]
-# ],
-# "MenuDispSize": [
-#     [{"label": "5", "action": "none", "args": ["最大",7]}],
-#     [{"label": "4", "action": "none", "args": ["大きめ", 5]}],
-#     [{"label": "3", "action": "none", "args": ["標準", 3]}],
-#     [{"label": "2", "action": "none", "args": ["小さめ", 2]}],
-#     [{"label": "1", "action": "none", "args": ["極小", 1]}]
-# ],
-# "MenuTextSpeed": [
-#     [{"label": "4", "action": "none", "args": ["キー待ち", 0]}],
-#     [{"label": "3", "action": "none", "args": ["遅め", 0.5]}],
-#     [{"label": "2", "action": "none", "args": ["標準", 1]}],
-#     [{"label": "1", "action": "none", "args": ["速め", 4]}],
-#     [{"label": "0", "action": "none", "args": ["待ち無し", 9]}]
-# ],
 CONF_VOLUME: dict = {
-    # 5: {"label": "最大", "action": "none", "args": [5,1]},
-    # 4: {"label": "大きめ", "action": "none", "args": [4, 0.5]},
-    # 3: {"label": "標準", "action": "none", "args": [3, 0.25]},
-    # 2: {"label": "小さめ", "action": "none", "args": [2, 0.125]},
-    # 1: {"label": "極小", "action": "none", "args": [1, 0.0625]},
-    # 0: {"label": "無音", "action": "none", "args": [0, 0.0]},
     5: {"label": "最大", "action": "none", "args": [5, 1]},
     4: {"label": "大きめ", "action": "none", "args": [4, 0.825]},
     3: {"label": "標準", "action": "none", "args": [3, 0.66]},

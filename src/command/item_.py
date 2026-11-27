@@ -1,18 +1,14 @@
 """
 アイテム用ヘルパーコマンドモジュール
 """
-# import logging
 import sys
-from typing import Generator, Callable  # , TYPE_CHECKING, cast
+from typing import Generator, Callable
 from dataclasses import dataclass, field
 from const import SoundID
 from helper import upper_int, diceroll
 import service_locater as di
 from . import SeqSubCmd, CommandBaseAction
 from item import ItemDef
-# if TYPE_CHECKING:
-# from entity import Character
-# from item import  StackPool
 
 
 @dataclass
@@ -21,7 +17,7 @@ class item_info_package:
 
     command: CommandBaseAction
     item_def: ItemDef
-    consume: Callable  # [[], None]
+    consume: Callable
     pre_effects: list[Callable[[], Generator[list, None, None]]] = field(default_factory=list)  # yield を伴う後処理
     after_effects: list[Callable[[], Generator[list, None, None]]] = field(default_factory=list)  # yield を伴う後処理
 
@@ -46,11 +42,11 @@ def potion_hp(cmd: CommandBaseAction) -> Generator[list, None, None]:
     # ファーストメッセージ
     yield [
         f"{cmd.ctx.actor.param.name}は　{cmd.local_target.param.name}に",
-        f"　{cmd.item_def.name} を 使用した",
+        f"　{cmd.item_def.name} を 使用した", # type: ignore
     ]
 
     # 回復ロール
-    if cmd.item_def.effect_value:
+    if cmd.item_def.effect_value: # type: ignore
         healing = cmd.local_target.param.max_hp
     else:
         healing = diceroll(cmd.ctx.actor.param.level)
@@ -67,11 +63,11 @@ def potion_mp(cmd: CommandBaseAction) -> Generator[list, None, None]:
     # ファーストメッセージ
     yield [
         f"{cmd.ctx.actor.param.name}は　{cmd.local_target.param.name}に",
-        f"　{cmd.item_def.name} を 使用した",
+        f"　{cmd.item_def.name} を 使用した", # type: ignore
     ]
 
     # 回復ロール
-    if cmd.item_def.effect_value:
+    if cmd.item_def.effect_value: # type: ignore
         healing = cmd.local_target.param.max_mp
     else:
         healing = diceroll(cmd.ctx.actor.param.level) // 2
@@ -81,34 +77,24 @@ def potion_mp(cmd: CommandBaseAction) -> Generator[list, None, None]:
 
     # run_effectに相当：メッセージ表示後にダメージ適用
     real_heal = cmd.local_target.increase_mp(healing)
-    # px.play(self.se_ch, SoundID.RECOVER, resume=True)
-    # di.ref.sndmgr.play_se_sustain(SoundID.RECOVER)
     yield [SeqSubCmd.SE_SUSTAIN, SoundID.RECOVER]
     yield [f"{cmd.local_target.param.name}は {upper_int(real_heal)} のＭＰが　回復した"]
-
-
-# class torchlight(CommandBaseItem):
-#     """たいまつ"""
 
 
 def torchlight(cmd: CommandBaseAction) -> Generator[list, None, None]:
     """たいまつ"""
 
     # ファーストメッセージ
-    yield [f"{cmd.item_def.name} を 使用した", " "]
+    yield [f"{cmd.item_def.name} を 使用した", " "] # type: ignore
 
-    # # アイテム消費
-    # pl_stack = cast(StackPool, cmd.args[0]["pl_stack"])
-    # pl_stack.remove(cmd.item_def.def_id)
 
     # PT単位効果付与
-    di.ref.pt.set_pt_efx(cmd.item_def.effect_id)
-    # di.ref.sndmgr.play_se_sustain(SoundID.USEITEM)
+    di.ref.pt.set_pt_efx(cmd.item_def.effect_id) # type: ignore
     yield [SeqSubCmd.SE_SUSTAIN, SoundID.USEITEM]
     yield [
         "パーティはダンジョン探索が可能になった",
         "ダンジョンのイベントポイントでイベント実行できます",
-        f"一度実行すると{cmd.item_def.name}の効果は消失します",
+        f"一度実行すると{cmd.item_def.name}の効果は消失します", # type: ignore
     ]
 
     # キー待ち
@@ -119,44 +105,26 @@ def unlock_key(cmd: CommandBaseAction) -> Generator[list, None, None]:
     """鍵"""
 
     # ファーストメッセージ
-    yield [f"{cmd.item_def.name} を 使用した", " "]
+    yield [f"{cmd.item_def.name} を 使用した", " "] # type: ignore
 
-    # # アイテム消費
-    # pl_stack = cast(StackPool, cmd.args[0]["pl_stack"])
-    # pl_stack.remove(cmd.item_def.def_id)
-
-    return
     # PT単位効果付与
-    di.ref.pt.set_pt_efx(cmd.item_def.effect_id)
-    # di.ref.sndmgr.play_se_sustain(SoundID.USEITEM)
+    di.ref.pt.set_pt_efx(cmd.item_def.effect_id) # type: ignore
     yield [SeqSubCmd.SE_SUSTAIN, SoundID.USEITEM]
     yield [
         "パーティはダンジョン探索が可能になった",
         "ダンジョンのイベントポイントでイベント実行できます",
-        f"一度実行すると{cmd.item_def.name}の効果は消失します",
+        f"一度実行すると{cmd.item_def.name}の効果は消失します", # type: ignore
     ]
 
     # キー待ち
     yield from cmd.wait_finish()
 
 
-# class escape_battle(CommandBaseItem):
-#     """戦闘離脱"""
-
-
 def escape_battle(cmd: CommandBaseAction) -> Generator[list, None, None]:
     """戦闘離脱"""
 
-    # # アイテム消費
-    # if cmd._ctx.situation == "battle":
-    #     cmd.consume_item()
-    # else:
-    #     pl_stack = cast(StackPool, cmd.args[0]["pl_stack"])
-    #     # pl_stack.remove(item_def.def_id, ItemState.BAG, 1)
-    #     pl_stack.remove(cmd.item_def.def_id)
-
     # PT単位効果付与
-    di.ref.pt.set_pt_efx(cmd.item_def.effect_id)
+    di.ref.pt.set_pt_efx(cmd.item_def.effect_id) # type: ignore
     # di.ref.sndmgr.play_se_sustain(SoundID.USEITEM)
     yield [SeqSubCmd.SE_SUSTAIN, SoundID.USEITEM]
     if cmd.ctx.situation == "battle":
@@ -165,94 +133,61 @@ def escape_battle(cmd: CommandBaseAction) -> Generator[list, None, None]:
     else:
         yield [
             "パーティは次のエンカウント時に",
-            f"{cmd.item_def.name}の効果で戦闘を回避します",
-            f"一度エンカウントすると{cmd.item_def.name}の効果は消失します",
+            f"{cmd.item_def.name}の効果で戦闘を回避します", # type: ignore
+            f"一度エンカウントすると{cmd.item_def.name}の効果は消失します", # type: ignore
         ]
-
-    # # run_effectに相当：メッセージ表示後にダメージ適用
-    # real_heal = target.increase_mp(healing)
-    # # px.play(self.se_ch, SoundID.RECOVER, resume=True)
-    # di.ref.sndmgr.play_se_sustain(SoundID.RECOVER)
-    # yield [f"{target.param.name}は {upper_int(real_heal)} のＭＰが　回復した"]
 
     # キー待ち
     yield from cmd.wait_finish()
-
-
-# class reduce_negative(CommandBaseItem):
-#     """マイナス選択肢でダイス振り直し"""
 
 
 def reduce_negative(cmd: CommandBaseAction) -> Generator[list, None, None]:
     """マイナス選択肢でダイス振り直し"""
 
     # ファーストメッセージ
-    yield [f"{cmd.item_def.name} を 使用した", " "]
-
-    # # アイテム消費
-    # pl_stack = cast(StackPool, cmd.args[0]["pl_stack"])
-    # pl_stack.remove(cmd.item_def.def_id)
+    yield [f"{cmd.item_def.name} を 使用した", " "] # type: ignore
 
     # PT単位効果付与
-    di.ref.pt.set_pt_efx(cmd.item_def.effect_id + str(cmd.item_def.effect_value))
-    # di.ref.sndmgr.play_se_sustain(SoundID.USEITEM)
+    di.ref.pt.set_pt_efx(cmd.item_def.effect_id + str(cmd.item_def.effect_value)) # type: ignore
     yield [SeqSubCmd.SE_SUSTAIN, SoundID.USEITEM]
     yield [
         "次に発生するランダムイベントの候補から",
-        f"{upper_int(int(cmd.item_def.effect_value))}個のマイナス選択肢を除外します",
-        f"一度実行すると{cmd.item_def.name}の効果は消失します",
+        f"{upper_int(int(cmd.item_def.effect_value))}個のマイナス選択肢を除外します", # type: ignore
+        f"一度実行すると{cmd.item_def.name}の効果は消失します", # type: ignore
     ]
 
     # キー待ち
     yield from cmd.wait_finish()
-
-
-# class dice_plus(CommandBaseItem):
-#     """ダイスロール時のダイスをプラス"""
 
 
 def dice_plus(cmd: CommandBaseAction) -> Generator[list, None, None]:
     """ダイスロール時のダイスをプラス"""
 
     # ファーストメッセージ
-    yield [f"{cmd.item_def.name} を 使用した", " "]
-
-    # # アイテム消費
-    # pl_stack = cast(StackPool, cmd.args[0]["pl_stack"])
-    # pl_stack.remove(cmd.item_def.def_id)
+    yield [f"{cmd.item_def.name} を 使用した", " "] # type: ignore
 
     # PT単位効果付与
-    di.ref.pt.set_pt_efx(cmd.item_def.effect_id + str(cmd.item_def.effect_value))
-    # di.ref.sndmgr.play_se_sustain(SoundID.USEITEM)
+    di.ref.pt.set_pt_efx(cmd.item_def.effect_id + str(cmd.item_def.effect_value)) # type: ignore
     yield [SeqSubCmd.SE_SUSTAIN, SoundID.USEITEM]
     yield [
         "次に行うダイスロール時に、一度だけ",
-        f"ダイスを{upper_int(int(cmd.item_def.effect_value))}個追加します",
-        f"一度実行すると{cmd.item_def.name}の効果は消失します",
+        f"ダイスを{upper_int(int(cmd.item_def.effect_value))}個追加します", # type: ignore
+        f"一度実行すると{cmd.item_def.name}の効果は消失します", # type: ignore
     ]
 
     # キー待ち
     yield from cmd.wait_finish()
 
 
-# class food_plus(CommandBaseItem):
-#     """食糧を追加"""
-
-
 def food_plus(cmd: CommandBaseAction) -> Generator[list, None, None]:
     """食糧を追加"""
 
     # ファーストメッセージ
-    yield [f"{cmd.item_def.name} を 使用した", " "]
-
-    # # アイテム消費
-    # pl_stack = cast(StackPool, cmd.args[0]["pl_stack"])
-    # pl_stack.remove(cmd.item_def.def_id)
+    yield [f"{cmd.item_def.name} を 使用した", " "] # type: ignore
 
     # PT単位効果付与
-    val = int(cmd.item_def.effect_value)
+    val = int(cmd.item_def.effect_value) # type: ignore
     di.ref.pt.earn_foods(val)
-    # di.ref.sndmgr.play_se_sustain(SoundID.USEITEM)
     yield [SeqSubCmd.SE_SUSTAIN, SoundID.USEITEM]
     yield [f"食糧が{val}増えた！"]
 

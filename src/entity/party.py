@@ -14,9 +14,6 @@ import service_locater as di
 from field_map import EventPoint, Route
 from helper import diceroll
 from item import ItemID, ItemDef, ItemType
-
-# import command.system_command as s_cmd
-# from command.effect_command import CommonEffectWrapper, efx_damage_shake, efx_screen_flash
 from command.system_command import FoodShortageMessage, FoodShortageEffect, CommonFieldMessage
 from field_map import MapGraph
 from . import Character, FieldSprite
@@ -45,7 +42,6 @@ class Party:
     _world_y: float
     _pt_foods: int
     _pt_golds: int
-    # _pt_eventflg: dict[str, bool]
     past_turns: int = 0
     info_window: Window
     pt_msg_window: Window
@@ -81,7 +77,6 @@ class Party:
         # パーティー単位のパラメータ
         self._pt_foods = INITIAL_FOODS
         self._pt_golds = INITIAL_GOLD
-        # self._pt_eventflg = {}
         self._pt_efx_cache: set = set()  # ItemID
 
         # 移動用ジェネレータ変数にダミーを定義
@@ -99,22 +94,8 @@ class Party:
     def regist_dummy_hero(self):
         """ダミー主人公データの登録"""
         # キャラクターの初期化
-        # hero_param = EntityParam(
-        #     name="メンバー" + str(len(self._member_list)),
-        #     strength=px.rndi(3, 18),
-        #     arcane=px.rndi(3, 18),
-        #     endurance=px.rndi(3, 18),
-        #     speed=px.rndi(3, 18),
-        #     luck=px.rndi(3, 18),
-        #     max_hp=px.rndi(3, 18),
-        #     max_mp=px.rndi(3, 18),
-        # )
-        # PlayerSprite は pyxel.blt同様pyxel.Imageオブジェクトを受け取り可能
-        # charimage = px.Image.from_image("assets/image/character16.bmp")
         char_x = 112  # 初期X座標(多分中央から動く事ない)
         char_y = 112  # 初期Y座標
-        # hero_sprite = PlayerSprite(char_x, char_y, charimage)  # img=0 を明示的に指定
-        # hero = Character(id=0, param=hero_param, sprite=hero_sprite)  # id=1を設定
         from entity import EntityParam, PlayerSprite
 
         hero = Character(
@@ -132,29 +113,8 @@ class Party:
             ),
             sprite=PlayerSprite(char_x, char_y, len(self._member_list)),  # type:ignore
         )
-        # if len(self._member_list) == 0:
-        #     di.register(di.ServiceKey.HERO, hero)
-        #     self.add_ptmember(di.ref.hero)
-        # elif len(self._member_list) == 1:
-        #     di.register(di.ServiceKey.MEMBER1, hero)
-        #     self.add_ptmember(di.ref.mem1)
-        # elif len(self._member_list) == 2:
-        #     di.register(di.ServiceKey.MEMBER2, hero)
-        #     self.add_ptmember(di.ref.mem2)
         self.add_ptmember(hero)
         self.set_field_sprite()
-        # デバフアイコンテスト用
-        from skill import DebuffType
-
-        hero.debuff_list = {
-            DebuffType.REDUCE_DICEVALUE: 9,
-            DebuffType.CHARM_PERSON: 9,
-            DebuffType.DISTURB_MIND: 9,
-            DebuffType.FALL_ASLEEP: 9,
-            DebuffType.INITIATIVE_ZERO: 9,
-            DebuffType.POISON_DAMAGE: 9,
-            DebuffType.STONE_HOLD: 9,
-        }
 
     @property
     def average_level(self) -> float:
@@ -344,7 +304,6 @@ class Party:
             distance = hypot(dx, dy)
 
             if encount_interval <= current_count:
-                # self.past_turns += 1
                 self.turn_progression()
                 if self.encount_check(encounts):
                     encounts += 1
@@ -505,7 +464,6 @@ class Party:
         # 減少によりフードが0以下になった場合
         if self._pt_foods <= 0:
             self._pt_foods = 0
-            # cmd1 = s_cmd.FoodShortageEffect(self.pt_msg_window)
             dummy = Window("basic", 0, 0, 0, 0, "hold")
             cmd1 = FoodShortageEffect(dummy)
             self.cmdmgr.push_command(cmd1)
@@ -544,9 +502,7 @@ class Party:
                 next(self.move_generator)  # type:ignore
                 # 戦闘開始
                 if self._pt_is_encount and self.cmdmgr.is_empty:
-                    # self.scnmgr.next_scene("battlesplash")
                     if self.get_pt_efx("escape_battle"):
-                        # cmd = s_cmd.CommonFieldMessage(
                         cmd = CommonFieldMessage(
                             self.pt_msg_window,
                             msg_list=[
@@ -600,13 +556,4 @@ class Party:
         self._pt_golds = params.get("golds", 0)
         start_point = params.get("point", "p01")
         self._pt_efx_cache = set(params.get("ptefx", ""))
-
-        # tmp_point = self.map.get_point(start_point)
-        # if tmp_point is None:
-        #     errmsg = f"指定されたイベントポイント({start_point})は定義されていません"
-        #     logger.critical(errmsg, exc_info=True)
-        #     raise KeyError(errmsg)
-        # self._current_point = tmp_point
-        # self._world_x = self._current_point.x
-        # self._world_y = self._current_point.y
         self.set_current_point(start_point)
