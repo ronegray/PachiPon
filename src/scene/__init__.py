@@ -6,11 +6,9 @@ sceneパッケージ
 """
 
 # 管理系モジュール
-# from .scene_protocol import SCENE_NAME
 from .scene_protocol import SCENE_NAME, SITUATION
 from .scene_dictionary import register, get_scene, SCENE_NAME
 
-# from .scene_base import BaseScene, SITUATION
 from .scene_base import BaseScene
 from .scene_manager import SceneManager
 

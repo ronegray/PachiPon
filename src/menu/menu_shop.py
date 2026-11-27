@@ -160,7 +160,6 @@ class MenuItemBase(Menu):
         - キャンセル押下時はカテゴリ選択メニューに戻ってメッセージ設定"""
 
         if self.inputkey.cancel():
-            # self.message_window.update_indicator(False)
             # 地点別の対応
             eventpoint = di.ref.pt.get_current_point()
             match eventpoint.point_type:
@@ -176,17 +175,13 @@ class MenuItemBase(Menu):
 
         # 左右キーでのリスト内容切替
         if len(self.item_list) > 1:
-            # if self.inputkey.left():
             if self.inputkey.LS():
-                # px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
                 self.se.play(SoundID.PAGE_ARROW)
                 self.itemlist_index = (self.itemlist_index - 1) % len(self.item_list)
                 self.remap_itemlist()
                 self.change_target_item()
                 return
-            # if self.inputkey.right():
             if self.inputkey.RS():
-                # px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
                 self.se.play(SoundID.PAGE_ARROW)
                 self.itemlist_index = (self.itemlist_index + 1) % len(self.item_list)
                 self.remap_itemlist()
@@ -196,7 +191,6 @@ class MenuItemBase(Menu):
         """カーソル移動時に詳細ウインドウの内容を書き換える"""
         result = super().move_cursor()
         if result:
-            # px.play(self.se_ch, SoundID.CURSOR_VERTICAL, resume=True)
             self.se.play(SoundID.CURSOR_VERTICAL)
             self.change_target_item()
         return result
@@ -233,9 +227,7 @@ class MenuBuyConsume(MenuItemBase):
         tmp_item_list = [
             [
                 {
-                    "id": format_leftright(
-                        item_def.name, f"　{upper_int_spaced(item_def.price, 6)}Ｇ", 34
-                    ),
+                    "id": format_leftright(item_def.name, f"　{upper_int_spaced(item_def.price, 6)}Ｇ", 34),
                     "action": "none",
                     "args": [item_def],
                 }
@@ -245,8 +237,7 @@ class MenuBuyConsume(MenuItemBase):
         ]
         self.inventory_count = len(tmp_item_list)
         self.item_list = [
-            tmp_item_list[i : i + self._list_rows]
-            for i in range(0, self.inventory_count, self._list_rows)
+            tmp_item_list[i : i + self._list_rows] for i in range(0, self.inventory_count, self._list_rows)
         ]
 
         # ページインデックスが範囲外にならないよう補正
@@ -270,9 +261,9 @@ class MenuBuyConsume(MenuItemBase):
 
         cmd = s_cmd.ShopPurchase(
             self.message_window,
-            self.pt,
-            selected_item.action_args[0],
-            di.ref.pl_stack.add,
+            party=self.pt,
+            item_def=selected_item.action_args[0],
+            func_add_pool=di.ref.pl_stack.add,
         )
         di.ref.cmdmgr.push_command(cmd)
         return RsltContinue()
@@ -296,7 +287,7 @@ class MenuBuyFoods(MenuItemBase):
         selected_item = self.menu_items[pos_y][pos_x]
         logger.info(selected_item)
 
-        cmd = s_cmd.PurchaseFoods(self.message_window, self.pt, selected_item.action_args[0])
+        cmd = s_cmd.PurchaseFoods(self.message_window, party=self.pt, price=selected_item.action_args[0])
         di.ref.cmdmgr.push_command(cmd)
         return RsltContinue()
 
@@ -314,9 +305,7 @@ class MenuBuyEquips(MenuItemBase):
         tmp_item_list = [
             [
                 {
-                    "id": format_leftright(
-                        item_def.name, f"　{upper_int_spaced(item_def.price, 6)}Ｇ", 34
-                    ),
+                    "id": format_leftright(item_def.name, f"　{upper_int_spaced(item_def.price, 6)}Ｇ", 34),
                     "action": "none",
                     "args": [item_def],
                 }
@@ -327,8 +316,7 @@ class MenuBuyEquips(MenuItemBase):
 
         self.inventory_count = len(tmp_item_list)
         self.item_list = [
-            tmp_item_list[i : i + self._list_rows]
-            for i in range(0, self.inventory_count, self._list_rows)
+            tmp_item_list[i : i + self._list_rows] for i in range(0, self.inventory_count, self._list_rows)
         ]
 
         # ページインデックスが範囲外にならないよう補正
@@ -361,9 +349,9 @@ class MenuBuyEquips(MenuItemBase):
 
         cmd = s_cmd.ShopPurchase(
             self.message_window,
-            self.pt,
-            selected_item.action_args[0],
-            di.ref.pl_item.create,
+            party=self.pt,
+            item_def=selected_item.action_args[0],
+            func_add_pool=di.ref.pl_item.create,
         )
         di.ref.cmdmgr.push_command(cmd)
         return RsltContinue()
@@ -412,8 +400,7 @@ class MenuSellItems(MenuItemBase):
             self.item_list = [[[{"id": "該当なし", "action": "None", "args": [None, None, None]}]]]
         else:
             self.item_list = [
-                filteredlist[i : i + self._list_rows]
-                for i in range(0, self.inventory_count, self._list_rows)
+                filteredlist[i : i + self._list_rows] for i in range(0, self.inventory_count, self._list_rows)
             ]
 
         # ページインデックスが範囲外にならないよう補正
@@ -452,7 +439,10 @@ class MenuSellItems(MenuItemBase):
             pos_x, pos_y = self.cursor_position
             selected_item = self.menu_items[pos_y][pos_x]
             cmd = s_cmd.SellEquip(
-                self.message_window, self.pt, selected_item.action_args, di.ref.pl_item
+                self.message_window,
+                party=self.pt,
+                item_info=selected_item.action_args,
+                pool_item=di.ref.pl_item,
             )
             di.ref.cmdmgr.push_command(cmd)
             di.ref.cmdmgr.set_on_empty(self.update_menu)

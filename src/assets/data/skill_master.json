@@ -6,7 +6,7 @@
         "description": "破魔の力で敵を撃つ魔法の矢",
         "dc": 1,
         "cost": 5,
-        "effect_func": "AttackSpellSingle",
+        "effect_func": "attack_spell_single",
         "effect_value": 1
     },
     "SANCTUARY": {
@@ -16,7 +16,7 @@
         "description": "破魔の光を放ち、敵全体にダメージを与える",
         "dc": 2,
         "cost": 10,
-        "effect_func": "AttackSpellArea",
+        "effect_func": "attack_spell_area",
         "effect_value": 1
     },
     "HOLY_SMITE": {
@@ -26,7 +26,7 @@
         "description": "破魔の裁きを下し、アンデッドを即座に滅する",
         "dc": 3,
         "cost": 15,
-        "effect_func": "AttackDisruptUndead",
+        "effect_func": "attack_disrupt_undead",
         "effect_value": 1
     },
     "CURSE_PAIN": {
@@ -36,7 +36,7 @@
         "description": "呪毒の力で対象を苦しめ、ダイス目を１下げる",
         "dc": 1,
         "cost": 5,
-        "effect_func": "DebuffDiceValue",
+        "effect_func": "debuff_dice_value",
         "effect_value": 1
     },
     "POISON_CLOUD": {
@@ -46,7 +46,7 @@
         "description": "猛毒の霧をまとわせ、受けた瞬間以降継続ダメージを与える",
         "dc": 2,
         "cost": 10,
-        "effect_func": "DebuffContinualDamage",
+        "effect_func": "debuff_continual_damage",
         "effect_value": 1
     },
     "STATUE_GAZE": {
@@ -56,7 +56,7 @@
         "description": "呪毒の視線で対象を石のように硬直させ、行動不能にする",
         "dc": 3,
         "cost": 15,
-        "effect_func": "DebuffStoneStatue",
+        "effect_func": "debuff_stone_statue",
         "effect_value": 1
     },
     "FIRE_BOLT": {
@@ -66,7 +66,7 @@
         "description": "火炎の力で敵を撃つ魔法の弾",
         "dc": 1,
         "cost": 5,
-        "effect_func": "AttackSpellSingle",
+        "effect_func": "attack_spell_single",
         "effect_value": 1
     },
     "BURN_FLOOD": {
@@ -76,7 +76,7 @@
         "description": "業火を敵全体に浴びせ、範囲にダメージを与える",
         "dc": 2,
         "cost": 10,
-        "effect_func": "AttackSpellArea",
+        "effect_func": "attack_spell_area",
         "effect_value": 1
     },
     "INFERNO": {
@@ -86,7 +86,7 @@
         "description": "大業火を巻き起こし、敵全体に強烈なダメージを与える",
         "dc": 3,
         "cost": 15,
-        "effect_func": "AttackSpellArea",
+        "effect_func": "attack_spell_area",
         "effect_value": 2
     },
     "ICE_NEEDLE": {
@@ -96,7 +96,7 @@
         "description": "氷結の力で敵を貫く氷の針を放つ",
         "dc": 1,
         "cost": 5,
-        "effect_func": "AttackSpellSingle",
+        "effect_func": "attack_spell_single",
         "effect_value": 1
     },
     "FROST_CIRCLE": {
@@ -106,7 +106,7 @@
         "description": "霜の円環を広げ、敵全体にダメージを与える",
         "dc": 2,
         "cost": 10,
-        "effect_func": "AttackSpellArea",
+        "effect_func": "attack_spell_area",
         "effect_value": 1
     },
     "BLIZZARD": {
@@ -116,7 +116,7 @@
         "description": "猛烈な吹雪を巻き起こし、敵全体に強烈なダメージを与える",
         "dc": 3,
         "cost": 15,
-        "effect_func": "AttackSpellArea",
+        "effect_func": "attack_spell_area",
         "effect_value": 2
     },
     "BOLT_SHOWER": {
@@ -126,7 +126,7 @@
         "description": "雷電を雨のように降らせ、敵全体にダメージを与える",
         "dc": 1,
         "cost": 5,
-        "effect_func": "AttackSpellArea",
+        "effect_func": "attack_spell_area",
         "effect_value": 1
     },
     "THUNDER_PILLER": {
@@ -136,7 +136,7 @@
         "description": "雷電を一点に集中させ、敵単体に強烈なダメージを与える",
         "dc": 2,
         "cost": 10,
-        "effect_func": "AttackSpellSingle",
+        "effect_func": "attack_spell_single",
         "effect_value": 2
     },
     "ELECTROMAGNETIC": {
@@ -146,7 +146,7 @@
         "description": "電磁の力を乱舞させ、敵全体に強烈なダメージを与える",
         "dc": 3,
         "cost": 15,
-        "effect_func": "AttackSpellArea",
+        "effect_func": "attack_spell_area",
         "effect_value": 2
     },
     "SLEEP_SONG": {
@@ -156,7 +156,7 @@
         "description": "精神を惑わす歌を歌い、敵全体を眠らせる",
         "dc": 1,
         "cost": 5,
-        "effect_func": "DebuffSleep",
+        "effect_func": "debuff_sleep",
         "effect_value": 1
     },
     "DISTURB_MIND": {
@@ -166,7 +166,7 @@
         "description": "精神を撹乱し、対象の魔法発動ロールに３のペナルティを与える",
         "dc": 2,
         "cost": 10,
-        "effect_func": "DebuffCastPenalty",
+        "effect_func": "debuff_cast_penalty",
         "effect_value": 3
     },
     "CHARM_ILLUSION": {
@@ -176,7 +176,7 @@
         "description": "幻惑の力で対象を魅了し、意のままに操る",
         "dc": 3,
         "cost": 15,
-        "effect_func": "DebuffCharm",
+        "effect_func": "debuff_charm",
         "effect_value": 1
     },
     "SHOCK_BULLET": {
@@ -186,7 +186,7 @@
         "description": "衝撃の力で敵を撃つ魔法の弾",
         "dc": 1,
         "cost": 5,
-        "effect_func": "AttackSpellSingle",
+        "effect_func": "attack_spell_single",
         "effect_value": 1
     },
     "SONIC_WAVE": {
@@ -196,7 +196,7 @@
         "description": "衝撃波を敵全体に浴びせ、範囲にダメージを与える",
         "dc": 2,
         "cost": 10,
-        "effect_func": "AttackSpellArea",
+        "effect_func": "attack_spell_area",
         "effect_value": 1
     },
     "BLOW_AWAY": {
@@ -206,7 +206,7 @@
         "description": "衝撃の力で敵を吹き飛ばし、ダメージを与えつつ次のイニシアチブを０に固定する",
         "dc": 3,
         "cost": 15,
-        "effect_func": "AttackInitiativeZero",
+        "effect_func": "attack_initiative_zero",
         "effect_value": 2
     },
     "HEALING_HAND": {
@@ -216,7 +216,7 @@
         "description": "癒しの力で触れた者の体力を回復させる",
         "dc": 1,
         "cost": 5,
-        "effect_func": "RecoverSpellSingle",
+        "effect_func": "recover_spell_single",
         "effect_value": 1
     },
     "CURE_POISON": {
@@ -226,7 +226,7 @@
         "description": "霊光の力で対象の状態異常を解除する",
         "dc": 2,
         "cost": 10,
-        "effect_func": "DispellDebuff",
+        "effect_func": "dispell_debuff",
         "effect_value": 1
     },
     "ANGEL_STAIR": {
@@ -236,7 +236,7 @@
         "description": "天より降り注ぐ霊光で、味方全体の体力を回復させる",
         "dc": 3,
         "cost": 15,
-        "effect_func": "RecoverSpellArea",
+        "effect_func": "recover_spell_area",
         "effect_value": 2
     }
 }

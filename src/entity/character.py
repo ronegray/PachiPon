@@ -14,8 +14,6 @@ from . import (
     Equips,
     EquipSlot,
 )
-
-# from item import ItemType
 from skill import SkillID
 import service_locater as di
 
@@ -135,14 +133,8 @@ class Character(EntityBase):
 
     def equip_default(self) -> None:
         """キャラ作成時のデフォルト装備を設定"""
-        # pooled = di.ref.pl_item.get_by_type(ItemType.WEAPON)
-        # pl_item = [(key, val) for key, val in pooled.items()]
-        # self.equipments.equip_on_pool(EquipSlot.WEAPON, pl_item[0])
         pl_item_w = di.ref.pl_item.create(def_id=ItemID.DAGGER, state=ItemState(self.chara_id))
         self.equipments.equip_on_pool(EquipSlot.WEAPON, pl_item_w)
-        # pooled = di.ref.pl_item.get_by_type(ItemType.GUARDER)
-        # pl_item = [(key, val) for key, val in pooled.items()]
-        # self.equipments.equip_on_pool(EquipSlot.GUARDER, pl_item[0])
         pl_item_g = di.ref.pl_item.create(def_id=ItemID.CLOTH, state=ItemState(self.chara_id))
         self.equipments.equip_on_pool(EquipSlot.GUARDER, pl_item_g)
 

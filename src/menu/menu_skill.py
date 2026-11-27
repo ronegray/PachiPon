@@ -6,6 +6,7 @@
 """
 
 import logging
+from typing import Generator
 import pyxel as px
 from gameutils.lib import (
     Menu,
@@ -17,14 +18,10 @@ from gameutils.lib import (
     RsltDiscard,
 )
 from const import SoundID
-
-# import service_locater as di
 from helper import upper_int, format_leftright
 from entity import EntityContext
 from skill import SkillDef, SkillTargetType
-
-# import command.entity_command as en_cmd
-import command.entity_battle_command as en_cmd
+from command import CommandPackage, CommandBaseAction
 
 
 # ロギング設定
@@ -41,7 +38,7 @@ class MenuSelectSkillBattle(Menu):
         self,
         ctx: EntityContext,
         ref_window: dict[str, int],
-        command_package: en_cmd.CommandPackage,
+        command_package: CommandPackage,
     ):
         self.ctx = ctx
         self.command_package = command_package
@@ -51,9 +48,7 @@ class MenuSelectSkillBattle(Menu):
         self.generate_item_list()
 
         menu_pos = (ref_window["x"], ref_window["y"])
-        menu_size = (
-            (ref_window["w"], ref_window["h"]) if self.ctx.situation == "battle" else (104, 144)
-        )
+        menu_size = (ref_window["w"], ref_window["h"]) if self.ctx.situation == "battle" else (104, 144)
         super().__init__("basic", *menu_pos, self.menu_shape, self.skill_list, *menu_size)
         self.cursor_row_offset += 2  # k8x12Sの縦長分対応
         # """使用するスキルを選択データ取得と表示ウインドウの再定義"""
@@ -107,9 +102,7 @@ class MenuSelectSkillBattle(Menu):
                 for skill_def in tmplist
             ]
             if len(tmp_item_list) <= 0:
-                self.skill_list = [
-                    [{"id": "該当なし", "action": "None", "args": ["習得していない"]}]
-                ]
+                self.skill_list = [[{"id": "該当なし", "action": "None", "args": ["習得していない"]}]]
             else:
                 if menu_cols > 1:
                     self.item_list_multicol(menu_cols, tmp_item_list)
@@ -134,9 +127,11 @@ class MenuSelectSkillBattle(Menu):
 
     def change_target_item(self):
         """選択アイテムを示す内部情報の変更"""
-
-        self.target_item = self.skill_list[self.cursor_position[1]][self.cursor_position[0]]
-        self.set_description_string()
+        try:
+            self.target_item = self.skill_list[self.cursor_position[1]][self.cursor_position[0]]
+            self.set_description_string()
+        except IndexError:
+            pass
 
     def remap_itemlist(self):
         self.build_menu_items(self.skill_list)
@@ -194,13 +189,6 @@ class MenuSelectSkillBattle(Menu):
         return result
 
     def get_item_desc(self) -> list[str]:
-        # # return [self.target_item[self.cursor_position[0]]["args"][0].description]  # type: ignore
-        # target_item = di.ref.itemrps.get_def(self.target_item[0]["args"][0])  # type: ignore
-        # if target_item is None:
-        #     desc = ""
-        # else:
-        #     desc = target_item.description
-        # return [desc]
         if isinstance(self.target_item["args"][0], SkillDef):
             desc = self.target_item["args"][0].description  # type: ignore
         else:
@@ -210,7 +198,10 @@ class MenuSelectSkillBattle(Menu):
     def exec_menu(self) -> ExecResult:
         """選択メニュー項目の処理を実行"""
         pos_x, pos_y = self.cursor_position
-        selected_item = self.menu_items[pos_y][pos_x]
+        try:
+            selected_item = self.menu_items[pos_y][pos_x]
+        except IndexError:
+            return RsltContinue()
         logger.info(selected_item)
 
         if self.item_count == 0:
@@ -237,7 +228,9 @@ class MenuSelectSkillBattle(Menu):
                 from menu import MenuSelectBattleTarget
 
                 # コマンドパッケージに選択内容登録
-                self.command_package.selected_action = getattr(en_cmd, skill_def.effect_func)
+                from command.entity_battle_command import CastSpellBattle
+
+                self.command_package.selected_action = CastSpellBattle
                 self.command_package.target_type = skill_def.target_type  # type: ignore
                 self.command_package.selected_args = {"skillinfo": skill_def}
 
@@ -271,7 +264,7 @@ class MenuSelectSkillField(Menu):
         self,
         ctx: EntityContext,
         ref_window: dict[str, int],
-        command_package: en_cmd.CommandPackage,
+        command_package: CommandPackage,
     ):
         self.ctx = ctx
         self.command_package = command_package
@@ -400,15 +393,11 @@ class MenuSelectSkillField(Menu):
             self.build_menu_items(self.skill_list)
             self.change_target_item()
 
-        # if self.inputkey.left():
         if self.inputkey.LS():
-            # px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
             self.se.play(SoundID.PAGE_ARROW)
             self.member_index = (self.member_index - 1) % len(self.ctx.allies)
             _update_list()
-        # if self.inputkey.right():
         if self.inputkey.RS():
-            # px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
             self.se.play(SoundID.PAGE_ARROW)
             self.member_index = (self.member_index + 1) % len(self.ctx.allies)
             _update_list()
@@ -465,7 +454,7 @@ class MenuSelectSkillField(Menu):
         from menu import MenuSelectFieldTarget
 
         # コマンドパッケージに選択内容登録
-        self.command_package.selected_action = getattr(en_cmd, skill_def.effect_func)
+        self.command_package.selected_action = CastSpellField
         self.command_package.target_type = skill_def.target_type  # type: ignore
         self.command_package.selected_args = {"skillinfo": skill_def}
 
@@ -477,3 +466,22 @@ class MenuSelectSkillField(Menu):
             self.ctx,
             self.command_package.target_type,
         )
+
+
+class CastSpellField(CommandBaseAction):
+    """消費アイテム用フィールドシーン向け共通クラス"""
+
+    def _sequence_action(self) -> Generator[list, None, None]:
+        """アイテム利用の殻"""
+
+        self.skill_def: SkillDef = self.kwargs["sel_cmd_dict"]["skillinfo"]
+
+        from command.skill_ import skill_info_package, use_skill
+
+        yield from use_skill(
+            skill_info_package(
+                command=self,
+                skill_def=self.skill_def,
+            )
+        )
+        return

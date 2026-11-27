@@ -52,7 +52,6 @@ def ipl():
     wire_window_input_from_input_system()
 
     FontManager.initialize()
-    # tonemgr = ToneManager()
     sndmgr = SoundManager()
     di.register(di.ServiceKey.SOUND_MANAGER, sndmgr)
     di.ref.sndmgr.load_music_master()
@@ -112,7 +111,6 @@ def ipl():
 
     # サービスロケータ登録：パーティ
     logger.info("Initialize - Party")
-    # pt = Party(scnmgr=di.ref.scnmgr, map=di.ref.map, cmdmgr=di.ref.cmdmgr)
     pt = Party(map=di.ref.map)
     di.register(di.ServiceKey.PARTY, pt)
 

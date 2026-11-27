@@ -460,7 +460,7 @@
       "rank": "JUNK",
       "target_type": "ALLY",
       "price": 100,
-      "effect_id": "heal_hp",
+      "effect_id": "potion_hp",
       "effect_value": 0,
       "is_percent": false,
       "description": "レベル数だけダイスを振った値の分、ＨＰが回復"
@@ -470,7 +470,7 @@
       "target_type": "ALLY",
       "rank": "RARE",
       "price": 10000,
-      "effect_id": "heal_hp",
+      "effect_id": "potion_hp",
       "effect_value": 1,
       "is_percent": false,
       "description": "ＨＰが全回復"
@@ -480,7 +480,7 @@
       "target_type": "ALLY",
       "rank": "NORMAL",
       "price": 1000,
-      "effect_id": "heal_mp",
+      "effect_id": "potion_mp",
       "effect_value": 0,
       "is_percent": false,
       "description": "レベル数だけダイスを振った値の半分、ＭＰが回復"
@@ -490,7 +490,7 @@
       "target_type": "ALLY",
       "rank": "RARE",
       "price": 99999,
-      "effect_id": "heal_mp",
+      "effect_id": "potion_mp",
       "effect_value": 1,
       "is_percent": false,
       "description": "ＭＰが全回復"

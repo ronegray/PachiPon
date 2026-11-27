@@ -272,12 +272,8 @@ class RouteParamEditor:
         row_a_y = y + 18
         row_b_y = y + 44
         cost_label = "cost" if default_cost is None else f"cost (def {default_cost})"
-        self.field_cost = InputField(
-            x, row_a_y, 56, 12, cost_label, str(init_cost), numeric_only=True
-        )
-        self.field_threat = InputField(
-            x + 70, row_a_y, 56, 12, "threat", str(init_threat), numeric_only=True
-        )
+        self.field_cost = InputField(x, row_a_y, 56, 12, cost_label, str(init_cost), numeric_only=True)
+        self.field_threat = InputField(x + 70, row_a_y, 56, 12, "threat", str(init_threat), numeric_only=True)
         self.field_label = InputField(x, row_b_y, w, 12, "label", str(init_label))
         self.lock_x = x + 146
         self.lock_y = row_a_y
@@ -341,9 +337,7 @@ class RouteDialog:
         self.y = (screen_h - h) // 2
         self.w, self.h = w, h
 
-        self.forward = RouteParamEditor(
-            self.x + 10, self.y + 20, w - 20, forward_header, forward_route, default_cost
-        )
+        self.forward = RouteParamEditor(self.x + 10, self.y + 20, w - 20, forward_header, forward_route, default_cost)
         self.backward = RouteParamEditor(
             self.x + 10, self.y + 86, w - 20, backward_header, backward_route, default_cost
         )
@@ -417,9 +411,7 @@ class PointDialog:
         init_type = point["point_type"] if point else POINT_TYPE_NAMES[0]
         if init_type not in POINT_TYPE_NAMES:
             # 旧データ等でPOINT_TYPE_NAMESに無い値だった場合の保険
-            print(
-                f"警告: 未知のpoint_type '{init_type}' のため '{POINT_TYPE_NAMES[0]}' として表示します"
-            )
+            print(f"警告: 未知のpoint_type '{init_type}' のため '{POINT_TYPE_NAMES[0]}' として表示します")
             init_type = POINT_TYPE_NAMES[0]
         init_name = point["name"] if point else ""
         init_event_key = point["event_key"] if point else default_event_key
@@ -447,9 +439,7 @@ class PointDialog:
         self.stats_content_y = self.y + 108
         self.stats_line_height = 9
 
-        self.btn_edit_stats = Button(
-            self.x + w - 80, self.stats_label_y - 2, 70, 12, "Edit", px.COLOR_GRAY
-        )
+        self.btn_edit_stats = Button(self.x + w - 80, self.stats_label_y - 2, 70, 12, "Edit", px.COLOR_GRAY)
 
         btn_y = self.y + h - 24
         self.btn_ok = Button(self.x + 10, btn_y, 70, 14, "OK", px.COLOR_DARK_BLUE)
@@ -459,11 +449,7 @@ class PointDialog:
         return (self.field_name, self.field_event)
 
     def _cycle_point_type(self, step):
-        idx = (
-            POINT_TYPE_NAMES.index(self.point_type_value)
-            if self.point_type_value in POINT_TYPE_NAMES
-            else 0
-        )
+        idx = POINT_TYPE_NAMES.index(self.point_type_value) if self.point_type_value in POINT_TYPE_NAMES else 0
         self.point_type_value = POINT_TYPE_NAMES[(idx + step) % len(POINT_TYPE_NAMES)]
 
     def _cycle_event_key(self, step):
@@ -548,9 +534,7 @@ class PointDialog:
         px.text(self.x + 10, self.stats_label_y, "Event Stats:", px.COLOR_WHITE)
         self.btn_edit_stats.draw()
         for i, line in enumerate(self._event_stat_lines()):
-            px.text(
-                self.x + 10, self.stats_content_y + i * self.stats_line_height, line, px.COLOR_GRAY
-            )
+            px.text(self.x + 10, self.stats_content_y + i * self.stats_line_height, line, px.COLOR_GRAY)
 
         self.btn_ok.draw()
         self.btn_cancel.draw()
@@ -605,9 +589,7 @@ class EventStatDialog:
             ry = row_base_y + i * row_h
             self.slot_prev_buttons.append(Button(self.x + 10, ry, 14, 12, "<", px.COLOR_GRAY))
             self.slot_next_buttons.append(Button(self.x + 96, ry, 14, 12, ">", px.COLOR_GRAY))
-            self.slot_thresholds.append(
-                InputField(self.x + 136, ry, 50, 12, "", thresholds[i], numeric_only=True)
-            )
+            self.slot_thresholds.append(InputField(self.x + 136, ry, 50, 12, "", thresholds[i], numeric_only=True))
 
         btn_y = self.y + h - 22
         self.btn_ok = Button(self.x + 10, btn_y, 70, 14, "OK", px.COLOR_DARK_BLUE)
@@ -844,9 +826,7 @@ class App:
         if nearest is None or dist > CIRCLE_RADIUS:
             return  # ポイントの無い場所でのShift+クリックは無視
 
-        connected_routes = [
-            r for r in self.routes if r["from"] == nearest["id"] or r["to"] == nearest["id"]
-        ]
+        connected_routes = [r for r in self.routes if r["from"] == nearest["id"] or r["to"] == nearest["id"]]
         if connected_routes:
             print(
                 f"削除できません: {nearest['id']}に接続されたrouteが{len(connected_routes)}件残っています。"
@@ -1062,9 +1042,7 @@ class App:
             )
         )
 
-        print(
-            f"route情報を作成しました: {forward_id}({from_id}->{to_id}), {backward_id}({to_id}->{from_id})"
-        )
+        print(f"route情報を作成しました: {forward_id}({from_id}->{to_id}), {backward_id}({to_id}->{from_id})")
 
     def _confirm_route_dialog(self):
         d = self.route_dialog
@@ -1075,9 +1053,7 @@ class App:
             # 端点・direction・idは変えず、パラメタのみ更新する
             d.forward_route.update(forward_values)
             d.backward_route.update(backward_values)
-            print(
-                f"route情報を更新しました(未保存): {d.forward_route['id']}, {d.backward_route['id']}"
-            )
+            print(f"route情報を更新しました(未保存): {d.forward_route['id']}, {d.backward_route['id']}")
         else:
             self._create_route_pair(d.from_point, d.to_point, forward_values, backward_values)
 
@@ -1118,9 +1094,7 @@ class App:
         詰め直し、id番号に欠番が出ないようにする。
         他のデータからidを参照される想定がないため、単純な振り直しでよい。
         """
-        freed_nums = sorted(
-            n for n in (self._route_id_num(rid) for rid in freed_ids) if n is not None
-        )
+        freed_nums = sorted(n for n in (self._route_id_num(rid) for rid in freed_ids) if n is not None)
 
         for freed_num in freed_nums:
             if not self.routes:
@@ -1231,12 +1205,8 @@ class App:
         for ci, etype in enumerate(EVENT_TYPES):
             cx = mx + label_w + ci * col_w
             count_text = str(point_counts.get(etype, 0))
-            px.text(
-                cx + max(0, (col_w - len(count_text) * 4)) // 2, my + 1, count_text, px.COLOR_WHITE
-            )
-            px.text(
-                cx + max(0, (col_w - len(etype) * 4)) // 2, my + 1 + row_h, etype, px.COLOR_YELLOW
-            )
+            px.text(cx + max(0, (col_w - len(count_text) * 4)) // 2, my + 1, count_text, px.COLOR_WHITE)
+            px.text(cx + max(0, (col_w - len(etype) * 4)) // 2, my + 1 + row_h, etype, px.COLOR_YELLOW)
 
         # 各行: EventID名 + タイプ別定義数
         for ri, name in enumerate(EVENT_ID_NAMES):
@@ -1329,22 +1299,14 @@ class App:
             # 左ボタンを離した → routeのパラメタ指定(既存routeがあれば編集)ダイアログを開く
             if self.dragging and self.drag_mode == "create" and px.btnr(px.MOUSE_BUTTON_LEFT):
                 nearest, dist = self._find_nearest_point(px.mouse_x, px.mouse_y)
-                if (
-                    nearest is not None
-                    and dist <= CIRCLE_RADIUS
-                    and nearest["id"] != self.drag_start_point["id"]
-                ):
+                if nearest is not None and dist <= CIRCLE_RADIUS and nearest["id"] != self.drag_start_point["id"]:
                     self._start_route_dialog(self.drag_start_point, nearest)
                 self._reset_drag()
 
             # 右ボタンを離した → route削除を確定
             if self.dragging and self.drag_mode == "delete" and px.btnr(px.MOUSE_BUTTON_RIGHT):
                 nearest, dist = self._find_nearest_point(px.mouse_x, px.mouse_y)
-                if (
-                    nearest is not None
-                    and dist <= CIRCLE_RADIUS
-                    and nearest["id"] != self.drag_start_point["id"]
-                ):
+                if nearest is not None and dist <= CIRCLE_RADIUS and nearest["id"] != self.drag_start_point["id"]:
                     self._try_delete_route(self.drag_start_point, nearest)
                 self._reset_drag()
             return
@@ -1372,12 +1334,8 @@ class App:
         px.blt(0, 0, self.mapimage, 0, 0, self.mapimage.width, self.mapimage.height)
 
         for route in self.routes:
-            from_addr = [
-                (point["x"], point["y"]) for point in self.points if point["id"] == route["from"]
-            ]
-            to_addr = [
-                (point["x"], point["y"]) for point in self.points if point["id"] == route["to"]
-            ]
+            from_addr = [(point["x"], point["y"]) for point in self.points if point["id"] == route["from"]]
+            to_addr = [(point["x"], point["y"]) for point in self.points if point["id"] == route["to"]]
             # ロック状態に関わらず全てのrouteを表示する。
             # 色分けはfield_map.pyのMapGraph.draw()と同じ配色(ロック中はグレー)に合わせている
             line_color = px.COLOR_GRAY if route.get(ROUTE_LOCK_KEY, False) else px.COLOR_WHITE
@@ -1396,17 +1354,11 @@ class App:
             px.line(sx, sy, mx, my, line_color)
 
             target, dist = self._find_nearest_point(mx, my)
-            if (
-                target is not None
-                and dist <= CIRCLE_RADIUS
-                and target["id"] != self.drag_start_point["id"]
-            ):
+            if target is not None and dist <= CIRCLE_RADIUS and target["id"] != self.drag_start_point["id"]:
                 if self.drag_mode == "create":
                     px.circb(target["x"], target["y"], CIRCLE_RADIUS + 3, px.COLOR_LIME)
                 else:
-                    forward, backward = self._find_route_pair(
-                        self.drag_start_point["id"], target["id"]
-                    )
+                    forward, backward = self._find_route_pair(self.drag_start_point["id"], target["id"])
                     if forward is not None or backward is not None:
                         px.circb(target["x"], target["y"], CIRCLE_RADIUS + 3, px.COLOR_RED)
 

@@ -14,7 +14,7 @@
             "DECREASE_GOLD": {
                 "threshold": 37
             },
-            "LOST_POTION": {
+            "LOST_HIPOTION": {
                 "threshold": 25
             },
             "SURPRISE_BATTLE": {

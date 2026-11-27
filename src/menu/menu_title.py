@@ -3,11 +3,8 @@
 """
 
 import logging
-
-# import pyxel as px
 from gameutils.lib import (
     Menu,
-    # WindowSoundHandler,
     WindowAction,
     ExecResult,
     RsltContinue,
@@ -27,11 +24,8 @@ class MenuTitle(Menu):
     def key_check(self) -> WindowAction:
         """キー入力の確認と応答"""
         if self.move_cursor():
-            # pass
-            # px.play(self.se_ch, self.ui_se["CURSOR_VERTICAL"], resume=True)
             self.se.play(self.ui_se["CURSOR_VERTICAL"])
         elif self.inputkey.decide():
-            # px.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
             self.se.play(self.ui_se["DECIDE"])
             return WindowAction.EXECUTE
         return WindowAction.CONTINUE

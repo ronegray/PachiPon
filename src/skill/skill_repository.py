@@ -29,10 +29,6 @@ class SkillRepository:
             raise FileNotFoundError(errmsg)
 
         SkillRepository._master_def = {}
-        # for type_name, efx_data in json_data.items():
-        #     efx_type = SkillType[type_name]
-
-        #     for efx_name, details in efx_data.items():
         for efx_name, details in json_data.items():
             if hasattr(SkillID, efx_name):
                 def_id = SkillID[efx_name]

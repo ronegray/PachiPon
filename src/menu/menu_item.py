@@ -3,6 +3,7 @@
 """
 
 import logging
+from typing import Generator
 import pyxel as px
 from const import SoundID
 
@@ -12,13 +13,14 @@ from helper import upper_int_spaced, format_leftright
 from item import (
     ItemType,
     ItemID,
+    ItemDef,
     ItemState,
     ItemTargetType,
+    StackPool,
 )
 from entity import EntityContext
-
-# import command.entity_command as en_cmd
-import command.item_command as itm_cmd
+import command.action_command as act_cmd
+from command import CommandPackage, CommandBaseAction
 
 
 # ロギング設定
@@ -33,7 +35,7 @@ class MenuSelectItemCategory(Menu):
         menu_pos_x: int,
         menu_pos_y: int,
         ctx: EntityContext,
-        command_package: itm_cmd.CommandPackage,
+        command_package: CommandPackage,
     ) -> None:
         menu_pos = (menu_pos_x, menu_pos_y)
         menu_shape = [1, 3]
@@ -150,18 +152,14 @@ class MenuItemBase(Menu):
         """クラス固有の更新処理"""
         # 左右キーでのリスト内容切替
         if len(self.item_list) > 1:
-            # if self.inputkey.left():
             if self.inputkey.LS():
-                # px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
                 self.se.play(SoundID.PAGE_ARROW)
                 self.itemlist_index = (self.itemlist_index - 1) % len(self.item_list)
                 self.remap_itemlist()
                 self.change_target_item()
                 self.is_push_left = 1
                 return
-            # if self.inputkey.right():
             if self.inputkey.RS():
-                # px.play(self.se_ch, SoundID.PAGE_ARROW, resume=True)
                 self.se.play(SoundID.PAGE_ARROW)
                 self.itemlist_index = (self.itemlist_index + 1) % len(self.item_list)
                 self.remap_itemlist()
@@ -172,7 +170,6 @@ class MenuItemBase(Menu):
         """カーソル移動時に詳細ウインドウの内容を書き換える"""
         result = super().move_cursor()
         if result:
-            # px.play(self.se_ch, SoundID.CURSOR_VERTICAL, resume=True)
             self.se.play(SoundID.CURSOR_VERTICAL)
             self.change_target_item()
         return result
@@ -203,7 +200,7 @@ class MenuUseItem(MenuItemBase):
     def __init__(
         self,
         ctx: EntityContext,
-        command_package: itm_cmd.CommandPackage,
+        command_package: CommandPackage,
     ):
         """データ取得と表示ウインドウの再定義"""
         self.inventory_count: int = 0
@@ -238,8 +235,7 @@ class MenuUseItem(MenuItemBase):
                 if val > 0
             ]
             self.item_list = [
-                tmp_item_list[i : i + self._list_rows]
-                for i in range(0, self.inventory_count, self._list_rows)
+                tmp_item_list[i : i + self._list_rows] for i in range(0, self.inventory_count, self._list_rows)
             ]
 
         # ページインデックスが範囲外にならないよう補正
@@ -284,11 +280,14 @@ class MenuUseItem(MenuItemBase):
         from menu import MenuSelectFieldTarget
 
         # コマンドパッケージに選択内容登録
-        self.command_package.selected_action = getattr(itm_cmd, item_def.effect_id)
+        if item_def.effect_id == "learn_skill":
+            self.command_package.selected_action = getattr(act_cmd, item_def.effect_id)
+        else:
+            self.command_package.selected_action = UseItemField
         self.command_package.target_type = ItemTargetType(item_def.target_type)
         self.command_package.selected_args = {
             "item_def": item_def,
-            "pl_stack": di.ref.pl_stack,
+            "source": di.ref.pl_stack,
         }
         if self.command_package.target_type == ItemTargetType.NONE:
             # ターゲットがない場合は抜けてそのまま処理実行
@@ -298,6 +297,29 @@ class MenuUseItem(MenuItemBase):
             self.ctx,
             self.command_package.target_type,
         )
+
+
+class UseItemField(CommandBaseAction):
+    """消費アイテム用フィールドシーン向け共通クラス"""
+
+    def _sequence_action(self) -> Generator[list, None, None]:
+        """アイテム利用の殻"""
+        # 引き回されたアイテムデータの取得
+        self.item_def: ItemDef = self.kwargs["sel_cmd_dict"]["item_def"]
+        pl_stack: StackPool = self.kwargs["sel_cmd_dict"]["source"]
+
+        from command.item_ import item_info_package, use_item
+        from command.effect_command import efx_screen_flash
+
+        yield from use_item(
+            item_info_package(
+                command=self,
+                item_def=self.item_def,
+                consume=lambda: pl_stack.remove(self.item_def.def_id),
+                after_effects=[lambda dsp=self.display_info: efx_screen_flash(dsp, px.COLOR_WHITE)],
+            )
+        )
+        return
 
 
 class MenuShowKeyItem(MenuItemBase):
@@ -324,13 +346,10 @@ class MenuShowKeyItem(MenuItemBase):
 
         self.inventory_count = len(filteredlist)
         if self.inventory_count <= 0:
-            self.item_list = [
-                [[{"id": "該当なし", "action": "None", "args": "対象を持っていない"}]]
-            ]
+            self.item_list = [[[{"id": "該当なし", "action": "None", "args": "対象を持っていない"}]]]
         else:
             self.item_list = [
-                filteredlist[i : i + self._list_rows]
-                for i in range(0, self.inventory_count, self._list_rows)
+                filteredlist[i : i + self._list_rows] for i in range(0, self.inventory_count, self._list_rows)
             ]
 
         # ページインデックスが範囲外にならないよう補正
@@ -369,8 +388,7 @@ class MenuShowEquips(MenuItemBase):
             self.item_list = [[[{"id": "該当なし", "action": "None", "args": [""]}]]]
         else:
             self.item_list = [
-                filteredlist[i : i + self._list_rows]
-                for i in range(0, self.inventory_count, self._list_rows)
+                filteredlist[i : i + self._list_rows] for i in range(0, self.inventory_count, self._list_rows)
             ]
 
         # ページインデックスが範囲外にならないよう補正
@@ -387,7 +405,9 @@ class MenuShowEquips(MenuItemBase):
                 expect_dmg = item_def.hitdice * 4
                 perf_txt = f"攻撃:{upper_int_spaced(expect_dmg, 2)}"
             case ItemType.GUARDER:
-                perf_txt = f"防御:{upper_int_spaced(item_def.defvalue, 2)} 魔法阻害:{upper_int_spaced(item_def.magpenalty, 1)}"
+                perf_txt = (
+                    f"防御:{upper_int_spaced(item_def.defvalue, 2)} 魔法阻害:{upper_int_spaced(item_def.magpenalty, 1)}"
+                )
             case ItemType.ORNAMENT:
                 perf_txt = "特殊な効果をもつ飾り"
             case _:

@@ -31,8 +31,7 @@ class SceneCharaMake(BaseScene):
 
         # キャラクターのベースデータ作成
         self.param = di.ref.scnmgr.get_now_scene().param  # type: ignore
-        # self.charaimage: px.Image = px.Image.from_image(AssetMap.get_assetpath(AssetID.IMAGE_CHARA))
-        # self.sprite = PlayerSprite(0, 0, self.charaimage)
+
         self.sprite = PlayerSprite(0, 0, PlayerSpriteType.HERO)
         self.hero = Character(chara_id=0, param=self.param, sprite=self.sprite)
 
@@ -67,12 +66,8 @@ class SceneCharaMake(BaseScene):
         status_lines = f"{param.name}"
         status_lines += f"\nレベル： {upper_int_spaced(param.level, 2)}"
         status_lines += f"\n経験値： {upper_int_spaced(param.exp, 6)}"
-        status_lines += (
-            f"\nＨ　Ｐ： {upper_int_spaced(param.hp, 3)}／{upper_int_spaced(param.max_hp, 3)}"
-        )
-        status_lines += (
-            f"\nＭ　Ｐ： {upper_int_spaced(param.mp, 3)}／{upper_int_spaced(param.max_mp, 3)}"
-        )
+        status_lines += f"\nＨ　Ｐ： {upper_int_spaced(param.hp, 3)}／{upper_int_spaced(param.max_hp, 3)}"
+        status_lines += f"\nＭ　Ｐ： {upper_int_spaced(param.mp, 3)}／{upper_int_spaced(param.max_mp, 3)}"
         status_lines += f"\n筋　力： {
             format_leftright(
                 upper_int_spaced(member.strength, 3),

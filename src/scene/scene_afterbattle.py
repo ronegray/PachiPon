@@ -10,7 +10,7 @@ from gameutils.lib import MenuYesNo
 import service_locater as di
 import command.entity_command as en_cmd
 from menu import MenuLevelup
-from . import BaseScene, SceneBattle
+from . import BaseScene, SceneBattle, SceneFixedBattle
 
 # ロギング設定
 logger = logging.getLogger(__name__)
@@ -27,7 +27,7 @@ class SceneAfterBattle(BaseScene):
         super().__init__()
         self.situation = "system"
         parent_scene = di.ref.scnmgr.get_now_scene()
-        if not isinstance(parent_scene, SceneBattle):
+        if not (isinstance(parent_scene, SceneBattle) or isinstance(parent_scene, SceneFixedBattle)):
             errmsg = f"想定外のシーンから呼び出されました：{parent_scene.__class__.__name__}"
             logger.critical(errmsg, exc_info=True)
             raise TypeError(errmsg)
@@ -38,7 +38,7 @@ class SceneAfterBattle(BaseScene):
             self.bgimage,
         ) = parent_scene.transfer_battledata()
 
-        di.ref.cmdmgr.push_command(en_cmd.GrantReward(self.ctx, self.message_window, di.ref.pt))
+        di.ref.cmdmgr.push_command(en_cmd.GrantReward(self.ctx, self.message_window, party=di.ref.pt))
         self.target_param: list[str] = []
 
         self.phase: LocalPhase = LocalPhase.REWARD
@@ -70,9 +70,7 @@ class SceneAfterBattle(BaseScene):
                         self.wndmgr.update()
                         if self.target_param:
                             self.ctx.actor.gain_parameter(self.target_param[0])
-                            di.ref.cmdmgr.push_command(
-                                en_cmd.CharacterGainHPMP(self.ctx, self.message_window)
-                            )
+                            di.ref.cmdmgr.push_command(en_cmd.CharacterGainHPMP(self.ctx, self.message_window))
                             self.target_param.clear()
                     else:
                         self.phase = LocalPhase.CHOOSE_DESTINATION
@@ -92,14 +90,20 @@ class SceneAfterBattle(BaseScene):
                             pass
                         di.ref.scnmgr.change_scene("map")
                 else:
-                    self.wndmgr.push_stack(
-                        MenuYesNo,
-                        self.ans,
-                        [
-                            "このまま先に進みますか？",
-                            "（拒否の場合は、移動前の場所へ引き返します）",
-                        ],
-                    )
+                    if di.ref.pt._pt_is_moving:
+                        distance = di.ref.pt.move_generator.gi_frame.f_locals["distance"] # type: ignore
+                        interval = di.ref.pt.move_generator.gi_frame.f_locals["encount_interval"] # type: ignore
+                        remain = px.ceil(interval / di.ref.pt._move_speed) * di.ref.pt._move_speed
+                        if distance > remain:
+                            self.wndmgr.push_stack(
+                                MenuYesNo,
+                                self.ans,
+                                [
+                                    "このまま先に進みますか？",
+                                    "（拒否の場合は、移動前の場所へ引き返します）",
+                                ],
+                            )
+                    di.ref.scnmgr.previous_scene(step=2)
 
     def draw(self):
         px.blt(0, 0, self.bgimage, 0, 0, self.bgimage.width, self.bgimage.height)

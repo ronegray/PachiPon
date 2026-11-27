@@ -7,7 +7,7 @@
   {
     "event_type": "SAFETY",
     "event_id": "DECREASE_HP",
-    "event_value": 2
+    "event_value": 1
   },
   {
     "event_type": "SAFETY",
@@ -22,17 +22,17 @@
   {
     "event_type": "SAFETY",
     "event_id": "INCREASE_GOLD",
-    "event_value": 1
+    "event_value": 5
   },
   {
     "event_type": "SAFETY",
     "event_id": "DECREASE_GOLD",
-    "event_value": 1
+    "event_value": 2
   },
   {
     "event_type": "SAFETY",
     "event_id": "INCREASE_FOOD",
-    "event_value": 1
+    "event_value": 3
   },
   {
     "event_type": "SAFETY",
@@ -52,28 +52,58 @@
   {
     "event_type": "SAFETY",
     "event_id": "FLGEVENT1_A",
-    "event_value": 1
+    "event_value": 0
   },
   {
     "event_type": "SAFETY",
     "event_id": "FLGEVENT1_B",
-    "event_value": 1
+    "event_value": 0
   },
   {
     "event_type": "SAFETY",
     "event_id": "FLGEVENT1_C",
-    "event_value": 1
+    "event_value": 0
+  },
+  {
+    "event_type": "SAFETY",
+    "event_id": "CROWN",
+    "event_value": 0
+  },
+  {
+    "event_type": "SAFETY",
+    "event_id": "MIRROR",
+    "event_value": 0
+  },
+  {
+    "event_type": "SAFETY",
+    "event_id": "CEPTER",
+    "event_value": 0
+  },
+  {
+    "event_type": "SAFETY",
+    "event_id": "GRAIL",
+    "event_value": 0
+  },
+  {
+    "event_type": "SAFETY",
+    "event_id": "SATAN",
+    "event_value": 0
+  },
+  {
+    "event_type": "SAFETY",
+    "event_id": "KING",
+    "event_value": 0
   },
 
   {
     "event_type": "NORMAL",
     "event_id": "INCREASE_HP",
-    "event_value": 4
+    "event_value": 6
   },
   {
     "event_type": "NORMAL",
     "event_id": "DECREASE_HP",
-    "event_value": 4
+    "event_value": 3
   },
   {
     "event_type": "NORMAL",
@@ -83,27 +113,27 @@
   {
     "event_type": "NORMAL",
     "event_id": "DECREASE_MP",
-    "event_value": 4
+    "event_value": 3
   },
   {
     "event_type": "NORMAL",
     "event_id": "INCREASE_GOLD",
-    "event_value": 3
+    "event_value": 20
   },
   {
     "event_type": "NORMAL",
     "event_id": "DECREASE_GOLD",
-    "event_value": 3
+    "event_value": 10
   },
   {
     "event_type": "NORMAL",
     "event_id": "INCREASE_FOOD",
-    "event_value": 3
+    "event_value": 15
   },
   {
     "event_type": "NORMAL",
     "event_id": "DECREASE_FOOD",
-    "event_value": 3
+    "event_value": 8
   },
   {
     "event_type": "NORMAL",
@@ -118,7 +148,7 @@
   {
     "event_type": "NORMAL",
     "event_id": "MEET_ALLY",
-    "event_value": 1
+    "event_value": 0
   },
   {
     "event_type": "NORMAL",
@@ -128,58 +158,58 @@
   {
     "event_type": "NORMAL",
     "event_id": "FLGEVENT2_D",
-    "event_value": 2
+    "event_value": 0
   },
   {
     "event_type": "NORMAL",
     "event_id": "FLGEVENT2_E",
-    "event_value": 2
+    "event_value": 0
   },
   {
     "event_type": "NORMAL",
     "event_id": "FLGEVENT2_F",
-    "event_value": 2
+    "event_value": 0
   },
 
   {
     "event_type": "GAMBLE",
     "event_id": "INCREASE_HP",
-    "event_value": 8
+    "event_value": 20
   },
   {
     "event_type": "GAMBLE",
     "event_id": "DECREASE_HP",
-    "event_value": 8
+    "event_value": 15
   },
   {
     "event_type": "GAMBLE",
     "event_id": "INCREASE_MP",
-    "event_value": 8
+    "event_value": 20
   },
   {
     "event_type": "GAMBLE",
     "event_id": "DECREASE_MP",
-    "event_value": 8
+    "event_value": 20
   },
   {
     "event_type": "GAMBLE",
     "event_id": "INCREASE_GOLD",
-    "event_value": 10
+    "event_value": 100
   },
   {
     "event_type": "GAMBLE",
     "event_id": "DECREASE_GOLD",
-    "event_value": 10
+    "event_value": 100
   },
   {
     "event_type": "GAMBLE",
     "event_id": "INCREASE_FOOD",
-    "event_value": 10
+    "event_value": 100
   },
   {
     "event_type": "GAMBLE",
     "event_id": "DECREASE_FOOD",
-    "event_value": 10
+    "event_value": 100
   },
   {
     "event_type": "GAMBLE",
@@ -194,12 +224,12 @@
   {
     "event_type": "GAMBLE",
     "event_id": "FLGEVENT3_G",
-    "event_value": 3
+    "event_value": 0
   },
   {
     "event_type": "GAMBLE",
     "event_id": "FLGEVENT3_H",
-    "event_value": 3
+    "event_value": 0
   },
   {
     "event_type": "GAMBLE",
@@ -215,31 +245,31 @@
   {
     "event_type": "BATTLE",
     "event_id": "CROWN",
-    "event_value": 10
+    "event_value": 0
   },
   {
     "event_type": "BATTLE",
     "event_id": "MIRROR",
-    "event_value": 10
+    "event_value": 0
   },
   {
     "event_type": "BATTLE",
     "event_id": "CEPTER",
-    "event_value": 10
+    "event_value": 0
   },
   {
     "event_type": "BATTLE",
     "event_id": "GRAIL",
-    "event_value": 10
+    "event_value": 0
   },
   {
     "event_type": "BATTLE",
     "event_id": "SATAN",
-    "event_value": 15
+    "event_value": 0
   },
   {
     "event_type": "BATTLE",
     "event_id": "KING",
-    "event_value": 15
+    "event_value": 0
   }
 ]

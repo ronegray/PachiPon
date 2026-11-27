@@ -1,8 +1,8 @@
 from datetime import datetime
 from pathlib import Path
 import pyxel as px
-from gameutils.base import is_pressed, get_filelist, read_json, check_file, write_json  # , read_bin
-from gameutils.lib import Window  # , WindowAction
+from gameutils.base import is_pressed, get_filelist, read_json, check_file, write_json
+from gameutils.lib import Window
 from assets.asset_map import AssetID, AssetMap
 import service_locater as di
 from const import SoundID
@@ -24,7 +24,6 @@ class SceneBaseSavedata(BaseScene):
 
     def build_defaultdata(self, is_autosave: bool = True) -> None:
         """表示用データのデフォルト定義"""
-        # for i in range(self._max_data_slots + autosave_slot):
         for i in self.slot_id_list:
             self.savedatas[i] = {}
             self.savedatas[i]["data"] = None
@@ -49,7 +48,6 @@ class SceneBaseSavedata(BaseScene):
 
     def build_datawindow_content(self, slot: int, path: Path) -> None:
         """セーブデータ読込＆辞書反映"""
-        # datafile_index:int  = int(path.suffix.lstrip('.'))
         self.savedatas[slot]["data"] = read_json(path)
         self.savedatas[slot]["img"] = None
         str_line = ["", "", ""]
@@ -121,20 +119,15 @@ class SceneBaseSavedata(BaseScene):
         self.draw_start_index: int = 0
         datwnd_x, datwnd_y = 0, 0
         datwnd_w, datwnd_h = px.width, 48
-        # y_offset = 0
         for i in range(self._max_draw_datas):
             # ウインドウインスタンス生成＆イメージ用変数
-            self.data_windows.append(
-                Window("basic", datwnd_x, datwnd_y + datwnd_h * i, datwnd_w, datwnd_h, "view")
-            )
+            self.data_windows.append(Window("basic", datwnd_x, datwnd_y + datwnd_h * i, datwnd_w, datwnd_h, "view"))
         self.set_datawindow()
 
     def set_datawindow(self) -> None:
         """データウインドウに表示する内容を設定／更新"""
         draw_x, draw_y = 8, 24
         for i, wnd in enumerate(self.data_windows):
-            # wnd = self.data_windows[i]
-            # targetdata_index = i + self.draw_start_index
             targetdata_index = self.slot_id_list[i + self.draw_start_index]
             wnd.set_message(self.savedatas[targetdata_index]["str_line"])
             img = self.savedatas[targetdata_index]["img"]
@@ -148,12 +141,6 @@ class SceneBaseSavedata(BaseScene):
 
     def update(self) -> None:
         """更新処理"""
-
-        # for wnd in self.data_windows:
-        #     if wnd.update() != WindowAction.CONTINUE:
-        #         # キー入力時の処理
-        #         # 開発中の為スキップしている
-        #         return
 
         if is_pressed("cancel"):
             # キャンセルで前画面に戻る
@@ -200,7 +187,6 @@ class SceneBaseSavedata(BaseScene):
                 self.cursor_index += 1
 
     def draw(self) -> None:
-        # for i, wnd in enumerate(self.data_windows):
         for wnd in self.data_windows:
             wnd.draw()
             wnd.draw_message(offset_y=-4)
@@ -213,12 +199,6 @@ class SceneBaseSavedata(BaseScene):
             colkey=px.COLOR_BLACK,
         )
         return
-        # # 以下デバッグ用
-        # y = 0
-        # for dat in self.savedatas:
-        #     img = dat["img"]
-        #     px.blt(0, 0 + y, img, 0, 0, img.width, img.height, px.COLOR_GREEN)
-        #     y += 24
 
 
 class SceneDataLoad(SceneBaseSavedata):
@@ -298,10 +278,6 @@ class SceneDataSave(SceneBaseSavedata):
         """初期化"""
         super().__init__()
         self.situation = "system"
-        # オートセーブデータの情報を削除（セーブ時は選択不可）
-        # self.savedatas.pop(0)
-        # self.max_data_count: int = max(2, len(self.savedatas))
-        # self.set_datawindow()
 
     def update(self) -> None:
         if is_pressed("decide"):
@@ -320,26 +296,17 @@ class SceneDataSave(SceneBaseSavedata):
         savedatas = {}
         savedatas["ver"] = 1
         savedatas["savetime"] = datetime.now().strftime("%Y/%m/%d %H:%M:%S.%f")[:-4]
-        # savedatas["flags"] = di.ref.
         savedatas["events"] = di.ref.map.save_event()
         savedatas["pt"] = di.ref.pt.save_party()
-        savedatas["chars"] = {
-            str(mem.chara_id): mem.save_character() for mem in di.ref.pt.get_allmember()
-        }
-        savedatas["equips"] = {
-            str(mem.chara_id): mem.equipments.save_equip() for mem in di.ref.pt.get_allmember()
-        }
-        savedatas["skills"] = {
-            str(mem.chara_id): mem.skills.save_skill() for mem in di.ref.pt.get_allmember()
-        }
+        savedatas["chars"] = {str(mem.chara_id): mem.save_character() for mem in di.ref.pt.get_allmember()}
+        savedatas["equips"] = {str(mem.chara_id): mem.equipments.save_equip() for mem in di.ref.pt.get_allmember()}
+        savedatas["skills"] = {str(mem.chara_id): mem.skills.save_skill() for mem in di.ref.pt.get_allmember()}
         savedatas["pl_item"] = di.ref.pl_item.save_item()
         savedatas["pl_stack"] = di.ref.pl_stack.save_stack()
 
         # 情報作成時＝データ内容変更時と捉えて、データ内容をファイルに出力
         savefilename = (
-            AssetMap.get_assetpath(AssetID.SAVEDATA_DIR)
-            + AssetMap.get_assetpath(AssetID.SAVEDATA_FILE)
-            + str(slot_no)
+            AssetMap.get_assetpath(AssetID.SAVEDATA_DIR) + AssetMap.get_assetpath(AssetID.SAVEDATA_FILE) + str(slot_no)
         )
         path = check_file(savefilename, "w")
         if path is None:

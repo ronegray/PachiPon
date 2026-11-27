@@ -13,17 +13,12 @@
   - 基本的機能のみ提供。用途に応じて継承する
 """
 
-# from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Callable, Any
 from itertools import zip_longest
 import pyxel as px
-
-# from ...libconfig import ResourcePath
 from ...base import check_file, read_json, FONT_SIZE_NAME, FontManager
 from . import WINDOW_MODE, MENU_WINDOW_TYPE, WindowAction, SE_CHANNEL
-
-# from ._wrapper_input import WindowInputWrapper, INPUT_MODE, set_default_pyxel_input
 from ._wrapper_input import WindowInputWrapper, set_default_pyxel_input
 from gameutils import ResourcePath, InputHandler, INPUT_MODE
 
@@ -36,7 +31,6 @@ class WindowInputHandler:
 
     @classmethod
     def update_window_input(
-        # cls, _wrapper_dict: dict[str, Callable[[INPUT_MODE], bool]]
         cls,
         _wrapper_dict: dict[str, InputHandler],
     ) -> None:
@@ -46,11 +40,6 @@ class WindowInputHandler:
         呼び出し元（input_wiring.py等）が何を渡すか（input_system経由か、
         別のモック実装か）を本クラスは関知しない。
         """
-        # default_handler_hold: Callable[[INPUT_MODE], bool] = lambda mode="hold": False
-        # default_handler_once: Callable[[INPUT_MODE], bool] = lambda mode="once": False
-
-        # default_handler_hold: InputHandler = lambda mode="hold": False
-        # default_handler_once: InputHandler = lambda mode="once": False
         def default_handler_hold(mode: INPUT_MODE = "hold") -> bool:
             return False
 
@@ -107,9 +96,6 @@ class Window:
     snd4 = px.Sound()
     snd4.set("e4e4e4", "s", "712", "nfn", 4)
     ui_se["DECIDE"] = snd4
-    # snd5 = px.Sound()
-    # snd5.set("d2c1c#2", "p", "715", "", 3)
-    # ui_se["CANCEL"] = snd5
     se = WindowSEHandler
 
     def __init__(
@@ -244,7 +230,6 @@ class Window:
     def update(self) -> WindowAction:
         self.frame_counter += 1
         # menuモードのウインドウは基本的にupdateを実行しないが念の為
-        # if self.window_mode == "menu":
         if self.window_mode in ("menu", "sub", "hold"):
             return WindowAction.CONTINUE
         # waitモード時は待機フレーム数が過ぎると全終了
@@ -255,14 +240,8 @@ class Window:
             self.update_indicator(True)  # インジケータ点灯フラグON
             return WindowAction.CONTINUE
 
-        # # ボタンを押したら終わりのタイプはすぐインジケータ点灯
-        # if self.window_mode in ("once", "page"):
-        #     self.update_indicator(True)
-        """チラチラし過ぎるので別の方法を検討"""
-
         # 決定またはキャンセルキー処理
         if self.inputkey.decide("hold") or self.inputkey.cancel():
-            # WindowSoundHandler.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
             self.update_indicator(False)
             if self.window_mode == "view":
                 return WindowAction.DISCARD
@@ -295,37 +274,21 @@ class Window:
             colkey=px.COLOR_BLACK,
         )
         # ボタン押下アイコン
-        # if self.frame_counter >= self.wait_frame // 2:
         if self.is_indicator:
             if px.frame_count // 8 % 2 == 0:
                 px.blt(
                     self.x + self.width // 2 - (self._indicator_address[2] // 2),
-                    # self.y + self.height - self._indicator_address[3] - 1,
                     self.y + self.height - self._indicator_address[3],
                     self._image_chips,
-                    # 35,
-                    # 248,
-                    # 5,
-                    # 8,
                     *Window._indicator_address,
-                    # colkey=0,
-                    # rotate=90,
                 )
 
     def drawText(self, x: int, y: int, text_list: list, col: int = px.COLOR_WHITE):
         for i, data in enumerate(text_list):
-            # try:
-            #     textcolor = data[1]
-            #     # text = data[0]
-            # except IndexError:
-            #     textcolor = px.COLOR_WHITE
-            #     # text = data
             px.text(
                 x,
                 y + (i * int(self.fontdata.height * 1.5)),
                 data[0],
-                # text,
-                # col=textcolor,
                 col=col,
                 font=self.font,
             )
@@ -371,7 +334,7 @@ class Window:
 
 
 @dataclass
-class MenuItem:
+class MenuContent:
     """メニュー表示内容と処理を組み合わせて管理"""
 
     item_label: str  # 画面に表示する文字列
@@ -399,7 +362,6 @@ class Menu:
     path = check_file(file)
     assert path is not None, f"固定メニュー項目データの読み込みに失敗しました：file={file}"
     menu_item_data = read_json(path)
-    # _MENU_ITEM_CASHE: dict[str, list[list[dict[str, str|list]]]] = dict(menu_item_data)
     _MENU_ITEM_CASHE: dict[str, MENU_ITEM_LIST] = dict(menu_item_data)
 
     # UI操作音の独立定義
@@ -408,24 +370,21 @@ class Menu:
     snd0 = px.Sound()
     snd0.set("b4", "", "", "", 3)
     ui_se["CURSOR_VERTICAL"] = snd0
-    # snd2 = px.Sound()
-    # snd2.set("a4g#0a4a4", "tps", "7752", "", 1)
-    # ui_se["PAGE_ARROW"] = snd2
     snd4 = px.Sound()
     snd4.set("e4e4e4", "s", "712", "nfn", 4)
     ui_se["DECIDE"] = snd4
     snd5 = px.Sound()
     snd5.set("d2c1c#2", "p", "715", "", 3)
     ui_se["CANCEL"] = snd5
+
     se = WindowSEHandler
 
     def __init__(
         self,
         font_size_name: FONT_SIZE_NAME,
         x: int,
-        y: int,  # width: int, height: int,
+        y: int,
         menu_shape: list[int],
-        # menu_source: str | list[list[dict[str, str|list]]],
         menu_source: str | MENU_ITEM_LIST,
         w: int = 0,
         h: int = 0,
@@ -438,7 +397,7 @@ class Menu:
         # クラス個別パラメータ
         self.cursor_position: list[int] = [0, 0]
         self.menu_shape: list = menu_shape  # 横軸数,縦軸数
-        self.menu_items: list[list[MenuItem]] = []
+        self.menu_items: list[list[MenuContent]] = []
         self.build_menu_items(menu_source)
         # 共通基本パラメータ
         self.column_x_pos: list[int] = []
@@ -470,10 +429,6 @@ class Menu:
     def height(self):
         return self.windows["main"].height
 
-    # def update_keyassign(self) -> None:
-    #     WindowInputHandler.update_window_input()
-
-    # def build_menu_items(self, menu_source: str | list[list[dict[str, str|list]]]):
     def build_menu_items(self, menu_source: str | MENU_ITEM_LIST):
         if isinstance(menu_source, str):  # メニュー固定項目指定時
             tmp_menudata = self._MENU_ITEM_CASHE[menu_source]
@@ -482,7 +437,7 @@ class Menu:
         try:
             self.menu_items = [
                 [
-                    MenuItem(
+                    MenuContent(
                         item_label=data["id"],
                         menu_action=getattr(self, data["action"], None),
                         action_args=tuple(data.get("args", [])),
@@ -494,7 +449,7 @@ class Menu:
         except TypeError:
             self.menu_items = [
                 [
-                    MenuItem(
+                    MenuContent(
                         item_label=str(data),
                         menu_action=None,
                         action_args=tuple(""),
@@ -510,19 +465,14 @@ class Menu:
         framesize = Window._chip_size * 2  # 左右または上下の枠サイズ合計
         # --- 幅(X座標)の計算と保持 ---
         offset_cursor = Window._chip_size + (Window._chip_size // 4)  # カーソルサイズ、文字との余白
-        offset_sepalete_col = (
-            2 if self.font is None else self.font.text_width(" ") // 2
-        )  # 項目間余白
+        offset_sepalete_col = 2 if self.font is None else self.font.text_width(" ") // 2  # 項目間余白
 
         # 文字列／カーソル表示用のpixelアドレスキャッシュ初期化
         self.column_x_pos = []
         current_x = Window._chip_size  # 描画初期アドレスを枠のすぐ右に定義
 
-        # column_items: list[list[MenuItem]] = [
-        #     list(col) for col in zip(*self.menu_items)
-        # ]
         # 横あり奇数リストの対策
-        column_items: list[list[MenuItem]] = [
+        column_items: list[list[MenuContent]] = [
             [item for item in col if item is not None] for col in zip_longest(*self.menu_items)
         ]
         for column_data in column_items:
@@ -540,7 +490,7 @@ class Menu:
             colwidth = offset_cursor + max_column_textlen + offset_sepalete_col
             menuwidth += colwidth
             current_x += colwidth
-        # print(f"{self.menu_items}\n{column_items}\n{self.column_x_pos}")
+
         # チップサイズで丸めて最終的な幅を算出
         menuwidth = px.ceil((menuwidth + framesize) / Window._chip_size) * Window._chip_size
 
@@ -578,21 +528,13 @@ class Menu:
     def key_check(self) -> WindowAction:
         """キー入力の確認と応答"""
         if self.move_cursor():
-            # WindowSoundHandler.play(self.se_ch, self.ui_se["CURSOR_VERTICAL"], resume=True)
             self.se.play(self.ui_se["CURSOR_VERTICAL"])
         elif self.inputkey.decide("hold"):
-            # WindowSoundHandler.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
             self.se.play(self.ui_se["DECIDE"])
             return WindowAction.EXECUTE
         elif self.inputkey.cancel("hold"):
-            # px.play(self.se_ch, self.ui_se["CANCEL"], resume=True)
             return WindowAction.CLOSE
         return WindowAction.CONTINUE
-
-    # def individual_key_check(self, inp: WindowInputWrapper) -> bool:
-    #     """メニュー個別のキー判定用"""
-    #     ...
-    # 個別キー判定など入れずに、key_checkのオーバーライドで実装する
 
     def individual_update(self) -> Any:
         """メニュー個別のupdateフレーム処理内容
@@ -629,19 +571,13 @@ class Menu:
 
     def draw_main(self):
         """メニュー項目文字表示"""
-        # try:
         for row_idx, row in enumerate(self.menu_items):
             for col_idx, item in enumerate(row):
-                text_x = (
-                    self.windows["main"].x + self.column_x_pos[col_idx] + Window._chip_size
-                )  # カーソルの右隣
+                text_x = self.windows["main"].x + self.column_x_pos[col_idx] + Window._chip_size  # カーソルの右隣
                 text_y = self.windows["main"].y + self.row_y_pos[row_idx]
                 px.text(text_x, text_y, item.item_label, px.COLOR_WHITE, self.font)
         self.draw_cursor()
 
-    # except Exception as e:
-    #     print(f"{self.column_x_pos}\n{col_idx}\n{item}", e)
-    #     px.quit()
 
     def draw_cursor(self):
         """メニューカーソル表示"""
@@ -702,10 +638,7 @@ class MenuYesNo(Menu):
         # 戻り値搬送用
         self.ans: dict[str, bool] = ans
         # メッセージ用ウインドウの生成
-        msg_h = (
-            int((px.ceil(len(msg) * FontManager.get_fontdata("basic").height / 8)) * 8)
-            + Window._chip_size * 2
-        )
+        msg_h = int((px.ceil(len(msg) * FontManager.get_fontdata("basic").height / 8)) * 8) + Window._chip_size * 2
         message_pos = (0, px.height // 2 - msg_h // 2)
         message_size = (px.width, msg_h)
         self.message_window = Window("basic", *message_pos, *message_size, "once")
@@ -723,24 +656,14 @@ class MenuYesNo(Menu):
     def key_check(self) -> WindowAction:
         """キー入力の確認と応答"""
         if self.move_cursor():
-            # WindowSoundHandler.play(self.se_ch, self.ui_se["CURSOR_VERTICAL"], resume=True)
             self.se.play(self.ui_se["CURSOR_VERTICAL"])
         elif self.inputkey.decide():
             self.ans["answer"] = self.menu_items[self.cursor_position[1]][0].action_args[0]
-            # if self.ans["answer"]:
-            #     # WindowSoundHandler.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
-            #     self.se.play(self.ui_se["DECIDE"])
-            # elif self.ans["answer"] is False:
-            #     # WindowSoundHandler.play(self.se_ch, self.ui_se["CANCEL"], resume=True)
-            #     self.se.play(self.ui_se["CANCEL"])
             self.se.play(self.ui_se["DECIDE"])
             self.ans["finished"] = True
             return WindowAction.CLOSE
         elif self.inputkey.cancel():
-            # WindowSoundHandler.play(self.se_ch, self.ui_se["CANCEL"], resume=True)
             self.se.play(self.ui_se["CANCEL"])
-            # self.ans["answer"] = False
-            # self.ans["finished"] = True
             self.ans["finished"] = True
             return WindowAction.CLOSE
         return WindowAction.CONTINUE

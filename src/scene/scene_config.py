@@ -12,8 +12,6 @@ import pyxel as px
 from assets.asset_map import AssetID, AssetMap
 from gameutils.base import get_keymap, check_file, write_json
 from gameutils.lib import Window, WindowAction
-
-# from helper import upper_str
 import service_locater as di
 from menu import MenuSelectConfigTarget
 from config import (
@@ -51,9 +49,7 @@ class SceneConfig(BaseScene):
 
         # pyxel標準キー定義名
         self.key_names = {
-            getattr(px, name): name.replace("KEY_", "")
-            .replace("GAMEPAD1_", "")
-            .replace("BUTTON_", "")
+            getattr(px, name): name.replace("KEY_", "").replace("GAMEPAD1_", "").replace("BUTTON_", "")
             for name in dir(px)
             if name.startswith("KEY_") or name.startswith("GAMEPAD1_")
         }
@@ -70,10 +66,7 @@ class SceneConfig(BaseScene):
         """前シーンのBGMを引き継ぐ為設定不要"""
 
     def update(self) -> None:
-        if (
-            self.wndmgr.update() in (WindowAction.DISCARD, WindowAction.CLOSE)
-            and self.wndmgr.has_stack is False
-        ):
+        if self.wndmgr.update() in (WindowAction.DISCARD, WindowAction.CLOSE) and self.wndmgr.has_stack is False:
             di.ref.scnmgr.previous_scene(False)
 
     def build_config_info(self) -> list:
@@ -84,9 +77,7 @@ class SceneConfig(BaseScene):
         # 設定
         self.config_info.append(f"ＢＧＭ音量　：{CONF_VOLUME[di.ref.conf.vol_bgm]["label"]}")
         self.config_info.append(f"効果音音量　：{CONF_VOLUME[di.ref.conf.vol_se]["label"]}")
-        self.config_info.append(
-            f"画面サイズ　：{CONF_DISP_SIZE[di.ref.conf.display_size]["label"]}"
-        )
+        self.config_info.append(f"画面サイズ　：{CONF_DISP_SIZE[di.ref.conf.display_size]["label"]}")
         fulsc = "する" if di.ref.conf.is_fullscreen else "しない"
         self.config_info.append(f"全画面表示　：{fulsc}")
         self.config_info.append(f"文字送り待ち：{CONF_TEXT_SPEED[di.ref.conf.text_speed]["label"]}")
@@ -112,13 +103,11 @@ class SceneConfig(BaseScene):
             ["アクション", "パッド", "キー"],
         ]
         keymap_pad = {
-            # action_name: self.key_names.get(
             action_name: KEYNAME_MAP.get(keymaps[0]["code"], f"Unknown({keymaps[0]["code"]})")
             for action_name, keymaps in get_keymap("pad").items()
             if action_name in ASSIGNABLE_KEY_ACTIONS
         }
         keymap_kbd = {
-            # action_name: self.key_names.get(
             action_name: KEYNAME_MAP.get(keymaps[0]["code"], f"Unknown({keymaps[0]["code"]})")
             for action_name, keymaps in get_keymap("kbd").items()
             if action_name in ASSIGNABLE_KEY_ACTIONS

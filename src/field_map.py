@@ -156,10 +156,14 @@ class EventPoint:
         """現在地のイベントキーとフラグから固定イベントの発生をチェック
         固定イベント発生時はイベントID文字をリターン"""
         fixed = getattr(FixedEventMap, self.event_key, None)
-        if fixed:
-            if di.ref.flgmgr.is_set(fixed) is False:
+        if fixed is None:
+            return None
+        if fixed == FixedEventMap.BIGBAD:
+            if di.ref.flgmgr.is_set(fixed):  # type: ignore
                 return EventID[fixed]
-        return
+        elif di.ref.flgmgr.is_set(fixed) is False:
+            return EventID[fixed]
+        return None
 
     def rise_event(self, evt_id: EventID) -> None:
         """これから実行するイベントを定義"""
@@ -168,6 +172,12 @@ class EventPoint:
     def flush_event(self) -> None:
         """実行イベント定義のクリア"""
         self.nextevent = None
+
+    def defeated_penalty(self, penalty_turns: int) -> None:
+        """全滅時ペナルティ処理"""
+        self.is_ready = False
+        self.ready_count -= penalty_turns
+        self.flush_event()
 
     def update(self):
         """イベント準備状態の更新"""
@@ -211,9 +221,7 @@ class EventPoint:
             # 脅威度
             upper = route.threat // 10
             lower = route.threat % 10
-            px.blt(
-                info_x + pad, info_y + pad + 1, 0, upper * pad, 0, pad, pad, colkey=px.COLOR_BLACK
-            )
+            px.blt(info_x + pad, info_y + pad + 1, 0, upper * pad, 0, pad, pad, colkey=px.COLOR_BLACK)
             px.blt(
                 info_x + pad * 2,
                 info_y + pad + 1,
@@ -298,6 +306,11 @@ class MapGraph:
                 return route
         return None
 
+    def defeated_penalty(self, penalty_turns: int) -> None:
+        """全滅時は全イベントポイントが待機中になる"""
+        for point in self.points.values():
+            point.defeated_penalty(penalty_turns)
+
     def get_connected_node(self, current_node_id: str, direction: ROUTE_DIR | str) -> str | None:
         """現地点から移動可能なイベントポイントを取得"""
         point = self.get_point(current_node_id)
@@ -312,7 +325,6 @@ class MapGraph:
     def draw_direction_icon(self, current_node_id: str, offset_x: float, offset_y: float) -> None:
         """現地点からのルート上に移動方向キーアイコンを描画"""
         point = self.get_point(current_node_id)
-        # dir_address: dict[ROUTE_DIR, list[float]] = {}
         if not point:
             errmsg = "イベントポイント情報が異常です"
             logger.critical(errmsg, exc_info=True)
@@ -330,7 +342,6 @@ class MapGraph:
             multipliyer = 0.3 if px.sqrt(vx**2 + vy**2) > icon_size * 5 else 0.5
             icon_x = point.x + multipliyer * vx - (icon_size // 2) + offset_x
             icon_y = point.y + multipliyer * vy - (icon_size // 2) + offset_y
-            # dir_address[route.direction] = [icon_x, icon_y]
             match route.direction:
                 case "up":
                     icon_addr = (96, 0)
@@ -359,10 +370,7 @@ class MapGraph:
         draw_target_points = []
         for point in self.points.values():
             # 描画範囲にあるポイントに対してのみ描画処理を実行
-            if (
-                offset_x <= point.x <= self.map_img_width
-                and offset_y <= point.y <= self.map_img_height
-            ):
+            if offset_x <= point.x <= self.map_img_width and offset_y <= point.y <= self.map_img_height:
                 # 線（Route）の描画
                 for route in point.routes:
                     target_point = self.get_point(route.to_id)
@@ -388,7 +396,6 @@ class MapGraph:
         return {
             point_id: {"ready_count": eventpoint.ready_count, "dice_values": eventpoint.dice_values}
             for point_id, eventpoint in self.points.items()
-            # if eventpoint.is_ready is False}
         }
 
     def load_event(self, params: dict) -> None:

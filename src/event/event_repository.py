@@ -50,9 +50,7 @@ class EventRepository:
                 # データ不備時の救済措置
                 event_text = event_message.get(id_str, {}).get(type_str)
                 if event_text is None:
-                    logger.warning(
-                        f"キー[{event_type,event_id}]に該当するメッセージデータがありません"
-                    )
+                    logger.warning(f"キー[{event_type,event_id}]に該当するメッセージデータがありません")
                     event_text = {}
                 event_obj = Event(
                     event_type=event_type,

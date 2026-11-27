@@ -60,10 +60,7 @@ class MenuNameEntry(Menu):
 
     def individual_update(self) -> None:
         # 名前文字列を更新
-        if (
-            px.frame_count % APP_FPS < APP_FPS // 2
-            or len(self.input_name_string) == self.max_name_length
-        ):
+        if px.frame_count % APP_FPS < APP_FPS // 2 or len(self.input_name_string) == self.max_name_length:
             self.windows["sub"].set_message([self.name_string])
         else:
             self.windows["sub"].set_message([self.name_string + "＿"])
@@ -74,18 +71,14 @@ class MenuNameEntry(Menu):
     def key_check(self) -> WindowAction:
         """キー入力の確認と応答"""
         if self.move_cursor():
-            # px.play(self.se_ch, SoundID.CURSOR_VERTICAL, resume=True)
             self.se.play(SoundID.CURSOR_VERTICAL)
         elif self.inputkey.decide():
-            # px.play(self.se_ch, SoundID.DECIDE, resume=True)
             self.se.play(SoundID.DECIDE)
             self.add_letter()
         elif self.inputkey.cancel():
-            # px.play(self.se_ch, SoundID.CANCEL, resume=True)
             self.se.play(SoundID.CANCEL)
             self.delete_letter()
         elif self.inputkey.start():
-            # px.play(self.se_ch, SoundID.DECIDE, resume=True)
             self.se.play(SoundID.DECIDE)
             # 文字種３パターンのは矩形リストなので代表でindex0を使用
             pos_row = len(self.name_chars[0]) - 1
@@ -149,9 +142,7 @@ class MenuNameEntry(Menu):
         )
         if self.warning_counter > 0:
             msglen = (
-                0
-                if self.warning_fontdata.font is None
-                else self.warning_fontdata.font.text_width(self.warning_message)
+                0 if self.warning_fontdata.font is None else self.warning_fontdata.font.text_width(self.warning_message)
             )
             msg_pos_x = (px.width - msglen) / 2
             msg_pos_y = px.height - (self.warning_fontdata.height * 3)

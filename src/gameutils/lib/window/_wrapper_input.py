@@ -12,21 +12,15 @@ Windowパッケージが必要とする入力関数をラップするインタ�
   例: カーソル移動は hold で長押しリピート、決定/キャンセルは once のまま。
 """
 
-# from typing import Literal, Callable
 from dataclasses import dataclass, field
-
 import pyxel as px
 from gameutils import InputHandler, INPUT_MODE
-
-
-# INPUT_MODE = Literal["once", "keep", "hold"]
 
 _ANALOG_THRESHOLD_XY = 0x3FFF  # アナログレバー閾値
 _HOLD_FRAMES = 9  # キーリピートまでの長押しフレーム数
 _REPEAT_FRAMES = 3  # キーリピート間隔フレーム数
 
 
-# def _make_handler(*sources: int | tuple[int, int]) -> Callable[[INPUT_MODE], bool]:
 def _make_handler(*sources: int | tuple[int, int]) -> InputHandler:
     """デジタルキー/ボタンとアナログ軸(符号付き)を混在させて判定するハンドラを生成する
 
@@ -102,19 +96,6 @@ class WindowInputWrapper:
     呼び出し側は従来通り引数無し(self.inputkey.up())でも動作し、
     holdでリピート判定したい箇所だけ self.inputkey.up("hold") のように指定できる。
     """
-
-    # up: Callable[[INPUT_MODE], bool] = field(default=lambda mode="hold": False)
-    # down: Callable[[INPUT_MODE], bool] = field(default=lambda mode="hold": False)
-    # left: Callable[[INPUT_MODE], bool] = field(default=lambda mode="hold": False)
-    # right: Callable[[INPUT_MODE], bool] = field(default=lambda mode="hold": False)
-    # decide: Callable[[INPUT_MODE], bool] = field(default=lambda mode="once": False)
-    # cancel: Callable[[INPUT_MODE], bool] = field(default=lambda mode="once": False)
-    # action: Callable[[INPUT_MODE], bool] = field(default=lambda mode="once": False)
-    # menu: Callable[[INPUT_MODE], bool] = field(default=lambda mode="once": False)
-    # start: Callable[[INPUT_MODE], bool] = field(default=lambda mode="once": False)
-    # select: Callable[[INPUT_MODE], bool] = field(default=lambda mode="once": False)
-    # LS: Callable[[INPUT_MODE], bool] = field(default=lambda mode="once": False)
-    # RS: Callable[[INPUT_MODE], bool] = field(default=lambda mode="once": False)
 
     up: InputHandler = field(default=lambda mode="hold": False)
     down: InputHandler = field(default=lambda mode="hold": False)

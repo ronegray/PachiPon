@@ -35,7 +35,6 @@ class ItemRepository:
 
             for item_name, details in item_data.items():
                 if hasattr(ItemID, item_name):
-                    # def_id = ItemID[item_name].value
                     def_id = ItemID[item_name]
                     ItemRepository._master_def[def_id] = ItemDef(
                         def_id=def_id,
@@ -56,16 +55,14 @@ class ItemRepository:
                 else:
                     print(f"Warning: ItemID.{item_name} is not defined in ItemID enum.")
 
-    def get_def(self, def_id: ItemID) -> ItemDef | None:
+    def get_def(self, def_id: ItemID) -> ItemDef:
         """指定されたIDのアイテム定義を取得する"""
-        return self._master_def.get(def_id)
+        return self._master_def[def_id]
 
     def get_def_by_type(self, item_type: ItemType) -> dict[ItemID, ItemDef]:
         """指定されたアイテムタイプのアイテム定義を取得する"""
         result = {
-            item_id: item_def
-            for item_id, item_def in self._master_def.items()
-            if item_def.item_type == item_type
+            item_id: item_def for item_id, item_def in self._master_def.items() if item_def.item_type == item_type
         }
         return result
 
@@ -74,5 +71,6 @@ class ItemRepository:
         return self._master_def
 
     def calc_cellprice(self, def_id: ItemID) -> int:
+        """アイテム売却価格計算"""
         item_def = self.get_def(def_id)
         return int(item_def.price * CELL_PRICE_MULTIPLIER)  # type: ignore

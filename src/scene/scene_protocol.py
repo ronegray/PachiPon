@@ -27,4 +27,5 @@ SCENE_NAME = Literal[
     "battlemenu",
     "afterbattle",
     "shop",
+    "ending",
 ]

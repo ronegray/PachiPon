@@ -50,12 +50,8 @@ class MenuLevelup(Menu):
         status_lines = f"{param.name}"
         status_lines += f"\nレベル： {upper_int_spaced(param.level, 2)}"
         status_lines += f"\n経験値： {upper_int_spaced(param.exp, 6)}"
-        status_lines += (
-            f"\nＨ　Ｐ： {upper_int_spaced(param.hp, 3)}／{upper_int_spaced(param.max_hp, 3)}"
-        )
-        status_lines += (
-            f"\nＭ　Ｐ： {upper_int_spaced(param.mp, 3)}／{upper_int_spaced(param.max_mp, 3)}"
-        )
+        status_lines += f"\nＨ　Ｐ： {upper_int_spaced(param.hp, 3)}／{upper_int_spaced(param.max_hp, 3)}"
+        status_lines += f"\nＭ　Ｐ： {upper_int_spaced(param.mp, 3)}／{upper_int_spaced(param.max_mp, 3)}"
         status_lines += f"\n筋　力： {
             format_leftright(
                 upper_int_spaced(member.strength, 3),
@@ -121,25 +117,18 @@ class MenuLevelup(Menu):
         RC = self.key_check()
         return RC
 
-    # def individual_update(self):
-    #     """MenuYesNoからの戻り値に応じた処理"""
-
     def ask_confirm(self) -> RsltPush:
         return RsltPush(
             MenuYesNo,
             self.ans,
-            [
-                f"成長させるパラメータは『{self.menu_items[self.cursor_position[1]][0].item_label}』でよろしいですか？"
-            ],
+            [f"成長させるパラメータは『{self.menu_items[self.cursor_position[1]][0].item_label}』でよろしいですか？"],
         )
 
     def key_check(self) -> WindowAction:
         """キー入力の確認と応答"""
         if self.move_cursor():
-            # px.play(self.se_ch, self.ui_se["CURSOR_VERTICAL"], resume=True)
             self.se.play(self.ui_se["CURSOR_VERTICAL"])
         elif self.inputkey.decide():
-            # px.play(self.se_ch, self.ui_se["DECIDE"], resume=True)
             self.se.play(self.ui_se["DECIDE"])
             return WindowAction.EXECUTE
         return WindowAction.CONTINUE

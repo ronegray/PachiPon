@@ -28,7 +28,6 @@ def is_action_name(action_name: str) -> bool:
     return action_name in get_args(ACTION_NAME)
 
 
-# type InputHandler = Callable[[INPUT_MODE], bool]
 class InputHandler(Protocol):
     """アクションに対する入力判定関数の型
 
@@ -40,5 +39,3 @@ class InputHandler(Protocol):
     def __call__(self, mode: INPUT_MODE = "once") -> bool:
         ...
 
-
-# CONFIG_FILE = "keyconfig.json"

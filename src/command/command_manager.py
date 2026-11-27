@@ -1,32 +1,15 @@
-"""command_manager.py
-
-CommandManager: CommandProtocolのみを相手にするスタック型Invoker。
-
-設計方針:
-- 系統判定は行わない。CommandManagerが知っているのはCommandProtocol
-  （update()/draw()）だけで、push されてきたものがEntity系かSystem系かを
-  一切問い合わせない。新しいCommand種別を追加してもこのクラスは無修正のまま
-  でよい（Open/Closedの実践）。
-- update()はスタック最上段のみを進行させる。最上段が完了(Phase.DONE)したら
-  popする。
-- draw()はスタック全体を下から上へ描画する。これにより、例えば
-  「呪文使用の確認メッセージ」の下に元のメニュー画面が見え続ける、という
-  レイヤー表示が自然に成立する（updateと違い、drawは『今のスタック構造を
-  そのまま描くだけ』なので全件描画してよい）。
-- push/pop前後の検証（MP消費の可否チェックや、ターン進行など）は
-  CommandManagerの責務にしない。前者はCommand生成前にClient側が、
-  後者はScene側がスタックの空き状況（is_empty）を見て判断する。
+"""
+CommandProtocolのみを相手にするスタック型Invoker
 """
 
 from typing import Callable
-from . import CommandBase, DisplayInfo, CommandPhase
+from . import CommandProtocol, DisplayInfo, CommandPhase
 
 
 def _render(display_info: DisplayInfo) -> None:
     """DisplayInfoを実際に画面へ出す処理"""
     display_info.target.draw()
     if display_info.message:
-        # display_info.target.draw()
         if display_info.is_change:
             if isinstance(display_info.message, list):
                 for message in display_info.message:
@@ -44,7 +27,7 @@ def _render(display_info: DisplayInfo) -> None:
 class CommandManager:
     """push/popのコマンドスタックを持つ、唯一の共通Invoker。"""
 
-    _commands: list[CommandBase]
+    _commands: list[CommandProtocol]
     _on_empty: Callable | None
 
     def __init__(self) -> None:
@@ -67,7 +50,7 @@ class CommandManager:
         """スタックが空になった時に実行する関数を登録"""
         self._on_empty = callback
 
-    def push_command(self, command: CommandBase) -> None:
+    def push_command(self, command: CommandProtocol) -> None:
         """新しいCommandをスタックの最上段に積む。
         どの具象Commandかは一切問わない。型としてCommandProtocolを
         満たしてさえいれば、Entity系・System系を問わず受け入れる。

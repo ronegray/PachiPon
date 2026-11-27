@@ -12,16 +12,11 @@ import service_locater as di
 from const import FIELD_MESSAGE_HEIGHT, APP_WIDTH, APP_HEIGHT
 from gameutils.base import is_pressed
 from gameutils.lib import Window, WindowAction
-from event import EventID, EventType
 from field_map import EventPoint, PointPlaceType
 from entity import EntityContext
-from command import CommandBase
-import command.entity_command as en_cmd
+from command import CommandPackage
 import command.system_command as s_cmd
 from helper import format_leftright
-
-# import command.system_command as s_cmd
-import command.event_command as ev_cmd
 from menu import MenuField
 from . import BaseScene
 
@@ -44,7 +39,7 @@ class SceneField(BaseScene):
         self.eventpoint_info_window = Window("basic", *evinfo_pos, *evinfo_size, "once")
         self.eventpoint_info_window.update_row_max(8)
         # イベント状態ウインドウの生成
-        evstate_pos = (0, 216)
+        evstate_pos = (0, 224)
         evstate_size = (APP_WIDTH, 8 + 16 + 8)  # 下枠+文字サイズ+上枠
         self.eventpoint_state_window = Window("basic", *evstate_pos, *evstate_size, "once")
         # オートセーブ用オブジェクト
@@ -77,28 +72,20 @@ class SceneField(BaseScene):
         self.eventpoint_info_window.clear_message()
         self.eventpoint_info_window.add_message(
             (
-                self.current_point.name  # + PointPlaceType(self.current_point.point_type).name)
+                self.current_point.name
             )
         )
         self.eventpoint_state_window.set_message(
             [f"イベントタイプ：{PointPlaceType(self.current_point.point_type).name}"]
         )
         if self.current_point.is_ready:
-            # self.eventpoint_state_window.set_message(
-            #     ["イベント実行準備が完了しています（決定ボタンで実行）"]
-            self.eventpoint_state_window.add_message(
-                "イベント実行準備が完了しています（決定ボタンで実行）"
-            )
+            self.eventpoint_state_window.add_message("イベント実行準備が完了しています（決定ボタンで実行）")
         else:
-            # self.eventpoint_state_window.set_message(
-            #     [f"イベント実行準備中です（あと{self.current_point.ready_count}ターン）"]
             self.eventpoint_state_window.add_message(
                 f"イベント実行準備中です（あと{self.current_point.ready_count}ターン）"
             )
         for _, val in self.current_point.get_eventpoint_info().items():
-            self.eventpoint_info_window.add_message(
-                format_leftright(val["name"], f"[{val['threshold']:>2}]", 21)
-            )
+            self.eventpoint_info_window.add_message(format_leftright(val["name"], f"[{val['threshold']:>2}]", 21))
         logger.debug(self.eventpoint_info_window.message_list)
         return
 
@@ -115,7 +102,7 @@ class SceneField(BaseScene):
         # 現在地点に次のイベントが定義されていた場合、イベントを実行
         if self.current_point.nextevent:
             self.is_close_window = True
-            di.ref.scnmgr.next_scene("mapevent")
+            di.ref.scnmgr.next_scene("mapevent", self.build_context(), self.current_point)
             return
 
         # WindowManagerにスタックがある場合はメニュー操作を優先
@@ -128,7 +115,7 @@ class SceneField(BaseScene):
                     cmd(
                         self.ctx,
                         self.message_window,
-                        self.command_package.selected_args,
+                        sel_cmd_dict=self.command_package.selected_args,
                     )
                 )
             return
@@ -166,7 +153,7 @@ class SceneField(BaseScene):
                 self.wndmgr.pop_stack()
             else:
                 self.ctx = self.build_context()
-                self.command_package = en_cmd.CommandPackage()
+                self.command_package = CommandPackage()
                 self.wndmgr.push_stack(
                     MenuField,
                     self.ctx,
@@ -207,7 +194,10 @@ class SceneField(BaseScene):
                 else:
                     cmd = s_cmd.CommonFieldMessage(
                         self.message_window,
-                        ["ダンジョンの探索に向かうのならば", "松明を照らしておかなければ・・・"],
+                        msg_list=[
+                            "ダンジョンの探索に向かうのならば",
+                            "松明を照らしておかなければ・・・",
+                        ],
                     )
                     di.ref.cmdmgr.push_command(cmd)
                     return
@@ -216,13 +206,11 @@ class SceneField(BaseScene):
                 if di.ref.pt.get_pt_efx("unlock_key"):
                     di.ref.pt.remove_pt_efx("unlock_key")
                 else:
-                    cmd = s_cmd.CommonFieldMessage(
-                        self.message_window, ["どうやら、鍵がかかっているようだ"]
-                    )
+                    cmd = s_cmd.CommonFieldMessage(self.message_window, msg_list=["どうやら、鍵がかかっているようだ"])
                     di.ref.cmdmgr.push_command(cmd)
                     return
             # イベント起動
-            cmd = ev_cmd.KickEvent(self.message_window, self.current_point)
+            cmd = s_cmd.KickEvent(self.message_window, current_point=self.current_point)
             di.ref.cmdmgr.push_command(cmd)
             di.ref.cmdmgr.set_on_empty(self.update_eventpoint_info)
             return
@@ -281,21 +269,3 @@ class SceneField(BaseScene):
             targets=list(di.ref.pt.get_allmember()),
         )
         return ctx
-
-    def transfer_eventdata(self) -> tuple[EntityContext, CommandBase]:
-        """サブシーンへのイベント関連データ受け渡し用"""
-        ctx = self.build_context()
-
-        event_func_name = (
-            EventType(self.current_point.nextevent.event_type).name  # type: ignore
-            + "_"
-            + EventID(self.current_point.nextevent.event_id).name  # type: ignore
-        )
-
-        # # デバッグ用
-        # event_func_name = "NORMAL_DECREASE_HP"
-        # event_func_name = "SAFETY_INCREASE_HP"
-        event_func_name = "NORMAL_MEET_ALLY"
-
-        evtcmd = getattr(ev_cmd, event_func_name)
-        return (ctx, evtcmd)
